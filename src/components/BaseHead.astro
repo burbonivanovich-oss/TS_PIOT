@@ -69,9 +69,11 @@ const extraJsonLd = jsonLd
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="generator" content={Astro.generator} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="sitemap" href="/sitemap.xml" />
 <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
 <link rel="canonical" href={canonicalURL} />
+<link rel="preload" href="/fonts/inter-regular.woff" as="font" type="font/woff" crossorigin />
+<link rel="preload" href="/fonts/inter-bold.woff" as="font" type="font/woff" crossorigin />
 
 {noindex && <meta name="robots" content="noindex,nofollow" />}
 
@@ -91,6 +93,8 @@ const extraJsonLd = jsonLd
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 {publishedTime && <meta property="article:published_time" content={publishedTime} />}
 {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
 

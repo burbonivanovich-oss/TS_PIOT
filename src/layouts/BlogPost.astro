@@ -52,15 +52,28 @@ const keywords = [...new Set([...tags, ...(seo?.keywords ?? [])])];
 
 const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
+const articleImageUrl = currentSlug
+	? new URL(`/og/${currentSlug}.png`, Astro.site).toString()
+	: undefined;
+
 const articleJsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'Article',
 	headline: title,
 	description,
 	inLanguage: SITE_LOCALE,
+	...(articleImageUrl && {
+		image: {
+			'@type': 'ImageObject',
+			url: articleImageUrl,
+			width: 1200,
+			height: 630,
+		},
+	}),
 	author: {
-		'@type': 'Organization',
+		'@type': 'Person',
 		name: author,
+		url: new URL('/about/avtor/', Astro.site).toString(),
 	},
 	publisher: {
 		'@type': 'Organization',
