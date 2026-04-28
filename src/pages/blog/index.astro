@@ -42,7 +42,11 @@ const pageDescription =
 									<h2>{post.data.title}</h2>
 									<p class="post-desc">{post.data.description}</p>
 									<p class="post-date">
-										<FormattedDate date={post.data.pubDate} />
+										{post.data.updatedDate ? (
+											<>обновлено <FormattedDate date={post.data.updatedDate} /></>
+										) : (
+											<FormattedDate date={post.data.pubDate} />
+										)}
 									</p>
 								</a>
 							</li>
