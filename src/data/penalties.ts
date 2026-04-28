@@ -16,8 +16,11 @@ export type PercentRange = {
 	floor: number;
 };
 
+export type ScenarioGroup = 'kkt' | 'markirovka';
+
 export type Scenario = {
 	id: string;
+	group: ScenarioGroup;
 	label: string;
 	short: string;
 	article: string;
@@ -29,9 +32,15 @@ export type Scenario = {
 	note?: string;
 };
 
+export const SCENARIO_GROUPS: Record<ScenarioGroup, string> = {
+	kkt: 'Онлайн-касса (ст. 14.5 КоАП)',
+	markirovka: 'Маркировка «Честный знак» (ст. 15.12 КоАП)',
+};
+
 export const SCENARIOS: Scenario[] = [
 	{
 		id: 'no-kkt',
+		group: 'kkt',
 		label: 'Не применил ККТ (продажа без чека)',
 		short: 'Не пробил чек через онлайн-кассу',
 		article: 'ст. 14.5 ч. 2 КоАП РФ',
@@ -44,6 +53,7 @@ export const SCENARIOS: Scenario[] = [
 	},
 	{
 		id: 'kkt-violation',
+		group: 'kkt',
 		label: 'Нарушение в работе ККТ (некорректный чек, ФН, реквизиты)',
 		short: 'Касса работает с нарушениями требований',
 		article: 'ст. 14.5 ч. 4 КоАП РФ',
@@ -56,6 +66,7 @@ export const SCENARIOS: Scenario[] = [
 	},
 	{
 		id: 'no-electronic-receipt',
+		group: 'kkt',
 		label: 'Не направил электронный чек покупателю',
 		short: 'Покупатель попросил электронный чек, но не получил его',
 		article: 'ст. 14.5 ч. 6 КоАП РФ',
@@ -68,6 +79,7 @@ export const SCENARIOS: Scenario[] = [
 	},
 	{
 		id: 'unmarked-sale',
+		group: 'markirovka',
 		label: 'Продажа товара без обязательной маркировки',
 		short: 'Розничная продажа без кода Data Matrix',
 		article: 'ст. 15.12 ч. 2 КоАП РФ',
@@ -81,6 +93,7 @@ export const SCENARIOS: Scenario[] = [
 	},
 	{
 		id: 'unmarked-production',
+		group: 'markirovka',
 		label: 'Производство товара без маркировки',
 		short: 'Изготовление продукции без нанесения кода',
 		article: 'ст. 15.12 ч. 1 КоАП РФ',
@@ -94,6 +107,7 @@ export const SCENARIOS: Scenario[] = [
 	},
 	{
 		id: 'mismatch-data',
+		group: 'markirovka',
 		label: 'Несоответствие данных в системе мониторинга',
 		short: 'Сведения в «Честном знаке» не совпадают с фактическим оборотом',
 		article: 'ст. 15.12.1 КоАП РФ',

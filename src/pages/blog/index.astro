@@ -1,10 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
+import BlogFilter from '../../components/BlogFilter';
 import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { CATEGORIES, SITE_TITLE } from '../../consts';
+import { CATEGORIES } from '../../consts';
+import { collectTags } from '../../utils/tags';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -13,6 +14,24 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 const pageTitle = 'Все статьи';
 const pageDescription =
 	'Архив материалов: ТС ПИоТ, маркировка «Честный знак», изменения в законодательстве для малого и среднего бизнеса.';
+
+const postData = posts.map((p) => ({
+	id: p.id,
+	title: p.data.title,
+	description: p.data.description,
+	pubDate: p.data.pubDate.toISOString(),
+	updatedDate: p.data.updatedDate?.toISOString(),
+	categories: p.data.categories ?? [],
+	tags: p.data.tags ?? [],
+}));
+
+const allTags = Object.values(collectTags(posts))
+	.map((t) => t.name)
+	.sort((a, b) => a.localeCompare(b, 'ru'));
+
+const categoriesForFilter = Object.fromEntries(
+	Object.entries(CATEGORIES).map(([k, v]) => [k, { title: v.title }]),
+);
 ---
 
 <!doctype html>
@@ -31,28 +50,12 @@ const pageDescription =
 			{posts.length === 0 ? (
 				<p>Материалы появятся в ближайшее время.</p>
 			) : (
-				<ul class="post-list">
-					{posts.map((post) => {
-						const cat = post.data.categories[0] as keyof typeof CATEGORIES | undefined;
-						const catMeta = cat ? CATEGORIES[cat] : null;
-						return (
-							<li class="post-card">
-								<a href={`/blog/${post.id}/`}>
-									{catMeta && <span class="post-cat">{catMeta.title}</span>}
-									<h2>{post.data.title}</h2>
-									<p class="post-desc">{post.data.description}</p>
-									<p class="post-date">
-										{post.data.updatedDate ? (
-											<>обновлено <FormattedDate date={post.data.updatedDate} /></>
-										) : (
-											<FormattedDate date={post.data.pubDate} />
-										)}
-									</p>
-								</a>
-							</li>
-						);
-					})}
-				</ul>
+				<BlogFilter
+					client:load
+					posts={postData}
+					categories={categoriesForFilter}
+					allTags={allTags}
+				/>
 			)}
 		</main>
 		<Footer />
@@ -65,53 +68,6 @@ const pageDescription =
 				color: rgb(var(--gray-dark));
 				font-size: 1.05rem;
 				max-width: 720px;
-			}
-			.post-list {
-				list-style: none;
-				padding: 0;
-				margin: 1.5rem 0 0;
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-				gap: 1rem;
-			}
-			.post-card a {
-				display: block;
-				padding: 1.4rem;
-				border: 1px solid rgb(var(--gray-light));
-				border-radius: 10px;
-				background: #fff;
-				color: rgb(var(--gray-dark));
-				text-decoration: none;
-				height: 100%;
-				transition: all 0.15s ease;
-			}
-			.post-card a:hover {
-				border-color: var(--accent);
-				box-shadow: var(--box-shadow);
-			}
-			.post-cat {
-				display: inline-block;
-				font-size: 0.8rem;
-				font-weight: 600;
-				color: var(--accent);
-				background: var(--accent-soft);
-				padding: 0.2em 0.7em;
-				border-radius: 999px;
-				margin-bottom: 0.6rem;
-			}
-			.post-card h2 {
-				margin-top: 0;
-				color: rgb(var(--black));
-				font-size: 1.2rem;
-			}
-			.post-desc {
-				font-size: 0.95rem;
-				margin-bottom: 0.8rem;
-			}
-			.post-date {
-				font-size: 0.85rem;
-				color: rgb(var(--gray));
-				margin: 0;
 			}
 		</style>
 	</body>
