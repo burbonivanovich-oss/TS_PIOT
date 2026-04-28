@@ -21,21 +21,42 @@
 ## Структура файлов
 
 ```
+docs/                           # Техническая документация для разработчиков
+├── architecture.md             # Карта маршрутов, коллекций, dataflow
+├── content-types.md            # Как добавить статью, термин, pillar, сценарий
+├── og-images.md                # Satori/Resvg, шрифты, шаблон обложек
+└── search.md                   # Pagefind: индексация и кастомизация
+
+public/
+├── fonts/inter-*.woff          # Шрифты для OG-картинок (НЕ удалять)
+├── og-default.svg              # Фолбэк-обложка
+└── favicon.svg, robots.txt
+
 src/
-├── components/      # Header, Footer, BaseHead с JSON-LD
-├── consts.ts        # SITE_TITLE, NAV_LINKS, CATEGORIES (источник истины)
+├── components/                 # Header, Footer, BaseHead, FormattedDate
+├── consts.ts                   # SITE_TITLE, NAV_LINKS, CATEGORIES (источник истины)
 ├── content/
-│   ├── blog/        # YYYY-MM-DD-slug.md
-│   └── wiki/        # research, контент-планы, заметки редакции
-├── content.config.ts
-├── layouts/BlogPost.astro
+│   ├── blog/                   # YYYY-MM-DD-slug.md — публикуемые статьи
+│   ├── pillars/                # ts-piot.md, markirovka.md, zakonodatelstvo.md
+│   ├── glossary/               # <term>.md — термины словаря
+│   └── wiki/                   # research, контент-планы, редакционные заметки
+├── content.config.ts           # Схемы коллекций blog, pillars, glossary, wiki
+├── data/penalties.ts           # Сценарии для калькулятора штрафов
+├── layouts/BlogPost.astro      # Шаблон статьи + «Читайте также» + JSON-LD
 ├── pages/
-│   ├── index.astro
-│   ├── about.astro
-│   ├── privacy.astro
-│   ├── blog/[...slug].astro
-│   └── category/[category].astro
-└── styles/global.css
+│   ├── index.astro, about.astro, privacy.astro, 404.astro
+│   ├── search.astro            # /search/ (Pagefind UI)
+│   ├── blog/[...slug].astro, blog/index.astro
+│   ├── category/[category].astro   # pillar + FAQ + посты
+│   ├── tag/[tag].astro, tags/index.astro
+│   ├── slovar/index.astro      # глоссарий с якорями
+│   ├── kalkulyator-shtrafov.astro  # калькулятор штрафов
+│   ├── og/[slug].png.ts        # автогенерация OG-картинок
+│   └── rss.xml.js
+├── styles/global.css           # Дизайн-токены --accent, --gray-*
+└── utils/
+    ├── tags.ts                 # tagSlug, collectTags, pluralPosts
+    └── glossary.ts             # termSlug, firstLetter, alphabetOrder
 ```
 
 ## Правила контента
@@ -84,8 +105,9 @@ seo:
   frontmatter.
 - Канонический URL — автоматически. Использовать `seo.canonical` только если
   материал — копия другого источника.
-- Изображения: `heroImage` в формате 2:1, ≥ 1200×600. Пока используется
-  SVG-плейсхолдер `/og-default.svg`.
+- Изображения: `heroImage` в формате 2:1, ≥ 1200×600 — **необязателен**. Если
+  не указан, для `og:image` автоматически подставляется PNG, сгенерированная
+  через Satori (`/og/<slug>.png`). Подробности — `docs/og-images.md`.
 - Внутренние ссылки — относительные (`/blog/...`, `/category/...`).
 
 ## Workflow создания статьи
@@ -108,6 +130,44 @@ seo:
   УСН» и т.п.
 - Сокращения раскрываем при первом упоминании: ТС ПИоТ → расшифровать,
   УКЭП → расшифровать.
+
+## Технические особенности (фундаментально)
+
+Эти вещи легко не заметить — учитывайте при любых изменениях.
+
+### Сборка
+- Команда: `astro build && pagefind --site dist`. **Не запускайте `astro build` напрямую** — иначе поисковый индекс не обновится. Команда зашита в `npm run build`.
+- На Vercel выполняется `npm run build` (см. `vercel.json`).
+- Native-зависимости: `@resvg/resvg-js` (бинарник для PNG). Если перенесёте проект — проверьте поддержку платформы.
+
+### Маршруты и коллекции
+- Контент-коллекции с публичными URL: `blog`, `pillars`, `glossary`. `wiki` — внутренняя, без маршрутов.
+- Новый тег в frontmatter поста автоматически создаёт страницу `/tag/<slug>/` и попадает в `/tags/`. Никаких ручных изменений не требуется.
+- Slug тегов — кириллица, нормализация в `src/utils/tags.ts` (`tagSlug`).
+- Slug категорий = id pillar-файла. Чтобы добавить категорию, обновите `CATEGORIES` в `consts.ts` и создайте `src/content/pillars/<slug>.md`.
+
+### OG-картинки
+- Для каждого поста автогенерируется PNG 1200×630 через Satori + Resvg (см. `src/pages/og/[slug].png.ts`). Шрифты — `public/fonts/inter-*.woff`.
+- В frontmatter поста `heroImage` **необязателен** — без него `BlogPost.astro` подставит `/og/<slug>.png` в `og:image`.
+- Если меняете шаблон обложки — учитывайте, что fontsource-subsets разные (cyrillic, latin, latin-ext) подключаются под разными именами для fallback. Подробности — `docs/og-images.md`.
+
+### Поиск
+- Pagefind индексирует только элементы с атрибутом `data-pagefind-body`. Сейчас он стоит на `<article>` в `BlogPost.astro` — поэтому в выдаче только посты, а не категории/теги/словарь.
+- Навигация и блок «Читайте также» помечены `data-pagefind-ignore`, чтобы не разбавлять индекс.
+- Если хотите, чтобы pillar-страницы или термины глоссария тоже искались — добавьте `data-pagefind-body` на нужный контейнер. Подробности — `docs/search.md`.
+
+### «Читайте также»
+- В `BlogPost.astro` ниже текста статьи рендерится 3 связанных поста. Скоринг: совпадение тегов ×2, совпадение категорий ×1. Блок прячется при отсутствии совпадений.
+
+### Калькулятор штрафов
+- Данные сценариев — `src/data/penalties.ts`. Это единственный источник истины: страница `/kalkulyator-shtrafov/` рендерит и список, и форму, и FAQ из этого массива.
+- При изменениях КоАП обновляйте сценарии **здесь и параллельно сверьте** с упоминаниями штрафов в постах (`grep -nE '14\.5|15\.12' src/content/blog/`).
+
+### Документация по подсистемам
+- `docs/architecture.md` — общая карта маршрутов и dataflow.
+- `docs/content-types.md` — пошаговые инструкции «как добавить новую статью / термин / pillar / сценарий».
+- `docs/og-images.md` — детали Satori-шаблона и работы со шрифтами.
+- `docs/search.md` — Pagefind: что индексируется, как добавить фильтры, как кастомизировать UI.
 
 ## Чего НЕ публикуем
 
