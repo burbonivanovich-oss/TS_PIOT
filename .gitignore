@@ -107,6 +107,9 @@ Thumbs.db
 !.claude/research/.gitkeep
 !.claude/social/.gitkeep
 
+# Preview scripts output
+scripts/og-previews/
+
 # Content drafts (optional - uncomment if you want to exclude drafts)
 # src/content/blog/*-draft-*.md
 # src/content/wiki/*-draft-*.md
