@@ -6,7 +6,9 @@
 
 Сайт построен на [Astro](https://astro.build), контент — Markdown/MDX.
 Автоматизация подготовки статей реализована через Claude Code-агентов
-(адаптированный шаблон [klaude-blog](https://github.com/nickwinder/klaude-blog)).
+(адаптированный шаблон [klaude-blog](https://github.com/nickwinder/klaude-blog))
+с расширением [claude-blog](https://github.com/AgriciDaniel/claude-blog) —
+20 дополнительных скиллов для аудита, AI-цитируемости и здоровья блога.
 
 ## Стек
 
@@ -34,6 +36,8 @@ npm run preview  # просмотр собранной версии
   research/      # research-брифы (gitignored)
   social/        # драфты постов в соцсети (gitignored)
 
+~/.claude/skills/  # claude-blog: /blog write, analyze, geo, audit, factcheck и др. (глобальные)
+
 src/
   components/    # BaseHead, Header, Footer, FormattedDate, HeaderLink
   content/
@@ -60,8 +64,10 @@ public/
 
 1. Открой контент-план: `src/content/wiki/content-plan-2026.md`.
 2. Запусти команду в Claude Code: `/new-post "<тема>"`.
-3. После проверки фактов и снятия `draft: true` — коммит в feature-ветку.
-4. Перед публикацией — `/optimize-seo post standard <slug>` для SEO-аудита.
+3. Проверь факты: `/blog factcheck <файл>` — все цифры с confidence score.
+4. Проверь AI-цитируемость: `/blog geo <файл>` — оценка под ChatGPT/Perplexity.
+5. После снятия `draft: true` — коммит в feature-ветку.
+6. Перед публикацией — `/optimize-seo post standard <slug>` для SEO-аудита.
 
 См. также `CLAUDE.md` для подробных правил контента.
 
@@ -95,4 +101,5 @@ public/
 
 ## Лицензия
 
-Шаблон основан на klaude-blog (MIT). Контент — © Регламент.Бизнес.
+Шаблон основан на klaude-blog (MIT). Плагин claude-blog (MIT).
+Контент — © Регламент.Бизнес.
