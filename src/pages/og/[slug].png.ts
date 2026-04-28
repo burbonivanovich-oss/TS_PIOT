@@ -34,38 +34,49 @@ function escapeHtml(s: string): string {
 		.replace(/"/g, '&quot;');
 }
 
+// Цвет акцента по категории — левая вертикальная полоса и тег
+const CAT_ACCENT: Record<string, string> = {
+	'ts-piot':        '#3b82f6', // blue-500
+	'markirovka':     '#10b981', // emerald-500
+	'zakonodatelstvo':'#f59e0b', // amber-500
+};
+
 export async function GET({ props }: { props: Props }) {
 	const { post } = props;
 	const cat = post.data.categories[0] as keyof typeof CATEGORIES | undefined;
-	const catLabel = cat ? CATEGORIES[cat]?.title : '';
+	const catLabel = cat ? CATEGORIES[cat]?.title?.toUpperCase() : '';
+	const accent = (cat && CAT_ACCENT[cat]) ?? '#3b82f6';
 
 	const fontStack = "'InterCyr', 'InterLat', 'InterLatExt'";
 	const titleText = escapeHtml(post.data.title);
-	const descText = escapeHtml(post.data.description ?? '');
 	const siteText = escapeHtml(SITE_TITLE);
 	const catText = escapeHtml(catLabel ?? '');
 
-	const catChip = catText
-		? `<div style="display:flex; padding:8px 20px; background:#dbeafe; color:#1d4ed8; border-radius:999px; font-size:24px; font-weight:600; margin-bottom:24px; align-self:flex-start;">${catText}</div>`
-		: '';
-	const descBlock = descText
-		? `<div style="display:flex; font-size:28px; color:#475569; line-height:1.4; margin-top:24px;">${descText}</div>`
+	// Подбираем размер заголовка под длину — длинные заголовки уменьшаем
+	const titleLen = post.data.title.length;
+	const titleSize = titleLen > 80 ? 48 : titleLen > 55 ? 56 : 64;
+
+	const catTag = catText
+		? `<div style="display:flex; padding:6px 18px; background:${accent}22; color:${accent}; border:1px solid ${accent}44; border-radius:4px; font-size:20px; font-weight:700; letter-spacing:2px; margin-bottom:28px; align-self:flex-start;">${catText}</div>`
 		: '';
 
 	const markupString = `
-		<div style="display:flex; flex-direction:column; height:100%; width:100%; background:linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%); padding:60px; box-sizing:border-box; font-family:${fontStack};">
-			<div style="display:flex; align-items:center; gap:16px;">
-				<div style="display:flex; width:64px; height:64px; border-radius:14px; background:#1d4ed8; color:#fff; align-items:center; justify-content:center; font-size:24px; font-weight:700;">Р·Б</div>
-				<div style="display:flex; font-size:28px; font-weight:700; color:#0f172a;">${siteText}</div>
-			</div>
-			<div style="display:flex; flex-direction:column; flex:1; justify-content:center; padding:40px 0;">
-				${catChip}
-				<div style="display:flex; font-size:58px; font-weight:700; color:#0f172a; line-height:1.15;">${titleText}</div>
-				${descBlock}
-			</div>
-			<div style="display:flex; justify-content:space-between; align-items:center; font-size:22px; color:#64748b;">
-				<div style="display:flex;">reglament-biznes.ru</div>
-				<div style="display:flex;">Информационный портал для МСБ</div>
+		<div style="display:flex; flex-direction:row; height:100%; width:100%; background:#0d0d0d; font-family:${fontStack};">
+			<div style="display:flex; width:8px; background:${accent}; flex-shrink:0;"></div>
+			<div style="display:flex; flex-direction:column; flex:1; padding:56px 64px;">
+				<div style="display:flex; align-items:center; gap:14px;">
+					<div style="display:flex; width:52px; height:52px; border-radius:10px; background:${accent}; color:#fff; align-items:center; justify-content:center; font-size:20px; font-weight:700; letter-spacing:-0.5px;">Р·Б</div>
+					<div style="display:flex; font-size:22px; font-weight:700; color:rgba(255,255,255,0.5); letter-spacing:0.5px;">${siteText}</div>
+				</div>
+				<div style="display:flex; flex-direction:column; flex:1; justify-content:center; padding:32px 0 24px;">
+					${catTag}
+					<div style="display:flex; font-size:${titleSize}px; font-weight:700; color:#ffffff; line-height:1.15; letter-spacing:-0.5px;">${titleText}</div>
+				</div>
+				<div style="display:flex; align-items:center; gap:12px; font-size:20px; color:rgba(255,255,255,0.25);">
+					<div style="display:flex;">reglament-biznes.ru</div>
+					<div style="display:flex; width:3px; height:3px; border-radius:50%; background:rgba(255,255,255,0.2);"></div>
+					<div style="display:flex;">Для малого и среднего бизнеса</div>
+				</div>
 			</div>
 		</div>
 	`;
