@@ -120,6 +120,60 @@ seo:
 5. Билд `npm run build`, ручной просмотр на dev (`npm run dev`).
 6. Деплой коммитом в основную ветку (Vercel подхватывает).
 
+## Расширенный инструментарий (claude-blog)
+
+Установлен плагин [claude-blog](https://github.com/AgriciDaniel/claude-blog) —
+20 скиллов для углублённой работы с контентом. Живут в `~/.claude/skills/`.
+
+### Контроль качества (запускать после написания)
+
+- `/blog analyze <file>` — оценка 0–100 по 6 категориям (качество, SEO, E-E-A-T,
+  техника, AI-цитируемость). Детектирует AI-текст.
+- `/blog seo-check <file>` — быстрый SEO-чеклист: title, meta, H2, внутренние
+  ссылки, alt, schema.
+- `/blog factcheck <file>` — извлекает все числа и нормы, идёт по источникам,
+  ставит confidence 0.0–1.0. **Особенно важно для НПА и штрафов.**
+- `/blog schema <file>` — генерирует JSON-LD: BlogPosting + FAQPage +
+  BreadcrumbList. Дополняет то, что уже есть в `BlogPost.astro`.
+
+### AI-цитируемость (новый канал трафика)
+
+- `/blog geo <file>` — аудит под ChatGPT / Perplexity / Google AI Overviews:
+  passage-level citability, Q&A-форматирование, entity clarity, robots.txt.
+  Генерирует «citation capsules» — 40–60-словные блоки для прямого цитирования.
+
+### Здоровье блога (запускать при росте контента)
+
+- `/blog audit src/content/blog/` — полный аудит: граф ссылок, сироты,
+  тупики, устаревшие посты, каннибализация.
+- `/blog cannibalization src/content/blog/` — пересечение ключей между
+  постами. Рекомендует MERGE / DIFFERENTIATE / CANONICAL.
+- `/blog taxonomy` — аудит тегов: тонкие теги, дубли, структура кластеров.
+
+### Планирование
+
+- `/blog calendar` — редкалендарь с детекцией устаревшего контента и
+  freshness-циклами.
+- `/blog strategy <ниша>` — hub-and-spoke архитектура, 90-дневный роадмап,
+  карта AI citation surfaces.
+- `/blog brief <тема>` — SERP-анализ топ конкурентов, outline, внутренние
+  ссылки, word count.
+- `/blog outline <тема>` — структура H2/H3 из реальной выдачи.
+
+### Дополнительно
+
+- `/blog repurpose <file>` — адаптация под Twitter, LinkedIn, YouTube-скрипт,
+  подкаст, email.
+- `/blog rewrite <file>` — переписать пост с сохранением голоса, обновить
+  статистику, добавить FAQ.
+- `/blog persona` — управление голосом: 4-мерная шкала NNGroup.
+
+### Требуют настройки (Google AI API key — бесплатно)
+
+- `/blog image` — генерация изображений через Gemini.
+- `/blog audio` — аудиоозвучка через Gemini TTS.
+- `/blog google` — PageSpeed, Search Console, GA4 (`/blog google setup`).
+
 ## Стиль речи
 
 - Активный залог, прямые формулировки, минимум канцелярита.
