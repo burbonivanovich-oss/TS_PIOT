@@ -97,6 +97,8 @@ const breadcrumbsJsonLd = {
 
 const primaryCategory = categories[0] as keyof typeof CATEGORIES | undefined;
 const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
+
+const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined);
 ---
 
 <html lang="ru">
@@ -104,7 +106,7 @@ const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
 		<BaseHead
 			title={title}
 			description={description}
-			image={heroImage}
+			image={ogImage}
 			type="article"
 			publishedTime={pubDate.toISOString()}
 			modifiedTime={updatedDate?.toISOString()}
