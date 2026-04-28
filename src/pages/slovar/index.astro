@@ -82,7 +82,7 @@ const definedTermSetJsonLd = {
 	<body>
 		<Header />
 		<main>
-			<nav class="breadcrumbs" aria-label="Хлебные крошки">
+			<nav class="breadcrumbs" aria-label="Хлебные крошки" data-pagefind-ignore>
 				<a href="/">Главная</a>
 				<span>›</span>
 				<span aria-current="page">{title}</span>
@@ -94,14 +94,14 @@ const definedTermSetJsonLd = {
 			</header>
 
 			{letters.length > 1 && (
-				<nav class="alphabet" aria-label="Алфавитный навигатор">
+				<nav class="alphabet" aria-label="Алфавитный навигатор" data-pagefind-ignore>
 					{letters.map((letter) => (
 						<a class="alpha-link" href={`#letter-${letter}`}>{letter}</a>
 					))}
 				</nav>
 			)}
 
-			<div class="terms">
+			<div class="terms" data-pagefind-body>
 				{Array.from(grouped.entries()).map(([letter, items]) => (
 					<section class="letter-section" aria-labelledby={`letter-${letter}`}>
 						<h2 class="letter-head" id={`letter-${letter}`}>{letter}</h2>

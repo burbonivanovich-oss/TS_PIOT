@@ -94,7 +94,7 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 	<body>
 		<Header />
 		<main>
-			<nav class="breadcrumbs" aria-label="Хлебные крошки">
+			<nav class="breadcrumbs" aria-label="Хлебные крошки" data-pagefind-ignore>
 				<a href="/">Главная</a>
 				<span>›</span>
 				<a href="/blog/">Статьи</a>
@@ -102,6 +102,7 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 				<span aria-current="page">{meta.title}</span>
 			</nav>
 
+			<div data-pagefind-body>
 			<header class="page-head">
 				<h1>{pillarTitle}</h1>
 				<p class="page-lead">{pillarSummary}</p>
@@ -138,8 +139,9 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 					))}
 				</section>
 			)}
+			</div>
 
-			<section class="posts" aria-labelledby="posts-heading">
+			<section class="posts" aria-labelledby="posts-heading" data-pagefind-ignore>
 				<h2 id="posts-heading">Материалы по теме</h2>
 				{posts.length === 0 ? (
 					<p class="empty">
