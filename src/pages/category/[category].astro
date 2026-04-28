@@ -1,0 +1,153 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { CATEGORIES, SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths() {
+	return Object.entries(CATEGORIES).map(([slug, meta]) => ({
+		params: { category: slug },
+		props: { slug, meta },
+	}));
+}
+
+type Props = {
+	slug: string;
+	meta: (typeof CATEGORIES)[keyof typeof CATEGORIES];
+};
+
+const { slug, meta } = Astro.props as Props;
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts
+	.filter((p) => p.data.categories.includes(slug))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const collectionJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'CollectionPage',
+	name: `${meta.title} — ${SITE_TITLE}`,
+	description: meta.description,
+	url: new URL(`/category/${slug}/`, Astro.site).toString(),
+	inLanguage: 'ru-RU',
+};
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead
+			title={meta.fullTitle}
+			description={meta.description}
+			jsonLd={collectionJsonLd}
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<nav class="breadcrumbs" aria-label="Хлебные крошки">
+				<a href="/">Главная</a>
+				<span>›</span>
+				<a href="/blog/">Статьи</a>
+				<span>›</span>
+				<span aria-current="page">{meta.title}</span>
+			</nav>
+
+			<header class="page-head">
+				<h1>{meta.fullTitle}</h1>
+				<p>{meta.description}</p>
+			</header>
+
+			{posts.length === 0 ? (
+				<p class="empty">
+					Материалы в этом разделе скоро появятся. Загляните позже или
+					<a href="/blog/">посмотрите все статьи</a>.
+				</p>
+			) : (
+				<ul class="post-list">
+					{posts.map((post) => (
+						<li class="post-card">
+							<a href={`/blog/${post.id}/`}>
+								<h2>{post.data.title}</h2>
+								<p class="post-desc">{post.data.description}</p>
+								<p class="post-date">
+									<FormattedDate date={post.data.pubDate} />
+								</p>
+							</a>
+						</li>
+					))}
+				</ul>
+			)}
+		</main>
+		<Footer />
+
+		<style>
+			.breadcrumbs {
+				font-size: 0.88rem;
+				color: rgb(var(--gray));
+				margin-top: 1rem;
+			}
+			.breadcrumbs a {
+				color: rgb(var(--gray));
+				text-decoration: none;
+			}
+			.breadcrumbs a:hover {
+				color: var(--accent);
+			}
+			.breadcrumbs span {
+				margin: 0 0.4em;
+			}
+			.page-head {
+				padding: 1.5rem 0 1rem;
+				max-width: 820px;
+			}
+			.page-head p {
+				color: rgb(var(--gray-dark));
+				font-size: 1.05rem;
+			}
+			.empty {
+				padding: 2rem 0;
+				color: rgb(var(--gray));
+			}
+			.post-list {
+				list-style: none;
+				padding: 0;
+				margin: 1.5rem 0 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 1rem;
+			}
+			.post-card a {
+				display: block;
+				padding: 1.4rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				background: #fff;
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+				height: 100%;
+				transition: all 0.15s ease;
+			}
+			.post-card a:hover {
+				border-color: var(--accent);
+				box-shadow: var(--box-shadow);
+			}
+			.post-card h2 {
+				margin-top: 0;
+				color: rgb(var(--black));
+				font-size: 1.2rem;
+			}
+			.post-desc {
+				font-size: 0.95rem;
+				margin-bottom: 0.8rem;
+			}
+			.post-date {
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+				margin: 0;
+			}
+		</style>
+	</body>
+</html>

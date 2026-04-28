@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /draft/
+
+Sitemap: https://reglament-biznes.ru/sitemap-index.xml
+Host: https://reglament-biznes.ru
