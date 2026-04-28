@@ -5,10 +5,10 @@ pubDate: "2026-02-10"
 updatedDate: "2026-04-22"
 tags:
   - маркировка
-  - Честный знак
-  - Data Matrix
-  - "2026"
-  - категории
+  - честный знак
+  - data matrix
+  - сроки маркировки
+  - малый бизнес
 categories:
   - markirovka
 draft: false
