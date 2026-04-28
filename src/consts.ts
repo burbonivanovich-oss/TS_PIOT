@@ -15,6 +15,7 @@ export const NAV_LINKS = [
 	{ href: '/category/markirovka/', label: 'Маркировка' },
 	{ href: '/category/zakonodatelstvo/', label: 'Законодательство' },
 	{ href: '/about/', label: 'О проекте' },
+	{ href: '/search/', label: 'Поиск' },
 ];
 
 export const CATEGORIES = {

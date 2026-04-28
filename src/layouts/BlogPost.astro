@@ -117,8 +117,8 @@ const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
 	<body>
 		<Header />
 		<main>
-			<article class="article">
-				<nav class="breadcrumbs" aria-label="Хлебные крошки">
+			<article class="article" data-pagefind-body>
+				<nav class="breadcrumbs" aria-label="Хлебные крошки" data-pagefind-ignore>
 					<a href="/">Главная</a>
 					<span>›</span>
 					<a href="/blog/">Статьи</a>
@@ -161,7 +161,7 @@ const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
 				</div>
 
 				{related.length > 0 && (
-					<aside class="related" aria-labelledby="related-heading">
+					<aside class="related" aria-labelledby="related-heading" data-pagefind-ignore>
 						<h2 id="related-heading">Читайте также</h2>
 						<ul class="related-list">
 							{related.map((post) => {
