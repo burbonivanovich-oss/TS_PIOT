@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -22,7 +22,25 @@ const {
 	tags = [],
 	author = SITE_AUTHOR,
 	seo,
+	slug: currentSlug,
 } = Astro.props;
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const candidates = allPosts.filter((p) => p.id !== currentSlug);
+const scored = candidates
+	.map((p) => ({
+		post: p,
+		score:
+			(p.data.tags ?? []).filter((t) => tags.includes(t)).length * 2 +
+			(p.data.categories ?? []).filter((c) => categories.includes(c)).length,
+	}))
+	.filter((x) => x.score > 0)
+	.sort(
+		(a, b) =>
+			b.score - a.score ||
+			b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf(),
+	);
+const related = scored.slice(0, 3).map((x) => x.post);
 
 const canonical = seo?.canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
 const keywords = [...new Set([...tags, ...(seo?.keywords ?? [])])];
@@ -142,6 +160,27 @@ const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
 					<slot />
 				</div>
 
+				{related.length > 0 && (
+					<aside class="related" aria-labelledby="related-heading">
+						<h2 id="related-heading">Читайте также</h2>
+						<ul class="related-list">
+							{related.map((post) => {
+								const cat = post.data.categories[0] as keyof typeof CATEGORIES | undefined;
+								const catMeta = cat ? CATEGORIES[cat] : null;
+								return (
+									<li class="related-card">
+										<a href={`/blog/${post.id}/`}>
+											{catMeta && <span class="related-cat">{catMeta.title}</span>}
+											<h3>{post.data.title}</h3>
+											<p>{post.data.description}</p>
+										</a>
+									</li>
+								);
+							})}
+						</ul>
+					</aside>
+				)}
+
 				<footer class="article-foot">
 					<p class="disclaimer">
 						Материал носит информационный характер. Перед принятием решений
@@ -212,8 +251,59 @@ const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
 				border-radius: 10px;
 				box-shadow: var(--box-shadow);
 			}
-			.article-foot {
+			.related {
 				margin-top: 3rem;
+				padding-top: 1.5rem;
+				border-top: 1px solid rgb(var(--gray-light));
+			}
+			.related h2 {
+				font-size: 1.3rem;
+				margin: 0 0 1rem;
+			}
+			.related-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+				gap: 0.8rem;
+			}
+			.related-card a {
+				display: block;
+				padding: 1rem 1.1rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				background: #fff;
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+				height: 100%;
+				transition: all 0.15s ease;
+			}
+			.related-card a:hover {
+				border-color: var(--accent);
+				box-shadow: var(--box-shadow);
+			}
+			.related-cat {
+				display: inline-block;
+				font-size: 0.78rem;
+				font-weight: 600;
+				color: var(--accent);
+				background: var(--accent-soft);
+				padding: 0.15em 0.6em;
+				border-radius: 999px;
+				margin-bottom: 0.5rem;
+			}
+			.related-card h3 {
+				margin: 0 0 0.4rem;
+				font-size: 1.05rem;
+				color: rgb(var(--black));
+			}
+			.related-card p {
+				font-size: 0.9rem;
+				margin: 0;
+			}
+			.article-foot {
+				margin-top: 2.5rem;
 				padding-top: 1.5rem;
 				border-top: 1px solid rgb(var(--gray-light));
 			}
