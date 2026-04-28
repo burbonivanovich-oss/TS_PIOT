@@ -14,6 +14,7 @@ export const NAV_LINKS = [
 	{ href: '/category/ts-piot/', label: 'ТС ПИоТ' },
 	{ href: '/category/markirovka/', label: 'Маркировка' },
 	{ href: '/category/zakonodatelstvo/', label: 'Законодательство' },
+	{ href: '/slovar/', label: 'Словарь' },
 	{ href: '/about/', label: 'О проекте' },
 	{ href: '/search/', label: 'Поиск' },
 ];

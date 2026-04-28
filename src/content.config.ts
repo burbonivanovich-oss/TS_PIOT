@@ -68,4 +68,25 @@ const pillars = defineCollection({
 	}),
 });
 
-export const collections = { blog, wiki, pillars };
+const glossary = defineCollection({
+	// Глоссарий ключевых терминов: тело Markdown + связанные ссылки.
+	loader: glob({ base: './src/content/glossary', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		term: z.string(),
+		aliases: z.array(z.string()).default([]),
+		summary: z.string().optional(),
+		category: z
+			.enum(['ts-piot', 'markirovka', 'zakonodatelstvo'])
+			.optional(),
+		relatedLinks: z
+			.array(
+				z.object({
+					label: z.string(),
+					url: z.string(),
+				}),
+			)
+			.default([]),
+	}),
+});
+
+export const collections = { blog, wiki, pillars, glossary };
