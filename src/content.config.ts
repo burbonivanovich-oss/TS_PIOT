@@ -42,4 +42,30 @@ const wiki = defineCollection({
 		}),
 });
 
-export const collections = { blog, wiki };
+const pillars = defineCollection({
+	// Pillar-страницы категорий: тело Markdown + ключевые даты + FAQ.
+	// id файла должен совпадать со slug категории из CATEGORIES в src/consts.ts.
+	loader: glob({ base: './src/content/pillars', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string().optional(),
+		summary: z.string().optional(),
+		keyDates: z
+			.array(
+				z.object({
+					date: z.string(),
+					event: z.string(),
+				}),
+			)
+			.default([]),
+		faq: z
+			.array(
+				z.object({
+					question: z.string(),
+					answer: z.string(),
+				}),
+			)
+			.default([]),
+	}),
+});
+
+export const collections = { blog, wiki, pillars };
