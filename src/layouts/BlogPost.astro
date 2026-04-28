@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { type CollectionEntry, getCollection } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -10,6 +11,8 @@ import { tagSlug } from '../utils/tags';
 
 type Props = CollectionEntry<'blog'>['data'] & {
 	slug?: string;
+	headings?: MarkdownHeading[];
+	readingTime?: number;
 };
 
 const {
@@ -23,6 +26,8 @@ const {
 	author = SITE_AUTHOR,
 	seo,
 	slug: currentSlug,
+	headings = [],
+	readingTime,
 } = Astro.props;
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -44,6 +49,8 @@ const related = scored.slice(0, 3).map((x) => x.post);
 
 const canonical = seo?.canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
 const keywords = [...new Set([...tags, ...(seo?.keywords ?? [])])];
+
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
 const articleJsonLd = {
 	'@context': 'https://schema.org',
@@ -99,6 +106,9 @@ const primaryCategory = categories[0] as keyof typeof CATEGORIES | undefined;
 const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
 
 const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined);
+
+const shareUrl = encodeURIComponent(canonical);
+const shareTitle = encodeURIComponent(title);
 ---
 
 <html lang="ru">
@@ -117,6 +127,8 @@ const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined
 	</head>
 
 	<body>
+		<div id="rp-bar" aria-hidden="true"></div>
+
 		<Header />
 		<main>
 			<article class="article" data-pagefind-body>
@@ -142,6 +154,9 @@ const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined
 								· обновлено <FormattedDate date={updatedDate} />
 							</span>
 						)}
+						{readingTime && (
+							<span class="reading-time">· {readingTime} мин чтения</span>
+						)}
 					</div>
 					{tags.length > 0 && (
 						<div class="tags">
@@ -158,8 +173,45 @@ const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined
 					</div>
 				)}
 
+				{tocHeadings.length > 2 && (
+					<details class="toc" data-pagefind-ignore>
+						<summary>Содержание</summary>
+						<nav>
+							<ol class="toc-list">
+								{tocHeadings.map((h) => (
+									<li class={`toc-item toc-depth-${h.depth}`}>
+										<a href={`#${h.slug}`}>{h.text}</a>
+									</li>
+								))}
+							</ol>
+						</nav>
+					</details>
+				)}
+
 				<div class="prose">
 					<slot />
+				</div>
+
+				<div class="share" data-pagefind-ignore>
+					<span class="share-label">Поделиться:</span>
+					<a
+						class="share-btn share-tg"
+						href={`https://t.me/share/url?url=${shareUrl}&text=${shareTitle}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Поделиться в Telegram"
+					>
+						Telegram
+					</a>
+					<a
+						class="share-btn share-vk"
+						href={`https://vk.com/share.php?url=${shareUrl}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Поделиться ВКонтакте"
+					>
+						ВКонтакте
+					</a>
 				</div>
 
 				{related.length > 0 && (
@@ -194,7 +246,30 @@ const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined
 		</main>
 		<Footer />
 
+		<script>
+			const bar = document.getElementById('rp-bar');
+			if (bar) {
+				const update = () => {
+					const scrolled = document.documentElement.scrollTop;
+					const total = document.documentElement.scrollHeight - window.innerHeight;
+					bar.style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
+				};
+				window.addEventListener('scroll', update, { passive: true });
+				update();
+			}
+		</script>
+
 		<style>
+			#rp-bar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				height: 3px;
+				width: 0%;
+				background: var(--accent);
+				z-index: 100;
+				transition: width 0.1s linear;
+			}
 			.article {
 				max-width: 760px;
 				margin: 0 auto;
@@ -227,6 +302,9 @@ const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined
 				font-size: 0.95rem;
 				margin-bottom: 1rem;
 			}
+			.reading-time {
+				color: rgb(var(--gray));
+			}
 			.tags {
 				display: flex;
 				flex-wrap: wrap;
@@ -253,6 +331,104 @@ const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined
 				border-radius: 10px;
 				box-shadow: var(--box-shadow);
 			}
+
+			/* TOC */
+			.toc {
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				padding: 0.9rem 1.1rem;
+				margin: 1.5rem 0 2rem;
+				background: #f8fafc;
+			}
+			.toc summary {
+				cursor: pointer;
+				font-weight: 600;
+				font-size: 0.95rem;
+				color: rgb(var(--black));
+				list-style: none;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				user-select: none;
+			}
+			.toc summary::-webkit-details-marker { display: none; }
+			.toc summary::after {
+				content: '▸';
+				font-size: 0.8rem;
+				color: var(--accent);
+				transition: transform 0.15s ease;
+			}
+			.toc[open] summary::after {
+				transform: rotate(90deg);
+			}
+			.toc-list {
+				margin: 0.8rem 0 0;
+				padding-left: 1.2rem;
+				list-style: none;
+			}
+			.toc-item {
+				margin-bottom: 0.35rem;
+				line-height: 1.4;
+			}
+			.toc-depth-3 {
+				padding-left: 1rem;
+			}
+			.toc-item a {
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+				font-size: 0.9rem;
+			}
+			.toc-item a:hover {
+				color: var(--accent);
+				text-decoration: underline;
+			}
+
+			/* Share */
+			.share {
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 0.6rem;
+				margin: 2rem 0 1rem;
+				padding: 1rem 1.2rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				background: #f8fafc;
+			}
+			.share-label {
+				font-size: 0.9rem;
+				font-weight: 600;
+				color: rgb(var(--gray-dark));
+			}
+			.share-btn {
+				display: inline-block;
+				padding: 0.4em 1em;
+				border-radius: 999px;
+				font-size: 0.88rem;
+				font-weight: 600;
+				text-decoration: none;
+				transition: all 0.15s ease;
+			}
+			.share-tg {
+				background: #e8f4fd;
+				color: #0088cc;
+				border: 1px solid #b3d9f0;
+			}
+			.share-tg:hover {
+				background: #0088cc;
+				color: #fff;
+			}
+			.share-vk {
+				background: #e8f0fb;
+				color: #2787f5;
+				border: 1px solid #b3cef7;
+			}
+			.share-vk:hover {
+				background: #2787f5;
+				color: #fff;
+			}
+
+			/* Related */
 			.related {
 				margin-top: 3rem;
 				padding-top: 1.5rem;

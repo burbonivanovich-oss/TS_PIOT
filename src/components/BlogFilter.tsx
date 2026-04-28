@@ -14,14 +14,16 @@ type Props = {
 	posts: PostData[];
 	categories: Record<string, { title: string }>;
 	allTags: string[];
+	pageSize?: number;
 };
 
 const fmt = (iso: string) =>
 	new Date(iso).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
 
-export default function BlogFilter({ posts, categories, allTags }: Props) {
+export default function BlogFilter({ posts, categories, allTags, pageSize = 10 }: Props) {
 	const [activeCategory, setActiveCategory] = useState<string>('all');
 	const [activeTag, setActiveTag] = useState<string>('');
+	const [page, setPage] = useState(1);
 
 	const filtered = useMemo(() => {
 		return posts.filter((p) => {
@@ -31,7 +33,15 @@ export default function BlogFilter({ posts, categories, allTags }: Props) {
 		});
 	}, [posts, activeCategory, activeTag]);
 
-	const resetTag = () => setActiveTag('');
+	const totalPages = Math.ceil(filtered.length / pageSize);
+	const paginated = filtered.slice((page - 1) * pageSize, page * pageSize);
+
+	const resetFilters = (fn: () => void) => {
+		fn();
+		setPage(1);
+	};
+
+	const pages = buildPageList(page, totalPages);
 
 	return (
 		<div className="bf">
@@ -40,7 +50,7 @@ export default function BlogFilter({ posts, categories, allTags }: Props) {
 				<button
 					type="button"
 					className={`bf-cat${activeCategory === 'all' ? ' bf-cat--active' : ''}`}
-					onClick={() => { setActiveCategory('all'); resetTag(); }}
+					onClick={() => resetFilters(() => { setActiveCategory('all'); setActiveTag(''); })}
 				>
 					Все
 				</button>
@@ -49,7 +59,7 @@ export default function BlogFilter({ posts, categories, allTags }: Props) {
 						key={slug}
 						type="button"
 						className={`bf-cat${activeCategory === slug ? ' bf-cat--active' : ''}`}
-						onClick={() => { setActiveCategory(slug); resetTag(); }}
+						onClick={() => resetFilters(() => { setActiveCategory(slug); setActiveTag(''); })}
 					>
 						{cat.title}
 					</button>
@@ -61,7 +71,7 @@ export default function BlogFilter({ posts, categories, allTags }: Props) {
 				<select
 					className="bf-tag-select"
 					value={activeTag}
-					onChange={(e) => setActiveTag(e.target.value)}
+					onChange={(e) => resetFilters(() => setActiveTag(e.target.value))}
 					aria-label="Фильтр по тегу"
 				>
 					<option value="">Все теги</option>
@@ -70,21 +80,21 @@ export default function BlogFilter({ posts, categories, allTags }: Props) {
 					))}
 				</select>
 				{activeTag && (
-					<button type="button" className="bf-reset" onClick={resetTag}>
+					<button type="button" className="bf-reset" onClick={() => resetFilters(() => setActiveTag(''))}>
 						× Сбросить тег
 					</button>
 				)}
 				<span className="bf-count">
-					{filtered.length} {pluralize(filtered.length, ['материал', 'материала', 'материалов'])}
+					{pluralize(filtered.length, ['материал', 'материала', 'материалов'])}
 				</span>
 			</div>
 
 			{/* Список */}
-			{filtered.length === 0 ? (
+			{paginated.length === 0 ? (
 				<p className="bf-empty">По выбранным фильтрам материалов нет.</p>
 			) : (
 				<ul className="bf-list">
-					{filtered.map((post) => {
+					{paginated.map((post) => {
 						const cat = post.categories[0];
 						const catTitle = cat ? categories[cat]?.title : null;
 						const date = post.updatedDate ?? post.pubDate;
@@ -103,6 +113,47 @@ export default function BlogFilter({ posts, categories, allTags }: Props) {
 						);
 					})}
 				</ul>
+			)}
+
+			{/* Пагинация */}
+			{totalPages > 1 && (
+				<nav className="bf-pages" aria-label="Страницы">
+					<button
+						type="button"
+						className="bf-page-btn"
+						onClick={() => setPage((p) => p - 1)}
+						disabled={page === 1}
+						aria-label="Предыдущая страница"
+					>
+						←
+					</button>
+
+					{pages.map((p, i) =>
+						p === '…' ? (
+							<span key={`ellipsis-${i}`} className="bf-page-ellipsis">…</span>
+						) : (
+							<button
+								key={p}
+								type="button"
+								className={`bf-page-btn${page === p ? ' bf-page-btn--active' : ''}`}
+								onClick={() => setPage(p as number)}
+								aria-current={page === p ? 'page' : undefined}
+							>
+								{p}
+							</button>
+						)
+					)}
+
+					<button
+						type="button"
+						className="bf-page-btn"
+						onClick={() => setPage((p) => p + 1)}
+						disabled={page === totalPages}
+						aria-label="Следующая страница"
+					>
+						→
+					</button>
+				</nav>
 			)}
 
 			<style>{`
@@ -222,6 +273,48 @@ export default function BlogFilter({ posts, categories, allTags }: Props) {
 					color: rgb(100, 116, 139);
 					margin: 0;
 				}
+				.bf-pages {
+					display: flex;
+					align-items: center;
+					gap: 0.4rem;
+					margin-top: 2rem;
+					flex-wrap: wrap;
+				}
+				.bf-page-btn {
+					min-width: 2.2rem;
+					height: 2.2rem;
+					padding: 0 0.5em;
+					border-radius: 8px;
+					border: 1px solid rgb(226, 232, 240);
+					background: #fff;
+					color: rgb(30, 41, 59);
+					font-size: 0.9rem;
+					cursor: pointer;
+					transition: all 0.15s ease;
+					font-family: inherit;
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+				}
+				.bf-page-btn:hover:not(:disabled) {
+					border-color: #1d4ed8;
+					background: #eff6ff;
+					color: #1d4ed8;
+				}
+				.bf-page-btn--active {
+					background: #1d4ed8;
+					border-color: #1d4ed8;
+					color: #fff;
+					font-weight: 600;
+				}
+				.bf-page-btn:disabled {
+					opacity: 0.35;
+					cursor: default;
+				}
+				.bf-page-ellipsis {
+					color: rgb(100, 116, 139);
+					padding: 0 0.3em;
+				}
 			`}</style>
 		</div>
 	);
@@ -234,4 +327,16 @@ function pluralize(n: number, forms: [string, string, string]) {
 	if (rem === 1) return `${n} ${forms[0]}`;
 	if (rem >= 2 && rem <= 4) return `${n} ${forms[1]}`;
 	return `${n} ${forms[2]}`;
+}
+
+function buildPageList(current: number, total: number): (number | '…')[] {
+	if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+	const pages: (number | '…')[] = [];
+	const add = (n: number) => { if (!pages.includes(n)) pages.push(n); };
+	add(1);
+	if (current > 3) pages.push('…');
+	for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) add(i);
+	if (current < total - 2) pages.push('…');
+	add(total);
+	return pages;
 }
