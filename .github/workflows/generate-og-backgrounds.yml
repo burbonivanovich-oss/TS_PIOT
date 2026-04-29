@@ -9,19 +9,32 @@ on:
         default: 'black-forest-labs/flux-1-schnell'
         type: choice
         options:
-          # OpenRouter — FLUX (бесплатно / платно)
-          - black-forest-labs/flux-1-schnell
+          # --- FLUX (Black Forest Labs) ---
+          - black-forest-labs/flux-1-schnell        # бесплатно
+          - black-forest-labs/flux-2-klein          # FLUX.2 fast
+          - black-forest-labs/flux-2-max            # FLUX.2 лучшее
           - black-forest-labs/flux-1-1-pro
           - black-forest-labs/flux-pro
           - black-forest-labs/flux-1-dev
-          # OpenRouter — Stable Diffusion
+          # --- OpenAI ---
+          - openai/gpt-image-1                      # GPT Image 1
+          - openai/gpt-5-image                      # GPT-5 Image
+          - openai/gpt-5.4-image-2                  # GPT-5.4 Image 2
+          - openai/dall-e-3
+          # --- Stable Diffusion ---
           - stabilityai/stable-diffusion-3-5-large
           - stabilityai/stable-diffusion-3-medium
-          # OpenRouter — DALL-E
-          - openai/dall-e-3
-          # Gemini (требует GEMINI_API_KEY + платный тариф)
+          # --- Recraft ---
+          - recraft-ai/recraft-v3
+          # --- Ideogram ---
+          - ideogram-ai/ideogram-v3
+          - ideogram-ai/ideogram-v2
+          # --- ByteDance Seedream ---
+          - bytedance/seedream-4-5
+          # --- Google (требует GEMINI_API_KEY) ---
           - google/imagen-4
           - google/gemini-2.5-flash-image
+          - google/gemini-3.1-flash-image-preview   # Nano Banana 2
 
 jobs:
   generate:
@@ -55,11 +68,11 @@ jobs:
           GEMINI_MODEL: imagen-4.0-generate-001
         run: node scripts/generate-og-backgrounds-gemini.mjs
 
-      - name: Generate via Gemini 2.5 Flash Image
-        if: ${{ inputs.model == 'google/gemini-2.5-flash-image' }}
+      - name: Generate via Gemini Flash Image
+        if: ${{ inputs.model == 'google/gemini-2.5-flash-image' || inputs.model == 'google/gemini-3.1-flash-image-preview' }}
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: gemini-2.5-flash-image
+          GEMINI_MODEL: ${{ inputs.model == 'google/gemini-3.1-flash-image-preview' && 'gemini-3.1-flash-image-preview' || 'gemini-2.5-flash-image' }}
         run: node scripts/generate-og-backgrounds-gemini.mjs
 
       - name: Commit generated backgrounds
