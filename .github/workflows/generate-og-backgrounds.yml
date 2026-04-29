@@ -1,0 +1,49 @@
+name: Generate OG Backgrounds
+
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: 'OpenRouter модель'
+        required: false
+        default: 'black-forest-labs/flux-1-schnell'
+        type: choice
+        options:
+          - black-forest-labs/flux-1-schnell
+          - black-forest-labs/flux-1-1-pro
+          - stabilityai/stable-diffusion-3-5-large
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate OG backgrounds
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          # Подставляем выбранную модель если не дефолт
+          if [ "${{ inputs.model }}" != "black-forest-labs/flux-1-schnell" ]; then
+            sed -i "s|const MODEL = '.*'|const MODEL = '${{ inputs.model }}'|" scripts/generate-og-backgrounds-openrouter.mjs
+          fi
+          node scripts/generate-og-backgrounds-openrouter.mjs
+
+      - name: Commit generated backgrounds
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/og-backgrounds/
+          git diff --staged --quiet || git commit -m "chore(og): обновить AI-фоны через OpenRouter (${{ inputs.model }})"
+          git push
