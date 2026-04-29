@@ -93,7 +93,93 @@ const markup = html(markupString);
 3. Учитывайте, что для тегов URL содержит кириллицу — Astro построит
    путь правильно, но при ссылке в `og:image` нужен `encodeURIComponent`.
 
-## Тестирование локально
+## Возможности и ограничения Satori
+
+Satori поддерживает ограниченное подмножество CSS. Скрипт
+`scripts/explore-satori.mjs` генерирует PNG-превью для всех шаблонов без
+полного Astro-билда — запускайте его при итерации над дизайном.
+
+**Поддерживается:**
+- `display:flex` (flexbox целиком: direction, align, justify, gap, flex:1, wrap, shrink)
+- `backgroundImage`: `linear-gradient`, `radial-gradient`, `repeating-linear-gradient`
+- `backgroundImage`: `url(data:image/png;base64,...)` — data URI для растровых фонов
+- `borderRadius`, `border` (color, width, style)
+- `fontSize`, `fontWeight`, `letterSpacing`, `lineHeight`, `textTransform`
+- `color`, `backgroundColor`, `opacity`
+- `padding`, `margin`, `width`, `height`, `minWidth`, `maxWidth`, `minHeight`, `maxHeight`
+- `writingMode` (вертикальный текст — `vertical-rl`)
+- `img` с `src` в виде data URI или внешнего https-URL
+
+**Не поддерживается:**
+- `boxShadow` (игнорируется без ошибки)
+- `display:grid`
+- `position: absolute/fixed` (поддержка ограничена)
+- `clip-path`, `filter`, `backdropFilter`
+- `textOverflow: ellipsis` — обрезку делайте в JS до передачи строки
+- `@font-face` — шрифты только через API `fonts` в опциях Satori
+
+## AI-фоны для обложек
+
+Наиболее выразительный способ улучшить обложки — использовать нейросетевой
+фон под каждую категорию. Satori принимает base64 data URI в `backgroundImage`,
+поэтому схема простая:
+
+1. Сгенерируйте PNG-фоны (1200×630 или 16:9) в любом инструменте.
+2. Сохраните как `public/og-backgrounds/<категория>.png`:
+   - `ts-piot.png` — синяя тема
+   - `markirovka.png` — зелёная тема
+   - `zakonodatelstvo.png` — янтарная тема
+3. В `src/pages/og/[slug].png.ts` загрузите и подставьте:
+
+```ts
+const bgPath = `./public/og-backgrounds/${cat}.png`;
+const bgDataUri = fs.existsSync(bgPath)
+  ? `data:image/png;base64,${fs.readFileSync(bgPath).toString('base64')}`
+  : null;
+
+// В разметке — фон + полупрозрачный оверлей для читаемости текста:
+// background: bgDataUri ? `url(${bgDataUri})` : '#0d0d0d'
+// Поверх — div с background: rgba(0,0,0,0.65)
+```
+
+### Инструменты для генерации фонов
+
+| Инструмент | Доступ | Примечание |
+|---|---|---|
+| Gemini Imagen 4 | Платный API (ai.dev) | Скрипт готов: `scripts/generate-og-backgrounds.mjs` |
+| Midjourney | Discord-подписка | Экспортировать как PNG 1280×720+ |
+| ChatGPT / DALL-E 3 | Платный OpenAI | «dark abstract texture, no text, 16:9» |
+| Stable Diffusion | Локально / бесплатно | ComfyUI или Automatic1111 |
+
+**Советы по промптам** (для любого генератора):
+```
+Dark abstract [blue/green/amber] texture background, very low contrast,
+subtle [circuit lines / data matrix fragments / marble texture],
+photorealistic, 16:9, no text, no people, no logos,
+suitable as overlay background for white typography
+```
+
+### Gemini API (ключ уже настроен)
+
+`GEMINI_API_KEY` задан в `.claude/settings.local.json` (не в git).
+Текстовые модели (`gemini-2.5-flash`, `gemini-2.0-flash`) работают на free tier.
+Imagen 4 и Flash Image (генерация картинок) требуют платного тарифа.
+
+Для генерации фонов через Gemini после апгрейда:
+```bash
+node scripts/generate-og-backgrounds.mjs
+```
+
+## Превью без полного билда
+
+```bash
+node scripts/preview-og.mjs         # текущий шаблон, 4 варианта
+node scripts/explore-satori.mjs     # 6 альтернативных шаблонов
+```
+
+Результаты сохраняются в `scripts/og-previews/` (в git не попадают).
+
+## Тестирование через Astro-билд
 
 ```bash
 npm run build

@@ -185,6 +185,47 @@ seo:
 - Сокращения раскрываем при первом упоминании: ТС ПИоТ → расшифровать,
   УКЭП → расшифровать.
 
+## Gemini API и нейросетевые возможности
+
+`GEMINI_API_KEY` настроен в `.claude/settings.local.json` (gitignored, не
+коммитится). Ключ подхватывается автоматически при старте сессии.
+
+### Что работает на текущем free-tier ключе
+
+- **Текстовые модели** (`gemini-2.5-flash`, `gemini-2.0-flash`) — полный доступ.
+  Используются агентами research-specialist и content-writer.
+- **TTS** (`gemini-2.5-flash-preview-tts`) — аудиоозвучка статей.
+
+### Что требует платного тарифа (upgrade на ai.dev)
+
+- **Imagen 4** (`imagen-4.0-generate-002`) — генерация изображений. Нужна для
+  автогенерации AI-фонов OG-картинок.
+- **Gemini Flash Image** (`gemini-2.5-flash-image`) — нативная image gen через
+  generateContent API.
+
+### AI-фоны для OG-обложек
+
+Satori поддерживает `backgroundImage: url(data:image/png;base64,...)`, поэтому
+нейросетевые фоны можно подключить без изменения архитектуры:
+
+1. Сгенерировать PNG-текстуры (1200×630, тёмные, без текста) в любом
+   генераторе — Midjourney, DALL-E, Stable Diffusion, или Imagen после апгрейда.
+2. Сохранить как `public/og-backgrounds/{ts-piot,markirovka,zakonodatelstvo}.png`.
+3. Раскомментировать поддержку фонов в `src/pages/og/[slug].png.ts`.
+
+Скрипт для автогенерации через Imagen готов: `scripts/generate-og-backgrounds.mjs`.
+Подробности — `docs/og-images.md`.
+
+### Вспомогательные скрипты (scripts/)
+
+| Скрипт | Назначение |
+|---|---|
+| `preview-og.mjs` | Рендерит текущий OG-шаблон для 4 тестовых заголовков |
+| `explore-satori.mjs` | Генерирует 6 альтернативных шаблонов для сравнения |
+| `generate-og-backgrounds.mjs` | Генерирует AI-фоны через Gemini Imagen (платный) |
+
+Запуск: `node scripts/<имя>.mjs`. Результаты в `scripts/og-previews/` (gitignored).
+
 ## Технические особенности (фундаментально)
 
 Эти вещи легко не заметить — учитывайте при любых изменениях.
