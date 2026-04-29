@@ -1,190 +1,234 @@
-# OG-картинки: автогенерация через Satori + Resvg
+# Изображения для статей и OG-обложки
 
-Каждая статья получает уникальную обложку 1200×630 px, генерируемую на
-этапе сборки. Файл логики — `src/pages/og/[slug].png.ts`.
+В проекте два типа изображений:
 
-## Как это работает
+| Тип | Путь | Размер | Назначение |
+|---|---|---|---|
+| **Hero** | `public/images/hero/{slug}.jpg` | 1200×630 | Карточка статьи на сайте, шапка поста |
+| **OG** | `/og/{slug}.png` (runtime) | 1200×630 | og:image для соцсетей и мессенджеров |
 
-1. `getStaticPaths` обходит коллекцию `blog` (только `draft: false`) и
-   для каждого поста создаёт endpoint `/og/<id>.png`.
-2. `GET` собирает HTML-разметку обложки, передаёт в Satori — получает SVG.
-3. SVG конвертируется в PNG через `@resvg/resvg-js` (нативный Rust-бинарь).
-4. PNG возвращается как `Response` с `Content-Type: image/png` и
-   `Cache-Control: public, max-age=31536000, immutable`.
-5. В `BlogPost.astro` используется как fallback, если у поста нет
-   `heroImage` в frontmatter:
+Hero — AI-иллюстрация, генерируется один раз и хранится как статический файл.
+OG — текстовая обложка, генерируется на лету через Satori при каждом запросе
+(или при сборке). Если у поста нет `heroImage`, `BlogPost.astro` подставляет
+OG-картинку и в `og:image`.
 
-   ```ts
-   const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined);
-   ```
+---
 
-Vercel дополнительно кэширует `/pagefind/*` (см. `vercel.json`); для `/og/*`
-Cache-Control приходит из самого Response.
+## Hero-изображения для статей
 
-## Шрифты
+### Как прописать в статье
 
-Главное и неочевидное: один шрифт-subset не покрывает кириллицу + латиницу +
-пунктуацию. Поэтому в `fonts` Satori передаются **три набора с разными
-именами**, чтобы движок умел fallback'ить:
+Добавьте в frontmatter после `pubDate`:
 
-| Имя для Satori | Файл | Что покрывает |
-|---|---|---|
-| `InterCyr` | `public/fonts/inter-regular.woff` (cyrillic subset) | а-я, А-Я |
-| `InterLat` | `public/fonts/inter-latin-regular.woff` | a-z, 0-9, ASCII пунктуация |
-| `InterLatExt` | `public/fonts/inter-latin-ext-regular.woff` | «», —, ё и пр. диакритика |
+```yaml
+heroImage: "/images/hero/2026-01-15-chto-takoe-ts-piot.jpg"
+```
 
-В CSS `font-family: 'InterCyr', 'InterLat', 'InterLatExt'`. Satori сначала
-ищет глиф в первом, не находит — идёт во второй и т.д.
+Если поле отсутствует — в шапке статьи и в `og:image` подставится
+автоматически сгенерированная OG-картинка.
 
-Если бы все шрифты имели одно имя `Inter`, Satori брал бы только первый и
-выводил `NO GLYPH` для всех остальных символов.
+### Генерация через GitHub Actions (рекомендуется)
 
-### Откуда берутся файлы
+**Actions → Generate Hero Images → Run workflow**
 
-При установке `@fontsource/inter` файлы копируются в `public/fonts/` командами:
+| Параметр | Значение |
+|---|---|
+| `slug` пусто | Генерировать для всех статей без `heroImage` (кроме черновиков) |
+| `slug = 2026-01-15-chto-takoe-ts-piot` | Только одна статья |
+
+Workflow:
+1. Устанавливает зависимости (`npm ci`)
+2. Запускает `scripts/generate-hero-images.mjs`
+3. Сохраняет PNG/JPG в `public/images/hero/`
+4. Прописывает `heroImage:` во frontmatter статьи
+5. Коммитит и пушит в `main`
+
+Через ~2–3 минуты после запуска изображения появятся в репозитории.
+
+**Требования:**
+- Секрет `GEMINI_API_KEY` в настройках репозитория (Settings → Secrets → Actions)
+- Платный тариф Google AI (free tier не поддерживает генерацию изображений)
+
+### Генерация локально
 
 ```bash
-cp node_modules/@fontsource/inter/files/inter-cyrillic-400-normal.woff public/fonts/inter-regular.woff
-cp node_modules/@fontsource/inter/files/inter-cyrillic-700-normal.woff public/fonts/inter-bold.woff
-cp node_modules/@fontsource/inter/files/inter-latin-400-normal.woff public/fonts/inter-latin-regular.woff
-cp node_modules/@fontsource/inter/files/inter-latin-700-normal.woff public/fonts/inter-latin-bold.woff
-cp node_modules/@fontsource/inter/files/inter-latin-ext-400-normal.woff public/fonts/inter-latin-ext-regular.woff
-cp node_modules/@fontsource/inter/files/inter-latin-ext-700-normal.woff public/fonts/inter-latin-ext-bold.woff
+GEMINI_API_KEY=... node scripts/generate-hero-images.mjs          # все без hero
+GEMINI_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...    # одна статья
 ```
 
-Файлы в репозитории — копии, не симлинки. При смене шрифта обновите все шесть.
+### Модель и промпты
 
-## Шаблон обложки
+Используется `gemini-3.1-flash-image-preview` (~$0.045 за изображение).
 
-Markup собирается как **строка** через интерполяцию, потом передаётся в
-`html(string)` (функция `satori-html`):
+Промпт формируется автоматически по заголовку и категории статьи:
 
-```ts
-const markupString = `
-  <div style="display:flex; flex-direction:column; height:100%; width:100%; ...">
-    ...
-  </div>
-`;
-const markup = html(markupString);
+```
+Editorial photo illustration for a Russian business article.
+Topic: "{title}".
+Visual style: {стиль категории}, very dark background (90% dark),
+subtle abstract composition, photorealistic, cinematic lighting,
+16:9 aspect ratio, no text, no people, no logos,
+suitable for white typography overlay
 ```
 
-**Важно для Satori:**
+Стили по категориям (`scripts/generate-hero-images.mjs`, `CAT_STYLE`):
 
-- Каждый элемент с двумя и более детьми обязан иметь `display:flex` (или
-  `display:grid`). Без этого Satori выбрасывает ошибку.
-- Не используйте `html` как tagged template literal с интерполяцией HTML
-  внутри — `${"<div>...</div>"}` экранируется и попадает в картинку как
-  буквальный текст. Собирайте строку, потом парсите.
-- Все строки нужно экранировать (HTML entities) — есть утилита `escapeHtml`
-  внутри файла.
+| Категория | Стиль |
+|---|---|
+| `ts-piot` | deep navy blue, electric blue accents, circuit board patterns, digital technology |
+| `markirovka` | deep forest green, teal accents, barcode and data matrix patterns, logistics |
+| `zakonodatelstvo` | dark charcoal, warm amber gold accents, marble texture, formal documents |
 
-## Когда добавляют OG для категорий и тегов
+Чтобы изменить стиль — отредактируйте `CAT_STYLE` в скрипте и перегенерируйте.
 
-Сейчас OG генерируется **только для постов**. Для категорий и тегов в
-`og:image` подставляется `/og-default.svg` (через `BaseHead.astro`).
+---
 
-Если нужна автогенерация для других типов:
+## OG-фоны для категорий
 
-1. Создайте `src/pages/og/category-[category].png.ts` или
-   `src/pages/og/tag-[tag].png.ts`.
-2. В соответствующем шаблоне страницы (`category/[category].astro`,
-   `tag/[tag].astro`) передавайте в `<BaseHead image={...} />` ссылку
-   на нужный endpoint.
-3. Учитывайте, что для тегов URL содержит кириллицу — Astro построит
-   путь правильно, но при ссылке в `og:image` нужен `encodeURIComponent`.
+OG-картинки получают окрашенный фон в цвет категории. Чтобы заменить
+процедурный градиент на AI-текстуру — используйте workflow OG Backgrounds.
 
-## Возможности и ограничения Satori
+**Actions → Generate OG Backgrounds → Run workflow**
 
-Satori поддерживает ограниченное подмножество CSS. Скрипт
-`scripts/explore-satori.mjs` генерирует PNG-превью для всех шаблонов без
-полного Astro-билда — запускайте его при итерации над дизайном.
+Выберите модель из выпадающего списка:
 
-**Поддерживается:**
-- `display:flex` (flexbox целиком: direction, align, justify, gap, flex:1, wrap, shrink)
-- `backgroundImage`: `linear-gradient`, `radial-gradient`, `repeating-linear-gradient`
-- `backgroundImage`: `url(data:image/png;base64,...)` — data URI для растровых фонов
-- `borderRadius`, `border` (color, width, style)
-- `fontSize`, `fontWeight`, `letterSpacing`, `lineHeight`, `textTransform`
-- `color`, `backgroundColor`, `opacity`
-- `padding`, `margin`, `width`, `height`, `minWidth`, `maxWidth`, `minHeight`, `maxHeight`
-- `writingMode` (вертикальный текст — `vertical-rl`)
-- `img` с `src` в виде data URI или внешнего https-URL
-
-**Не поддерживается:**
-- `boxShadow` (игнорируется без ошибки)
-- `display:grid`
-- `position: absolute/fixed` (поддержка ограничена)
-- `clip-path`, `filter`, `backdropFilter`
-- `textOverflow: ellipsis` — обрезку делайте в JS до передачи строки
-- `@font-face` — шрифты только через API `fonts` в опциях Satori
-
-## AI-фоны для обложек
-
-Наиболее выразительный способ улучшить обложки — использовать нейросетевой
-фон под каждую категорию. Satori принимает base64 data URI в `backgroundImage`,
-поэтому схема простая:
-
-1. Сгенерируйте PNG-фоны (1200×630 или 16:9) в любом инструменте.
-2. Сохраните как `public/og-backgrounds/<категория>.png`:
-   - `ts-piot.png` — синяя тема
-   - `markirovka.png` — зелёная тема
-   - `zakonodatelstvo.png` — янтарная тема
-3. В `src/pages/og/[slug].png.ts` загрузите и подставьте:
-
-```ts
-const bgPath = `./public/og-backgrounds/${cat}.png`;
-const bgDataUri = fs.existsSync(bgPath)
-  ? `data:image/png;base64,${fs.readFileSync(bgPath).toString('base64')}`
-  : null;
-
-// В разметке — фон + полупрозрачный оверлей для читаемости текста:
-// background: bgDataUri ? `url(${bgDataUri})` : '#0d0d0d'
-// Поверх — div с background: rgba(0,0,0,0.65)
-```
-
-### Инструменты для генерации фонов
-
-| Инструмент | Доступ | Примечание |
+| Группа | Модели | Цена |
 |---|---|---|
-| Gemini Imagen 4 | Платный API (ai.dev) | Скрипт готов: `scripts/generate-og-backgrounds.mjs` |
-| Midjourney | Discord-подписка | Экспортировать как PNG 1280×720+ |
-| ChatGPT / DALL-E 3 | Платный OpenAI | «dark abstract texture, no text, 16:9» |
-| Stable Diffusion | Локально / бесплатно | ComfyUI или Automatic1111 |
+| FLUX (OpenRouter) | `flux-1-schnell` (бесплатно), `flux-1-1-pro`, `flux-2-max` и др. | $0–$0.06/img |
+| OpenAI (OpenRouter) | `gpt-image-1`, `dall-e-3` | ~$0.04/img |
+| Stability (OpenRouter) | `stable-diffusion-3-5-large` | ~$0.035/img |
+| Ideogram / Recraft | `ideogram-v3`, `recraft-v3` | ~$0.03–$0.08/img |
+| Gemini Imagen 4 | `google/imagen-4-fast`, `google/imagen-4-ultra` | платный Google AI |
+| Nano Banana | `google/gemini-3.1-flash-image-preview` | ~$0.045/img |
 
-**Советы по промптам** (для любого генератора):
+Workflow сохраняет файлы `public/og-backgrounds/{ts-piot,markirovka,zakonodatelstvo}.jpg`
+и коммитит в `main`.
+
+**Требования:**
+- Секрет `OPENROUTER_API_KEY` для моделей без префикса `google/`
+- Секрет `GEMINI_API_KEY` (платный) для моделей с префиксом `google/`
+
+### Ручная замена фонов
+
+Любое изображение 1200×630 (или пропорциональное 16:9) подойдёт.
+Сохраните как JPEG в `public/og-backgrounds/`:
+
 ```
-Dark abstract [blue/green/amber] texture background, very low contrast,
-subtle [circuit lines / data matrix fragments / marble texture],
+public/og-backgrounds/ts-piot.jpg
+public/og-backgrounds/markirovka.jpg
+public/og-backgrounds/zakonodatelstvo.jpg
+```
+
+Рекомендации по промпту для любого генератора:
+```
+Dark abstract [blue/green/amber] background, very low contrast,
+subtle [circuit board / barcode fragments / marble texture],
 photorealistic, 16:9, no text, no people, no logos,
-suitable as overlay background for white typography
+suitable as background for white typography overlay
 ```
 
-### Gemini API (ключ уже настроен)
+> **Важно:** Satori встраивает фон как base64 data URI. PNG 757 KB → Satori
+> зависает. Используйте JPEG quality 75–80 (< 20 KB). Скрипт компрессии:
+> `node scripts/compress-og-backgrounds.mjs`.
 
-`GEMINI_API_KEY` задан в `.claude/settings.local.json` (не в git).
-Текстовые модели (`gemini-2.5-flash`, `gemini-2.0-flash`) работают на free tier.
-Imagen 4 и Flash Image (генерация картинок) требуют платного тарифа.
+---
 
-Для генерации фонов через Gemini после апгрейда:
+## OG-картинки: технические детали (Satori)
+
+Логика генерации: `src/pages/og/[slug].png.ts`
+
+Каждый пост получает `/og/{slug}.png` на этапе сборки:
+
+1. `getStaticPaths` обходит `blog` (только `draft: false`)
+2. Разметка строится как строка → `html()` из `satori-html` → `satori()` → SVG
+3. SVG → PNG через `@resvg/resvg-js` (Rust native)
+4. Возвращается как `Response` с `Cache-Control: immutable`
+
+### Шрифты
+
+Один subset не покрывает кириллицу + латиницу. Подключены три набора:
+
+| Имя в Satori | Файл | Покрытие |
+|---|---|---|
+| `InterCyr` | `public/fonts/inter-regular.woff` | а-я, А-Я |
+| `InterLat` | `public/fonts/inter-latin-regular.woff` | a-z, 0-9, ASCII |
+| `InterLatExt` | `public/fonts/inter-latin-ext-regular.woff` | «», —, ё, диакритика |
+
+В CSS: `font-family: 'InterCyr', 'InterLat', 'InterLatExt'`.
+Satori идёт по fallback-цепочке для каждого глифа.
+
+Если видите `NO GLYPH` — проверьте порядок шрифтов в массиве `fonts`
+и строку `font-family` в шаблоне.
+
+Восстановить шрифты из node_modules:
 ```bash
-node scripts/generate-og-backgrounds.mjs
+cp node_modules/@fontsource/inter/files/inter-cyrillic-400-normal.woff   public/fonts/inter-regular.woff
+cp node_modules/@fontsource/inter/files/inter-cyrillic-700-normal.woff   public/fonts/inter-bold.woff
+cp node_modules/@fontsource/inter/files/inter-latin-400-normal.woff      public/fonts/inter-latin-regular.woff
+cp node_modules/@fontsource/inter/files/inter-latin-700-normal.woff      public/fonts/inter-latin-bold.woff
+cp node_modules/@fontsource/inter/files/inter-latin-ext-400-normal.woff  public/fonts/inter-latin-ext-regular.woff
+cp node_modules/@fontsource/inter/files/inter-latin-ext-700-normal.woff  public/fonts/inter-latin-ext-bold.woff
 ```
 
-## Превью без полного билда
+### Ограничения Satori
+
+**Работает:**
+- `display:flex` полностью (direction, align, justify, gap, wrap, shrink)
+- `backgroundImage`: градиенты и `url(data:image/...;base64,...)`
+- `borderRadius`, `border`, `opacity`
+- `img` с data URI или https-URL
+- `fontSize`, `fontWeight`, `letterSpacing`, `lineHeight`
+
+**Не работает:**
+- `position: absolute` — вместо него вкладывайте flex-контейнеры
+- `boxShadow`, `filter`, `backdropFilter`, `clip-path` — игнорируются
+- `display:grid`
+- Эмодзи — используйте SVG-фигуры или текстовые символы
+- `textOverflow: ellipsis` — обрезайте строку в JS до передачи
+
+**Сборка разметки:**
+```ts
+// Правильно: строка → html()
+const markup = html(`<div style="display:flex">...</div>`);
+
+// Неправильно: интерполяция HTML внутри тегового литерала
+// html`<div>${"<span>текст</span>"}` — экранируется и попадает как текст
+```
+
+### Локальный просмотр без билда
 
 ```bash
-node scripts/preview-og.mjs         # текущий шаблон, 4 варианта
-node scripts/explore-satori.mjs     # 6 альтернативных шаблонов
+node scripts/preview-og.mjs           # текущий шаблон (4 варианта заголовков)
+node scripts/explore-og-styles.mjs    # 6 тёмных текстурных фонов
+node scripts/explore-og-styles-v2.mjs # 6 цветных стилей
+node scripts/explore-card-formats.mjs # 5 форматов карточек (фото + текст снизу)
 ```
 
-Результаты сохраняются в `scripts/og-previews/` (в git не попадают).
+Результаты в `scripts/og-previews/` (gitignored).
 
-## Тестирование через Astro-билд
+---
 
-```bash
-npm run build
-open dist/og/<slug>.png   # любой пост; на Linux — xdg-open
-```
+## Скрипты (scripts/)
 
-Если PNG почти пустой / без текста / показывает «NO GLYPH» — проверьте
-порядок шрифтов в `fonts`-массиве и `font-family` в шаблоне.
+| Скрипт | Назначение |
+|---|---|
+| `generate-hero-images.mjs` | AI hero-изображения для статей (Nano Banana 2) |
+| `generate-og-backgrounds.mjs` | AI фоны для OG через Gemini Imagen |
+| `generate-og-backgrounds-openrouter.mjs` | AI фоны через OpenRouter (FLUX и др.) |
+| `generate-og-backgrounds-local.mjs` | Процедурные SVG-фоны без внешних API |
+| `compress-og-backgrounds.mjs` | PNG → JPEG через sharp (обязательно перед деплоем) |
+| `preview-og.mjs` | Превью текущего OG-шаблона |
+| `explore-og-styles.mjs` | 6 тёмных стилей (Series 1) |
+| `explore-og-styles-v2.mjs` | 6 цветных стилей (Series 2) |
+| `explore-card-formats.mjs` | 5 форматов карточек (изображение + текст снизу) |
+
+---
+
+## GitHub Actions workflows
+
+| Workflow | Файл | Триггер | Что делает |
+|---|---|---|---|
+| Generate Hero Images | `.github/workflows/generate-hero-images.yml` | `workflow_dispatch` | Генерирует hero для статей, коммитит в main |
+| Generate OG Backgrounds | `.github/workflows/generate-og-backgrounds.yml` | `workflow_dispatch` | Генерирует фоны для OG, 22 модели на выбор |
+
+Оба workflow работают только с `main`-ветки (требование GitHub для `workflow_dispatch` в UI).
