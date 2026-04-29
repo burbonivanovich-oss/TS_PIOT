@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       model:
-        description: 'Модель генерации (OpenRouter или Gemini)'
+        description: 'Модель генерации'
         required: false
         default: 'black-forest-labs/flux-1-schnell'
         type: choice
@@ -19,8 +19,9 @@ on:
           - stabilityai/stable-diffusion-3-medium
           # OpenRouter — DALL-E
           - openai/dall-e-3
-          # Gemini Imagen (требует GEMINI_API_KEY + платный тариф)
+          # Gemini (требует GEMINI_API_KEY + платный тариф)
           - google/imagen-4
+          - google/gemini-2.5-flash-image
 
 jobs:
   generate:
@@ -47,11 +48,19 @@ jobs:
           sed -i "s|const MODEL = '.*'|const MODEL = '${{ inputs.model }}'|" scripts/generate-og-backgrounds-openrouter.mjs
           node scripts/generate-og-backgrounds-openrouter.mjs
 
-      - name: Generate via Gemini Imagen
-        if: ${{ startsWith(inputs.model, 'google/') }}
+      - name: Generate via Gemini Imagen 4
+        if: ${{ inputs.model == 'google/imagen-4' }}
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: node scripts/generate-og-backgrounds.mjs
+          GEMINI_MODEL: imagen-4.0-generate-001
+        run: node scripts/generate-og-backgrounds-gemini.mjs
+
+      - name: Generate via Gemini 2.5 Flash Image
+        if: ${{ inputs.model == 'google/gemini-2.5-flash-image' }}
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-2.5-flash-image
+        run: node scripts/generate-og-backgrounds-gemini.mjs
 
       - name: Commit generated backgrounds
         run: |
