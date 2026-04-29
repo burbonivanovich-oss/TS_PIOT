@@ -8,6 +8,7 @@ export type PostData = {
 	updatedDate?: string;
 	categories: string[];
 	tags: string[];
+	previewImage?: string;
 };
 
 type Props = {
@@ -102,12 +103,19 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 10 }
 						return (
 							<li key={post.id} className="bf-card">
 								<a href={`/blog/${post.id}/`}>
-									{catTitle && <span className="bf-card-cat">{catTitle}</span>}
-									<h2 className="bf-card-title">{post.title}</h2>
-									<p className="bf-card-desc">{post.description}</p>
-									<p className="bf-card-date">
-										{isUpdated ? 'обновлено ' : ''}{fmt(date)}
-									</p>
+									{post.previewImage && (
+										<div className="bf-card-img">
+											<img src={post.previewImage} alt="" loading="lazy" width="800" height="420" />
+										</div>
+									)}
+									<div className="bf-card-body">
+										{catTitle && <span className="bf-card-cat">{catTitle}</span>}
+										<h2 className="bf-card-title">{post.title}</h2>
+										<p className="bf-card-desc">{post.description}</p>
+										<p className="bf-card-date">
+											{isUpdated ? 'обновлено ' : ''}{fmt(date)}
+										</p>
+									</div>
 								</a>
 							</li>
 						);
@@ -233,19 +241,42 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 10 }
 					gap: 1rem;
 				}
 				.bf-card a {
-					display: block;
-					padding: 1.4rem;
+					display: flex;
+					flex-direction: column;
 					border: 1px solid rgb(226, 232, 240);
 					border-radius: 10px;
 					background: #fff;
 					color: rgb(30, 41, 59);
 					text-decoration: none;
 					height: 100%;
+					overflow: hidden;
 					transition: all 0.15s ease;
 				}
 				.bf-card a:hover {
 					border-color: #1d4ed8;
 					box-shadow: 0 2px 6px rgba(15,23,42,.08), 0 8px 24px rgba(15,23,42,.05);
+				}
+				.bf-card-img {
+					width: 100%;
+					aspect-ratio: 16 / 9;
+					overflow: hidden;
+					flex-shrink: 0;
+				}
+				.bf-card-img img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					display: block;
+					transition: transform 0.3s ease;
+				}
+				.bf-card a:hover .bf-card-img img {
+					transform: scale(1.03);
+				}
+				.bf-card-body {
+					padding: 1.2rem 1.4rem 1.4rem;
+					display: flex;
+					flex-direction: column;
+					flex: 1;
 				}
 				.bf-card-cat {
 					display: inline-block;
