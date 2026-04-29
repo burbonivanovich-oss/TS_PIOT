@@ -20,7 +20,9 @@
     "sharp": "^0.34.2"
   },
   "devDependencies": {
+    "@fontsource/comfortaa": "^5.2.8",
     "@fontsource/commissioner": "^5.2.10",
+    "@fontsource/cormorant-garamond": "^5.2.11",
     "@fontsource/exo-2": "^5.2.8",
     "@fontsource/geologica": "^5.2.8",
     "@fontsource/golos-text": "^5.2.8",
@@ -30,8 +32,11 @@
     "@fontsource/manrope": "^5.2.8",
     "@fontsource/montserrat": "^5.2.8",
     "@fontsource/onest": "^5.2.11",
+    "@fontsource/oswald": "^5.2.8",
     "@fontsource/playfair-display": "^5.2.8",
+    "@fontsource/raleway": "^5.2.8",
     "@fontsource/rubik": "^5.2.8",
+    "@fontsource/russo-one": "^5.2.7",
     "@fontsource/unbounded": "^5.2.8",
     "@resvg/resvg-js": "^2.6.2",
     "pagefind": "^1.5.2",
