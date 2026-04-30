@@ -190,15 +190,18 @@ suitable as background for white typography overlay
 
 ### Шрифты
 
-Один subset не покрывает кириллицу + латиницу. Подключены три набора:
+OG-картинки используют ту же пару, что и сайт — Commissioner (заголовок) + Geologica (тело).
+Один subset не покрывает кириллицу + латиницу, поэтому подключены четыре набора:
 
 | Имя в Satori | Файл | Покрытие |
 |---|---|---|
-| `InterCyr` | `public/fonts/inter-regular.woff` | а-я, А-Я |
+| `Commissioner` | `public/fonts/commissioner-regular/bold.woff` | а-я, А-Я (заголовок) |
+| `Geologica` | `public/fonts/geologica-regular/bold.woff` | а-я, А-Я (тело) |
 | `InterLat` | `public/fonts/inter-latin-regular.woff` | a-z, 0-9, ASCII |
 | `InterLatExt` | `public/fonts/inter-latin-ext-regular.woff` | «», —, ё, диакритика |
 
-В CSS: `font-family: 'InterCyr', 'InterLat', 'InterLatExt'`.
+В шаблоне заголовок получает `font-family: 'Commissioner', 'InterLat', 'InterLatExt'`,
+остальной текст — `font-family: 'Geologica', 'InterLat', 'InterLatExt'`.
 Satori идёт по fallback-цепочке для каждого глифа.
 
 Если видите `NO GLYPH` — проверьте порядок шрифтов в массиве `fonts`
@@ -206,8 +209,13 @@ Satori идёт по fallback-цепочке для каждого глифа.
 
 Восстановить шрифты из node_modules:
 ```bash
-cp node_modules/@fontsource/inter/files/inter-cyrillic-400-normal.woff   public/fonts/inter-regular.woff
-cp node_modules/@fontsource/inter/files/inter-cyrillic-700-normal.woff   public/fonts/inter-bold.woff
+# Кириллические (heading + body)
+cp node_modules/@fontsource/commissioner/files/commissioner-cyrillic-400-normal.woff  public/fonts/commissioner-regular.woff
+cp node_modules/@fontsource/commissioner/files/commissioner-cyrillic-700-normal.woff  public/fonts/commissioner-bold.woff
+cp node_modules/@fontsource/geologica/files/geologica-cyrillic-400-normal.woff        public/fonts/geologica-regular.woff
+cp node_modules/@fontsource/geologica/files/geologica-cyrillic-700-normal.woff        public/fonts/geologica-bold.woff
+
+# Латинские (fallback для ASCII, цифр, пунктуации)
 cp node_modules/@fontsource/inter/files/inter-latin-400-normal.woff      public/fonts/inter-latin-regular.woff
 cp node_modules/@fontsource/inter/files/inter-latin-700-normal.woff      public/fonts/inter-latin-bold.woff
 cp node_modules/@fontsource/inter/files/inter-latin-ext-400-normal.woff  public/fonts/inter-latin-ext-regular.woff

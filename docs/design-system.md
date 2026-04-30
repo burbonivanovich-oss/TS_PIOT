@@ -42,18 +42,46 @@
 
 ## Типографика
 
-**Пара шрифтов:** Commissioner (заголовки) + Geologica (текст). Оба — кириллица,
-подключены через `@font-face` в `global.css`. Fallback: `Inter, -apple-system, sans-serif`.
+### Текущая пара шрифтов
 
-Файлы в `public/fonts/`:
-- `commissioner-regular.woff` / `commissioner-bold.woff`
-- `geologica-regular.woff` / `geologica-bold.woff`
+| Роль | Шрифт | Применение |
+|---|---|---|
+| Заголовки (h1–h6) | **Commissioner** | Гуманистический гротеск, кириллица |
+| Основной текст | **Geologica** | Переменный sans-serif, кириллица |
+| Fallback (UI-элементы) | Inter → system-ui | Мелкие числа, даты, кнопки хедера |
+
+Оба шрифта подключены через `@font-face` в `global.css`. Исходники — `@fontsource`:
+
+```
+public/fonts/
+  commissioner-regular.woff   ← @fontsource/commissioner, cyrillic 400
+  commissioner-bold.woff      ← @fontsource/commissioner, cyrillic 700
+  geologica-regular.woff      ← @fontsource/geologica, cyrillic 400
+  geologica-bold.woff         ← @fontsource/geologica, cyrillic 700
+  inter-latin-regular.woff    ← @fontsource/inter, latin 400 (fallback)
+  inter-latin-bold.woff       ← @fontsource/inter, latin 700 (fallback)
+  inter-latin-ext-regular.woff ← @fontsource/inter, latin-ext 400 (fallback)
+  inter-latin-ext-bold.woff    ← @fontsource/inter, latin-ext 700 (fallback)
+```
 
 ```
 Базовый размер:  19px (desktop), 18px (≤720px)
 Line-height:     1.65
 Letter-spacing:  -0.01em (заголовки)
 ```
+
+### Как сменить шрифт
+
+1. Установить пакет: `npm install @fontsource/<name>`
+2. Скопировать woff-файлы в `public/fonts/`:
+   ```bash
+   cp node_modules/@fontsource/<name>/files/<name>-cyrillic-400-normal.woff public/fonts/<name>-regular.woff
+   cp node_modules/@fontsource/<name>/files/<name>-cyrillic-700-normal.woff public/fonts/<name>-bold.woff
+   ```
+3. Обновить `@font-face` в `src/styles/global.css`
+4. Поменять `font-family` на `body {}` (текст) или `h1...h6 {}` (заголовки)
+5. Обновить массив `fonts` в `src/pages/og/[slug].png.ts`
+6. Обновить этот файл (`docs/design-system.md`)
 
 **Шкала заголовков:**
 
