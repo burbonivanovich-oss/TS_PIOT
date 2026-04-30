@@ -23,48 +23,28 @@ function loadFont(pkg, file, weight) {
   );
 }
 
+const GEO_R = 'geologica-cyrillic-400-normal.woff';
+const GEO_B = 'geologica-cyrillic-700-normal.woff';
+
 const FONTS_DEF = [
-  {
-    name: 'Raleway + Geologica',
-    slug: 'pair-raleway-geologica',
-    headingPkg: 'raleway',
-    headingName: 'Raleway',
-    headingR: 'raleway-cyrillic-400-normal.woff',
-    headingB: 'raleway-cyrillic-700-normal.woff',
-    bodyPkg: 'geologica',
-    bodyName: 'Geologica',
-    bodyR: 'geologica-cyrillic-400-normal.woff',
-    bodyB: 'geologica-cyrillic-700-normal.woff',
-    note: 'Raleway — заголовки / Geologica — тело',
-  },
-  // для сравнения — монофонтовые варианты
-  {
-    name: 'Raleway (везде)',
-    slug: 'pair-raleway-only',
-    headingPkg: 'raleway',
-    headingName: 'Raleway',
-    headingR: 'raleway-cyrillic-400-normal.woff',
-    headingB: 'raleway-cyrillic-700-normal.woff',
-    bodyPkg: 'raleway',
-    bodyName: 'Raleway',
-    bodyR: 'raleway-cyrillic-400-normal.woff',
-    bodyB: 'raleway-cyrillic-700-normal.woff',
-    note: 'Raleway везде — для сравнения',
-  },
-  {
-    name: 'Geologica (везде)',
-    slug: 'pair-geologica-only',
-    headingPkg: 'geologica',
-    headingName: 'Geologica',
-    headingR: 'geologica-cyrillic-400-normal.woff',
-    headingB: 'geologica-cyrillic-700-normal.woff',
-    bodyPkg: 'geologica',
-    bodyName: 'Geologica',
-    bodyR: 'geologica-cyrillic-400-normal.woff',
-    bodyB: 'geologica-cyrillic-700-normal.woff',
-    note: 'Geologica везде — для сравнения',
-  },
-];
+  { slug: 'oswald',            headingName: 'Oswald',            headingPkg: 'oswald',            headingR: 'oswald-cyrillic-400-normal.woff',            headingB: 'oswald-cyrillic-700-normal.woff',            note: 'Конденсированный — максимальный контраст' },
+  { slug: 'playfair',          headingName: 'Playfair Display',  headingPkg: 'playfair-display',  headingR: 'playfair-display-cyrillic-400-normal.woff',  headingB: 'playfair-display-cyrillic-700-normal.woff',  note: 'Редакционный serif — классический контраст' },
+  { slug: 'cormorant',         headingName: 'Cormorant Garamond',headingPkg: 'cormorant-garamond',headingR: 'cormorant-garamond-cyrillic-400-normal.woff', headingB: 'cormorant-garamond-cyrillic-700-normal.woff', note: 'Высококонтрастный serif — изысканно' },
+  { slug: 'lora',              headingName: 'Lora',              headingPkg: 'lora',              headingR: 'lora-cyrillic-400-normal.woff',              headingB: 'lora-cyrillic-700-normal.woff',              note: 'Тёплый serif — журнальный' },
+  { slug: 'unbounded',         headingName: 'Unbounded',         headingPkg: 'unbounded',         headingR: 'unbounded-cyrillic-400-normal.woff',         headingB: 'unbounded-cyrillic-700-normal.woff',         note: 'Широкий гротеск — технологичный' },
+  { slug: 'russo-one',         headingName: 'Russo One',         headingPkg: 'russo-one',         headingR: 'russo-one-cyrillic-400-normal.woff',         headingB: 'russo-one-cyrillic-400-normal.woff',         note: 'Жирный русский характер' },
+  { slug: 'raleway',           headingName: 'Raleway',           headingPkg: 'raleway',           headingR: 'raleway-cyrillic-400-normal.woff',           headingB: 'raleway-cyrillic-700-normal.woff',           note: 'Тонкий геометрик — тихий контраст' },
+  { slug: 'montserrat',        headingName: 'Montserrat',        headingPkg: 'montserrat',        headingR: 'montserrat-cyrillic-400-normal.woff',        headingB: 'montserrat-cyrillic-700-normal.woff',        note: 'Геометрик — уверенный' },
+  { slug: 'commissioner',      headingName: 'Commissioner',      headingPkg: 'commissioner',      headingR: 'commissioner-cyrillic-400-normal.woff',      headingB: 'commissioner-cyrillic-700-normal.woff',      note: 'Гуманистический — элегантный' },
+  { slug: 'golos',             headingName: 'Golos Text',        headingPkg: 'golos-text',        headingR: 'golos-text-cyrillic-400-normal.woff',        headingB: 'golos-text-cyrillic-700-normal.woff',        note: 'Русский дизайн — авторитетный' },
+].map(f => ({
+  ...f,
+  name: `${f.headingName} + Geologica`,
+  bodyName: 'Geologica',
+  bodyPkg: 'geologica',
+  bodyR: GEO_R,
+  bodyB: GEO_B,
+}));
 
 const HEADING = 'ТС ПИоТ: что это и кому нужен программный модуль';
 const BODY    = 'С 28 декабря 2025 года все розничные продавцы маркированных товаров обязаны подключить ТС ПИоТ к онлайн-кассе. Без этого модуля касса не сможет проверить подлинность товара в «Честном знаке» и откажет в продаже.';
