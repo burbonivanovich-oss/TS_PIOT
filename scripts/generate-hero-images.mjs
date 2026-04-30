@@ -1,10 +1,10 @@
 /**
- * Генерирует hero-изображения для статей через Gemini 3.1 Flash Image (Nano Banana 2).
+ * Генерирует hero-изображения для статей через OpenRouter (FLUX.1-schnell).
  * Для каждой статьи без heroImage создаёт картинку и прописывает путь во frontmatter.
  *
  * Запуск:
- *   GEMINI_API_KEY=... node scripts/generate-hero-images.mjs           # все статьи без hero
- *   GEMINI_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...     # одна статья
+ *   OPENROUTER_API_KEY=... node scripts/generate-hero-images.mjs           # все статьи без hero
+ *   OPENROUTER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...     # одна статья
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -14,12 +14,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT       = path.resolve(__dirname, '..');
 const BLOG_DIR   = path.join(ROOT, 'src/content/blog');
 const HERO_DIR   = path.join(ROOT, 'public/images/hero');
-const MODEL      = 'gemini-3.1-flash-image-preview';
+const MODEL      = 'black-forest-labs/flux-1-schnell';
 
 fs.mkdirSync(HERO_DIR, { recursive: true });
 
-const API_KEY = process.env.GEMINI_API_KEY;
-if (!API_KEY) { console.error('GEMINI_API_KEY не задан'); process.exit(1); }
+const API_KEY = process.env.OPENROUTER_API_KEY;
+if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
 
 // Цветовые темы по категории
 const CAT_STYLE = {
@@ -54,22 +54,35 @@ function buildPrompt(title, category) {
 }
 
 async function generateImage(prompt) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
-  const res = await fetch(url, {
+  const res = await fetch('https://openrouter.ai/api/v1/images/generations', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Authorization': `Bearer ${API_KEY}`,
+      'Content-Type': 'application/json',
+      'HTTP-Referer': 'https://reglament-biznes.ru',
+      'X-Title': 'Регламент.Бизнес Hero Generator',
+    },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { responseModalities: ['IMAGE'] },
+      model: MODEL,
+      prompt,
+      n: 1,
+      size: '1792x1024',
+      response_format: 'b64_json',
     }),
   });
+
   if (!res.ok) throw new Error(`API ${res.status}: ${await res.text()}`);
+
   const data = await res.json();
-  const part = data?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
-  if (!part) throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 300));
-  const { mimeType, data: b64 } = part.inlineData;
-  const ext = mimeType.includes('jpeg') ? 'jpg' : 'png';
-  return { buffer: Buffer.from(b64, 'base64'), ext };
+  const b64  = data?.data?.[0]?.b64_json;
+  const url  = data?.data?.[0]?.url;
+
+  if (b64) return { buffer: Buffer.from(b64, 'base64'), ext: 'jpg' };
+  if (url) {
+    const imgRes = await fetch(url);
+    return { buffer: Buffer.from(await imgRes.arrayBuffer()), ext: 'jpg' };
+  }
+  throw new Error('Нет данных в ответе: ' + JSON.stringify(data).slice(0, 300));
 }
 
 // Собираем список статей для обработки
@@ -79,9 +92,7 @@ const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
 const targets = files.filter(file => {
   if (targetSlug && !file.startsWith(targetSlug) && file !== targetSlug + '.md') return false;
   const content = fs.readFileSync(path.join(BLOG_DIR, file), 'utf8');
-  // Пропускаем если heroImage уже есть
   if (/^heroImage:/m.test(content)) return false;
-  // Пропускаем черновики если не указан конкретный slug
   if (!targetSlug && /^draft:\s*true/m.test(content)) return false;
   return true;
 });
