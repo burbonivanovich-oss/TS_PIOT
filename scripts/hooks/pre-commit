@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# pre-commit hook: проверяет quality gates перед публикацией статьи.
+# pre-commit hook: quality gates перед публикацией статьи блога.
 # Установка: bash scripts/install-hooks.sh
 
 set -euo pipefail
@@ -8,7 +8,7 @@ BLOG_PREFIX="src/content/blog/"
 FACTCHECK_DIR=".claude/factchecked"
 ERRORS=0
 
-# Список blog-файлов, которые идут в этот коммит
+# Staged blog-файлы
 staged_blog=$(git diff --cached --name-only | grep "^${BLOG_PREFIX}" | grep '\.md$' || true)
 
 if [ -z "$staged_blog" ]; then
@@ -16,7 +16,6 @@ if [ -z "$staged_blog" ]; then
 fi
 
 for file in $staged_blog; do
-  # Читаем staged-версию файла (не рабочую копию)
   content=$(git show ":${file}" 2>/dev/null || true)
   [ -z "$content" ] && continue
 
@@ -26,29 +25,38 @@ for file in $staged_blog; do
   fi
 
   slug=$(basename "$file" .md)
+  file_errors=0
 
-  # 1. Фактчекинг — ищем маркер .claude/factchecked/<slug>
-  if [ ! -f "${FACTCHECK_DIR}/${slug}" ]; then
+  # 1. SEO-проверка (P0)
+  seo_output=$(echo "$content" | node scripts/check-seo.mjs --label="$file" 2>&1 || true)
+  if echo "$seo_output" | grep -q "^P0"; then
     echo ""
-    echo "  БЛОКИРОВКА: ${file}"
-    echo "  Статья снята с draft, но фактчекинг не подтверждён."
-    echo "  Запустите: /blog factcheck ${file}"
-    echo "  После прохождения создайте маркер:"
-    echo "    mkdir -p ${FACTCHECK_DIR} && touch ${FACTCHECK_DIR}/${slug}"
+    echo "  БЛОКИРОВКА (SEO): ${file}"
+    echo "$seo_output" | grep -E "^  ✗|^P0" | sed 's/^/  /'
     echo ""
-    ERRORS=$((ERRORS + 1))
+    file_errors=$((file_errors + 1))
   fi
 
-  # 2. Предупреждение о каннибализации (не блокируем, только напоминаем)
-  echo ""
-  echo "  НАПОМИНАНИЕ: перед публикацией «${slug}» убедитесь,"
-  echo "  что запущена проверка: /blog cannibalization src/content/blog/"
-  echo ""
+  # 2. Фактчекинг — маркер
+  if [ ! -f "${FACTCHECK_DIR}/${slug}" ]; then
+    echo ""
+    echo "  БЛОКИРОВКА (фактчекинг): ${file}"
+    echo "  Статья снята с draft, но фактчекинг не подтверждён."
+    echo "  Запустите: /blog factcheck ${file}"
+    echo "  Затем: mkdir -p ${FACTCHECK_DIR} && touch ${FACTCHECK_DIR}/${slug}"
+    echo ""
+    file_errors=$((file_errors + 1))
+  fi
+
+  # 3. Напоминание о каннибализации (не блокируем)
+  echo "  НАПОМИНАНИЕ: запустите /blog cannibalization src/content/blog/ для «${slug}»"
+
+  ERRORS=$((ERRORS + file_errors))
 done
 
+echo ""
 if [ "$ERRORS" -gt 0 ]; then
-  echo "Коммит заблокирован: ${ERRORS} статья(и) не прошли quality gates."
-  echo "Исправьте ошибки выше или оставьте draft: true до завершения проверки."
+  echo "Коммит заблокирован: исправьте P0-ошибки выше."
   exit 1
 fi
 
