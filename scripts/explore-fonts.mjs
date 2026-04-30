@@ -25,44 +25,44 @@ function loadFont(pkg, file, weight) {
 
 const FONTS_DEF = [
   {
-    name: 'Oswald',
-    slug: 'oswald',
-    pkg: 'oswald',
-    note: 'Конденсированный гротеск. Газетный, жёсткий.',
-    regular: 'oswald-cyrillic-400-normal.woff',
-    bold:    'oswald-cyrillic-700-normal.woff',
+    name: 'Raleway + Geologica',
+    slug: 'pair-raleway-geologica',
+    headingPkg: 'raleway',
+    headingName: 'Raleway',
+    headingR: 'raleway-cyrillic-400-normal.woff',
+    headingB: 'raleway-cyrillic-700-normal.woff',
+    bodyPkg: 'geologica',
+    bodyName: 'Geologica',
+    bodyR: 'geologica-cyrillic-400-normal.woff',
+    bodyB: 'geologica-cyrillic-700-normal.woff',
+    note: 'Raleway — заголовки / Geologica — тело',
+  },
+  // для сравнения — монофонтовые варианты
+  {
+    name: 'Raleway (везде)',
+    slug: 'pair-raleway-only',
+    headingPkg: 'raleway',
+    headingName: 'Raleway',
+    headingR: 'raleway-cyrillic-400-normal.woff',
+    headingB: 'raleway-cyrillic-700-normal.woff',
+    bodyPkg: 'raleway',
+    bodyName: 'Raleway',
+    bodyR: 'raleway-cyrillic-400-normal.woff',
+    bodyB: 'raleway-cyrillic-700-normal.woff',
+    note: 'Raleway везде — для сравнения',
   },
   {
-    name: 'Raleway',
-    slug: 'raleway',
-    pkg: 'raleway',
-    note: 'Тонкий геометрик. Характерные M и W.',
-    regular: 'raleway-cyrillic-400-normal.woff',
-    bold:    'raleway-cyrillic-700-normal.woff',
-  },
-  {
-    name: 'Russo One',
-    slug: 'russo-one',
-    pkg: 'russo-one',
-    note: 'Жирный, русский характер. Tech и медиа.',
-    regular: 'russo-one-cyrillic-400-normal.woff',
-    bold:    'russo-one-cyrillic-400-normal.woff',
-  },
-  {
-    name: 'Comfortaa',
-    slug: 'comfortaa',
-    pkg: 'comfortaa',
-    note: 'Экстремально округлый. Против корпоративных правил.',
-    regular: 'comfortaa-cyrillic-400-normal.woff',
-    bold:    'comfortaa-cyrillic-700-normal.woff',
-  },
-  {
-    name: 'Cormorant Garamond',
-    slug: 'cormorant-garamond',
-    pkg: 'cormorant-garamond',
-    note: 'Высококонтрастный serif. Книжный, изысканный.',
-    regular: 'cormorant-garamond-cyrillic-400-normal.woff',
-    bold:    'cormorant-garamond-cyrillic-700-normal.woff',
+    name: 'Geologica (везде)',
+    slug: 'pair-geologica-only',
+    headingPkg: 'geologica',
+    headingName: 'Geologica',
+    headingR: 'geologica-cyrillic-400-normal.woff',
+    headingB: 'geologica-cyrillic-700-normal.woff',
+    bodyPkg: 'geologica',
+    bodyName: 'Geologica',
+    bodyR: 'geologica-cyrillic-400-normal.woff',
+    bodyB: 'geologica-cyrillic-700-normal.woff',
+    note: 'Geologica везде — для сравнения',
   },
 ];
 
@@ -72,18 +72,19 @@ const META    = 'ТС ПИОТ  ·  15 января 2026  ·  reglament-biznes.r
 
 async function renderCard(font) {
   const fonts = [
-    { name: font.name, data: loadFont(font.pkg, font.regular, 400), weight: 400, style: 'normal' },
-    { name: font.name, data: loadFont(font.pkg, font.bold,    700), weight: 700, style: 'normal' },
-    // латиница — fallback из Inter
+    { name: font.headingName, data: loadFont(font.headingPkg, font.headingR), weight: 400, style: 'normal' },
+    { name: font.headingName, data: loadFont(font.headingPkg, font.headingB), weight: 700, style: 'normal' },
+    { name: font.bodyName,    data: loadFont(font.bodyPkg,    font.bodyR),    weight: 400, style: 'normal' },
+    { name: font.bodyName,    data: loadFont(font.bodyPkg,    font.bodyB),    weight: 700, style: 'normal' },
     { name: 'Inter', data: fs.readFileSync(path.join(ROOT, 'public/fonts/inter-latin-regular.woff')), weight: 400, style: 'normal' },
     { name: 'Inter', data: fs.readFileSync(path.join(ROOT, 'public/fonts/inter-latin-bold.woff')),    weight: 700, style: 'normal' },
   ];
 
   const markup = `
     <div style="display:flex; flex-direction:column; width:${W}px; height:${H}px;
-      background:#fff; font-family:'${font.name}', 'Inter';">
+      background:#fff; font-family:'${font.bodyName}', 'Inter';">
 
-      <!-- шапка с названием шрифта -->
+      <!-- шапка -->
       <div style="display:flex; align-items:center; justify-content:space-between;
         padding:18px 32px; border-bottom:1px solid #e2e8f0; flex-shrink:0;">
         <div style="display:flex; align-items:center; gap:12px;">
@@ -97,26 +98,24 @@ async function renderCard(font) {
         <div style="display:flex; font-size:13px; color:#94a3b8; font-family:'Inter';">${font.note}</div>
       </div>
 
-      <!-- контент карточки -->
+      <!-- контент -->
       <div style="display:flex; flex:1; flex-direction:column; padding:36px 40px 32px;">
-
-        <!-- категория-тег -->
         <div style="display:flex; margin-bottom:16px;">
           <div style="display:flex; padding:4px 14px; background:#dbeafe; color:#1d4ed8;
-            border-radius:999px; font-size:13px; font-weight:700; letter-spacing:0.03em;">
-            ТС ПИОТ
-          </div>
+            border-radius:999px; font-size:13px; font-weight:700; letter-spacing:0.03em;
+            font-family:'${font.bodyName}', 'Inter';">ТС ПИОТ</div>
         </div>
 
-        <!-- заголовок -->
+        <!-- заголовок — шрифт заголовка -->
         <div style="display:flex; font-size:28px; font-weight:700; color:#0f172a;
-          line-height:1.25; margin-bottom:20px;">${HEADING}</div>
+          line-height:1.25; margin-bottom:20px;
+          font-family:'${font.headingName}', 'Inter';">${HEADING}</div>
 
-        <!-- тело текста -->
+        <!-- тело — шрифт тела -->
         <div style="display:flex; font-size:16px; font-weight:400; color:#1e293b;
-          line-height:1.65; flex:1;">${BODY}</div>
+          line-height:1.65; flex:1;
+          font-family:'${font.bodyName}', 'Inter';">${BODY}</div>
 
-        <!-- мета -->
         <div style="display:flex; font-size:13px; color:#94a3b8; margin-top:20px;
           font-family:'Inter';">${META}</div>
       </div>
