@@ -1,0 +1,131 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+import { collectTags, pluralPosts } from '../../utils/tags';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const tags = collectTags(posts);
+const sorted = Object.entries(tags).sort(
+	(a, b) =>
+		b[1].posts.length - a[1].posts.length ||
+		a[1].name.localeCompare(b[1].name, 'ru'),
+);
+
+const title = 'Все теги';
+const description = `Облако тегов портала «${SITE_TITLE}» — материалы по требованиям ТС ПИоТ, маркировки и законодательству для МСБ. Всего тегов: ${sorted.length}.`;
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<nav class="breadcrumbs" aria-label="Хлебные крошки">
+				<a href="/">Главная</a>
+				<span>›</span>
+				<span aria-current="page">Теги</span>
+			</nav>
+
+			<header class="page-head">
+				<h1>{title}</h1>
+				<p>
+					Перейдите по тегу, чтобы увидеть все материалы по теме.
+					Всего тегов: {sorted.length}.
+				</p>
+			</header>
+
+			{sorted.length === 0 ? (
+				<p class="empty">Теги появятся, как только выйдут первые статьи.</p>
+			) : (
+				<ul class="tag-cloud">
+					{sorted.map(([slug, info]) => (
+						<li>
+							<a class="tag-link" href={`/tag/${slug}/`}>
+								<span class="tag-name">#{info.name}</span>
+								<span class="tag-count">
+									{info.posts.length} {pluralPosts(info.posts.length)}
+								</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			)}
+		</main>
+		<Footer />
+
+		<style>
+			.breadcrumbs {
+				font-size: 0.88rem;
+				color: rgb(var(--gray));
+				margin-top: 1rem;
+			}
+			.breadcrumbs a {
+				color: rgb(var(--gray));
+				text-decoration: none;
+			}
+			.breadcrumbs a:hover {
+				color: var(--accent);
+			}
+			.breadcrumbs span {
+				margin: 0 0.4em;
+			}
+			.page-head {
+				padding: 1.5rem 0 1rem;
+				max-width: 820px;
+			}
+			.page-head p {
+				color: rgb(var(--gray-dark));
+				font-size: 1.05rem;
+			}
+			.empty {
+				padding: 2rem 0;
+				color: rgb(var(--gray));
+			}
+			.tag-cloud {
+				list-style: none;
+				padding: 0;
+				margin: 1.5rem 0 0;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.6rem;
+			}
+			.tag-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5em;
+				padding: 0.5em 0.9em;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 999px;
+				background: #fff;
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+				font-size: 0.95rem;
+				transition: all 0.15s ease;
+			}
+			.tag-link:hover {
+				border-color: var(--accent);
+				color: var(--accent);
+				background: var(--accent-soft);
+			}
+			.tag-name {
+				font-weight: 600;
+			}
+			.tag-count {
+				font-size: 0.8rem;
+				color: rgb(var(--gray));
+				background: rgb(var(--gray-light));
+				padding: 0.1em 0.6em;
+				border-radius: 999px;
+			}
+			.tag-link:hover .tag-count {
+				background: #fff;
+			}
+		</style>
+	</body>
+</html>

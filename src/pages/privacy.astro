@@ -1,0 +1,86 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+const title = 'Политика конфиденциальности';
+const description =
+	'Как сайт «Регламент.Бизнес» обрабатывает персональные данные посетителей.';
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<article class="static-page">
+				<h1>{title}</h1>
+				<p class="muted">Дата вступления в силу: 28 апреля 2026 года.</p>
+
+				<h2>1. Кто обрабатывает данные</h2>
+				<p>
+					Оператор сайта — редакция «Регламент.Бизнес» (далее «Оператор»). Контактный
+					адрес: <a href="mailto:hello@reglament-biznes.ru">hello@reglament-biznes.ru</a>.
+				</p>
+
+				<h2>2. Какие данные собираем</h2>
+				<ul>
+					<li>
+						<strong>Технические данные:</strong> IP-адрес, тип устройства и браузера,
+						страницы, которые вы посещаете, источник перехода. Используются веб-аналитикой
+						(Яндекс.Метрика и/или Google Analytics).
+					</li>
+					<li>
+						<strong>Cookies:</strong> для работы сайта и анализа трафика.
+					</li>
+					<li>
+						<strong>Контактные данные:</strong> email, который вы добровольно отправляете нам
+						через форму обратной связи или подписки.
+					</li>
+				</ul>
+
+				<h2>3. Цели обработки</h2>
+				<ul>
+					<li>обеспечение работы сайта и улучшение его функциональности;</li>
+					<li>анализ посещаемости и эффективности материалов;</li>
+					<li>ответ на ваш запрос или отправка подписки.</li>
+				</ul>
+
+				<h2>4. Передача третьим лицам</h2>
+				<p>
+					Данные не передаются третьим лицам, кроме случаев использования сторонних
+					сервисов аналитики (Яндекс.Метрика, Google Analytics) и сервиса хостинга.
+				</p>
+
+				<h2>5. Ваши права</h2>
+				<p>
+					Вы имеете право на доступ к своим персональным данным, их уточнение,
+					удаление, а также отзыв согласия на обработку. Запрос направляйте на
+					<a href="mailto:hello@reglament-biznes.ru">hello@reglament-biznes.ru</a>.
+				</p>
+
+				<h2>6. Cookies</h2>
+				<p>
+					Вы можете отключить использование cookies в настройках браузера. Это может
+					привести к ограничению функциональности сайта.
+				</p>
+			</article>
+		</main>
+		<Footer />
+
+		<style>
+			.static-page {
+				max-width: 760px;
+				margin: 0 auto;
+				padding: 2rem 0;
+			}
+			.muted {
+				color: rgb(var(--gray));
+				font-size: 0.92rem;
+			}
+		</style>
+	</body>
+</html>

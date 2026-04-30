@@ -48,6 +48,7 @@ const BACKGROUNDS = [
   },
 ];
 
+// Imagen 4 — predict API
 async function generateImagen(prompt, outputPath) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:predict?key=${API_KEY}`;
   const res = await fetch(url, {
@@ -63,9 +64,9 @@ async function generateImagen(prompt, outputPath) {
   const b64 = data?.predictions?.[0]?.bytesBase64Encoded;
   if (!b64) throw new Error('Нет данных: ' + JSON.stringify(data));
   fs.writeFileSync(outputPath, Buffer.from(b64, 'base64'));
-  return outputPath;
 }
 
+// Gemini Flash Image — generateContent API
 async function generateFlashImage(prompt, outputPath) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
   const res = await fetch(url, {
@@ -79,7 +80,7 @@ async function generateFlashImage(prompt, outputPath) {
   if (!res.ok) throw new Error(`API error ${res.status}: ${await res.text()}`);
   const data = await res.json();
   const part = data?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
-  if (!part) throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 200));
+  if (!part) throw new Error('Нет изображения в ответе: ' + JSON.stringify(data).slice(0, 200));
   const { mimeType, data: b64 } = part.inlineData;
   const ext = mimeType.includes('jpeg') ? 'jpg' : 'png';
   const finalPath = outputPath.replace(/\.\w+$/, `.${ext}`);
@@ -95,7 +96,7 @@ for (const bg of BACKGROUNDS) {
   try {
     const saved = isFlash
       ? await generateFlashImage(bg.prompt, outPath)
-      : await generateImagen(bg.prompt, outPath);
+      : (await generateImagen(bg.prompt, outPath), outPath);
     const size = (fs.statSync(saved).size / 1024).toFixed(0);
     console.log(`✓ ${saved} (${size} KB)`);
   } catch (e) {

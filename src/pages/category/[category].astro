@@ -1,0 +1,311 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { CATEGORIES, SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths() {
+	return Object.entries(CATEGORIES).map(([slug, meta]) => ({
+		params: { category: slug },
+		props: { slug, meta },
+	}));
+}
+
+type Props = {
+	slug: string;
+	meta: (typeof CATEGORIES)[keyof typeof CATEGORIES];
+};
+
+const { slug, meta } = Astro.props as Props;
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts
+	.filter((p) => p.data.categories.includes(slug))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const pillar = await getEntry('pillars', slug);
+const PillarContent = pillar ? (await render(pillar)).Content : null;
+const pillarTitle = pillar?.data?.title ?? meta.fullTitle;
+const pillarSummary = pillar?.data?.summary ?? meta.description;
+const keyDates = pillar?.data?.keyDates ?? [];
+const faq = pillar?.data?.faq ?? [];
+
+const collectionJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'CollectionPage',
+	name: `${meta.title} — ${SITE_TITLE}`,
+	description: pillarSummary,
+	url: new URL(`/category/${slug}/`, Astro.site).toString(),
+	inLanguage: 'ru-RU',
+};
+
+const breadcrumbsJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: 'Главная',
+			item: new URL('/', Astro.site).toString(),
+		},
+		{
+			'@type': 'ListItem',
+			position: 2,
+			name: 'Статьи',
+			item: new URL('/blog/', Astro.site).toString(),
+		},
+		{
+			'@type': 'ListItem',
+			position: 3,
+			name: meta.title,
+			item: new URL(`/category/${slug}/`, Astro.site).toString(),
+		},
+	],
+};
+
+const faqJsonLd =
+	faq.length > 0
+		? {
+				'@context': 'https://schema.org',
+				'@type': 'FAQPage',
+				mainEntity: faq.map((item) => ({
+					'@type': 'Question',
+					name: item.question,
+					acceptedAnswer: {
+						'@type': 'Answer',
+						text: item.answer,
+					},
+				})),
+			}
+		: null;
+
+const jsonLd: Record<string, unknown>[] = [collectionJsonLd, breadcrumbsJsonLd];
+if (faqJsonLd) jsonLd.push(faqJsonLd);
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={pillarTitle} description={pillarSummary} jsonLd={jsonLd} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<nav class="breadcrumbs" aria-label="Хлебные крошки" data-pagefind-ignore>
+				<a href="/">Главная</a>
+				<span>›</span>
+				<a href="/blog/">Статьи</a>
+				<span>›</span>
+				<span aria-current="page">{meta.title}</span>
+			</nav>
+
+			<div data-pagefind-body>
+			<header class="page-head">
+				<h1>{pillarTitle}</h1>
+				<p class="page-lead">{pillarSummary}</p>
+			</header>
+
+			{PillarContent && (
+				<section class="pillar-intro prose">
+					<PillarContent />
+				</section>
+			)}
+
+			{keyDates.length > 0 && (
+				<section class="key-dates" aria-labelledby="dates-heading">
+					<h2 id="dates-heading">Ключевые сроки</h2>
+					<ul class="dates-list">
+						{keyDates.map((d) => (
+							<li class="date-item">
+								<span class="date-when">{d.date}</span>
+								<span class="date-what">{d.event}</span>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
+
+			{faq.length > 0 && (
+				<section class="faq" aria-labelledby="faq-heading">
+					<h2 id="faq-heading">Частые вопросы</h2>
+					{faq.map((item) => (
+						<details class="faq-item">
+							<summary>{item.question}</summary>
+							<p>{item.answer}</p>
+						</details>
+					))}
+				</section>
+			)}
+			</div>
+
+			<section class="posts" aria-labelledby="posts-heading" data-pagefind-ignore>
+				<h2 id="posts-heading">Материалы по теме</h2>
+				{posts.length === 0 ? (
+					<p class="empty">
+						Материалы в этом разделе скоро появятся. Загляните позже или
+						<a href="/blog/">посмотрите все статьи</a>.
+					</p>
+				) : (
+					<ul class="post-list">
+						{posts.map((post) => (
+							<li class="post-card">
+								<a href={`/blog/${post.id}/`}>
+									<h3>{post.data.title}</h3>
+									<p class="post-desc">{post.data.description}</p>
+									<p class="post-date">
+										{post.data.updatedDate ? (
+											<>обновлено <FormattedDate date={post.data.updatedDate} /></>
+										) : (
+											<FormattedDate date={post.data.pubDate} />
+										)}
+									</p>
+								</a>
+							</li>
+						))}
+					</ul>
+				)}
+			</section>
+		</main>
+		<Footer />
+
+		<style>
+			.breadcrumbs {
+				font-size: 0.88rem;
+				color: rgb(var(--gray));
+				margin-top: 1rem;
+			}
+			.breadcrumbs a {
+				color: rgb(var(--gray));
+				text-decoration: none;
+			}
+			.breadcrumbs a:hover {
+				color: var(--accent);
+			}
+			.breadcrumbs span {
+				margin: 0 0.4em;
+			}
+			.page-head {
+				padding: 1.5rem 0 1rem;
+				max-width: 820px;
+			}
+			.page-lead {
+				color: rgb(var(--gray-dark));
+				font-size: 1.1rem;
+			}
+			.pillar-intro {
+				max-width: 820px;
+				margin: 1rem 0 2rem;
+			}
+			.key-dates,
+			.faq,
+			.posts {
+				margin-top: 2.5rem;
+				max-width: 820px;
+			}
+			.dates-list {
+				list-style: none;
+				padding: 0;
+				margin: 1rem 0 0;
+				display: grid;
+				gap: 0.6rem;
+			}
+			.date-item {
+				display: grid;
+				grid-template-columns: minmax(110px, max-content) 1fr;
+				gap: 1rem;
+				padding: 0.9rem 1rem;
+				border-left: 3px solid var(--accent);
+				background: var(--accent-soft);
+				border-radius: 6px;
+			}
+			.date-when {
+				font-weight: 700;
+				color: var(--accent-dark);
+				white-space: nowrap;
+			}
+			.date-what {
+				color: rgb(var(--gray-dark));
+			}
+			.faq-item {
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				padding: 0.9rem 1.1rem;
+				margin-top: 0.6rem;
+				background: #fff;
+			}
+			.faq-item[open] {
+				border-color: var(--accent);
+			}
+			.faq-item summary {
+				cursor: pointer;
+				font-weight: 600;
+				color: rgb(var(--black));
+				list-style: none;
+				display: flex;
+				justify-content: space-between;
+				gap: 1rem;
+			}
+			.faq-item summary::-webkit-details-marker {
+				display: none;
+			}
+			.faq-item summary::after {
+				content: '+';
+				font-size: 1.4rem;
+				color: var(--accent);
+				line-height: 1;
+				flex-shrink: 0;
+			}
+			.faq-item[open] summary::after {
+				content: '−';
+			}
+			.faq-item p {
+				margin: 0.7rem 0 0;
+				color: rgb(var(--gray-dark));
+			}
+			.empty {
+				padding: 2rem 0;
+				color: rgb(var(--gray));
+			}
+			.post-list {
+				list-style: none;
+				padding: 0;
+				margin: 1rem 0 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 1rem;
+			}
+			.post-card a {
+				display: block;
+				padding: 1.4rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				background: #fff;
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+				height: 100%;
+				transition: all 0.15s ease;
+			}
+			.post-card a:hover {
+				border-color: var(--accent);
+				box-shadow: var(--box-shadow);
+			}
+			.post-card h3 {
+				margin-top: 0;
+				color: rgb(var(--black));
+				font-size: 1.15rem;
+			}
+			.post-desc {
+				font-size: 0.95rem;
+				margin-bottom: 0.8rem;
+			}
+			.post-date {
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+				margin: 0;
+			}
+		</style>
+	</body>
+</html>

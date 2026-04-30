@@ -1,0 +1,178 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE, SITE_URL } from '../../consts';
+
+const title = 'Редакция';
+const description =
+	'Об авторах портала «Регламент.Бизнес»: принципы работы, экспертиза в области регуляторных требований для МСБ, ТС ПИоТ, маркировки и законодательства.';
+
+const personJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: 'Редакция Регламент.Бизнес',
+	url: `${SITE_URL}/about/avtor/`,
+	description,
+	email: 'hello@reglament-biznes.ru',
+	knowsAbout: [
+		'ТС ПИоТ (техническое средство получения информации о товаре)',
+		'Маркировка «Честный знак»',
+		'ЕГАИС',
+		'Меркурий / ВетИС',
+		'КоАП РФ: ст. 14.5, 14.16, 15.12',
+		'УСН, ПСН, НДС для малого бизнеса',
+		'ЭДО, КЭДО',
+		'Онлайн-кассы (54-ФЗ)',
+	],
+	worksFor: {
+		'@type': 'Organization',
+		name: SITE_TITLE,
+		url: SITE_URL,
+	},
+};
+
+const breadcrumbsJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: 'Главная',
+			item: new URL('/', Astro.site).toString(),
+		},
+		{
+			'@type': 'ListItem',
+			position: 2,
+			name: 'О проекте',
+			item: new URL('/about/', Astro.site).toString(),
+		},
+		{
+			'@type': 'ListItem',
+			position: 3,
+			name: title,
+			item: new URL('/about/avtor/', Astro.site).toString(),
+		},
+	],
+};
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead
+			title={title}
+			description={description}
+			jsonLd={[personJsonLd, breadcrumbsJsonLd]}
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<article class="static-page">
+				<nav class="breadcrumbs" aria-label="Хлебные крошки">
+					<a href="/">Главная</a>
+					<span>›</span>
+					<a href="/about/">О проекте</a>
+					<span>›</span>
+					<span aria-current="page">{title}</span>
+				</nav>
+
+				<h1>Редакция «{SITE_TITLE}»</h1>
+				<p class="lead">
+					Портал ведёт редакция, специализирующаяся на регуляторных требованиях для
+					малого и среднего бизнеса в России: онлайн-кассы, маркировка, ЕГАИС, налоги.
+				</p>
+
+				<h2>Область экспертизы</h2>
+				<ul>
+					<li>
+						<strong>ТС ПИоТ и онлайн-кассы (54-ФЗ).</strong> Подключение, настройка,
+						штрафы, совместимость с различными производителями касс.
+					</li>
+					<li>
+						<strong>Маркировка «Честный знак».</strong> Категории товаров, сроки введения,
+						поэкземплярный учёт, разрешительный режим, УПД через ЭДО.
+					</li>
+					<li>
+						<strong>ЕГАИС и оборот алкоголя.</strong> Розничный учёт, гашение ВСД,
+						декларирование, штрафы по ст. 14.16 КоАП РФ.
+					</li>
+					<li>
+						<strong>Меркурий / ВетИС.</strong> Ветеринарная сертификация продукции
+						животноводства для розницы и общепита.
+					</li>
+					<li>
+						<strong>Налоги и законодательство.</strong> УСН с НДС, ЕНС/ЕНП, ПСН, КЭДО,
+						изменения для МСБ в 2025–2026 годах.
+					</li>
+				</ul>
+
+				<h2>Принципы работы</h2>
+				<ol>
+					<li>
+						<strong>Только проверенные источники.</strong> Каждый факт, срок и сумма штрафа
+						подкреплены ссылкой на нормативный акт, разъяснение ведомства или официальную
+						публикацию.
+					</li>
+					<li>
+						<strong>Актуальность.</strong> Материалы обновляются при изменении законодательства;
+						дата последнего обновления указана в каждой статье.
+					</li>
+					<li>
+						<strong>Конкретика.</strong> Мы пишем цифры, сроки и пошаговые действия, а не
+						пересказываем закон общими словами.
+					</li>
+					<li>
+						<strong>Без рекламы решений.</strong> Мы сравниваем технические параметры и
+						сценарии, не продвигая конкретных вендоров.
+					</li>
+				</ol>
+
+				<h2>Важная оговорка</h2>
+				<p>
+					Материалы носят информационный характер и не являются индивидуальной
+					юридической, налоговой или бухгалтерской консультацией. Перед принятием
+					решений сверяйтесь с действующей редакцией нормативных актов и при
+					необходимости обращайтесь к профильным специалистам.
+				</p>
+
+				<h2>Контакт</h2>
+				<p>
+					Нашли ошибку в фактах, устаревшие данные или хотите предложить тему?
+					Пишите на <a href="mailto:hello@reglament-biznes.ru">hello@reglament-biznes.ru</a>.
+					Мы проверяем каждое сообщение.
+				</p>
+			</article>
+		</main>
+		<Footer />
+
+		<style>
+			.static-page {
+				max-width: 760px;
+				margin: 0 auto;
+				padding: 2rem 0;
+			}
+			.breadcrumbs {
+				font-size: 0.88rem;
+				color: rgb(var(--gray));
+				margin-bottom: 1.5rem;
+			}
+			.breadcrumbs a {
+				color: rgb(var(--gray));
+				text-decoration: none;
+			}
+			.breadcrumbs a:hover {
+				color: var(--accent);
+			}
+			.breadcrumbs span {
+				margin: 0 0.4em;
+			}
+			.lead {
+				font-size: 1.15rem;
+				color: rgb(var(--gray-dark));
+			}
+		</style>
+	</body>
+</html>

@@ -1,0 +1,232 @@
+/*
+  Стили основаны на Bear Blog default CSS, адаптированы под русский B2B-портал.
+  https://github.com/HermanMartinus/bearblog
+ */
+
+@font-face {
+	font-family: 'Commissioner';
+	src: url('/fonts/commissioner-regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Commissioner';
+	src: url('/fonts/commissioner-bold.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Geologica';
+	src: url('/fonts/geologica-regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Geologica';
+	src: url('/fonts/geologica-bold.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Inter';
+	src: url('/fonts/inter-regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Inter';
+	src: url('/fonts/inter-bold.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	--accent: #1d4ed8;
+	--accent-dark: #1e3a8a;
+	--accent-soft: #dbeafe;
+	--black: 15, 23, 42;
+	--gray: 100, 116, 139;
+	--gray-light: 226, 232, 240;
+	--gray-dark: 30, 41, 59;
+	--gray-gradient: rgba(var(--gray-light), 35%), #fff;
+	--box-shadow:
+		0 2px 6px rgba(15, 23, 42, 0.08),
+		0 8px 24px rgba(15, 23, 42, 0.05),
+		0 16px 32px rgba(15, 23, 42, 0.04);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Geologica', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		'PT Sans', 'Helvetica Neue', Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	background: #fff;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	color: rgb(var(--gray-dark));
+	font-size: 19px;
+	line-height: 1.65;
+}
+
+main {
+	width: 100%;
+	max-width: 1100px;
+	margin: auto;
+	padding: 2.5em 1em 3em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Commissioner', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+	margin: 0 0 0.5rem 0;
+	color: rgb(var(--black));
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+}
+h1 {
+	font-size: 2.4rem;
+}
+h2 {
+	font-size: 1.75rem;
+	margin-top: 1.6rem;
+}
+h3 {
+	font-size: 1.35rem;
+	margin-top: 1.4rem;
+}
+h4 {
+	font-size: 1.1rem;
+}
+strong,
+b {
+	font-weight: 700;
+}
+a {
+	color: var(--accent);
+}
+a:hover {
+	color: var(--accent-dark);
+}
+p {
+	margin-bottom: 1em;
+}
+.prose p {
+	margin-bottom: 1.2em;
+}
+.prose ul,
+.prose ol {
+	margin-bottom: 1.2em;
+	padding-left: 1.4em;
+}
+.prose li {
+	margin-bottom: 0.4em;
+}
+textarea,
+input {
+	font-size: 16px;
+	font-family: inherit;
+}
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1.5em 0;
+	font-size: 0.95rem;
+}
+table th,
+table td {
+	border: 1px solid rgb(var(--gray-light));
+	padding: 0.6em 0.8em;
+	text-align: left;
+	vertical-align: top;
+}
+table th {
+	background: rgba(var(--gray-light), 0.5);
+	font-weight: 600;
+}
+img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+code {
+	padding: 2px 5px;
+	background-color: rgb(var(--gray-light));
+	border-radius: 4px;
+	font-size: 0.9em;
+}
+pre {
+	padding: 1.2em;
+	border-radius: 8px;
+	overflow-x: auto;
+}
+pre > code {
+	all: unset;
+}
+blockquote {
+	border-left: 4px solid var(--accent);
+	padding: 0.4em 0 0.4em 20px;
+	margin: 1.5em 0;
+	font-size: 1.05em;
+	color: rgb(var(--gray-dark));
+	background: rgba(29, 78, 216, 0.04);
+}
+hr {
+	border: none;
+	border-top: 1px solid rgb(var(--gray-light));
+	margin: 2em 0;
+}
+
+.callout {
+	border-left: 4px solid var(--accent);
+	background: var(--accent-soft);
+	padding: 1em 1.2em;
+	margin: 1.5em 0;
+	border-radius: 0 8px 8px 0;
+}
+.callout--warn {
+	border-left-color: #f59e0b;
+	background: #fef3c7;
+}
+
+@media (max-width: 720px) {
+	body {
+		font-size: 18px;
+	}
+	main {
+		padding: 1.2em 1em 2em;
+	}
+	h1 {
+		font-size: 1.9rem;
+	}
+	h2 {
+		font-size: 1.4rem;
+	}
+}
+
+.sr-only {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}

@@ -21,6 +21,7 @@ fs.mkdirSync(HERO_DIR, { recursive: true });
 const API_KEY = process.env.GEMINI_API_KEY;
 if (!API_KEY) { console.error('GEMINI_API_KEY не задан'); process.exit(1); }
 
+// Цветовые темы по категории
 const CAT_STYLE = {
   'ts-piot':        'deep navy blue, electric blue accents, circuit board patterns, digital technology',
   'markirovka':     'deep forest green, teal accents, barcode and data matrix patterns, logistics',
@@ -35,6 +36,8 @@ function parseFrontmatter(content) {
     const kv = line.match(/^(\w+):\s*"?([^"]*)"?/);
     if (kv) fm[kv[1]] = kv[2].trim();
   }
+  fm._raw = match[1];
+  fm._body = content.slice(match[0].length);
   return fm;
 }
 
@@ -69,13 +72,16 @@ async function generateImage(prompt) {
   return { buffer: Buffer.from(b64, 'base64'), ext };
 }
 
+// Собираем список статей для обработки
 const targetSlug = process.env.SLUG;
 const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
 
 const targets = files.filter(file => {
   if (targetSlug && !file.startsWith(targetSlug) && file !== targetSlug + '.md') return false;
   const content = fs.readFileSync(path.join(BLOG_DIR, file), 'utf8');
+  // Пропускаем если heroImage уже есть
   if (/^heroImage:/m.test(content)) return false;
+  // Пропускаем черновики если не указан конкретный slug
   if (!targetSlug && /^draft:\s*true/m.test(content)) return false;
   return true;
 });
@@ -106,6 +112,7 @@ for (const file of targets) {
     fs.writeFileSync(outputPath, buffer);
     const size = (fs.statSync(outputPath).size / 1024).toFixed(0);
 
+    // Вставляем heroImage в frontmatter после pubDate
     const updated = content.replace(
       /^(---\n[\s\S]*?)(pubDate:[^\n]*\n)/m,
       `$1$2heroImage: "${heroPath}"\n`

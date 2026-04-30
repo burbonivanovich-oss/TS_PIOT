@@ -1,0 +1,508 @@
+---
+import { Image } from 'astro:assets';
+import { type CollectionEntry, getCollection } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { CATEGORIES, SITE_TITLE, SITE_AUTHOR, SITE_LOCALE } from '../consts';
+import { tagSlug } from '../utils/tags';
+
+type Props = CollectionEntry<'blog'>['data'] & {
+	slug?: string;
+	headings?: MarkdownHeading[];
+	readingTime?: number;
+};
+
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	categories = [],
+	tags = [],
+	author = SITE_AUTHOR,
+	seo,
+	slug: currentSlug,
+	headings = [],
+	readingTime,
+} = Astro.props;
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const candidates = allPosts.filter((p) => p.id !== currentSlug);
+const scored = candidates
+	.map((p) => ({
+		post: p,
+		score:
+			(p.data.tags ?? []).filter((t) => tags.includes(t)).length * 2 +
+			(p.data.categories ?? []).filter((c) => categories.includes(c)).length,
+	}))
+	.filter((x) => x.score > 0)
+	.sort(
+		(a, b) =>
+			b.score - a.score ||
+			b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf(),
+	);
+const related = scored.slice(0, 3).map((x) => x.post);
+
+const canonical = seo?.canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
+const keywords = [...new Set([...tags, ...(seo?.keywords ?? [])])];
+
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+
+const articleImageUrl = currentSlug
+	? new URL(`/og/${currentSlug}.png`, Astro.site).toString()
+	: undefined;
+
+const articleJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: title,
+	description,
+	inLanguage: SITE_LOCALE,
+	...(articleImageUrl && {
+		image: {
+			'@type': 'ImageObject',
+			url: articleImageUrl,
+			width: 1200,
+			height: 630,
+		},
+	}),
+	author: {
+		'@type': 'Person',
+		name: author,
+		url: new URL('/about/avtor/', Astro.site).toString(),
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: SITE_TITLE,
+		logo: {
+			'@type': 'ImageObject',
+			url: new URL('/favicon.svg', Astro.site).toString(),
+		},
+	},
+	datePublished: pubDate.toISOString(),
+	dateModified: (updatedDate ?? pubDate).toISOString(),
+	mainEntityOfPage: canonical,
+	keywords: keywords.join(', '),
+	articleSection: categories.map((c) => CATEGORIES[c as keyof typeof CATEGORIES]?.title ?? c),
+};
+
+const breadcrumbsJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: 'Главная',
+			item: new URL('/', Astro.site).toString(),
+		},
+		{
+			'@type': 'ListItem',
+			position: 2,
+			name: 'Статьи',
+			item: new URL('/blog/', Astro.site).toString(),
+		},
+		{
+			'@type': 'ListItem',
+			position: 3,
+			name: title,
+			item: canonical,
+		},
+	],
+};
+
+const primaryCategory = categories[0] as keyof typeof CATEGORIES | undefined;
+const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
+
+const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined);
+
+const shareUrl = encodeURIComponent(canonical);
+const shareTitle = encodeURIComponent(title);
+---
+
+<html lang="ru">
+	<head>
+		<BaseHead
+			title={title}
+			description={description}
+			image={ogImage}
+			type="article"
+			publishedTime={pubDate.toISOString()}
+			modifiedTime={updatedDate?.toISOString()}
+			keywords={keywords}
+			noindex={seo?.noindex}
+			jsonLd={[articleJsonLd, breadcrumbsJsonLd]}
+		/>
+	</head>
+
+	<body>
+		<div id="rp-bar" aria-hidden="true"></div>
+
+		<Header />
+		<main>
+			<article class="article" data-pagefind-body>
+				<nav class="breadcrumbs" aria-label="Хлебные крошки" data-pagefind-ignore>
+					<a href="/">Главная</a>
+					<span>›</span>
+					<a href="/blog/">Статьи</a>
+					{categoryMeta && (
+						<>
+							<span>›</span>
+							<a href={`/category/${primaryCategory}/`}>{categoryMeta.title}</a>
+						</>
+					)}
+				</nav>
+
+				<header class="article-head">
+					<h1>{title}</h1>
+					<p class="lead">{description}</p>
+					<div class="meta">
+						<FormattedDate date={pubDate} />
+						{updatedDate && (
+							<span class="updated">
+								· обновлено <FormattedDate date={updatedDate} />
+							</span>
+						)}
+						{readingTime && (
+							<span class="reading-time">· {readingTime} мин чтения</span>
+						)}
+					</div>
+					{tags.length > 0 && (
+						<div class="tags">
+							{tags.map((tag) => (
+								<a class="tag" href={`/tag/${tagSlug(tag)}/`}>#{tag}</a>
+							))}
+						</div>
+					)}
+				</header>
+
+				{heroImage && (
+					<div class="hero-image">
+						<Image width={1100} height={550} src={heroImage} alt={title} loading="eager" />
+					</div>
+				)}
+
+				{tocHeadings.length > 2 && (
+					<details class="toc" data-pagefind-ignore>
+						<summary>Содержание</summary>
+						<nav>
+							<ol class="toc-list">
+								{tocHeadings.map((h) => (
+									<li class={`toc-item toc-depth-${h.depth}`}>
+										<a href={`#${h.slug}`}>{h.text}</a>
+									</li>
+								))}
+							</ol>
+						</nav>
+					</details>
+				)}
+
+				<div class="prose">
+					<slot />
+				</div>
+
+				<div class="share" data-pagefind-ignore>
+					<span class="share-label">Поделиться:</span>
+					<a
+						class="share-btn share-tg"
+						href={`https://t.me/share/url?url=${shareUrl}&text=${shareTitle}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Поделиться в Telegram"
+					>
+						Telegram
+					</a>
+					<a
+						class="share-btn share-vk"
+						href={`https://vk.com/share.php?url=${shareUrl}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Поделиться ВКонтакте"
+					>
+						ВКонтакте
+					</a>
+				</div>
+
+				{related.length > 0 && (
+					<aside class="related" aria-labelledby="related-heading" data-pagefind-ignore>
+						<h2 id="related-heading">Читайте также</h2>
+						<ul class="related-list">
+							{related.map((post) => {
+								const cat = post.data.categories[0] as keyof typeof CATEGORIES | undefined;
+								const catMeta = cat ? CATEGORIES[cat] : null;
+								return (
+									<li class="related-card">
+										<a href={`/blog/${post.id}/`}>
+											{catMeta && <span class="related-cat">{catMeta.title}</span>}
+											<h3>{post.data.title}</h3>
+											<p>{post.data.description}</p>
+										</a>
+									</li>
+								);
+							})}
+						</ul>
+					</aside>
+				)}
+
+				<footer class="article-foot">
+					<p class="disclaimer">
+						Материал носит информационный характер. Перед принятием решений
+						сверяйтесь с действующей редакцией нормативных актов и при необходимости
+						проконсультируйтесь со специалистом.
+					</p>
+				</footer>
+			</article>
+		</main>
+		<Footer />
+
+		<script>
+			const bar = document.getElementById('rp-bar');
+			if (bar) {
+				const update = () => {
+					const scrolled = document.documentElement.scrollTop;
+					const total = document.documentElement.scrollHeight - window.innerHeight;
+					bar.style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
+				};
+				window.addEventListener('scroll', update, { passive: true });
+				update();
+			}
+		</script>
+
+		<style>
+			#rp-bar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				height: 3px;
+				width: 0%;
+				background: var(--accent);
+				z-index: 100;
+				transition: width 0.1s linear;
+			}
+			.article {
+				max-width: 760px;
+				margin: 0 auto;
+			}
+			.breadcrumbs {
+				font-size: 0.88rem;
+				color: rgb(var(--gray));
+				margin-bottom: 1.2rem;
+			}
+			.breadcrumbs a {
+				color: rgb(var(--gray));
+				text-decoration: none;
+			}
+			.breadcrumbs a:hover {
+				color: var(--accent);
+			}
+			.breadcrumbs span {
+				margin: 0 0.4em;
+			}
+			.article-head h1 {
+				margin-bottom: 0.8rem;
+			}
+			.lead {
+				font-size: 1.15rem;
+				color: rgb(var(--gray-dark));
+				margin-bottom: 1rem;
+			}
+			.meta {
+				color: rgb(var(--gray));
+				font-size: 0.95rem;
+				margin-bottom: 1rem;
+			}
+			.reading-time {
+				color: rgb(var(--gray));
+			}
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.4rem;
+				margin-bottom: 1.5rem;
+			}
+			.tag {
+				background: rgb(var(--gray-light));
+				color: rgb(var(--gray-dark));
+				padding: 0.2em 0.7em;
+				border-radius: 999px;
+				font-size: 0.82rem;
+				text-decoration: none;
+				transition: all 0.15s ease;
+			}
+			.tag:hover {
+				background: var(--accent-soft);
+				color: var(--accent);
+			}
+			.hero-image {
+				margin: 1.5rem 0 2rem;
+			}
+			.hero-image img {
+				border-radius: 10px;
+				box-shadow: var(--box-shadow);
+			}
+
+			/* TOC */
+			.toc {
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				padding: 0.9rem 1.1rem;
+				margin: 1.5rem 0 2rem;
+				background: #f8fafc;
+			}
+			.toc summary {
+				cursor: pointer;
+				font-weight: 600;
+				font-size: 0.95rem;
+				color: rgb(var(--black));
+				list-style: none;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				user-select: none;
+			}
+			.toc summary::-webkit-details-marker { display: none; }
+			.toc summary::after {
+				content: '▸';
+				font-size: 0.8rem;
+				color: var(--accent);
+				transition: transform 0.15s ease;
+			}
+			.toc[open] summary::after {
+				transform: rotate(90deg);
+			}
+			.toc-list {
+				margin: 0.8rem 0 0;
+				padding-left: 1.2rem;
+				list-style: none;
+			}
+			.toc-item {
+				margin-bottom: 0.35rem;
+				line-height: 1.4;
+			}
+			.toc-depth-3 {
+				padding-left: 1rem;
+			}
+			.toc-item a {
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+				font-size: 0.9rem;
+			}
+			.toc-item a:hover {
+				color: var(--accent);
+				text-decoration: underline;
+			}
+
+			/* Share */
+			.share {
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 0.6rem;
+				margin: 2rem 0 1rem;
+				padding: 1rem 1.2rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				background: #f8fafc;
+			}
+			.share-label {
+				font-size: 0.9rem;
+				font-weight: 600;
+				color: rgb(var(--gray-dark));
+			}
+			.share-btn {
+				display: inline-block;
+				padding: 0.4em 1em;
+				border-radius: 999px;
+				font-size: 0.88rem;
+				font-weight: 600;
+				text-decoration: none;
+				transition: all 0.15s ease;
+			}
+			.share-tg {
+				background: #e8f4fd;
+				color: #0088cc;
+				border: 1px solid #b3d9f0;
+			}
+			.share-tg:hover {
+				background: #0088cc;
+				color: #fff;
+			}
+			.share-vk {
+				background: #e8f0fb;
+				color: #2787f5;
+				border: 1px solid #b3cef7;
+			}
+			.share-vk:hover {
+				background: #2787f5;
+				color: #fff;
+			}
+
+			/* Related */
+			.related {
+				margin-top: 3rem;
+				padding-top: 1.5rem;
+				border-top: 1px solid rgb(var(--gray-light));
+			}
+			.related h2 {
+				font-size: 1.3rem;
+				margin: 0 0 1rem;
+			}
+			.related-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+				gap: 0.8rem;
+			}
+			.related-card a {
+				display: block;
+				padding: 1rem 1.1rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				background: #fff;
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+				height: 100%;
+				transition: all 0.15s ease;
+			}
+			.related-card a:hover {
+				border-color: var(--accent);
+				box-shadow: var(--box-shadow);
+			}
+			.related-cat {
+				display: inline-block;
+				font-size: 0.78rem;
+				font-weight: 600;
+				color: var(--accent);
+				background: var(--accent-soft);
+				padding: 0.15em 0.6em;
+				border-radius: 999px;
+				margin-bottom: 0.5rem;
+			}
+			.related-card h3 {
+				margin: 0 0 0.4rem;
+				font-size: 1.05rem;
+				color: rgb(var(--black));
+			}
+			.related-card p {
+				font-size: 0.9rem;
+				margin: 0;
+			}
+			.article-foot {
+				margin-top: 2.5rem;
+				padding-top: 1.5rem;
+				border-top: 1px solid rgb(var(--gray-light));
+			}
+			.disclaimer {
+				font-size: 0.9rem;
+				color: rgb(var(--gray));
+				font-style: italic;
+			}
+		</style>
+	</body>
+</html>

@@ -1,0 +1,104 @@
+---
+import { SITE_TITLE, NAV_LINKS } from '../consts';
+const today = new Date();
+---
+
+<footer>
+	<div class="footer-inner">
+		<div class="footer-col">
+			<strong>{SITE_TITLE}</strong>
+			<p class="muted">
+				Информационный портал для малого и среднего бизнеса. Разбираем требования
+				ТС ПИоТ, маркировки «Честный знак» и изменения в законодательстве простым
+				языком.
+			</p>
+		</div>
+		<div class="footer-col">
+			<strong>Разделы</strong>
+			<ul>
+				{NAV_LINKS.filter((l) => l.href !== '/').map((link) => (
+					<li><a href={link.href}>{link.label}</a></li>
+				))}
+				<li><a href="/rss.xml">RSS-лента</a></li>
+			</ul>
+		</div>
+		<div class="footer-col">
+			<strong>Инструменты</strong>
+			<ul>
+				<li><a href="/kalkulyator-shtrafov/">Калькулятор штрафов</a></li>
+				<li><a href="/kalendar-markirovki/">Календарь маркировки</a></li>
+				<li><a href="/slovar/">Словарь терминов</a></li>
+				<li><a href="/tags/">Все теги</a></li>
+				<li><a href="/search/">Поиск</a></li>
+			</ul>
+		</div>
+		<div class="footer-col">
+			<strong>Документы</strong>
+			<ul>
+				<li><a href="/about/">О проекте</a></li>
+				<li><a href="/privacy/">Политика конфиденциальности</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<small>
+			© {today.getFullYear()} {SITE_TITLE}. Материалы носят информационный характер
+			и не являются юридической или налоговой консультацией.
+		</small>
+	</div>
+</footer>
+
+<style>
+	footer {
+		padding: 2.5em 1em 3em;
+		background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+		color: #cbd5e1;
+		margin-top: 4rem;
+	}
+	.footer-inner {
+		max-width: 1100px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 2rem;
+	}
+	.footer-col strong {
+		display: block;
+		color: #fff;
+		font-size: 1rem;
+		margin-bottom: 0.7rem;
+	}
+	.footer-col p,
+	.footer-col li {
+		font-size: 0.92rem;
+		line-height: 1.55;
+	}
+	.footer-col ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	.footer-col li {
+		margin-bottom: 0.4rem;
+	}
+	.footer-col a {
+		color: #cbd5e1;
+		text-decoration: none;
+	}
+	.footer-col a:hover {
+		color: #fff;
+		text-decoration: underline;
+	}
+	.muted {
+		color: #94a3b8;
+	}
+	.footer-bottom {
+		max-width: 1100px;
+		margin: 2.5rem auto 0;
+		padding-top: 1.5rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		color: #94a3b8;
+		font-size: 0.85rem;
+		text-align: center;
+	}
+</style>

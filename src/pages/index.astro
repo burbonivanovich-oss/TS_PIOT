@@ -1,0 +1,230 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const latest = posts.slice(0, 6);
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="hero">
+				<h1>Регламент.Бизнес — навигатор требований для МСБ</h1>
+				<p class="hero-lead">
+					Понятные разборы и пошаговые инструкции по требованиям, которые касаются малого
+					и среднего бизнеса в России: ТС ПИоТ для онлайн-касс, маркировка «Честный знак»,
+					разрешительный режим, изменения в налогах, ЭДО и трудовом законодательстве.
+				</p>
+				<div class="hero-cta">
+					<a href="/blog/" class="btn btn-primary">Все статьи</a>
+					<a href="/category/ts-piot/" class="btn btn-ghost">Что такое ТС ПИоТ</a>
+				</div>
+			</section>
+
+			<section class="categories" aria-labelledby="cat-heading">
+				<h2 id="cat-heading">Основные направления</h2>
+				<div class="cat-grid">
+					{Object.entries(CATEGORIES).map(([slug, cat]) => (
+						<a class="cat-card" href={`/category/${slug}/`}>
+							<h3>{cat.title}</h3>
+							<p>{cat.description}</p>
+							<span class="cat-link">Перейти →</span>
+						</a>
+					))}
+				</div>
+			</section>
+
+			<section class="latest" aria-labelledby="latest-heading">
+				<h2 id="latest-heading">Последние материалы</h2>
+				{latest.length === 0 ? (
+					<p>Скоро здесь появятся первые статьи.</p>
+				) : (
+					<ul class="post-list">
+						{latest.map((post) => (
+							<li class="post-card">
+								<a href={`/blog/${post.id}/`}>
+									{post.data.previewImage && (
+										<div class="post-card-img">
+											<img src={post.data.previewImage} alt="" loading="lazy" width="800" height="420" />
+										</div>
+									)}
+									<div class="post-card-body">
+										<h3>{post.data.title}</h3>
+										<p class="post-desc">{post.data.description}</p>
+										<p class="post-date">
+											{post.data.updatedDate ? (
+												<>обновлено <FormattedDate date={post.data.updatedDate} /></>
+											) : (
+												<FormattedDate date={post.data.pubDate} />
+											)}
+										</p>
+									</div>
+								</a>
+							</li>
+						))}
+					</ul>
+				)}
+			</section>
+		</main>
+		<Footer />
+
+		<style>
+			.hero {
+				padding: 2.5rem 0 1rem;
+			}
+			.hero h1 {
+				max-width: 820px;
+			}
+			.hero-lead {
+				font-size: 1.15rem;
+				max-width: 760px;
+				color: rgb(var(--gray-dark));
+				margin-top: 1rem;
+			}
+			.hero-cta {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.8rem;
+				margin-top: 1.5rem;
+			}
+			.btn {
+				display: inline-block;
+				padding: 0.7em 1.3em;
+				border-radius: 8px;
+				text-decoration: none;
+				font-weight: 600;
+				font-size: 0.98rem;
+				transition: all 0.15s ease;
+			}
+			.btn-primary {
+				background: var(--accent);
+				color: #fff;
+			}
+			.btn-primary:hover {
+				background: var(--accent-dark);
+				color: #fff;
+			}
+			.btn-ghost {
+				background: transparent;
+				color: var(--accent);
+				border: 1px solid var(--accent);
+			}
+			.btn-ghost:hover {
+				background: var(--accent-soft);
+			}
+
+			.categories,
+			.latest {
+				margin-top: 3rem;
+			}
+			.cat-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 1rem;
+				margin-top: 1.2rem;
+			}
+			.cat-card {
+				display: block;
+				padding: 1.3rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				text-decoration: none;
+				color: rgb(var(--gray-dark));
+				background: #fff;
+				transition: all 0.15s ease;
+			}
+			.cat-card:hover {
+				border-color: var(--accent);
+				box-shadow: var(--box-shadow);
+				transform: translateY(-2px);
+			}
+			.cat-card h3 {
+				margin-top: 0;
+				color: rgb(var(--black));
+			}
+			.cat-card p {
+				font-size: 0.95rem;
+				margin-bottom: 0.8rem;
+			}
+			.cat-link {
+				color: var(--accent);
+				font-weight: 600;
+				font-size: 0.95rem;
+			}
+
+			.post-list {
+				list-style: none;
+				padding: 0;
+				margin: 1.2rem 0 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 1rem;
+			}
+			.post-card a {
+				display: flex;
+				flex-direction: column;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				background: #fff;
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+				height: 100%;
+				overflow: hidden;
+				transition: all 0.15s ease;
+			}
+			.post-card a:hover {
+				border-color: var(--accent);
+				box-shadow: var(--box-shadow);
+			}
+			.post-card-img {
+				width: 100%;
+				aspect-ratio: 16 / 9;
+				overflow: hidden;
+				flex-shrink: 0;
+			}
+			.post-card-img img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+				transition: transform 0.3s ease;
+			}
+			.post-card a:hover .post-card-img img {
+				transform: scale(1.03);
+			}
+			.post-card-body {
+				padding: 1.2rem;
+				display: flex;
+				flex-direction: column;
+				flex: 1;
+			}
+			.post-card h3 {
+				margin-top: 0;
+				color: rgb(var(--black));
+				font-size: 1.15rem;
+			}
+			.post-desc {
+				font-size: 0.95rem;
+				margin-bottom: 0.8rem;
+			}
+			.post-date {
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+				margin: 0;
+			}
+		</style>
+	</body>
+</html>

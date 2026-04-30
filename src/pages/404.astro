@@ -1,0 +1,187 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { CATEGORIES } from '../consts';
+
+const title = 'Страница не найдена';
+const description =
+	'Такой страницы на портале «Регламент.Бизнес» нет. Возможно, материал переехал — посмотрите свежие статьи или перейдите в нужный раздел.';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const latest = posts.slice(0, 3);
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={title} description={description} noindex />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="not-found">
+				<p class="code">404</p>
+				<h1>{title}</h1>
+				<p class="lead">{description}</p>
+				<div class="cta">
+					<a href="/" class="btn btn-primary">На главную</a>
+					<a href="/blog/" class="btn btn-ghost">Все статьи</a>
+				</div>
+			</section>
+
+			<section class="suggestions" aria-labelledby="cat-heading">
+				<h2 id="cat-heading">Возможно, вам нужны эти разделы</h2>
+				<div class="cat-grid">
+					{Object.entries(CATEGORIES).map(([slug, cat]) => (
+						<a class="cat-card" href={`/category/${slug}/`}>
+							<h3>{cat.title}</h3>
+							<p>{cat.description}</p>
+						</a>
+					))}
+				</div>
+			</section>
+
+			{latest.length > 0 && (
+				<section class="latest" aria-labelledby="latest-heading">
+					<h2 id="latest-heading">Свежие материалы</h2>
+					<ul class="post-list">
+						{latest.map((post) => (
+							<li class="post-card">
+								<a href={`/blog/${post.id}/`}>
+									<h3>{post.data.title}</h3>
+									<p>{post.data.description}</p>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
+		</main>
+		<Footer />
+
+		<style>
+			.not-found {
+				padding: 3rem 0 1rem;
+				text-align: center;
+			}
+			.code {
+				font-size: 4rem;
+				font-weight: 700;
+				color: var(--accent);
+				margin: 0;
+				line-height: 1;
+			}
+			.not-found h1 {
+				margin: 0.5rem 0 1rem;
+			}
+			.lead {
+				font-size: 1.1rem;
+				color: rgb(var(--gray-dark));
+				max-width: 620px;
+				margin: 0 auto 1.5rem;
+			}
+			.cta {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.8rem;
+				justify-content: center;
+			}
+			.btn {
+				display: inline-block;
+				padding: 0.7em 1.3em;
+				border-radius: 8px;
+				text-decoration: none;
+				font-weight: 600;
+				font-size: 0.98rem;
+				transition: all 0.15s ease;
+			}
+			.btn-primary {
+				background: var(--accent);
+				color: #fff;
+			}
+			.btn-primary:hover {
+				background: var(--accent-dark);
+				color: #fff;
+			}
+			.btn-ghost {
+				background: transparent;
+				color: var(--accent);
+				border: 1px solid var(--accent);
+			}
+			.btn-ghost:hover {
+				background: var(--accent-soft);
+			}
+
+			.suggestions,
+			.latest {
+				margin-top: 3rem;
+			}
+			.cat-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 1rem;
+				margin-top: 1.2rem;
+			}
+			.cat-card {
+				display: block;
+				padding: 1.3rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				text-decoration: none;
+				color: rgb(var(--gray-dark));
+				background: #fff;
+				transition: all 0.15s ease;
+			}
+			.cat-card:hover {
+				border-color: var(--accent);
+				box-shadow: var(--box-shadow);
+				transform: translateY(-2px);
+			}
+			.cat-card h3 {
+				margin-top: 0;
+				color: rgb(var(--black));
+			}
+			.cat-card p {
+				font-size: 0.95rem;
+				margin-bottom: 0;
+			}
+
+			.post-list {
+				list-style: none;
+				padding: 0;
+				margin: 1.2rem 0 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 1rem;
+			}
+			.post-card a {
+				display: block;
+				padding: 1.2rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				background: #fff;
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+				height: 100%;
+				transition: all 0.15s ease;
+			}
+			.post-card a:hover {
+				border-color: var(--accent);
+				box-shadow: var(--box-shadow);
+			}
+			.post-card h3 {
+				margin-top: 0;
+				color: rgb(var(--black));
+				font-size: 1.15rem;
+			}
+			.post-card p {
+				font-size: 0.95rem;
+				margin: 0;
+			}
+		</style>
+	</body>
+</html>
