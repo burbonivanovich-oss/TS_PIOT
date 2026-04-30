@@ -18,8 +18,10 @@ function loadBgDataUri(cat: string): string | null {
 }
 
 const fontsDir = path.resolve('./public/fonts');
-const fontCyrRegular = fs.readFileSync(path.join(fontsDir, 'inter-regular.woff'));
-const fontCyrBold = fs.readFileSync(path.join(fontsDir, 'inter-bold.woff'));
+const fontHeadRegular = fs.readFileSync(path.join(fontsDir, 'commissioner-regular.woff'));
+const fontHeadBold = fs.readFileSync(path.join(fontsDir, 'commissioner-bold.woff'));
+const fontBodyRegular = fs.readFileSync(path.join(fontsDir, 'geologica-regular.woff'));
+const fontBodyBold = fs.readFileSync(path.join(fontsDir, 'geologica-bold.woff'));
 const fontLatRegular = fs.readFileSync(path.join(fontsDir, 'inter-latin-regular.woff'));
 const fontLatBold = fs.readFileSync(path.join(fontsDir, 'inter-latin-bold.woff'));
 const fontLatExtRegular = fs.readFileSync(path.join(fontsDir, 'inter-latin-ext-regular.woff'));
@@ -60,7 +62,9 @@ export async function GET({ props }: { props: Props }) {
 
 	const bgDataUri = cat ? loadBgDataUri(cat) : null;
 
-	const fontStack = "'InterCyr', 'InterLat', 'InterLatExt'";
+	const headingStack = "'Commissioner', 'InterLat', 'InterLatExt'";
+	const bodyStack = "'Geologica', 'InterLat', 'InterLatExt'";
+	const fontStack = bodyStack;
 	const titleText = escapeHtml(post.data.title);
 	const siteText = escapeHtml(SITE_TITLE);
 	const catText = escapeHtml(catLabel ?? '');
@@ -91,7 +95,7 @@ export async function GET({ props }: { props: Props }) {
 					</div>
 					<div style="display:flex; flex-direction:column; flex:1; justify-content:center; padding:32px 0 24px;">
 						${catTag}
-						<div style="display:flex; font-size:${titleSize}px; font-weight:700; color:#ffffff; line-height:1.15; letter-spacing:-0.5px;">${titleText}</div>
+						<div style="display:flex; font-size:${titleSize}px; font-weight:700; color:#ffffff; line-height:1.15; letter-spacing:-0.5px; font-family:${headingStack};">${titleText}</div>
 					</div>
 					<div style="display:flex; align-items:center; gap:12px; font-size:20px; color:rgba(255,255,255,0.25);">
 						<div style="display:flex;">reglament-biznes.ru</div>
@@ -109,8 +113,10 @@ export async function GET({ props }: { props: Props }) {
 		width: 1200,
 		height: 630,
 		fonts: [
-			{ name: 'InterCyr', data: fontCyrRegular, weight: 400, style: 'normal' },
-			{ name: 'InterCyr', data: fontCyrBold, weight: 700, style: 'normal' },
+			{ name: 'Commissioner', data: fontHeadRegular, weight: 400, style: 'normal' },
+			{ name: 'Commissioner', data: fontHeadBold, weight: 700, style: 'normal' },
+			{ name: 'Geologica', data: fontBodyRegular, weight: 400, style: 'normal' },
+			{ name: 'Geologica', data: fontBodyBold, weight: 700, style: 'normal' },
 			{ name: 'InterLat', data: fontLatRegular, weight: 400, style: 'normal' },
 			{ name: 'InterLat', data: fontLatBold, weight: 700, style: 'normal' },
 			{ name: 'InterLatExt', data: fontLatExtRegular, weight: 400, style: 'normal' },

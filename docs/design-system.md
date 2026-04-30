@@ -42,11 +42,15 @@
 
 ## Типографика
 
-**Шрифт:** Inter (woff, два subset — кириллица + латиница), подключён через
-`@font-face` в `global.css`. Fallback: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PT Sans'`.
+**Пара шрифтов:** Commissioner (заголовки) + Geologica (текст). Оба — кириллица,
+подключены через `@font-face` в `global.css`. Fallback: `Inter, -apple-system, sans-serif`.
+
+Файлы в `public/fonts/`:
+- `commissioner-regular.woff` / `commissioner-bold.woff`
+- `geologica-regular.woff` / `geologica-bold.woff`
 
 ```
-Базовый размер:  18px
+Базовый размер:  19px (desktop), 18px (≤720px)
 Line-height:     1.65
 Letter-spacing:  -0.01em (заголовки)
 ```
@@ -144,7 +148,7 @@ hover: border --accent, box-shadow
 - Фон: AI-текстура из `public/og-backgrounds/{category}.jpg` или градиент категории
 - Тёмный оверлей `rgba(0,0,0,0.60)` для читаемости текста
 - Левая вертикальная полоса 8px цвета категории
-- Шрифты: InterCyr + InterLat + InterLatExt (три subset для fallback кириллица→латиница)
+- Шрифты: Commissioner (заголовок) + Geologica (тело) + InterLat + InterLatExt (латинский fallback)
 
 Подробности — `docs/og-images.md`.
 
@@ -170,7 +174,7 @@ hover: border --accent, box-shadow
 | Цветовые токены | `src/styles/global.css` (`:root`) |
 | Акценты категорий | `src/consts.ts` (добавить hex в `CATEGORIES`) + скрипты |
 | Навигация | `src/consts.ts` (`NAV_LINKS`) |
-| Шрифт | `global.css` (`@font-face`) + `public/fonts/` |
+| Шрифт | `global.css` (`@font-face`) + `public/fonts/` + `src/pages/og/[slug].png.ts` |
 | Карточки статей | `src/components/BlogFilter.tsx`, `src/pages/index.astro` |
 | OG-шаблон | `src/pages/og/[slug].png.ts` |
 | Стиль AI-превью | `scripts/generate-preview-images.mjs` (`BASE_STYLE`, `CAT_STYLE`) |
