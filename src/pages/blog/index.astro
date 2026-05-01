@@ -33,12 +33,29 @@ const allTags = Object.values(collectTags(posts))
 const categoriesForFilter = Object.fromEntries(
 	Object.entries(CATEGORIES).map(([k, v]) => [k, { title: v.title }]),
 );
+
+const itemListJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'CollectionPage',
+	name: pageTitle,
+	description: pageDescription,
+	url: new URL('/blog/', Astro.site).toString(),
+	mainEntity: {
+		'@type': 'ItemList',
+		itemListElement: posts.map((p, i) => ({
+			'@type': 'ListItem',
+			position: i + 1,
+			url: new URL(`/blog/${p.id}/`, Astro.site).toString(),
+			name: p.data.title,
+		})),
+	},
+};
 ---
 
 <!doctype html>
 <html lang="ru">
 	<head>
-		<BaseHead title={pageTitle} description={pageDescription} />
+		<BaseHead title={pageTitle} description={pageDescription} jsonLd={itemListJsonLd} />
 	</head>
 	<body>
 		<Header />

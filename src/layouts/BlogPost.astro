@@ -13,6 +13,7 @@ type Props = CollectionEntry<'blog'>['data'] & {
 	slug?: string;
 	headings?: MarkdownHeading[];
 	readingTime?: number;
+	wordCount?: number;
 };
 
 const {
@@ -25,9 +26,11 @@ const {
 	tags = [],
 	author = SITE_AUTHOR,
 	seo,
+	faq,
 	slug: currentSlug,
 	headings = [],
 	readingTime,
+	wordCount,
 } = Astro.props;
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -88,6 +91,7 @@ const articleJsonLd = {
 	mainEntityOfPage: canonical,
 	keywords: keywords.join(', '),
 	articleSection: categories.map((c) => CATEGORIES[c as keyof typeof CATEGORIES]?.title ?? c),
+	...(wordCount && { wordCount }),
 };
 
 const breadcrumbsJsonLd = {
@@ -118,6 +122,19 @@ const breadcrumbsJsonLd = {
 const primaryCategory = categories[0] as keyof typeof CATEGORIES | undefined;
 const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
 
+const faqJsonLd = faq && faq.length > 0 ? {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faq.map((item) => ({
+		'@type': 'Question',
+		name: item.question,
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: item.answer,
+		},
+	})),
+} : null;
+
 const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined);
 
 const shareUrl = encodeURIComponent(canonical);
@@ -135,7 +152,7 @@ const shareTitle = encodeURIComponent(title);
 			modifiedTime={updatedDate?.toISOString()}
 			keywords={keywords}
 			noindex={seo?.noindex}
-			jsonLd={[articleJsonLd, breadcrumbsJsonLd]}
+			jsonLd={[articleJsonLd, breadcrumbsJsonLd, ...(faqJsonLd ? [faqJsonLd] : [])]}
 		/>
 	</head>
 
