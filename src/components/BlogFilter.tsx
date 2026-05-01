@@ -105,7 +105,7 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 10 }
 								<a href={`/blog/${post.id}/`}>
 									{post.previewImage && (
 										<div className="bf-card-img">
-											<img src={post.previewImage} alt="" loading="lazy" width="800" height="420" />
+											<img src={post.previewImage} alt={post.title} loading="lazy" width="800" height="420" />
 										</div>
 									)}
 									<div className="bf-card-body">

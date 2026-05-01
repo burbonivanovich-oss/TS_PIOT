@@ -58,7 +58,7 @@ const latest = posts.slice(0, 6);
 								<a href={`/blog/${post.id}/`}>
 									{post.data.previewImage && (
 										<div class="post-card-img">
-											<img src={post.data.previewImage} alt="" loading="lazy" width="800" height="420" />
+											<img src={post.data.previewImage} alt={post.data.title} loading="lazy" width="800" height="420" />
 										</div>
 									)}
 									<div class="post-card-body">
