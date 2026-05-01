@@ -11,12 +11,30 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 );
 
 const latest = posts.slice(0, 6);
+
+const homePageJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'WebPage',
+	name: SITE_TITLE,
+	description: SITE_DESCRIPTION,
+	url: 'https://reglament-biznes.ru/',
+	inLanguage: 'ru-RU',
+	speakable: {
+		'@type': 'SpeakableSpecification',
+		cssSelector: ['.hero h1', '.hero-lead'],
+	},
+	about: [
+		{ '@type': 'Thing', name: 'ТС ПИоТ', description: 'Техническое средство получения информации о товаре' },
+		{ '@type': 'Thing', name: 'Маркировка Честный знак' },
+		{ '@type': 'Thing', name: 'Законодательство для МСБ' },
+	],
+};
 ---
 
 <!doctype html>
 <html lang="ru">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} jsonLd={homePageJsonLd} />
 	</head>
 	<body>
 		<Header />
