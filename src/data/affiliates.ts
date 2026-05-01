@@ -300,8 +300,8 @@ export const AFFILIATE_PRODUCTS: Record<string, AffiliateProduct> = {
 // Дефолтные рекомендации по категориям статьи.
 // Принцип: сначала релевантность, потом — выше комиссия среди релевантных.
 export const CATEGORY_DEFAULT_AFFILIATES: Record<string, string[]> = {
-	// ОФД нужен для ТС ПИоТ → обязателен. Диадок нужен для маркировки на кассе → релевантен и в 7× дороже ОФД.
-	'ts-piot': ['kontur-ofd', 'kontur-diadok'],
+	// Контур.Маркет включает кассу + управление маркировкой. ОФД — обязателен для ТС ПИоТ.
+	'ts-piot': ['kontur-ofd', 'kontur-market'],
 
 	// Диадок — основной инструмент для маркированного товара. Маркировка — управление кодами.
 	'markirovka': ['kontur-diadok', 'kontur-markirovka'],
