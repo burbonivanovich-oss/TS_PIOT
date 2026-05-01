@@ -9,6 +9,7 @@ import Header from '../components/Header.astro';
 import { CATEGORIES, SITE_TITLE, SITE_AUTHOR, SITE_LOCALE } from '../consts';
 import { tagSlug } from '../utils/tags';
 import AffiliatesBlock from '../components/AffiliatesBlock.astro';
+import { AFFILIATE_PRODUCTS, CATEGORY_DEFAULT_AFFILIATES } from '../data/affiliates';
 
 type Props = CollectionEntry<'blog'>['data'] & {
 	slug?: string;
@@ -141,6 +142,12 @@ const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined
 
 const shareUrl = encodeURIComponent(canonical);
 const shareTitle = encodeURIComponent(title);
+
+// Сайдбар: берём первый продукт из явных affiliates или дефолт по категории
+const sidebarProductId =
+	(affiliates && affiliates[0]) ??
+	(CATEGORY_DEFAULT_AFFILIATES[categories[0]] ?? [])[0];
+const sidebarProduct = sidebarProductId ? AFFILIATE_PRODUCTS[sidebarProductId] : null;
 ---
 
 <html lang="ru">
@@ -163,6 +170,31 @@ const shareTitle = encodeURIComponent(title);
 
 		<Header />
 		<main>
+			<div class="post-layout">
+
+			{sidebarProduct && (
+				<aside class="post-sidebar" data-pagefind-ignore aria-label="Рекомендуемый сервис">
+					<div class="sb-card">
+						<p class="sb-label">Рекомендуем</p>
+						<p class="sb-name">{sidebarProduct.name}</p>
+						<p class="sb-tagline">{sidebarProduct.tagline}</p>
+						<p class="sb-desc">{sidebarProduct.description}</p>
+						{sidebarProduct.note && (
+							<p class="sb-note">{sidebarProduct.note}</p>
+						)}
+						<a
+							class="sb-cta"
+							href={sidebarProduct.cpaUrl}
+							target="_blank"
+							rel="sponsored noopener noreferrer"
+						>
+							{sidebarProduct.ctaLabel}
+						</a>
+						<p class="sb-disclaimer">Партнёрская ссылка</p>
+					</div>
+				</aside>
+			)}
+
 			<article class="article" data-pagefind-body>
 				<nav class="breadcrumbs" aria-label="Хлебные крошки" data-pagefind-ignore>
 					<a href="/">Главная</a>
@@ -277,6 +309,7 @@ const shareTitle = encodeURIComponent(title);
 					</p>
 				</footer>
 			</article>
+			</div> <!-- /post-layout -->
 		</main>
 		<Footer />
 
@@ -523,6 +556,102 @@ const shareTitle = encodeURIComponent(title);
 				font-size: 0.9rem;
 				color: rgb(var(--gray));
 				font-style: italic;
+			}
+
+			/* Post layout: sidebar + article */
+			.post-layout {
+				display: grid;
+				grid-template-columns: 200px minmax(0, 760px);
+				gap: 0 2.5rem;
+				align-items: start;
+				margin: 0 auto;
+			}
+			.post-sidebar {
+				position: sticky;
+				top: 72px;
+				padding-top: 0.5rem;
+			}
+			.article {
+				min-width: 0;
+			}
+
+			/* Sidebar card */
+			.sb-card {
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				padding: 1.1rem 1rem;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+				gap: 0.45rem;
+			}
+			.sb-label {
+				font-size: 0.72rem;
+				font-weight: 700;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: var(--accent);
+				margin: 0;
+			}
+			.sb-name {
+				font-size: 1rem;
+				font-weight: 700;
+				color: rgb(var(--black));
+				margin: 0;
+				line-height: 1.2;
+			}
+			.sb-tagline {
+				font-size: 0.78rem;
+				color: rgb(var(--gray));
+				margin: 0;
+			}
+			.sb-desc {
+				font-size: 0.83rem;
+				color: rgb(var(--gray-dark));
+				margin: 0.2rem 0 0;
+				line-height: 1.5;
+			}
+			.sb-note {
+				font-size: 0.78rem;
+				color: #16a34a;
+				background: #f0fdf4;
+				border: 1px solid #bbf7d0;
+				border-radius: 6px;
+				padding: 0.3em 0.6em;
+				margin: 0.1rem 0 0;
+			}
+			.sb-cta {
+				display: block;
+				text-align: center;
+				margin-top: 0.4rem;
+				padding: 0.6em 0.8em;
+				background: var(--accent);
+				color: #fff;
+				border-radius: 8px;
+				font-size: 0.85rem;
+				font-weight: 600;
+				text-decoration: none;
+				transition: background 0.15s ease;
+			}
+			.sb-cta:hover {
+				background: var(--accent-dark);
+				color: #fff;
+			}
+			.sb-disclaimer {
+				font-size: 0.7rem;
+				color: rgb(var(--gray));
+				text-align: center;
+				margin: 0;
+			}
+
+			/* Hide sidebar on narrow screens */
+			@media (max-width: 1080px) {
+				.post-layout {
+					grid-template-columns: 1fr;
+				}
+				.post-sidebar {
+					display: none;
+				}
 			}
 		</style>
 	</body>
