@@ -8,6 +8,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { CATEGORIES, SITE_TITLE, SITE_AUTHOR, SITE_LOCALE } from '../consts';
 import { tagSlug } from '../utils/tags';
+import AffiliatesBlock from '../components/AffiliatesBlock.astro';
 
 type Props = CollectionEntry<'blog'>['data'] & {
 	slug?: string;
@@ -27,6 +28,7 @@ const {
 	author = SITE_AUTHOR,
 	seo,
 	faq,
+	affiliates,
 	slug: currentSlug,
 	headings = [],
 	readingTime,
@@ -221,6 +223,8 @@ const shareTitle = encodeURIComponent(title);
 				<div class="prose">
 					<slot />
 				</div>
+
+				<AffiliatesBlock affiliates={affiliates} categories={categories} />
 
 				<div class="share" data-pagefind-ignore>
 					<span class="share-label">Поделиться:</span>
