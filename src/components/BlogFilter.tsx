@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 export type PostData = {
 	id: string;
@@ -16,15 +16,27 @@ type Props = {
 	categories: Record<string, { title: string }>;
 	allTags: string[];
 	pageSize?: number;
+	withServerPagination?: boolean;
 };
 
 const fmt = (iso: string) =>
 	new Date(iso).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
 
-export default function BlogFilter({ posts, categories, allTags, pageSize = 10 }: Props) {
+export default function BlogFilter({ posts, categories, allTags, pageSize = 10, withServerPagination = false }: Props) {
 	const [activeCategory, setActiveCategory] = useState<string>('all');
 	const [activeTag, setActiveTag] = useState<string>('');
 	const [page, setPage] = useState(1);
+
+	const filterActive = activeCategory !== 'all' || !!activeTag;
+
+	// Show/hide server-rendered list when server pagination is used
+	useEffect(() => {
+		if (!withServerPagination) return;
+		const staticEl = document.getElementById('static-posts');
+		if (staticEl) staticEl.style.display = filterActive ? 'none' : '';
+	}, [filterActive, withServerPagination]);
+
+	const showCards = !withServerPagination || filterActive;
 
 	const filtered = useMemo(() => {
 		return posts.filter((p) => {
@@ -85,46 +97,50 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 10 }
 						× Сбросить тег
 					</button>
 				)}
-				<span className="bf-count">
-					{pluralize(filtered.length, ['материал', 'материала', 'материалов'])}
-				</span>
+				{showCards && (
+					<span className="bf-count">
+						{pluralize(filtered.length, ['материал', 'материала', 'материалов'])}
+					</span>
+				)}
 			</div>
 
 			{/* Список */}
-			{paginated.length === 0 ? (
-				<p className="bf-empty">По выбранным фильтрам материалов нет.</p>
-			) : (
-				<ul className="bf-list">
-					{paginated.map((post) => {
-						const cat = post.categories[0];
-						const catTitle = cat ? categories[cat]?.title : null;
-						const date = post.updatedDate ?? post.pubDate;
-						const isUpdated = !!post.updatedDate;
-						return (
-							<li key={post.id} className="bf-card">
-								<a href={`/blog/${post.id}/`}>
-									{post.previewImage && (
-										<div className="bf-card-img">
-											<img src={post.previewImage} alt={post.title} loading="lazy" width="800" height="420" />
+			{showCards && (
+				paginated.length === 0 ? (
+					<p className="bf-empty">По выбранным фильтрам материалов нет.</p>
+				) : (
+					<ul className="bf-list">
+						{paginated.map((post) => {
+							const cat = post.categories[0];
+							const catTitle = cat ? categories[cat]?.title : null;
+							const date = post.updatedDate ?? post.pubDate;
+							const isUpdated = !!post.updatedDate;
+							return (
+								<li key={post.id} className="bf-card">
+									<a href={`/blog/${post.id}/`}>
+										{post.previewImage && (
+											<div className="bf-card-img">
+												<img src={post.previewImage} alt={post.title} loading="lazy" width="800" height="420" />
+											</div>
+										)}
+										<div className="bf-card-body">
+											{catTitle && <span className="bf-card-cat">{catTitle}</span>}
+											<h2 className="bf-card-title">{post.title}</h2>
+											<p className="bf-card-desc">{post.description}</p>
+											<p className="bf-card-date">
+												{isUpdated ? 'обновлено ' : ''}{fmt(date)}
+											</p>
 										</div>
-									)}
-									<div className="bf-card-body">
-										{catTitle && <span className="bf-card-cat">{catTitle}</span>}
-										<h2 className="bf-card-title">{post.title}</h2>
-										<p className="bf-card-desc">{post.description}</p>
-										<p className="bf-card-date">
-											{isUpdated ? 'обновлено ' : ''}{fmt(date)}
-										</p>
-									</div>
-								</a>
-							</li>
-						);
-					})}
-				</ul>
+									</a>
+								</li>
+							);
+						})}
+					</ul>
+				)
 			)}
 
-			{/* Пагинация */}
-			{totalPages > 1 && (
+			{/* Пагинация фильтрованных результатов */}
+			{showCards && totalPages > 1 && (
 				<nav className="bf-pages" aria-label="Страницы">
 					<button
 						type="button"
