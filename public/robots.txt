@@ -2,5 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /draft/
 
-Sitemap: https://reglament-biznes.ru/sitemap.xml
-Host: https://reglament-biznes.ru
+Sitemap: https://etiketka.media/sitemap.xml
+Host: https://etiketka.media

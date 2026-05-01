@@ -7,8 +7,8 @@
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
   <g font-family="-apple-system, Segoe UI, Roboto, Arial" fill="#ffffff">
-    <text x="80" y="200" font-size="72" font-weight="700">Регламент.Бизнес</text>
-    <text x="80" y="280" font-size="36" fill="#cbd5e1">Информационный портал для МСБ</text>
+    <text x="80" y="200" font-size="72" font-weight="700">Этикетка</text>
+    <text x="80" y="280" font-size="36" fill="#cbd5e1">Медиа для предпринимателей</text>
     <text x="80" y="450" font-size="28" fill="#93c5fd">ТС ПИоТ · Маркировка · Законодательство</text>
   </g>
 </svg>
