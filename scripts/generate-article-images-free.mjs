@@ -1,6 +1,7 @@
 /**
  * Генерирует preview + hero изображения для статей через Pollinations.ai.
- * Бесплатно, без API-ключей. FLUX-модель.
+ * Запасной вариант без API-ключей (FLUX-модель, бесплатно).
+ * Основной вариант — generate-preview-images.mjs + generate-hero-images.mjs через OpenRouter.
  *
  * Запуск:
  *   node scripts/generate-article-images-free.mjs          # все статьи без изображений

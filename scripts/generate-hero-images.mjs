@@ -1,31 +1,38 @@
 /**
- * Генерирует hero-изображения для статей через Gemini 3.1 Flash Image (Nano Banana 2).
+ * Генерирует hero-изображения для статей через OpenRouter (FLUX или другая модель).
  * Для каждой статьи без heroImage создаёт картинку и прописывает путь во frontmatter.
  *
  * Запуск:
- *   GEMINI_API_KEY=... node scripts/generate-hero-images.mjs           # все статьи без hero
- *   GEMINI_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...     # одна статья
+ *   OPENROUTER_API_KEY=... node scripts/generate-hero-images.mjs           # все без hero
+ *   OPENROUTER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...     # одна статья
+ *   OPENROUTER_API_KEY=... HERO_MODEL=black-forest-labs/flux-1-1-pro node ... # другая модель
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT       = path.resolve(__dirname, '..');
-const BLOG_DIR   = path.join(ROOT, 'src/content/blog');
-const HERO_DIR   = path.join(ROOT, 'public/images/hero');
-const MODEL      = 'gemini-3.1-flash-image-preview';
+const ROOT      = path.resolve(__dirname, '..');
+const BLOG_DIR  = path.join(ROOT, 'src/content/blog');
+const HERO_DIR  = path.join(ROOT, 'public/images/hero');
+const MODEL     = process.env.HERO_MODEL ?? 'black-forest-labs/flux-1-schnell';
 
 fs.mkdirSync(HERO_DIR, { recursive: true });
 
-const API_KEY = process.env.GEMINI_API_KEY;
-if (!API_KEY) { console.error('GEMINI_API_KEY не задан'); process.exit(1); }
+const API_KEY = process.env.OPENROUTER_API_KEY;
+if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
 
 // Цветовые темы по категории
 const CAT_STYLE = {
-  'ts-piot':        'deep navy blue, electric blue accents, circuit board patterns, digital technology',
-  'markirovka':     'deep forest green, teal accents, barcode and data matrix patterns, logistics',
-  'zakonodatelstvo':'dark charcoal, warm amber gold accents, marble texture, formal documents',
+  'ts-piot':
+    'deep navy blue, electric blue accents, circuit board patterns, digital technology, ' +
+    'very dark background (90% dark), cinematic lighting',
+  'markirovka':
+    'deep forest green, teal accents, barcode and data matrix patterns, logistics, ' +
+    'very dark background (90% dark), cinematic lighting',
+  'zakonodatelstvo':
+    'dark charcoal, warm amber gold accents, marble texture, formal documents, ' +
+    'very dark background (90% dark), cinematic lighting',
 };
 
 function parseFrontmatter(content) {
@@ -36,40 +43,40 @@ function parseFrontmatter(content) {
     const kv = line.match(/^(\w+):\s*"?([^"]*)"?/);
     if (kv) fm[kv[1]] = kv[2].trim();
   }
-  fm._raw = match[1];
-  fm._body = content.slice(match[0].length);
   return fm;
 }
 
 function buildPrompt(title, category) {
-  const style = CAT_STYLE[category] ?? 'dark abstract, professional';
+  const style = CAT_STYLE[category] ?? 'dark abstract, professional, cinematic lighting';
   return (
     `Editorial photo illustration for a Russian business article. ` +
     `Topic: "${title}". ` +
-    `Visual style: ${style}, very dark background (90% dark), ` +
-    `subtle abstract composition, photorealistic, cinematic lighting, ` +
+    `Visual style: ${style}, subtle abstract composition, photorealistic, ` +
     `16:9 aspect ratio, no text, no people, no logos, ` +
     `suitable for white typography overlay`
   );
 }
 
 async function generateImage(prompt) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
-  const res = await fetch(url, {
+  const res = await fetch('https://openrouter.ai/api/v1/images/generations', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Authorization': `Bearer ${API_KEY}`,
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { responseModalities: ['IMAGE'] },
+      model: MODEL,
+      prompt,
+      n: 1,
+      size: '1792x1024',
+      response_format: 'b64_json',
     }),
   });
   if (!res.ok) throw new Error(`API ${res.status}: ${await res.text()}`);
   const data = await res.json();
-  const part = data?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
-  if (!part) throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 300));
-  const { mimeType, data: b64 } = part.inlineData;
-  const ext = mimeType.includes('jpeg') ? 'jpg' : 'png';
-  return { buffer: Buffer.from(b64, 'base64'), ext };
+  const b64 = data?.data?.[0]?.b64_json;
+  if (!b64) throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 300));
+  return Buffer.from(b64, 'base64');
 }
 
 // Собираем список статей для обработки
@@ -79,9 +86,7 @@ const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
 const targets = files.filter(file => {
   if (targetSlug && !file.startsWith(targetSlug) && file !== targetSlug + '.md') return false;
   const content = fs.readFileSync(path.join(BLOG_DIR, file), 'utf8');
-  // Пропускаем если heroImage уже есть
   if (/^heroImage:/m.test(content)) return false;
-  // Пропускаем черновики если не указан конкретный slug
   if (!targetSlug && /^draft:\s*true/m.test(content)) return false;
   return true;
 });
@@ -91,6 +96,7 @@ if (targets.length === 0) {
   process.exit(0);
 }
 
+console.log(`Модель: ${MODEL}`);
 console.log(`Буду генерировать hero для ${targets.length} статьи(й)...\n`);
 
 for (const file of targets) {
@@ -106,16 +112,15 @@ for (const file of targets) {
 
   process.stdout.write(`${slug}... `);
   try {
-    const { buffer, ext } = await generateImage(prompt);
-    const heroPath   = `/images/hero/${slug}.${ext}`;
-    const outputPath = path.join(HERO_DIR, `${slug}.${ext}`);
-    fs.writeFileSync(outputPath, buffer);
-    const size = (fs.statSync(outputPath).size / 1024).toFixed(0);
+    const buffer   = await generateImage(prompt);
+    const heroPath = `/images/hero/${slug}.jpg`;
+    const outPath  = path.join(HERO_DIR, `${slug}.jpg`);
+    fs.writeFileSync(outPath, buffer);
+    const size = (fs.statSync(outPath).size / 1024).toFixed(0);
 
-    // Вставляем heroImage в frontmatter после pubDate
     const updated = content.replace(
       /^(---\n[\s\S]*?)(pubDate:[^\n]*\n)/m,
-      `$1$2heroImage: "${heroPath}"\n`
+      `$1$2heroImage: "${heroPath}"\n`,
     );
     fs.writeFileSync(filePath, updated);
     console.log(`✓ ${size} KB → ${heroPath}`);
