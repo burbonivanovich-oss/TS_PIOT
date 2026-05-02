@@ -5,16 +5,16 @@ const today = new Date();
 
 <footer>
 	<div class="footer-inner">
-		<div class="footer-col">
-			<strong>{SITE_TITLE}</strong>
-			<p class="muted">
+		<div class="footer-col footer-col--brand">
+			<a href="/" class="footer-brand">{SITE_TITLE}</a>
+			<p class="footer-desc">
 				Информационный портал для малого и среднего бизнеса. Разбираем требования
 				ТС ПИоТ, маркировки «Честный знак» и изменения в законодательстве простым
 				языком.
 			</p>
 		</div>
 		<div class="footer-col">
-			<strong>Разделы</strong>
+			<p class="footer-heading">Разделы</p>
 			<ul>
 				{NAV_LINKS.filter((l) => l.href !== '/').map((link) => (
 					<li><a href={link.href}>{link.label}</a></li>
@@ -23,20 +23,19 @@ const today = new Date();
 			</ul>
 		</div>
 		<div class="footer-col">
-			<strong>Инструменты</strong>
+			<p class="footer-heading">Инструменты</p>
 			<ul>
 				<li><a href="/kalkulyator-shtrafov/">Калькулятор штрафов</a></li>
 				<li><a href="/kalendar-markirovki/">Календарь маркировки</a></li>
 				<li><a href="/slovar/">Словарь терминов</a></li>
 				<li><a href="/tags/">Все теги</a></li>
-				<li><a href="/search/">Поиск</a></li>
 			</ul>
 		</div>
 		<div class="footer-col">
-			<strong>Документы</strong>
+			<p class="footer-heading">Документы</p>
 			<ul>
 				<li><a href="/about/">О проекте</a></li>
-				<li><a href="/privacy/">Политика конфиденциальности</a></li>
+				<li><a href="/privacy/">Конфиденциальность</a></li>
 			</ul>
 		</div>
 	</div>
@@ -50,55 +49,91 @@ const today = new Date();
 
 <style>
 	footer {
-		padding: 2.5em 1em 3em;
-		background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
-		color: #cbd5e1;
-		margin-top: 4rem;
+		background: var(--text);
+		color: rgba(255, 255, 255, 0.6);
+		padding: var(--sp-8) var(--sp-4) var(--sp-6);
+		margin-top: var(--sp-8);
 	}
+
 	.footer-inner {
 		max-width: 1100px;
 		margin: 0 auto;
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-		gap: 2rem;
+		grid-template-columns: 2fr repeat(3, 1fr);
+		gap: var(--sp-7);
 	}
-	.footer-col strong {
+
+	.footer-brand {
 		display: block;
+		font-family: 'Commissioner', sans-serif;
+		font-weight: 700;
+		font-size: 1.125rem;
+		letter-spacing: -0.02em;
 		color: #fff;
-		font-size: 1rem;
-		margin-bottom: 0.7rem;
+		text-decoration: none;
+		margin-bottom: var(--sp-3);
 	}
-	.footer-col p,
-	.footer-col li {
-		font-size: 0.92rem;
-		line-height: 1.55;
+
+	.footer-desc {
+		font-size: 0.875rem;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.45);
+		margin: 0;
 	}
+
+	.footer-heading {
+		font-family: 'Commissioner', sans-serif;
+		font-weight: 700;
+		font-size: 0.875rem;
+		color: #fff;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		margin: 0 0 var(--sp-3);
+	}
+
 	.footer-col ul {
 		list-style: none;
 		padding: 0;
 		margin: 0;
 	}
+
 	.footer-col li {
-		margin-bottom: 0.4rem;
+		margin-bottom: var(--sp-2);
 	}
+
 	.footer-col a {
-		color: #cbd5e1;
+		color: rgba(255, 255, 255, 0.6);
 		text-decoration: none;
+		font-size: 0.9375rem;
+		transition: color var(--ease);
 	}
+
 	.footer-col a:hover {
 		color: #fff;
-		text-decoration: underline;
+		text-decoration: none;
 	}
-	.muted {
-		color: #94a3b8;
-	}
+
 	.footer-bottom {
 		max-width: 1100px;
-		margin: 2.5rem auto 0;
-		padding-top: 1.5rem;
+		margin: var(--sp-7) auto 0;
+		padding-top: var(--sp-5);
 		border-top: 1px solid rgba(255, 255, 255, 0.08);
-		color: #94a3b8;
-		font-size: 0.85rem;
 		text-align: center;
+		font-size: 0.875rem;
+		color: rgba(255, 255, 255, 0.35);
+	}
+
+	@media (max-width: 900px) {
+		.footer-inner {
+			grid-template-columns: 1fr 1fr;
+			gap: var(--sp-6);
+		}
+	}
+
+	@media (max-width: 520px) {
+		.footer-inner {
+			grid-template-columns: 1fr;
+			gap: var(--sp-5);
+		}
 	}
 </style>
