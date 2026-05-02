@@ -189,7 +189,7 @@ hover: border --accent, box-shadow
 | Тип | Нейросеть | Стиль |
 |---|---|---|
 | Preview (карточка) | FLUX via OpenRouter | Bold flat editorial, единый стиль |
-| Hero (шапка статьи) | Nano Banana 2 (Gemini) | Фотореалистичный, тематический |
+| Hero (шапка статьи) | FLUX via OpenRouter | Фотореалистичный, тематический |
 
 Промпты и логика генерации — `docs/og-images.md`, `docs/article-cards.md`.
 

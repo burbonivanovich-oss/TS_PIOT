@@ -49,7 +49,7 @@ previewImage: "/images/preview/2026-01-15-chto-takoe-ts-piot.jpg"
 src/content/blog/новая-статья.md → push → GitHub Actions
   ├── FLUX → public/images/preview/новая-статья.jpg
   │   └── frontmatter ← previewImage: "/images/preview/..."
-  └── Nano Banana 2 → public/images/hero/новая-статья.jpg
+  └── FLUX (OpenRouter) → public/images/hero/новая-статья.jpg
       └── frontmatter ← heroImage: "/images/hero/..."
 ```
 

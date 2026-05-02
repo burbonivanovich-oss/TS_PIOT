@@ -98,7 +98,7 @@ export async function GET({ props }: { props: Props }) {
 						<div style="display:flex; font-size:${titleSize}px; font-weight:700; color:#ffffff; line-height:1.15; letter-spacing:-0.5px; font-family:${headingStack};">${titleText}</div>
 					</div>
 					<div style="display:flex; align-items:center; gap:12px; font-size:20px; color:rgba(255,255,255,0.25);">
-						<div style="display:flex;">reglament-biznes.ru</div>
+						<div style="display:flex;">etiketka.media</div>
 						<div style="display:flex; width:3px; height:3px; border-radius:50%; background:rgba(255,255,255,0.2);"></div>
 						<div style="display:flex;">Для малого и среднего бизнеса</div>
 					</div>

@@ -7,7 +7,7 @@ import { CATEGORIES } from '../consts';
 
 const title = 'Страница не найдена';
 const description =
-	'Такой страницы на портале «Регламент.Бизнес» нет. Возможно, материал переехал — посмотрите свежие статьи или перейдите в нужный раздел.';
+	'Такой страницы на «Этикетке» нет. Возможно, материал переехал — посмотрите свежие статьи или перейдите в нужный раздел.';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
