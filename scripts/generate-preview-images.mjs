@@ -1,11 +1,11 @@
 /**
- * Генерирует превью-изображения для карточек статей через FLUX Schnell (Together.ai).
+ * Генерирует превью-изображения для карточек статей через OpenRouter.
  * Единый editorial-стиль на все статьи, тематические объекты по содержанию.
  *
  * Запуск:
- *   TOGETHER_API_KEY=... node scripts/generate-preview-images.mjs           # все без previewImage
- *   TOGETHER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...        # одна статья
- *   TOGETHER_API_KEY=... FLUX_MODEL=black-forest-labs/FLUX.1-dev node ...   # другая модель
+ *   OPENROUTER_API_KEY=... node scripts/generate-preview-images.mjs           # все без previewImage
+ *   OPENROUTER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...        # одна статья
+ *   OPENROUTER_API_KEY=... FLUX_MODEL=black-forest-labs/flux.2-pro node ...   # другая модель
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -15,12 +15,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT        = path.resolve(__dirname, '..');
 const BLOG_DIR    = path.join(ROOT, 'src/content/blog');
 const PREVIEW_DIR = path.join(ROOT, 'public/images/preview');
-const MODEL       = process.env.FLUX_MODEL ?? 'black-forest-labs/FLUX.1-schnell-Free';
+const MODEL       = process.env.FLUX_MODEL ?? 'google/gemini-2.5-flash-image';
 
 fs.mkdirSync(PREVIEW_DIR, { recursive: true });
 
-const API_KEY = process.env.TOGETHER_API_KEY;
-if (!API_KEY) { console.error('TOGETHER_API_KEY не задан'); process.exit(1); }
+const API_KEY = process.env.OPENROUTER_API_KEY;
+if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
 
 // Единый визуальный стиль — editorial flat illustration, consistent across articles
 const BASE_STYLE =
@@ -61,38 +61,64 @@ function buildPrompt(title, category) {
 }
 
 async function generateImage(prompt) {
-  const res = await fetch('https://api.together.xyz/v1/images/generations', {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
+      'HTTP-Referer': 'https://reglament.business',
+      'X-Title': 'Reglament Business',
     },
     body: JSON.stringify({
       model: MODEL,
-      prompt,
-      n: 1,
-      width: 1344,
-      height: 768,
+      messages: [{ role: 'user', content: prompt }],
+      modalities: ['image', 'text'],
+      image_config: { aspect_ratio: '16:9' },
     }),
   });
 
   if (!res.ok) throw new Error(`API ${res.status}: ${(await res.text()).slice(0, 400)}`);
   const data = await res.json();
 
-  const item = data?.data?.[0];
-  if (!item) throw new Error('Нет данных: ' + JSON.stringify(data).slice(0, 400));
+  const msg = data?.choices?.[0]?.message;
+  if (!msg) throw new Error('Нет message: ' + JSON.stringify(data).slice(0, 400));
 
-  // URL-формат
-  if (item.url) {
-    const r = await fetch(item.url);
-    if (!r.ok) throw new Error(`Скачивание ${r.status}: ${item.url}`);
-    return Buffer.from(await r.arrayBuffer());
+  // Gemini-style: images в отдельном поле message.images
+  if (Array.isArray(msg.images) && msg.images.length > 0) {
+    const imgUrl = msg.images[0]?.image_url?.url;
+    if (imgUrl) {
+      if (imgUrl.startsWith('data:')) return Buffer.from(imgUrl.split(',')[1], 'base64');
+      const r = await fetch(imgUrl);
+      if (!r.ok) throw new Error(`Скачивание ${r.status}`);
+      return Buffer.from(await r.arrayBuffer());
+    }
   }
 
-  // base64-формат
-  if (item.b64_json) return Buffer.from(item.b64_json, 'base64');
+  // FLUX-style: content — строка с URL или base64 data URI
+  const content = msg.content;
+  if (typeof content === 'string') {
+    const trimmed = content.trim();
+    if (trimmed.startsWith('data:')) return Buffer.from(trimmed.split(',')[1], 'base64');
+    if (/^https?:\/\//.test(trimmed)) {
+      const r = await fetch(trimmed);
+      if (!r.ok) throw new Error(`Скачивание ${r.status}`);
+      return Buffer.from(await r.arrayBuffer());
+    }
+  }
 
-  throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 400));
+  // content — массив частей (multimodal)
+  if (Array.isArray(content)) {
+    for (const part of content) {
+      const url = part?.image_url?.url ?? (part?.type === 'image_url' ? part.url : null);
+      if (!url) continue;
+      if (url.startsWith('data:')) return Buffer.from(url.split(',')[1], 'base64');
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`Скачивание ${r.status}`);
+      return Buffer.from(await r.arrayBuffer());
+    }
+  }
+
+  throw new Error('Нет изображения. message: ' + JSON.stringify(msg).slice(0, 400));
 }
 
 const targetSlug = process.env.SLUG;

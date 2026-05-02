@@ -1,11 +1,11 @@
 /**
- * Генерирует hero-изображения для статей через FLUX Schnell (Together.ai).
+ * Генерирует hero-изображения для статей через OpenRouter.
  * Для каждой статьи без heroImage создаёт картинку и прописывает путь во frontmatter.
  *
  * Запуск:
- *   TOGETHER_API_KEY=... node scripts/generate-hero-images.mjs           # все без hero
- *   TOGETHER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...     # одна статья
- *   TOGETHER_API_KEY=... HERO_MODEL=black-forest-labs/FLUX.1-dev node ... # другая модель
+ *   OPENROUTER_API_KEY=... node scripts/generate-hero-images.mjs           # все без hero
+ *   OPENROUTER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...     # одна статья
+ *   OPENROUTER_API_KEY=... HERO_MODEL=black-forest-labs/flux.2-pro node ... # другая модель
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -15,27 +15,24 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
 const BLOG_DIR  = path.join(ROOT, 'src/content/blog');
 const HERO_DIR  = path.join(ROOT, 'public/images/hero');
-const MODEL     = process.env.HERO_MODEL ?? 'black-forest-labs/FLUX.1-schnell-Free';
+const MODEL     = process.env.HERO_MODEL ?? 'black-forest-labs/flux.2-klein-4b';
 
 fs.mkdirSync(HERO_DIR, { recursive: true });
 
-const API_KEY = process.env.TOGETHER_API_KEY;
-if (!API_KEY) { console.error('TOGETHER_API_KEY не задан'); process.exit(1); }
+const API_KEY = process.env.OPENROUTER_API_KEY;
+if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
 
 // Цветовые темы по категории
 const CAT_STYLE = {
   'ts-piot':
-    'deep navy blue and electric blue color scheme, circuit board patterns, ' +
-    'digital technology abstract, dark background, cinematic dramatic lighting, ' +
-    'photorealistic render',
+    'deep navy blue, electric blue accents, circuit board patterns, digital technology, ' +
+    'very dark background (90% dark), cinematic lighting',
   'markirovka':
-    'deep forest green and teal color scheme, barcode and data matrix patterns, ' +
-    'logistics and supply chain abstract, dark background, cinematic dramatic lighting, ' +
-    'photorealistic render',
+    'deep forest green, teal accents, barcode and data matrix patterns, logistics, ' +
+    'very dark background (90% dark), cinematic lighting',
   'zakonodatelstvo':
-    'dark charcoal and warm amber gold color scheme, marble texture, ' +
-    'formal documents abstract, dark background, cinematic dramatic lighting, ' +
-    'photorealistic render',
+    'dark charcoal, warm amber gold accents, marble texture, formal documents, ' +
+    'very dark background (90% dark), cinematic lighting',
 };
 
 function parseFrontmatter(content) {
@@ -50,49 +47,75 @@ function parseFrontmatter(content) {
 }
 
 function buildPrompt(title, category) {
-  const style = CAT_STYLE[category] ?? 'dark abstract, professional, cinematic lighting, photorealistic';
+  const style = CAT_STYLE[category] ?? 'dark abstract, professional, cinematic lighting';
   return (
     `Editorial photo illustration for a Russian business article. ` +
     `Topic: "${title}". ` +
-    `Visual style: ${style}, subtle abstract composition, ` +
+    `Visual style: ${style}, subtle abstract composition, photorealistic, ` +
     `16:9 aspect ratio, no text, no people, no logos, ` +
     `suitable for white typography overlay`
   );
 }
 
 async function generateImage(prompt) {
-  const res = await fetch('https://api.together.xyz/v1/images/generations', {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
+      'HTTP-Referer': 'https://reglament.business',
+      'X-Title': 'Reglament Business',
     },
     body: JSON.stringify({
       model: MODEL,
-      prompt,
-      n: 1,
-      width: 1344,
-      height: 768,
+      messages: [{ role: 'user', content: prompt }],
+      modalities: ['image'],
+      image_config: { aspect_ratio: '16:9' },
     }),
   });
 
   if (!res.ok) throw new Error(`API ${res.status}: ${(await res.text()).slice(0, 400)}`);
   const data = await res.json();
 
-  const item = data?.data?.[0];
-  if (!item) throw new Error('Нет данных: ' + JSON.stringify(data).slice(0, 400));
+  const msg = data?.choices?.[0]?.message;
+  if (!msg) throw new Error('Нет message: ' + JSON.stringify(data).slice(0, 400));
 
-  // URL-формат
-  if (item.url) {
-    const r = await fetch(item.url);
-    if (!r.ok) throw new Error(`Скачивание ${r.status}: ${item.url}`);
-    return Buffer.from(await r.arrayBuffer());
+  // Gemini-style: images в отдельном поле message.images
+  if (Array.isArray(msg.images) && msg.images.length > 0) {
+    const imgUrl = msg.images[0]?.image_url?.url;
+    if (imgUrl) {
+      if (imgUrl.startsWith('data:')) return Buffer.from(imgUrl.split(',')[1], 'base64');
+      const r = await fetch(imgUrl);
+      if (!r.ok) throw new Error(`Скачивание ${r.status}`);
+      return Buffer.from(await r.arrayBuffer());
+    }
   }
 
-  // base64-формат
-  if (item.b64_json) return Buffer.from(item.b64_json, 'base64');
+  // FLUX-style: content — строка с URL или base64 data URI
+  const content = msg.content;
+  if (typeof content === 'string') {
+    const trimmed = content.trim();
+    if (trimmed.startsWith('data:')) return Buffer.from(trimmed.split(',')[1], 'base64');
+    if (/^https?:\/\//.test(trimmed)) {
+      const r = await fetch(trimmed);
+      if (!r.ok) throw new Error(`Скачивание ${r.status}`);
+      return Buffer.from(await r.arrayBuffer());
+    }
+  }
 
-  throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 400));
+  // content — массив частей (multimodal)
+  if (Array.isArray(content)) {
+    for (const part of content) {
+      const url = part?.image_url?.url ?? (part?.type === 'image_url' ? part.url : null);
+      if (!url) continue;
+      if (url.startsWith('data:')) return Buffer.from(url.split(',')[1], 'base64');
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`Скачивание ${r.status}`);
+      return Buffer.from(await r.arrayBuffer());
+    }
+  }
+
+  throw new Error('Нет изображения. message: ' + JSON.stringify(msg).slice(0, 400));
 }
 
 // Собираем список статей для обработки

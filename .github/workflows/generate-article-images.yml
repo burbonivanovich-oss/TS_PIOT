@@ -31,15 +31,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Generate preview images (FLUX Schnell Free via Together.ai)
+      - name: Generate preview images (Gemini 2.5 Flash Image via OpenRouter)
         env:
-          TOGETHER_API_KEY: ${{ secrets.TOGETHER_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/generate-preview-images.mjs
         continue-on-error: false
 
-      - name: Generate hero images (FLUX Schnell Free via Together.ai)
+      - name: Generate hero images (FLUX.2 Klein via OpenRouter)
         env:
-          TOGETHER_API_KEY: ${{ secrets.TOGETHER_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/generate-hero-images.mjs
         continue-on-error: false
 
@@ -48,5 +48,5 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/images/preview/ public/images/hero/ src/content/blog/
-          git diff --staged --quiet || git commit -m "feat(images): превью + hero (FLUX Schnell Free via Together.ai)"
+          git diff --staged --quiet || git commit -m "feat(images): превью (Gemini 2.5 Flash) + hero (FLUX.2 Klein)"
           git push origin HEAD
