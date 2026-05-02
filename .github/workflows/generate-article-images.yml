@@ -2,7 +2,7 @@ name: Generate Article Images
 
 on:
   push:
-    branches: [main]
+    branches: [main, claude/generate-article-images-RXhwD]
     paths:
       - 'src/content/blog/**.md'
   workflow_dispatch:
