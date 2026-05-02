@@ -31,9 +31,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Generate preview images (Nano Banana via OpenRouter)
+      - name: Generate preview images (FLUX Schnell via Together.ai)
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          TOGETHER_API_KEY: ${{ secrets.TOGETHER_API_KEY }}
         run: node scripts/generate-preview-images.mjs
         continue-on-error: false
 

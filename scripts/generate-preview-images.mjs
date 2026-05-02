@@ -1,10 +1,11 @@
 /**
- * Генерирует превью-изображения для карточек статей через FLUX (OpenRouter).
+ * Генерирует превью-изображения для карточек статей через FLUX (Together.ai).
  * Единый editorial-стиль на все статьи, тематические объекты по содержанию.
  *
  * Запуск:
- *   OPENROUTER_API_KEY=... node scripts/generate-preview-images.mjs           # все без previewImage
- *   OPENROUTER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...        # одна статья
+ *   TOGETHER_API_KEY=... node scripts/generate-preview-images.mjs           # все без previewImage
+ *   TOGETHER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...        # одна статья
+ *   TOGETHER_API_KEY=... FLUX_MODEL=black-forest-labs/FLUX.1-dev node ...   # другая модель
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -14,12 +15,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT        = path.resolve(__dirname, '..');
 const BLOG_DIR    = path.join(ROOT, 'src/content/blog');
 const PREVIEW_DIR = path.join(ROOT, 'public/images/preview');
-const MODEL       = process.env.FLUX_MODEL ?? 'google/gemini-2.5-flash-image';
+const MODEL       = process.env.FLUX_MODEL ?? 'black-forest-labs/FLUX.1-schnell-Free';
 
 fs.mkdirSync(PREVIEW_DIR, { recursive: true });
 
-const API_KEY = process.env.OPENROUTER_API_KEY;
-if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
+const API_KEY = process.env.TOGETHER_API_KEY;
+if (!API_KEY) { console.error('TOGETHER_API_KEY не задан'); process.exit(1); }
 
 // Единый визуальный стиль — editorial flat illustration, consistent across articles
 const BASE_STYLE =
@@ -60,46 +61,38 @@ function buildPrompt(title, category) {
 }
 
 async function generateImage(prompt) {
-  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const res = await fetch('https://api.together.xyz/v1/images/generations', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://reglament.business',
-      'X-Title': 'Reglament Business',
     },
     body: JSON.stringify({
       model: MODEL,
-      messages: [{ role: 'user', content: prompt }],
+      prompt,
+      n: 1,
+      width: 1344,
+      height: 768,
     }),
   });
 
   if (!res.ok) throw new Error(`API ${res.status}: ${(await res.text()).slice(0, 400)}`);
   const data = await res.json();
 
-  const content = data?.choices?.[0]?.message?.content;
-  if (!content) throw new Error('Нет content: ' + JSON.stringify(data).slice(0, 400));
+  const item = data?.data?.[0];
+  if (!item) throw new Error('Нет данных: ' + JSON.stringify(data).slice(0, 400));
 
-  // content — строка-URL
-  if (typeof content === 'string' && /^https?:\/\//.test(content.trim())) {
-    const r = await fetch(content.trim());
-    if (!r.ok) throw new Error(`Скачивание ${r.status}: ${content}`);
+  // URL-формат
+  if (item.url) {
+    const r = await fetch(item.url);
+    if (!r.ok) throw new Error(`Скачивание ${r.status}: ${item.url}`);
     return Buffer.from(await r.arrayBuffer());
   }
 
-  // content — массив (multimodal)
-  if (Array.isArray(content)) {
-    for (const part of content) {
-      const url = part?.image_url?.url ?? (part?.type === 'image_url' ? part.url : null);
-      if (!url) continue;
-      if (url.startsWith('data:')) return Buffer.from(url.split(',')[1], 'base64');
-      const r = await fetch(url);
-      if (!r.ok) throw new Error(`Скачивание ${r.status}: ${url}`);
-      return Buffer.from(await r.arrayBuffer());
-    }
-  }
+  // base64-формат
+  if (item.b64_json) return Buffer.from(item.b64_json, 'base64');
 
-  throw new Error('Нет изображения в ответе: ' + JSON.stringify(data).slice(0, 400));
+  throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 400));
 }
 
 const targetSlug = process.env.SLUG;
