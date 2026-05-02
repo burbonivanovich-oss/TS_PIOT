@@ -1,11 +1,11 @@
 /**
- * Генерирует hero-изображения для статей через OpenRouter (FLUX или другая модель).
+ * Генерирует hero-изображения для статей через FLUX Schnell (Together.ai).
  * Для каждой статьи без heroImage создаёт картинку и прописывает путь во frontmatter.
  *
  * Запуск:
- *   OPENROUTER_API_KEY=... node scripts/generate-hero-images.mjs           # все без hero
- *   OPENROUTER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...     # одна статья
- *   OPENROUTER_API_KEY=... HERO_MODEL=black-forest-labs/flux-1-1-pro node ... # другая модель
+ *   TOGETHER_API_KEY=... node scripts/generate-hero-images.mjs           # все без hero
+ *   TOGETHER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...     # одна статья
+ *   TOGETHER_API_KEY=... HERO_MODEL=black-forest-labs/FLUX.1-dev node ... # другая модель
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -15,24 +15,27 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
 const BLOG_DIR  = path.join(ROOT, 'src/content/blog');
 const HERO_DIR  = path.join(ROOT, 'public/images/hero');
-const MODEL     = process.env.HERO_MODEL ?? 'black-forest-labs/flux-1-schnell';
+const MODEL     = process.env.HERO_MODEL ?? 'black-forest-labs/FLUX.1-schnell-Free';
 
 fs.mkdirSync(HERO_DIR, { recursive: true });
 
-const API_KEY = process.env.OPENROUTER_API_KEY;
-if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
+const API_KEY = process.env.TOGETHER_API_KEY;
+if (!API_KEY) { console.error('TOGETHER_API_KEY не задан'); process.exit(1); }
 
 // Цветовые темы по категории
 const CAT_STYLE = {
   'ts-piot':
-    'deep navy blue, electric blue accents, circuit board patterns, digital technology, ' +
-    'very dark background (90% dark), cinematic lighting',
+    'deep navy blue and electric blue color scheme, circuit board patterns, ' +
+    'digital technology abstract, dark background, cinematic dramatic lighting, ' +
+    'photorealistic render',
   'markirovka':
-    'deep forest green, teal accents, barcode and data matrix patterns, logistics, ' +
-    'very dark background (90% dark), cinematic lighting',
+    'deep forest green and teal color scheme, barcode and data matrix patterns, ' +
+    'logistics and supply chain abstract, dark background, cinematic dramatic lighting, ' +
+    'photorealistic render',
   'zakonodatelstvo':
-    'dark charcoal, warm amber gold accents, marble texture, formal documents, ' +
-    'very dark background (90% dark), cinematic lighting',
+    'dark charcoal and warm amber gold color scheme, marble texture, ' +
+    'formal documents abstract, dark background, cinematic dramatic lighting, ' +
+    'photorealistic render',
 };
 
 function parseFrontmatter(content) {
@@ -47,58 +50,49 @@ function parseFrontmatter(content) {
 }
 
 function buildPrompt(title, category) {
-  const style = CAT_STYLE[category] ?? 'dark abstract, professional, cinematic lighting';
+  const style = CAT_STYLE[category] ?? 'dark abstract, professional, cinematic lighting, photorealistic';
   return (
     `Editorial photo illustration for a Russian business article. ` +
     `Topic: "${title}". ` +
-    `Visual style: ${style}, subtle abstract composition, photorealistic, ` +
+    `Visual style: ${style}, subtle abstract composition, ` +
     `16:9 aspect ratio, no text, no people, no logos, ` +
     `suitable for white typography overlay`
   );
 }
 
 async function generateImage(prompt) {
-  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const res = await fetch('https://api.together.xyz/v1/images/generations', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://reglament.business',
-      'X-Title': 'Reglament Business',
     },
     body: JSON.stringify({
       model: MODEL,
-      messages: [{ role: 'user', content: prompt }],
+      prompt,
+      n: 1,
+      width: 1344,
+      height: 768,
     }),
   });
 
   if (!res.ok) throw new Error(`API ${res.status}: ${(await res.text()).slice(0, 400)}`);
   const data = await res.json();
-  console.log('[debug]', JSON.stringify(data).slice(0, 500));
 
-  const content = data?.choices?.[0]?.message?.content;
-  if (!content) throw new Error('Нет content: ' + JSON.stringify(data).slice(0, 400));
+  const item = data?.data?.[0];
+  if (!item) throw new Error('Нет данных: ' + JSON.stringify(data).slice(0, 400));
 
-  // content — строка-URL
-  if (typeof content === 'string' && /^https?:\/\//.test(content.trim())) {
-    const r = await fetch(content.trim());
-    if (!r.ok) throw new Error(`Скачивание ${r.status}: ${content}`);
+  // URL-формат
+  if (item.url) {
+    const r = await fetch(item.url);
+    if (!r.ok) throw new Error(`Скачивание ${r.status}: ${item.url}`);
     return Buffer.from(await r.arrayBuffer());
   }
 
-  // content — массив (multimodal)
-  if (Array.isArray(content)) {
-    for (const part of content) {
-      const url = part?.image_url?.url ?? (part?.type === 'image_url' ? part.url : null);
-      if (!url) continue;
-      if (url.startsWith('data:')) return Buffer.from(url.split(',')[1], 'base64');
-      const r = await fetch(url);
-      if (!r.ok) throw new Error(`Скачивание ${r.status}: ${url}`);
-      return Buffer.from(await r.arrayBuffer());
-    }
-  }
+  // base64-формат
+  if (item.b64_json) return Buffer.from(item.b64_json, 'base64');
 
-  throw new Error('Нет изображения в ответе: ' + JSON.stringify(data).slice(0, 400));
+  throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 400));
 }
 
 // Собираем список статей для обработки
