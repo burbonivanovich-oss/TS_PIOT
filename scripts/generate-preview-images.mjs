@@ -60,7 +60,7 @@ function buildPrompt(title, category) {
 }
 
 async function generateImage(prompt) {
-  const res = await fetch('https://openrouter.ai/api/v1/images/generations', {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
@@ -68,31 +68,39 @@ async function generateImage(prompt) {
       'HTTP-Referer': 'https://reglament.business',
       'X-Title': 'Reglament Business',
     },
-    body: JSON.stringify({ model: MODEL, prompt, n: 1, size: '1024x1024' }),
+    body: JSON.stringify({
+      model: MODEL,
+      messages: [{ role: 'user', content: prompt }],
+    }),
   });
 
-  const ct = res.headers.get('content-type') ?? '';
-  if (ct.includes('text/html')) {
-    const html = await res.text();
-    throw new Error(`HTML вместо JSON (status=${res.status}): ${html.slice(0, 300)}`);
-  }
-  if (!res.ok) throw new Error(`API ${res.status}: ${await res.text()}`);
-
+  if (!res.ok) throw new Error(`API ${res.status}: ${(await res.text()).slice(0, 400)}`);
   const data = await res.json();
+  console.log('[debug]', JSON.stringify(data).slice(0, 500));
 
-  // URL-формат (OpenRouter возвращает ссылку)
-  const imgUrl = data?.data?.[0]?.url;
-  if (imgUrl) {
-    const imgRes = await fetch(imgUrl);
-    if (!imgRes.ok) throw new Error(`Скачивание ${imgRes.status}: ${imgUrl}`);
-    return Buffer.from(await imgRes.arrayBuffer());
+  const content = data?.choices?.[0]?.message?.content;
+  if (!content) throw new Error('Нет content: ' + JSON.stringify(data).slice(0, 400));
+
+  // content — строка-URL
+  if (typeof content === 'string' && /^https?:\/\//.test(content.trim())) {
+    const r = await fetch(content.trim());
+    if (!r.ok) throw new Error(`Скачивание ${r.status}: ${content}`);
+    return Buffer.from(await r.arrayBuffer());
   }
 
-  // base64-формат (запасной)
-  const b64 = data?.data?.[0]?.b64_json;
-  if (b64) return Buffer.from(b64, 'base64');
+  // content — массив (multimodal)
+  if (Array.isArray(content)) {
+    for (const part of content) {
+      const url = part?.image_url?.url ?? (part?.type === 'image_url' ? part.url : null);
+      if (!url) continue;
+      if (url.startsWith('data:')) return Buffer.from(url.split(',')[1], 'base64');
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`Скачивание ${r.status}: ${url}`);
+      return Buffer.from(await r.arrayBuffer());
+    }
+  }
 
-  throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 400));
+  throw new Error('Нет изображения в ответе: ' + JSON.stringify(data).slice(0, 400));
 }
 
 const targetSlug = process.env.SLUG;

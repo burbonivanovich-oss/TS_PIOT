@@ -122,3 +122,4 @@ seo:
 - [Что такое ТС ПИоТ: подробный разбор](/blog/chto-takoe-ts-piot/)
 - [Пошаговая инструкция по подключению ТС ПИоТ](/blog/ts-piot-podklyuchenie-instrukciya/)
 - [Калькулятор штрафов за маркировку](/kalkulyator-shtrafov/)
+
