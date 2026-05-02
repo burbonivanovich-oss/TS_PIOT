@@ -5,7 +5,7 @@
  * Запуск:
  *   OPENROUTER_API_KEY=... node scripts/generate-preview-images.mjs           # все без previewImage
  *   OPENROUTER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...        # одна статья
- *   OPENROUTER_API_KEY=... FLUX_MODEL=black-forest-labs/flux.2-pro node ...   # другая модель
+ *   OPENROUTER_API_KEY=... PREVIEW_MODEL=black-forest-labs/flux.2-pro node ... # другая модель
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -15,7 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT        = path.resolve(__dirname, '..');
 const BLOG_DIR    = path.join(ROOT, 'src/content/blog');
 const PREVIEW_DIR = path.join(ROOT, 'public/images/preview');
-const MODEL       = process.env.FLUX_MODEL ?? 'google/gemini-2.5-flash-image';
+const MODEL       = process.env.PREVIEW_MODEL ?? 'google/gemini-2.5-flash-image';
 
 fs.mkdirSync(PREVIEW_DIR, { recursive: true });
 
