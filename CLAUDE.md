@@ -185,36 +185,45 @@ seo:
 - Сокращения раскрываем при первом упоминании: ТС ПИоТ → расшифровать,
   УКЭП → расшифровать.
 
-## Gemini API и нейросетевые возможности
+## OpenRouter и нейросетевые возможности
 
-`GEMINI_API_KEY` настроен в `.claude/settings.local.json` (gitignored, не
-коммитится). Ключ подхватывается автоматически при старте сессии.
+`OPENROUTER_API_KEY` — единственный ключ для генерации изображений статей.
+Настраивается в `.claude/settings.local.json` (gitignored) или передаётся
+через переменную окружения при запуске скриптов.
 
-### Что работает на текущем free-tier ключе
+### Генерация изображений статей (OpenRouter + FLUX)
 
-- **Текстовые модели** (`gemini-2.5-flash`, `gemini-2.0-flash`) — полный доступ.
-  Используются агентами research-specialist и content-writer.
-- **TTS** (`gemini-2.5-flash-preview-tts`) — аудиоозвучка статей.
+Оба типа изображений генерируются через один ключ:
 
-### Что требует платного тарифа (upgrade на ai.dev)
+| Скрипт | Переменные | Назначение |
+|---|---|---|
+| `generate-preview-images.mjs` | `OPENROUTER_API_KEY`, `FLUX_MODEL` | Превью для карточек |
+| `generate-hero-images.mjs` | `OPENROUTER_API_KEY`, `HERO_MODEL` | Шапка статьи |
 
-- **Imagen 4** (`imagen-4.0-generate-002`) — генерация изображений. Нужна для
-  автогенерации AI-фонов OG-картинок.
-- **Gemini Flash Image** (`gemini-2.5-flash-image`) — нативная image gen через
-  generateContent API.
+Модель по умолчанию для обоих — `black-forest-labs/flux-1-schnell` (бесплатно).
+Сменить: `HERO_MODEL=black-forest-labs/flux-1-1-pro`.
+
+Запуск всего сразу через GitHub Actions:
+**Actions → Generate Article Images → Run workflow** (секрет `OPENROUTER_API_KEY`).
 
 ### AI-фоны для OG-обложек
 
 Satori поддерживает `backgroundImage: url(data:image/png;base64,...)`, поэтому
 нейросетевые фоны можно подключить без изменения архитектуры:
 
-1. Сгенерировать PNG-текстуры (1200×630, тёмные, без текста) в любом
-   генераторе — Midjourney, DALL-E, Stable Diffusion, или Imagen после апгрейда.
-2. Сохранить как `public/og-backgrounds/{ts-piot,markirovka,zakonodatelstvo}.png`.
-3. Раскомментировать поддержку фонов в `src/pages/og/[slug].png.ts`.
+1. Сгенерировать PNG-текстуры (1200×630, тёмные, без текста) — через OpenRouter
+   (`generate-og-backgrounds-openrouter.mjs`) или локально без API
+   (`generate-og-backgrounds-local.mjs`).
+2. Сохранить как `public/og-backgrounds/{ts-piot,markirovka,zakonodatelstvo}.jpg`.
+3. Файлы уже лежат в репозитории.
 
-Скрипт для автогенерации через Imagen готов: `scripts/generate-og-backgrounds.mjs`.
 Подробности — `docs/og-images.md`.
+
+### Gemini API (опционально)
+
+Если есть `GEMINI_API_KEY` с платным тарифом — используется только для OG-фонов
+через `generate-og-backgrounds.mjs` (Imagen 4). Для статейных изображений
+Gemini больше не нужен.
 
 ### Вспомогательные скрипты (scripts/)
 
@@ -222,7 +231,8 @@ Satori поддерживает `backgroundImage: url(data:image/png;base64,...)
 |---|---|
 | `preview-og.mjs` | Рендерит текущий OG-шаблон для 4 тестовых заголовков |
 | `explore-satori.mjs` | Генерирует 6 альтернативных шаблонов для сравнения |
-| `generate-og-backgrounds.mjs` | Генерирует AI-фоны через Gemini Imagen (платный) |
+| `generate-og-backgrounds-local.mjs` | Процедурные SVG-фоны без API-ключей |
+| `generate-og-backgrounds-openrouter.mjs` | AI-фоны через OpenRouter (FLUX) |
 
 Запуск: `node scripts/<имя>.mjs`. Результаты в `scripts/og-previews/` (gitignored).
 
