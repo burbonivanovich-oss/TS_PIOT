@@ -15,7 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT        = path.resolve(__dirname, '..');
 const BLOG_DIR    = path.join(ROOT, 'src/content/blog');
 const PREVIEW_DIR = path.join(ROOT, 'public/images/preview');
-const MODEL       = process.env.PREVIEW_MODEL ?? 'google/gemini-2.5-flash-image';
+const MODEL       = process.env.PREVIEW_MODEL ?? 'sourceful/riverflow-v2-fast';
 
 fs.mkdirSync(PREVIEW_DIR, { recursive: true });
 
