@@ -1,3 +1,9 @@
+---
+title: "Routine: мониторинг контента каждые 3 дня"
+createdDate: "2026-01-01"
+type: "note"
+---
+
 # Routine: мониторинг контента каждые 3 дня
 
 Этот файл — готовый промпт для настройки Routine на claude.ai/code/routines.
