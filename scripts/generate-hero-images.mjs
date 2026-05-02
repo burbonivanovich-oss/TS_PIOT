@@ -63,20 +63,34 @@ async function generateImage(prompt) {
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
+      'HTTP-Referer': 'https://reglament.business',
+      'X-Title': 'Reglament Business',
     },
-    body: JSON.stringify({
-      model: MODEL,
-      prompt,
-      n: 1,
-      size: '1792x1024',
-      response_format: 'b64_json',
-    }),
+    body: JSON.stringify({ model: MODEL, prompt, n: 1, size: '1024x1024' }),
   });
+
+  const ct = res.headers.get('content-type') ?? '';
+  if (ct.includes('text/html')) {
+    const html = await res.text();
+    throw new Error(`HTML вместо JSON (status=${res.status}): ${html.slice(0, 300)}`);
+  }
   if (!res.ok) throw new Error(`API ${res.status}: ${await res.text()}`);
+
   const data = await res.json();
+
+  // URL-формат (OpenRouter возвращает ссылку)
+  const imgUrl = data?.data?.[0]?.url;
+  if (imgUrl) {
+    const imgRes = await fetch(imgUrl);
+    if (!imgRes.ok) throw new Error(`Скачивание ${imgRes.status}: ${imgUrl}`);
+    return Buffer.from(await imgRes.arrayBuffer());
+  }
+
+  // base64-формат (запасной)
   const b64 = data?.data?.[0]?.b64_json;
-  if (!b64) throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 300));
-  return Buffer.from(b64, 'base64');
+  if (b64) return Buffer.from(b64, 'base64');
+
+  throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 400));
 }
 
 // Собираем список статей для обработки
