@@ -1,7 +1,11 @@
 /*
-  Стили основаны на Bear Blog default CSS, адаптированы под русский B2B-портал.
-  https://github.com/HermanMartinus/bearblog
- */
+  Этикетка — дизайн-система v1.0
+  Концепция: «Деловая газета онлайн» — editorial broadsheet для B2B-аудитории.
+  Палитра: тёплые чернильно-бумажные тона (Flexoki-inspired), не cold blue-gray.
+  Подробности: /DESIGN.md
+*/
+
+/* ─── Шрифты ─────────────────────────────────────────────────────────────── */
 
 @font-face {
 	font-family: 'Commissioner';
@@ -46,187 +50,449 @@
 	font-display: swap;
 }
 
+/* ─── Дизайн-токены ──────────────────────────────────────────────────────── */
+
 :root {
-	--accent: #1d4ed8;
-	--accent-dark: #1e3a8a;
-	--accent-soft: #dbeafe;
-	--black: 15, 23, 42;
-	--gray: 100, 116, 139;
-	--gray-light: 226, 232, 240;
-	--gray-dark: 30, 41, 59;
-	--gray-gradient: rgba(var(--gray-light), 35%), #fff;
-	--box-shadow:
-		0 2px 6px rgba(15, 23, 42, 0.08),
-		0 8px 24px rgba(15, 23, 42, 0.05),
-		0 16px 32px rgba(15, 23, 42, 0.04);
+	/* Бумажная палитра */
+	--paper:       #FFFCF0;
+	--surface:     #FFFFFF;
+	--base-100:    #F2F0E5;
+	--base-150:    #E6E4D9;
+	--base-200:    #DAD8CE;
+	--base-300:    #CECDC3;
+	--base-500:    #878580;
+	--base-600:    #6F6E69;
+	--base-700:    #403E3C;
+	--base-800:    #282726;
+	--ink:         #100F0F;
+
+	/* Акцент — ТС ПИоТ / дефолтные ссылки */
+	--accent:       #205EA6;
+	--accent-hover: #1A4D8A;
+	--accent-soft:  #EBF2F9;
+	--accent-text:  #163D70;
+
+	/* Категория: Маркировка */
+	--cat-markirovka:      #24837B;
+	--cat-markirovka-hover:#1C6B64;
+	--cat-markirovka-soft: #EAF5F3;
+
+	/* Категория: Законодательство */
+	--cat-zakon:      #AD5700;
+	--cat-zakon-hover:#8C4600;
+	--cat-zakon-soft: #FDF3E5;
+
+	/* Состояния */
+	--warn-fg:    #BC8300;
+	--warn-bg:    #FEF8E7;
+	--danger-fg:  #AF3029;
+	--danger-bg:  #FDECEA;
+	--success-fg: #24837B;
+	--success-bg: #EAF5F3;
+
+	/* Пространство */
+	--sp-1: 4px;
+	--sp-2: 8px;
+	--sp-3: 12px;
+	--sp-4: 16px;
+	--sp-5: 24px;
+	--sp-6: 32px;
+	--sp-7: 48px;
+	--sp-8: 64px;
+	--sp-9: 96px;
+
+	/* Радиусы */
+	--r-xs:  2px;
+	--r-sm:  4px;
+	--r-md:  6px;
+	--r-img: 6px;
+
+	/* Тени */
+	--shadow-card: 0 1px 4px rgba(16, 15, 15, 0.06), 0 2px 12px rgba(16, 15, 15, 0.04);
+	--shadow-hover: 0 2px 8px rgba(16, 15, 15, 0.08), 0 4px 20px rgba(16, 15, 15, 0.06);
+
+	/* Переходы */
+	--ease: 0.15s ease;
+
+	/* Обратная совместимость для inline-стилей компонентов */
+	--black:        16, 15, 15;
+	--gray-dark:    64, 62, 60;
+	--gray:         135, 133, 128;
+	--gray-light:   218, 216, 206;
+	--gray-gradient: rgba(242, 240, 229, 0.5), #FFFCF0;
+	--box-shadow:   var(--shadow-card);
+
+	/* Оставляем --accent-dark для обратной совместимости */
+	--accent-dark:  var(--accent-hover);
 }
 
-* {
+/* ─── Сброс и базовые стили ──────────────────────────────────────────────── */
+
+*, *::before, *::after {
 	box-sizing: border-box;
 }
 
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
 body {
-	font-family: 'Geologica', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-		'PT Sans', 'Helvetica Neue', Arial, sans-serif;
+	font-family: 'Geologica', 'Inter', -apple-system, BlinkMacSystemFont,
+		'Segoe UI', Roboto, 'PT Sans', Arial, sans-serif;
+	font-size: 1.1875rem; /* 19px */
+	line-height: 1.78;
+	color: var(--base-700);
+	background-color: var(--paper);
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: #fff;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 19px;
-	line-height: 1.65;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 main {
 	width: 100%;
 	max-width: 1100px;
-	margin: auto;
-	padding: 2.5em 1em 3em;
+	margin: 0 auto;
+	padding: var(--sp-7) var(--sp-4) var(--sp-8);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-family: 'Commissioner', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.25;
-	letter-spacing: -0.01em;
-}
-h1 {
-	font-size: 2.4rem;
-}
-h2 {
-	font-size: 1.75rem;
-	margin-top: 1.6rem;
-}
-h3 {
-	font-size: 1.35rem;
-	margin-top: 1.4rem;
-}
-h4 {
-	font-size: 1.1rem;
-}
-strong,
-b {
+/* ─── Типографика ────────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Commissioner', 'Inter', -apple-system, sans-serif;
+	color: var(--ink);
+	line-height: 1.2;
+	margin: 0 0 var(--sp-3);
 	font-weight: 700;
 }
+
+h1 {
+	font-size: 2.25rem;
+	letter-spacing: -0.03em;
+	line-height: 1.15;
+}
+
+h2 {
+	font-size: 1.625rem;
+	letter-spacing: -0.02em;
+	margin-top: var(--sp-6);
+}
+
+h3 {
+	font-size: 1.25rem;
+	letter-spacing: -0.015em;
+	margin-top: var(--sp-5);
+}
+
+h4 {
+	font-size: 1.0625rem;
+	letter-spacing: -0.01em;
+	margin-top: var(--sp-4);
+}
+
+p {
+	margin: 0 0 var(--sp-4);
+}
+
+strong, b {
+	font-weight: 700;
+	color: var(--base-800);
+}
+
+/* ─── Ссылки ─────────────────────────────────────────────────────────────── */
+
 a {
 	color: var(--accent);
+	text-decoration: none;
 }
+
 a:hover {
-	color: var(--accent-dark);
+	color: var(--accent-hover);
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 2px;
 }
-p {
-	margin-bottom: 1em;
-}
+
+/* ─── Контентные блоки (.prose) ─────────────────────────────────────────── */
+
 .prose p {
-	margin-bottom: 1.2em;
+	margin-bottom: var(--sp-5);
 }
+
 .prose ul,
 .prose ol {
-	margin-bottom: 1.2em;
-	padding-left: 1.4em;
+	margin-bottom: var(--sp-5);
+	padding-left: 1.5em;
 }
+
 .prose li {
-	margin-bottom: 0.4em;
+	margin-bottom: var(--sp-2);
 }
-textarea,
-input {
-	font-size: 16px;
-	font-family: inherit;
+
+.prose li > ul,
+.prose li > ol {
+	margin-top: var(--sp-2);
+	margin-bottom: 0;
 }
+
+.prose a {
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 2px;
+}
+
+.prose a:hover {
+	color: var(--accent-hover);
+}
+
+/* ─── Цитаты ─────────────────────────────────────────────────────────────── */
+
+blockquote {
+	border-left: 3px solid var(--base-300);
+	margin: var(--sp-6) 0;
+	padding: var(--sp-2) 0 var(--sp-2) var(--sp-5);
+	color: var(--base-700);
+	font-style: italic;
+}
+
+blockquote p:last-child {
+	margin-bottom: 0;
+}
+
+/* ─── Таблицы ────────────────────────────────────────────────────────────── */
+
 table {
 	width: 100%;
 	border-collapse: collapse;
-	margin: 1.5em 0;
-	font-size: 0.95rem;
+	margin: var(--sp-6) 0;
+	font-size: 0.9375rem;
 }
+
 table th,
 table td {
-	border: 1px solid rgb(var(--gray-light));
-	padding: 0.6em 0.8em;
+	border: 1px solid var(--base-150);
+	padding: var(--sp-2) var(--sp-3);
 	text-align: left;
 	vertical-align: top;
 }
+
 table th {
-	background: rgba(var(--gray-light), 0.5);
+	background: var(--base-100);
 	font-weight: 600;
+	color: var(--base-800);
+	font-family: 'Commissioner', sans-serif;
+	font-size: 0.875rem;
 }
+
+table tr:nth-child(even) td {
+	background: rgba(242, 240, 229, 0.4);
+}
+
+/* ─── Код ────────────────────────────────────────────────────────────────── */
+
+code {
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 0.875em;
+	background: var(--base-100);
+	border: 1px solid var(--base-150);
+	border-radius: var(--r-xs);
+	padding: 0.1em 0.4em;
+	color: var(--base-800);
+}
+
+pre {
+	background: var(--base-800);
+	color: var(--base-150);
+	border-radius: var(--r-md);
+	padding: var(--sp-5);
+	overflow-x: auto;
+	margin: var(--sp-6) 0;
+}
+
+pre > code {
+	all: unset;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 0.9rem;
+}
+
+/* ─── Изображения ────────────────────────────────────────────────────────── */
+
 img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 8px;
-}
-code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 4px;
-	font-size: 0.9em;
-}
-pre {
-	padding: 1.2em;
-	border-radius: 8px;
-	overflow-x: auto;
-}
-pre > code {
-	all: unset;
-}
-blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0.4em 0 0.4em 20px;
-	margin: 1.5em 0;
-	font-size: 1.05em;
-	color: rgb(var(--gray-dark));
-	background: rgba(29, 78, 216, 0.04);
-}
-hr {
-	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
-	margin: 2em 0;
+	border-radius: var(--r-img);
 }
 
+/* ─── Горизонтальный разделитель ─────────────────────────────────────────── */
+
+hr {
+	border: none;
+	border-top: 1px solid var(--base-150);
+	margin: var(--sp-7) 0;
+}
+
+/* ─── Callout-блоки ──────────────────────────────────────────────────────── */
+
 .callout {
-	border-left: 4px solid var(--accent);
+	border-left: 3px solid var(--accent);
 	background: var(--accent-soft);
-	padding: 1em 1.2em;
-	margin: 1.5em 0;
-	border-radius: 0 8px 8px 0;
+	padding: var(--sp-4) var(--sp-5);
+	margin: var(--sp-6) 0;
+	border-radius: 0 var(--r-md) var(--r-md) 0;
+	color: var(--base-700);
 }
+
+.callout > *:last-child {
+	margin-bottom: 0;
+}
+
 .callout--warn {
-	border-left-color: #f59e0b;
-	background: #fef3c7;
+	border-left-color: var(--warn-fg);
+	background: var(--warn-bg);
 }
+
+.callout--danger {
+	border-left-color: var(--danger-fg);
+	background: var(--danger-bg);
+}
+
+.callout--success {
+	border-left-color: var(--success-fg);
+	background: var(--success-bg);
+}
+
+/* ─── Категорийные бейджи ────────────────────────────────────────────────── */
+
+.cat-badge {
+	display: inline-block;
+	font-family: 'Inter', sans-serif;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	line-height: 1;
+	padding: 3px 8px;
+	border-radius: var(--r-xs);
+	text-decoration: none;
+}
+
+.cat-badge[data-cat="ts-piot"] {
+	color: var(--accent-text);
+	background: var(--accent-soft);
+}
+
+.cat-badge[data-cat="markirovka"] {
+	color: var(--cat-markirovka);
+	background: var(--cat-markirovka-soft);
+}
+
+.cat-badge[data-cat="zakonodatelstvo"] {
+	color: var(--cat-zakon);
+	background: var(--cat-zakon-soft);
+}
+
+/* ─── Кнопки ─────────────────────────────────────────────────────────────── */
+
+.btn {
+	display: inline-block;
+	padding: 0.65em 1.2em;
+	border-radius: var(--r-sm);
+	font-family: 'Inter', sans-serif;
+	font-size: 1rem;
+	font-weight: 600;
+	text-decoration: none;
+	transition: background var(--ease), color var(--ease), border-color var(--ease);
+	cursor: pointer;
+	border: 1px solid transparent;
+}
+
+.btn-primary {
+	background: var(--accent);
+	color: #fff;
+	border-color: var(--accent);
+}
+
+.btn-primary:hover {
+	background: var(--accent-hover);
+	border-color: var(--accent-hover);
+	color: #fff;
+	text-decoration: none;
+}
+
+.btn-ghost {
+	background: transparent;
+	color: var(--accent);
+	border-color: var(--accent);
+}
+
+.btn-ghost:hover {
+	background: var(--accent-soft);
+	text-decoration: none;
+}
+
+/* ─── Теги ───────────────────────────────────────────────────────────────── */
+
+.tag-pill {
+	display: inline-block;
+	font-size: 0.8125rem;
+	padding: 3px 8px;
+	border-radius: var(--r-xs);
+	background: var(--base-100);
+	color: var(--base-700);
+	border: 1px solid var(--base-150);
+	text-decoration: none;
+	transition: background var(--ease), color var(--ease), border-color var(--ease);
+}
+
+.tag-pill:hover {
+	background: var(--accent-soft);
+	color: var(--accent);
+	border-color: var(--accent-soft);
+	text-decoration: none;
+}
+
+/* ─── Скрытый для экрана (доступность) ──────────────────────────────────── */
+
+.sr-only {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* ─── Адаптив ────────────────────────────────────────────────────────────── */
 
 @media (max-width: 720px) {
 	body {
-		font-size: 18px;
+		font-size: 1.125rem; /* 18px */
 	}
+
 	main {
-		padding: 1.2em 1em 2em;
+		padding: var(--sp-5) var(--sp-4) var(--sp-7);
 	}
+
 	h1 {
-		font-size: 1.9rem;
+		font-size: 1.75rem;
 	}
+
 	h2 {
-		font-size: 1.4rem;
+		font-size: 1.375rem;
+	}
+
+	h3 {
+		font-size: 1.125rem;
 	}
 }
 
-.sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	clip: rect(1px, 1px, 1px, 1px);
-	clip-path: inset(50%);
-	white-space: nowrap;
+@media (max-width: 480px) {
+	h1 {
+		font-size: 1.5rem;
+	}
 }
