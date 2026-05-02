@@ -26,9 +26,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Generate hero images (Nano Banana 2)
+      - name: Generate hero images (FLUX via OpenRouter)
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           SLUG: ${{ inputs.slug }}
         run: node scripts/generate-hero-images.mjs
 
@@ -37,5 +37,5 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/images/hero/ src/content/blog/
-          git diff --staged --quiet || git commit -m "feat(hero): AI hero-изображения через Nano Banana 2"
+          git diff --staged --quiet || git commit -m "feat(hero): AI hero-изображения через FLUX (OpenRouter)"
           git push
