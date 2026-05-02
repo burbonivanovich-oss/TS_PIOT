@@ -14,7 +14,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT        = path.resolve(__dirname, '..');
 const BLOG_DIR    = path.join(ROOT, 'src/content/blog');
 const PREVIEW_DIR = path.join(ROOT, 'public/images/preview');
-const MODEL       = process.env.FLUX_MODEL ?? 'black-forest-labs/flux-1-schnell';
+const MODEL       = process.env.FLUX_MODEL ?? 'google/gemini-2.5-flash-image';
 
 fs.mkdirSync(PREVIEW_DIR, { recursive: true });
 
@@ -76,7 +76,6 @@ async function generateImage(prompt) {
 
   if (!res.ok) throw new Error(`API ${res.status}: ${(await res.text()).slice(0, 400)}`);
   const data = await res.json();
-  console.log('[debug]', JSON.stringify(data).slice(0, 500));
 
   const content = data?.choices?.[0]?.message?.content;
   if (!content) throw new Error('Нет content: ' + JSON.stringify(data).slice(0, 400));

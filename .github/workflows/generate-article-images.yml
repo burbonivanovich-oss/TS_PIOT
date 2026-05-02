@@ -31,27 +31,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: List available image models
-        env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        run: |
-          curl -s https://openrouter.ai/api/v1/models \
-            -H "Authorization: Bearer $OPENROUTER_API_KEY" \
-            | node -e "
-              const d = JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));
-              const img = d.data.filter(m => m.architecture?.modality?.includes('image'));
-              console.log('=== IMAGE MODELS ===');
-              img.forEach(m => console.log(m.id, '|', m.name));
-              console.log('Total:', img.length);
-            "
-
-      - name: Generate preview images (FLUX via OpenRouter)
+      - name: Generate preview images (Nano Banana via OpenRouter)
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/generate-preview-images.mjs
         continue-on-error: false
 
-      - name: Generate hero images (FLUX via OpenRouter)
+      - name: Generate hero images (Nano Banana 2 via OpenRouter)
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/generate-hero-images.mjs
