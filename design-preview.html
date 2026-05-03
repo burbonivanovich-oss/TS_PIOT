@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Preview — Этикетка</title>
+<style>
+/* === ТОКЕНЫ === */
+:root {
+  --pink: #FF2055;
+  --pink-dark: #CC0035;
+  --pink-soft: #FFF0F3;
+  --lime: #C8FF00;
+  --lime-dark: #A0CC00;
+  --lime-soft: #F5FFD6;
+  --dark: #0D0D0D;
+  --mid: #1C1C1C;
+  --surface: #F6F6F4;
+  --white: #FFFFFF;
+  --muted: #6B7280;
+  --border: #E8E8E6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  background: var(--white);
+  color: var(--mid);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* === HEADER === */
+header {
+  background: var(--dark);
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+nav {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #fff;
+  text-decoration: none;
+  padding: 1em 0;
+  margin-right: 1rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 4px;
+  background: var(--lime);
+  color: var(--dark);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+nav a.nav-link {
+  padding: 1em 0.65em;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+}
+nav a.nav-link.active {
+  color: var(--lime);
+  border-bottom-color: var(--lime);
+  font-weight: 600;
+}
+nav a.nav-link:hover { color: #fff; }
+
+/* === MAIN === */
+main {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+/* === HERO === */
+.hero {
+  padding: 3.5rem 0 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+.tag-pill {
+  display: inline-block;
+  padding: 0.22em 0.65em;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+.tag-pill--lime { background: var(--lime); color: var(--dark); }
+.tag-pill--pink { background: var(--pink); color: #fff; }
+.tag-pill--dark { background: var(--dark); color: var(--lime); }
+.hero-eyebrow { margin-bottom: 1.25rem; }
+.hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--dark);
+  margin-bottom: 1rem;
+}
+.hero-lead {
+  font-size: 1.05rem;
+  max-width: 600px;
+  color: var(--muted);
+  margin-bottom: 1.75rem;
+}
+.hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn {
+  display: inline-block;
+  padding: 0.65em 1.4em;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border: 2px solid var(--dark);
+  transition: all 0.12s;
+}
+.btn-primary { background: var(--dark); color: var(--lime); }
+.btn-primary:hover { background: var(--pink); border-color: var(--pink); color: #fff; }
+.btn-ghost { background: transparent; color: var(--dark); }
+.btn-ghost:hover { background: var(--dark); color: var(--lime); }
+
+/* === SECTION LABELS === */
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.see-all {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+/* === CATEGORY GRID === */
+.categories { margin-bottom: 3.5rem; }
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 1.25rem;
+}
+.cat-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem;
+  text-decoration: none;
+  background: #fff;
+  gap: 0.75rem;
+  transition: background 0.12s;
+}
+.cat-card--lime { border-top: 3px solid var(--lime); }
+.cat-card--pink { border-top: 3px solid var(--pink); }
+.cat-card--dark { border-top: 3px solid var(--dark); }
+.cat-card:hover { background: var(--dark); }
+.cat-card:hover .cat-desc { color: rgba(255,255,255,0.55); }
+.cat-card:hover .cat-arrow { color: var(--lime); }
+.cat-desc { font-size: 0.85rem; color: var(--muted); flex: 1; line-height: 1.5; transition: color 0.12s; }
+.cat-arrow { font-size: 1rem; color: var(--muted); align-self: flex-end; transition: color 0.12s; }
+
+/* === POST GRID (homepage) === */
+.post-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.post-card--featured { grid-column: 1 / 3; }
+.post-card a {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  text-decoration: none;
+  height: 100%;
+  overflow: hidden;
+  transition: background 0.12s;
+}
+.post-card--featured a { flex-direction: row; }
+.post-card a:hover { background: var(--surface); }
+.post-card--featured a:hover { background: var(--dark); }
+.post-card--featured a:hover .post-title { color: var(--lime); }
+.post-card--featured a:hover .post-desc { color: rgba(255,255,255,0.55); }
+.post-card--featured a:hover .post-date { color: rgba(255,255,255,0.3); }
+
+.post-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #e8e8e6, #d0d0ce);
+}
+.post-card--featured .post-img {
+  width: 45%;
+  aspect-ratio: unset;
+  background: linear-gradient(135deg, #1C1C1C 0%, #2A2A2A 100%);
+}
+.post-body {
+  padding: 1.4rem 1.6rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.45rem;
+}
+.post-card--featured .post-body { padding: 2rem; justify-content: flex-end; }
+.post-title {
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  transition: color 0.12s;
+}
+.post-card--featured .post-title { font-size: 1.5rem; letter-spacing: -0.025em; line-height: 1.18; }
+.post-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; transition: color 0.12s; }
+.post-date { font-size: 0.73rem; color: #9CA3AF; margin-top: auto; padding-top: 0.5rem; transition: color 0.12s; }
+
+/* === BLOG LISTING PAGE === */
+.page-head {
+  padding: 3rem 0 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.page-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+.page-title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--dark);
+  line-height: 1.1;
+}
+
+/* === BLOG FILTER TOOLBAR === */
+.bf-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.bf-cats { display: flex; flex-wrap: wrap; gap: 0.4rem; flex: 1; }
+.bf-cat {
+  padding: 0.38em 1em;
+  border-radius: 4px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  color: var(--mid);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.12s;
+  font-family: inherit;
+}
+.bf-cat:hover { border-color: var(--dark); background: var(--dark); color: #fff; }
+.bf-cat--active { background: var(--dark); border-color: var(--dark); color: var(--lime); }
+.bf-right { display: flex; align-items: center; gap: 0.5rem; }
+.bf-tag-select {
+  padding: 0.4em 0.75em;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  background: #fff;
+  color: var(--mid);
+}
+.bf-count { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+
+/* === BLOG CARD GRID === */
+.bf-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.bf-card--featured { grid-column: 1 / -1; }
+.bf-card a {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  text-decoration: none;
+  height: 100%;
+  overflow: hidden;
+  transition: background 0.12s;
+}
+.bf-card--featured a { flex-direction: row; min-height: 260px; }
+.bf-card a:hover { background: var(--surface); }
+.bf-card--featured a:hover { background: var(--dark); }
+.bf-card--featured a:hover .bf-card-title { color: var(--lime); }
+.bf-card--featured a:hover .bf-card-desc { color: rgba(255,255,255,0.6); }
+.bf-card--featured a:hover .bf-card-date { color: rgba(255,255,255,0.35); }
+
+.bf-card-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #e8e8e6;
+}
+.bf-card--featured .bf-card-img { width: 42%; aspect-ratio: unset; }
+.bf-card-placeholder {
+  width: 42%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #111 0%, #222 100%);
+}
+
+.bf-card-body {
+  padding: 1.4rem 1.5rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.5rem;
+}
+.bf-card--featured .bf-card-body { padding: 2rem; justify-content: flex-end; }
+
+.bf-tag {
+  display: inline-block;
+  padding: 0.22em 0.6em;
+  border-radius: 3px;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  align-self: flex-start;
+}
+.bf-tag--lime { background: var(--lime); color: var(--dark); }
+.bf-tag--pink { background: var(--pink); color: #fff; }
+.bf-tag--dark { background: var(--dark); color: var(--lime); }
+
+.bf-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  transition: color 0.12s;
+}
+.bf-card--featured .bf-card-title { font-size: 1.65rem; letter-spacing: -0.025em; line-height: 1.15; }
+.bf-card-desc { font-size: 0.88rem; color: #4B5563; line-height: 1.5; transition: color 0.12s; }
+.bf-card-date { font-size: 0.73rem; color: #9CA3AF; margin-top: auto; padding-top: 0.5rem; transition: color 0.12s; }
+
+/* === PAGINATION === */
+.bf-pages { display: flex; align-items: center; gap: 0.3rem; margin-top: 2.5rem; }
+.bf-page-btn {
+  min-width: 2.1rem;
+  height: 2.1rem;
+  padding: 0 0.5em;
+  border-radius: 4px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  color: var(--mid);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  transition: all 0.12s;
+}
+.bf-page-btn:hover { border-color: var(--dark); background: var(--dark); color: var(--lime); }
+.bf-page-btn--active { background: var(--dark); border-color: var(--dark); color: var(--lime); }
+
+/* === FOOTER === */
+footer {
+  background: var(--dark);
+  color: #8A8A8A;
+  padding: 3rem 1.5rem 2rem;
+  margin-top: 5rem;
+}
+.footer-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2.5rem;
+}
+.footer-logo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.85rem; }
+.footer-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 3px;
+  background: var(--lime);
+  color: var(--dark);
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+.footer-logo strong { color: #fff; font-size: 0.95rem; }
+.footer-about { font-size: 0.82rem; line-height: 1.6; }
+.footer-col strong {
+  display: block;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.4rem; }
+.footer-col a { color: #8A8A8A; text-decoration: none; font-size: 0.85rem; transition: color 0.12s; }
+.footer-col a:hover { color: var(--lime); }
+.footer-bottom {
+  max-width: 1140px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  color: #555;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+/* === PAGE NAV === */
+.page-nav {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+.page-nav-btn {
+  padding: 0.9rem 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  border-bottom: 2px solid transparent;
+  transition: all 0.12s;
+}
+.page-nav-btn:hover, .page-nav-btn.active { color: var(--dark); border-bottom-color: var(--pink); }
+.page-nav-btn.active { color: var(--dark); }
+
+.page { display: none; }
+.page.visible { display: block; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <nav>
+    <a href="#" class="brand">
+      <span class="brand-mark">Р·Б</span>
+      <span>Этикетка</span>
+    </a>
+    <a href="#" class="nav-link active">Главная</a>
+    <a href="#" class="nav-link">Статьи</a>
+    <a href="#" class="nav-link">ТС ПИоТ</a>
+    <a href="#" class="nav-link">Маркировка</a>
+    <a href="#" class="nav-link">Законодательство</a>
+    <a href="#" class="nav-link">Словарь</a>
+    <a href="#" class="nav-link">О проекте</a>
+  </nav>
+</header>
+
+<!-- PAGE SWITCHER -->
+<div style="background:var(--surface); border-bottom:1px solid var(--border); padding:0 1.5rem;">
+  <div class="page-nav">
+    <button class="page-nav-btn active" onclick="show('home', this)">Главная страница</button>
+    <button class="page-nav-btn" onclick="show('listing', this)">Листинг статей</button>
+  </div>
+</div>
+
+<!-- ============ ГЛАВНАЯ ============ -->
+<div id="home" class="page visible">
+<main>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <span class="tag-pill tag-pill--lime">Медиа для бизнеса</span>
+    </div>
+    <h1 class="hero-title">Разбираем требования,<br>которые догоняют бизнес</h1>
+    <p class="hero-lead">
+      ТС ПИоТ для онлайн-касс, маркировка «Честный знак», налоги, ЭДО
+      и трудовое законодательство — понятно и без паники.
+    </p>
+    <div class="hero-cta">
+      <a href="#" class="btn btn-primary">Все статьи</a>
+      <a href="#" class="btn btn-ghost">Что такое ТС ПИоТ →</a>
+    </div>
+  </section>
+
+  <!-- Направления -->
+  <section class="categories">
+    <p class="section-label">Направления</p>
+    <div class="cat-grid">
+      <a class="cat-card cat-card--lime" href="#">
+        <span class="tag-pill tag-pill--dark">ТС ПИоТ</span>
+        <p class="cat-desc">Техническое средство получения информации о товаре. Обязательно с 28 декабря 2025 года для всех торговых точек с маркированными товарами.</p>
+        <span class="cat-arrow">→</span>
+      </a>
+      <a class="cat-card cat-card--pink" href="#">
+        <span class="tag-pill tag-pill--dark">Маркировка</span>
+        <p class="cat-desc">«Честный знак»: категории, сроки внедрения, штрафы за нарушения и пошаговые инструкции для бизнеса.</p>
+        <span class="cat-arrow">→</span>
+      </a>
+      <a class="cat-card cat-card--dark" href="#">
+        <span class="tag-pill tag-pill--lime">Законодательство</span>
+        <p class="cat-desc">Изменения в налогах, ЭДО, КЭДО, ЕНС/ЕНП и трудовом праве — актуально для малого и среднего бизнеса.</p>
+        <span class="cat-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Последние материалы -->
+  <section>
+    <div class="section-header">
+      <p class="section-label">Последние материалы</p>
+      <a href="#" class="see-all">Все статьи →</a>
+    </div>
+    <ul class="post-grid">
+      <!-- Featured -->
+      <li class="post-card post-card--featured">
+        <a href="#">
+          <div class="post-card--featured post-img" style="background:linear-gradient(135deg,#111 0%,#282828 100%); display:flex; align-items:flex-end; padding:1.5rem;">
+            <span style="font-size:4rem; font-weight:900; color:rgba(200,255,0,0.15); line-height:1; letter-spacing:-0.05em;">ТС<br>ПИоТ</span>
+          </div>
+          <div class="post-body" style="justify-content:flex-end; padding:2rem;">
+            <span class="tag-pill tag-pill--lime" style="align-self:flex-start;">ТС ПИоТ</span>
+            <div class="post-title" style="font-size:1.5rem; letter-spacing:-0.025em; line-height:1.18; color:var(--dark); font-weight:700; transition: color 0.12s;">ТС ПИоТ с 28 декабря 2025: что это, кому нужно и как подключить</div>
+            <p class="post-desc">Разбираемся, что такое техническое средство получения информации о товаре, кто обязан его использовать и как не получить штраф.</p>
+            <p class="post-date">28 апр. 2026</p>
+          </div>
+        </a>
+      </li>
+      <!-- Regular cards -->
+      <li class="post-card">
+        <a href="#">
+          <div class="post-img"></div>
+          <div class="post-body">
+            <span class="tag-pill tag-pill--pink">Маркировка</span>
+            <div class="post-title">Разрешительный режим: что проверяет касса при продаже маркированного товара</div>
+            <p class="post-date">25 апр. 2026</p>
+          </div>
+        </a>
+      </li>
+      <li class="post-card">
+        <a href="#">
+          <div class="post-img"></div>
+          <div class="post-body">
+            <span class="tag-pill tag-pill--dark">Законодательство</span>
+            <div class="post-title">НДС на УСН в 2026: ставка 5%, 7% или 20% — как выбрать</div>
+            <p class="post-date">24 апр. 2026</p>
+          </div>
+        </a>
+      </li>
+      <li class="post-card">
+        <a href="#">
+          <div class="post-img"></div>
+          <div class="post-body">
+            <span class="tag-pill tag-pill--lime">ТС ПИоТ</span>
+            <div class="post-title">Какую онлайн-кассу выбрать в 2026 году: сравнение моделей</div>
+            <p class="post-date">23 апр. 2026</p>
+          </div>
+        </a>
+      </li>
+      <li class="post-card">
+        <a href="#">
+          <div class="post-img"></div>
+          <div class="post-body">
+            <span class="tag-pill tag-pill--pink">Маркировка</span>
+            <div class="post-title">Маркировка молочки для МСБ: кто обязан и с каких дат</div>
+            <p class="post-date">22 апр. 2026</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+</main>
+</div>
+
+<!-- ============ ЛИСТИНГ ============ -->
+<div id="listing" class="page">
+<main>
+
+  <!-- Page header -->
+  <header class="page-head">
+    <p class="page-eyebrow">Архив</p>
+    <h1 class="page-title">24 материала<br>о практике бизнеса</h1>
+  </header>
+
+  <!-- Toolbar -->
+  <div class="bf-toolbar">
+    <div class="bf-cats">
+      <button class="bf-cat bf-cat--active">Все</button>
+      <button class="bf-cat">ТС ПИоТ</button>
+      <button class="bf-cat">Маркировка</button>
+      <button class="bf-cat">Законодательство</button>
+    </div>
+    <div class="bf-right">
+      <select class="bf-tag-select">
+        <option>Все теги</option>
+        <option>кассы</option>
+        <option>маркировка</option>
+        <option>налоги</option>
+      </select>
+      <span class="bf-count">24 материала</span>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <ul class="bf-list">
+    <!-- Featured -->
+    <li class="bf-card bf-card--featured">
+      <a href="#">
+        <div class="bf-card-placeholder" style="display:flex; align-items:flex-end; padding:1.5rem;">
+          <span style="font-size:5rem; font-weight:900; color:rgba(200,255,0,0.12); line-height:1; letter-spacing:-0.05em;">ТС<br>ПИоТ</span>
+        </div>
+        <div class="bf-card-body">
+          <span class="bf-tag bf-tag--lime">ТС ПИоТ</span>
+          <div class="bf-card-title">ТС ПИоТ с 28 декабря 2025: что это, кому нужно и как подключить без ошибок</div>
+          <p class="bf-card-desc">Разбираемся, что такое техническое средство получения информации о товаре, кто обязан его использовать и как не получить штраф за несоблюдение требований 54-ФЗ.</p>
+          <p class="bf-card-date">28 апр. 2026</p>
+        </div>
+      </a>
+    </li>
+    <!-- Grid cards -->
+    <li class="bf-card">
+      <a href="#">
+        <div class="bf-card-img"></div>
+        <div class="bf-card-body">
+          <span class="bf-tag bf-tag--pink">Маркировка</span>
+          <div class="bf-card-title">Разрешительный режим: что проверяет касса при продаже маркированного товара</div>
+          <p class="bf-card-date">25 апр. 2026</p>
+        </div>
+      </a>
+    </li>
+    <li class="bf-card">
+      <a href="#">
+        <div class="bf-card-img"></div>
+        <div class="bf-card-body">
+          <span class="bf-tag bf-tag--dark">Законодательство</span>
+          <div class="bf-card-title">НДС на УСН в 2026: ставка 5%, 7% или 20% — как выбрать</div>
+          <p class="bf-card-date">24 апр. 2026</p>
+        </div>
+      </a>
+    </li>
+    <li class="bf-card">
+      <a href="#">
+        <div class="bf-card-img"></div>
+        <div class="bf-card-body">
+          <span class="bf-tag bf-tag--lime">ТС ПИоТ</span>
+          <div class="bf-card-title">Смарт-терминал или фискальный регистратор: что выбрать для небольшого магазина</div>
+          <p class="bf-card-date">23 апр. 2026</p>
+        </div>
+      </a>
+    </li>
+    <li class="bf-card">
+      <a href="#">
+        <div class="bf-card-img"></div>
+        <div class="bf-card-body">
+          <span class="bf-tag bf-tag--pink">Маркировка</span>
+          <div class="bf-card-title">Маркировка молочки для МСБ: кто обязан и с каких дат</div>
+          <p class="bf-card-date">22 апр. 2026</p>
+        </div>
+      </a>
+    </li>
+    <li class="bf-card">
+      <a href="#">
+        <div class="bf-card-img"></div>
+        <div class="bf-card-body">
+          <span class="bf-tag bf-tag--dark">Законодательство</span>
+          <div class="bf-card-title">Регистрация ККТ в ФНС: пошаговая инструкция для ИП и ООО</div>
+          <p class="bf-card-date">21 апр. 2026</p>
+        </div>
+      </a>
+    </li>
+    <li class="bf-card">
+      <a href="#">
+        <div class="bf-card-img"></div>
+        <div class="bf-card-body">
+          <span class="bf-tag bf-tag--lime">ТС ПИоТ</span>
+          <div class="bf-card-title">Штрафы за работу без ТС ПИоТ: таблица и калькулятор</div>
+          <p class="bf-card-date">20 апр. 2026</p>
+        </div>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Pagination -->
+  <nav class="bf-pages">
+    <button class="bf-page-btn" disabled>←</button>
+    <button class="bf-page-btn bf-page-btn--active">1</button>
+    <button class="bf-page-btn">2</button>
+    <button class="bf-page-btn">3</button>
+    <span style="color:#9CA3AF; padding:0 0.3em;">…</span>
+    <button class="bf-page-btn">8</button>
+    <button class="bf-page-btn">→</button>
+  </nav>
+
+</main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-logo">
+        <span class="footer-mark">Р·Б</span>
+        <strong>Этикетка</strong>
+      </div>
+      <p class="footer-about">
+        Информационный портал для малого и среднего бизнеса. Разбираем требования
+        ТС ПИоТ, маркировки «Честный знак» и изменения в законодательстве.
+      </p>
+    </div>
+    <div class="footer-col">
+      <strong>Разделы</strong>
+      <ul>
+        <li><a href="#">Статьи</a></li>
+        <li><a href="#">ТС ПИоТ</a></li>
+        <li><a href="#">Маркировка</a></li>
+        <li><a href="#">Законодательство</a></li>
+        <li><a href="#">RSS-лента</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <strong>Инструменты</strong>
+      <ul>
+        <li><a href="#">Калькулятор штрафов</a></li>
+        <li><a href="#">Календарь маркировки</a></li>
+        <li><a href="#">Словарь терминов</a></li>
+        <li><a href="#">Поиск</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <strong>Документы</strong>
+      <ul>
+        <li><a href="#">О проекте</a></li>
+        <li><a href="#">Политика конфиденциальности</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <small>© 2026 Этикетка. Материалы носят информационный характер и не являются юридической консультацией.</small>
+  </div>
+</footer>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+  document.querySelectorAll('.page-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('visible');
+  btn.classList.add('active');
+}
+// Hover demo for featured card
+document.querySelectorAll('.bf-card--featured a, .post-card--featured a').forEach(el => {
+  el.addEventListener('mouseenter', () => el.style.background = 'var(--dark)');
+  el.addEventListener('mouseleave', () => el.style.background = '');
+});
+// Filter buttons
+document.querySelectorAll('.bf-cat').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.bf-cat').forEach(b => b.classList.remove('bf-cat--active'));
+    btn.classList.add('bf-cat--active');
+  });
+});
+</script>
+</body>
+</html>
