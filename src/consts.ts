@@ -19,6 +19,24 @@ export const NAV_LINKS = [
 	{ href: '/search/', label: 'Поиск' },
 ];
 
+export const SIDEBAR_BANNER = {
+	eyebrow: 'Дайджест',
+	title: 'Только важное — раз в две недели',
+	description:
+		'Изменения в законодательстве, новые требования к маркировке и ТС ПИоТ — коротко и по делу для вашего бизнеса.',
+	cta: 'Подписаться →',
+	ctaHref: 'https://t.me/etiketka_media',
+} as const;
+
+export const INLINE_SUBSCRIBE = {
+	title: 'Не пропустите следующий материал',
+	description: 'Дайджест раз в две недели: только важные изменения для МСБ.',
+	placeholder: 'ваш@email.ru',
+	cta: 'Подписаться',
+	/* Укажите action вашего сервиса рассылок (Mailchimp, Unisender и др.) */
+	formAction: '#',
+} as const;
+
 export const CATEGORIES = {
 	'ts-piot': {
 		title: 'ТС ПИоТ',

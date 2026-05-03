@@ -155,23 +155,25 @@ const breadcrumbsJsonLd = {
 				padding: 2rem 0;
 			}
 			.breadcrumbs {
-				font-size: 0.88rem;
-				color: rgb(var(--gray));
+				font-size: .7rem;
+				font-weight: 600;
+				letter-spacing: .1em;
+				text-transform: uppercase;
+				color: #999;
 				margin-bottom: 1.5rem;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				flex-wrap: wrap;
 			}
-			.breadcrumbs a {
-				color: rgb(var(--gray));
-				text-decoration: none;
-			}
-			.breadcrumbs a:hover {
-				color: var(--accent);
-			}
-			.breadcrumbs span {
-				margin: 0 0.4em;
-			}
+			.breadcrumbs a { color: #999; text-decoration: none; }
+			.breadcrumbs a:hover { color: #111; }
+			.breadcrumbs span { color: #ccc; }
 			.lead {
-				font-size: 1.15rem;
-				color: rgb(var(--gray-dark));
+				font-size: 1.1rem;
+				color: #555;
+				font-style: italic;
+				margin-bottom: 1.5rem;
 			}
 		</style>
 	</body>
