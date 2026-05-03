@@ -6,25 +6,36 @@
 <title>Этикетка — превью дизайна</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 body{font-family:'Inter',system-ui,sans-serif;background:#EDE8DF;color:#111;font-size:17px;line-height:1.65}
+
+/* Switcher */
 .switcher{position:fixed;bottom:20px;right:20px;z-index:1000;display:flex;gap:4px;background:#111;padding:6px}
 .sw-btn{padding:6px 14px;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;font-family:inherit;background:none;color:#777}
 .sw-btn.active{background:#E8175D;color:#fff}
 .page{display:none}.page.active{display:block}
+
+/* Header */
 .site-header{background:#EDE8DF;border-bottom:1px solid rgba(0,0,0,.1);padding:0 32px;height:56px;position:sticky;top:0;z-index:50}
-.header-inner{max-width:900px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between}
+.header-inner{max-width:900px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:1rem}
 .header-left{display:flex;align-items:center;gap:24px}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.04em;color:#111;text-decoration:none;line-height:1}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.04em;color:#111;text-decoration:none;line-height:1;flex-shrink:0}
 .logo sup{font-family:'Inter',sans-serif;font-size:.55rem;font-weight:600;color:#888;letter-spacing:.12em;text-transform:uppercase;vertical-align:super;margin-left:4px}
+.site-nav{display:flex;align-items:center;gap:0;white-space:nowrap}
 .site-nav a{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#555;text-decoration:none;padding:0 14px;line-height:56px;display:inline-block}
 .site-nav a:hover{color:#111}
-.header-right{display:flex;align-items:center;gap:12px}
+.header-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .search-link{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888;text-decoration:none}
-.cta-btn{background:#E8175D;color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px;text-decoration:none}
+.cta-btn{background:#E8175D;color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px;text-decoration:none;white-space:nowrap}
+.cta-btn:hover{background:#c50f4b}
+
+/* Common layout */
 .page-body{max-width:900px;margin:0 auto;padding:48px 32px 80px}
+
+/* Listing page */
 .breadcrumb{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#999;margin-bottom:8px}
 .page-title-block{padding-bottom:32px;border-bottom:1px solid rgba(0,0,0,.12);margin-bottom:40px}
 .page-search-wrap{display:flex;justify-content:space-between;align-items:flex-end}
@@ -42,6 +53,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:#EDE8DF;color:#111;font
 .ftag:hover{background:rgba(0,0,0,.08)}
 .ftag.active{background:#111;color:#EDE8DF}
 .sort{color:#666;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:none;border:none;cursor:pointer;font-family:inherit}
+
+/* Cards & hero */
 .hero-grid{display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-bottom:8px}
 .hero-main{background:#111;color:#fff;padding:24px;position:relative;overflow:hidden;min-height:260px;display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none}
 .hero-bg{position:absolute;right:-10px;top:-20px;font-family:'Bebas Neue',sans-serif;font-size:18rem;line-height:1;color:#E8175D;opacity:.35;pointer-events:none;letter-spacing:-.02em}
@@ -94,34 +107,100 @@ body{font-family:'Inter',system-ui,sans-serif;background:#EDE8DF;color:#111;font
 .ct2 .t-count{color:#666}.ct3 .t-count{color:#555}
 .t-dot{width:8px;height:8px;border-radius:50%;margin-top:4px}
 .ct1 .t-dot{background:#E8175D}.ct2 .t-dot{background:#111}.ct3 .t-dot{background:#C8F500}
+
+/* Footer */
 .site-footer{padding:3em 32px 2em;background:#111;color:#8A8A8A;margin-top:5rem}
 .footer-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem}
 .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.04em;color:#fff;line-height:1;margin-bottom:.85rem}
 .footer-logo sup{font-family:'Inter',sans-serif;font-size:.5rem;font-weight:600;color:#555;letter-spacing:.12em;text-transform:uppercase;vertical-align:super;margin-left:4px}
-.footer-about{font-size:.84rem;line-height:1.6;color:#8A8A8A}
+.footer-about{font-size:.84rem;line-height:1.6;color:#8A8A8A;margin:0}
 .footer-col strong{display:block;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.85rem}
-.footer-col ul{list-style:none}.footer-col li{margin-bottom:.45rem}
-.footer-col a{color:#8A8A8A;text-decoration:none;font-size:.875rem}
+.footer-col ul{list-style:none;padding:0;margin:0}.footer-col li{margin-bottom:.45rem}
+.footer-col a{color:#8A8A8A;text-decoration:none;font-size:.875rem;transition:color .15s}
 .footer-col a:hover{color:#C8F500}
 .footer-bottom{max-width:900px;margin:2.5rem auto 0;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.07);color:#555;font-size:.8rem;text-align:center}
+
+/* ── ARTICLE ── */
+.post-main{max-width:900px;margin:0 auto;padding:48px 32px 80px}
+.article{max-width:720px;margin:0 auto}
+
+.art-breadcrumbs{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:28px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.art-breadcrumbs a{color:#999;text-decoration:none}.art-breadcrumbs a:hover{color:#111}
+.art-breadcrumbs span{color:#ccc}
+
+.cat-chip{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.25em .8em;margin-bottom:16px}
+
+.article-head h1{font-family:'Bebas Neue',sans-serif;font-size:3.6rem;line-height:1;letter-spacing:.02em;color:#111;text-transform:uppercase;margin:0 0 18px}
+.art-lead{font-size:1.1rem;color:#555;line-height:1.6;margin:0 0 14px;font-style:italic}
+.art-meta{font-size:.82rem;color:#888;margin-bottom:16px}
+.art-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;margin-bottom:2rem}
+.tag-pill{display:inline-block;padding:.2em .65em;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#C8F500;color:#111;text-decoration:none;line-height:1.4}
+.tag-pill:hover{background:#111;color:#C8F500}
+
+.toc{border-left:3px solid #E8175D;background:#F6F4F0;padding:1rem 1.2rem;margin:0 0 2rem}
+.toc-summary{cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:#111;list-style:none;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.toc-summary::after{content:'▸';font-size:.8rem;color:#E8175D}
+.toc-list{margin:.8rem 0 0;padding-left:1rem;list-style:none}
+.toc-item{margin-bottom:.3rem;line-height:1.4}
+.toc-item a{color:#444;text-decoration:none;font-size:.88rem}
+.toc-item a:hover{color:#E8175D}
+.toc-d3{padding-left:1rem}
+
+.prose{font-size:1rem;line-height:1.75;color:#1a1a1a;border-top:2px solid #111;padding-top:2rem}
+.prose p{margin-bottom:1.2em}
+.prose h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.03em;text-transform:uppercase;color:#111;margin:1.8rem 0 .6rem;line-height:1.1}
+.prose h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.03em;text-transform:uppercase;color:#111;margin:1.4rem 0 .5rem;line-height:1.1}
+.prose ul{margin-bottom:1.2em;padding-left:1.4em}
+.prose li{margin-bottom:.4em}
+.prose a{color:#E8175D;text-decoration:none}
+.prose a:hover{color:#c50f4b;text-decoration:underline}
+.prose strong{font-weight:700}
+.prose blockquote{border-left:3px solid #E8175D;padding:.5em 0 .5em 1.2em;margin:1.5em 0;font-size:1.05em;color:#666;background:#fdeef4;font-style:italic}
+.callout{border-left:3px solid #a0c200;background:#f4ffe6;padding:1em 1.2em;margin:1.5em 0;font-size:.95rem}
+.callout-warn{border-left-color:#E8175D;background:#fdeef4}
+.callout strong{display:block;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4em;color:#555}
+.callout-warn strong{color:#E8175D}
+
+.art-share{display:flex;align-items:center;gap:8px;margin:2.5rem 0 0;padding:1.2rem 0;border-top:1px solid rgba(0,0,0,.1);border-bottom:1px solid rgba(0,0,0,.1)}
+.share-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-right:4px}
+.share-btn{display:inline-block;padding:6px 14px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;background:#111;color:#EDE8DF;border:none;cursor:pointer;font-family:inherit;transition:background .15s}
+.share-btn:hover{background:#E8175D;color:#fff}
+
+.related{margin-top:3rem}
+.related-eyebrow{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.03em;color:#111;display:block;margin-bottom:1.2rem}
+.related-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(0,0,0,.1);border:1px solid rgba(0,0,0,.1)}
+.related-card{border-left:4px solid #111;background:#fff}
+.related-card a{display:block;padding:1rem 1rem 1rem .9rem;text-decoration:none;height:100%;transition:background .15s}
+.related-card a:hover{background:#F6F4F0}
+.related-cat{display:block;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:6px}
+.related-card h3{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.02em;color:#111;margin:0 0 6px;line-height:1.2;text-transform:uppercase}
+.related-card p{font-size:.8rem;color:#666;margin:0;line-height:1.4}
+
+.art-foot{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(0,0,0,.1)}
+.disclaimer{font-size:.82rem;color:#999;font-style:italic;margin:0}
+
+/* Progress bar stub */
+.rp-bar{height:3px;background:#E8175D;width:62%;position:fixed;top:0;left:0;z-index:200}
 </style>
 </head>
 <body>
+<div class="rp-bar"></div>
 
 <div class="switcher">
   <span style="color:#555;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 8px">вид:</span>
   <button class="sw-btn active" onclick="show('listing',this)">Листинг</button>
+  <button class="sw-btn" onclick="show('article',this)">Статья</button>
   <button class="sw-btn" onclick="show('home',this)">Главная</button>
 </div>
 
-<!-- ЛИСТИНГ -->
+<!-- ══════════════════════════════ ЛИСТИНГ ══════════════════════════════ -->
 <div id="listing" class="page active">
 <header class="site-header">
   <div class="header-inner">
     <div class="header-left">
       <a href="#" class="logo">ЭТИКЕТКА<sup>медиа</sup></a>
       <nav class="site-nav">
-        <a href="#">ТС ПИоТ</a><a href="#">Маркировка</a><a href="#">Законодательство</a><a href="#">Словарь</a><a href="#">Кейсы</a>
+        <a href="#">Статьи</a><a href="#">ТС ПИоТ</a><a href="#">Маркировка</a><a href="#">Законодательство</a>
       </nav>
     </div>
     <div class="header-right">
@@ -229,13 +308,160 @@ body{font-family:'Inter',system-ui,sans-serif;background:#EDE8DF;color:#111;font
 </footer>
 </div>
 
-<!-- ГЛАВНАЯ -->
+<!-- ══════════════════════════════ СТАТЬЯ ══════════════════════════════ -->
+<div id="article" class="page">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <a href="#" class="logo">ЭТИКЕТКА<sup>медиа</sup></a>
+      <nav class="site-nav">
+        <a href="#">Статьи</a><a href="#">ТС ПИоТ</a><a href="#">Маркировка</a><a href="#">Законодательство</a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <a href="#" class="search-link">+ Поиск</a>
+      <a href="#" class="cta-btn">Подписаться →</a>
+    </div>
+  </div>
+</header>
+
+<div class="post-main">
+<article class="article">
+
+  <!-- Breadcrumbs -->
+  <nav class="art-breadcrumbs">
+    <a href="#">Главная</a><span>/</span>
+    <a href="#">Статьи</a><span>/</span>
+    <a href="#">ТС ПИоТ</a>
+  </nav>
+
+  <!-- Article header -->
+  <header class="article-head">
+    <div class="cat-chip" style="background:#111;color:#fff">ТС ПИоТ</div>
+    <h1>ТС ПИоТ с 28 декабря 2025: кто обязан подключить и как это сделать</h1>
+    <p class="art-lead">Техническое средство получения информации о товаре — программный модуль для онлайн-кассы, обязательный для всех, кто торгует маркированными товарами. Разбираем, кого касается требование, что нужно сделать и какие штрафы грозят за нарушение.</p>
+    <div class="art-meta">1 мая 2026 · обновлено 2 мая 2026 · 11 мин</div>
+    <div class="art-tags">
+      <a class="tag-pill" href="#">#тс-пиот</a>
+      <a class="tag-pill" href="#">#онлайн-касса</a>
+      <a class="tag-pill" href="#">#честный-знак</a>
+      <a class="tag-pill" href="#">#маркировка</a>
+      <a class="tag-pill" href="#">#ккт</a>
+    </div>
+  </header>
+
+  <!-- TOC -->
+  <details class="toc" open>
+    <summary class="toc-summary">Содержание <span>▾</span></summary>
+    <ol class="toc-list">
+      <li class="toc-item"><a href="#">Что такое ТС ПИоТ и зачем он нужен</a></li>
+      <li class="toc-item"><a href="#">Кто обязан подключить ТС ПИоТ</a></li>
+      <li class="toc-item toc-d3"><a href="#">Исключения из требования</a></li>
+      <li class="toc-item"><a href="#">Как подключить: пошаговая инструкция</a></li>
+      <li class="toc-item"><a href="#">Штрафы за отсутствие ТС ПИоТ</a></li>
+      <li class="toc-item"><a href="#">Часто задаваемые вопросы</a></li>
+    </ol>
+  </details>
+
+  <!-- Prose -->
+  <div class="prose">
+    <h2>Что такое ТС ПИоТ и зачем он нужен</h2>
+    <p>Техническое средство получения информации о товаре (ТС ПИоТ) — это программный модуль, который встраивается в кассовое программное обеспечение и обеспечивает прямую защищённую связь между онлайн-кассой и государственной системой «Честный знак».</p>
+    <p>Когда кассир сканирует Data Matrix-код на маркированном товаре, ТС ПИоТ мгновенно проверяет его легальность: сверяет с базой «Честного знака», проверяет статус вывода из оборота и блокирует продажу, если товар поддельный или уже выбыл из оборота.</p>
+
+    <div class="callout">
+      <strong>Важно знать</strong>
+      С 28 декабря 2025 года продажа маркированных товаров без ТС ПИоТ является нарушением законодательства независимо от того, использует ли касса разрешительный режим.
+    </div>
+
+    <h2>Кто обязан подключить ТС ПИоТ</h2>
+    <p>Требование распространяется на всех участников розничной торговли, которые работают с маркированными товарами через <a href="#">контрольно-кассовую технику</a>. Это:</p>
+    <ul>
+      <li>розничные магазины — продовольственные, непродовольственные, специализированные;</li>
+      <li>предприятия общественного питания, реализующие маркированную продукцию (молочная продукция, вода, пиво);</li>
+      <li>индивидуальные предприниматели и организации на любой системе налогообложения;</li>
+      <li>маркетплейсы и пункты выдачи заказов — в части продажи маркированных товаров.</li>
+    </ul>
+
+    <blockquote>«Внедрение ТС ПИоТ — это не дополнительная нагрузка на бизнес, а защита честных участников рынка от контрафактной продукции» — Центр развития перспективных технологий, апрель 2025.</blockquote>
+
+    <h3>Исключения из требования</h3>
+    <p>Освобождены от обязательного подключения ТС ПИоТ участники, которые применяют <strong>безналичные расчёты без применения ККТ</strong> в случаях, прямо предусмотренных 54-ФЗ, а также организации, работающие исключительно с немаркированными товарами.</p>
+
+    <h2>Штрафы за отсутствие ТС ПИоТ</h2>
+    <p>Нарушение требования об использовании ТС ПИоТ квалифицируется как ненадлежащее применение ККТ по статье 14.5 КоАП РФ:</p>
+    <ul>
+      <li>для должностных лиц — от 1 500 до 3 000 рублей;</li>
+      <li>для юридических лиц — от 5 000 до 10 000 рублей;</li>
+      <li>повторное нарушение — приостановление деятельности до 90 суток.</li>
+    </ul>
+
+    <div class="callout callout-warn">
+      <strong>Предупреждение</strong>
+      Штрафы суммируются с санкциями за нарушение разрешительного режима. Общая сумма взыскания может достигать стоимости всей партии незаконно реализованного товара.
+    </div>
+  </div>
+
+  <!-- Share -->
+  <div class="art-share">
+    <span class="share-label">Поделиться</span>
+    <button class="share-btn">Telegram</button>
+    <button class="share-btn">ВКонтакте</button>
+  </div>
+
+  <!-- Related -->
+  <aside class="related">
+    <span class="related-eyebrow">Читайте также</span>
+    <ul class="related-list">
+      <li class="related-card" style="border-left-color:#E8175D">
+        <a href="#">
+          <span class="related-cat">Маркировка</span>
+          <h3>Разрешительный режим: что изменилось с апреля 2026</h3>
+          <p>Новые правила блокировки продаж и переходный период для бизнеса.</p>
+        </a>
+      </li>
+      <li class="related-card" style="border-left-color:#C8F500">
+        <a href="#">
+          <span class="related-cat">Законодательство</span>
+          <h3>Как зарегистрировать ККТ в ФНС самостоятельно</h3>
+          <p>Пошаговая инструкция: от заявления до фискального накопителя.</p>
+        </a>
+      </li>
+      <li class="related-card" style="border-left-color:#111">
+        <a href="#">
+          <span class="related-cat">ТС ПИоТ</span>
+          <h3>Смарт-терминал или фискальный регистратор: что выбрать</h3>
+          <p>Сравнение моделей по цене, функциям и совместимости с ТС ПИоТ.</p>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <footer class="art-foot">
+    <p class="disclaimer">Материал носит информационный характер и не является юридической или налоговой консультацией. Перед принятием решений сверяйтесь с действующей редакцией нормативных актов.</p>
+  </footer>
+
+</article>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><div class="footer-logo">ЭТИКЕТКА<sup>медиа</sup></div><p class="footer-about">Информационный портал для малого и среднего бизнеса. Разбираем требования ТС ПИоТ, маркировки «Честный знак» и изменения в законодательстве.</p></div>
+    <div class="footer-col"><strong>Разделы</strong><ul><li><a href="#">Статьи</a></li><li><a href="#">ТС ПИоТ</a></li><li><a href="#">Маркировка</a></li><li><a href="#">Законодательство</a></li><li><a href="#">RSS-лента</a></li></ul></div>
+    <div class="footer-col"><strong>Инструменты</strong><ul><li><a href="#">Калькулятор штрафов</a></li><li><a href="#">Календарь маркировки</a></li><li><a href="#">Словарь терминов</a></li><li><a href="#">Поиск</a></li></ul></div>
+    <div class="footer-col"><strong>Документы</strong><ul><li><a href="#">О проекте</a></li><li><a href="#">Конфиденциальность</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><small>© 2026 Этикетка. Материалы носят информационный характер и не являются юридической консультацией.</small></div>
+</footer>
+</div>
+
+<!-- ══════════════════════════════ ГЛАВНАЯ ══════════════════════════════ -->
 <div id="home" class="page">
 <header class="site-header">
   <div class="header-inner">
     <div class="header-left">
       <a href="#" class="logo">ЭТИКЕТКА<sup>медиа</sup></a>
-      <nav class="site-nav"><a href="#">ТС ПИоТ</a><a href="#">Маркировка</a><a href="#">Законодательство</a><a href="#">Словарь</a><a href="#">Кейсы</a></nav>
+      <nav class="site-nav"><a href="#">Статьи</a><a href="#">ТС ПИоТ</a><a href="#">Маркировка</a><a href="#">Законодательство</a></nav>
     </div>
     <div class="header-right"><a href="#" class="search-link">+ Поиск</a><a href="#" class="cta-btn">Подписаться →</a></div>
   </div>
@@ -287,8 +513,17 @@ body{font-family:'Inter',system-ui,sans-serif;background:#EDE8DF;color:#111;font
 </div>
 
 <script>
-function show(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.sw-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');window.scrollTo(0,0)}
-function setF(btn){document.querySelectorAll('.ftag').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
+function show(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sw-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function setF(btn){
+  document.querySelectorAll('.ftag').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
 </script>
 </body>
 </html>
