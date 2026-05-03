@@ -6,322 +6,332 @@
 <title>Цветовые варианты — Этикетка</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap');
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: 'Inter', system-ui, sans-serif;
-    background: #1a1a1a;
+    background: #111;
     color: #111;
-    padding: 2rem;
+    padding: 2.5rem;
   }
-
-  h1.page-title {
+  .page-header {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .page-header h1 {
     font-family: 'Inter', sans-serif;
     color: #fff;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
+    font-size: 1rem;
+    font-weight: 700;
     letter-spacing: 0;
-    text-transform: none;
   }
-  .page-subtitle {
-    color: #888;
-    font-size: 0.85rem;
-    margin-bottom: 2rem;
+  .page-header p {
+    color: #666;
+    font-size: 0.8rem;
   }
 
-  .variants-grid {
+  /* ── Two column layout ── */
+  .compare {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
   }
+  @media (max-width: 1050px) { .compare { grid-template-columns: 1fr; } }
 
-  @media (max-width: 1100px) {
-    .variants-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ─── VARIANT WRAPPER ─── */
-  .variant {
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid #333;
-  }
-
-  .variant-label {
-    padding: 0.75rem 1rem;
-    font-size: 0.75rem;
+  .variant-wrap { }
+  .variant-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    background: #2a2a2a;
-    color: #aaa;
-    border-bottom: 1px solid #333;
+    color: #666;
+    margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
-  .variant-label .swatch {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
+  .variant-name span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
   }
-  .variant-label .swatch-lime {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .variant-name em { color: #444; font-style: normal; }
+
+  .site-mock {
+    border: 1px solid #2a2a2a;
+    overflow: hidden;
   }
 
-  /* ─── SITE CHROME ─── */
-  .site-wrap {
-    background: var(--sand);
-  }
+  /* ═══════════════════════════════════════
+     SITE CHROME
+  ═══════════════════════════════════════ */
 
-  /* HEADER */
-  .site-header {
-    background: var(--dark);
-    padding: 0.75rem 1.25rem;
+  /* Header */
+  .s-header {
+    background: #EDE8DF;
+    border-bottom: 1px solid rgba(0,0,0,.10);
+    padding: 0 24px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .site-logo {
+  .s-header-left { display: flex; align-items: center; gap: 20px; }
+  .s-logo {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.3rem;
-    color: var(--lime);
-    letter-spacing: 0.05em;
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+    color: #111;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .s-logo sup {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.48rem;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    vertical-align: super;
+    margin-left: 3px;
+  }
+  .s-nav { display: flex; gap: 0; }
+  .s-nav a {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #555;
+    text-decoration: none;
+    padding: 0 10px;
+    line-height: 52px;
+    display: inline-block;
+  }
+  .s-header-right { display: flex; align-items: center; gap: 10px; }
+  .s-search {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #999;
     text-decoration: none;
   }
-  .site-nav {
-    display: flex;
-    gap: 1rem;
-  }
-  .site-nav a {
-    font-size: 0.72rem;
+  /* CTA button — stays bright in BOTH variants */
+  .s-cta {
+    font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #aaa;
+    padding: 7px 14px;
     text-decoration: none;
-  }
-  .site-nav a:hover { color: #fff; }
-
-  /* HERO STRIP */
-  .hero-strip {
-    background: var(--dark);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 1.5rem 1.25rem 1.75rem;
-  }
-  .hero-eyebrow {
-    display: inline-block;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--lime);
-    margin-bottom: 0.5rem;
-  }
-  .hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.9rem;
     color: #fff;
-    line-height: 1.05;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
   }
-  .hero-desc {
-    font-size: 0.82rem;
-    color: #aaa;
-    line-height: 1.55;
-    max-width: 380px;
-    margin-bottom: 1rem;
+
+  /* Main content area */
+  .s-main {
+    background: #EDE8DF;
+    padding: 28px 24px 32px;
   }
-  .btn-primary {
+
+  /* Eyebrow tag — accent area */
+  .s-eyebrow {
     display: inline-block;
-    padding: 0.55em 1.1em;
-    background: var(--pink);
-    color: #fff;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-  }
-  .btn-primary:hover { background: var(--pink-dark); }
-
-  /* CONTENT AREA */
-  .content-area {
-    padding: 1.25rem;
-    background: var(--sand);
-  }
-
-  /* TAG PILLS */
-  .tags-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-bottom: 1rem;
-  }
-  .tag-pill {
-    display: inline-block;
-    padding: 0.2em 0.65em;
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background: var(--lime);
-    color: var(--dark);
-    text-decoration: none;
-    line-height: 1.4;
-  }
-  .tag-pill--pink { background: var(--pink); color: #fff; }
-  .tag-pill--dark { background: var(--dark); color: var(--lime); }
-
-  /* ARTICLE CARD */
-  .article-card {
-    background: var(--white);
-    border: 1px solid rgba(0,0,0,0.08);
-    padding: 1rem;
-    margin-bottom: 0.75rem;
-  }
-  .card-category {
     font-size: 0.6rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--pink);
-    margin-bottom: 0.35rem;
+    padding: 3px 8px;
+    margin-bottom: 14px;
   }
-  .card-title {
+  .s-hero-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.05rem;
-    color: var(--dark);
-    line-height: 1.1;
+    font-size: 2.4rem;
+    line-height: 0.95;
     letter-spacing: 0.03em;
+    color: #111;
+    margin-bottom: 12px;
     text-transform: uppercase;
-    margin-bottom: 0.4rem;
   }
-  .card-excerpt {
-    font-size: 0.75rem;
-    color: #555;
-    line-height: 1.5;
-    margin-bottom: 0.6rem;
-  }
-  .card-meta {
-    font-size: 0.65rem;
-    color: #888;
-  }
-
-  /* BLOCKQUOTE */
-  .bq {
-    border-left: 3px solid var(--pink);
-    padding: 0.5em 0 0.5em 1em;
-    margin: 0.75rem 0;
+  .s-hero-lead {
     font-size: 0.8rem;
-    color: #555;
-    background: var(--pink-soft);
-    line-height: 1.5;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    max-width: 340px;
   }
-
-  /* CALLOUT */
-  .callout {
-    border-left: 3px solid var(--lime-dark);
-    background: var(--lime-soft);
-    padding: 0.7em 1em;
-    margin: 0.75rem 0;
-    font-size: 0.78rem;
-    line-height: 1.5;
-  }
-  .callout b {
-    display: block;
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
+  .s-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+  .s-btn-primary {
+    display: inline-block;
+    padding: 0.55em 1.2em;
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 0.2em;
-    color: var(--lime-dark);
+    background: #111;
+  }
+  .s-btn-ghost {
+    display: inline-block;
+    padding: 0.55em 1.2em;
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 2px solid #111;
+    color: #111;
   }
 
-  /* SECTION HEADING */
-  .section-h2 {
+  /* Category tiles */
+  .s-section-label {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    color: #111;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .s-section-num { color: #ccc; }
+  .s-cat-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 20px; }
+  .s-cat-tile {
+    padding: 14px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none;
+  }
+  .s-t-num { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+  .s-t-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--dark);
-    margin: 0.75rem 0 0.4rem;
-    padding-bottom: 0.3rem;
-    border-bottom: 2px solid var(--lime);
+    color: #111;
   }
+  .s-t-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 4px; }
 
-  /* LINK */
-  .inline-link { color: var(--pink); text-decoration: none; font-size: 0.8rem; }
-  .inline-link:hover { color: var(--pink-dark); text-decoration: underline; }
-
-  /* BADGE */
-  .badge {
-    display: inline-block;
-    padding: 0.15em 0.5em;
-    font-size: 0.62rem;
+  /* Hero post card */
+  .s-hero-card {
+    background: #111;
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 6px;
+  }
+  .s-card-bg-letter {
+    position: absolute;
+    right: -8px;
+    top: -16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 10rem;
+    line-height: 1;
+    opacity: 0.35;
+    pointer-events: none;
+    letter-spacing: -0.02em;
+  }
+  .s-card-tags { display: flex; gap: 4px; margin-bottom: 8px; position: relative; z-index: 1; }
+  .s-tag {
+    font-size: 0.58rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    background: var(--pink-soft);
-    color: var(--pink);
-    border: 1px solid var(--pink);
+    padding: 3px 7px;
   }
-  .badge--lime {
-    background: var(--lime-soft);
-    color: var(--lime-dark);
-    border-color: var(--lime-dark);
+  .s-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.0;
+    letter-spacing: 0.03em;
+    color: #fff;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+  .s-card-meta { font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: #555; margin-top: 6px; position: relative; z-index: 1; }
+
+  /* Small cards row */
+  .s-small-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .s-small-card { background: #fff; display: flex; flex-direction: column; }
+  .s-small-card-img {
+    width: 100%; aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
+  }
+  .s-small-card-letter {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4.5rem; line-height: 1; opacity: 0.25; letter-spacing: -0.02em;
+  }
+  .s-small-card-body { padding: 12px; }
+  .s-small-pill {
+    font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 2px 6px; display: inline-block; margin-bottom: 6px;
+  }
+  .s-small-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem; line-height: 1.05; text-transform: uppercase;
+    letter-spacing: 0.02em; color: #111; margin-bottom: 4px;
+  }
+  .s-small-desc { font-size: 0.7rem; color: #666; line-height: 1.45; }
+
+  /* Content body preview */
+  .s-article-preview {
+    background: #EDE8DF;
+    padding: 20px 24px 24px;
+    border-top: 1px solid rgba(0,0,0,.08);
+  }
+  .s-article-section-label {
+    font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .s-article-h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem; letter-spacing: 0.04em; text-transform: uppercase;
+    color: #111; margin-bottom: 6px; padding-bottom: 4px;
+    border-bottom-width: 2px; border-bottom-style: solid;
+  }
+  .s-prose { font-size: 0.78rem; color: #444; line-height: 1.55; margin-bottom: 10px; }
+  .s-bq {
+    border-left-width: 3px; border-left-style: solid;
+    padding: 0.4em 0 0.4em 0.9em;
+    margin: 10px 0;
+    font-size: 0.78rem; color: #555; line-height: 1.5;
+  }
+  .s-callout {
+    border-left-width: 3px; border-left-style: solid;
+    padding: 0.6em 0.9em;
+    margin: 10px 0;
+    font-size: 0.78rem; line-height: 1.5;
+  }
+  .s-callout b {
+    display: block; font-size: 0.6rem; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 2px;
+  }
+  .s-inline-link { text-decoration: none; font-size: 0.78rem; }
+  .s-badge {
+    display: inline-block; padding: 0.12em 0.45em;
+    font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; border-width: 1px; border-style: solid;
+    margin-right: 4px;
   }
 
-  /* DIVIDER */
-  .divider {
-    border: none;
-    border-top: 1px solid rgba(0,0,0,0.1);
-    margin: 0.75rem 0;
-  }
+  /* ═══════════════════════════════════════
+     COLOR TOKENS
+  ═══════════════════════════════════════ */
 
-  /* ─────────────────────────────── */
-  /* VARIANT A — «Деловой»           */
-  /* pink: #B8284A / lime: #AFCC00   */
-  /* ─────────────────────────────── */
-  .v-a {
-    --pink:      #B8284A;
-    --pink-dark: #93203B;
-    --pink-soft: #f9e8ed;
-    --lime:      #AFCC00;
-    --lime-dark: #8BA300;
-    --lime-soft: #f2f9e0;
-    --sand: #EDE8DF;
-    --dark: #111;
-    --white: #fff;
-  }
-
-  /* ─────────────────────────────── */
-  /* VARIANT B — «Редакционный»      */
-  /* pink: #9E2B4F / lime: #8FAF00   */
-  /* ─────────────────────────────── */
-  .v-b {
-    --pink:      #9E2B4F;
-    --pink-dark: #7D1F3D;
-    --pink-soft: #f5e7ec;
-    --lime:      #8FAF00;
-    --lime-dark: #708A00;
-    --lime-soft: #eef6d6;
-    --sand: #EDE8DF;
-    --dark: #111;
-    --white: #fff;
-  }
-
-  /* ─────────────────────────────── */
-  /* ВАРИАНТ 0 (текущий, для сравн.) */
-  /* pink: #E8175D / lime: #C8F500   */
-  /* ─────────────────────────────── */
+  /* ТЕКУЩИЙ — original #E8175D / #C8F500 */
   .v-orig {
     --pink:      #E8175D;
     --pink-dark: #c50f4b;
@@ -329,200 +339,374 @@
     --lime:      #C8F500;
     --lime-dark: #a0c200;
     --lime-soft: #f4ffe6;
-    --sand: #EDE8DF;
-    --dark: #111;
-    --white: #fff;
   }
+
+  /* ПРЕДЛОЖЕНИЕ — logo area stays bright, body: lime #AFCC00 + pink #9E2B4F */
+  .v-new {
+    --pink:      #9E2B4F;
+    --pink-dark: #7D1F3D;
+    --pink-soft: #f5e8ed;
+    --lime:      #AFCC00;
+    --lime-dark: #8BA300;
+    --lime-soft: #f1f8dc;
+  }
+
+  /* Applying tokens */
+  .v-orig .s-cta,
+  .v-new  .s-cta--orig    { background: #E8175D; }
+
+  /* In .v-new the CTA button stays ORIGINAL BRIGHT pink */
+  .v-new  .s-cta          { background: #E8175D; }
+
+  /* Eyebrow tag */
+  .v-orig .s-eyebrow,
+  .v-new  .s-eyebrow--orig { background: #C8F500; color: #111; }
+
+  /* In .v-new eyebrow uses muted lime */
+  .v-new  .s-eyebrow       { background: #AFCC00; color: #111; }
+
+  /* Primary button text color */
+  .v-orig .s-btn-primary { color: #C8F500; }
+  .v-new  .s-btn-primary { color: #AFCC00; }
+
+  /* Hero bg letter color */
+  .v-orig .s-card-bg-letter { color: #E8175D; }
+  .v-new  .s-card-bg-letter { color: #9E2B4F; }
+
+  /* Tags */
+  .v-orig .s-tag--pink { background: #E8175D; color: #fff; }
+  .v-orig .s-tag--lime { background: #C8F500; color: #111; }
+  .v-new  .s-tag--pink { background: #9E2B4F; color: #fff; }
+  .v-new  .s-tag--lime { background: #AFCC00; color: #111; }
+
+  /* Category tiles */
+  /* t1 = ТС ПИоТ (sand/neutral — no change needed) */
+  .s-t1 { background: #EDE8DF; border: 1px solid rgba(0,0,0,.12); }
+  .s-t1 .s-t-num { color: #aaa; }
+  .v-orig .s-t1 .s-t-dot { background: #E8175D; }
+  .v-new  .s-t1 .s-t-dot { background: #9E2B4F; }
+
+  /* t2 = Маркировка — lime bg. Logo area = keep bright, body = use muted */
+  .v-orig .s-t2 { background: #C8F500; }
+  .v-new  .s-t2 { background: #AFCC00; }
+  .s-t2 .s-t-num { color: #8aaa00; }
+  .s-t2 .s-t-dot { background: #111; }
+  .s-t2 .s-t-name { color: #111; }
+
+  /* t3 = Законодательство — dark bg, dot=lime */
+  .s-t3 { background: #111; }
+  .s-t3 .s-t-num { color: #555; }
+  .s-t3 .s-t-name { color: #fff; }
+  .v-orig .s-t3 .s-t-dot { background: #C8F500; }
+  .v-new  .s-t3 .s-t-dot { background: #AFCC00; }
+
+  /* Small card pills */
+  .v-orig .s-pill--ts   { background: #111; color: #fff; }
+  .v-orig .s-pill--mark { background: #E8175D; color: #fff; }
+  .v-orig .s-pill--law  { background: #C8F500; color: #111; }
+  .v-new  .s-pill--ts   { background: #111; color: #fff; }
+  .v-new  .s-pill--mark { background: #9E2B4F; color: #fff; }
+  .v-new  .s-pill--law  { background: #AFCC00; color: #111; }
+
+  /* Small card images */
+  .v-orig .s-img--ts   { background: #111; }
+  .v-orig .s-img--mark { background: #E8175D; }
+  .v-orig .s-img--law  { background: #C8F500; }
+  .v-new  .s-img--ts   { background: #111; }
+  .v-new  .s-img--mark { background: #9E2B4F; }
+  .v-new  .s-img--law  { background: #AFCC00; }
+
+  /* Article accents */
+  .v-orig .s-article-section-label { color: #E8175D; }
+  .v-new  .s-article-section-label { color: #9E2B4F; }
+
+  .v-orig .s-article-h2 { border-bottom-color: #C8F500; }
+  .v-new  .s-article-h2 { border-bottom-color: #AFCC00; }
+
+  .v-orig .s-bq { border-left-color: #E8175D; background: #fdeef4; }
+  .v-new  .s-bq { border-left-color: #9E2B4F; background: #f5e8ed; }
+
+  .v-orig .s-callout { border-left-color: #a0c200; background: #f4ffe6; }
+  .v-new  .s-callout { border-left-color: #8BA300; background: #f1f8dc; }
+  .v-orig .s-callout b { color: #a0c200; }
+  .v-new  .s-callout b { color: #8BA300; }
+
+  .v-orig .s-inline-link { color: #E8175D; }
+  .v-new  .s-inline-link { color: #9E2B4F; }
+
+  .v-orig .s-badge--pink { background: #fdeef4; color: #E8175D; border-color: #E8175D; }
+  .v-orig .s-badge--lime { background: #f4ffe6; color: #a0c200; border-color: #a0c200; }
+  .v-new  .s-badge--pink { background: #f5e8ed; color: #9E2B4F; border-color: #9E2B4F; }
+  .v-new  .s-badge--lime { background: #f1f8dc; color: #8BA300; border-color: #8BA300; }
+
+  /* Annotation note */
+  .annotation {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid #333;
+    background: #1a1a1a;
+  }
+  .annotation p {
+    font-size: 0.72rem;
+    color: #888;
+    line-height: 1.55;
+    margin-bottom: 0.3rem;
+  }
+  .annotation p:last-child { margin-bottom: 0; }
+  .annotation strong { color: #ccc; }
 </style>
 </head>
 <body>
 
-<h1 class="page-title">Цветовые варианты — Этикетка</h1>
-<p class="page-subtitle">Сравнение: текущие цвета vs. два сдержанных варианта. Все остальное — шрифты, отступы, фон — идентично.</p>
+<div class="page-header">
+  <h1>Этикетка — цвета</h1>
+  <p>Слева: текущая палитра. Справа: предложение — лого/кнопки остаются яркими, акценты приглушены.</p>
+</div>
 
-<div class="variants-grid">
+<div class="compare">
 
-  <!-- ── ТЕКУЩИЙ ── -->
-  <div class="variant">
-    <div class="variant-label">
-      <span class="swatch" style="background:#E8175D"></span>
-      <span class="swatch-lime" style="background:#C8F500"></span>
+  <!-- ══════════════════ ТЕКУЩИЙ ══════════════════ -->
+  <div class="variant-wrap">
+    <div class="variant-name">
+      <span><span class="dot" style="background:#E8175D"></span> <span class="dot" style="background:#C8F500"></span></span>
       Текущий — #E8175D / #C8F500
+      <em style="margin-left:auto">оригинал</em>
     </div>
-    <div class="site-wrap v-orig">
 
-      <header class="site-header">
-        <a class="site-logo" href="#">Этикетка</a>
-        <nav class="site-nav">
-          <a href="#">ТС ПИоТ</a>
-          <a href="#">Маркировка</a>
-          <a href="#">Законы</a>
-        </nav>
-      </header>
-
-      <div class="hero-strip">
-        <span class="hero-eyebrow">ТС ПИоТ</span>
-        <div class="hero-title">Что такое ТС ПИоТ<br>и кому нужен</div>
-        <p class="hero-desc">Техническое средство получения информации о товаре — программный модуль для онлайн-кассы. Обязателен с 28.12.2025.</p>
-        <a class="btn-primary" href="#">Читать статью</a>
+    <div class="site-mock v-orig">
+      <!-- Header -->
+      <div class="s-header">
+        <div class="s-header-left">
+          <a class="s-logo" href="#">ЭТИКЕТКА<sup>медиа</sup></a>
+          <nav class="s-nav">
+            <a href="#">ТС ПИоТ</a>
+            <a href="#">Маркировка</a>
+            <a href="#">Законы</a>
+          </nav>
+        </div>
+        <div class="s-header-right">
+          <a class="s-search" href="#">+ Поиск</a>
+          <a class="s-cta" href="#">Подписаться →</a>
+        </div>
       </div>
 
-      <div class="content-area">
-        <div class="tags-row">
-          <span class="tag-pill">ТС ПИоТ</span>
-          <span class="tag-pill--pink tag-pill">Маркировка</span>
-          <span class="tag-pill--dark tag-pill">Штрафы</span>
+      <!-- Main -->
+      <div class="s-main">
+        <!-- Hero -->
+        <span class="s-eyebrow">Медиа для бизнеса</span>
+        <div class="s-hero-title">РАЗБИРАЕМ ТРЕБОВАНИЯ,<br>КОТОРЫЕ ДОГОНЯЮТ БИЗНЕС</div>
+        <p class="s-hero-lead">ТС ПИоТ для онлайн-касс, маркировка «Честный знак», налоги, ЭДО и трудовое законодательство.</p>
+        <div class="s-btns">
+          <a class="s-btn-primary" href="#">Все статьи</a>
+          <a class="s-btn-ghost" href="#">Что такое ТС ПИоТ →</a>
         </div>
 
-        <div class="article-card">
-          <div class="card-category">Законодательство</div>
-          <div class="card-title">НДС на УСН: 5%, 7% или 20% — что выбрать в 2026</div>
-          <div class="card-excerpt">С 1 января 2026 года налогоплательщики УСН обязаны уплачивать НДС при превышении лимита дохода.</div>
-          <div class="card-meta">3 мая 2026 · 8 мин</div>
+        <!-- Category tiles -->
+        <div class="s-section-label"><span class="s-section-num">// 01</span> Разделы</div>
+        <div class="s-cat-tiles">
+          <div class="s-cat-tile s-t1">
+            <div><div class="s-t-num">01</div><div class="s-t-name">ТС ПИоТ</div></div>
+            <div class="s-t-dot"></div>
+          </div>
+          <div class="s-cat-tile s-t2">
+            <div><div class="s-t-num">02</div><div class="s-t-name">Маркировка</div></div>
+            <div class="s-t-dot"></div>
+          </div>
+          <div class="s-cat-tile s-t3">
+            <div><div class="s-t-num">03</div><div class="s-t-name">Законы</div></div>
+            <div class="s-t-dot"></div>
+          </div>
         </div>
 
-        <div class="section-h2">Штрафы и санкции</div>
-
-        <div class="bq">С 28 декабря 2025 года работа без ТС ПИоТ при наличии маркированного товара квалифицируется как нарушение порядка применения ККТ.</div>
-
-        <div class="callout">
-          <b>Важно</b>
-          Лимиты УСН в 2026 году: доходы до 450 млн ₽, численность — до 130 сотрудников.
+        <!-- Hero post card -->
+        <div class="s-section-label"><span class="s-section-num">// 02</span> Последние материалы</div>
+        <div class="s-hero-card">
+          <span class="s-card-bg-letter">ТС</span>
+          <div class="s-card-tags">
+            <span class="s-tag s-tag--pink">ТС ПИоТ</span>
+            <span class="s-tag s-tag--lime">#касса</span>
+          </div>
+          <div class="s-card-title">Что такое ТС ПИоТ и кому нужен с 28.12.2025</div>
+          <div class="s-card-meta">15 янв 2026</div>
         </div>
 
-        <p><a class="inline-link" href="#">Подробнее о разрешительном режиме →</a></p>
-
-        <hr class="divider">
-
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
-          <span class="badge">Обязательно с 28.12.2025</span>
-          <span class="badge--lime badge">Обновлено: май 2026</span>
+        <!-- Small cards -->
+        <div class="s-small-grid">
+          <div class="s-small-card">
+            <div class="s-small-card-img s-img--mark">
+              <span class="s-small-card-letter" style="color:rgba(255,255,255,.25)">МК</span>
+            </div>
+            <div class="s-small-card-body">
+              <span class="s-small-pill s-pill--mark">Маркировка</span>
+              <div class="s-small-title">Категории маркировки 2026</div>
+              <div class="s-small-desc">Все товарные группы, сроки и штрафы</div>
+            </div>
+          </div>
+          <div class="s-small-card">
+            <div class="s-small-card-img s-img--law">
+              <span class="s-small-card-letter" style="color:rgba(0,0,0,.2)">НА</span>
+            </div>
+            <div class="s-small-card-body">
+              <span class="s-small-pill s-pill--law">Законы</span>
+              <div class="s-small-title">Налоги МСБ 2026</div>
+              <div class="s-small-desc">УСН, НДС, патент — что изменилось</div>
+            </div>
+          </div>
+          <div class="s-small-card">
+            <div class="s-small-card-img s-img--ts">
+              <span class="s-small-card-letter" style="color:rgba(200,245,0,.25)">ОФД</span>
+            </div>
+            <div class="s-small-card-body">
+              <span class="s-small-pill s-pill--ts">ТС ПИоТ</span>
+              <div class="s-small-title">ОФД и ТС ПИоТ: разница</div>
+              <div class="s-small-desc">Что общего и чем отличаются</div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- ── ВАРИАНТ A ── -->
-  <div class="variant">
-    <div class="variant-label">
-      <span class="swatch" style="background:#B8284A"></span>
-      <span class="swatch-lime" style="background:#AFCC00"></span>
-      Вариант A — #B8284A / #AFCC00
-    </div>
-    <div class="site-wrap v-a">
-
-      <header class="site-header">
-        <a class="site-logo" href="#">Этикетка</a>
-        <nav class="site-nav">
-          <a href="#">ТС ПИоТ</a>
-          <a href="#">Маркировка</a>
-          <a href="#">Законы</a>
-        </nav>
-      </header>
-
-      <div class="hero-strip">
-        <span class="hero-eyebrow">ТС ПИоТ</span>
-        <div class="hero-title">Что такое ТС ПИоТ<br>и кому нужен</div>
-        <p class="hero-desc">Техническое средство получения информации о товаре — программный модуль для онлайн-кассы. Обязателен с 28.12.2025.</p>
-        <a class="btn-primary" href="#">Читать статью</a>
-      </div>
-
-      <div class="content-area">
-        <div class="tags-row">
-          <span class="tag-pill">ТС ПИоТ</span>
-          <span class="tag-pill--pink tag-pill">Маркировка</span>
-          <span class="tag-pill--dark tag-pill">Штрафы</span>
-        </div>
-
-        <div class="article-card">
-          <div class="card-category">Законодательство</div>
-          <div class="card-title">НДС на УСН: 5%, 7% или 20% — что выбрать в 2026</div>
-          <div class="card-excerpt">С 1 января 2026 года налогоплательщики УСН обязаны уплачивать НДС при превышении лимита дохода.</div>
-          <div class="card-meta">3 мая 2026 · 8 мин</div>
-        </div>
-
-        <div class="section-h2">Штрафы и санкции</div>
-
-        <div class="bq">С 28 декабря 2025 года работа без ТС ПИоТ при наличии маркированного товара квалифицируется как нарушение порядка применения ККТ.</div>
-
-        <div class="callout">
-          <b>Важно</b>
-          Лимиты УСН в 2026 году: доходы до 450 млн ₽, численность — до 130 сотрудников.
-        </div>
-
-        <p><a class="inline-link" href="#">Подробнее о разрешительном режиме →</a></p>
-
-        <hr class="divider">
-
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
-          <span class="badge">Обязательно с 28.12.2025</span>
-          <span class="badge--lime badge">Обновлено: май 2026</span>
+      <!-- Article body preview -->
+      <div class="s-article-preview">
+        <div class="s-article-section-label">Акценты внутри статьи</div>
+        <div class="s-article-h2">Штрафы за нарушение</div>
+        <p class="s-prose">С 28 декабря 2025 года работа без ТС ПИоТ квалифицируется как нарушение порядка применения ККТ по статье 14.5 КоАП РФ.</p>
+        <div class="s-bq">Штраф для должностных лиц — от 1 500 до 3 000 рублей; для юридических лиц — от 5 000 до 10 000 рублей.</div>
+        <div class="s-callout"><b>Важно</b>С 1 июля 2026 разрешительный режим распространяется на косметику и парфюмерию.</div>
+        <p><a class="s-inline-link" href="#">Читайте также: что такое разрешительный режим →</a></p>
+        <div style="margin-top:10px">
+          <span class="s-badge s-badge--pink">Обязательно с 28.12.2025</span>
+          <span class="s-badge s-badge--lime">Обновлено: май 2026</span>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- ── ВАРИАНТ B ── -->
-  <div class="variant">
-    <div class="variant-label">
-      <span class="swatch" style="background:#9E2B4F"></span>
-      <span class="swatch-lime" style="background:#8FAF00"></span>
-      Вариант B — #9E2B4F / #8FAF00
-    </div>
-    <div class="site-wrap v-b">
-
-      <header class="site-header">
-        <a class="site-logo" href="#">Этикетка</a>
-        <nav class="site-nav">
-          <a href="#">ТС ПИоТ</a>
-          <a href="#">Маркировка</a>
-          <a href="#">Законы</a>
-        </nav>
-      </header>
-
-      <div class="hero-strip">
-        <span class="hero-eyebrow">ТС ПИоТ</span>
-        <div class="hero-title">Что такое ТС ПИоТ<br>и кому нужен</div>
-        <p class="hero-desc">Техническое средство получения информации о товаре — программный модуль для онлайн-кассы. Обязателен с 28.12.2025.</p>
-        <a class="btn-primary" href="#">Читать статью</a>
-      </div>
-
-      <div class="content-area">
-        <div class="tags-row">
-          <span class="tag-pill">ТС ПИоТ</span>
-          <span class="tag-pill--pink tag-pill">Маркировка</span>
-          <span class="tag-pill--dark tag-pill">Штрафы</span>
-        </div>
-
-        <div class="article-card">
-          <div class="card-category">Законодательство</div>
-          <div class="card-title">НДС на УСН: 5%, 7% или 20% — что выбрать в 2026</div>
-          <div class="card-excerpt">С 1 января 2026 года налогоплательщики УСН обязаны уплачивать НДС при превышении лимита дохода.</div>
-          <div class="card-meta">3 мая 2026 · 8 мин</div>
-        </div>
-
-        <div class="section-h2">Штрафы и санкции</div>
-
-        <div class="bq">С 28 декабря 2025 года работа без ТС ПИоТ при наличии маркированного товара квалифицируется как нарушение порядка применения ККТ.</div>
-
-        <div class="callout">
-          <b>Важно</b>
-          Лимиты УСН в 2026 году: доходы до 450 млн ₽, численность — до 130 сотрудников.
-        </div>
-
-        <p><a class="inline-link" href="#">Подробнее о разрешительном режиме →</a></p>
-
-        <hr class="divider">
-
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
-          <span class="badge">Обязательно с 28.12.2025</span>
-          <span class="badge--lime badge">Обновлено: май 2026</span>
-        </div>
-      </div>
+    <div class="annotation">
+      <p><strong>Текущая палитра.</strong> Яркий лайм и интенсивный розовый хорошо читаются, но кричат в тексте — особенно цитаты, callout и ссылки.</p>
     </div>
   </div>
 
-</div><!-- /variants-grid -->
+  <!-- ══════════════════ ПРЕДЛОЖЕНИЕ ══════════════════ -->
+  <div class="variant-wrap">
+    <div class="variant-name">
+      <span><span class="dot" style="background:#E8175D"></span><span style="font-size:0.6rem;color:#666;margin:0 3px">логотип</span> <span class="dot" style="background:#9E2B4F"></span> <span class="dot" style="background:#AFCC00"></span></span>
+      Предложение: лого #E8175D, текст #9E2B4F / #AFCC00
+      <em style="margin-left:auto">новое</em>
+    </div>
+
+    <div class="site-mock v-new">
+      <!-- Header — CTA stays bright original pink -->
+      <div class="s-header">
+        <div class="s-header-left">
+          <a class="s-logo" href="#">ЭТИКЕТКА<sup>медиа</sup></a>
+          <nav class="s-nav">
+            <a href="#">ТС ПИоТ</a>
+            <a href="#">Маркировка</a>
+            <a href="#">Законы</a>
+          </nav>
+        </div>
+        <div class="s-header-right">
+          <a class="s-search" href="#">+ Поиск</a>
+          <a class="s-cta" href="#">Подписаться →</a>
+        </div>
+      </div>
+
+      <!-- Main -->
+      <div class="s-main">
+        <!-- Eyebrow uses muted lime -->
+        <span class="s-eyebrow">Медиа для бизнеса</span>
+        <div class="s-hero-title">РАЗБИРАЕМ ТРЕБОВАНИЯ,<br>КОТОРЫЕ ДОГОНЯЮТ БИЗНЕС</div>
+        <p class="s-hero-lead">ТС ПИоТ для онлайн-касс, маркировка «Честный знак», налоги, ЭДО и трудовое законодательство.</p>
+        <div class="s-btns">
+          <a class="s-btn-primary" href="#">Все статьи</a>
+          <a class="s-btn-ghost" href="#">Что такое ТС ПИоТ →</a>
+        </div>
+
+        <!-- Category tiles — markirovka tile uses muted lime -->
+        <div class="s-section-label"><span class="s-section-num">// 01</span> Разделы</div>
+        <div class="s-cat-tiles">
+          <div class="s-cat-tile s-t1">
+            <div><div class="s-t-num">01</div><div class="s-t-name">ТС ПИоТ</div></div>
+            <div class="s-t-dot"></div>
+          </div>
+          <div class="s-cat-tile s-t2">
+            <div><div class="s-t-num">02</div><div class="s-t-name">Маркировка</div></div>
+            <div class="s-t-dot"></div>
+          </div>
+          <div class="s-cat-tile s-t3">
+            <div><div class="s-t-num">03</div><div class="s-t-name">Законы</div></div>
+            <div class="s-t-dot"></div>
+          </div>
+        </div>
+
+        <!-- Hero post card -->
+        <div class="s-section-label"><span class="s-section-num">// 02</span> Последние материалы</div>
+        <div class="s-hero-card">
+          <span class="s-card-bg-letter">ТС</span>
+          <div class="s-card-tags">
+            <span class="s-tag s-tag--pink">ТС ПИоТ</span>
+            <span class="s-tag s-tag--lime">#касса</span>
+          </div>
+          <div class="s-card-title">Что такое ТС ПИоТ и кому нужен с 28.12.2025</div>
+          <div class="s-card-meta">15 янв 2026</div>
+        </div>
+
+        <!-- Small cards -->
+        <div class="s-small-grid">
+          <div class="s-small-card">
+            <div class="s-small-card-img s-img--mark">
+              <span class="s-small-card-letter" style="color:rgba(255,255,255,.2)">МК</span>
+            </div>
+            <div class="s-small-card-body">
+              <span class="s-small-pill s-pill--mark">Маркировка</span>
+              <div class="s-small-title">Категории маркировки 2026</div>
+              <div class="s-small-desc">Все товарные группы, сроки и штрафы</div>
+            </div>
+          </div>
+          <div class="s-small-card">
+            <div class="s-small-card-img s-img--law">
+              <span class="s-small-card-letter" style="color:rgba(0,0,0,.18)">НА</span>
+            </div>
+            <div class="s-small-card-body">
+              <span class="s-small-pill s-pill--law">Законы</span>
+              <div class="s-small-title">Налоги МСБ 2026</div>
+              <div class="s-small-desc">УСН, НДС, патент — что изменилось</div>
+            </div>
+          </div>
+          <div class="s-small-card">
+            <div class="s-small-card-img s-img--ts">
+              <span class="s-small-card-letter" style="color:rgba(175,204,0,.25)">ОФД</span>
+            </div>
+            <div class="s-small-card-body">
+              <span class="s-small-pill s-pill--ts">ТС ПИоТ</span>
+              <div class="s-small-title">ОФД и ТС ПИоТ: разница</div>
+              <div class="s-small-desc">Что общего и чем отличаются</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article body preview -->
+      <div class="s-article-preview">
+        <div class="s-article-section-label">Акценты внутри статьи</div>
+        <div class="s-article-h2">Штрафы за нарушение</div>
+        <p class="s-prose">С 28 декабря 2025 года работа без ТС ПИоТ квалифицируется как нарушение порядка применения ККТ по статье 14.5 КоАП РФ.</p>
+        <div class="s-bq">Штраф для должностных лиц — от 1 500 до 3 000 рублей; для юридических лиц — от 5 000 до 10 000 рублей.</div>
+        <div class="s-callout"><b>Важно</b>С 1 июля 2026 разрешительный режим распространяется на косметику и парфюмерию.</div>
+        <p><a class="s-inline-link" href="#">Читайте также: что такое разрешительный режим →</a></p>
+        <div style="margin-top:10px">
+          <span class="s-badge s-badge--pink">Обязательно с 28.12.2025</span>
+          <span class="s-badge s-badge--lime">Обновлено: май 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="annotation">
+      <p><strong>Кнопка «Подписаться»</strong> и hero-декор в шапке — оригинальный #E8175D, узнаваемость марки сохранена.</p>
+      <p><strong>Маркировка-плашка</strong> (#AFCC00 вместо #C8F500) — насыщенность та же, но без кислотности. <strong>Ссылки, цитаты, callout</strong> (#9E2B4F) — читаются, не отвлекают.</p>
+    </div>
+  </div>
+
+</div><!-- /compare -->
 
 </body>
 </html>
