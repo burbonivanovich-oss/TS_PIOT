@@ -1,7 +1,6 @@
 # Дизайн-система Этикетки
 
 Документ описывает токены, компоненты и архитектуру страницы статьи.
-Живой предпросмотр: `design-preview-3.html` (4 вкладки: Статья / Редакция / Компоненты / Токены).
 
 ---
 
@@ -9,29 +8,34 @@
 
 | Название       | Hex       | Применение |
 |---|---|---|
-| `--dark`       | `#111111` | Header, footer, тёмные блоки, текст заголовков |
-| `--pink`       | `#E8175D` | Акцент: hover кнопок, нумерация FAQ, TOC-граница |
-| `--lime`       | `#C8F500` | Логотип-точка, badge «Актуально», чеклист-граница, eyebrow баннера |
-| `--sand`       | `#EDE8DF` | Фон страницы, hero info panel, светлые кнопки |
-| `--sand-light` | `#F6F4F0` | Hover-состояния, TOC bg, «helpful» блок |
-| `--white`      | `#FFFFFF` | Карточки, FAQ items, prose |
+| `dark`         | `#111111` | Header, footer, тёмные блоки |
+| `pink`         | `#E8175D` | Акцент: hover, нумерация FAQ, share-кнопки |
+| `lime`         | `#C8F500` | Логотип-точка, badge «Актуально», чеклист, eyebrow CPA |
+| `sand`         | `#EDE8DF` | Фон страницы, hero info panel |
+| `sand-light`   | `#F6F4F0` | Hover-состояния, TOC bg |
+| `white`        | `#FFFFFF` | Карточки, FAQ items, prose |
 
-### Категориальные цвета (hero-фон и border related-cards)
+Все токены — hex-литералы. CSS-переменные (`var(--accent)`, `rgb(var(--gray))`)
+в проекте **не используются** — они удалены в мае 2026.
 
-| Категория         | Цвет фона | Цвет текста |
+### Категориальные цвета
+
+| Категория         | Фон       | Текст |
 |---|---|---|
 | `ts-piot`         | `#111`    | `#fff` |
 | `markirovka`      | `#E8175D` | `#fff` |
 | `zakonodatelstvo` | `#C8F500` | `#111` |
 
+Используются в: hero статьи, аббревиатура CPA-баннера, аббревиатура в «Читайте также».
+
 ---
 
 ## Типографика
 
-- **Bebas Neue** — заголовки h1–h3, логотип, uppercase-кнопки, related h3.
+- **Bebas Neue** — заголовки h1–h3, логотип, uppercase-метки.
   Подключается через Google Fonts CDN в `BaseHead.astro`.
 - **Inter** (local woff) — тело текста, UI-подписи.
-  Файлы: `public/fonts/inter-*.woff`.
+  Файлы: `public/fonts/inter-*.woff`. Не удалять — нужны при сборке OG.
 
 ---
 
@@ -53,14 +57,12 @@
 height: calc(100vh - 56px), min-height: 480px
 ```
 
-**Элементы правой колонки (justify-content: space-between):**
+**Правая колонка (justify-content: space-between):**
 
 1. `nav.art-hero-breadcrumbs` — Главная / Статьи / [категория]
 2. `.art-hero-top` — badges row:
    - `span.art-updated-badge` (lime) — «Актуально на [updatedDate]» (только при наличии `updatedDate`)
-   - `span.art-pubdate` — «· опубл. [pubDate]» (серый, только при наличии updatedDate)
-   - `span.art-verified-badge` (чёрный) — «✓ Проверено»
-   - `a.art-hero-hash` (розовый) — первый тег статьи
+   - `span.art-hero-readtime` — время чтения (серый)
 3. `h1.art-h1` — заголовок (Bebas Neue, 3.2rem)
 4. `.art-hero-bottom` (border-top: 2px solid #111) — `p.art-lead` (description)
 
@@ -71,33 +73,78 @@ height: calc(100vh - 56px), min-height: 480px
 │  28fr      │  72fr                      │
 │  Sidebar   │  Content                   │
 │            │                            │
-│  sticky    │  tags → TOC → prose →      │
-│  banner    │  checklist/FAQ →           │
-│            │  subscribe → share →       │
-│            │  helpful → related →       │
-│            │  prev/next → cta → footer  │
+│  sticky    │  TOC → prose →             │
+│  CPA-      │  callouts/checklist/FAQ →  │
+│  баннер    │  share →                   │
+│            │  CPA-врезка →              │
+│            │  «Читайте также»           │
 └────────────┴────────────────────────────┘
 ```
 
-**Sticky banner** (`position: sticky; top: calc(56px + 16px)`):
-- Данные из `SIDEBAR_BANNER` в `consts.ts`
-- Визуальный блок 16:9 с категориальным фоном и большой буквой (opacity 0.18)
-- Структура: eyebrow (lime) → title → description → CTA-кнопка (pink)
+**Sidebar:** `position: sticky; top: calc(56px + 16px)`. Скрывается при ≤1024px.
 
 ### Блоки контентной колонки
 
-| Блок | Описание |
-|---|---|
-| `art-tags` | Пилюли тегов, ссылки `/tag/<slug>/` |
-| `toc` (`<details>`) | Только при ≥3 H2/H3 заголовков |
-| `.prose` | `<slot/>` — контент MDX |
-| `inline-subscribe` | Форма подписки; данные из `INLINE_SUBSCRIBE` в `consts.ts` |
-| `art-share` | Telegram + ВКонтакте; URL из canonical |
-| `helpful` | «Была ли полезна?»; ответ в `localStorage` по pathname |
-| `related` | 3 поста; scoring: теги ×2, категории ×1 |
-| `post-nav` | Предыдущая / следующая по дате |
-| `art-cta` | «Остались вопросы?» → `mailto:hello@etiketka.media` |
-| `art-foot` | Правовая оговорка |
+| Блок | Условие | Описание |
+|---|---|---|
+| `toc` (`<details>`) | ≥3 заголовков H2/H3 | Оглавление, разворачивается по клику |
+| `.prose` | всегда | `<slot/>` — MDX-контент статьи |
+| `art-share` | всегда | Telegram + ВКонтакте; URL из canonical |
+| `.cpa-block` | всегда | CPA/партнёрский баннер (из `src/data/cpa-banners.ts`) |
+| `.related` | ≥2 совпадений | «Читайте также» — адаптивная сетка |
+| `art-foot` | всегда | Правовая оговорка |
+
+**Удалены** (не используются): `art-tags`, `inline-subscribe`, `helpful`,
+`post-nav` (пред./след. статья), `art-cta` («Остались вопросы?»).
+
+### CPA-блок
+
+Размещается между `art-share` и «Читайте также». Данные — из `src/data/cpa-banners.ts`.
+
+Структура HTML:
+```html
+<div class="cpa-block">
+  <div class="cpa-visual"><!-- abbrev, категориальный фон --></div>
+  <div class="cpa-body">
+    <span class="cpa-eyebrow"><!-- eyebrow --></span>
+    <strong class="cpa-title"><!-- title --></strong>
+    <p class="cpa-desc"><!-- description --></p>
+  </div>
+  <div class="cpa-action">
+    <a class="cpa-btn" href="..."><!-- cta --></a>
+  </div>
+</div>
+```
+
+Выбор баннера (в порядке приоритета):
+1. `cpa:` в frontmatter статьи
+2. `CATEGORY_DEFAULT_CPA[primaryCategory]`
+3. `'default-ts-piot'` (запасной)
+
+### «Читайте также» — адаптивные макеты
+
+Берётся до 4 постов (scoring: теги ×2, категории ×1). Макет определяется
+детерминированно — без `Math.random()`, иначе SSG не работает.
+
+| Постов | Макет | Логика выбора |
+|---|---|---|
+| 0–1 | нет блока | скрыт |
+| 2 | **A2** — два равных столбца | всегда |
+| 3 | **A3** или **B** | `slugCharSum % 2 === 0` → A3, иначе B |
+| 4+ | **C** — 1 большая + 3 компактных | всегда |
+
+`slugCharSum` — сумма char codes символов slug текущей статьи. Постоянна для
+одной статьи, варьируется между статьями.
+
+**Макет A2** — 2 равных столбца `1fr 1fr`.
+
+**Макет A3** — 2 столбца, левый шире: `3fr 2fr`. Левая карточка крупная
+(заголовок 1.4rem, описание), правая — стандартная.
+
+**Макет B** — 2 столбца `2fr 3fr`. Правая карточка крупная.
+
+**Макет C** — grid `3fr 2fr`, первая строка занимает весь левый столбец (`grid-row: span 2`).
+Три компактных справа.
 
 ### Прогресс-бар и «наверх»
 
@@ -116,6 +163,28 @@ height: calc(100vh - 56px), min-height: 480px
 
 ## Компоненты
 
+### `Callout.astro`
+
+Акцентная врезка для выделения ключевых мыслей в теле статьи.
+
+```astro
+import Callout from '../../components/Callout.astro';
+
+{/* Тёмный (по умолчанию): чёрный фон, лаймовый акцент */}
+<Callout>
+  Если статус кода не позволяет продажу, касса обязана заблокировать операцию.
+</Callout>
+
+{/* Светлый: песочный фон, розовый акцент */}
+<Callout variant="light">
+  При повторном нарушении должностное лицо могут дисквалифицировать на срок до двух лет.
+</Callout>
+```
+
+- `variant?: 'dark' | 'light'` (default: `'dark'`)
+- `**жирный**` и `*курсив*` внутри получают цвет акцента
+- Декоративная `"` через `::before` (opacity 0.18)
+
 ### `FAQ.astro`
 
 ```astro
@@ -132,6 +201,7 @@ import FAQ from '../../components/FAQ.astro';
 - `<details name="faq">` — нативный аккордеон (открыт только один элемент)
 - Нумерация розовым (Bebas Neue), стрелка-индикатор с CSS transition
 - Яндекс и Google показывают FAQ прямо в выдаче при наличии FAQPage schema
+- Компонент **необязателен** — не добавляйте его ради галочки. Правила выбора: [content-types.md → FAQ в статье](content-types.md#faq-в-статье)
 
 ### `Checklist.astro`
 
@@ -149,7 +219,7 @@ import Checklist from '../../components/Checklist.astro';
 
 - Состояние хранится в `localStorage` с ключом `checklist_<id>`
 - Прогресс-счётчик «X / N выполнено» обновляется в реальном времени
-- Кнопка «Сбросить» — очищает localStorage и снимает все галочки
+- Кнопка «Сбросить» очищает localStorage и снимает все галочки
 - Выполненные пункты: зачёркивание + opacity 0.5
 
 ---
@@ -165,62 +235,51 @@ import Checklist from '../../components/Checklist.astro';
 
 ## Источники истины
 
-| Данные | Файл |
-|---|---|
-| Заголовок, описание, URL сайта | `src/consts.ts` → `SITE_TITLE`, `SITE_URL` |
-| Навигация | `src/consts.ts` → `NAV_LINKS` |
-| Sidebar баннер | `src/consts.ts` → `SIDEBAR_BANNER` |
-| Inline-подписка | `src/consts.ts` → `INLINE_SUBSCRIBE` |
-| Категории (названия, цвета) | `src/consts.ts` → `CATEGORIES` |
-| Сценарии штрафов | `src/data/penalties.ts` |
+| Данные | Файл | Ключ |
+|---|---|---|
+| Заголовок, описание, URL сайта | `src/consts.ts` | `SITE_TITLE`, `SITE_URL` |
+| Навигация | `src/consts.ts` | `NAV_LINKS` |
+| Категории (slug, название) | `src/consts.ts` | `CATEGORIES` |
+| Sidebar баннер | `src/consts.ts` | `SIDEBAR_BANNER` |
+| CPA/партнёрские баннеры | `src/data/cpa-banners.ts` | `CPA_BANNERS`, `CATEGORY_DEFAULT_CPA` |
+| Сценарии штрафов | `src/data/penalties.ts` | `SCENARIOS` |
 
 ---
 
 ## Changelog
 
-### 2026-05-03 — Редизайн страницы статьи и новые компоненты
+### 2026-05-03 — Упрощение статьи, адаптивный related, CPA-блок
 
-#### Новые компоненты
+#### Новые компоненты и данные
 
-| Файл | Что добавлено |
+| Файл | Что |
 |---|---|
-| `src/components/FAQ.astro` | Аккордеон с FAQPage JSON-LD schema для Яндекса/Google |
-| `src/components/Checklist.astro` | Интерактивный чеклист с сохранением в localStorage |
+| `src/components/Callout.astro` | Акцентная врезка (dark/light), декоративная `"` |
+| `src/data/cpa-banners.ts` | Единый источник CPA/партнёрских баннеров |
 
-#### `src/layouts/BlogPost.astro` — полный редизайн
+#### `src/layouts/BlogPost.astro`
 
-| Элемент | Было | Стало |
-|---|---|---|
-| Hero | Плоский заголовок H1 + мета | Hero 58/42: тёмная зона слева, песочная справа |
-| Хлебные крошки | Отсутствовали | В hero, над badges row |
-| Badge «Актуально на» | Отсутствовал | Лаймовый chip при наличии `updatedDate` |
-| Badge «Проверено» | Отсутствовал | Постоянный тёмный chip |
-| Sidebar | Отсутствовал | Sticky 28% с баннером-дайджестом |
-| Форма подписки | Отсутствовала | Inline-блок после prose |
-| Кнопки «Поделиться» | Отсутствовали | Telegram + ВКонтакте |
-| «Была ли полезна?» | Отсутствовал | Виджет с localStorage-персистентностью |
-| Навигация статей | Отсутствовала | Prev/Next по хронологии |
-| CTA к редакции | Отсутствовал | Блок «Остались вопросы?» + mailto |
-| Прогресс-бар | Отсутствовал | Pink 3px fixed top |
-| Кнопка «Наверх» | Отсутствовала | Fixed bottom-right, появляется при scrollY > 400 |
-| CSS-переменные | `var(--accent)`, `rgb(var(--gray))` — сломаны | Заменены на hex-токены дизайн-системы |
+**Удалено:**
 
-#### `src/consts.ts`
-
-- Добавлен `SIDEBAR_BANNER` — единственный источник текста для sidebar-баннера
-- Добавлен `INLINE_SUBSCRIBE` — единственный источник для inline-формы подписки
-
-#### `src/pages/about/avtor.astro`
-
-| Было | Стало |
+| Элемент | Причина |
 |---|---|
-| Текстовый placeholder вместо аватара | SVG-аватар с инициалами «ЭМ» |
-| Простая ссылка `mailto:` | Форма с полями name / email / textarea |
-| `var(--gray-*)` переменные | Hex-токены `#999`, `#555` и т.д. |
+| `art-tags` (пилюли тегов) | Избыточно — теги доступны через `/tags/` |
+| `inline-subscribe` (врезка с формой подписки) | Перегружает статью |
+| `helpful` («Была ли полезна?») | Нет бэкенда, данные нигде не используются |
+| `post-nav` (пред./след. статья) | Низкий CTR, занимает место |
+| `art-cta` («Остались вопросы?» + mailto) | Заменён CPA-блоком |
 
-#### `src/components/Header.astro`
+**Добавлено / изменено:**
 
-| Было | Стало |
+| Элемент | Стало |
 |---|---|
-| 5+ ссылок в nav → перенос на 2 строки | 4 ссылки: Статьи / ТС ПИоТ / Маркировка / Законодательство |
-| — | `flex-wrap: nowrap` + `white-space: nowrap` |
+| CPA-блок | Баннер из `src/data/cpa-banners.ts` после `art-share` |
+| «Читайте также» | До 4 постов; 4 адаптивных макета (A2/A3/B/C) |
+| Hero meta | Только `art-updated-badge` + `art-hero-readtime`; убраны `art-pubdate`, `art-verified-badge`, `art-hero-hash` |
+| `content.config.ts` | Добавлено поле `cpa: z.string().optional()` в схему blog |
+
+#### Предыдущий редизайн (2026-05-02)
+
+Добавлены: `FAQ.astro`, `Checklist.astro`, hero 58/42, sidebar sticky,
+share-кнопки, прогресс-бар, кнопка «наверх», замена CSS-переменных на hex-токены.
+Обновлена страница редакции `/about/avtor/`.

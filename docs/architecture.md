@@ -1,7 +1,7 @@
-# Архитектура «Регламент.Бизнес»
+# Архитектура Этикетки
 
-Карта проекта: что где лежит, какие маршруты генерируются, как они связаны.
-Обновляйте этот файл при появлении новых маршрутов или коллекций.
+Карта проекта: что где лежит, маршруты, коллекции, dataflow.
+Обновляйте при добавлении новых маршрутов, коллекций или источников истины.
 
 ## Маршруты
 
@@ -11,6 +11,7 @@
 |---|---|---|
 | `/` | `src/pages/index.astro` | Главная: hero, карточки рубрик, последние 6 постов |
 | `/about/` | `src/pages/about.astro` | О проекте |
+| `/about/avtor/` | `src/pages/about/avtor.astro` | О редакции: экспертиза, принципы, контактная форма |
 | `/privacy/` | `src/pages/privacy.astro` | Политика конфиденциальности |
 | `/404` | `src/pages/404.astro` | Кастомная 404 (`noindex`) |
 | `/search/` | `src/pages/search.astro` | Pagefind UI |
@@ -30,7 +31,7 @@
 
 ### Служебные эндпоинты
 
-- `/rss.xml` — фид через `@astrojs/rss` (`src/pages/rss.xml.js`)
+- `/rss.xml` — фид через `@astrojs/rss`
 - `/sitemap-index.xml` — карта сайта от `@astrojs/sitemap`
 - `/pagefind/*` — индекс Pagefind (генерируется после `astro build`)
 
@@ -45,24 +46,36 @@
 
 ## Источники истины
 
-- **Категории.** `CATEGORIES` в `src/consts.ts`. При добавлении категории обязательно:
-  1. Добавьте запись в `CATEGORIES`.
-  2. Создайте `src/content/pillars/<slug>.md`.
-  3. По желанию — обновите `NAV_LINKS` для появления в шапке.
-  4. Обновите enum `category` в `glossary` и `pillars` schemas, если нужно ссылаться на новую категорию.
-- **Сценарии калькулятора.** `src/data/penalties.ts`.
-- **Навигация.** `NAV_LINKS` в `src/consts.ts`. Шапка и футер берут данные оттуда.
+| Данные | Файл | Ключ |
+|---|---|---|
+| Категории (slug, название, цвет) | `src/consts.ts` | `CATEGORIES` |
+| Навигация | `src/consts.ts` | `NAV_LINKS` |
+| Sidebar-баннер (дайджест) | `src/consts.ts` | `SIDEBAR_BANNER` |
+| CPA-баннеры (партнёрские/редакционные) | `src/data/cpa-banners.ts` | `CPA_BANNERS`, `CATEGORY_DEFAULT_CPA` |
+| Сценарии калькулятора штрафов | `src/data/penalties.ts` | `SCENARIOS` |
+
+## Компоненты
+
+| Файл | Назначение |
+|---|---|
+| `src/components/BaseHead.astro` | `<head>`: мета, OG, JSON-LD, шрифты |
+| `src/components/Header.astro` | Шапка с навигацией (4 ссылки) |
+| `src/components/Footer.astro` | Подвал |
+| `src/components/FormattedDate.astro` | Форматирование дат на русском |
+| `src/components/FAQ.astro` | FAQ-аккордеон + FAQPage JSON-LD |
+| `src/components/Checklist.astro` | Интерактивный чеклист с localStorage |
+| `src/components/Callout.astro` | Акцентная врезка (тёмная / светлая) |
 
 ## Утилиты
 
 - `src/utils/tags.ts`
-  - `tagSlug(tag: string): string` — кириллический slug из тега.
-  - `collectTags(posts)` — `{ slug → { name, posts[] } }` со всеми тегами.
-  - `pluralPosts(count)` — «материал/материала/материалов».
+  - `tagSlug(tag)` — кириллический slug из тега
+  - `collectTags(posts)` — `{ slug → { name, posts[] } }` со всеми тегами
+  - `pluralPosts(count)` — «материал/материала/материалов»
 - `src/utils/glossary.ts`
-  - `termSlug(term)` — slug для якоря.
-  - `firstLetter(term)` — буква для группировки.
-  - `alphabetOrder(a, b)` — компаратор для сортировки русско-английских букв.
+  - `termSlug(term)` — slug для якоря
+  - `firstLetter(term)` — буква для группировки
+  - `alphabetOrder(a, b)` — компаратор для русско-английских букв
 
 ## Build pipeline
 
@@ -72,16 +85,13 @@ npm run build
   └─ pagefind --site dist # индексирование статей в /pagefind/
 ```
 
-`astro build` сам по себе **не запускает Pagefind**. Команда `npm run build`
-зашита в `vercel.json` (`buildCommand`), поэтому деплой работает корректно.
+`astro build` сам по себе **не запускает Pagefind**. Всегда используйте `npm run build`.
 
 Native-зависимости:
+- `@resvg/resvg-js` — нативный binding для конвертации SVG → PNG в OG-эндпоинте
+- `pagefind` — Rust-бинарь индексатора
 
-- `@resvg/resvg-js` — нативный binding для конвертации SVG → PNG в OG-эндпоинте.
-- `pagefind` — Rust-бинарь индексатора.
-
-Шрифты в `public/fonts/inter-*.woff` нужны на этапе сборки (`fs.readFileSync`
-в OG-эндпоинте). **Не удаляйте их**, иначе сборка упадёт с `ENOENT`.
+Шрифты в `public/fonts/inter-*.woff` нужны при сборке (`fs.readFileSync` в OG-эндпоинте). **Не удаляйте их.**
 
 ## JSON-LD на страницах
 
@@ -89,22 +99,30 @@ Native-зависимости:
 |---|---|
 | Все страницы | `Organization`, `WebSite` (через `BaseHead.astro`) |
 | `/blog/<slug>/` | `Article`, `BreadcrumbList` |
+| `/about/avtor/` | `Person`, `BreadcrumbList` |
 | `/category/<slug>/` | `CollectionPage`, `BreadcrumbList`, `FAQPage` (если в pillar есть FAQ) |
 | `/tag/<slug>/` | `CollectionPage`, `BreadcrumbList` |
 | `/slovar/` | `BreadcrumbList`, `DefinedTermSet` |
 | `/kalkulyator-shtrafov/` | `WebApplication`, `BreadcrumbList`, `FAQPage` |
+| Статьи с `<FAQ>` | `FAQPage` (эмитируется компонентом `FAQ.astro`) |
 
 ## Дизайн-токены
 
-CSS-переменные в `src/styles/global.css`:
+Все цвета — hex, без CSS-переменных:
 
-- `--accent: #1d4ed8` — основной фирменный синий
-- `--accent-dark: #1e3a8a`
-- `--accent-soft: #dbeafe`
-- `--black: 15, 23, 42` (rgb-числа)
-- `--gray: 100, 116, 139`
-- `--gray-light: 226, 232, 240`
-- `--gray-dark: 30, 41, 59`
-- `--box-shadow` — общая тень
+| Токен | Значение | Применение |
+|---|---|---|
+| dark | `#111` | Header, footer, тёмные блоки |
+| pink | `#E8175D` | Акцент: hover, нумерация FAQ, share-кнопки |
+| lime | `#C8F500` | Логотип-точка, badge «Актуально», чеклист |
+| sand | `#EDE8DF` | Фон страницы, hero info panel |
+| sand-light | `#F6F4F0` | Hover, TOC background |
+| white | `#FFFFFF` | Карточки, FAQ items, prose |
 
-Используйте только их — не вводите новые цвета без обновления токенов.
+Категориальные цвета (hero-фон, карточки related):
+
+| Категория | Фон | Текст |
+|---|---|---|
+| `ts-piot` | `#111` | `#fff` |
+| `markirovka` | `#E8175D` | `#fff` |
+| `zakonodatelstvo` | `#C8F500` | `#111` |

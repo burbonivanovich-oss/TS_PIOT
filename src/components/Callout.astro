@@ -1,0 +1,79 @@
+---
+/**
+ * Акцентная врезка для выделения ключевых мыслей внутри статьи.
+ * Использование в MDX:
+ *
+ *   import Callout from '../../components/Callout.astro';
+ *
+ *   <Callout>
+ *     Если статус кода не позволяет продажу, касса обязана заблокировать операцию.
+ *     Это называется «разрешительный режим».
+ *   </Callout>
+ *
+ *   <Callout variant="light">
+ *     При повторном нарушении должностное лицо могут дисквалифицировать на срок до двух лет.
+ *   </Callout>
+ *
+ * variant:
+ *   "dark"  (по умолчанию) — чёрный фон, лаймовый акцент
+ *   "light" — песочный фон, розовый акцент
+ */
+interface Props {
+	variant?: 'dark' | 'light';
+}
+
+const { variant = 'dark' } = Astro.props;
+---
+
+<div class={`callout callout--${variant}`}>
+	<div class="callout-text">
+		<slot />
+	</div>
+</div>
+
+<style>
+	.callout {
+		position: relative;
+		margin: 2rem 0;
+		padding: 24px 28px 24px 24px;
+		overflow: hidden;
+	}
+	.callout::before {
+		content: '"';
+		position: absolute;
+		top: -12px;
+		right: 16px;
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 8rem;
+		opacity: .18;
+		line-height: 1;
+		pointer-events: none;
+		user-select: none;
+	}
+	.callout-text {
+		font-size: 1.08rem;
+		font-weight: 600;
+		line-height: 1.6;
+		position: relative;
+		z-index: 1;
+	}
+	/* Тёмная врезка */
+	.callout--dark {
+		background: #111;
+		border-left: 4px solid #C8F500;
+	}
+	.callout--dark::before { color: #C8F500; }
+	.callout--dark .callout-text { color: #fff; }
+	.callout--dark .callout-text :global(em) { font-style: normal; color: #C8F500; }
+	.callout--dark .callout-text :global(strong) { color: #C8F500; }
+
+	/* Светлая врезка */
+	.callout--light {
+		background: #F6F4F0;
+		border-left: 4px solid #E8175D;
+	}
+	.callout--light::before { color: #E8175D; }
+	.callout--light .callout-text { color: #111; }
+	.callout--light .callout-text :global(em) { font-style: normal; color: #E8175D; }
+	.callout--light .callout-text :global(strong) { color: #E8175D; }
+</style>

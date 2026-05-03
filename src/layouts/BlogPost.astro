@@ -12,8 +12,8 @@ import {
 	SITE_AUTHOR,
 	SITE_LOCALE,
 	SIDEBAR_BANNER,
-	INLINE_SUBSCRIBE,
 } from '../consts';
+import { CPA_BANNERS, CATEGORY_DEFAULT_CPA } from '../data/cpa-banners';
 import { tagSlug } from '../utils/tags';
 
 type Props = CollectionEntry<'blog'>['data'] & {
@@ -32,6 +32,7 @@ const {
 	tags = [],
 	author = SITE_AUTHOR,
 	seo,
+	cpa,
 	slug: currentSlug,
 	headings = [],
 	readingTime,
@@ -41,9 +42,6 @@ const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const sorted = allPosts.sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const currentIndex = sorted.findIndex((p) => p.id === currentSlug);
-const prevPost = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
-const nextPost = currentIndex > 0 ? sorted[currentIndex - 1] : null;
 
 const candidates = sorted.filter((p) => p.id !== currentSlug);
 const scored = candidates
@@ -59,7 +57,20 @@ const scored = candidates
 			b.score - a.score ||
 			b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf(),
 	);
-const related = scored.slice(0, 3).map((x) => x.post);
+const related = scored.slice(0, 4).map((x) => x.post);
+
+/* Адаптивный макет «Читайте также»:
+   2 поста  → A2 (две равные карточки)
+   3 поста  → A3 (1 большая + 2) или B (2 + wide), детерминировано по slug
+   4+ поста → C  (1 большая + 3 компактных)
+*/
+const relatedCount = related.length;
+const slugCharSum = (currentSlug ?? '').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+const relatedLayout =
+	relatedCount >= 4 ? 'C' :
+	relatedCount === 3 ? (slugCharSum % 2 === 0 ? 'A3' : 'B') :
+	relatedCount === 2 ? 'A2' : null;
+
 
 const canonical = seo?.canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
 const keywords = [...new Set([...tags, ...(seo?.keywords ?? [])])];
@@ -109,6 +120,10 @@ const breadcrumbsJsonLd = {
 
 const primaryCategory = categories[0] as keyof typeof CATEGORIES | undefined;
 const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
+
+/* CPA-баннер: из frontmatter или дефолт по категории */
+const cpaBannerId = cpa ?? CATEGORY_DEFAULT_CPA[primaryCategory ?? ''] ?? 'default-ts-piot';
+const cpaBanner = CPA_BANNERS[cpaBannerId] ?? CPA_BANNERS['default-ts-piot'];
 
 const catAccent =
 	primaryCategory === 'ts-piot' ? '#111' :
@@ -184,21 +199,11 @@ const shareTitle = encodeURIComponent(title);
 					</nav>
 
 					<div class="art-hero-top">
-						<span class="art-hero-date">
-							{updatedDate ? (
-								<>
-									<span class="art-updated-badge">Актуально на <FormattedDate date={updatedDate} /></span>
-									<span class="art-pubdate"> · опубл. <FormattedDate date={pubDate} /></span>
-								</>
-							) : (
-								<FormattedDate date={pubDate} />
-							)}
-							{readingTime && <span> · {readingTime} мин</span>}
-						</span>
-						<span class="art-verified-badge" title="Редакция проверила факты и источники">✓ Проверено</span>
-						{tags.slice(0, 1).map((tag) => (
-							<a class="art-hero-hash" href={`/tag/${tagSlug(tag)}/`}>#{tag}</a>
-						))}
+						{updatedDate && (
+							<span class="art-updated-badge">Актуально на <FormattedDate date={updatedDate} /></span>
+						)}
+						{!updatedDate && <FormattedDate date={pubDate} />}
+						{readingTime && <span class="art-hero-readtime">{readingTime} мин</span>}
 					</div>
 					<h1 class="art-h1">{title}</h1>
 					<div class="art-hero-bottom">
@@ -227,13 +232,6 @@ const shareTitle = encodeURIComponent(title);
 
 				<!-- Main content -->
 				<main class="art-content">
-					{tags.length > 0 && (
-						<div class="art-tags" data-pagefind-ignore>
-							{tags.map((tag) => (
-								<a class="tag-pill" href={`/tag/${tagSlug(tag)}/`}>#{tag}</a>
-							))}
-						</div>
-					)}
 
 					{tocHeadings.length > 2 && (
 						<details class="toc" data-pagefind-ignore>
@@ -254,22 +252,21 @@ const shareTitle = encodeURIComponent(title);
 						<slot />
 					</div>
 
-					<!-- Inline subscribe form -->
-					<div class="inline-subscribe" data-pagefind-ignore>
-						<div class="inline-subscribe-text">
-							<strong>{INLINE_SUBSCRIBE.title}</strong>
-							<p>{INLINE_SUBSCRIBE.description}</p>
+					<!-- CPA врезка -->
+					<div class="cpa-block" data-pagefind-ignore>
+						<div class="cpa-visual" style={`background:${cpaBanner.visual.bg}`}>
+							<span class="cpa-visual-letter">{cpaBanner.visual.abbrev}</span>
 						</div>
-						<form class="inline-subscribe-form" action={INLINE_SUBSCRIBE.formAction} method="post">
-							<input
-								type="email"
-								name="email"
-								placeholder={INLINE_SUBSCRIBE.placeholder}
-								required
-								class="subscribe-input"
-							/>
-							<button type="submit" class="subscribe-btn">{INLINE_SUBSCRIBE.cta}</button>
-						</form>
+						<div class="cpa-body">
+							<div class="cpa-eyebrow">{cpaBanner.eyebrow}</div>
+							<div class="cpa-title">{cpaBanner.title}</div>
+							<p class="cpa-desc">{cpaBanner.description}</p>
+						</div>
+						<div class="cpa-action">
+							<a href={cpaBanner.ctaHref} class="cpa-btn" target="_blank" rel="noopener noreferrer sponsored">
+								{cpaBanner.cta}
+							</a>
+						</div>
 					</div>
 
 					<!-- Share -->
@@ -289,68 +286,118 @@ const shareTitle = encodeURIComponent(title);
 						>ВКонтакте</a>
 					</div>
 
-					<!-- Was this helpful? -->
-					<div class="helpful" id="helpful-widget" data-pagefind-ignore>
-						<span class="helpful-label">Была ли статья полезна?</span>
-						<div class="helpful-btns">
-							<button class="helpful-btn" id="helpful-yes" aria-label="Да">👍 Да</button>
-							<button class="helpful-btn" id="helpful-no" aria-label="Нет">👎 Нет</button>
-						</div>
-						<span class="helpful-thanks" id="helpful-thanks" hidden>Спасибо за оценку!</span>
-					</div>
+					<!-- Читайте также — адаптивный макет -->
+					{relatedLayout && (
+						<aside class="related" aria-label="Читайте также" data-pagefind-ignore>
+							<span class="related-eyebrow">Читайте также</span>
 
-					<!-- Related posts -->
-					{related.length > 0 && (
-						<aside class="related" aria-labelledby="related-heading" data-pagefind-ignore>
-							<span class="related-eyebrow" id="related-heading">Читайте также</span>
-							<ul class="related-list">
-								{related.map((post) => {
-									const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
-									const catM = cat ? CATEGORIES[cat] : null;
-									const accent =
-										cat === 'ts-piot' ? '#111' :
-										cat === 'markirovka' ? '#E8175D' :
-										cat === 'zakonodatelstvo' ? '#C8F500' : '#111';
-									return (
-										<li class="related-card" style={`border-left-color:${accent}`}>
-											<a href={`/blog/${post.id}/`}>
-												{catM && <span class="related-cat">{catM.title}</span>}
-												<h3>{post.data.title}</h3>
-												<p>{post.data.description}</p>
+							{/* A2: две равные карточки */}
+							{relatedLayout === 'A2' && (
+								<div class="related-grid related-grid--a2">
+									{related.map((post) => {
+										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
+										const accent = cat === 'markirovka' ? '#E8175D' : cat === 'zakonodatelstvo' ? '#C8F500' : '#111';
+										const abbr = abbrev(post.data.title);
+										const catLabel = cat ? CATEGORIES[cat]?.title : null;
+										const lightText = cat === 'zakonodatelstvo';
+										return (
+											<a href={`/blog/${post.id}/`} class="r-card">
+												<div class="r-card-top" style={`background:${accent}`}>
+													<span class="r-card-abbr" style={lightText ? 'color:#111' : 'color:#fff'}>{abbr}</span>
+													{catLabel && <span class="r-card-cat" style={lightText ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.65)'}>{catLabel}</span>}
+												</div>
+												<div class="r-card-body">
+													<h3>{post.data.title}</h3>
+													{post.data.description && <p>{post.data.description}</p>}
+													<span class="r-card-read">Читать →</span>
+												</div>
 											</a>
-										</li>
-									);
-								})}
-							</ul>
+										);
+									})}
+								</div>
+							)}
+
+							{/* A3: 1 большая + 2 компактных */}
+							{relatedLayout === 'A3' && (
+								<div class="related-grid related-grid--a3">
+									{related.map((post, i) => {
+										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
+										const accent = cat === 'markirovka' ? '#E8175D' : cat === 'zakonodatelstvo' ? '#C8F500' : '#111';
+										const abbr = abbrev(post.data.title);
+										const catLabel = cat ? CATEGORIES[cat]?.title : null;
+										const lightText = cat === 'zakonodatelstvo';
+										return (
+											<a href={`/blog/${post.id}/`} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--side'}>
+												<div class="r-card-top" style={`background:${accent}`}>
+													<span class="r-card-abbr" style={lightText ? 'color:#111' : 'color:#fff'}>{abbr}</span>
+													{catLabel && <span class="r-card-cat" style={lightText ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.65)'}>{catLabel}</span>}
+												</div>
+												<div class="r-card-body">
+													<h3>{post.data.title}</h3>
+													{i === 0 && post.data.description && <p>{post.data.description}</p>}
+													<span class="r-card-read">Читать →</span>
+												</div>
+											</a>
+										);
+									})}
+								</div>
+							)}
+
+							{/* B: 2 стандартных + 1 горизонтальная */}
+							{relatedLayout === 'B' && (
+								<div class="related-grid related-grid--b">
+									{related.map((post, i) => {
+										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
+										const accent = cat === 'markirovka' ? '#E8175D' : cat === 'zakonodatelstvo' ? '#C8F500' : '#111';
+										const abbr = abbrev(post.data.title);
+										const catLabel = cat ? CATEGORIES[cat]?.title : null;
+										const lightText = cat === 'zakonodatelstvo';
+										return (
+											<a href={`/blog/${post.id}/`} class={i === 2 ? 'r-card r-card--wide' : 'r-card'}>
+												<div class="r-card-top" style={`background:${accent}`}>
+													<span class="r-card-abbr" style={lightText ? 'color:#111' : 'color:#fff'}>{abbr}</span>
+													{catLabel && <span class="r-card-cat" style={lightText ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.65)'}>{catLabel}</span>}
+												</div>
+												<div class="r-card-body">
+													<h3>{post.data.title}</h3>
+													{post.data.description && <p>{post.data.description}</p>}
+													<span class="r-card-read">Читать →</span>
+												</div>
+											</a>
+										);
+									})}
+								</div>
+							)}
+
+							{/* C: 1 большая + 3 компактных без описания */}
+							{relatedLayout === 'C' && (
+								<div class="related-grid related-grid--c">
+									{related.slice(0, 4).map((post, i) => {
+										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
+										const accent = cat === 'markirovka' ? '#E8175D' : cat === 'zakonodatelstvo' ? '#C8F500' : '#111';
+										const abbr = abbrev(post.data.title);
+										const catLabel = cat ? CATEGORIES[cat]?.title : null;
+										const lightText = cat === 'zakonodatelstvo';
+										return (
+											<a href={`/blog/${post.id}/`} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--compact'}>
+												<div class="r-card-top" style={`background:${accent}`}>
+													<span class="r-card-abbr" style={lightText ? 'color:#111' : 'color:#fff'}>{abbr}</span>
+													{catLabel && <span class="r-card-cat" style={lightText ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.65)'}>{catLabel}</span>}
+												</div>
+												<div class="r-card-body">
+													<h3>{post.data.title}</h3>
+													{i === 0 && post.data.description && <p>{post.data.description}</p>}
+													<span class="r-card-read">Читать →</span>
+												</div>
+											</a>
+										);
+									})}
+								</div>
+							)}
+
+							<div class="related-more"><a href="/blog/">Все статьи →</a></div>
 						</aside>
 					)}
-
-					<!-- Prev / Next navigation -->
-					{(prevPost || nextPost) && (
-						<nav class="post-nav" aria-label="Между статьями" data-pagefind-ignore>
-							{prevPost ? (
-								<a class="post-nav-item post-nav-prev" href={`/blog/${prevPost.id}/`}>
-									<span class="post-nav-dir">← Предыдущая</span>
-									<span class="post-nav-title">{prevPost.data.title}</span>
-								</a>
-							) : <div />}
-							{nextPost ? (
-								<a class="post-nav-item post-nav-next" href={`/blog/${nextPost.id}/`}>
-									<span class="post-nav-dir">Следующая →</span>
-									<span class="post-nav-title">{nextPost.data.title}</span>
-								</a>
-							) : <div />}
-						</nav>
-					)}
-
-					<!-- CTA: question to editors -->
-					<div class="art-cta" data-pagefind-ignore>
-						<div class="art-cta-text">
-							<strong>Остались вопросы?</strong>
-							<p>Если что-то неясно или вы нашли неточность — напишите редакции. Мы проверяем каждое сообщение.</p>
-						</div>
-						<a href="mailto:hello@etiketka.media" class="art-cta-btn">Написать →</a>
-					</div>
 
 					<footer class="art-foot" data-pagefind-ignore>
 						<p class="disclaimer">
@@ -390,291 +437,52 @@ const shareTitle = encodeURIComponent(title);
 				btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 			}
 
-			/* Was this helpful? */
-			const key = 'helpful_' + location.pathname;
-			const widget = document.getElementById('helpful-widget');
-			const thanks = document.getElementById('helpful-thanks');
-			const yesBtn = document.getElementById('helpful-yes');
-			const noBtn = document.getElementById('helpful-no');
-			if (localStorage.getItem(key)) {
-				widget?.querySelector('.helpful-btns')?.setAttribute('hidden', '');
-				thanks?.removeAttribute('hidden');
-			}
-			[yesBtn, noBtn].forEach((btn) => {
-				btn?.addEventListener('click', () => {
-					localStorage.setItem(key, btn.id);
-					widget?.querySelector('.helpful-btns')?.setAttribute('hidden', '');
-					thanks?.removeAttribute('hidden');
-				});
-			});
 		</script>
 
 		<style>
 			/* Reading progress */
-			#rp-bar {
-				position: fixed;
-				top: 0;
-				left: 0;
-				height: 3px;
-				width: 0%;
-				background: #E8175D;
-				z-index: 200;
-				transition: width 0.1s linear;
-			}
+			#rp-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: #E8175D; z-index: 200; transition: width .1s linear; pointer-events: none; }
 
-			/* ═══ HERO breadcrumbs ═══ */
-			.art-hero-breadcrumbs {
-				font-size: .65rem;
-				font-weight: 600;
-				letter-spacing: .1em;
-				text-transform: uppercase;
-				color: #aaa;
-				display: flex;
-				align-items: center;
-				gap: 6px;
-				flex-wrap: wrap;
-			}
+			/* ── Hero breadcrumbs ── */
+			.art-hero-breadcrumbs { font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #aaa; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 			.art-hero-breadcrumbs a { color: #aaa; text-decoration: none; }
 			.art-hero-breadcrumbs a:hover { color: #111; }
 			.art-hero-breadcrumbs span { color: #ccc; }
 
-			/* ═══ HERO ═══ */
-			.art-hero {
-				display: grid;
-				grid-template-columns: 58fr 42fr;
-				height: calc(100vh - 56px);
-				min-height: 480px;
-			}
-			.art-hero-img {
-				position: relative;
-				overflow: hidden;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-			.art-hero-cat {
-				position: absolute;
-				top: 20px;
-				left: 20px;
-				font-size: .65rem;
-				font-weight: 700;
-				letter-spacing: .12em;
-				text-transform: uppercase;
-				padding: .3em .85em;
-				z-index: 2;
-			}
-			.art-hero-photo {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				display: block;
-			}
-			.art-hero-bg-letter {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 24rem;
-				color: #C8F500;
-				opacity: .15;
-				line-height: 1;
-				letter-spacing: -.03em;
-				pointer-events: none;
-				user-select: none;
-			}
-			/* Right column: space-between */
-			.art-hero-info {
-				padding: 32px 48px;
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
-				background: #EDE8DF;
-				overflow: auto;
-			}
-			.art-hero-top {
-				display: flex;
-				align-items: center;
-				flex-wrap: wrap;
-				gap: 12px;
-			}
-			.art-hero-date {
-				font-size: .78rem;
-				font-weight: 600;
-				letter-spacing: .06em;
-				text-transform: uppercase;
-				color: #888;
-			}
-			.art-updated-badge {
-				background: #C8F500;
-				color: #111;
-				font-size: .6rem;
-				font-weight: 700;
-				letter-spacing: .1em;
-				text-transform: uppercase;
-				padding: .2em .6em;
-				margin-right: 4px;
-			}
-			.art-pubdate { color: #aaa; font-size: .72rem; }
-			.art-verified-badge {
-				display: inline-flex;
-				align-items: center;
-				gap: 4px;
-				font-size: .65rem;
-				font-weight: 700;
-				letter-spacing: .08em;
-				text-transform: uppercase;
-				color: #fff;
-				background: #111;
-				padding: .25em .7em;
-			}
-			.art-hero-hash {
-				font-size: .75rem;
-				font-weight: 700;
-				letter-spacing: .08em;
-				color: #E8175D;
-				text-decoration: none;
-			}
-			.art-hero-hash:hover { color: #c50f4b; }
-			.art-h1 {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 3.2rem;
-				line-height: 1;
-				letter-spacing: .02em;
-				color: #111;
-				text-transform: uppercase;
-				margin: 0;
-			}
-			.art-hero-bottom {
-				border-top: 2px solid #111;
-				padding-top: 20px;
-			}
-			.art-lead {
-				font-size: 1rem;
-				color: #444;
-				line-height: 1.65;
-				font-style: italic;
-				margin: 0;
-			}
+			/* ── Hero ── */
+			.art-hero { display: grid; grid-template-columns: 58fr 42fr; height: calc(100vh - 56px); min-height: 480px; }
+			.art-hero-img { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+			.art-hero-cat { position: absolute; top: 20px; left: 20px; font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .3em .85em; z-index: 2; }
+			.art-hero-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
+			.art-hero-bg-letter { font-family: 'Bebas Neue', sans-serif; font-size: 24rem; color: #C8F500; opacity: .15; line-height: 1; letter-spacing: -.03em; pointer-events: none; user-select: none; }
+			.art-hero-info { padding: 32px 48px; display: flex; flex-direction: column; justify-content: space-between; background: #EDE8DF; overflow: auto; }
+			.art-hero-top { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+			.art-updated-badge { background: #C8F500; color: #111; font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .2em .6em; }
+			.art-hero-readtime { font-size: .75rem; font-weight: 600; color: #999; letter-spacing: .04em; }
+			.art-h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; line-height: 1; letter-spacing: .02em; color: #111; text-transform: uppercase; margin: 0; }
+			.art-hero-bottom { border-top: 2px solid #111; padding-top: 20px; }
+			.art-lead { font-size: 1rem; color: #444; line-height: 1.65; font-style: italic; margin: 0; }
 
-			/* ═══ BODY ═══ */
-			.art-body {
-				display: grid;
-				grid-template-columns: 28fr 72fr;
-			}
+			/* ── Body grid ── */
+			.art-body { display: grid; grid-template-columns: 28fr 72fr; }
 
-			/* Sidebar */
+			/* ── Sidebar ── */
 			.art-sidebar { padding: 16px; }
-			.art-banner {
-				position: sticky;
-				top: calc(56px + 16px);
-				background: #111;
-				color: #fff;
-				overflow: hidden;
-			}
-			.art-banner-visual {
-				width: 100%;
-				aspect-ratio: 16 / 9;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				overflow: hidden;
-			}
-			.art-banner-big {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 7rem;
-				color: #fff;
-				opacity: .18;
-				line-height: 1;
-			}
-			.art-banner-eyebrow {
-				font-size: .6rem;
-				font-weight: 700;
-				letter-spacing: .12em;
-				text-transform: uppercase;
-				color: #C8F500;
-				display: block;
-				padding: 14px 14px 6px;
-			}
-			.art-banner-title {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 1.5rem;
-				line-height: 1.05;
-				letter-spacing: .03em;
-				text-transform: uppercase;
-				color: #fff;
-				padding: 0 14px 8px;
-			}
-			.art-banner-desc {
-				font-size: .78rem;
-				color: #8A8A8A;
-				line-height: 1.5;
-				padding: 0 14px 14px;
-				margin: 0;
-			}
-			.art-banner-cta {
-				display: block;
-				margin: 0 14px 14px;
-				background: #E8175D;
-				color: #fff;
-				font-size: .7rem;
-				font-weight: 700;
-				letter-spacing: .1em;
-				text-transform: uppercase;
-				padding: 10px 14px;
-				text-decoration: none;
-				text-align: center;
-				transition: background .15s;
-			}
+			.art-banner { position: sticky; top: calc(56px + 16px); background: #111; color: #fff; overflow: hidden; }
+			.art-banner-visual { width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+			.art-banner-big { font-family: 'Bebas Neue', sans-serif; font-size: 7rem; color: #fff; opacity: .18; line-height: 1; }
+			.art-banner-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #C8F500; display: block; padding: 14px 14px 6px; }
+			.art-banner-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; line-height: 1.05; letter-spacing: .03em; text-transform: uppercase; color: #fff; padding: 0 14px 8px; }
+			.art-banner-desc { font-size: .78rem; color: #8A8A8A; line-height: 1.5; padding: 0 14px 14px; margin: 0; }
+			.art-banner-cta { display: block; margin: 0 14px 14px; background: #E8175D; color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 10px 14px; text-decoration: none; text-align: center; transition: background .15s; }
 			.art-banner-cta:hover { background: #c50f4b; }
 
-			/* Content */
-			.art-content {
-				padding: 40px 48px 80px;
-				border-left: 1px solid rgba(0, 0, 0, .08);
-				min-height: 100vh;
-			}
-
-			/* Breadcrumbs */
-			.art-breadcrumbs {
-				font-size: .7rem;
-				font-weight: 600;
-				letter-spacing: .1em;
-				text-transform: uppercase;
-				color: #999;
-				margin-bottom: 20px;
-				display: flex;
-				align-items: center;
-				gap: 6px;
-				flex-wrap: wrap;
-			}
-			.art-breadcrumbs a { color: #999; text-decoration: none; }
-			.art-breadcrumbs a:hover { color: #111; }
-			.art-breadcrumbs span { color: #ccc; }
-
-			/* Tags */
-			.art-tags {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 6px;
-				margin-bottom: 24px;
-			}
+			/* ── Content column ── */
+			.art-content { padding: 40px 48px 80px; border-left: 1px solid rgba(0,0,0,.08); min-height: 100vh; }
 
 			/* TOC */
-			.toc {
-				border-left: 3px solid #E8175D;
-				background: #F6F4F0;
-				padding: 1rem 1.2rem;
-				margin-bottom: 2rem;
-			}
-			.toc summary {
-				cursor: pointer;
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 1.1rem;
-				letter-spacing: .06em;
-				color: #111;
-				list-style: none;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				user-select: none;
-			}
+			.toc { border-left: 3px solid #E8175D; background: #F6F4F0; padding: 1rem 1.2rem; margin-bottom: 2rem; }
+			.toc summary { cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .06em; color: #111; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
 			.toc summary::-webkit-details-marker { display: none; }
 			.toc summary::after { content: '▸'; font-size: .8rem; color: #E8175D; transition: transform .15s; }
 			.toc[open] summary::after { transform: rotate(90deg); }
@@ -687,268 +495,86 @@ const shareTitle = encodeURIComponent(title);
 			/* Prose */
 			.prose { font-size: 1rem; line-height: 1.75; color: #1a1a1a; }
 
-			/* Inline subscribe */
-			.inline-subscribe {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				gap: 24px;
-				margin: 2.5rem 0;
-				padding: 20px 24px;
-				background: #111;
-				color: #fff;
-				flex-wrap: wrap;
-			}
-			.inline-subscribe-text { flex: 1; min-width: 200px; }
-			.inline-subscribe-text strong {
-				display: block;
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 1.3rem;
-				letter-spacing: .03em;
-				text-transform: uppercase;
-				margin-bottom: 4px;
-			}
-			.inline-subscribe-text p { font-size: .82rem; color: #8A8A8A; margin: 0; }
-			.inline-subscribe-form { display: flex; gap: 0; flex-shrink: 0; }
-			.subscribe-input {
-				border: none;
-				background: rgba(255,255,255,.08);
-				color: #fff;
-				padding: 9px 14px;
-				font-size: .82rem;
-				font-family: inherit;
-				outline: none;
-				width: 200px;
-			}
-			.subscribe-input::placeholder { color: #555; }
-			.subscribe-btn {
-				background: #E8175D;
-				color: #fff;
-				border: none;
-				padding: 9px 16px;
-				font-size: .72rem;
-				font-weight: 700;
-				letter-spacing: .08em;
-				text-transform: uppercase;
-				cursor: pointer;
-				font-family: inherit;
-				white-space: nowrap;
-				transition: background .15s;
-			}
-			.subscribe-btn:hover { background: #c50f4b; }
+			/* ── CPA-врезка ── */
+			.cpa-block { display: grid; grid-template-columns: 120px 1fr auto; align-items: stretch; margin: 2.5rem 0; border: 2px solid #111; overflow: hidden; }
+			.cpa-visual { display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+			.cpa-visual-letter { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: #C8F500; line-height: 1; letter-spacing: -.03em; }
+			.cpa-body { padding: 18px 22px; background: #fff; }
+			.cpa-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #888; margin-bottom: 4px; }
+			.cpa-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: .03em; text-transform: uppercase; color: #111; line-height: 1.1; margin-bottom: 5px; }
+			.cpa-desc { font-size: .82rem; color: #555; line-height: 1.55; margin: 0; }
+			.cpa-action { padding: 0 22px; background: #fff; border-left: 1px solid rgba(0,0,0,.08); display: flex; align-items: center; }
+			.cpa-btn { display: inline-block; background: #E8175D; color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 12px 18px; text-decoration: none; white-space: nowrap; transition: background .15s; }
+			.cpa-btn:hover { background: #c50f4b; }
 
-			/* Share */
-			.art-share {
-				display: flex;
-				align-items: center;
-				gap: 8px;
-				padding: 1.2rem 0;
-				border-top: 1px solid rgba(0, 0, 0, .1);
-				border-bottom: 1px solid rgba(0, 0, 0, .1);
-			}
-			.share-label {
-				font-size: .72rem;
-				font-weight: 700;
-				letter-spacing: .1em;
-				text-transform: uppercase;
-				color: #888;
-				margin-right: 4px;
-			}
-			.share-btn {
-				display: inline-block;
-				padding: 6px 14px;
-				font-size: .72rem;
-				font-weight: 700;
-				letter-spacing: .08em;
-				text-transform: uppercase;
-				text-decoration: none;
-				background: #111;
-				color: #EDE8DF;
-				transition: background .15s;
-			}
+			/* ── Share ── */
+			.art-share { display: flex; align-items: center; gap: 8px; padding: 1.2rem 0; border-top: 1px solid rgba(0,0,0,.1); border-bottom: 1px solid rgba(0,0,0,.1); }
+			.share-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #888; margin-right: 4px; }
+			.share-btn { display: inline-block; padding: 6px 14px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; background: #111; color: #EDE8DF; transition: background .15s; }
 			.share-btn:hover { background: #E8175D; color: #fff; }
 
-			/* Was this helpful? */
-			.helpful {
-				display: flex;
-				align-items: center;
-				gap: 16px;
-				margin: 1.5rem 0;
-				padding: 16px 20px;
-				background: #F6F4F0;
-				flex-wrap: wrap;
-			}
-			.helpful-label {
-				font-size: .82rem;
-				font-weight: 600;
-				color: #555;
-			}
-			.helpful-btns { display: flex; gap: 8px; }
-			.helpful-btn {
-				background: none;
-				border: 1px solid rgba(0, 0, 0, .15);
-				padding: 6px 16px;
-				font-size: .82rem;
-				cursor: pointer;
-				font-family: inherit;
-				transition: all .15s;
-			}
-			.helpful-btn:hover { background: #111; color: #EDE8DF; border-color: #111; }
-			.helpful-thanks { font-size: .82rem; color: #888; font-style: italic; }
-
-			/* Related */
+			/* ── Читайте также ── */
 			.related { margin-top: 2.5rem; }
-			.related-eyebrow {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 1.8rem;
-				letter-spacing: .03em;
-				color: #111;
-				display: block;
-				margin-bottom: 1rem;
-			}
-			.related-list {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 1px;
-				background: rgba(0, 0, 0, .1);
-				border: 1px solid rgba(0, 0, 0, .1);
-			}
-			.related-card { border-left: 4px solid #111; background: #fff; }
-			.related-card a {
-				display: block;
-				padding: 1rem 1rem 1rem .9rem;
-				text-decoration: none;
-				height: 100%;
-				transition: background .15s;
-			}
-			.related-card a:hover { background: #F6F4F0; }
-			.related-cat {
-				display: block;
-				font-size: .65rem;
-				font-weight: 700;
-				letter-spacing: .1em;
-				text-transform: uppercase;
-				color: #888;
-				margin-bottom: 6px;
-			}
-			.related-card h3 {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 1.05rem;
-				letter-spacing: .02em;
-				color: #111;
-				margin: 0 0 6px;
-				line-height: 1.2;
-				text-transform: uppercase;
-			}
-			.related-card p { font-size: .8rem; color: #666; margin: 0; line-height: 1.4; }
+			.related-eyebrow { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: .03em; color: #111; display: block; margin-bottom: 12px; }
+			.related-more { display: flex; justify-content: flex-end; margin-top: 10px; }
+			.related-more a { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #888; text-decoration: none; transition: color .15s; }
+			.related-more a:hover { color: #E8175D; }
 
-			/* Prev / Next */
-			.post-nav {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 1px;
-				background: rgba(0, 0, 0, .1);
-				margin-top: 2rem;
-				border: 1px solid rgba(0, 0, 0, .1);
-			}
-			.post-nav-item {
-				background: #fff;
-				padding: 16px 20px;
-				text-decoration: none;
-				display: flex;
-				flex-direction: column;
-				gap: 6px;
-				transition: background .15s;
-			}
-			.post-nav-item:hover { background: #F6F4F0; }
-			.post-nav-next { text-align: right; }
-			.post-nav-dir {
-				font-size: .65rem;
-				font-weight: 700;
-				letter-spacing: .1em;
-				text-transform: uppercase;
-				color: #999;
-			}
-			.post-nav-title {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 1.1rem;
-				letter-spacing: .02em;
-				text-transform: uppercase;
-				color: #111;
-				line-height: 1.1;
-			}
+			/* Базовая карточка */
+			.r-card { display: flex; flex-direction: column; background: #fff; text-decoration: none; color: inherit; overflow: hidden; transition: transform .15s; }
+			.r-card:hover { transform: translateY(-2px); }
+			.r-card:hover .r-card-body { background: #F6F4F0; }
+			.r-card-top { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 14px 16px; flex-shrink: 0; }
+			.r-card-abbr { position: absolute; right: 6px; bottom: -10px; font-family: 'Bebas Neue', sans-serif; font-size: 6rem; line-height: 1; opacity: .14; letter-spacing: -.03em; pointer-events: none; user-select: none; }
+			.r-card-cat { font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; position: relative; z-index: 1; }
+			.r-card-body { padding: 14px 16px 18px; flex: 1; display: flex; flex-direction: column; gap: 7px; transition: background .15s; }
+			.r-card-body h3 { font-family: 'Bebas Neue', sans-serif; letter-spacing: .02em; text-transform: uppercase; color: #111; line-height: 1.15; margin: 0; }
+			.r-card-body p { font-size: .82rem; color: #666; line-height: 1.5; margin: 0; }
+			.r-card-read { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #E8175D; margin-top: auto; padding-top: 6px; }
 
-			/* CTA block */
-			.art-cta {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				gap: 20px;
-				margin: 2rem 0;
-				padding: 20px 24px;
-				border: 2px solid #111;
-				flex-wrap: wrap;
-			}
-			.art-cta-text { flex: 1; min-width: 180px; }
-			.art-cta-text strong {
-				display: block;
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 1.4rem;
-				letter-spacing: .03em;
-				text-transform: uppercase;
-				margin-bottom: 4px;
-			}
-			.art-cta-text p { font-size: .82rem; color: #555; margin: 0; }
-			.art-cta-btn {
-				background: #111;
-				color: #EDE8DF;
-				font-size: .72rem;
-				font-weight: 700;
-				letter-spacing: .1em;
-				text-transform: uppercase;
-				padding: 10px 20px;
-				text-decoration: none;
-				white-space: nowrap;
-				flex-shrink: 0;
-				transition: background .15s;
-			}
-			.art-cta-btn:hover { background: #E8175D; color: #fff; }
+			/* A2: две равные */
+			.related-grid--a2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+			.related-grid--a2 .r-card-top { height: 160px; }
+			.related-grid--a2 .r-card-body h3 { font-size: 1.15rem; }
+
+			/* A3: 1 большая + 2 компактных */
+			.related-grid--a3 { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 3px; }
+			.related-grid--a3 .r-card--main { grid-row: 1/3; }
+			.related-grid--a3 .r-card--main .r-card-top { height: 220px; }
+			.related-grid--a3 .r-card--main .r-card-body h3 { font-size: 1.4rem; }
+			.related-grid--a3 .r-card--side .r-card-top { height: 100px; }
+			.related-grid--a3 .r-card--side .r-card-body h3 { font-size: 1rem; }
+
+			/* B: 2 стандартных + 1 горизонтальная */
+			.related-grid--b { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+			.related-grid--b .r-card-top { height: 130px; }
+			.related-grid--b .r-card-body h3 { font-size: 1.1rem; }
+			.related-grid--b .r-card--wide { grid-column: 1/3; flex-direction: row; }
+			.related-grid--b .r-card--wide .r-card-top { width: 200px; height: auto; flex-shrink: 0; }
+			.related-grid--b .r-card--wide .r-card-body { justify-content: center; }
+			.related-grid--b .r-card--wide .r-card-body h3 { font-size: 1.3rem; }
+
+			/* C: 1 большая + 3 компактных без описания */
+			.related-grid--c { display: grid; grid-template-columns: 5fr 3fr; grid-template-rows: repeat(3, auto); gap: 3px; }
+			.related-grid--c .r-card--main { grid-row: 1/4; }
+			.related-grid--c .r-card--main .r-card-top { height: 240px; }
+			.related-grid--c .r-card--main .r-card-abbr { font-size: 9rem; }
+			.related-grid--c .r-card--main .r-card-body h3 { font-size: 1.4rem; }
+			.related-grid--c .r-card--compact .r-card-top { height: 80px; }
+			.related-grid--c .r-card--compact .r-card-abbr { font-size: 4rem; }
+			.related-grid--c .r-card--compact .r-card-body h3 { font-size: .95rem; }
+			.related-grid--c .r-card--compact .r-card-body p { display: none; }
 
 			/* Disclaimer */
-			.art-foot {
-				margin-top: 2.5rem;
-				padding-top: 1.5rem;
-				border-top: 1px solid rgba(0, 0, 0, .1);
-			}
+			.art-foot { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,.1); }
 			.disclaimer { font-size: .82rem; color: #999; font-style: italic; margin: 0; }
 
 			/* Back to top */
-			#back-to-top {
-				position: fixed;
-				bottom: 24px;
-				right: 24px;
-				width: 40px;
-				height: 40px;
-				background: #111;
-				color: #EDE8DF;
-				border: none;
-				font-size: 1rem;
-				cursor: pointer;
-				opacity: 0;
-				pointer-events: none;
-				transition: opacity .2s, background .15s;
-				z-index: 90;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
+			#back-to-top { position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px; background: #111; color: #EDE8DF; border: none; font-size: 1rem; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .2s, background .15s; z-index: 90; display: flex; align-items: center; justify-content: center; }
 			#back-to-top.visible { opacity: 1; pointer-events: auto; }
 			#back-to-top:hover { background: #E8175D; }
 
-			/* Responsive */
+			/* ── Responsive ── */
 			@media (max-width: 1024px) {
 				.art-body { grid-template-columns: 1fr; }
 				.art-sidebar { display: none; }
@@ -960,10 +586,17 @@ const shareTitle = encodeURIComponent(title);
 				.art-hero-info { padding: 24px; }
 				.art-h1 { font-size: 2.4rem; }
 				.art-content { padding: 24px 20px 48px; }
-				.related-list { grid-template-columns: 1fr; }
-				.post-nav { grid-template-columns: 1fr; }
-				.inline-subscribe { flex-direction: column; align-items: flex-start; }
-				.subscribe-input { width: 100%; }
+				.related-grid--a2,
+				.related-grid--a3,
+				.related-grid--b,
+				.related-grid--c { grid-template-columns: 1fr; grid-template-rows: auto; }
+				.related-grid--a3 .r-card--main,
+				.related-grid--c .r-card--main { grid-row: auto; }
+				.related-grid--b .r-card--wide { flex-direction: column; grid-column: auto; }
+				.related-grid--b .r-card--wide .r-card-top { width: 100%; height: 120px; }
+				.cpa-block { grid-template-columns: 1fr; }
+				.cpa-visual { height: 80px; }
+				.cpa-action { border-left: none; border-top: 1px solid rgba(0,0,0,.08); padding: 14px 22px; }
 			}
 			@media (max-width: 560px) {
 				.art-h1 { font-size: 2rem; }

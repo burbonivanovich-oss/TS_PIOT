@@ -25,6 +25,7 @@ const blog = defineCollection({
 				noindex: z.boolean().default(false),
 				keywords: z.array(z.string()).default([]),
 			}).optional(),
+		cpa: z.string().optional(),
 		}),
 });
 
