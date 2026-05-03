@@ -44,8 +44,8 @@ const categoriesForFilter = Object.fromEntries(
 		<Header />
 		<main>
 			<header class="page-head">
-				<h1>{pageTitle}</h1>
-				<p>{pageDescription}</p>
+				<p class="page-eyebrow">Архив</p>
+				<h1 class="page-title">{posts.length} материалов<br />о практике бизнеса</h1>
 			</header>
 
 			{posts.length === 0 ? (
@@ -63,12 +63,23 @@ const categoriesForFilter = Object.fromEntries(
 
 		<style>
 			.page-head {
-				padding: 2rem 0 1rem;
+				padding: 3rem 0 2.5rem;
+				border-bottom: 1px solid var(--border);
+				margin-bottom: 2.5rem;
 			}
-			.page-head p {
-				color: rgb(var(--gray-dark));
-				font-size: 1.05rem;
-				max-width: 720px;
+			.page-eyebrow {
+				font-size: 0.72rem;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--muted);
+				margin: 0 0 0.75rem;
+			}
+			.page-title {
+				font-size: clamp(2rem, 5vw, 3.2rem);
+				letter-spacing: -0.03em;
+				margin: 0;
+				line-height: 1.1;
 			}
 		</style>
 	</body>

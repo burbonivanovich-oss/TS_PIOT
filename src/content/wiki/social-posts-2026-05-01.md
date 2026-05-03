@@ -7,8 +7,8 @@ tags:
   - дистрибуция
   - telegram
   - vk
-type: social
-status: ready
+type: note
+status: draft
 ---
 
 Готовые тексты для дистрибуции пяти публикаций от 01.05.2026.

@@ -1,7 +1,6 @@
 /*
-  Стили основаны на Bear Blog default CSS, адаптированы под русский B2B-портал.
-  https://github.com/HermanMartinus/bearblog
- */
+  Дизайн-система: розовый + лайм, современная типографика.
+*/
 
 @font-face {
 	font-family: 'Commissioner';
@@ -47,18 +46,32 @@
 }
 
 :root {
-	--accent: #1d4ed8;
-	--accent-dark: #1e3a8a;
-	--accent-soft: #dbeafe;
-	--black: 15, 23, 42;
-	--gray: 100, 116, 139;
-	--gray-light: 226, 232, 240;
-	--gray-dark: 30, 41, 59;
+	--pink: #FF2055;
+	--pink-dark: #CC0035;
+	--pink-soft: #FFF0F3;
+	--lime: #C8FF00;
+	--lime-dark: #A0CC00;
+	--lime-soft: #F5FFD6;
+	--dark: #0D0D0D;
+	--mid: #1C1C1C;
+	--surface: #F6F6F4;
+	--white: #FFFFFF;
+	--muted: #6B7280;
+	--border: #E8E8E6;
+
+	/* Legacy compat */
+	--accent: #FF2055;
+	--accent-dark: #CC0035;
+	--accent-soft: #FFF0F3;
+	--black: 13, 13, 13;
+	--gray: 107, 114, 128;
+	--gray-light: 232, 232, 230;
+	--gray-dark: 28, 28, 28;
 	--gray-gradient: rgba(var(--gray-light), 35%), #fff;
 	--box-shadow:
-		0 2px 6px rgba(15, 23, 42, 0.08),
-		0 8px 24px rgba(15, 23, 42, 0.05),
-		0 16px 32px rgba(15, 23, 42, 0.04);
+		0 1px 3px rgba(0, 0, 0, 0.06),
+		0 4px 16px rgba(0, 0, 0, 0.07),
+		0 12px 32px rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -67,23 +80,23 @@
 
 body {
 	font-family: 'Geologica', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-		'PT Sans', 'Helvetica Neue', Arial, sans-serif;
+		'Helvetica Neue', Arial, sans-serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: #fff;
+	background: var(--white);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 19px;
+	color: var(--mid);
+	font-size: 18px;
 	line-height: 1.65;
 }
 
 main {
 	width: 100%;
-	max-width: 1100px;
+	max-width: 1140px;
 	margin: auto;
-	padding: 2.5em 1em 3em;
+	padding: 2.5em 1.25em 4em;
 }
 
 h1,
@@ -94,53 +107,40 @@ h5,
 h6 {
 	font-family: 'Commissioner', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.25;
-	letter-spacing: -0.01em;
+	color: var(--dark);
+	line-height: 1.18;
+	letter-spacing: -0.02em;
 }
-h1 {
-	font-size: 2.4rem;
-}
-h2 {
-	font-size: 1.75rem;
-	margin-top: 1.6rem;
-}
-h3 {
-	font-size: 1.35rem;
-	margin-top: 1.4rem;
-}
-h4 {
-	font-size: 1.1rem;
-}
-strong,
-b {
-	font-weight: 700;
-}
+h1 { font-size: 2.6rem; font-weight: 700; }
+h2 { font-size: 1.8rem; font-weight: 700; margin-top: 1.8rem; }
+h3 { font-size: 1.35rem; font-weight: 700; margin-top: 1.4rem; }
+h4 { font-size: 1.1rem; font-weight: 600; }
+
+strong, b { font-weight: 700; }
+
 a {
-	color: var(--accent);
+	color: var(--pink);
 }
 a:hover {
-	color: var(--accent-dark);
+	color: var(--pink-dark);
 }
-p {
-	margin-bottom: 1em;
-}
-.prose p {
-	margin-bottom: 1.2em;
-}
+
+p { margin-bottom: 1em; }
+
+.prose p { margin-bottom: 1.2em; }
 .prose ul,
 .prose ol {
 	margin-bottom: 1.2em;
 	padding-left: 1.4em;
 }
-.prose li {
-	margin-bottom: 0.4em;
-}
+.prose li { margin-bottom: 0.4em; }
+
 textarea,
 input {
 	font-size: 16px;
 	font-family: inherit;
 }
+
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -149,73 +149,93 @@ table {
 }
 table th,
 table td {
-	border: 1px solid rgb(var(--gray-light));
+	border: 1px solid var(--border);
 	padding: 0.6em 0.8em;
 	text-align: left;
 	vertical-align: top;
 }
 table th {
-	background: rgba(var(--gray-light), 0.5);
+	background: var(--surface);
 	font-weight: 600;
 }
+
 img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 8px;
+	border-radius: 6px;
 }
+
 code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
+	padding: 2px 6px;
+	background-color: var(--surface);
 	border-radius: 4px;
-	font-size: 0.9em;
+	font-size: 0.88em;
 }
 pre {
 	padding: 1.2em;
 	border-radius: 8px;
 	overflow-x: auto;
+	background: var(--dark);
+	color: #f8f8f8;
 }
-pre > code {
-	all: unset;
-}
+pre > code { all: unset; }
+
 blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0.4em 0 0.4em 20px;
+	border-left: 3px solid var(--pink);
+	padding: 0.5em 0 0.5em 1.2em;
 	margin: 1.5em 0;
 	font-size: 1.05em;
-	color: rgb(var(--gray-dark));
-	background: rgba(29, 78, 216, 0.04);
+	color: var(--mid);
+	background: var(--pink-soft);
+	border-radius: 0 6px 6px 0;
 }
+
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: 1px solid var(--border);
 	margin: 2em 0;
 }
 
 .callout {
-	border-left: 4px solid var(--accent);
-	background: var(--accent-soft);
+	border-left: 3px solid var(--lime-dark);
+	background: var(--lime-soft);
 	padding: 1em 1.2em;
 	margin: 1.5em 0;
 	border-radius: 0 8px 8px 0;
 }
 .callout--warn {
-	border-left-color: #f59e0b;
-	background: #fef3c7;
+	border-left-color: var(--pink);
+	background: var(--pink-soft);
+}
+
+/* Tag pill — переиспользуется глобально */
+.tag-pill {
+	display: inline-block;
+	padding: 0.2em 0.65em;
+	border-radius: 4px;
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	background: var(--lime);
+	color: var(--dark);
+	text-decoration: none;
+	line-height: 1.4;
+}
+.tag-pill--pink {
+	background: var(--pink);
+	color: #fff;
+}
+.tag-pill--dark {
+	background: var(--dark);
+	color: var(--lime);
 }
 
 @media (max-width: 720px) {
-	body {
-		font-size: 18px;
-	}
-	main {
-		padding: 1.2em 1em 2em;
-	}
-	h1 {
-		font-size: 1.9rem;
-	}
-	h2 {
-		font-size: 1.4rem;
-	}
+	body { font-size: 17px; }
+	main { padding: 1.2em 1em 2.5em; }
+	h1 { font-size: 2rem; }
+	h2 { font-size: 1.45rem; }
 }
 
 .sr-only {
