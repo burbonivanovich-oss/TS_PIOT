@@ -6,8 +6,7 @@ import HeaderLink from './HeaderLink.astro';
 <header>
 	<nav>
 		<a href="/" class="brand">
-			<span class="brand-dot" aria-hidden="true"></span>
-			<span class="brand-text">{SITE_TITLE}</span>
+			<span class="brand-text">{SITE_TITLE}<span class="brand-accent">.</span></span>
 		</a>
 		<button class="nav-toggle" aria-label="Открыть меню" aria-controls="primary-nav" aria-expanded="false">
 			<span></span><span></span><span></span>
@@ -16,6 +15,7 @@ import HeaderLink from './HeaderLink.astro';
 			{NAV_LINKS.map((link) => (
 				<HeaderLink href={link.href}>{link.label}</HeaderLink>
 			))}
+			<a href="/blog/" class="btn btn-primary header-cta">Подписаться</a>
 		</div>
 	</nav>
 </header>
@@ -36,68 +36,73 @@ import HeaderLink from './HeaderLink.astro';
 		position: sticky;
 		top: 0;
 		z-index: 50;
-		padding: 0 var(--sp-4);
+		padding: 0 var(--sp-5);
+		height: 56px;
 	}
 
 	nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		max-width: 1100px;
+		max-width: 1200px;
 		margin: 0 auto;
 		gap: var(--sp-4);
+		height: 56px;
 	}
 
 	.brand {
 		display: inline-flex;
 		align-items: center;
-		gap: var(--sp-2);
-		font-family: 'Commissioner', sans-serif;
-		font-weight: 700;
-		font-size: 1.125rem;
+		font-family: 'Inter', sans-serif;
+		font-weight: 800;
+		font-size: 1.05rem;
 		color: var(--text);
 		text-decoration: none;
-		padding: var(--sp-3) 0;
 		letter-spacing: -0.02em;
 	}
 
 	.brand:hover { text-decoration: none; color: var(--text); }
 
-	.brand-dot {
-		width: 10px;
-		height: 10px;
-		border-radius: 50%;
-		background: var(--accent);
-		flex-shrink: 0;
+	.brand-accent {
+		color: var(--accent);
 	}
 
 	.internal-links {
 		display: flex;
 		align-items: center;
-		flex-wrap: wrap;
-		gap: 2px;
+		gap: 0;
 	}
 
 	nav a {
-		padding: var(--sp-3) var(--sp-2);
-		font-size: 0.9375rem;
+		padding: 0 12px;
+		font-size: 0.66rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
 		color: var(--text-3);
 		text-decoration: none;
-		border-radius: var(--r-sm);
-		transition: color var(--ease), background var(--ease);
+		line-height: 56px;
+		transition: color var(--ease), border-color var(--ease);
+		border-bottom: 2px solid transparent;
 	}
 
 	nav a:hover {
 		color: var(--text);
-		background: var(--bg-subtle);
 		text-decoration: none;
 	}
 
 	nav a.active {
-		color: var(--accent);
-		font-weight: 600;
-		background: var(--accent-light);
+		color: var(--text);
+		border-bottom: 2px solid var(--accent);
 	}
+
+	.header-cta {
+		margin-left: 12px;
+		line-height: 1.4;
+		border-bottom: none !important;
+		color: #fff !important;
+	}
+	.header-cta:hover { color: #fff !important; }
 
 	.nav-toggle {
 		display: none;
@@ -120,7 +125,7 @@ import HeaderLink from './HeaderLink.astro';
 		transition: transform var(--ease), opacity var(--ease);
 	}
 
-	@media (max-width: 820px) {
+	@media (max-width: 900px) {
 		.nav-toggle { display: flex; }
 
 		.internal-links {
@@ -130,14 +135,18 @@ import HeaderLink from './HeaderLink.astro';
 			align-items: flex-start;
 			padding-bottom: var(--sp-3);
 			gap: 0;
+			background: var(--bg);
 		}
 
 		.internal-links.is-open { display: flex; }
 
 		.internal-links a {
 			width: 100%;
-			padding: var(--sp-2) var(--sp-3);
+			padding: var(--sp-3) var(--sp-3);
+			line-height: 1.4;
 		}
+
+		.header-cta { margin: var(--sp-3); width: calc(100% - 32px); text-align: center; }
 
 		nav { flex-wrap: wrap; }
 	}
