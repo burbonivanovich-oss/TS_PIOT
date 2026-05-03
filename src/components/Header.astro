@@ -9,7 +9,7 @@ import { SITE_TITLE, NAV_LINKS } from '../consts';
 				ЭТИКЕТКА<sup>медиа</sup>
 			</a>
 			<nav class="site-nav" id="primary-nav">
-				{NAV_LINKS.filter(l => l.href !== '/').slice(0, 5).map((link) => (
+				{NAV_LINKS.filter(l => !['/', '/slovar/', '/about/', '/search/'].includes(l.href)).map((link) => (
 					<a href={link.href}>{link.label}</a>
 				))}
 			</nav>
@@ -50,6 +50,7 @@ import { SITE_TITLE, NAV_LINKS } from '../consts';
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		flex-wrap: nowrap;
 		gap: 1rem;
 	}
 	.header-left {
@@ -80,6 +81,7 @@ import { SITE_TITLE, NAV_LINKS } from '../consts';
 		display: flex;
 		align-items: center;
 		gap: 0;
+		white-space: nowrap;
 	}
 	.site-nav a {
 		font-size: 0.75rem;
