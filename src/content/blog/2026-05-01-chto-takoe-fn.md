@@ -9,7 +9,7 @@ tags:
   - ккт
   - маркировка
 categories:
-  - zakonodatelstvo
+  - kkt
 draft: true
 seo:
   keywords:

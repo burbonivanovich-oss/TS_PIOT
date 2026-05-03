@@ -1,7 +1,7 @@
 ---
 title: "Сравнение MSPOS F20 и MSPOS T D3 Mini: что выбрать"
 description: "MSPOS F20 или MSPOS T D3 Mini — чем отличаются, какой смарт-терминал подходит для магазина, кафе или выездной торговли в 2026 году."
-pubDate: "2026-05-03"
+pubDate: "2026-06-17"
 tags:
   - mspos
   - смарт-терминал
@@ -9,7 +9,7 @@ tags:
   - ккт
   - выбор кассы
 categories:
-  - zakonodatelstvo
+  - kkt
 draft: true
 seo:
   keywords:

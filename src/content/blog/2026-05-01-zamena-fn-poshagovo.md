@@ -9,7 +9,7 @@ tags:
   - перерегистрация
   - ФНС
 categories:
-  - zakonodatelstvo
+  - kkt
 draft: true
 seo:
   keywords:

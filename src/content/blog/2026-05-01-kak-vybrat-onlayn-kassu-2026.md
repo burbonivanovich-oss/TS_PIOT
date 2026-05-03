@@ -9,7 +9,7 @@ tags:
   - тс пиот
   - малый бизнес
 categories:
-  - zakonodatelstvo
+  - kkt
 draft: true
 seo:
   keywords:

@@ -9,7 +9,7 @@ tags:
   - 54-ФЗ
   - личный-кабинет
 categories:
-  - zakonodatelstvo
+  - kkt
 draft: true
 seo:
   keywords:

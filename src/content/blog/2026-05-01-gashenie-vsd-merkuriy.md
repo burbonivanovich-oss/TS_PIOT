@@ -9,7 +9,7 @@ tags:
   - общепит
   - розница
 categories:
-  - zakonodatelstvo
+  - egais
 draft: true
 seo:
   keywords:

@@ -9,7 +9,7 @@ tags:
   - общепит
   - животноводство
 categories:
-  - zakonodatelstvo
+  - egais
 draft: true
 seo:
   keywords:

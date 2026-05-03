@@ -9,7 +9,7 @@ tags:
   - бар
   - кафе
 categories:
-  - zakonodatelstvo
+  - egais
 draft: true
 seo:
   keywords:
