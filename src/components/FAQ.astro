@@ -1,0 +1,120 @@
+---
+/**
+ * FAQ компонент с FAQPage schema для Яндекса и Google.
+ * Использование в MDX:
+ *
+ *   import FAQ from '../../components/FAQ.astro';
+ *   <FAQ items={[
+ *     { q: 'Вопрос?', a: 'Ответ.' },
+ *   ]} />
+ *
+ * Яндекс показывает вопросы прямо в поиске при наличии FAQPage schema.
+ */
+interface FaqItem {
+	q: string;
+	a: string;
+}
+
+interface Props {
+	items: FaqItem[];
+	title?: string;
+}
+
+const { items, title = 'Часто задаваемые вопросы' } = Astro.props;
+
+const faqJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: items.map(({ q, a }) => ({
+		'@type': 'Question',
+		name: q,
+		acceptedAnswer: { '@type': 'Answer', text: a },
+	})),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+
+<section class="faq" aria-labelledby="faq-heading">
+	<h2 id="faq-heading" class="faq-title">{title}</h2>
+	<div class="faq-list">
+		{items.map(({ q, a }, i) => (
+			<details class="faq-item" name="faq">
+				<summary class="faq-q">
+					<span class="faq-num">0{i + 1}</span>
+					{q}
+					<span class="faq-arrow" aria-hidden="true">↓</span>
+				</summary>
+				<div class="faq-a">
+					<p>{a}</p>
+				</div>
+			</details>
+		))}
+	</div>
+</section>
+
+<style>
+	.faq {
+		margin: 2.5rem 0;
+		border-top: 2px solid #111;
+		padding-top: 1.5rem;
+	}
+	.faq-title {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 2rem;
+		letter-spacing: .03em;
+		text-transform: uppercase;
+		color: #111;
+		margin: 0 0 1.2rem;
+	}
+	.faq-list {
+		border: 1px solid rgba(0, 0, 0, .1);
+	}
+	.faq-item {
+		border-bottom: 1px solid rgba(0, 0, 0, .08);
+	}
+	.faq-item:last-child { border-bottom: none; }
+	.faq-q {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 14px 16px;
+		cursor: pointer;
+		font-size: .95rem;
+		font-weight: 600;
+		color: #111;
+		list-style: none;
+		user-select: none;
+		background: #fff;
+		transition: background .15s;
+	}
+	.faq-q::-webkit-details-marker { display: none; }
+	.faq-q:hover { background: #F6F4F0; }
+	.faq-item[open] .faq-q { background: #F6F4F0; }
+	.faq-num {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1rem;
+		letter-spacing: .06em;
+		color: #E8175D;
+		flex-shrink: 0;
+		line-height: 1;
+	}
+	.faq-arrow {
+		margin-left: auto;
+		font-size: .75rem;
+		color: #999;
+		transition: transform .2s;
+		flex-shrink: 0;
+	}
+	.faq-item[open] .faq-arrow { transform: rotate(180deg); }
+	.faq-a {
+		padding: 0 16px 16px calc(12px + 1rem + 12px);
+		background: #fff;
+	}
+	.faq-a p {
+		font-size: .92rem;
+		color: #444;
+		line-height: 1.7;
+		margin: 0;
+	}
+</style>
