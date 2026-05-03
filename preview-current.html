@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Этикетка — макет внедрённого дизайна</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F1EA;--bg-muted:#EDE9DF;--bg-subtle:#FBFAF6;--bg-dark:#171513;
+  --border:#D9D4C7;--border-strong:#C2BCAC;
+  --text:#171513;--text-2:#3A3631;--text-3:#7A746A;--text-4:#9A938A;--text-on-dark:#F4F1EA;
+  --accent:#A8651C;--accent-hover:#8B5318;--accent-light:#F0E4D2;--accent-fg:#FBFAF6;
+  --cat-ts-piot-fg:#2E5D4A;--cat-ts-piot-bg:#DFE8E2;
+  --cat-mark-fg:#A8651C;--cat-mark-bg:#F0E4D2;
+  --cat-zakon-fg:#1F3A8A;--cat-zakon-bg:#DFE3F2;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:'Inter Tight','Inter',sans-serif;background:#0a0a0a;color:#fff}
+a{text-decoration:none;color:inherit}
+button{font:inherit;border:0;background:transparent;cursor:pointer;color:inherit}
+img{max-width:100%}
+
+.font-display{font-family:'Bebas Neue','Oswald',sans-serif;font-weight:400;letter-spacing:.005em;line-height:.95;text-transform:uppercase}
+.font-serif{font-family:'Instrument Serif',Georgia,serif}
+.font-serif-italic{font-family:'Instrument Serif',Georgia,serif;font-style:italic}
+.font-mono{font-family:'JetBrains Mono',monospace}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
+.eyebrow--accent{color:var(--accent)}
+.read-badge{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.04em;color:var(--accent);font-weight:600}
+.read-badge::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%}
+.cat-tag{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+
+.btn{display:inline-block;border-radius:0;font-family:'Inter Tight',sans-serif;font-weight:600;font-size:.82rem;padding:12px 22px;transition:background .15s,color .15s,border-color .15s;cursor:pointer;border:1.5px solid transparent;text-decoration:none}
+.btn-primary{background:var(--bg-dark);color:var(--text-on-dark);border-color:var(--bg-dark)}
+.btn-primary:hover{background:#2a2620;border-color:#2a2620}
+.btn-ghost{background:transparent;color:var(--text);border:1.5px solid var(--text)}
+.btn-ghost:hover{background:var(--text);color:var(--bg)}
+.btn-accent{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.btn-on-dark{background:var(--bg);color:var(--text);border-color:var(--bg)}
+.btn-on-dark:hover{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+
+/* ─── Переключатель ─── */
+.sw{position:fixed;top:0;left:0;right:0;z-index:9999;background:#0a0a0a;border-bottom:1px solid #222;display:flex;align-items:center;padding:0 20px;height:40px;gap:2px}
+.sw-l{color:#555;font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-right:14px;white-space:nowrap}
+.sw a{height:40px;padding:0 16px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#555;display:inline-flex;align-items:center;transition:color .12s,background .12s}
+.sw a:hover{color:#fff}
+.sw a.on{color:#fff;background:#1c1c1c}
+.spacer{height:40px}
+.screen{display:none;background:var(--bg);color:var(--text)}
+.screen.on{display:block}
+
+/* ─── HEADER ─── */
+.site-header{display:flex;justify-content:space-between;align-items:center;padding:14px 40px;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:40px;z-index:50}
+.brand{display:flex;align-items:baseline;gap:6px}
+.brand-name{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;line-height:1;letter-spacing:-.02em;color:var(--text)}
+.brand-mono{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.08em;color:var(--text-3)}
+.site-nav{display:flex;gap:24px;font-family:'Inter Tight',sans-serif;font-size:.82rem;color:var(--text-2)}
+.site-nav a{padding-bottom:2px;transition:color .15s}
+.site-nav a.active{border-bottom:2px solid var(--accent);color:var(--text)}
+.site-nav a:hover{color:var(--text)}
+.head-right{display:flex;gap:12px;align-items:center}
+.head-search{font-family:'JetBrains Mono',monospace;font-size:.95rem;color:var(--text-3);letter-spacing:.04em}
+
+/* ─── FOOTER ─── */
+.site-footer{margin-top:80px;background:var(--bg-dark);color:var(--text-on-dark);padding:48px 40px 28px}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1.2fr;gap:32px;padding-bottom:36px;border-bottom:1px solid #2a2620}
+.ft-logo{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;line-height:.9;letter-spacing:-.02em;margin-bottom:14px;color:var(--text-on-dark)}
+.ft-slogan{font-family:'Instrument Serif',serif;font-style:italic;font-size:1rem;color:#C9C3B8;line-height:1.4;margin-bottom:18px;max-width:320px}
+.ft-stamp{font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:600;letter-spacing:.1em;color:var(--accent)}
+.ft-h{font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block}
+.ft ul{list-style:none}
+.ft li{padding:5px 0;font-size:.82rem;color:#C9C3B8}
+.ft a:hover{color:var(--text-on-dark)}
+.ft-news-text{font-size:.82rem;color:#C9C3B8;line-height:1.55;margin-bottom:14px}
+.ft-news-form{display:flex;border:1px solid #4a4239}
+.ft-news-form input{flex:1;padding:10px;background:transparent;border:0;color:var(--text-on-dark);font-family:'Inter Tight',sans-serif;font-size:.8rem;outline:none}
+.ft-news-form button{background:var(--accent);color:var(--text-on-dark);border:0;padding:10px 14px;font-weight:600}
+.ft-bottom{display:flex;justify-content:space-between;padding-top:20px;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#7a746a}
+.ft-bottom span{color:#7a746a}
+.ft-bottom .row{display:flex;gap:22px}
+
+/* ════════════════════════════════════════════
+   ЭКРАН 1 — ГЛАВНАЯ
+════════════════════════════════════════════ */
+.home-hero{padding:80px 80px 60px}
+.home-hero-grid{display:grid;grid-template-columns:1fr 320px;gap:80px;align-items:end}
+.hh-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;letter-spacing:.12em;color:var(--accent);margin-bottom:24px}
+.hh-title{font-family:'Instrument Serif',serif;font-size:clamp(3rem,7vw,5.7rem);line-height:1;letter-spacing:-.01em;color:var(--text)}
+.hh-title em{color:var(--accent);font-style:italic}
+.hh-lead{font-family:'Inter Tight',sans-serif;font-size:1.05rem;color:var(--text-2);line-height:1.55;margin-top:28px;max-width:520px}
+.hh-side{border-left:1px solid var(--border);padding-left:28px}
+.hh-side-h{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--text-3);margin-bottom:12px;text-transform:uppercase}
+.hh-side-list{display:flex;flex-direction:column;gap:16px}
+.hh-side-item{display:flex;gap:14px;font-size:.82rem}
+.hh-side-time{font-family:'JetBrains Mono',monospace;color:var(--text-3);width:50px}
+.hh-side-text{color:var(--text-2)}
+
+.featured{padding:0 80px 60px}
+.featured-inner{padding-top:32px;border-top:1px solid var(--border)}
+.featured-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:32px}
+.featured-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:60px}
+.feat-cat{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:600;letter-spacing:.1em;color:var(--accent);margin-bottom:14px}
+.feat-title{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3.4rem);line-height:1.05;letter-spacing:-.005em;color:var(--text);margin-bottom:24px}
+.feat-lead{font-family:'Inter Tight',sans-serif;font-size:1rem;color:var(--text-2);line-height:1.65;margin-bottom:24px}
+.featured-vis{background:var(--bg-muted);padding:32px;position:relative;overflow:hidden;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);background-size:32px 32px;min-height:280px}
+.featured-vis-date{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18rem;color:var(--accent);opacity:.18;letter-spacing:-.02em;line-height:.85}
+.featured-vis-label{position:relative;z-index:2;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;color:var(--text-3)}
+
+.cats3{padding:0 80px 60px}
+.cats3-head{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:32px}
+.cats3-h{font-family:'Instrument Serif',serif;font-size:2.2rem;color:var(--text)}
+.cats3-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.cat-col{padding-top:20px;border-top:2px solid var(--text)}
+.cat-col-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.cat-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text-3);letter-spacing:.1em}
+.cat-count{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text-3);letter-spacing:.04em}
+.cat-name{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:1;color:var(--text);margin-bottom:8px}
+.cat-desc{font-family:'Inter Tight',sans-serif;font-size:.82rem;color:var(--text-2);line-height:1.5;margin-bottom:18px}
+.cat-list{list-style:none;margin-top:16px}
+.cat-list li{padding:10px 0;border-top:1px solid var(--border);font-size:.85rem}
+.cat-list .date{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text-3);letter-spacing:.04em;display:block;margin-bottom:4px}
+.cat-list .ttl{font-family:'Instrument Serif',serif;font-size:1rem;line-height:1.25;color:var(--text)}
+
+.newsletter{padding:0 80px 0}
+.newsletter-box{background:var(--bg-dark);color:var(--text-on-dark);padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.nl-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--accent);margin-bottom:12px}
+.nl-h{font-family:'Instrument Serif',serif;font-size:2.4rem;line-height:1.05;margin-bottom:12px;color:var(--text-on-dark)}
+.nl-text{font-family:'Inter Tight',sans-serif;font-size:.88rem;color:#C9C3B8;line-height:1.5}
+.nl-form{display:flex}
+.nl-form input{flex:1;background:transparent;border:1px solid #4a4239;color:var(--text-on-dark);padding:13px 14px;font-family:'Inter Tight',sans-serif;font-size:.88rem;outline:none}
+.nl-form button{font-family:'Inter Tight',sans-serif;font-weight:600;font-size:.82rem;padding:0 22px;background:var(--bg);color:var(--text);border:0;cursor:pointer}
+.nl-foot{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.05em;color:#9a938a;margin-top:10px;text-transform:uppercase}
+
+/* ════════════════════════════════════════════
+   ЭКРАН 2 — ЛИСТИНГ
+════════════════════════════════════════════ */
+.blog-head{padding:48px 40px 28px;border-bottom:1px solid var(--border);background:var(--bg)}
+.blog-head-inner{display:flex;justify-content:space-between;align-items:flex-end}
+.blog-crumbs{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.06em;color:var(--text-3);margin-bottom:14px;text-transform:uppercase}
+.blog-h1{font-family:'Instrument Serif',serif;font-size:clamp(3rem,5vw,4.5rem);line-height:1;letter-spacing:-.01em;color:var(--text)}
+.blog-stats{font-family:'Inter Tight',sans-serif;font-size:1rem;color:var(--text-2);margin-top:14px}
+.blog-search{display:flex;border:1px solid var(--border-strong);background:var(--bg-subtle)}
+.blog-search input{width:320px;padding:11px 14px;border:0;font-family:'Inter Tight',sans-serif;font-size:.88rem;background:transparent;outline:none}
+.blog-search button{background:var(--bg-dark);color:var(--text-on-dark);border:0;padding:0 18px;font-size:.85rem;cursor:pointer}
+
+.blog-filters{display:flex;justify-content:space-between;padding:14px 40px;border-bottom:1px solid var(--border);background:var(--bg-subtle);align-items:center}
+.bf-tabs{display:flex;gap:4px;align-items:center}
+.bf-label{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--text-3);letter-spacing:.1em;margin-right:12px;text-transform:uppercase}
+.bf-tab{font-family:'Inter Tight',sans-serif;font-size:.82rem;padding:7px 12px;border:1px solid var(--border-strong);color:var(--text-2);cursor:pointer;text-decoration:none}
+.bf-tab .cnt{margin-left:6px;color:var(--text-3);font-size:.72rem}
+.bf-tab.active{background:var(--bg-dark);color:var(--text-on-dark);border:0}
+.bf-tab.active .cnt{color:#9DA9A0}
+.bf-sort{display:flex;gap:14px;font-family:'Inter Tight',sans-serif;font-size:.82rem;color:var(--text-2)}
+.bf-sort .lbl{color:var(--text-3)}
+
+.blog-hero{padding:32px 40px 0}
+.blog-hero-grid{display:grid;grid-template-columns:2fr 1fr;gap:32px;margin-bottom:50px}
+.bh-main{background:var(--bg-dark);color:var(--text-on-dark);padding:32px;position:relative;overflow:hidden;min-height:360px;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px;display:flex;flex-direction:column;justify-content:space-between}
+.bh-main-letter{position:absolute;right:-10px;bottom:-40px;font-family:'Bebas Neue',sans-serif;font-size:18rem;line-height:.85;color:rgba(255,255,255,.06);letter-spacing:-.02em}
+.bh-main-row{position:relative;z-index:2;display:flex;justify-content:space-between}
+.bh-pill{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.06em;color:var(--accent);font-weight:600}
+.bh-date{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#C2BCAC}
+.bh-title{position:relative;z-index:2;font-family:'Instrument Serif',serif;font-size:clamp(1.8rem,3.5vw,3rem);line-height:1.05;color:var(--text-on-dark);letter-spacing:-.01em;margin-bottom:18px}
+.bh-meta{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center}
+.bh-author{font-family:'Inter Tight',sans-serif;font-size:.82rem;color:#C2BCAC}
+
+.bh-side{display:flex;flex-direction:column;gap:14px}
+.bh-side-card{flex:1;background:var(--bg-subtle);border:1px solid var(--border);padding:22px;display:flex;flex-direction:column;justify-content:space-between}
+.bh-side-row{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.7rem}
+.bh-side-cat{color:var(--accent);font-weight:600;letter-spacing:.06em}
+.bh-side-date{color:var(--text-3)}
+.bh-side-title{font-family:'Instrument Serif',serif;font-size:1.55rem;line-height:1.2;color:var(--text);margin:14px 0}
+
+.archive-head{display:flex;justify-content:space-between;align-items:baseline;padding:0 40px 12px;border-bottom:2px solid var(--text)}
+.archive-h{font-family:'Instrument Serif',serif;font-size:2rem;color:var(--text)}
+.archive-cnt{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text-3);letter-spacing:.04em}
+
+.archive-row{display:grid;grid-template-columns:120px 90px 1fr 160px 100px 30px;gap:24px;padding:22px 40px;border-bottom:1px solid var(--border);align-items:baseline}
+.archive-row:hover{background:var(--bg-subtle)}
+.ar-cat{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.06em;color:var(--accent);font-weight:600}
+.ar-date{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--text-3)}
+.ar-body .ar-title{font-family:'Instrument Serif',serif;font-size:1.45rem;line-height:1.2;margin-bottom:6px}
+.ar-body .ar-desc{font-family:'Inter Tight',sans-serif;font-size:.82rem;color:var(--text-2);line-height:1.5}
+.ar-author{font-family:'Inter Tight',sans-serif;font-size:.82rem;color:var(--text-2)}
+.ar-arrow{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--text-3);text-align:right}
+
+/* ════════════════════════════════════════════
+   ЭКРАН 3 — СТАТЬЯ
+════════════════════════════════════════════ */
+.reading-progress{position:fixed;top:40px;left:0;height:3px;background:var(--accent);z-index:99;width:38%;transition:width .1s linear}
+.article-screen{background:var(--bg)}
+
+.post-hero{display:grid;grid-template-columns:54fr 46fr;min-height:600px}
+.post-hero-vis{position:relative;overflow:hidden;background:var(--bg-dark);background-image:linear-gradient(135deg,#2a2620 0%,#1a1714 60%,#0e0c0a 100%)}
+.post-hero-stripe{position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 2px,transparent 2px 18px)}
+.post-hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.1) 30%,rgba(0,0,0,.6) 100%)}
+.post-hero-photo-stub{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-style:italic;font-size:1.3rem;color:#5a5249}
+.post-hero-content{position:relative;z-index:2;padding:36px;height:100%;display:flex;flex-direction:column;justify-content:space-between;color:var(--text-on-dark)}
+.ph-row{display:flex;justify-content:space-between;align-items:center}
+.ph-pill{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;color:var(--accent);font-weight:600;padding:6px 10px;border:1px solid var(--accent);background:rgba(0,0,0,.3)}
+.ph-mono{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#C9C3B8;font-weight:600}
+.ph-mono-key{display:block;font-size:.7rem;letter-spacing:.08em;color:#C9C3B8;line-height:1.7;margin-top:10px;font-family:'JetBrains Mono',monospace;max-width:420px}
+.ph-crumbs{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:#9A938A;letter-spacing:.04em}
+
+.post-hero-text{background:var(--bg);padding:40px 56px;display:flex;flex-direction:column;justify-content:space-between}
+.pht-row{display:flex;justify-content:space-between}
+.pht-mono{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text-2);letter-spacing:.04em}
+.pht-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,4.5vw,3.4rem);line-height:.96;letter-spacing:.005em;color:var(--text);margin:0;text-transform:uppercase;font-weight:400}
+.pht-lead{font-family:'Instrument Serif',serif;font-style:italic;font-size:1.18rem;color:var(--text-2);margin-top:18px;line-height:1.45}
+.pht-foot{border-top:1px solid var(--border-strong);padding-top:16px;display:flex;align-items:center;gap:12px}
+.pht-avatar{width:36px;height:36px;border-radius:50%;background:var(--bg-muted);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:.95rem;color:var(--text-3)}
+.pht-author{font-family:'Inter Tight',sans-serif;font-size:.82rem;color:var(--text-2);line-height:1.4}
+.pht-author strong{color:var(--text);font-weight:600}
+
+.share-strip{padding:14px 40px;border-bottom:1px solid var(--border);background:var(--bg-subtle);display:flex;justify-content:space-between;align-items:center;font-family:'Inter Tight',sans-serif;font-size:.78rem;color:var(--text-2)}
+.share-strip .gp{display:flex;gap:18px}
+.share-strip .gp .lbl{color:var(--text-3)}
+.share-strip .gp .acc{color:var(--accent)}
+
+.tldr-wrap{padding:28px 40px 0}
+.tldr{background:var(--bg-dark);color:var(--text-on-dark);padding:22px 26px;display:grid;grid-template-columns:160px 1fr 140px;gap:24px;align-items:center}
+.tldr-l .ey{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--accent);font-weight:600;letter-spacing:.1em}
+.tldr-l .num{font-family:'Bebas Neue',sans-serif;font-size:1.85rem;line-height:.9;letter-spacing:-.01em;margin-top:4px}
+.tldr-c{font-family:'Inter Tight',sans-serif;font-size:.92rem;line-height:1.6;color:#C9C3B8}
+.tldr-c strong{color:var(--text-on-dark)}
+.tldr-r{font-family:'Inter Tight',sans-serif;font-weight:600;font-size:.78rem;padding:11px 14px;background:transparent;color:var(--text-on-dark);border:1px solid var(--text-on-dark);text-decoration:none;text-align:center}
+
+.post-body{display:grid;grid-template-columns:28% 72%;margin-top:36px}
+.post-rail{padding:0 24px 0 40px}
+.partner{background:var(--bg-dark);color:var(--text-on-dark);padding:22px;position:relative;overflow:hidden;min-height:320px;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;display:flex;flex-direction:column;justify-content:space-between}
+.partner-letter{position:absolute;right:-8px;bottom:-30px;font-family:'Bebas Neue',sans-serif;font-size:8rem;line-height:.85;color:rgba(168,101,28,.18);letter-spacing:-.02em}
+.partner-ey{position:relative;z-index:2;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--accent);font-weight:600;padding:4px 8px;border:1px solid var(--accent);align-self:flex-start}
+.partner-bot{position:relative;z-index:2}
+.partner-h{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;line-height:.98;margin-bottom:10px;letter-spacing:-.01em}
+.partner-pitch{font-family:'Inter Tight',sans-serif;font-size:.76rem;color:#C9C3B8;line-height:1.55;margin-bottom:14px}
+.partner-cta{display:block;width:100%;text-align:center;font-family:'Inter Tight',sans-serif;font-weight:600;font-size:.78rem;padding:11px;background:var(--bg);color:var(--text);text-decoration:none}
+
+.toc{margin-top:24px}
+.toc-h{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--text-3);padding-bottom:8px;border-bottom:1px solid var(--border);margin-bottom:4px;text-transform:uppercase}
+.toc-row{display:grid;grid-template-columns:24px 1fr 36px;gap:8px;padding:10px 0;border-bottom:1px solid var(--border);font-size:.78rem;color:var(--text-2);line-height:1.4;align-items:baseline}
+.toc-row.active{font-weight:600;color:var(--text)}
+.toc-num{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text-3)}
+.toc-row.active .toc-num{color:var(--accent)}
+.toc-min{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text-3);text-align:right}
+
+.margin-note{margin-top:24px;padding:14px 0;border-top:2px solid var(--accent)}
+.mn-ey{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--accent);font-weight:600;letter-spacing:.1em}
+.mn-text{font-family:'Instrument Serif',serif;font-style:italic;font-size:.92rem;line-height:1.5;color:var(--text-2);margin-top:8px}
+
+.post-content{padding:0 64px 0 24px}
+.prose{max-width:720px}
+.prose .lead{font-family:'Instrument Serif',serif;font-size:1.32rem;line-height:1.5;color:var(--text);margin-bottom:20px}
+.prose p{font-family:'Inter Tight',sans-serif;font-size:1rem;line-height:1.7;color:var(--text-2);margin-bottom:16px}
+.prose h2{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:1;letter-spacing:-.005em;margin:36px 0 14px;color:var(--text);font-weight:400;text-transform:uppercase}
+.prose h2 .h2-num{color:var(--accent);margin-right:12px}
+.prose ul{margin:18px 0 24px;border-top:1px solid var(--border-strong)}
+.prose ul li{display:grid;grid-template-columns:20px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-strong);font-size:1rem;color:var(--text-2);line-height:1.55;list-style:none}
+.prose ul li::before{content:'—';color:var(--accent);font-weight:600}
+
+.stat-block{display:grid;grid-template-columns:repeat(3,1fr);margin:32px 0;border:1px solid var(--border-strong);border-right:0}
+.stat{padding:20px 22px;border-right:1px solid var(--border-strong)}
+.stat.dark{background:var(--bg-dark);color:var(--text-on-dark)}
+.stat-key{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:.95;letter-spacing:-.015em;color:var(--text)}
+.stat.dark .stat-key{color:var(--accent)}
+.stat-v{font-family:'Inter Tight',sans-serif;font-size:.85rem;line-height:1.4;margin-top:8px;color:var(--text-2)}
+.stat.dark .stat-v{color:var(--text-on-dark)}
+.stat-sub{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.06em;color:var(--text-3);margin-top:10px}
+
+.callout{display:grid;grid-template-columns:40px 1fr;gap:16px;padding:18px 22px;margin:28px 0;background:var(--accent-light);border-left:4px solid var(--accent)}
+.callout-mark{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--accent);line-height:.85}
+.callout-h{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--accent);font-weight:600;letter-spacing:.1em}
+.callout-text{font-family:'Inter Tight',sans-serif;font-size:.88rem;line-height:1.6;color:var(--text-2);margin-top:4px}
+
+.pullquote{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:28px 0;margin:24px 0;border-top:1px solid var(--border-strong);border-bottom:1px solid var(--border-strong)}
+.pq-avatar{width:100px;height:100px;border-radius:50%;background:var(--bg-muted);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-style:italic;font-size:2.2rem;color:var(--text-3)}
+.pq-text{font-family:'Instrument Serif',serif;font-style:italic;font-size:1.45rem;line-height:1.3;color:var(--text);margin-bottom:14px}
+.pq-author{font-family:'Inter Tight',sans-serif;font-size:.82rem;color:var(--text-2)}
+.pq-author strong{color:var(--text);font-weight:600}
+
+.steps{margin:24px 0}
+.step{display:grid;grid-template-columns:72px 1fr;gap:22px;padding:18px 0;border-top:1px solid var(--border-strong)}
+.step-n{font-family:'Bebas Neue',sans-serif;font-size:3.4rem;line-height:.85;color:var(--accent);opacity:.7;letter-spacing:-.01em}
+.step-t{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;line-height:1;letter-spacing:-.005em;margin-bottom:8px}
+.step-d{font-family:'Inter Tight',sans-serif;font-size:.88rem;line-height:1.65;color:var(--text-2)}
+
+.tbl-label{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--text-3);margin-top:32px;margin-bottom:10px}
+.prose table{width:100%;border-collapse:collapse;font-family:'Inter Tight',sans-serif}
+.prose thead tr{border-bottom:2px solid var(--text)}
+.prose th{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.08em;color:var(--text-3);text-align:left;padding:10px 12px 10px 0;font-weight:600}
+.prose tbody tr{border-bottom:1px solid var(--border-strong)}
+.prose tbody tr:nth-child(even){background:var(--bg-muted)}
+.prose td{padding:12px 12px 12px 0;font-size:.88rem;color:var(--text-2)}
+.prose td:first-child{color:var(--text);font-weight:600}
+
+.faq{margin:24px 0;border:1px solid var(--border-strong)}
+.faq-h{background:var(--bg-dark);color:var(--text-on-dark);padding:12px 18px;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--accent);font-weight:600;letter-spacing:.1em}
+.faq-item{padding:16px 18px;border-top:1px solid var(--border);background:var(--bg-subtle)}
+.faq-q{font-family:'Inter Tight',sans-serif;font-size:.88rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.faq-a{font-family:'Inter Tight',sans-serif;font-size:.88rem;color:var(--text-2);line-height:1.6}
+
+.checklist{margin:20px 0 28px;padding:24px;background:var(--bg-subtle);border:2px solid var(--text)}
+.cl-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.cl-h{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--accent);font-weight:600;letter-spacing:.1em}
+.cl-cnt{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--text-3)}
+.cl-row{display:grid;grid-template-columns:24px 28px 1fr;gap:8px;padding:11px 0;border-bottom:1px solid var(--border);font-family:'Inter Tight',sans-serif;font-size:.88rem;color:var(--text-2);line-height:1.5;align-items:center}
+.cl-row:last-child{border-bottom:0}
+.cl-box{width:16px;height:16px;border:1.5px solid var(--text);display:inline-block}
+.cl-num{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--accent);font-weight:600}
+
+.tag-line{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-top:1px solid var(--border-strong);border-bottom:1px solid var(--border-strong);margin:32px 0}
+.tag-pill{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text-2);padding:5px 10px;border:1px solid var(--border-strong)}
+.tag-pills{display:flex;gap:8px;flex-wrap:wrap}
+.tag-line .meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text-3)}
+
+.author-card{display:grid;grid-template-columns:80px 1fr 140px;gap:20px;padding:24px;background:var(--bg-subtle);border:1px solid var(--border-strong);align-items:center;margin-bottom:32px}
+.ac-avatar{width:72px;height:72px;border-radius:50%;background:var(--bg-muted);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:1.6rem;color:var(--text-3)}
+.ac-ey{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--accent);font-weight:600;letter-spacing:.1em}
+.ac-name{font-family:'Instrument Serif',serif;font-size:1.35rem;color:var(--text);margin:4px 0 6px}
+.ac-bio{font-family:'Inter Tight',sans-serif;font-size:.82rem;color:var(--text-2);line-height:1.5}
+.ac-bio .acc{color:var(--accent)}
+.ac-btn{font-family:'Inter Tight',sans-serif;font-weight:600;font-size:.78rem;padding:11px 14px;background:transparent;color:var(--text);border:1px solid var(--text);text-decoration:none;text-align:center}
+
+.related{padding:60px 40px 0;border-top:1px solid var(--border);margin-top:32px}
+.related-head{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:16px;border-bottom:2px solid var(--text);margin-bottom:28px}
+.related-head .l{display:flex;align-items:baseline;gap:16px}
+.related-h{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;line-height:.95;letter-spacing:-.005em}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.related-card{background:var(--bg-subtle);border:1px solid var(--border-strong)}
+.related-img{height:160px;background:var(--bg-muted);position:relative;border-bottom:1px solid var(--border-strong);background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.04) 0 2px,transparent 2px 14px)}
+.related-img-stub{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-style:italic;font-size:.9rem;color:var(--text-3)}
+.related-img-tag{position:absolute;top:12px;left:12px;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--accent);font-weight:600}
+.related-img-meta{position:absolute;top:12px;right:12px;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--text-3)}
+.related-body{padding:20px}
+.related-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;line-height:1;letter-spacing:-.005em;margin-bottom:10px;text-transform:uppercase}
+.related-desc{font-family:'Inter Tight',sans-serif;font-size:.82rem;color:var(--text-2);line-height:1.55;margin-bottom:14px}
+.related-author{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--text-3)}
+
+.disclaimer{margin-top:48px;padding-top:24px;border-top:1px solid var(--border);font-family:'Inter Tight',sans-serif;font-size:.85rem;font-style:italic;color:var(--text-3)}
+
+.back-to-top{position:fixed;right:28px;bottom:28px;width:44px;height:44px;background:var(--accent);color:var(--accent-fg);border:0;font-size:1.2rem;font-weight:800;cursor:pointer;z-index:60;display:flex;align-items:center;justify-content:center}
+
+@media (max-width: 900px){
+  .home-hero,.featured,.cats3,.newsletter{padding-left:20px;padding-right:20px}
+  .home-hero-grid,.featured-grid,.cats3-grid{grid-template-columns:1fr;gap:32px}
+  .post-hero{grid-template-columns:1fr}
+  .post-body{grid-template-columns:1fr;padding:0 20px}
+  .post-rail{padding:0 0 32px}
+  .post-content{padding:0}
+  .blog-hero-grid{grid-template-columns:1fr}
+  .archive-row{grid-template-columns:1fr;gap:6px}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:24px}
+}
+</style>
+</head>
+<body>
+
+<div class="sw">
+  <span class="sw-l">Макет:</span>
+  <a href="#" class="on" onclick="show('s1',this);return false">1 — Главная</a>
+  <a href="#" onclick="show('s2',this);return false">2 — Листинг /blog/</a>
+  <a href="#" onclick="show('s3',this);return false">3 — Статья</a>
+</div>
+<div class="spacer"></div>
+
+<!-- ════════════════════════════════════════════
+     ЭКРАН 1 — ГЛАВНАЯ
+════════════════════════════════════════════ -->
+<div id="s1" class="screen on">
+
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-name">ЭТИКЕТКА</span>
+      <span class="brand-mono">·медиа</span>
+    </div>
+    <nav class="site-nav">
+      <a href="#" class="active">Главная</a>
+      <a href="#">ТС ПИоТ</a>
+      <a href="#">Маркировка</a>
+      <a href="#">Законодательство</a>
+      <a href="#">Словарь</a>
+    </nav>
+    <div class="head-right">
+      <a href="#" class="head-search">⌕</a>
+      <a href="#" class="btn btn-primary" style="font-size:.75rem;padding:8px 14px">Подписаться</a>
+    </div>
+  </header>
+
+  <section class="home-hero">
+    <div class="home-hero-grid">
+      <div>
+        <div class="hh-eyebrow">МАЙ 2026 · РАЗРАБОТАНО ДЛЯ МСБ</div>
+        <h1 class="hh-title">Меньше шума.<br><em>Больше дела.</em></h1>
+        <p class="hh-lead">Информационный портал для предпринимателей: ТС ПИоТ, маркировка «Честный знак», изменения в законодательстве. Каждая статья — с указанием времени чтения. Прочитал — закрыл — пошёл работать.</p>
+      </div>
+      <div class="hh-side">
+        <div class="hh-side-h">Сегодня</div>
+        <div class="hh-side-list">
+          <div class="hh-side-item"><span class="hh-side-time">09:42</span><span class="hh-side-text">Обновили чек-лист по ТС ПИоТ</span></div>
+          <div class="hh-side-item"><span class="hh-side-time">08:15</span><span class="hh-side-text">Вышел разбор разрешительного режима</span></div>
+          <div class="hh-side-item"><span class="hh-side-time">вчера</span><span class="hh-side-text">Кейс розничного магазина в Туле</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured">
+    <div class="featured-inner">
+      <div class="featured-head">
+        <span class="eyebrow">★ ГЛАВНОЕ ЗА НЕДЕЛЮ</span>
+        <span class="read-badge">12 мин</span>
+      </div>
+      <div class="featured-grid">
+        <div>
+          <div class="feat-cat">ТС ПИоТ · 29 АПРЕЛЯ</div>
+          <h2 class="feat-title">ТС ПИоТ с 28 декабря 2025: кто обязан подключить и&nbsp;как</h2>
+          <p class="feat-lead">Разбираем, для кого обязателен программный модуль, как активировать через личный кабинет «Честного знака» и что грозит за нарушение после 01.07.2026.</p>
+          <a href="#" class="btn btn-primary">Читать материал →</a>
+        </div>
+        <div class="featured-vis">
+          <span class="featured-vis-date">28.12</span>
+          <span class="featured-vis-label">КЛЮЧЕВАЯ ДАТА</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cats3">
+    <div class="cats3-head">
+      <h2 class="cats3-h">Что мы пишем</h2>
+      <span class="eyebrow">// ОСНОВНЫЕ РАЗДЕЛЫ</span>
+    </div>
+    <div class="cats3-grid">
+      <div class="cat-col">
+        <div class="cat-col-head"><span class="cat-num">01</span><span class="cat-count">8 материалов</span></div>
+        <div class="cat-name">ТС ПИоТ</div>
+        <div class="cat-desc">Технические требования, активация, ОФД, штрафы за нарушение.</div>
+        <ul class="cat-list">
+          <li><span class="date">29 АПР · 12 МИН</span><span class="ttl">ТС ПИоТ с 28 декабря: кто обязан</span></li>
+          <li><span class="date">25 АПР · 8 МИН</span><span class="ttl">ОФД и ТС ПИоТ — в чём связь</span></li>
+        </ul>
+      </div>
+      <div class="cat-col">
+        <div class="cat-col-head"><span class="cat-num">02</span><span class="cat-count">12 материалов</span></div>
+        <div class="cat-name">Маркировка</div>
+        <div class="cat-desc">«Честный знак», категории товаров, разрешительный режим, штрафы.</div>
+        <ul class="cat-list">
+          <li><span class="date">27 АПР · 9 МИН</span><span class="ttl">Разрешительный режим: что изменилось</span></li>
+          <li><span class="date">21 АПР · 14 МИН</span><span class="ttl">Календарь маркировки 2026</span></li>
+        </ul>
+      </div>
+      <div class="cat-col">
+        <div class="cat-col-head"><span class="cat-num">03</span><span class="cat-count">6 материалов</span></div>
+        <div class="cat-name">Законы</div>
+        <div class="cat-desc">Налоги, ЕНС/ЕНП, ЭДО/КЭДО, проверки, трудовое право.</div>
+        <ul class="cat-list">
+          <li><span class="date">26 АПР · 6 МИН</span><span class="ttl">Штрафы за нарушение ККТ: таблица</span></li>
+          <li><span class="date">24 АПР · 11 МИН</span><span class="ttl">ЕНС, уведомления и дедлайны мая</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <div class="newsletter-box">
+      <div>
+        <div class="nl-eyebrow">// РАССЫЛКА</div>
+        <h3 class="nl-h">Одно письмо в&nbsp;четверг утром.</h3>
+        <p class="nl-text">Главное за неделю и чек-лист на следующую. Без воды и кликбейта.</p>
+      </div>
+      <div>
+        <div class="nl-form">
+          <input placeholder="email@вашбизнес.рф">
+          <button>Подписаться</button>
+        </div>
+        <div class="nl-foot">БЕЗ СПАМА · ОТПИСКА В ОДИН КЛИК</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer ft">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-logo">ЭТИКЕТКА</div>
+        <div class="ft-slogan">Информационный портал для малого и среднего бизнеса. Без рекламы под видом статей.</div>
+        <div class="ft-stamp">ЭТИКЕТКА · 2026</div>
+      </div>
+      <div>
+        <span class="ft-h">Рубрики</span>
+        <ul><li><a href="#">ТС ПИоТ</a></li><li><a href="#">Маркировка</a></li><li><a href="#">Законодательство</a></li><li><a href="#">Словарь</a></li></ul>
+      </div>
+      <div>
+        <span class="ft-h">Инструменты</span>
+        <ul><li><a href="#">Калькулятор штрафов</a></li><li><a href="#">Календарь маркировки</a></li><li><a href="#">Поиск</a></li></ul>
+      </div>
+      <div>
+        <span class="ft-h">Редакция</span>
+        <ul><li><a href="#">О проекте</a></li><li><a href="#">Контакты</a></li><li><a href="#">RSS</a></li><li><a href="#">Конфиденциальность</a></li></ul>
+      </div>
+      <div>
+        <span class="ft-h">Рассылка</span>
+        <p class="ft-news-text">Раз в неделю — главное про бизнес и налоги.</p>
+        <div class="ft-news-form"><input placeholder="ваш email"><button>→</button></div>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span>© 2026 ЭТИКЕТКА</span>
+      <div class="row"><span>Telegram</span><span>VK</span><span>RSS</span><span>Конфиденциальность</span></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════
+     ЭКРАН 2 — ЛИСТИНГ
+════════════════════════════════════════════ -->
+<div id="s2" class="screen">
+
+  <header class="site-header">
+    <div class="brand"><span class="brand-name">ЭТИКЕТКА</span><span class="brand-mono">·медиа</span></div>
+    <nav class="site-nav">
+      <a href="#">Главная</a>
+      <a href="#" class="active">ТС ПИоТ</a>
+      <a href="#">Маркировка</a>
+      <a href="#">Законодательство</a>
+      <a href="#">Словарь</a>
+    </nav>
+    <div class="head-right">
+      <a href="#" class="head-search">⌕</a>
+      <a href="#" class="btn btn-primary" style="font-size:.75rem;padding:8px 14px">Подписаться</a>
+    </div>
+  </header>
+
+  <section class="blog-head">
+    <div class="blog-head-inner">
+      <div>
+        <div class="blog-crumbs">ГЛАВНАЯ / СТАТЬИ</div>
+        <h1 class="blog-h1">Все материалы</h1>
+        <div class="blog-stats">26 статей · 2.6 часов чтения · в&nbsp;среднем 6&nbsp;мин на материал</div>
+      </div>
+      <div class="blog-search">
+        <input placeholder="Что вы ищете?">
+        <button>⌕</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="blog-filters">
+    <div class="bf-tabs">
+      <span class="bf-label">РАЗДЕЛ</span>
+      <a href="#" class="bf-tab active">Все<span class="cnt">26</span></a>
+      <a href="#" class="bf-tab">ТС ПИоТ<span class="cnt">8</span></a>
+      <a href="#" class="bf-tab">Маркировка<span class="cnt">12</span></a>
+      <a href="#" class="bf-tab">Законодательство<span class="cnt">6</span></a>
+    </div>
+    <div class="bf-sort"><span class="lbl">Сорт:</span><span>Сначала новые ↓</span></div>
+  </div>
+
+  <section class="blog-hero">
+    <div class="blog-hero-grid">
+      <div class="bh-main">
+        <span class="bh-main-letter">ТС</span>
+        <div class="bh-main-row">
+          <span class="bh-pill">★ ГЛАВНОЕ · ТС ПИоТ</span>
+          <span class="bh-date">29 АПРЕЛЯ</span>
+        </div>
+        <div>
+          <h2 class="bh-title">ТС ПИоТ с 28 декабря 2025: кто обязан подключить и&nbsp;как</h2>
+          <div class="bh-meta">
+            <span class="bh-author">Ольга Кравец</span>
+            <span class="read-badge">12 мин</span>
+          </div>
+        </div>
+      </div>
+      <div class="bh-side">
+        <div class="bh-side-card">
+          <div class="bh-side-row">
+            <span class="bh-side-cat">МАРКИРОВКА</span>
+            <span class="bh-side-date">27 АПР</span>
+          </div>
+          <h3 class="bh-side-title">Разрешительный режим: что изменилось с апреля 2026</h3>
+          <span class="read-badge">9 мин</span>
+        </div>
+        <div class="bh-side-card">
+          <div class="bh-side-row">
+            <span class="bh-side-cat">ЗАКОНОДАТЕЛЬСТВО</span>
+            <span class="bh-side-date">26 АПР</span>
+          </div>
+          <h3 class="bh-side-title">Штрафы за нарушение ККТ: полная таблица КоАП РФ</h3>
+          <span class="read-badge">6 мин</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="archive-head">
+    <h2 class="archive-h">Архив — апрель 2026</h2>
+    <span class="archive-cnt">12 МАТЕРИАЛОВ</span>
+  </div>
+
+  <a href="#" class="archive-row" style="color:inherit">
+    <span class="ar-cat">ТС ПИоТ</span>
+    <span class="ar-date">25 АПР</span>
+    <div class="ar-body">
+      <div class="ar-title">ОФД и ТС ПИоТ — в чём связь и что проверить</div>
+      <div class="ar-desc">Как связаны оператор фискальных данных и программный модуль маркировки.</div>
+    </div>
+    <span class="ar-author">Ольга Кравец</span>
+    <span class="read-badge">8 мин</span>
+    <span class="ar-arrow">→</span>
+  </a>
+  <a href="#" class="archive-row" style="color:inherit">
+    <span class="ar-cat">МАРКИРОВКА</span>
+    <span class="ar-date">24 АПР</span>
+    <div class="ar-body">
+      <div class="ar-title">Календарь маркировки 2026: все даты по категориям</div>
+      <div class="ar-desc">Сроки введения по категориям товаров, разрешительный режим, дедлайны.</div>
+    </div>
+    <span class="ar-author">Редакция</span>
+    <span class="read-badge">14 мин</span>
+    <span class="ar-arrow">→</span>
+  </a>
+  <a href="#" class="archive-row" style="color:inherit">
+    <span class="ar-cat">МАРКИРОВКА</span>
+    <span class="ar-date">23 АПР</span>
+    <div class="ar-body">
+      <div class="ar-title">Счёт-фактура без НДС при УСН: нужен ли в 2026</div>
+      <div class="ar-desc">Когда ИП на упрощёнке всё-таки обязан её выставить.</div>
+    </div>
+    <span class="ar-author">О. Кравец</span>
+    <span class="read-badge">8 мин</span>
+    <span class="ar-arrow">→</span>
+  </a>
+  <a href="#" class="archive-row" style="color:inherit">
+    <span class="ar-cat">ЗАКОНОДАТЕЛЬСТВО</span>
+    <span class="ar-date">22 АПР</span>
+    <div class="ar-body">
+      <div class="ar-title">ЕНС, уведомления и дедлайны в мае 2026</div>
+      <div class="ar-desc">Как не пропустить платежи и что проверить в личном кабинете.</div>
+    </div>
+    <span class="ar-author">И. Сухой</span>
+    <span class="read-badge">11 мин</span>
+    <span class="ar-arrow">→</span>
+  </a>
+  <a href="#" class="archive-row" style="color:inherit">
+    <span class="ar-cat">МАРКИРОВКА</span>
+    <span class="ar-date">21 АПР</span>
+    <div class="ar-body">
+      <div class="ar-title">Маркировка пива в рознице: настроить до 01.03</div>
+      <div class="ar-desc">Что должна сделать торговая точка для подключения учёта пива.</div>
+    </div>
+    <span class="ar-author">Редакция</span>
+    <span class="read-badge">9 мин</span>
+    <span class="ar-arrow">→</span>
+  </a>
+
+  <footer class="site-footer ft">
+    <div class="ft-grid">
+      <div><div class="ft-logo">ЭТИКЕТКА</div><div class="ft-slogan">Информационный портал для малого и среднего бизнеса.</div><div class="ft-stamp">ЭТИКЕТКА · 2026</div></div>
+      <div><span class="ft-h">Рубрики</span><ul><li><a>ТС ПИоТ</a></li><li><a>Маркировка</a></li><li><a>Законы</a></li></ul></div>
+      <div><span class="ft-h">Инструменты</span><ul><li><a>Калькулятор</a></li><li><a>Календарь</a></li></ul></div>
+      <div><span class="ft-h">Редакция</span><ul><li><a>О проекте</a></li><li><a>Контакты</a></li></ul></div>
+      <div><span class="ft-h">Рассылка</span><div class="ft-news-form"><input placeholder="email"><button>→</button></div></div>
+    </div>
+    <div class="ft-bottom"><span>© 2026 ЭТИКЕТКА</span><div class="row"><span>Telegram</span><span>VK</span><span>RSS</span></div></div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════
+     ЭКРАН 3 — СТАТЬЯ
+════════════════════════════════════════════ -->
+<div id="s3" class="screen article-screen">
+  <div class="reading-progress"></div>
+
+  <header class="site-header">
+    <div class="brand"><span class="brand-name">ЭТИКЕТКА</span><span class="brand-mono">·медиа</span></div>
+    <nav class="site-nav">
+      <a href="#">Главная</a>
+      <a href="#" class="active">ТС ПИоТ</a>
+      <a href="#">Маркировка</a>
+      <a href="#">Законодательство</a>
+      <a href="#">Словарь</a>
+    </nav>
+    <div class="head-right">
+      <a href="#" class="head-search">⌕</a>
+      <a href="#" class="btn btn-primary" style="font-size:.75rem;padding:8px 14px">Подписаться</a>
+    </div>
+  </header>
+
+  <section class="post-hero">
+    <div class="post-hero-vis">
+      <div class="post-hero-stripe"></div>
+      <div class="post-hero-photo-stub">фото · документы и онлайн-касса в магазине</div>
+      <div class="post-hero-overlay"></div>
+      <div class="post-hero-content">
+        <div class="ph-row">
+          <span class="ph-pill">● ТС ПИоТ</span>
+          <span class="ph-mono">ВЫПУСК · 29 АПР 2026</span>
+        </div>
+        <div>
+          <span class="eyebrow eyebrow--accent">ГЛАВНОЕ ЗА НЕДЕЛЮ</span>
+          <span class="ph-mono-key">28.12.2025 — СТАРТ / 01.07.2026 — ШТРАФЫ / ОФД И ЧЕСТНЫЙ ЗНАК / АКТИВАЦИЯ ЧЕРЕЗ ЛК</span>
+        </div>
+        <span class="ph-crumbs">ГЛАВНАЯ / СТАТЬИ / ТС ПИОТ · 29 АПРЕЛЯ 2026</span>
+      </div>
+    </div>
+    <div class="post-hero-text">
+      <div class="pht-row">
+        <span class="pht-mono">29 АПРЕЛЯ 2026 · ТС ПИоТ</span>
+        <span class="read-badge">12 мин чтения</span>
+      </div>
+      <div>
+        <h1 class="pht-h1">ТС ПИоТ с 28 декабря 2025: кто обязан подключить и&nbsp;как</h1>
+        <p class="pht-lead">Разбираем, для кого обязателен программный модуль, как активировать через личный кабинет «Честного знака» и&nbsp;что грозит за нарушение после 01.07.2026.</p>
+      </div>
+      <div class="pht-foot">
+        <div class="pht-avatar">ОК</div>
+        <div class="pht-author"><strong>Ольга Кравец</strong> · редактор<br><span style="color:var(--text-3);font-size:.78rem">Иллюстрации — Маша Долматова</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="share-strip">
+    <div class="gp"><span class="lbl">Поделиться:</span><span>Telegram</span><span>VK</span><span>Email</span><span>Скопировать ссылку</span></div>
+    <div class="gp"><span>♥ 247</span><span>↗ 32</span><span>⌘ Сохранить</span><span class="acc">A−  A+</span></div>
+  </div>
+
+  <div class="tldr-wrap">
+    <div class="tldr">
+      <div class="tldr-l">
+        <div class="ey">★ TL;DR</div>
+        <div class="num font-display">30 СЕКУНД</div>
+      </div>
+      <div class="tldr-c"><strong>С 28.12.2025</strong> ТС ПИоТ обязателен для розничных продавцов маркированных товаров. <strong>До 01.07.2026</strong> — переходный период без штрафов. <strong>После</strong> — от 10 000 ₽ для ИП по ст. 14.5 КоАП.</div>
+      <a href="#" class="tldr-r">Скачать PDF →</a>
+    </div>
+  </div>
+
+  <div class="post-body">
+    <aside class="post-rail">
+      <div class="partner">
+        <span class="partner-letter">К</span>
+        <span class="partner-ey">● ИНСТРУМЕНТ</span>
+        <div class="partner-bot">
+          <h3 class="partner-h">КАЛЬКУЛЯТОР ШТРАФОВ</h3>
+          <p class="partner-pitch">Подберите сценарий и узнайте сумму штрафа по КоАП за нарушение требований ТС ПИоТ и ККТ.</p>
+          <a href="#" class="partner-cta">Открыть калькулятор →</a>
+        </div>
+      </div>
+
+      <div class="toc">
+        <div class="toc-h">СОДЕРЖАНИЕ · 5 РАЗДЕЛОВ</div>
+        <div class="toc-row active"><span class="toc-num">01</span><span>Что такое ТС ПИоТ и зачем он нужен</span><span class="toc-min">3 мин</span></div>
+        <div class="toc-row"><span class="toc-num">02</span><span>Кто обязан подключить с 28.12.2025</span><span class="toc-min">2 мин</span></div>
+        <div class="toc-row"><span class="toc-num">03</span><span>Активация через «Честный знак»</span><span class="toc-min">4 мин</span></div>
+        <div class="toc-row"><span class="toc-num">04</span><span>Штрафы с 01.07.2026</span><span class="toc-min">2 мин</span></div>
+        <div class="toc-row"><span class="toc-num">05</span><span>Чек-лист готовности</span><span class="toc-min">1 мин</span></div>
+      </div>
+
+      <div class="margin-note">
+        <div class="mn-ey">NB · НА ПОЛЯХ</div>
+        <p class="mn-text">Материалы носят информационный характер; перед принятием решений сверяйтесь с действующей редакцией нормативных актов.</p>
+      </div>
+    </aside>
+
+    <div class="post-content">
+      <div class="prose">
+        <p class="lead">С 28 декабря 2025 года применение технического средства получения информации о&nbsp;товаре (ТС&nbsp;ПИоТ) стало обязательным для всех розничных продавцов, работающих с&nbsp;маркированными товарами через онлайн-кассу.</p>
+
+        <p>Мы собрали в один материал всё, что нужно знать предпринимателю: что это за модуль, кто обязан его подключить, как активировать через личный кабинет и какие штрафы грозят с&nbsp;01.07.2026.</p>
+
+        <div class="stat-block">
+          <div class="stat"><div class="stat-key">4.7 МЛН</div><div class="stat-v">розничных точек обязаны подключить ТС ПИоТ</div><div class="stat-sub">ОЦЕНКА «ЧЕСТНЫЙ ЗНАК», 2026</div></div>
+          <div class="stat dark"><div class="stat-key">28.12</div><div class="stat-v">старт обязательного применения модуля</div><div class="stat-sub">ПОСТАНОВЛЕНИЕ ПРАВИТЕЛЬСТВА</div></div>
+          <div class="stat"><div class="stat-key">01.07</div><div class="stat-v">конец переходного периода без штрафов</div><div class="stat-sub">2026</div></div>
+        </div>
+
+        <h2><span class="h2-num">01</span>ЧТО ТАКОЕ ТС ПИоТ</h2>
+        <p>ТС ПИоТ — программный модуль, который встраивается в кассовое программное обеспечение и&nbsp;передаёт в систему «Честный знак» коды маркировки при продаже. Технически это не отдельное устройство, а&nbsp;программное обновление существующей онлайн-кассы.</p>
+        <p>Модуль обеспечивает прямую защищённую связь с&nbsp;государственной информационной системой и&nbsp;блокирует продажу нелегальных или просроченных товаров в реальном времени.</p>
+
+        <div class="callout">
+          <div class="callout-mark">!</div>
+          <div>
+            <div class="callout-h">ВАЖНО</div>
+            <div class="callout-text">До 01.07.2026 действует переходный период — штрафы не начисляются, но использование ТС ПИоТ уже обязательно с декабря 2025 года.</div>
+          </div>
+        </div>
+
+        <h2><span class="h2-num">02</span>КТО ОБЯЗАН ПОДКЛЮЧИТЬ</h2>
+        <p>Требование распространяется на организации и ИП, которые одновременно реализуют маркированные товары в розницу, применяют контрольно-кассовую технику и работают в секторах с&nbsp;уже введённой обязательной маркировкой:</p>
+        <ul>
+          <li>Одежда и текстиль</li>
+          <li>Обувь</li>
+          <li>Молочная продукция</li>
+          <li>Безалкогольные напитки, пиво</li>
+          <li>Табак и никотиносодержащая продукция</li>
+        </ul>
+
+        <div class="pullquote">
+          <div class="pq-avatar">М</div>
+          <div>
+            <p class="pq-text">«Главная ошибка предпринимателей — думать, что можно успеть в&nbsp;последний день. Активация ТС&nbsp;ПИоТ через „Честный знак" занимает в&nbsp;среднем 3–5 рабочих дней с&nbsp;учётом проверок».</p>
+            <p class="pq-author"><strong>Михаил Реш</strong> · налоговый консультант, бывший инспектор ФНС</p>
+          </div>
+        </div>
+
+        <h2><span class="h2-num">03</span>АКТИВАЦИЯ ЧЕРЕЗ «ЧЕСТНЫЙ ЗНАК»</h2>
+        <p>Подключение проходит через личный кабинет в системе. Поддерживается ОФД-операторами «СБИС», «Контур.ОФД», «Такском» и большинством крупных производителей кассовых решений (Эвотор, Атол, Штрих-М).</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-n">01</div>
+            <div>
+              <div class="step-t">ВОЙДИТЕ В «ЧЕСТНЫЙ ЗНАК»</div>
+              <div class="step-d">Зайдите в личный кабинет на честныйзнак.рф под учётной записью организации с действующим УКЭП руководителя.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-n">02</div>
+            <div>
+              <div class="step-t">ПРИВЯЖИТЕ ККТ</div>
+              <div class="step-d">В разделе «Кассы» добавьте все онлайн-кассы организации. Каждый ФН должен быть зарегистрирован в ФНС.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-n">03</div>
+            <div>
+              <div class="step-t">АКТИВИРУЙТЕ МОДУЛЬ</div>
+              <div class="step-d">Запросите активацию ТС ПИоТ для каждой кассы. Система автоматически проверит совместимость и пришлёт инструкцию для прошивки.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tbl-label">ТАБЛ. 01 — ШТРАФЫ С 01.07.2026</div>
+        <table>
+          <thead><tr><th>СУБЪЕКТ</th><th>СУММА</th><th>ОСНОВАНИЕ</th></tr></thead>
+          <tbody>
+            <tr><td>ИП</td><td>10 000 — 30 000 ₽</td><td>ст. 14.5 ч. 4 КоАП</td></tr>
+            <tr><td>Организация</td><td>50 000 — 300 000 ₽</td><td>ст. 14.5 ч. 4 КоАП</td></tr>
+            <tr><td>Должностное лицо</td><td>10 000 — 30 000 ₽</td><td>ст. 14.5 ч. 4 КоАП</td></tr>
+          </tbody>
+        </table>
+
+        <div class="faq">
+          <div class="faq-h">FAQ · ЧАСТЫЕ ВОПРОСЫ</div>
+          <div class="faq-item">
+            <div class="faq-q">— Можно ли работать без обновления кассы до 01.07.2026?</div>
+            <div class="faq-a">Технически да — штрафы пока не начисляются. Но «Честный знак» уже фиксирует пропуски, а активация ближе к дедлайну рискует не успеть из-за очереди.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">— Что если ОФД не поддерживает ТС ПИоТ?</div>
+            <div class="faq-a">Сменить ОФД на поддерживающего. Список — в личном кабинете «Честного знака», обновляется ежемесячно.</div>
+          </div>
+        </div>
+
+        <h2><span class="h2-num">04</span>ЧЕК-ЛИСТ ГОТОВНОСТИ</h2>
+        <div class="checklist">
+          <div class="cl-head">
+            <span class="cl-h">★ ЧЕК-ЛИСТ · АПРЕЛЬ 2026</span>
+            <span class="cl-cnt">0 / 6</span>
+          </div>
+          <div class="cl-row"><span class="cl-box"></span><span class="cl-num">01</span><span>Проверить совместимость кассы с ТС ПИоТ у поставщика</span></div>
+          <div class="cl-row"><span class="cl-box"></span><span class="cl-num">02</span><span>Убедиться, что ОФД поддерживает модуль</span></div>
+          <div class="cl-row"><span class="cl-box"></span><span class="cl-num">03</span><span>Получить УКЭП для руководителя (если нет)</span></div>
+          <div class="cl-row"><span class="cl-box"></span><span class="cl-num">04</span><span>Зарегистрировать кассы в «Честном знаке»</span></div>
+          <div class="cl-row"><span class="cl-box"></span><span class="cl-num">05</span><span>Запросить активацию ТС ПИоТ на каждой ККТ</span></div>
+          <div class="cl-row"><span class="cl-box"></span><span class="cl-num">06</span><span>Протестировать продажу маркированного товара до 01.07</span></div>
+        </div>
+
+        <div class="tag-line">
+          <div class="tag-pills">
+            <span class="tag-pill">#ТС-ПИОТ</span>
+            <span class="tag-pill">#МАРКИРОВКА</span>
+            <span class="tag-pill">#ЧЕСТНЫЙ-ЗНАК</span>
+            <span class="tag-pill">#ККТ</span>
+          </div>
+          <span class="meta">МАТЕРИАЛ ОБНОВЛЁН · 29 АПРЕЛЯ 2026</span>
+        </div>
+
+        <div class="author-card">
+          <div class="ac-avatar">ОК</div>
+          <div>
+            <div class="ac-ey">АВТОР</div>
+            <div class="ac-name">Ольга Кравец</div>
+            <div class="ac-bio">Редактор «Этикетки». Раньше — главный бухгалтер сети из 8&nbsp;кофеен в&nbsp;Перми. Пишет о&nbsp;требованиях, которые касаются МСБ. <span class="acc">23 материала →</span></div>
+          </div>
+          <a href="#" class="ac-btn">Подписаться</a>
+        </div>
+      </div>
+
+      <section class="related">
+        <div class="related-head">
+          <div class="l">
+            <span class="eyebrow">// ЧИТАТЬ ДАЛЬШЕ</span>
+            <span class="related-h">ПОХОЖИЕ МАТЕРИАЛЫ</span>
+          </div>
+          <a href="#" style="font-size:.82rem;color:var(--accent)">Все статьи о ТС ПИоТ →</a>
+        </div>
+        <div class="related-grid">
+          <div class="related-card">
+            <div class="related-img">
+              <span class="related-img-stub">фото · превью 1</span>
+              <span class="related-img-tag">#ТС-ПИОТ</span>
+              <span class="related-img-meta">25 АПР · 8 МИН</span>
+            </div>
+            <div class="related-body">
+              <div class="related-title">ОФД и ТС ПИоТ — в чём связь</div>
+              <div class="related-desc">Как связаны оператор фискальных данных и&nbsp;программный модуль маркировки.</div>
+              <div class="related-author">— Ольга Кравец</div>
+            </div>
+          </div>
+          <div class="related-card">
+            <div class="related-img">
+              <span class="related-img-stub">фото · превью 2</span>
+              <span class="related-img-tag">#МАРКИРОВКА</span>
+              <span class="related-img-meta">27 АПР · 9 МИН</span>
+            </div>
+            <div class="related-body">
+              <div class="related-title">Разрешительный режим: апрель 2026</div>
+              <div class="related-desc">Расширение списка товаров и новые требования к&nbsp;розничным продавцам.</div>
+              <div class="related-author">— Иван Сухой</div>
+            </div>
+          </div>
+          <div class="related-card">
+            <div class="related-img">
+              <span class="related-img-stub">фото · превью 3</span>
+              <span class="related-img-tag">#ЗАКОНЫ</span>
+              <span class="related-img-meta">26 АПР · 6 МИН</span>
+            </div>
+            <div class="related-body">
+              <div class="related-title">Штрафы за нарушение ККТ</div>
+              <div class="related-desc">Актуальные суммы по статьям 14.5 и&nbsp;15.12 КоАП.</div>
+              <div class="related-author">— Редакция</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <p class="disclaimer">Материалы носят информационный характер, не являются юридической или налоговой консультацией. Перед принятием решений сверяйтесь с&nbsp;действующей редакцией нормативных актов.</p>
+    </div>
+  </div>
+
+  <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <footer class="site-footer ft">
+    <div class="ft-grid">
+      <div><div class="ft-logo">ЭТИКЕТКА</div><div class="ft-slogan">Информационный портал для малого и среднего бизнеса. Без рекламы под видом статей.</div><div class="ft-stamp">ЭТИКЕТКА · 2026</div></div>
+      <div><span class="ft-h">Рубрики</span><ul><li><a>ТС ПИоТ</a></li><li><a>Маркировка</a></li><li><a>Законы</a></li></ul></div>
+      <div><span class="ft-h">Инструменты</span><ul><li><a>Калькулятор</a></li><li><a>Календарь</a></li></ul></div>
+      <div><span class="ft-h">Редакция</span><ul><li><a>О проекте</a></li><li><a>Контакты</a></li></ul></div>
+      <div><span class="ft-h">Рассылка</span><div class="ft-news-form"><input placeholder="email"><button>→</button></div></div>
+    </div>
+    <div class="ft-bottom"><span>© 2026 ЭТИКЕТКА</span><div class="row"><span>Telegram</span><span>VK</span><span>RSS</span></div></div>
+  </footer>
+</div>
+
+<script>
+function show(id, el){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.sw a').forEach(a=>a.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  el.classList.add('on');
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
