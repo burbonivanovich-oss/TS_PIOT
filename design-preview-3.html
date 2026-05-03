@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Preview 3 — Этикетка / Полный макет</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #EDE8DF; color: #111; }
+
+  /* ── Tabs ── */
+  .tabs { display: flex; gap: 0; border-bottom: 2px solid #111; background: #EDE8DF; position: sticky; top: 0; z-index: 50; }
+  .tab { padding: 14px 22px; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; border: none; background: none; font-family: inherit; color: #888; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .15s; }
+  .tab.active { color: #111; border-bottom-color: #E8175D; }
+  .tab:hover:not(.active) { color: #111; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── HEADER ── */
+  .header { height: 56px; background: #111; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: sticky; top: 42px; z-index: 40; }
+  .header-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: .06em; color: #EDE8DF; text-decoration: none; }
+  .header-logo span { color: #C8F500; }
+  .site-nav { display: flex; gap: 0; align-items: center; }
+  .site-nav a { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #aaa; text-decoration: none; padding: 0 16px; height: 56px; display: flex; align-items: center; white-space: nowrap; border-left: 1px solid rgba(255,255,255,.06); transition: color .15s, background .15s; }
+  .site-nav a:hover, .site-nav a.active { color: #EDE8DF; background: rgba(255,255,255,.05); }
+  .site-nav a.highlight { color: #C8F500; }
+  .header-search { background: none; border: none; color: #aaa; font-size: .75rem; cursor: pointer; padding: 0 12px; height: 56px; font-family: inherit; transition: color .15s; letter-spacing: .06em; }
+  .header-search:hover { color: #C8F500; }
+
+  /* ── PROGRESS BAR ── */
+  #rp-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: #E8175D; z-index: 200; transition: width .1s linear; }
+
+  /* ── HERO ── */
+  .art-hero { display: grid; grid-template-columns: 58fr 42fr; height: calc(100vh - 98px); min-height: 480px; }
+  .art-hero-img { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #111; }
+  .art-hero-cat { position: absolute; top: 20px; left: 20px; font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .3em .85em; z-index: 2; background: #E8175D; color: #fff; }
+  .art-hero-bg-letter { font-family: 'Bebas Neue', sans-serif; font-size: 22rem; color: #C8F500; opacity: .15; line-height: 1; letter-spacing: -.03em; pointer-events: none; user-select: none; }
+  .art-hero-info { padding: 32px 48px; display: flex; flex-direction: column; justify-content: space-between; background: #EDE8DF; overflow: auto; }
+  .art-hero-breadcrumbs { font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #aaa; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .art-hero-breadcrumbs a { color: #aaa; text-decoration: none; }
+  .art-hero-breadcrumbs a:hover { color: #111; }
+  .art-hero-breadcrumbs span { color: #ccc; }
+  .art-hero-top { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .art-updated-badge { background: #C8F500; color: #111; font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .2em .6em; }
+  .art-pubdate { color: #aaa; font-size: .72rem; }
+  .art-verified-badge { display: inline-flex; align-items: center; gap: 4px; font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: #111; padding: .25em .7em; }
+  .art-hero-hash { font-size: .75rem; font-weight: 700; letter-spacing: .08em; color: #E8175D; text-decoration: none; }
+  .art-h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; line-height: 1; letter-spacing: .02em; color: #111; text-transform: uppercase; margin: 0; }
+  .art-hero-bottom { border-top: 2px solid #111; padding-top: 20px; }
+  .art-lead { font-size: 1rem; color: #444; line-height: 1.65; font-style: italic; margin: 0; }
+
+  /* ── BODY GRID ── */
+  .art-body { display: grid; grid-template-columns: 28fr 72fr; }
+
+  /* ── SIDEBAR ── */
+  .art-sidebar { padding: 16px; }
+  .art-banner { position: sticky; top: calc(56px + 58px); background: #111; color: #fff; overflow: hidden; }
+  .art-banner-visual { width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #E8175D; }
+  .art-banner-big { font-family: 'Bebas Neue', sans-serif; font-size: 6rem; color: #fff; opacity: .18; line-height: 1; }
+  .art-banner-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #C8F500; display: block; padding: 14px 14px 6px; }
+  .art-banner-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; line-height: 1.05; letter-spacing: .03em; text-transform: uppercase; color: #fff; padding: 0 14px 8px; }
+  .art-banner-desc { font-size: .78rem; color: #8A8A8A; line-height: 1.5; padding: 0 14px 14px; }
+  .art-banner-cta { display: block; margin: 0 14px 14px; background: #E8175D; color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 10px 14px; text-decoration: none; text-align: center; transition: background .15s; }
+  .art-banner-cta:hover { background: #c50f4b; }
+
+  /* ── CONTENT ── */
+  .art-content { padding: 40px 48px 80px; border-left: 1px solid rgba(0,0,0,.08); min-height: 100vh; }
+  .art-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .tag-pill { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .3em .8em; background: #F6F4F0; color: #555; text-decoration: none; border: 1px solid rgba(0,0,0,.1); transition: all .15s; }
+  .tag-pill:hover { background: #111; color: #EDE8DF; border-color: #111; }
+
+  /* TOC */
+  .toc { border-left: 3px solid #E8175D; background: #F6F4F0; padding: 1rem 1.2rem; margin-bottom: 2rem; }
+  .toc summary { cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .06em; color: #111; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+  .toc summary::-webkit-details-marker { display: none; }
+  .toc summary::after { content: '▸'; font-size: .8rem; color: #E8175D; transition: transform .15s; }
+  .toc[open] summary::after { transform: rotate(90deg); }
+  .toc-list { margin: .8rem 0 0; padding-left: 1rem; list-style: none; }
+  .toc-item { margin-bottom: .35rem; line-height: 1.4; }
+  .toc-item a { color: #444; text-decoration: none; font-size: .88rem; }
+  .toc-item a:hover { color: #E8175D; }
+  .toc-depth-3 { padding-left: 1rem; }
+
+  /* PROSE */
+  .prose { font-size: 1rem; line-height: 1.75; color: #1a1a1a; }
+  .prose h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; letter-spacing: .03em; text-transform: uppercase; color: #111; margin: 2.2rem 0 .8rem; border-bottom: 2px solid #111; padding-bottom: 8px; }
+  .prose h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: .02em; text-transform: uppercase; color: #111; margin: 1.8rem 0 .5rem; }
+  .prose p { margin-bottom: 1.2rem; }
+  .prose ul, .prose ol { padding-left: 1.5rem; margin-bottom: 1.2rem; }
+  .prose li { margin-bottom: .4rem; }
+  .prose strong { font-weight: 700; }
+  .prose a { color: #E8175D; }
+  .prose blockquote { border-left: 3px solid #C8F500; background: #f9f6ef; padding: 1rem 1.4rem; margin: 1.5rem 0; font-style: italic; color: #444; }
+  .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: .9rem; }
+  .prose th { background: #111; color: #EDE8DF; font-family: 'Bebas Neue', sans-serif; letter-spacing: .06em; padding: 10px 14px; text-align: left; }
+  .prose td { padding: 9px 14px; border-bottom: 1px solid rgba(0,0,0,.08); }
+  .prose tr:hover td { background: #F6F4F0; }
+  .prose code { background: #F6F4F0; font-size: .85em; padding: .15em .4em; font-family: monospace; }
+
+  /* CHECKLIST */
+  .checklist { margin: 2rem 0; border-left: 3px solid #C8F500; background: #f4ffe6; padding: 1.2rem 1.4rem; }
+  .checklist-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: .03em; text-transform: uppercase; color: #111; margin: 0 0 1rem; }
+  .checklist-list { list-style: none; padding: 0; margin: 0; }
+  .checklist-item { margin-bottom: 8px; transition: opacity .2s; }
+  .checklist-item.done { opacity: .5; }
+  .checklist-label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+  .checklist-cb { margin-top: 3px; width: 16px; height: 16px; accent-color: #111; flex-shrink: 0; cursor: pointer; }
+  .checklist-text { font-size: .92rem; color: #222; line-height: 1.5; }
+  .checklist-item.done .checklist-text { text-decoration: line-through; color: #888; }
+  .checklist-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,.1); }
+  .checklist-progress { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #555; }
+  .checklist-reset { background: none; border: none; font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #888; cursor: pointer; padding: 0; font-family: inherit; }
+  .checklist-reset:hover { color: #E8175D; }
+
+  /* FAQ */
+  .faq { margin: 2.5rem 0; border-top: 2px solid #111; padding-top: 1.5rem; }
+  .faq-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: .03em; text-transform: uppercase; color: #111; margin: 0 0 1.2rem; }
+  .faq-list { border: 1px solid rgba(0,0,0,.1); }
+  .faq-item { border-bottom: 1px solid rgba(0,0,0,.08); }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; font-size: .95rem; font-weight: 600; color: #111; list-style: none; user-select: none; background: #fff; transition: background .15s; }
+  .faq-q::-webkit-details-marker { display: none; }
+  .faq-q:hover, .faq-item[open] .faq-q { background: #F6F4F0; }
+  .faq-num { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: .06em; color: #E8175D; flex-shrink: 0; line-height: 1; }
+  .faq-arrow { margin-left: auto; font-size: .75rem; color: #999; transition: transform .2s; flex-shrink: 0; }
+  .faq-item[open] .faq-arrow { transform: rotate(180deg); }
+  .faq-a { padding: 0 16px 16px calc(12px + 1rem + 12px); background: #fff; }
+  .faq-a p { font-size: .92rem; color: #444; line-height: 1.7; margin: 0; }
+
+  /* INLINE SUBSCRIBE */
+  .inline-subscribe { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 2.5rem 0; padding: 20px 24px; background: #111; color: #fff; flex-wrap: wrap; }
+  .inline-subscribe-text { flex: 1; min-width: 200px; }
+  .inline-subscribe-text strong { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: .03em; text-transform: uppercase; margin-bottom: 4px; }
+  .inline-subscribe-text p { font-size: .82rem; color: #8A8A8A; margin: 0; }
+  .inline-subscribe-form { display: flex; flex-shrink: 0; }
+  .subscribe-input { border: none; background: rgba(255,255,255,.08); color: #fff; padding: 9px 14px; font-size: .82rem; font-family: inherit; outline: none; width: 200px; }
+  .subscribe-input::placeholder { color: #555; }
+  .subscribe-btn { background: #E8175D; color: #fff; border: none; padding: 9px 16px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background .15s; }
+  .subscribe-btn:hover { background: #c50f4b; }
+
+  /* SHARE */
+  .art-share { display: flex; align-items: center; gap: 8px; padding: 1.2rem 0; border-top: 1px solid rgba(0,0,0,.1); border-bottom: 1px solid rgba(0,0,0,.1); }
+  .share-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #888; margin-right: 4px; }
+  .share-btn { display: inline-block; padding: 6px 14px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; background: #111; color: #EDE8DF; transition: background .15s; }
+  .share-btn:hover { background: #E8175D; color: #fff; }
+
+  /* HELPFUL */
+  .helpful { display: flex; align-items: center; gap: 16px; margin: 1.5rem 0; padding: 16px 20px; background: #F6F4F0; flex-wrap: wrap; }
+  .helpful-label { font-size: .82rem; font-weight: 600; color: #555; }
+  .helpful-btns { display: flex; gap: 8px; }
+  .helpful-btn { background: none; border: 1px solid rgba(0,0,0,.15); padding: 6px 16px; font-size: .82rem; cursor: pointer; font-family: inherit; transition: all .15s; }
+  .helpful-btn:hover { background: #111; color: #EDE8DF; border-color: #111; }
+  .helpful-thanks { font-size: .82rem; color: #888; font-style: italic; display: none; }
+
+  /* RELATED */
+  .related { margin-top: 2.5rem; }
+  .related-eyebrow { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: .03em; color: #111; display: block; margin-bottom: 1rem; }
+  .related-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(0,0,0,.1); border: 1px solid rgba(0,0,0,.1); }
+  .related-card { background: #fff; }
+  .related-card:nth-child(1) { border-left: 4px solid #111; }
+  .related-card:nth-child(2) { border-left: 4px solid #E8175D; }
+  .related-card:nth-child(3) { border-left: 4px solid #C8F500; }
+  .related-card a { display: block; padding: 1rem 1rem 1rem .9rem; text-decoration: none; height: 100%; transition: background .15s; }
+  .related-card a:hover { background: #F6F4F0; }
+  .related-cat { display: block; font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #888; margin-bottom: 6px; }
+  .related-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: .02em; color: #111; margin: 0 0 6px; line-height: 1.2; text-transform: uppercase; }
+  .related-card p { font-size: .8rem; color: #666; margin: 0; line-height: 1.4; }
+
+  /* POST NAV */
+  .post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(0,0,0,.1); margin-top: 2rem; border: 1px solid rgba(0,0,0,.1); }
+  .post-nav-item { background: #fff; padding: 16px 20px; text-decoration: none; display: flex; flex-direction: column; gap: 6px; transition: background .15s; }
+  .post-nav-item:hover { background: #F6F4F0; }
+  .post-nav-next { text-align: right; }
+  .post-nav-dir { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #999; }
+  .post-nav-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .02em; text-transform: uppercase; color: #111; line-height: 1.1; }
+
+  /* CTA BLOCK */
+  .art-cta { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 2rem 0; padding: 20px 24px; border: 2px solid #111; flex-wrap: wrap; }
+  .art-cta-text { flex: 1; min-width: 180px; }
+  .art-cta-text strong { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: .03em; text-transform: uppercase; margin-bottom: 4px; }
+  .art-cta-text p { font-size: .82rem; color: #555; margin: 0; }
+  .art-cta-btn { background: #111; color: #EDE8DF; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 10px 20px; text-decoration: none; white-space: nowrap; flex-shrink: 0; transition: background .15s; }
+  .art-cta-btn:hover { background: #E8175D; color: #fff; }
+
+  /* DISCLAIMER */
+  .art-foot { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,.1); }
+  .disclaimer { font-size: .82rem; color: #999; font-style: italic; }
+
+  /* BACK TO TOP */
+  #back-to-top { position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px; background: #111; color: #EDE8DF; border: none; font-size: 1rem; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .2s, background .15s; z-index: 90; display: flex; align-items: center; justify-content: center; }
+  #back-to-top.visible { opacity: 1; pointer-events: auto; }
+  #back-to-top:hover { background: #E8175D; }
+
+  /* ── AUTHOR PAGE ── */
+  .static-page { max-width: 760px; margin: 0 auto; padding: 2rem 24px; }
+  .breadcrumbs { font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #999; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .breadcrumbs a { color: #999; text-decoration: none; }
+  .breadcrumbs a:hover { color: #111; }
+  .breadcrumbs span { color: #ccc; }
+  .lead-text { font-size: 1.1rem; color: #555; font-style: italic; margin-bottom: 1.5rem; }
+  .author-card { display: flex; align-items: center; gap: 20px; padding: 20px 24px; background: #111; color: #fff; margin-bottom: 2rem; }
+  .author-card-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .03em; text-transform: uppercase; color: #fff; margin-bottom: 4px; }
+  .author-card-role { font-size: .8rem; color: #8A8A8A; margin-bottom: 8px; }
+  .author-card-mail { font-size: .78rem; font-weight: 600; color: #C8F500; text-decoration: none; letter-spacing: .04em; }
+  .static-page h1 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: .03em; text-transform: uppercase; margin: 0 0 1rem; }
+  .static-page h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: .03em; text-transform: uppercase; margin: 2rem 0 .6rem; border-bottom: 2px solid #111; padding-bottom: 8px; }
+  .static-page ul, .static-page ol { padding-left: 1.4rem; margin-bottom: 1.2rem; }
+  .static-page li { margin-bottom: .5rem; font-size: .95rem; line-height: 1.6; }
+  .contact-form { margin-top: 1rem; display: flex; flex-direction: column; gap: 14px; }
+  .contact-field { display: flex; flex-direction: column; gap: 4px; }
+  .contact-field label { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #555; }
+  .contact-field input, .contact-field textarea { border: 1px solid rgba(0,0,0,.2); background: #fff; padding: 9px 12px; font-size: .9rem; font-family: inherit; color: #111; outline: none; transition: border-color .15s; resize: vertical; }
+  .contact-field input:focus, .contact-field textarea:focus { border-color: #111; }
+  .contact-submit { align-self: flex-start; background: #111; color: #EDE8DF; border: none; padding: 10px 24px; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; font-family: inherit; transition: background .15s; }
+  .contact-submit:hover { background: #E8175D; color: #fff; }
+  .disclaimer-note { font-size: .85rem; color: #666; background: #F6F4F0; padding: 14px 18px; border-left: 3px solid #888; margin: 1rem 0; }
+
+  /* ── FOOTER ── */
+  footer.site-footer { background: #111; color: #aaa; padding: 40px 24px 24px; margin-top: 0; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; max-width: 1200px; margin: 0 auto 32px; }
+  .footer-brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: .06em; color: #EDE8DF; margin-bottom: 8px; }
+  .footer-brand-name span { color: #C8F500; }
+  .footer-brand-desc { font-size: .82rem; color: #666; line-height: 1.6; max-width: 280px; }
+  .footer-col-title { font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #555; margin-bottom: 12px; }
+  .footer-col a { display: block; font-size: .82rem; color: #888; text-decoration: none; margin-bottom: 8px; transition: color .15s; }
+  .footer-col a:hover { color: #EDE8DF; }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.06); font-size: .75rem; color: #555; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; gap: 12px; }
+  .footer-bottom a { color: #555; text-decoration: none; }
+  .footer-bottom a:hover { color: #aaa; }
+
+  /* ── DESIGN TOKENS TABLE ── */
+  .tokens-table { max-width: 900px; margin: 32px auto; padding: 0 24px; }
+  .tokens-table h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: .03em; text-transform: uppercase; margin: 2rem 0 1rem; border-bottom: 2px solid #111; padding-bottom: 8px; }
+  .token-row { display: flex; align-items: center; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,.07); }
+  .token-swatch { width: 36px; height: 36px; border: 1px solid rgba(0,0,0,.1); flex-shrink: 0; }
+  .token-name { font-family: monospace; font-size: .9rem; font-weight: 700; color: #111; min-width: 120px; }
+  .token-hex { font-family: monospace; font-size: .85rem; color: #555; min-width: 90px; }
+  .token-usage { font-size: .82rem; color: #666; }
+  .comp-demo { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+  .comp-demo h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: .03em; text-transform: uppercase; margin: 2.5rem 0 1rem; border-bottom: 2px solid #111; padding-bottom: 8px; }
+  .comp-label { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #888; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div id="rp-bar"></div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="show('article')">Статья</button>
+  <button class="tab" onclick="show('avtor')">Редакция</button>
+  <button class="tab" onclick="show('components')">Компоненты</button>
+  <button class="tab" onclick="show('tokens')">Токены</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PANEL 1: ARTICLE
+════════════════════════════════════════════════ -->
+<div id="panel-article" class="panel active">
+
+  <!-- HEADER -->
+  <header class="header">
+    <a class="header-logo" href="#">Этикет<span>ка</span></a>
+    <nav class="site-nav">
+      <a href="#">Статьи</a>
+      <a href="#" class="active highlight">ТС ПИоТ</a>
+      <a href="#">Маркировка</a>
+      <a href="#">Законодательство</a>
+    </nav>
+    <button class="header-search">Поиск</button>
+  </header>
+
+  <article>
+    <!-- HERO -->
+    <section class="art-hero">
+      <div class="art-hero-img" style="background:#111">
+        <span class="art-hero-cat">ТС ПИоТ</span>
+        <span class="art-hero-bg-letter">ТС</span>
+      </div>
+      <div class="art-hero-info">
+        <nav class="art-hero-breadcrumbs">
+          <a href="#">Главная</a><span>/</span>
+          <a href="#">Статьи</a><span>/</span>
+          <a href="#">ТС ПИоТ</a>
+        </nav>
+        <div class="art-hero-top">
+          <span class="art-updated-badge">Актуально на 3 мая 2026</span>
+          <span class="art-pubdate">· опубл. 15 янв. 2026</span>
+          <span class="art-verified-badge">✓ Проверено</span>
+          <a class="art-hero-hash" href="#">#онлайн-касса</a>
+        </div>
+        <h1 class="art-h1">Что такое ТС ПИоТ и зачем он нужен предпринимателю</h1>
+        <div class="art-hero-bottom">
+          <p class="art-lead">Технический модуль для онлайн-кассы, который проверяет маркировку в реальном времени и блокирует продажу контрафакта. С 28 декабря 2025 года обязателен для всех касс с разрешительным режимом.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BODY GRID -->
+    <div class="art-body">
+
+      <!-- SIDEBAR -->
+      <aside class="art-sidebar">
+        <div class="art-banner">
+          <div class="art-banner-visual" style="background:#E8175D">
+            <span class="art-banner-big">ЭМ</span>
+          </div>
+          <span class="art-banner-eyebrow">Дайджест</span>
+          <div class="art-banner-title">Только важное — раз в две недели</div>
+          <p class="art-banner-desc">Изменения в законодательстве, новые требования к маркировке и ТС ПИоТ — коротко и по делу для вашего бизнеса.</p>
+          <a href="#" class="art-banner-cta">Подписаться →</a>
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+      <main class="art-content">
+
+        <div class="art-tags">
+          <a class="tag-pill" href="#">#онлайн-касса</a>
+          <a class="tag-pill" href="#">#честный знак</a>
+          <a class="tag-pill" href="#">#маркировка</a>
+          <a class="tag-pill" href="#">#штрафы</a>
+          <a class="tag-pill" href="#">#54-ФЗ</a>
+        </div>
+
+        <details class="toc" open>
+          <summary>Содержание</summary>
+          <nav>
+            <ol class="toc-list">
+              <li class="toc-item"><a href="#">Что такое ТС ПИоТ</a></li>
+              <li class="toc-item"><a href="#">Как это работает</a></li>
+              <li class="toc-item toc-depth-3"><a href="#">Шаги при сканировании</a></li>
+              <li class="toc-item"><a href="#">Когда подключение обязательно</a></li>
+              <li class="toc-item"><a href="#">Штрафы за нарушения</a></li>
+              <li class="toc-item"><a href="#">Чеклист готовности</a></li>
+              <li class="toc-item"><a href="#">Частые вопросы</a></li>
+            </ol>
+          </nav>
+        </details>
+
+        <div class="prose">
+          <h2>Что такое ТС ПИоТ</h2>
+          <p>ТС ПИоТ (техническое средство получения информации о товаре) — это программный модуль, интегрируемый в онлайн-кассу или фронтальную систему, который в момент продажи отправляет запрос в информационную систему «Честный знак» и получает разрешение либо запрет на реализацию конкретного экземпляра товара.</p>
+
+          <p>Нормативная основа — Федеральный закон от 29.12.2017 № 381-ФЗ «Об основах государственного регулирования торговой деятельности в Российской Федерации» с изменениями, внесёнными Федеральным законом от 26.07.2024 № 206-ФЗ.</p>
+
+          <h2>Как это работает</h2>
+          <p>При сканировании кода маркировки на кассе модуль ТС ПИоТ передаёт идентификатор товара оператору — ФГИС МДЛП или ФГИС «Честный знак» в зависимости от категории. Система проверяет статус кода: введён в оборот, выведен, похищен или просрочен.</p>
+
+          <blockquote>Если статус кода не позволяет продажу, касса обязана заблокировать операцию и вывести сообщение об ошибке. Это называется «разрешительный режим».</blockquote>
+
+          <h3>Шаги при сканировании</h3>
+          <ol>
+            <li>Кассир сканирует код маркировки на упаковке.</li>
+            <li>Касса через ТС ПИоТ отправляет запрос в «Честный знак».</li>
+            <li>«Честный знак» возвращает статус: <strong>«Продажа разрешена»</strong> или <strong>«Продажа запрещена»</strong>.</li>
+            <li>При запрете — касса блокирует позицию, кассир сообщает об ошибке покупателю.</li>
+          </ol>
+
+          <h2>Когда подключение обязательно</h2>
+          <table>
+            <thead>
+              <tr><th>Категория товаров</th><th>Срок введения разрешительного режима</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Табак, никотинсодержащая продукция</td><td>1 апреля 2024</td></tr>
+              <tr><td>Молочная продукция</td><td>1 сентября 2024</td></tr>
+              <tr><td>Вода питьевая (ёмкость ≥ 0,5 л)</td><td>1 ноября 2024</td></tr>
+              <tr><td>Прочие категории маркировки</td><td>28 декабря 2025</td></tr>
+            </tbody>
+          </table>
+
+          <h2>Штрафы за нарушения</h2>
+          <p>Работа без ТС ПИоТ при наличии обязанности приравнивается к неприменению ККТ. По ст. 14.5 КоАП РФ:</p>
+          <ul>
+            <li><strong>Должностное лицо</strong> — от 25% до 50% от суммы расчёта, но не менее 10 000 ₽.</li>
+            <li><strong>Организация</strong> — от 75% до 100% от суммы расчёта, но не менее 30 000 ₽.</li>
+          </ul>
+        </div>
+
+        <!-- CHECKLIST -->
+        <div class="checklist" data-checklist-id="ts-piot-demo">
+          <h3 class="checklist-title">Чеклист готовности к 28.12.2025</h3>
+          <ul class="checklist-list">
+            <li class="checklist-item">
+              <label class="checklist-label">
+                <input type="checkbox" class="checklist-cb" data-index="0" aria-label="Уточнить у производителя кассы">
+                <span class="checklist-text">Уточнить у производителя кассы: поддерживается ли ТС ПИоТ в текущей прошивке</span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label class="checklist-label">
+                <input type="checkbox" class="checklist-cb" data-index="1" aria-label="Обновить ПО">
+                <span class="checklist-text">Обновить кассовое ПО до версии с поддержкой ТС ПИоТ</span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label class="checklist-label">
+                <input type="checkbox" class="checklist-cb" data-index="2" aria-label="Зарегистрировать ТС ПИоТ">
+                <span class="checklist-text">Зарегистрировать ТС ПИоТ в личном кабинете «Честного знака»</span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label class="checklist-label">
+                <input type="checkbox" class="checklist-cb" data-index="3" aria-label="Проверить интернет-соединение">
+                <span class="checklist-text">Проверить стабильность интернет-соединения на кассовом узле</span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label class="checklist-label">
+                <input type="checkbox" class="checklist-cb" data-index="4" aria-label="Обучить персонал">
+                <span class="checklist-text">Обучить кассиров порядку действий при блокировке продажи</span>
+              </label>
+            </li>
+          </ul>
+          <div class="checklist-footer">
+            <span class="checklist-progress" id="cl-progress">0 / 5 выполнено</span>
+            <button class="checklist-reset" id="cl-reset" type="button">Сбросить</button>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="faq">
+          <h2 class="faq-title">Часто задаваемые вопросы</h2>
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary class="faq-q">
+                <span class="faq-num">01</span>
+                Нужно ли платить за подключение ТС ПИоТ?
+                <span class="faq-arrow">↓</span>
+              </summary>
+              <div class="faq-a"><p>Само программное обеспечение ТС ПИоТ предоставляется бесплатно через «Честный знак». Однако за обновление прошивки или интеграцию кассовый вендор может взять плату — уточняйте у своего поставщика.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">
+                <span class="faq-num">02</span>
+                Что делать, если интернет на кассе пропадёт?
+                <span class="faq-arrow">↓</span>
+              </summary>
+              <div class="faq-a"><p>При отсутствии соединения касса переходит в автономный режим: продажи маркированных товаров временно допустимы, но не более 30 дней подряд. Все транзакции записываются в буфер и передаются в «Честный знак» после восстановления связи.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">
+                <span class="faq-num">03</span>
+                Распространяется ли ТС ПИоТ на самозанятых?
+                <span class="faq-arrow">↓</span>
+              </summary>
+              <div class="faq-a"><p>Нет. Самозанятые не обязаны применять ККТ, поэтому требование по ТС ПИоТ на них не распространяется. Однако если самозанятый торгует маркированными товарами, он обязан передавать сведения через приложение «Честный знак» для самозанятых.</p></div>
+            </details>
+          </div>
+        </div>
+
+        <!-- INLINE SUBSCRIBE -->
+        <div class="inline-subscribe">
+          <div class="inline-subscribe-text">
+            <strong>Не пропустите следующий материал</strong>
+            <p>Дайджест раз в две недели: только важные изменения для МСБ.</p>
+          </div>
+          <form class="inline-subscribe-form" action="#" method="post">
+            <input type="email" class="subscribe-input" placeholder="ваш@email.ru" required>
+            <button type="submit" class="subscribe-btn">Подписаться</button>
+          </form>
+        </div>
+
+        <!-- SHARE -->
+        <div class="art-share">
+          <span class="share-label">Поделиться</span>
+          <a class="share-btn" href="#">Telegram</a>
+          <a class="share-btn" href="#">ВКонтакте</a>
+        </div>
+
+        <!-- HELPFUL -->
+        <div class="helpful" id="helpful-widget">
+          <span class="helpful-label">Была ли статья полезна?</span>
+          <div class="helpful-btns">
+            <button class="helpful-btn" id="helpful-yes">👍 Да</button>
+            <button class="helpful-btn" id="helpful-no">👎 Нет</button>
+          </div>
+          <span class="helpful-thanks" id="helpful-thanks">Спасибо за оценку!</span>
+        </div>
+
+        <!-- RELATED -->
+        <aside class="related">
+          <span class="related-eyebrow">Читайте также</span>
+          <ul class="related-list">
+            <li class="related-card">
+              <a href="#">
+                <span class="related-cat">ТС ПИоТ</span>
+                <h3>Как подключить ТС ПИоТ: пошаговая инструкция</h3>
+                <p>Регистрация в «Честном знаке», настройка кассы и проверка работы модуля.</p>
+              </a>
+            </li>
+            <li class="related-card">
+              <a href="#">
+                <span class="related-cat">Маркировка</span>
+                <h3>Разрешительный режим в 2026 году: что изменилось</h3>
+                <p>Новые категории товаров, сроки и штрафы за нарушения.</p>
+              </a>
+            </li>
+            <li class="related-card">
+              <a href="#">
+                <span class="related-cat">Законодательство</span>
+                <h3>Штрафы по ст. 14.5 КоАП: полный разбор</h3>
+                <p>Размеры, основания, сроки давности и практика проверок ФНС.</p>
+              </a>
+            </li>
+          </ul>
+        </aside>
+
+        <!-- POST NAV -->
+        <nav class="post-nav">
+          <a class="post-nav-item post-nav-prev" href="#">
+            <span class="post-nav-dir">← Предыдущая</span>
+            <span class="post-nav-title">ЕГАИС в 2026 году: что изменилось</span>
+          </a>
+          <a class="post-nav-item post-nav-next" href="#">
+            <span class="post-nav-dir">Следующая →</span>
+            <span class="post-nav-title">Маркировка молочки: последние изменения</span>
+          </a>
+        </nav>
+
+        <!-- CTA BLOCK -->
+        <div class="art-cta">
+          <div class="art-cta-text">
+            <strong>Остались вопросы?</strong>
+            <p>Если что-то неясно или вы нашли неточность — напишите редакции. Мы проверяем каждое сообщение.</p>
+          </div>
+          <a href="mailto:hello@etiketka.media" class="art-cta-btn">Написать →</a>
+        </div>
+
+        <footer class="art-foot">
+          <p class="disclaimer">Материал носит информационный характер и не является юридической или налоговой консультацией. Перед принятием решений сверяйтесь с действующей редакцией нормативных актов.</p>
+        </footer>
+      </main>
+    </div>
+  </article>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Этикет<span>ка</span></div>
+        <p class="footer-brand-desc">Медиа для предпринимателей: маркировка «Честный знак», ТС ПИоТ, кассы, штрафы, изменения в законодательстве.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Разделы</div>
+        <a href="#">Статьи</a>
+        <a href="#">ТС ПИоТ</a>
+        <a href="#">Маркировка</a>
+        <a href="#">Законодательство</a>
+        <a href="#">Словарь</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">О проекте</div>
+        <a href="#">О редакции</a>
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Калькулятор штрафов</a>
+        <a href="#">hello@etiketka.media</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Этикетка. Все права защищены.</span>
+      <div style="display:flex;gap:16px">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Правовая оговорка</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<button id="back-to-top" title="Наверх">↑</button>
+
+<!-- ═══════════════════════════════════════════════
+     PANEL 2: AUTHOR PAGE
+════════════════════════════════════════════════ -->
+<div id="panel-avtor" class="panel">
+  <header class="header">
+    <a class="header-logo" href="#">Этикет<span>ка</span></a>
+    <nav class="site-nav">
+      <a href="#">Статьи</a>
+      <a href="#">ТС ПИоТ</a>
+      <a href="#">Маркировка</a>
+      <a href="#">Законодательство</a>
+    </nav>
+    <button class="header-search">Поиск</button>
+  </header>
+
+  <main>
+    <article class="static-page">
+      <nav class="breadcrumbs">
+        <a href="#">Главная</a><span>›</span>
+        <a href="#">О проекте</a><span>›</span>
+        <span>Редакция</span>
+      </nav>
+
+      <div class="author-card">
+        <div style="flex-shrink:0">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="80" height="80">
+            <rect width="80" height="80" fill="#111"/>
+            <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+              font-family="'Bebas Neue', sans-serif" font-size="36" fill="#C8F500"
+              letter-spacing="2">ЭМ</text>
+          </svg>
+        </div>
+        <div>
+          <div class="author-card-name">Редакция «Этикетки»</div>
+          <div class="author-card-role">Медиа для малого и среднего бизнеса России</div>
+          <a class="author-card-mail" href="mailto:hello@etiketka.media">hello@etiketka.media</a>
+        </div>
+      </div>
+
+      <h1>О редакции</h1>
+      <p class="lead-text">Портал ведёт редакция, специализирующаяся на регуляторных требованиях для малого и среднего бизнеса в России: онлайн-кассы, маркировка, ЕГАИС, налоги.</p>
+
+      <h2>Область экспертизы</h2>
+      <ul>
+        <li><strong>ТС ПИоТ и онлайн-кассы (54-ФЗ).</strong> Подключение, настройка, штрафы, совместимость с производителями касс.</li>
+        <li><strong>Маркировка «Честный знак».</strong> Категории товаров, сроки введения, поэкземплярный учёт, разрешительный режим.</li>
+        <li><strong>ЕГАИС и оборот алкоголя.</strong> Розничный учёт, гашение ВСД, декларирование, штрафы по ст. 14.16 КоАП РФ.</li>
+        <li><strong>Меркурий / ВетИС.</strong> Ветеринарная сертификация продукции животноводства.</li>
+        <li><strong>Налоги и законодательство.</strong> УСН с НДС, ЕНС/ЕНП, ПСН, КЭДО, изменения для МСБ в 2025–2026 годах.</li>
+      </ul>
+
+      <h2>Принципы работы</h2>
+      <ol>
+        <li><strong>Только проверенные источники.</strong> Каждый факт, срок и сумма штрафа подкреплены ссылкой на нормативный акт или разъяснение ведомства.</li>
+        <li><strong>Актуальность.</strong> Материалы обновляются при изменении законодательства; дата последнего обновления указана в каждой статье.</li>
+        <li><strong>Конкретика.</strong> Мы пишем цифры, сроки и пошаговые действия, а не пересказываем закон общими словами.</li>
+        <li><strong>Без рекламы решений.</strong> Мы сравниваем технические параметры и сценарии, не продвигая конкретных вендоров.</li>
+      </ol>
+
+      <h2>Важная оговорка</h2>
+      <div class="disclaimer-note">
+        Материалы носят информационный характер и не являются индивидуальной юридической, налоговой или бухгалтерской консультацией. Перед принятием решений сверяйтесь с действующей редакцией нормативных актов.
+      </div>
+
+      <h2>Задать вопрос редакции</h2>
+      <p style="font-size:.95rem;color:#444;margin-bottom:1rem">Нашли ошибку, устаревшие данные или хотите предложить тему? Мы проверяем каждое сообщение.</p>
+      <form class="contact-form" action="#" onsubmit="return false">
+        <div class="contact-field">
+          <label for="cf-name">Ваше имя</label>
+          <input id="cf-name" name="name" type="text" placeholder="Иван Иванов" required>
+        </div>
+        <div class="contact-field">
+          <label for="cf-email">Email для ответа</label>
+          <input id="cf-email" name="email" type="email" placeholder="ivan@example.ru" required>
+        </div>
+        <div class="contact-field">
+          <label for="cf-msg">Сообщение</label>
+          <textarea id="cf-msg" name="body" rows="4" placeholder="Опишите вопрос или укажите, что нашли…" required></textarea>
+        </div>
+        <button type="submit" class="contact-submit">Отправить →</button>
+      </form>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom" style="max-width:760px;margin:0 auto">
+      <span>© 2026 Этикетка. Все права защищены.</span>
+      <a href="#">Политика конфиденциальности</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PANEL 3: COMPONENTS SHOWCASE
+════════════════════════════════════════════════ -->
+<div id="panel-components" class="panel">
+  <div class="comp-demo">
+    <h2 style="margin-top:2rem">FAQ.astro</h2>
+    <p style="font-size:.85rem;color:#666;margin-bottom:1.5rem">Аккордеон с FAQPage JSON-LD schema. Использование в MDX: <code style="background:#F6F4F0;padding:.15em .4em">&lt;FAQ items={[{q:'…', a:'…'}]} /&gt;</code></p>
+
+    <div class="faq" style="margin-top:0">
+      <h2 class="faq-title">Часто задаваемые вопросы</h2>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary class="faq-q"><span class="faq-num">01</span>Когда ТС ПИоТ стал обязательным?<span class="faq-arrow">↓</span></summary>
+          <div class="faq-a"><p>С 28 декабря 2025 года для всех товарных категорий, в которых введён разрешительный режим «Честного знака». Более ранние категории (табак, молочка, вода) перешли на обязательный режим в 2024 году.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q"><span class="faq-num">02</span>Нужен ли ТС ПИоТ при торговле без маркированных товаров?<span class="faq-arrow">↓</span></summary>
+          <div class="faq-a"><p>Нет. Требование распространяется только на кассы, обрабатывающие маркированные товары с разрешительным режимом. Если в вашем ассортименте нет таких позиций — ТС ПИоТ не нужен.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q"><span class="faq-num">03</span>Сколько стоит подключение?<span class="faq-arrow">↓</span></summary>
+          <div class="faq-a"><p>Само ПО ТС ПИоТ предоставляется «Честным знаком» бесплатно. Производители касс могут взимать плату за обновление прошивки или техническую поддержку при интеграции.</p></div>
+        </details>
+      </div>
+    </div>
+
+    <h2>Checklist.astro</h2>
+    <p style="font-size:.85rem;color:#666;margin-bottom:1.5rem">Интерактивный чеклист с сохранением состояния в localStorage. Использование: <code style="background:#F6F4F0;padding:.15em .4em">&lt;Checklist id="unique-id" title="…" items={[…]} /&gt;</code></p>
+
+    <div class="checklist" data-checklist-id="showcase">
+      <h3 class="checklist-title">Пример чеклиста</h3>
+      <ul class="checklist-list">
+        <li class="checklist-item"><label class="checklist-label"><input type="checkbox" class="checklist-cb" data-index="0"><span class="checklist-text">Первый пункт чеклиста</span></label></li>
+        <li class="checklist-item"><label class="checklist-label"><input type="checkbox" class="checklist-cb" data-index="1"><span class="checklist-text">Второй пункт — длинный текст, чтобы показать перенос строки и выравнивание чекбокса</span></label></li>
+        <li class="checklist-item"><label class="checklist-label"><input type="checkbox" class="checklist-cb" data-index="2"><span class="checklist-text">Третий пункт — отметьте, чтобы увидеть эффект зачёркивания</span></label></li>
+      </ul>
+      <div class="checklist-footer">
+        <span class="checklist-progress">0 / 3 выполнено</span>
+        <button class="checklist-reset" type="button">Сбросить</button>
+      </div>
+    </div>
+
+    <h2>Inline Subscribe</h2>
+    <div class="inline-subscribe" style="margin-top:0">
+      <div class="inline-subscribe-text">
+        <strong>Не пропустите следующий материал</strong>
+        <p>Дайджест раз в две недели: только важные изменения для МСБ.</p>
+      </div>
+      <form class="inline-subscribe-form" action="#" onsubmit="return false">
+        <input type="email" class="subscribe-input" placeholder="ваш@email.ru">
+        <button type="submit" class="subscribe-btn">Подписаться</button>
+      </form>
+    </div>
+
+    <h2>Share + Helpful</h2>
+    <div class="art-share" style="margin-top:1rem">
+      <span class="share-label">Поделиться</span>
+      <a class="share-btn" href="#">Telegram</a>
+      <a class="share-btn" href="#">ВКонтакте</a>
+    </div>
+    <div class="helpful" style="margin-top:8px">
+      <span class="helpful-label">Была ли статья полезна?</span>
+      <div class="helpful-btns">
+        <button class="helpful-btn">👍 Да</button>
+        <button class="helpful-btn">👎 Нет</button>
+      </div>
+    </div>
+
+    <h2>CTA Block</h2>
+    <div class="art-cta" style="margin-top:0">
+      <div class="art-cta-text">
+        <strong>Остались вопросы?</strong>
+        <p>Если что-то неясно или вы нашли неточность — напишите редакции.</p>
+      </div>
+      <a href="#" class="art-cta-btn">Написать →</a>
+    </div>
+
+    <h2>Badges</h2>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:.5rem">
+      <span class="art-updated-badge">Актуально на 3 мая 2026</span>
+      <span class="art-verified-badge">✓ Проверено</span>
+      <a class="art-hero-hash" href="#">#онлайн-касса</a>
+      <span class="tag-pill">#маркировка</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PANEL 4: DESIGN TOKENS
+════════════════════════════════════════════════ -->
+<div id="panel-tokens" class="panel">
+  <div class="tokens-table">
+    <h2>Цветовая палитра</h2>
+
+    <div class="token-row"><div class="token-swatch" style="background:#111"></div><span class="token-name">--dark</span><span class="token-hex">#111111</span><span class="token-usage">Header, footer, фон тёмных блоков, текст заголовков</span></div>
+    <div class="token-row"><div class="token-swatch" style="background:#E8175D"></div><span class="token-name">--pink</span><span class="token-hex">#E8175D</span><span class="token-usage">Акцент — кнопки hover, нумерация FAQ, TOC-граница, ошибки</span></div>
+    <div class="token-row"><div class="token-swatch" style="background:#C8F500"></div><span class="token-name">--lime</span><span class="token-hex">#C8F500</span><span class="token-usage">Лого-точка, badge «Актуально», чеклист, баннер eyebrow</span></div>
+    <div class="token-row"><div class="token-swatch" style="background:#EDE8DF;border:1px solid #ccc"></div><span class="token-name">--sand</span><span class="token-hex">#EDE8DF</span><span class="token-usage">Фон страницы, hero info panel, светлые кнопки</span></div>
+    <div class="token-row"><div class="token-swatch" style="background:#F6F4F0;border:1px solid #ccc"></div><span class="token-name">--sand-light</span><span class="token-hex">#F6F4F0</span><span class="token-usage">Hover-состояния, TOC background, «helpful» блок</span></div>
+    <div class="token-row"><div class="token-swatch" style="background:#ffffff;border:1px solid #ccc"></div><span class="token-name">--white</span><span class="token-hex">#FFFFFF</span><span class="token-usage">Фон карточек, FAQ items, prose область</span></div>
+
+    <h2>Категориальные акценты</h2>
+    <div class="token-row"><div class="token-swatch" style="background:#111"></div><span class="token-name">ts-piot</span><span class="token-hex">#111</span><span class="token-usage">Hero-фон, левый бордер related-card</span></div>
+    <div class="token-row"><div class="token-swatch" style="background:#E8175D"></div><span class="token-name">markirovka</span><span class="token-hex">#E8175D</span><span class="token-usage">Hero-фон, левый бордер related-card</span></div>
+    <div class="token-row"><div class="token-swatch" style="background:#C8F500"></div><span class="token-name">zakonodatelstvo</span><span class="token-hex">#C8F500</span><span class="token-usage">Hero-фон (текст #111), левый бордер related-card</span></div>
+
+    <h2>Типографика</h2>
+    <div style="margin-bottom:1.5rem">
+      <div style="margin-bottom:12px"><span style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:4px">Bebas Neue — заголовки</span>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.03em;line-height:1">ТС ПИоТ И ОНЛАЙН-КАССА</div></div>
+      <div style="margin-bottom:12px"><span style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:4px">Inter 400 — тело текста</span>
+        <div style="font-size:1rem;line-height:1.75;color:#1a1a1a;max-width:600px">Технический модуль для онлайн-кассы, который проверяет маркировку товара в реальном времени и передаёт результат оператору «Честного знака».</div></div>
+      <div style="margin-bottom:12px"><span style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:4px">Inter 700 — UI-подписи (caps)</span>
+        <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#555">Читайте также · Поделиться · Актуально на</div></div>
+    </div>
+
+    <h2>Пространство</h2>
+    <div style="font-size:.9rem;line-height:2;color:#444">
+      <div><code style="background:#F6F4F0;padding:.1em .4em">56px</code> — высота header</div>
+      <div><code style="background:#F6F4F0;padding:.1em .4em">calc(56px + 16px)</code> — sticky top для sidebar banner</div>
+      <div><code style="background:#F6F4F0;padding:.1em .4em">58fr / 42fr</code> — hero grid (image / text)</div>
+      <div><code style="background:#F6F4F0;padding:.1em .4em">28fr / 72fr</code> — body grid (sidebar / content)</div>
+      <div><code style="background:#F6F4F0;padding:.1em .4em">≤1024px</code> — sidebar скрывается</div>
+      <div><code style="background:#F6F4F0;padding:.1em .4em">≤820px</code> — hero стэкируется (1fr)</div>
+      <div><code style="background:#F6F4F0;padding:.1em .4em">≤560px</code> — уменьшение h1, паддингов</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── Tabs ── */
+  function show(id) {
+    document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['article','avtor','components','tokens'][i]===id));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    window.scrollTo({ top: 0 });
+  }
+
+  /* ── Reading Progress ── */
+  const bar = document.getElementById('rp-bar');
+  window.addEventListener('scroll', () => {
+    const s = document.documentElement.scrollTop;
+    const t = document.documentElement.scrollHeight - window.innerHeight;
+    if (bar) bar.style.width = t > 0 ? (s/t*100) + '%' : '0%';
+  }, { passive: true });
+
+  /* ── Back to top ── */
+  const btt = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => { if(btt) btt.classList.toggle('visible', window.scrollY > 400); }, { passive: true });
+  btt?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  /* ── Checklist ── */
+  document.querySelectorAll('[data-checklist-id]').forEach(el => {
+    const id = el.dataset.checklistId;
+    const key = 'checklist_' + id;
+    const cbs = el.querySelectorAll('.checklist-cb');
+    const progress = el.querySelector('.checklist-progress');
+    const reset = el.querySelector('.checklist-reset');
+    const saved = JSON.parse(localStorage.getItem(key) ?? '{}');
+
+    function updateProgress() {
+      let done = 0;
+      cbs.forEach((cb, i) => {
+        if (cb.checked) done++;
+        cb.closest('.checklist-item')?.classList.toggle('done', cb.checked);
+      });
+      if (progress) progress.textContent = done + ' / ' + cbs.length + ' выполнено';
+      if (id === 'ts-piot-demo') {
+        const p = document.getElementById('cl-progress');
+        if (p) p.textContent = done + ' / ' + cbs.length + ' выполнено';
+      }
+    }
+    cbs.forEach((cb, i) => {
+      cb.checked = !!saved[i];
+      cb.addEventListener('change', () => {
+        saved[i] = cb.checked;
+        localStorage.setItem(key, JSON.stringify(saved));
+        updateProgress();
+      });
+    });
+    reset?.addEventListener('click', () => {
+      cbs.forEach((cb, i) => { cb.checked = false; saved[i] = false; });
+      localStorage.setItem(key, JSON.stringify(saved));
+      updateProgress();
+    });
+    updateProgress();
+  });
+
+  /* ── Helpful widget ── */
+  const yBtn = document.getElementById('helpful-yes');
+  const nBtn = document.getElementById('helpful-no');
+  const thanks = document.getElementById('helpful-thanks');
+  [yBtn, nBtn].forEach(btn => {
+    btn?.addEventListener('click', () => {
+      document.querySelector('.helpful-btns')?.setAttribute('hidden','');
+      if (thanks) thanks.style.display = 'inline';
+    });
+  });
+</script>
+</body>
+</html>
