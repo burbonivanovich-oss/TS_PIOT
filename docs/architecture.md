@@ -42,7 +42,7 @@
 | `blog` | `src/content/blog/` | `/blog/<slug>/` | Статьи |
 | `pillars` | `src/content/pillars/` | внутри `/category/<slug>/` | Контент-блок и FAQ для категории |
 | `glossary` | `src/content/glossary/` | `/slovar/#<term-slug>` | Термины словаря |
-| `wiki` | `src/content/wiki/` | — | Редакционные заметки, контент-планы (не публикуются) |
+| `wiki` | `src/content/wiki/` | — | Редакционные заметки, контент-планы, социальные черновики (не публикуются) |
 
 ## Источники истины
 
