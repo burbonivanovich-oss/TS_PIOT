@@ -37,7 +37,7 @@ src/
 ├── consts.ts                   # SITE_TITLE, NAV_LINKS, CATEGORIES (источник истины)
 ├── content/
 │   ├── blog/                   # YYYY-MM-DD-slug.md — публикуемые статьи
-│   ├── pillars/                # ts-piot.md, markirovka.md, zakonodatelstvo.md
+│   ├── pillars/                # ts-piot.md, markirovka.md, zakonodatelstvo.md, kkt.md, egais.md
 │   ├── glossary/               # <term>.md — термины словаря
 │   └── wiki/                   # research, контент-планы, редакционные заметки
 ├── content.config.ts           # Схемы коллекций blog, pillars, glossary, wiki
@@ -53,7 +53,7 @@ src/
 │   ├── kalkulyator-shtrafov.astro  # калькулятор штрафов
 │   ├── og/[slug].png.ts        # автогенерация OG-картинок
 │   └── rss.xml.js
-├── styles/global.css           # Дизайн-токены --accent, --gray-*
+├── styles/global.css           # Дизайн-токены --pink, --lime, --sand, --dark и legacy --accent
 └── utils/
     ├── tags.ts                 # tagSlug, collectTags, pluralPosts
     └── glossary.ts             # termSlug, firstLetter, alphabetOrder
@@ -67,7 +67,7 @@ src/
 - **Внутренние ссылки:** минимум 3 на каждую статью.
 - **Tags:** 4–7 штук, лоркейс, по делу.
 - **Categories:** одна основная из `CATEGORIES` в `src/consts.ts` (`ts-piot`,
-  `markirovka`, `zakonodatelstvo`).
+  `markirovka`, `zakonodatelstvo`, `kkt`, `egais`).
 - **Источники:** факты, цифры и нормы — со ссылкой на первоисточник в драфте
   (НПА, разъяснения ведомств, «Честный знак»). Голословных утверждений быть
   не должно.
@@ -88,7 +88,7 @@ tags:
   - тег1
   - тег2
 categories:
-  - ts-piot   # или markirovka, zakonodatelstvo
+  - ts-piot   # или markirovka, zakonodatelstvo, kkt, egais
 draft: false
 seo:
   keywords:
