@@ -1,38 +1,65 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
-import BlogFilter from '../../components/BlogFilter';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { CATEGORIES } from '../../consts';
-import { collectTags } from '../../utils/tags';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const url = new URL(Astro.request.url);
+const activeCat = url.searchParams.get('cat') ?? 'all';
+
+const posts = activeCat === 'all'
+	? allPosts
+	: allPosts.filter((p) => (p.data.categories ?? []).includes(activeCat));
+
+const totalAll = allPosts.length;
+const counts: Record<string, number> = { all: totalAll, 'ts-piot': 0, 'markirovka': 0, 'zakonodatelstvo': 0 };
+for (const p of allPosts) {
+	for (const c of p.data.categories ?? []) {
+		if (c in counts) counts[c]++;
+	}
+}
+
+const parseReading = (rt?: string): number => {
+	if (!rt) return 6;
+	const m = /(\d+)/.exec(rt);
+	return m ? parseInt(m[1], 10) : 6;
+};
+
+const totalMinutes = allPosts.reduce((acc, p) => acc + parseReading(p.data.readingTime), 0);
+const avgMinutes = allPosts.length ? Math.round(totalMinutes / allPosts.length) : 0;
+const totalHours = Math.round(totalMinutes / 60);
 
 const pageTitle = 'Все статьи';
 const pageDescription =
 	'Архив материалов: ТС ПИоТ, маркировка «Честный знак», изменения в законодательстве для малого и среднего бизнеса.';
 
-const postData = posts.map((p) => ({
-	id: p.id,
-	title: p.data.title,
-	description: p.data.description,
-	pubDate: p.data.pubDate.toISOString(),
-	updatedDate: p.data.updatedDate?.toISOString(),
-	categories: p.data.categories ?? [],
-	tags: p.data.tags ?? [],
-	previewImage: p.data.previewImage,
-}));
+const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+const monthsCap = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+const fmtShortDate = (d: Date) => `${d.getDate()} ${months[d.getMonth()].slice(0, 3).toUpperCase()}`;
+const now = new Date();
+const archiveLabel = `Архив — ${monthsCap[now.getMonth()].toLowerCase()} ${now.getFullYear()}`;
 
-const allTags = Object.values(collectTags(posts))
-	.map((t) => t.name)
-	.sort((a, b) => a.localeCompare(b, 'ru'));
+const filterButtons = [
+	{ slug: 'all', label: 'Все', count: counts.all },
+	{ slug: 'ts-piot', label: CATEGORIES['ts-piot'].title, count: counts['ts-piot'] },
+	{ slug: 'markirovka', label: CATEGORIES['markirovka'].title, count: counts['markirovka'] },
+	{ slug: 'zakonodatelstvo', label: CATEGORIES['zakonodatelstvo'].title, count: counts['zakonodatelstvo'] },
+];
 
-const categoriesForFilter = Object.fromEntries(
-	Object.entries(CATEGORIES).map(([k, v]) => [k, { title: v.title }]),
-);
+const heroPost = posts[0];
+const heroSidePosts = posts.slice(1, 3);
+const archivePosts = posts.slice(3);
+
+const catTitle = (slug?: string) => slug && slug in CATEGORIES ? CATEGORIES[slug as keyof typeof CATEGORIES].title : '';
+
+const heroCatSlug = heroPost ? (heroPost.data.categories ?? [])[0] : undefined;
+const heroCatLabel = catTitle(heroCatSlug);
+const heroDecorLetters = heroCatSlug === 'ts-piot' ? 'ТС' : heroCatSlug === 'markirovka' ? 'МЗ' : heroCatSlug === 'zakonodatelstvo' ? 'НА' : '';
 ---
 
 <!doctype html>
@@ -43,32 +70,409 @@ const categoriesForFilter = Object.fromEntries(
 	<body>
 		<Header />
 		<main>
-			<header class="page-head">
-				<h1>{pageTitle}</h1>
-				<p>{pageDescription}</p>
-			</header>
+			{/* Page header */}
+			<section class="page-head">
+				<div class="page-head-inner">
+					<div>
+						<div class="eyebrow">ГЛАВНАЯ / СТАТЬИ</div>
+						<h1 class="page-title font-serif">Все материалы</h1>
+						<p class="page-meta">
+							{totalAll} статей · ~{totalHours} часов чтения · в среднем {avgMinutes} мин на материал
+						</p>
+					</div>
+					<form class="page-search" action="/search/" method="get">
+						<input name="q" placeholder="Что вы ищете?" aria-label="Поиск" />
+						<button type="submit" aria-label="Найти">⌕</button>
+					</form>
+				</div>
+			</section>
+
+			{/* Filters */}
+			<section class="filters">
+				<div class="filters-inner">
+					<div class="filters-list">
+						<span class="eyebrow filters-label">РАЗДЕЛ</span>
+						{filterButtons.map((f) => (
+							<a
+								href={f.slug === 'all' ? '/blog/' : `/blog/?cat=${f.slug}`}
+								class:list={['filter-btn', { 'is-active': activeCat === f.slug }]}
+							>
+								{f.label}
+								<span class="filter-count">{f.count}</span>
+							</a>
+						))}
+					</div>
+					<div class="filters-sort">
+						<span class="filters-sort-label">Сорт:</span>
+						<span class="filters-sort-val">Сначала новые ↓</span>
+					</div>
+				</div>
+			</section>
 
 			{posts.length === 0 ? (
-				<p>Материалы появятся в ближайшее время.</p>
+				<section class="empty">
+					<p>По выбранным фильтрам материалов нет.</p>
+				</section>
 			) : (
-				<BlogFilter
-					client:load
-					posts={postData}
-					categories={categoriesForFilter}
-					allTags={allTags}
-				/>
+				<>
+					{/* Hero block */}
+					{heroPost && (
+						<section class="hero-block">
+							<div class="hero-block-grid">
+								<a class="hero-main" href={`/blog/${heroPost.id}/`}>
+									<div class="hero-decor" aria-hidden="true">{heroDecorLetters}</div>
+									<div class="hero-top">
+										<span class="eyebrow eyebrow--accent">★ ГЛАВНОЕ · {heroCatLabel.toUpperCase()}</span>
+										<span class="hero-date">{fmtShortDate(heroPost.data.pubDate).toUpperCase()}</span>
+									</div>
+									<div class="hero-bottom">
+										<h2 class="hero-title font-serif">{heroPost.data.title}</h2>
+										<div class="hero-meta">
+											<span>{heroPost.data.author}</span>
+											{heroPost.data.readingTime && (
+												<span class="read-badge">{heroPost.data.readingTime}</span>
+											)}
+										</div>
+									</div>
+								</a>
+								<div class="hero-side">
+									{heroSidePosts.map((p) => {
+										const cs = (p.data.categories ?? [])[0];
+										return (
+											<a class="side-card" href={`/blog/${p.id}/`}>
+												<div class="side-top">
+													<span class="eyebrow eyebrow--accent">{catTitle(cs).toUpperCase()}</span>
+													<span class="side-date">{fmtShortDate(p.data.pubDate).toUpperCase()}</span>
+												</div>
+												<h3 class="side-title font-serif">{p.data.title}</h3>
+												{p.data.readingTime && (
+													<span class="read-badge">{p.data.readingTime}</span>
+												)}
+											</a>
+										);
+									})}
+								</div>
+							</div>
+						</section>
+					)}
+
+					{/* Archive */}
+					<section class="archive">
+						<div class="archive-head">
+							<h2 class="archive-title font-serif">{archiveLabel}</h2>
+							<span class="archive-count eyebrow">{posts.length} МАТЕРИАЛ{posts.length === 1 ? '' : posts.length < 5 ? 'А' : 'ОВ'}</span>
+						</div>
+						<div class="archive-list">
+							{archivePosts.map((p) => {
+								const cs = (p.data.categories ?? [])[0];
+								return (
+									<a class="archive-row" href={`/blog/${p.id}/`}>
+										<span class="ar-cat eyebrow eyebrow--accent">{catTitle(cs).toUpperCase()}</span>
+										<span class="ar-date">{fmtShortDate(p.data.pubDate).toUpperCase()}</span>
+										<div class="ar-body">
+											<div class="ar-title font-serif">{p.data.title}</div>
+											<div class="ar-desc">{p.data.description}</div>
+										</div>
+										<span class="ar-author">{p.data.author}</span>
+										<span class="ar-read">{p.data.readingTime ? <span class="read-badge">{p.data.readingTime}</span> : null}</span>
+										<span class="ar-arrow">→</span>
+									</a>
+								);
+							})}
+						</div>
+					</section>
+				</>
 			)}
 		</main>
 		<Footer />
 
 		<style>
+			main { max-width: 1440px; margin: 0 auto; }
+
 			.page-head {
-				padding: 2rem 0 1rem;
+				padding: 48px 40px 28px;
+				border-bottom: 1px solid var(--border);
 			}
-			.page-head p {
-				color: rgb(var(--gray-dark));
-				font-size: 1.05rem;
-				max-width: 720px;
+			.page-head-inner {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+				gap: 32px;
+				flex-wrap: wrap;
+			}
+			.page-title {
+				font-size: clamp(2.5rem, 6vw, 4.5rem);
+				line-height: 1;
+				letter-spacing: -0.015em;
+				margin: 14px 0 14px;
+				color: var(--text);
+				font-weight: 400;
+			}
+			.page-meta {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 16px;
+				color: var(--text-2);
+				margin: 0;
+			}
+			.page-search {
+				display: flex;
+				border: 1px solid var(--border-strong);
+				background: var(--bg-subtle);
+			}
+			.page-search input {
+				width: 280px;
+				padding: 11px 14px;
+				border: none;
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 14px;
+				background: transparent;
+				outline: none;
+				color: var(--text);
+			}
+			.page-search button {
+				background: var(--bg-dark);
+				color: var(--text-on-dark);
+				border: none;
+				padding: 0 18px;
+				cursor: pointer;
+				font-size: 16px;
+				font-family: 'JetBrains Mono', monospace;
+			}
+			.page-search button:hover { background: var(--accent); }
+
+			.filters {
+				padding: 14px 40px;
+				border-bottom: 1px solid var(--border);
+				background: var(--bg-subtle);
+			}
+			.filters-inner {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 16px;
+				flex-wrap: wrap;
+			}
+			.filters-list {
+				display: flex;
+				gap: 6px;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+			.filters-label { margin-right: 12px; }
+			.filter-btn {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 13px;
+				padding: 7px 12px;
+				border: 1px solid var(--border-strong);
+				background: transparent;
+				color: var(--text-2);
+				text-decoration: none;
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+			}
+			.filter-btn:hover { color: var(--text); border-color: var(--text); text-decoration: none; }
+			.filter-btn.is-active {
+				background: var(--bg-dark);
+				border-color: var(--bg-dark);
+				color: var(--text-on-dark);
+			}
+			.filter-count { font-size: 11px; color: var(--text-3); }
+			.filter-btn.is-active .filter-count { color: #9DA9A0; }
+			.filters-sort {
+				display: flex;
+				gap: 10px;
+				align-items: center;
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 13px;
+			}
+			.filters-sort-label { color: var(--text-3); }
+			.filters-sort-val { color: var(--text); font-weight: 600; }
+
+			/* Hero block */
+			.hero-block { padding: 32px 40px 0; }
+			.hero-block-grid {
+				display: grid;
+				grid-template-columns: 2fr 1fr;
+				gap: 32px;
+				margin-bottom: 50px;
+			}
+			.hero-main {
+				background: var(--bg-dark);
+				color: var(--text-on-dark);
+				padding: 32px;
+				position: relative;
+				overflow: hidden;
+				min-height: 360px;
+				background-image:
+					linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+					linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+				background-size: 32px 32px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				text-decoration: none;
+			}
+			.hero-main:hover { text-decoration: none; }
+			.hero-decor {
+				position: absolute;
+				right: -10px;
+				bottom: -40px;
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 280px;
+				color: rgba(255,255,255,0.06);
+				letter-spacing: -0.04em;
+				line-height: 0.85;
+				pointer-events: none;
+			}
+			.hero-top {
+				position: relative;
+				z-index: 2;
+				display: flex;
+				justify-content: space-between;
+			}
+			.hero-date {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 11px;
+				color: var(--border-strong);
+			}
+			.hero-bottom { position: relative; z-index: 2; }
+			.hero-title {
+				font-size: clamp(1.75rem, 3vw, 3rem);
+				line-height: 1.05;
+				letter-spacing: -0.015em;
+				color: var(--text-on-dark);
+				margin: 0 0 16px;
+				font-weight: 400;
+			}
+			.hero-meta {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 13px;
+				color: #C9C3B8;
+			}
+
+			.hero-side { display: flex; flex-direction: column; gap: 14px; }
+			.side-card {
+				flex: 1;
+				background: var(--bg-subtle);
+				border: 1px solid var(--border);
+				padding: 22px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				gap: 16px;
+				text-decoration: none;
+				color: var(--text);
+				min-height: 170px;
+			}
+			.side-card:hover { border-color: var(--text); text-decoration: none; }
+			.side-top {
+				display: flex;
+				justify-content: space-between;
+				font-size: 11px;
+			}
+			.side-date {
+				font-family: 'JetBrains Mono', monospace;
+				color: var(--text-3);
+			}
+			.side-title {
+				font-size: 22px;
+				line-height: 1.2;
+				color: var(--text);
+				margin: 0;
+				font-weight: 400;
+			}
+
+			/* Archive */
+			.archive { padding: 32px 40px 0; }
+			.archive-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				padding-bottom: 12px;
+				border-bottom: 2px solid var(--text);
+			}
+			.archive-title {
+				font-size: 32px;
+				color: var(--text);
+				margin: 0;
+				font-weight: 400;
+			}
+			.archive-list { display: flex; flex-direction: column; }
+			.archive-row {
+				display: grid;
+				grid-template-columns: 130px 90px 1fr 160px 100px 30px;
+				gap: 24px;
+				padding: 22px 0;
+				border-bottom: 1px solid var(--border);
+				align-items: baseline;
+				color: var(--text);
+				text-decoration: none;
+			}
+			.archive-row:hover { color: var(--accent); text-decoration: none; }
+			.archive-row:hover .ar-title { color: var(--accent); }
+			.ar-cat { white-space: nowrap; }
+			.ar-date {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 11px;
+				color: var(--text-3);
+			}
+			.ar-title {
+				font-size: 22px;
+				line-height: 1.2;
+				color: var(--text);
+				margin-bottom: 6px;
+				font-weight: 400;
+			}
+			.ar-desc {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 13px;
+				color: var(--text-2);
+				line-height: 1.5;
+			}
+			.ar-author {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 13px;
+				color: var(--text-2);
+			}
+			.ar-read { text-align: right; }
+			.ar-arrow {
+				font-family: 'Instrument Serif', Georgia, serif;
+				font-size: 22px;
+				color: var(--text-3);
+				text-align: right;
+			}
+
+			.empty {
+				padding: 80px 40px;
+				text-align: center;
+				color: var(--text-3);
+			}
+
+			@media (max-width: 900px) {
+				.page-head { padding: 28px 20px 18px; }
+				.page-head-inner { gap: 18px; }
+				.page-search { width: 100%; }
+				.page-search input { width: 100%; flex: 1; }
+				.filters { padding: 12px 20px; }
+				.hero-block { padding: 20px 20px 0; }
+				.hero-block-grid { grid-template-columns: 1fr; gap: 20px; }
+				.hero-decor { font-size: 180px; }
+				.archive { padding: 24px 20px 0; }
+				.archive-row {
+					grid-template-columns: 1fr 30px;
+					gap: 8px;
+					row-gap: 6px;
+				}
+				.archive-row .ar-cat { grid-row: 1; grid-column: 1; }
+				.archive-row .ar-date { grid-row: 1; grid-column: 1; justify-self: end; }
+				.archive-row .ar-body { grid-row: 2; grid-column: 1 / -1; }
+				.archive-row .ar-author { grid-row: 3; grid-column: 1; font-size: 12px; color: var(--text-3); }
+				.archive-row .ar-read { grid-row: 3; grid-column: 1 / -1; justify-self: end; }
+				.archive-row .ar-arrow { display: none; }
 			}
 		</style>
 	</body>

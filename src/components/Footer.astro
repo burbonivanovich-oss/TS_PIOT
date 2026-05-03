@@ -1,94 +1,145 @@
 ---
-import { SITE_TITLE, NAV_LINKS } from '../consts';
+import { SITE_TITLE, CATEGORIES } from '../consts';
 const today = new Date();
+const year = today.getFullYear();
+
+const rubrics = Object.entries(CATEGORIES).map(([slug, c]) => ({
+	href: `/category/${slug}/`,
+	label: c.title,
+}));
+
+const tools = [
+	{ href: '/kalkulyator-shtrafov/', label: 'Калькулятор штрафов' },
+	{ href: '/kalendar-markirovki/', label: 'Календарь маркировки' },
+	{ href: '/slovar/', label: 'Словарь' },
+	{ href: '/search/', label: 'Поиск' },
+	{ href: '/tags/', label: 'Все теги' },
+];
+
+const editorial = [
+	{ href: '/about/', label: 'О проекте' },
+	{ href: '/privacy/', label: 'Политика конфиденциальности' },
+	{ href: '/rss.xml', label: 'RSS-лента' },
+	{ href: '/blog/', label: 'Все статьи' },
+];
 ---
 
-<footer>
+<footer class="site-footer">
 	<div class="footer-inner">
-		<div class="footer-col footer-col--brand">
-			<a href="/" class="footer-brand">{SITE_TITLE}</a>
-			<p class="footer-desc">
-				Информационный портал для малого и среднего бизнеса. Разбираем требования
-				ТС ПИоТ, маркировки «Честный знак» и изменения в законодательстве простым
-				языком.
-			</p>
+		<div class="footer-grid">
+			<div class="footer-brand">
+				<div class="footer-logo">{SITE_TITLE}</div>
+				<p class="footer-slogan">
+					Независимое медиа для малого и среднего бизнеса. Разбираем требования, которые
+					касаются МСБ — без рекламы под видом статей.
+				</p>
+				<span class="footer-stamp">{SITE_TITLE.toUpperCase()} · {year}</span>
+			</div>
+
+			<div class="footer-col">
+				<span class="footer-heading">РУБРИКИ</span>
+				<ul>
+					{rubrics.map((it) => (
+						<li><a href={it.href}>{it.label}</a></li>
+					))}
+				</ul>
+			</div>
+
+			<div class="footer-col">
+				<span class="footer-heading">ИНСТРУМЕНТЫ</span>
+				<ul>
+					{tools.map((it) => (
+						<li><a href={it.href}>{it.label}</a></li>
+					))}
+				</ul>
+			</div>
+
+			<div class="footer-col">
+				<span class="footer-heading">РЕДАКЦИЯ</span>
+				<ul>
+					{editorial.map((it) => (
+						<li><a href={it.href}>{it.label}</a></li>
+					))}
+				</ul>
+			</div>
+
+			<div class="footer-col footer-newsletter">
+				<span class="footer-heading">РАССЫЛКА</span>
+				<p class="newsletter-copy">
+					Раз в неделю — главное про требования, дедлайны и штрафы для малого бизнеса.
+				</p>
+				<form class="newsletter-form" onsubmit="event.preventDefault();">
+					<input type="email" placeholder="ваш email" aria-label="Email" />
+					<button type="submit" aria-label="Подписаться">→</button>
+				</form>
+			</div>
 		</div>
-		<div class="footer-col">
-			<p class="footer-heading">Разделы</p>
-			<ul>
-				{NAV_LINKS.filter((l) => l.href !== '/').map((link) => (
-					<li><a href={link.href}>{link.label}</a></li>
-				))}
-				<li><a href="/rss.xml">RSS-лента</a></li>
-			</ul>
+
+		<div class="footer-bottom">
+			<span>© {year} {SITE_TITLE}. Информационный материал, не юридическая консультация.</span>
+			<div class="footer-links">
+				<a href="/rss.xml">RSS</a>
+				<a href="/about/">О проекте</a>
+				<a href="/privacy/">Политика</a>
+			</div>
 		</div>
-		<div class="footer-col">
-			<p class="footer-heading">Инструменты</p>
-			<ul>
-				<li><a href="/kalkulyator-shtrafov/">Калькулятор штрафов</a></li>
-				<li><a href="/kalendar-markirovki/">Календарь маркировки</a></li>
-				<li><a href="/slovar/">Словарь терминов</a></li>
-				<li><a href="/tags/">Все теги</a></li>
-			</ul>
-		</div>
-		<div class="footer-col">
-			<p class="footer-heading">Документы</p>
-			<ul>
-				<li><a href="/about/">О проекте</a></li>
-				<li><a href="/privacy/">Конфиденциальность</a></li>
-			</ul>
-		</div>
-	</div>
-	<div class="footer-bottom">
-		<small>
-			© {today.getFullYear()} {SITE_TITLE}. Материалы носят информационный характер
-			и не являются юридической или налоговой консультацией.
-		</small>
 	</div>
 </footer>
 
 <style>
-	footer {
-		background: var(--text);
-		color: rgba(255, 255, 255, 0.6);
-		padding: var(--sp-8) var(--sp-4) var(--sp-6);
-		margin-top: var(--sp-8);
+	.site-footer {
+		background: var(--bg-dark);
+		color: var(--text-on-dark);
+		padding: 48px 40px 28px;
+		margin-top: 80px;
 	}
-
 	.footer-inner {
-		max-width: 1100px;
+		max-width: 1440px;
 		margin: 0 auto;
+	}
+	.footer-grid {
 		display: grid;
-		grid-template-columns: 2fr repeat(3, 1fr);
-		gap: var(--sp-7);
+		grid-template-columns: 2fr 1fr 1fr 1fr 1.2fr;
+		gap: 32px;
+		padding-bottom: 36px;
+		border-bottom: 1px solid #2a2620;
 	}
 
-	.footer-brand {
-		display: block;
-		font-family: 'Commissioner', sans-serif;
-		font-weight: 700;
-		font-size: 1.125rem;
-		letter-spacing: -0.02em;
-		color: #fff;
-		text-decoration: none;
-		margin-bottom: var(--sp-3);
+	.footer-logo {
+		font-family: 'Bebas Neue', 'Oswald', sans-serif;
+		font-size: 44px;
+		line-height: 0.9;
+		letter-spacing: -0.01em;
+		color: var(--text-on-dark);
+		margin-bottom: 14px;
 	}
-
-	.footer-desc {
-		font-size: 0.875rem;
-		line-height: 1.6;
-		color: rgba(255, 255, 255, 0.45);
-		margin: 0;
+	.footer-slogan {
+		font-family: 'Instrument Serif', Georgia, serif;
+		font-style: italic;
+		font-size: 16px;
+		color: #C9C3B8;
+		line-height: 1.4;
+		margin: 0 0 18px;
+		max-width: 320px;
+	}
+	.footer-stamp {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 10px;
+		letter-spacing: 0.1em;
+		color: var(--accent);
+		font-weight: 600;
+		text-transform: uppercase;
 	}
 
 	.footer-heading {
-		font-family: 'Commissioner', sans-serif;
-		font-weight: 700;
-		font-size: 0.875rem;
-		color: #fff;
-		letter-spacing: 0.04em;
+		display: block;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 10px;
+		letter-spacing: 0.12em;
+		color: var(--accent);
+		font-weight: 600;
+		margin-bottom: 14px;
 		text-transform: uppercase;
-		margin: 0 0 var(--sp-3);
 	}
 
 	.footer-col ul {
@@ -96,44 +147,76 @@ const today = new Date();
 		padding: 0;
 		margin: 0;
 	}
-
-	.footer-col li {
-		margin-bottom: var(--sp-2);
-	}
-
+	.footer-col li { padding: 5px 0; }
 	.footer-col a {
-		color: rgba(255, 255, 255, 0.6);
+		font-family: 'Inter Tight', sans-serif;
+		font-size: 13px;
+		color: #C9C3B8;
 		text-decoration: none;
-		font-size: 0.9375rem;
 		transition: color var(--ease);
 	}
+	.footer-col a:hover { color: var(--text-on-dark); text-decoration: none; }
 
-	.footer-col a:hover {
-		color: #fff;
-		text-decoration: none;
+	.footer-newsletter .newsletter-copy {
+		font-family: 'Inter Tight', sans-serif;
+		font-size: 13px;
+		color: #C9C3B8;
+		line-height: 1.55;
+		margin: 0 0 14px;
 	}
+	.newsletter-form {
+		display: flex;
+		border: 1px solid #4a4239;
+	}
+	.newsletter-form input {
+		flex: 1;
+		padding: 10px;
+		background: transparent;
+		border: none;
+		color: var(--text-on-dark);
+		font-family: 'Inter Tight', sans-serif;
+		font-size: 13px;
+		outline: none;
+	}
+	.newsletter-form input::placeholder { color: #7a746a; }
+	.newsletter-form button {
+		background: var(--accent);
+		color: var(--accent-fg);
+		border: none;
+		padding: 10px 14px;
+		font-family: 'Inter Tight', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		cursor: pointer;
+	}
+	.newsletter-form button:hover { background: var(--accent-hover); }
 
 	.footer-bottom {
-		max-width: 1100px;
-		margin: var(--sp-7) auto 0;
-		padding-top: var(--sp-5);
-		border-top: 1px solid rgba(255, 255, 255, 0.08);
-		text-align: center;
-		font-size: 0.875rem;
-		color: rgba(255, 255, 255, 0.35);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: 20px;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 11px;
+		color: #7a746a;
+		gap: 20px;
+		flex-wrap: wrap;
 	}
+	.footer-links { display: flex; gap: 22px; }
+	.footer-links a { color: #7a746a; text-decoration: none; }
+	.footer-links a:hover { color: var(--text-on-dark); text-decoration: none; }
 
 	@media (max-width: 900px) {
-		.footer-inner {
+		.site-footer { padding: 40px 20px 24px; }
+		.footer-grid {
 			grid-template-columns: 1fr 1fr;
-			gap: var(--sp-6);
+			gap: 28px;
 		}
+		.footer-brand { grid-column: 1 / -1; }
+		.footer-newsletter { grid-column: 1 / -1; }
 	}
-
 	@media (max-width: 520px) {
-		.footer-inner {
-			grid-template-columns: 1fr;
-			gap: var(--sp-5);
-		}
+		.footer-grid { grid-template-columns: 1fr; }
+		.footer-bottom { flex-direction: column; align-items: flex-start; }
 	}
 </style>

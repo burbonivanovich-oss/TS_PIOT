@@ -51,6 +51,21 @@ const canonical = seo?.canonical ?? new URL(Astro.url.pathname, Astro.site).toSt
 const keywords = [...new Set([...tags, ...(seo?.keywords ?? [])])];
 
 const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const sectionCount = headings.filter((h) => h.depth === 2).length;
+
+// Precompute h2 numbering for TOC
+let h2Counter = 0;
+const tocItems = tocHeadings.map((h) => {
+	const isH2 = h.depth === 2;
+	if (isH2) h2Counter += 1;
+	return {
+		depth: h.depth,
+		slug: h.slug,
+		text: h.text,
+		num: isH2 ? String(h2Counter).padStart(2, '0') : '',
+		isH2,
+	};
+});
 
 const articleImageUrl = currentSlug
 	? new URL(`/og/${currentSlug}.png`, Astro.site).toString()
@@ -63,12 +78,7 @@ const articleJsonLd = {
 	description,
 	inLanguage: SITE_LOCALE,
 	...(articleImageUrl && {
-		image: {
-			'@type': 'ImageObject',
-			url: articleImageUrl,
-			width: 1200,
-			height: 630,
-		},
+		image: { '@type': 'ImageObject', url: articleImageUrl, width: 1200, height: 630 },
 	}),
 	author: {
 		'@type': 'Person',
@@ -94,24 +104,9 @@ const breadcrumbsJsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'BreadcrumbList',
 	itemListElement: [
-		{
-			'@type': 'ListItem',
-			position: 1,
-			name: 'Главная',
-			item: new URL('/', Astro.site).toString(),
-		},
-		{
-			'@type': 'ListItem',
-			position: 2,
-			name: 'Статьи',
-			item: new URL('/blog/', Astro.site).toString(),
-		},
-		{
-			'@type': 'ListItem',
-			position: 3,
-			name: title,
-			item: canonical,
-		},
+		{ '@type': 'ListItem', position: 1, name: 'Главная', item: new URL('/', Astro.site).toString() },
+		{ '@type': 'ListItem', position: 2, name: 'Статьи', item: new URL('/blog/', Astro.site).toString() },
+		{ '@type': 'ListItem', position: 3, name: title, item: canonical },
 	],
 };
 
@@ -122,6 +117,28 @@ const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined
 
 const shareUrl = encodeURIComponent(canonical);
 const shareTitle = encodeURIComponent(title);
+
+// Author initials for avatar
+const initials = (author || 'ЭТ')
+	.split(/\s+/)
+	.map((s) => s[0]?.toUpperCase() ?? '')
+	.slice(0, 2)
+	.join('');
+
+// Format helpers
+const monthsCap = ['ЯНВАРЯ', 'ФЕВРАЛЯ', 'МАРТА', 'АПРЕЛЯ', 'МАЯ', 'ИЮНЯ', 'ИЮЛЯ', 'АВГУСТА', 'СЕНТЯБРЯ', 'ОКТЯБРЯ', 'НОЯБРЯ', 'ДЕКАБРЯ'];
+const fmtDateUpper = (d: Date) => `${d.getDate()} ${monthsCap[d.getMonth()]} ${d.getFullYear()}`;
+const fmtDateShort = (d: Date) => `${d.getDate().toString().padStart(2, '0')}.${(d.getMonth() + 1).toString().padStart(2, '0')}.${d.getFullYear()}`;
+
+const partnerCTA = primaryCategory === 'markirovka'
+	? { eyebrow: '● ИНСТРУМЕНТ', title: 'КАЛЕНДАРЬ МАРКИРОВКИ', desc: 'Сроки введения по категориям', cta: 'Открыть календарь →', href: '/kalendar-markirovki/', decor: 'МАРК' }
+	: { eyebrow: '● ИНСТРУМЕНТ', title: 'КАЛЬКУЛЯТОР ШТРАФОВ', desc: 'Подберите сценарий и узнайте сумму', cta: 'Открыть калькулятор →', href: '/kalkulyator-shtrafov/', decor: '14.5' };
+
+const heroDecor = primaryCategory === 'ts-piot' ? 'ТС ПИОТ' : primaryCategory === 'markirovka' ? 'МАРК' : 'ЗАКОН';
+
+const heroSubject = heroImage ? '' : 'рабочее место предпринимателя — документы и ноутбук';
+
+const tagsForBar = tags.slice(0, 5);
 ---
 
 <html lang="ru">
@@ -145,116 +162,222 @@ const shareTitle = encodeURIComponent(title);
 		<Header />
 		<main>
 			<article class="article" data-pagefind-body>
-				<nav class="breadcrumbs" aria-label="Хлебные крошки" data-pagefind-ignore>
-					<a href="/">Главная</a>
-					<span>›</span>
-					<a href="/blog/">Статьи</a>
-					{categoryMeta && (
-						<>
-							<span>›</span>
-							<a href={`/category/${primaryCategory}/`}>{categoryMeta.title}</a>
-						</>
-					)}
-				</nav>
-
-				<header class="article-head">
-					<h1>{title}</h1>
-					<p class="lead">{description}</p>
-					<div class="meta">
-						<FormattedDate date={pubDate} />
-						{updatedDate && (
-							<span class="updated">
-								· обновлено <FormattedDate date={updatedDate} />
-							</span>
+				{/* HERO 54/46 SPLIT */}
+				<section class="hero">
+					<div class="hero-photo" aria-hidden={heroImage ? undefined : 'true'}>
+						{heroImage ? (
+							<Fragment>
+								<Image class="hero-img" width={1200} height={800} src={heroImage} alt={title} loading="eager" />
+								<div class="hero-overlay"></div>
+							</Fragment>
+						) : (
+							<Fragment>
+								<div class="hero-bg-grad"></div>
+								<div class="hero-photo-stub">
+									<span>фото · {heroSubject}</span>
+								</div>
+							</Fragment>
 						)}
-						{readingTime && (
-							<span class="reading-time">· {readingTime} мин чтения</span>
-						)}
-					</div>
-					{tags.length > 0 && (
-						<div class="tags">
-							{tags.map((tag) => (
-								<a class="tag" href={`/tag/${tagSlug(tag)}/`}>#{tag}</a>
-							))}
+						<div class="hero-photo-content">
+							<div class="hero-photo-top">
+								{categoryMeta && (
+									<span class="hero-cat">● {categoryMeta.title.toUpperCase()}</span>
+								)}
+								<span class="hero-issue">ВЫПУСК · {fmtDateShort(pubDate)}</span>
+							</div>
+							<div class="hero-photo-mid">
+								<span class="eyebrow eyebrow--accent">ГЛАВНОЕ ЗА НЕДЕЛЮ</span>
+								{tagsForBar.length > 0 && (
+									<div class="hero-keys">
+										{tagsForBar.map((t) => t.toUpperCase()).join(' / ')}
+									</div>
+								)}
+							</div>
+							<div class="hero-photo-bot" data-pagefind-ignore>
+								<a href="/">ГЛАВНАЯ</a> / <a href="/blog/">СТАТЬИ</a>
+								{categoryMeta && (
+									<Fragment>
+										{' / '}<a href={`/category/${primaryCategory}/`}>{categoryMeta.title.toUpperCase()}</a>
+									</Fragment>
+								)} · {fmtDateUpper(pubDate)}
+							</div>
 						</div>
-					)}
-				</header>
-
-				{heroImage && (
-					<div class="hero-image">
-						<Image width={1100} height={550} src={heroImage} alt={title} loading="eager" />
 					</div>
-				)}
 
-				{tocHeadings.length > 2 && (
-					<details class="toc" data-pagefind-ignore>
-						<summary>Содержание</summary>
-						<nav>
-							<ol class="toc-list">
-								{tocHeadings.map((h) => (
-									<li class={`toc-item toc-depth-${h.depth}`}>
-										<a href={`#${h.slug}`}>{h.text}</a>
-									</li>
+					<div class="hero-text">
+						<div class="hero-text-top">
+							<span class="eyebrow">{fmtDateUpper(pubDate)}{categoryMeta ? ` · ${categoryMeta.title.toUpperCase()}` : ''}</span>
+							{readingTime && (
+								<span class="read-badge">{readingTime} МИН</span>
+							)}
+						</div>
+						<div class="hero-text-mid">
+							<h1 class="article-title font-display">{title}</h1>
+							<p class="article-lead font-serif-italic">{description}</p>
+						</div>
+						<div class="hero-text-bot">
+							<div class="avatar" aria-hidden="true">{initials}</div>
+							<div class="author-info">
+								<span class="author-name">{author}</span>
+								<span class="author-role">{categoryMeta ? `редактор «${categoryMeta.title}»` : 'редакция'}</span>
+								<span class="author-cap">Иллюстрации — Этикетка</span>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				{/* QUICK SHARE STRIP */}
+				<div class="share-strip" data-pagefind-ignore>
+					<div class="share-left">
+						<span class="share-label">Поделиться:</span>
+						<a href={`https://t.me/share/url?url=${shareUrl}&text=${shareTitle}`} target="_blank" rel="noopener noreferrer">Telegram</a>
+						<a href={`https://vk.com/share.php?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">VK</a>
+						<a href={`mailto:?subject=${shareTitle}&body=${shareUrl}`}>Email</a>
+						<button type="button" class="copy-link" data-share-copy={canonical}>Скопировать ссылку</button>
+					</div>
+					<div class="share-right">
+						<span>↗ {related.length}</span>
+						<span>⌘ Сохранить</span>
+						<span class="font-mono">A− A+</span>
+					</div>
+				</div>
+
+				{/* TL;DR */}
+				<section class="tldr">
+					<div class="tldr-grid">
+						<div class="tldr-left">
+							<span class="eyebrow eyebrow--accent">★ TL;DR</span>
+							<div class="tldr-num font-display">30 СЕКУНД</div>
+						</div>
+						<div class="tldr-text">
+							<strong>{description}</strong>
+						</div>
+						<div class="tldr-right">
+							<a href={`/blog/${currentSlug}/`} class="tldr-cta">Сохранить →</a>
+						</div>
+					</div>
+				</section>
+
+				{/* TWO COLUMN BODY */}
+				<div class="body-grid">
+					{/* LEFT RAIL */}
+					<aside class="rail" data-pagefind-ignore>
+						<div class="rail-sticky">
+							{/* Partner CTA */}
+							<a href={partnerCTA.href} class="partner-cta">
+								<span class="partner-decor" aria-hidden="true">{partnerCTA.decor}</span>
+								<span class="partner-eyebrow">{partnerCTA.eyebrow}</span>
+								<div class="partner-bottom">
+									<div class="partner-title font-display">{partnerCTA.title}</div>
+									<div class="partner-desc">{partnerCTA.desc}</div>
+									<span class="partner-cta-btn">{partnerCTA.cta}</span>
+								</div>
+							</a>
+
+							{/* TOC */}
+							{tocHeadings.length > 0 && (
+								<nav class="toc" aria-label="Содержание">
+									<div class="toc-head">СОДЕРЖАНИЕ · {sectionCount} РАЗДЕЛ{sectionCount === 1 ? '' : sectionCount < 5 ? 'А' : 'ОВ'}</div>
+									<ol class="toc-list">
+										{tocItems.map((h) => (
+											<li class:list={['toc-item', `toc-d${h.depth}`]}>
+												{h.isH2 && <span class="toc-num">{h.num}</span>}
+												<a href={`#${h.slug}`}>{h.text}</a>
+											</li>
+										))}
+									</ol>
+								</nav>
+							)}
+
+							{/* Margin note */}
+							<div class="margin-note">
+								<span class="eyebrow eyebrow--accent">NB · НА ПОЛЯХ</span>
+								<p class="font-serif-italic">
+									Материалы носят информационный характер. Перед принятием решений сверяйтесь с действующей редакцией нормативных актов и при необходимости проконсультируйтесь со специалистом.
+								</p>
+							</div>
+						</div>
+					</aside>
+
+					{/* RIGHT — CONTENT */}
+					<div class="content">
+						<p class="content-lead font-serif">{description}</p>
+
+						<div class="prose">
+							<slot />
+						</div>
+
+						{/* Tags + meta strip */}
+						<div class="post-meta-strip" data-pagefind-ignore>
+							<div class="post-tags">
+								{tags.map((tag) => (
+									<a class="tag-pill" href={`/tag/${tagSlug(tag)}/`}>#{tag}</a>
 								))}
-							</ol>
-						</nav>
-					</details>
-				)}
+							</div>
+							<span class="post-updated eyebrow">
+								МАТЕРИАЛ {updatedDate ? 'ОБНОВЛЁН' : 'ОПУБЛИКОВАН'} ·
+								<FormattedDate date={updatedDate ?? pubDate} />
+							</span>
+						</div>
 
-				<div class="prose">
-					<slot />
+						{/* Author bio */}
+						<div class="author-bio" data-pagefind-ignore>
+							<div class="author-bio-avatar">{initials}</div>
+							<div class="author-bio-text">
+								<span class="eyebrow eyebrow--accent">АВТОР</span>
+								<div class="author-bio-name font-serif">{author}</div>
+								<p class="author-bio-desc">
+									Редакция «{SITE_TITLE}». Пишет о требованиях, которые касаются МСБ — ТС&nbsp;ПИоТ, маркировка, изменения в законодательстве.
+								</p>
+							</div>
+							<a class="author-bio-cta btn btn-ghost" href="/about/">Подписаться</a>
+						</div>
+					</div>
 				</div>
 
-				<div class="share" data-pagefind-ignore>
-					<span class="share-label">Поделиться:</span>
-					<a
-						class="share-btn share-tg"
-						href={`https://t.me/share/url?url=${shareUrl}&text=${shareTitle}`}
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label="Поделиться в Telegram"
-					>
-						Telegram
-					</a>
-					<a
-						class="share-btn share-vk"
-						href={`https://vk.com/share.php?url=${shareUrl}`}
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label="Поделиться ВКонтакте"
-					>
-						ВКонтакте
-					</a>
-				</div>
-
+				{/* RELATED */}
 				{related.length > 0 && (
-					<aside class="related" aria-labelledby="related-heading" data-pagefind-ignore>
-						<h2 id="related-heading">Читайте также</h2>
-						<ul class="related-list">
+					<section class="related" data-pagefind-ignore>
+						<div class="related-head">
+							<div class="related-head-left">
+								<span class="eyebrow">// ЧИТАТЬ ДАЛЬШЕ</span>
+								<h2 class="related-title font-display">ПОХОЖИЕ МАТЕРИАЛЫ</h2>
+							</div>
+							<a class="related-all" href="/blog/">Все статьи →</a>
+						</div>
+						<div class="related-grid">
 							{related.map((post) => {
 								const cat = post.data.categories[0] as keyof typeof CATEGORIES | undefined;
 								const catMeta = cat ? CATEGORIES[cat] : null;
 								return (
-									<li class="related-card">
-										<a href={`/blog/${post.id}/`}>
-											{catMeta && <span class="related-cat">{catMeta.title}</span>}
-											<h3>{post.data.title}</h3>
-											<p>{post.data.description}</p>
-										</a>
-									</li>
+									<a href={`/blog/${post.id}/`} class="related-card">
+										<div class="related-thumb">
+											{post.data.heroImage ? (
+												<Image class="related-img" width={600} height={360} src={post.data.heroImage} alt={post.data.title} loading="lazy" />
+											) : (
+												<div class="related-stub">
+													<span class="font-serif-italic">фото · превью</span>
+												</div>
+											)}
+											{catMeta && (
+												<span class="related-cat eyebrow eyebrow--accent">{catMeta.title.toUpperCase()}</span>
+											)}
+											<span class="related-date eyebrow">
+												{post.data.pubDate.toLocaleDateString('ru-RU', { day: '2-digit', month: 'short' }).toUpperCase()}
+												{post.data.readingTime ? ` · ${post.data.readingTime}` : ''}
+											</span>
+										</div>
+										<div class="related-body">
+											<h3 class="related-name font-display">{post.data.title}</h3>
+											<p class="related-desc">{post.data.description}</p>
+											<span class="related-author eyebrow">— {post.data.author}</span>
+										</div>
+									</a>
 								);
 							})}
-						</ul>
-					</aside>
+						</div>
+					</section>
 				)}
-
-				<footer class="article-foot">
-					<p class="disclaimer">
-						Материал носит информационный характер. Перед принятием решений
-						сверяйтесь с действующей редакцией нормативных актов и при необходимости
-						проконсультируйтесь со специалистом.
-					</p>
-				</footer>
 			</article>
 		</main>
 		<Footer />
@@ -265,234 +388,588 @@ const shareTitle = encodeURIComponent(title);
 				const update = () => {
 					const scrolled = document.documentElement.scrollTop;
 					const total = document.documentElement.scrollHeight - window.innerHeight;
-					bar.style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
+					(bar as HTMLElement).style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
 				};
 				window.addEventListener('scroll', update, { passive: true });
 				update();
 			}
+
+			// Copy share link
+			document.querySelectorAll<HTMLButtonElement>('[data-share-copy]').forEach((btn) => {
+				btn.addEventListener('click', async () => {
+					const url = btn.getAttribute('data-share-copy') ?? '';
+					try {
+						await navigator.clipboard.writeText(url);
+						const old = btn.textContent;
+						btn.textContent = 'Скопировано ✓';
+						setTimeout(() => { btn.textContent = old; }, 1500);
+					} catch (e) { /* noop */ }
+				});
+			});
 		</script>
 
 		<style>
-			/* Полоса прокрутки */
+			/* Reading progress bar */
 			#rp-bar {
 				position: fixed;
 				top: 0; left: 0;
-				height: 2px;
+				height: 3px;
 				width: 0%;
 				background: var(--accent);
 				z-index: 100;
 				transition: width 0.1s linear;
 			}
 
-			.article {
-				max-width: 720px;
-				margin: 0 auto;
+			main { max-width: 1440px; margin: 0 auto; }
+			.article { display: block; }
+
+			/* HERO */
+			.hero {
+				display: grid;
+				grid-template-columns: 54% 46%;
+				min-height: 600px;
 			}
 
-			/* Breadcrumbs */
-			.breadcrumbs {
-				font-size: var(--text-xs, 0.8125rem);
-				color: var(--text-4);
-				margin-bottom: var(--sp-5);
+			.hero-photo {
+				position: relative;
+				overflow: hidden;
+				background: var(--bg-dark);
+				background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0 2px, transparent 2px 18px);
+			}
+			.hero-bg-grad {
+				position: absolute; inset: 0;
+				background: linear-gradient(135deg, #2a2620 0%, #1a1714 60%, #0e0c0a 100%);
+			}
+			.hero-img {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+			}
+			.hero-overlay {
+				position: absolute; inset: 0;
+				background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.6) 100%);
+			}
+			.hero-photo-stub {
+				position: absolute; inset: 0;
+				display: flex; align-items: center; justify-content: center;
+				color: #5a5249;
+				font-family: 'Instrument Serif', Georgia, serif;
+				font-style: italic;
+				font-size: 22px;
+				padding: 0 24px;
+				text-align: center;
+			}
+			.hero-photo-content {
+				position: relative;
+				z-index: 2;
+				padding: 36px;
+				min-height: 600px;
 				display: flex;
-				flex-wrap: wrap;
-				align-items: center;
-				gap: 0.2em;
+				flex-direction: column;
+				justify-content: space-between;
+				color: var(--text-on-dark);
 			}
-			.breadcrumbs a {
-				color: var(--text-3);
-				text-decoration: none;
-			}
-			.breadcrumbs a:hover { color: var(--accent); text-decoration: none; }
-			.breadcrumbs span { color: var(--text-4); }
-
-			/* Шапка статьи */
-			.article-head { margin-bottom: var(--sp-6); }
-			.article-head h1 { margin-bottom: var(--sp-3); }
-
-			.lead {
-				font-size: 1.125rem;
-				line-height: 1.6;
-				color: var(--text-2);
-				margin-bottom: var(--sp-3);
-			}
-
-			.meta {
-				font-size: 0.875rem;
-				color: var(--text-3);
-				margin-bottom: var(--sp-3);
-			}
-
-			.tags {
+			.hero-photo-top {
 				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: 12px;
 				flex-wrap: wrap;
-				gap: var(--sp-1);
-				margin-bottom: var(--sp-5);
 			}
-
-			.tag {
-				background: var(--bg-subtle);
-				color: var(--text-3);
-				padding: 3px 10px;
-				border-radius: var(--r-pill);
-				font-size: 0.8125rem;
-				text-decoration: none;
-				transition: background var(--ease), color var(--ease);
-			}
-			.tag:hover {
-				background: var(--accent-light);
+			.hero-cat {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 11px;
+				letter-spacing: 0.1em;
 				color: var(--accent);
-				text-decoration: none;
+				font-weight: 600;
+				padding: 6px 10px;
+				border: 1px solid var(--accent);
+				background: rgba(0,0,0,0.3);
 			}
+			.hero-issue {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 11px;
+				color: #C9C3B8;
+				letter-spacing: 0.05em;
+			}
+			.hero-photo-mid { display: flex; flex-direction: column; gap: 10px; }
+			.hero-keys {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 11px;
+				letter-spacing: 0.08em;
+				color: #C9C3B8;
+				max-width: 420px;
+				line-height: 1.7;
+			}
+			.hero-photo-bot {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 10px;
+				color: #9A938A;
+				letter-spacing: 0.05em;
+			}
+			.hero-photo-bot a { color: #9A938A; }
+			.hero-photo-bot a:hover { color: var(--accent); text-decoration: none; }
 
-			/* Hero image */
-			.hero-image { margin: var(--sp-5) 0 var(--sp-6); }
-			.hero-image img {
-				border-radius: var(--r-md);
-				box-shadow: var(--shadow-card);
+			.hero-text {
+				background: var(--bg);
+				padding: 40px 56px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				gap: 24px;
 			}
-
-			/* TOC */
-			.toc {
-				border: 1px solid var(--border);
-				border-radius: var(--r-md);
-				padding: var(--sp-4) var(--sp-5);
-				margin: var(--sp-5) 0 var(--sp-6);
-				background: var(--bg-muted);
-			}
-			.toc summary {
-				cursor: pointer;
-				font-family: 'Commissioner', sans-serif;
-				font-weight: 700;
-				font-size: 0.9375rem;
-				color: var(--text);
-				list-style: none;
+			.hero-text-top {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				user-select: none;
+				gap: 12px;
 			}
-			.toc summary::-webkit-details-marker { display: none; }
-			.toc summary::after {
-				content: '›';
-				font-size: 1.1rem;
-				color: var(--accent);
-				transition: transform var(--ease);
-				line-height: 1;
+			.hero-text-mid { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+			.article-title {
+				font-size: clamp(2rem, 4.5vw, 3.25rem);
+				line-height: 0.96;
+				letter-spacing: -0.01em;
+				color: var(--text);
+				margin: 0;
+				font-weight: 400;
 			}
-			.toc[open] summary::after { transform: rotate(90deg); }
-			.toc-list {
-				margin: var(--sp-3) 0 0;
-				padding-left: var(--sp-5);
-				list-style: none;
-			}
-			.toc-item {
-				margin-bottom: var(--sp-1);
+			.article-lead {
+				font-size: 19px;
+				color: var(--text-2);
+				margin: 18px 0 0;
 				line-height: 1.45;
 			}
-			.toc-depth-3 { padding-left: var(--sp-4); }
+			.hero-text-bot {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				border-top: 1px solid var(--border-strong);
+				padding-top: 16px;
+			}
+			.avatar {
+				width: 44px; height: 44px;
+				border-radius: 50%;
+				background: var(--bg-muted);
+				border: 1px solid var(--border-strong);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: 'Instrument Serif', Georgia, serif;
+				font-size: 16px;
+				color: var(--text-3);
+				flex-shrink: 0;
+			}
+			.author-info {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 13px;
+				color: var(--text-2);
+				line-height: 1.4;
+				display: flex;
+				flex-direction: column;
+			}
+			.author-name { color: var(--text); font-weight: 600; }
+			.author-role { color: var(--text-3); font-size: 12px; }
+			.author-cap { color: var(--text-4); font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; margin-top: 2px; }
+
+			/* SHARE STRIP */
+			.share-strip {
+				padding: 14px 40px;
+				border-bottom: 1px solid var(--border);
+				background: var(--bg-subtle);
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 16px;
+				flex-wrap: wrap;
+			}
+			.share-left, .share-right {
+				display: flex;
+				gap: 18px;
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 12px;
+				color: var(--text-2);
+				flex-wrap: wrap;
+				align-items: center;
+			}
+			.share-label { color: var(--text-3); }
+			.share-strip a, .copy-link {
+				color: var(--text-2);
+				text-decoration: none;
+				background: none;
+				border: none;
+				padding: 0;
+				cursor: pointer;
+				font: inherit;
+			}
+			.share-strip a:hover, .copy-link:hover { color: var(--accent); text-decoration: none; }
+
+			/* TL;DR */
+			.tldr { padding: 28px 40px 0; }
+			.tldr-grid {
+				background: var(--bg-dark);
+				color: var(--text-on-dark);
+				padding: 22px 26px;
+				display: grid;
+				grid-template-columns: 160px 1fr 140px;
+				gap: 24px;
+				align-items: center;
+			}
+			.tldr-left { display: flex; flex-direction: column; gap: 4px; }
+			.tldr-num {
+				font-size: 28px;
+				line-height: 0.9;
+				letter-spacing: -0.01em;
+				color: var(--text-on-dark);
+			}
+			.tldr-text {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 14px;
+				line-height: 1.6;
+				color: #C9C3B8;
+			}
+			.tldr-text strong { color: var(--text-on-dark); font-weight: 600; }
+			.tldr-cta {
+				font-family: 'Inter Tight', sans-serif;
+				font-weight: 600;
+				font-size: 12px;
+				padding: 11px 14px;
+				background: transparent;
+				color: var(--text-on-dark);
+				border: 1px solid var(--text-on-dark);
+				text-decoration: none;
+				display: inline-block;
+				text-align: center;
+			}
+			.tldr-cta:hover { background: var(--text-on-dark); color: var(--text); text-decoration: none; }
+
+			/* BODY GRID */
+			.body-grid {
+				display: grid;
+				grid-template-columns: 28% 72%;
+				margin-top: 36px;
+				min-height: 720px;
+			}
+
+			/* LEFT RAIL */
+			.rail { padding: 0 24px 0 40px; }
+			.rail-sticky { position: sticky; top: 80px; }
+
+			.partner-cta {
+				display: block;
+				background: var(--bg-dark);
+				color: var(--text-on-dark);
+				padding: 22px;
+				position: relative;
+				overflow: hidden;
+				min-height: 320px;
+				background-image:
+					linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+					linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+				background-size: 24px 24px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				text-decoration: none;
+			}
+			.partner-cta:hover { text-decoration: none; }
+			.partner-cta:hover .partner-cta-btn { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+			.partner-decor {
+				position: absolute;
+				right: -8px;
+				bottom: -30px;
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 140px;
+				line-height: 0.85;
+				color: rgba(168,101,28,0.18);
+				letter-spacing: -0.03em;
+				pointer-events: none;
+			}
+			.partner-eyebrow {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 10px;
+				letter-spacing: 0.1em;
+				color: var(--accent);
+				font-weight: 600;
+				padding: 4px 8px;
+				border: 1px solid var(--accent);
+				align-self: flex-start;
+				position: relative;
+				z-index: 2;
+			}
+			.partner-bottom { position: relative; z-index: 2; }
+			.partner-title {
+				font-size: 22px;
+				line-height: 0.98;
+				margin-bottom: 10px;
+				letter-spacing: -0.005em;
+				color: var(--text-on-dark);
+			}
+			.partner-desc {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 12px;
+				color: #C9C3B8;
+				line-height: 1.55;
+				margin-bottom: 14px;
+			}
+			.partner-cta-btn {
+				display: block;
+				width: 100%;
+				font-family: 'Inter Tight', sans-serif;
+				font-weight: 600;
+				font-size: 12px;
+				padding: 11px;
+				background: var(--bg);
+				color: var(--text);
+				border: 1px solid var(--bg);
+				text-align: center;
+				transition: background var(--ease), color var(--ease);
+			}
+
+			.toc { margin-top: 24px; }
+			.toc-head {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 10px;
+				letter-spacing: 0.12em;
+				color: var(--text-3);
+				padding-bottom: 8px;
+				border-bottom: 1px solid var(--border);
+				margin-bottom: 4px;
+			}
+			.toc-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			.toc-item {
+				display: grid;
+				grid-template-columns: 28px 1fr;
+				gap: 8px;
+				padding: 10px 0;
+				border-bottom: 1px solid var(--border);
+				font-size: 12px;
+				line-height: 1.4;
+				align-items: baseline;
+			}
+			.toc-item.toc-d3 { padding-left: 16px; }
+			.toc-num {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 10px;
+				color: var(--text-3);
+			}
 			.toc-item a {
 				color: var(--text-2);
 				text-decoration: none;
-				font-size: 0.9rem;
 			}
-			.toc-item a:hover {
-				color: var(--accent);
-				text-decoration: underline;
-				text-underline-offset: 2px;
+			.toc-item a:hover { color: var(--accent); }
+
+			.margin-note {
+				margin-top: 24px;
+				padding: 14px 0;
+				border-top: 2px solid var(--accent);
+			}
+			.margin-note p {
+				font-size: 14px;
+				line-height: 1.5;
+				color: var(--text-2);
+				margin: 8px 0 0;
 			}
 
-			/* Share */
-			.share {
-				display: flex;
-				align-items: center;
-				flex-wrap: wrap;
-				gap: var(--sp-2);
-				margin: var(--sp-7) 0 var(--sp-4);
+			/* CONTENT */
+			.content {
+				padding: 0 64px 0 24px;
+				max-width: 800px;
 			}
-			.share-label {
-				font-size: 0.875rem;
-				font-weight: 600;
-				color: var(--text-2);
-			}
-			.share-btn {
-				display: inline-block;
-				padding: 0.4em 1em;
-				border-radius: var(--r-pill);
-				font-size: 0.875rem;
-				font-weight: 600;
-				text-decoration: none;
-				transition: background var(--ease), color var(--ease);
-			}
-			.share-tg { background: #E8F4FD; color: #0088CC; }
-			.share-tg:hover { background: #0088CC; color: #fff; text-decoration: none; }
-			.share-vk { background: #E8F0FB; color: #2787F5; }
-			.share-vk:hover { background: #2787F5; color: #fff; text-decoration: none; }
-
-			/* Related */
-			.related {
-				margin-top: var(--sp-8);
-				padding-top: var(--sp-6);
-				border-top: 1px solid var(--border);
-			}
-			.related h2 {
-				font-size: 1.25rem;
-				margin: 0 0 var(--sp-4);
-			}
-			.related-list {
-				list-style: none;
-				padding: 0; margin: 0;
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-				gap: var(--sp-3);
-			}
-			.related-card a {
-				display: block;
-				padding: var(--sp-4);
-				border: 1px solid var(--border);
-				border-radius: var(--r-md);
-				background: var(--bg);
-				color: var(--text-2);
-				text-decoration: none;
-				height: 100%;
-				transition: border-color var(--ease), box-shadow var(--ease);
-			}
-			.related-card a:hover {
-				border-color: var(--accent);
-				box-shadow: var(--shadow-hover);
-				text-decoration: none;
-			}
-			.related-cat {
-				display: inline-block;
-				font-size: 0.8125rem;
-				font-weight: 600;
-				color: var(--accent);
-				background: var(--accent-light);
-				padding: 2px 8px;
-				border-radius: var(--r-pill);
-				margin-bottom: var(--sp-2);
-			}
-			.related-card h3 {
-				margin: 0 0 var(--sp-2);
-				font-size: 1rem;
+			.content-lead {
+				font-family: 'Instrument Serif', Georgia, serif;
+				font-size: 20px;
+				line-height: 1.45;
 				color: var(--text);
+				font-weight: 400;
+				margin-bottom: 32px;
 			}
-			.related-card p {
-				font-size: 0.875rem;
-				margin: 0;
+
+			.post-meta-strip {
+				margin-top: 32px;
+				padding: 20px 0;
+				border-top: 1px solid var(--border);
+				border-bottom: 1px solid var(--border);
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 16px;
+				flex-wrap: wrap;
+			}
+			.post-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+			.post-updated { font-size: 11px; color: var(--text-3); display: inline-flex; gap: 4px; align-items: center; }
+
+			.author-bio {
+				margin-top: 24px;
+				display: grid;
+				grid-template-columns: 80px 1fr 140px;
+				gap: 20px;
+				padding: 24px;
+				background: var(--bg-subtle);
+				border: 1px solid var(--border-strong);
+				align-items: center;
+			}
+			.author-bio-avatar {
+				width: 72px; height: 72px;
+				border-radius: 50%;
+				background: var(--bg-muted);
+				border: 1px solid var(--border-strong);
+				display: flex; align-items: center; justify-content: center;
+				font-family: 'Instrument Serif', Georgia, serif;
+				font-size: 26px;
 				color: var(--text-3);
 			}
-
-			/* Footer статьи */
-			.article-foot {
-				margin-top: var(--sp-7);
-				padding-top: var(--sp-5);
-				border-top: 1px solid var(--border);
+			.author-bio-name {
+				font-size: 22px;
+				color: var(--text);
+				margin: 4px 0 6px;
+				font-weight: 400;
 			}
-			.disclaimer {
-				font-size: 0.875rem;
-				color: var(--text-4);
-				font-style: italic;
+			.author-bio-desc {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 13px;
+				color: var(--text-2);
+				line-height: 1.5;
+				margin: 0;
+			}
+			.author-bio-cta {
+				font-size: 12px;
+				padding: 11px 14px;
+			}
+
+			/* RELATED */
+			.related {
+				padding: 60px 40px 0;
+				border-top: 1px solid var(--border);
+				margin-top: 32px;
+			}
+			.related-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				padding-bottom: 16px;
+				border-bottom: 2px solid var(--text);
+				margin-bottom: 28px;
+				gap: 16px;
+				flex-wrap: wrap;
+			}
+			.related-head-left { display: flex; align-items: baseline; gap: 16px; }
+			.related-title {
+				font-size: clamp(2rem, 3vw, 2.75rem);
+				line-height: 0.95;
+				letter-spacing: -0.01em;
+				margin: 0;
+				color: var(--text);
+				font-weight: 400;
+			}
+			.related-all {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 13px;
+				color: var(--accent);
+				text-decoration: none;
+			}
+			.related-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 28px;
+			}
+			.related-card {
+				background: var(--bg-subtle);
+				border: 1px solid var(--border-strong);
+				color: var(--text);
+				text-decoration: none;
+				display: flex;
+				flex-direction: column;
+			}
+			.related-card:hover { border-color: var(--text); text-decoration: none; }
+			.related-thumb {
+				height: 200px;
+				position: relative;
+				overflow: hidden;
+				background: var(--bg-muted);
+				border-bottom: 1px solid var(--border-strong);
+			}
+			.related-img {
+				position: absolute; inset: 0;
+				width: 100%; height: 100%;
+				object-fit: cover;
+				display: block;
+			}
+			.related-stub {
+				position: absolute; inset: 0;
+				display: flex; align-items: center; justify-content: center;
+				background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.04) 0 2px, transparent 2px 14px);
+				color: var(--text-3);
+				font-size: 16px;
+			}
+			.related-cat {
+				position: absolute;
+				top: 12px;
+				left: 12px;
+			}
+			.related-date {
+				position: absolute;
+				top: 12px;
+				right: 12px;
+				color: var(--text-3);
+			}
+			.related-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+			.related-name {
+				font-size: 24px;
+				line-height: 1;
+				letter-spacing: -0.005em;
+				margin: 0 0 4px;
+				font-weight: 400;
+				color: var(--text);
+			}
+			.related-desc {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 13px;
+				color: var(--text-2);
+				line-height: 1.55;
+				margin: 0 0 8px;
+				flex: 1;
+			}
+			.related-author { font-size: 10px; color: var(--text-3); }
+
+			/* RESPONSIVE */
+			@media (max-width: 900px) {
+				.hero {
+					grid-template-columns: 1fr;
+					min-height: auto;
+				}
+				.hero-photo-content { min-height: 360px; padding: 24px; }
+				.hero-text { padding: 28px 20px; }
+				.share-strip { padding: 12px 20px; }
+				.tldr { padding: 24px 20px 0; }
+				.tldr-grid {
+					grid-template-columns: 1fr;
+					gap: 16px;
+					padding: 20px;
+				}
+				.tldr-right { justify-self: flex-start; }
+				.body-grid {
+					grid-template-columns: 1fr;
+					margin-top: 28px;
+				}
+				.rail { padding: 0 20px; order: 2; margin-top: 32px; }
+				.rail-sticky { position: static; }
+				.content { padding: 0 20px; max-width: 100%; }
+				.related { padding: 40px 20px 0; }
+				.related-head-left { flex-direction: column; gap: 8px; }
+				.related-grid { grid-template-columns: 1fr; gap: 24px; }
+				.author-bio {
+					grid-template-columns: 60px 1fr;
+					gap: 14px;
+				}
+				.author-bio-cta { grid-column: 1 / -1; justify-self: stretch; text-align: center; }
+				.author-bio-avatar { width: 60px; height: 60px; font-size: 22px; }
 			}
 		</style>
 	</body>

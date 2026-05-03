@@ -3,14 +3,50 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import FormattedDate from '../components/FormattedDate.astro';
 import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-const latest = posts.slice(0, 6);
+const todaysFeed = posts.slice(0, 3);
+const featured = posts[0];
+
+const catCounts: Record<string, number> = { 'ts-piot': 0, 'markirovka': 0, 'zakonodatelstvo': 0 };
+const catPosts: Record<string, typeof posts> = { 'ts-piot': [], 'markirovka': [], 'zakonodatelstvo': [] };
+for (const p of posts) {
+	for (const c of p.data.categories ?? []) {
+		if (c in catCounts) {
+			catCounts[c]++;
+			if (catPosts[c].length < 3) catPosts[c].push(p);
+		}
+	}
+}
+
+const totalPosts = posts.length;
+
+const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+const monthsGen = ['ЯНВАРЬ', 'ФЕВРАЛЬ', 'МАРТ', 'АПРЕЛЬ', 'МАЙ', 'ИЮНЬ', 'ИЮЛЬ', 'АВГУСТ', 'СЕНТЯБРЬ', 'ОКТЯБРЬ', 'НОЯБРЬ', 'ДЕКАБРЬ'];
+const now = new Date();
+const issueLabel = `ВЫПУСК · ${monthsGen[now.getMonth()]} ${now.getFullYear()}`;
+
+const fmtShortDate = (d: Date) => {
+	return `${d.getDate()} ${months[d.getMonth()].slice(0, 3).toUpperCase()}`;
+};
+
+const daysAgo = (d: Date) => {
+	const ms = now.getTime() - d.getTime();
+	const days = Math.floor(ms / 86400000);
+	if (days <= 0) return 'сегодня';
+	if (days === 1) return 'вчера';
+	if (days < 7) return `${days} дн. назад`;
+	return fmtShortDate(d);
+};
+
+const catKey = (slug: string) => slug === 'ts-piot' ? 'ТС ПИОТ' : slug === 'markirovka' ? 'МАРКИРОВКА' : 'ЗАКОНОДАТЕЛЬСТВО';
+
+const featuredCat = (featured?.data.categories ?? [])[0] as keyof typeof CATEGORIES | undefined;
+const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat].title : 'Главное';
 ---
 
 <!doctype html>
@@ -21,222 +57,491 @@ const latest = posts.slice(0, 6);
 	<body>
 		<Header />
 		<main>
+			{/* HERO */}
 			<section class="hero">
-				<h1>Этикетка — медиа для предпринимателей</h1>
-				<p class="hero-lead">
-					Разбираем требования, которые догоняют малый и средний бизнес: ТС ПИоТ для
-					онлайн-касс, маркировка «Честный знак», разрешительный режим, изменения в
-					налогах, ЭДО и трудовом законодательстве. Понятно и без паники.
-				</p>
-				<div class="hero-cta">
-					<a href="/blog/" class="btn btn-primary">Все статьи</a>
-					<a href="/category/ts-piot/" class="btn btn-ghost">Что такое ТС ПИоТ</a>
+				<div class="hero-grid">
+					<div class="hero-main">
+						<div class="eyebrow eyebrow--accent issue">{issueLabel}</div>
+						<h1 class="hero-title">
+							Меньше шума.<br />
+							<em class="font-serif-italic">Больше дела.</em>
+						</h1>
+						<p class="hero-lead">
+							Медиа для предпринимателя, у которого мало времени и много вопросов.
+							Разбираем требования ТС&nbsp;ПИоТ, маркировки и изменения в законодательстве —
+							понятно, по делу, со ссылками на первоисточники.
+						</p>
+					</div>
+					<aside class="hero-feed">
+						<div class="eyebrow">СЕГОДНЯ</div>
+						<ul class="feed-list">
+							{todaysFeed.map((p) => (
+								<li class="feed-item">
+									<span class="feed-time">{daysAgo(p.data.pubDate)}</span>
+									<a class="feed-title" href={`/blog/${p.id}/`}>{p.data.title}</a>
+								</li>
+							))}
+						</ul>
+					</aside>
 				</div>
 			</section>
 
-			<section class="categories" aria-labelledby="cat-heading">
-				<h2 id="cat-heading" class="section-heading">Основные направления</h2>
-				<div class="cat-grid">
-					{Object.entries(CATEGORIES).map(([slug, cat]) => (
-						<a class="cat-card" href={`/category/${slug}/`}>
-							<div class="cat-card-icon" aria-hidden="true">
-								{slug === 'ts-piot' ? 'ТС' : slug === 'markirovka' ? 'МЗ' : 'НА'}
+			{/* FEATURED */}
+			{featured && (
+				<section class="featured">
+					<div class="featured-head">
+						<span class="eyebrow">★ ГЛАВНОЕ ЗА НЕДЕЛЮ</span>
+						{featured.data.readingTime && (
+							<span class="read-badge">{featured.data.readingTime}</span>
+						)}
+					</div>
+					<div class="featured-grid">
+						<div>
+							<div class="eyebrow eyebrow--accent">
+								{featuredCatTitle.toUpperCase()} · {fmtShortDate(featured.data.pubDate)}
 							</div>
-							<h3>{cat.title}</h3>
-							<p>{cat.description}</p>
-							<span class="cat-link">Подробнее →</span>
-						</a>
+							<h2 class="featured-title font-serif">{featured.data.title}</h2>
+							<p class="featured-lead">{featured.data.description}</p>
+							<a href={`/blog/${featured.id}/`} class="btn btn-primary">Читать материал →</a>
+						</div>
+						<div class="key-date">
+							<span class="eyebrow key-date-label">КЛЮЧЕВАЯ ДАТА</span>
+							<span class="key-date-num font-display">28.12.2025</span>
+							<span class="key-date-cap">Старт ТС ПИоТ</span>
+						</div>
+					</div>
+				</section>
+			)}
+
+			{/* THREE COLUMNS */}
+			<section class="three-cols">
+				<div class="three-cols-head">
+					<span class="eyebrow">// ОСНОВНЫЕ РАЗДЕЛЫ</span>
+					<h2 class="three-cols-title font-serif">Что мы пишем</h2>
+					<a href="/blog/" class="three-cols-all">Все статьи →</a>
+				</div>
+				<div class="three-cols-grid">
+					{Object.entries(CATEGORIES).map(([slug, cat]) => (
+						<div class="cat-col">
+							<span class:list={['eyebrow', 'eyebrow--accent', 'cat-col-eyebrow']}>{cat.title.toUpperCase()}</span>
+							<h3 class="cat-col-name font-display">{catKey(slug)}</h3>
+							<p class="cat-col-meta">{catCounts[slug]} материалов · обновляется регулярно</p>
+							<ul class="cat-col-list">
+								{catPosts[slug].map((p) => (
+									<li>
+										<span class="cat-col-date">{fmtShortDate(p.data.pubDate)}</span>
+										<a class="cat-col-title font-serif" href={`/blog/${p.id}/`}>{p.data.title}</a>
+									</li>
+								))}
+								{catPosts[slug].length === 0 && (
+									<li class="cat-col-empty">Скоро появятся первые материалы</li>
+								)}
+							</ul>
+							<a class="cat-col-link" href={`/category/${slug}/`}>Раздел «{cat.title}» →</a>
+						</div>
 					))}
 				</div>
 			</section>
 
-			<section class="latest" aria-labelledby="latest-heading">
-				<h2 id="latest-heading">Последние материалы</h2>
-				{latest.length === 0 ? (
-					<p>Скоро здесь появятся первые статьи.</p>
-				) : (
-					<ul class="post-list">
-						{latest.map((post) => (
-							<li class="post-card">
-								<a href={`/blog/${post.id}/`}>
-									{post.data.previewImage && (
-										<div class="post-card-img">
-											<img src={post.data.previewImage} alt="" loading="lazy" width="800" height="420" />
-										</div>
-									)}
-									<div class="post-card-body">
-										<h3>{post.data.title}</h3>
-										<p class="post-desc">{post.data.description}</p>
-										<p class="post-date">
-											{post.data.updatedDate ? (
-												<>обновлено <FormattedDate date={post.data.updatedDate} /></>
-											) : (
-												<FormattedDate date={post.data.pubDate} />
-											)}
-										</p>
-									</div>
-								</a>
-							</li>
-						))}
-					</ul>
-				)}
+			{/* NEWSLETTER */}
+			<section id="newsletter" class="newsletter">
+				<div class="newsletter-grid">
+					<div>
+						<span class="eyebrow eyebrow--accent">// РАССЫЛКА</span>
+						<h2 class="newsletter-title font-serif">Одно письмо в&nbsp;четверг утром.</h2>
+						<p class="newsletter-lead">
+							Главное за неделю и чек-лист на следующую. Без рекламы, без воды.
+						</p>
+					</div>
+					<div>
+						<form class="newsletter-form" onsubmit="event.preventDefault();">
+							<input type="email" placeholder="email@вашбизнес.рф" aria-label="Email" />
+							<button type="submit" class="newsletter-btn">Подписаться</button>
+						</form>
+						<div class="newsletter-mini">БЕЗ СПАМА · ОТПИСКА В ОДИН КЛИК</div>
+					</div>
+				</div>
 			</section>
+
+			{/* LATEST */}
+			{totalPosts > 0 && (
+				<section class="latest-row">
+					<div class="latest-head">
+						<span class="eyebrow">// ПОСЛЕДНИЕ МАТЕРИАЛЫ</span>
+						<a href="/blog/" class="latest-all">Все {totalPosts} →</a>
+					</div>
+					<div class="latest-list">
+						{posts.slice(1, 7).map((p) => {
+							const cat = (p.data.categories ?? [])[0] as keyof typeof CATEGORIES | undefined;
+							const ct = cat ? CATEGORIES[cat].title : '';
+							return (
+								<a class="latest-row-item" href={`/blog/${p.id}/`}>
+									<span class="latest-cat eyebrow eyebrow--accent">{ct.toUpperCase()}</span>
+									<span class="latest-date">{fmtShortDate(p.data.pubDate)}</span>
+									<span class="latest-title font-serif">{p.data.title}</span>
+									<span class="latest-arrow">→</span>
+								</a>
+							);
+						})}
+					</div>
+				</section>
+			)}
 		</main>
 		<Footer />
 
 		<style>
-			/* Hero */
-			.hero {
-				padding: var(--sp-7) 0 var(--sp-5);
-				border-bottom: 1px solid var(--border);
-				margin-bottom: var(--sp-7);
-			}
-			.hero h1 { max-width: 800px; }
-			.hero-lead {
-				font-size: 1.125rem;
-				max-width: 680px;
-				color: var(--text-2);
-				margin-top: var(--sp-3);
-				line-height: 1.65;
-			}
-			.hero-cta {
-				display: flex;
-				flex-wrap: wrap;
-				gap: var(--sp-3);
-				margin-top: var(--sp-5);
+			main {
+				max-width: 1440px;
+				margin: 0 auto;
 			}
 
-			/* Категории */
-			.categories,
-			.latest { margin-top: var(--sp-7); }
-
-			.section-heading {
-				font-size: 1.375rem;
-				margin-bottom: var(--sp-5);
-			}
-
-			.cat-grid {
+			/* HERO */
+			.hero { padding: 80px 80px 60px; }
+			.hero-grid {
 				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: var(--sp-4);
+				grid-template-columns: 1fr 320px;
+				gap: 80px;
+				align-items: end;
 			}
-
-			.cat-card {
-				display: block;
-				padding: var(--sp-5);
-				border: 1px solid var(--border);
-				border-radius: var(--r-md);
-				text-decoration: none;
+			.issue { margin-bottom: 24px; }
+			.hero-title {
+				font-family: 'Instrument Serif', Georgia, serif;
+				font-weight: 400;
+				font-size: clamp(2.5rem, 6vw, 5.75rem);
+				line-height: 1;
+				letter-spacing: -0.02em;
+				color: var(--text);
+				margin: 0;
+			}
+			.hero-title em {
+				color: var(--accent);
+				font-style: italic;
+				font-family: 'Instrument Serif', Georgia, serif;
+			}
+			.hero-lead {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 17px;
 				color: var(--text-2);
-				background: var(--bg);
-				transition: border-color var(--ease), box-shadow var(--ease), transform var(--ease);
+				line-height: 1.55;
+				margin: 28px 0 0;
+				max-width: 520px;
 			}
-			.cat-card:hover {
-				border-color: var(--accent);
-				box-shadow: var(--shadow-hover);
-				transform: translateY(-2px);
+			.hero-feed {
+				border-left: 1px solid var(--border);
+				padding-left: 28px;
+			}
+			.feed-list { list-style: none; padding: 0; margin: 12px 0 0; display: flex; flex-direction: column; gap: 16px; }
+			.feed-item { display: flex; gap: 14px; font-size: 13px; align-items: flex-start; }
+			.feed-time {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 11px;
+				color: var(--text-3);
+				width: 80px;
+				flex-shrink: 0;
+				padding-top: 2px;
+			}
+			.feed-title {
+				color: var(--text-2);
 				text-decoration: none;
+				font-size: 13px;
+				line-height: 1.45;
 			}
-			.cat-card-icon {
-				width: 36px; height: 36px;
-				border-radius: var(--r-sm);
-				margin-bottom: var(--sp-3);
-				display: flex; align-items: center; justify-content: center;
-				font-size: 1rem;
-				font-weight: 700;
-				font-family: 'Commissioner', sans-serif;
-			}
-			.cat-card[href*="ts-piot"] .cat-card-icon   { background: var(--cat-ts-piot-bg); color: var(--cat-ts-piot-fg); }
-			.cat-card[href*="markirovka"] .cat-card-icon { background: var(--cat-mark-bg);    color: var(--cat-mark-fg); }
-			.cat-card[href*="zakon"] .cat-card-icon      { background: var(--cat-zakon-bg);   color: var(--cat-zakon-fg); }
+			.feed-title:hover { color: var(--accent); text-decoration: none; }
 
-			.cat-card h3 {
-				margin: 0 0 var(--sp-2);
-				font-size: 1.0625rem;
+			/* FEATURED */
+			.featured { padding: 0 80px 80px; }
+			.featured > .featured-head {
+				border-top: 1px solid var(--border);
+				padding-top: 32px;
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				margin-bottom: 32px;
+			}
+			.featured-grid {
+				display: grid;
+				grid-template-columns: 1.4fr 1fr;
+				gap: 60px;
+			}
+			.featured-title {
+				font-size: clamp(2rem, 4.5vw, 4rem);
+				line-height: 1.05;
+				letter-spacing: -0.015em;
+				color: var(--text);
+				margin: 14px 0 24px;
+				font-weight: 400;
+			}
+			.featured-lead {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 16px;
+				color: var(--text-2);
+				line-height: 1.65;
+				margin-bottom: 24px;
+			}
+			.key-date {
+				background: var(--bg-muted);
+				padding: 32px;
+				position: relative;
+				overflow: hidden;
+				background-image:
+					linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+					linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+				background-size: 32px 32px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				min-height: 240px;
+			}
+			.key-date-label {
+				position: relative;
+				z-index: 2;
+			}
+			.key-date-num {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: clamp(4rem, 14vw, 11rem);
+				color: rgba(168,101,28,0.18);
+				letter-spacing: -0.02em;
+				line-height: 0.85;
+				pointer-events: none;
+			}
+			.key-date-cap {
+				position: relative;
+				z-index: 2;
+				font-family: 'Instrument Serif', Georgia, serif;
+				font-style: italic;
+				font-size: 18px;
 				color: var(--text);
 			}
-			.cat-card p {
-				font-size: 0.875rem;
-				color: var(--text-3);
-				margin-bottom: var(--sp-3);
-				line-height: 1.55;
-			}
-			.cat-link {
-				font-size: 0.875rem;
-				font-weight: 600;
-				color: var(--accent);
-			}
 
-			/* Карточки статей */
-			.post-list {
+			/* THREE COLS */
+			.three-cols { padding: 0 80px 80px; }
+			.three-cols-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				gap: 24px;
+				padding-bottom: 14px;
+				border-bottom: 1px solid var(--border);
+				margin-bottom: 32px;
+				flex-wrap: wrap;
+			}
+			.three-cols-head .eyebrow { flex-shrink: 0; }
+			.three-cols-title {
+				font-size: 36px;
+				color: var(--text);
+				margin: 0;
+				flex: 1;
+				font-weight: 400;
+			}
+			.three-cols-all {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 11px;
+				color: var(--accent);
+				text-decoration: none;
+				letter-spacing: 0.05em;
+			}
+			.three-cols-all:hover { text-decoration: underline; }
+			.three-cols-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 48px;
+			}
+			.cat-col {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.cat-col-eyebrow { margin-bottom: 4px; }
+			.cat-col-name {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 36px;
+				line-height: 1;
+				color: var(--text);
+				margin: 0;
+				letter-spacing: -0.01em;
+			}
+			.cat-col-meta {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 13px;
+				color: var(--text-3);
+				margin: 0 0 12px;
+			}
+			.cat-col-list {
 				list-style: none;
 				padding: 0;
 				margin: 0;
+				display: flex;
+				flex-direction: column;
+				gap: 14px;
+				border-top: 1px solid var(--border);
+				padding-top: 14px;
+			}
+			.cat-col-list li {
 				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: var(--sp-4);
+				grid-template-columns: 60px 1fr;
+				gap: 12px;
+				align-items: baseline;
 			}
-			.post-card a {
-				display: flex;
-				flex-direction: column;
-				border: 1px solid var(--border);
-				border-radius: var(--r-md);
-				background: var(--bg);
-				color: var(--text-2);
-				text-decoration: none;
-				height: 100%;
-				overflow: hidden;
-				transition: border-color var(--ease), box-shadow var(--ease);
-			}
-			.post-card a:hover {
-				border-color: var(--accent);
-				box-shadow: var(--shadow-hover);
-				text-decoration: none;
-			}
-			.post-card-img {
-				width: 100%;
-				aspect-ratio: 16 / 9;
-				overflow: hidden;
-				flex-shrink: 0;
-			}
-			.post-card-img img {
-				width: 100%; height: 100%;
-				object-fit: cover;
-				display: block;
-				transition: transform 0.25s ease;
-			}
-			.post-card a:hover .post-card-img img { transform: scale(1.04); }
-			.post-card-body {
-				padding: var(--sp-4);
-				display: flex;
-				flex-direction: column;
-				flex: 1;
-			}
-			.post-card h3 {
-				margin: 0 0 var(--sp-2);
-				color: var(--text);
-				font-size: 1rem;
-				line-height: 1.35;
-			}
-			.post-desc {
-				font-size: 0.875rem;
+			.cat-col-date {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 10px;
 				color: var(--text-3);
-				margin-bottom: var(--sp-2);
-				flex: 1;
-				line-height: 1.55;
+				letter-spacing: 0.05em;
 			}
-			.post-date {
-				font-size: 0.8125rem;
-				color: var(--text-4);
-				margin: 0;
-				margin-top: auto;
+			.cat-col-title {
+				font-size: 16px;
+				line-height: 1.25;
+				color: var(--text);
+				text-decoration: none;
+			}
+			.cat-col-title:hover { color: var(--accent); text-decoration: none; }
+			.cat-col-empty {
+				font-family: 'Instrument Serif', Georgia, serif;
+				font-style: italic;
+				color: var(--text-3);
+				font-size: 14px;
+			}
+			.cat-col-link {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 11px;
+				letter-spacing: 0.05em;
+				color: var(--accent);
+				margin-top: 8px;
 			}
 
-			@media (max-width: 900px) {
-				.cat-grid, .post-list { grid-template-columns: 1fr 1fr; }
+			/* NEWSLETTER */
+			.newsletter { padding: 0 80px 80px; }
+			.newsletter-grid {
+				background: var(--bg-dark);
+				color: var(--text-on-dark);
+				padding: 40px;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 40px;
+				align-items: center;
 			}
-			@media (max-width: 560px) {
-				.cat-grid, .post-list { grid-template-columns: 1fr; }
+			.newsletter-title {
+				font-size: 44px;
+				line-height: 1.05;
+				margin: 12px 0;
+				color: var(--text-on-dark);
+				font-weight: 400;
+			}
+			.newsletter-lead {
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 14px;
+				color: #C9C3B8;
+				margin: 0;
+			}
+			.newsletter-form {
+				display: flex;
+				gap: 0;
+			}
+			.newsletter-form input {
+				flex: 1;
+				background: transparent;
+				border: 1px solid var(--border-strong);
+				color: var(--text-on-dark);
+				padding: 13px 14px;
+				font-family: 'Inter Tight', sans-serif;
+				font-size: 14px;
+				outline: none;
+			}
+			.newsletter-form input::placeholder { color: #7a746a; }
+			.newsletter-btn {
+				font-family: 'Inter Tight', sans-serif;
+				font-weight: 600;
+				font-size: 13px;
+				padding: 0 22px;
+				background: var(--bg);
+				color: var(--text);
+				border: 1px solid var(--bg);
+				cursor: pointer;
+			}
+			.newsletter-btn:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+			.newsletter-mini {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 10px;
+				letter-spacing: 0.05em;
+				color: #7a746a;
+				margin-top: 10px;
+			}
+
+			/* LATEST ROW */
+			.latest-row { padding: 0 80px 80px; }
+			.latest-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				padding-bottom: 12px;
+				border-bottom: 2px solid var(--text);
+				margin-bottom: 0;
+			}
+			.latest-all {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 11px;
+				color: var(--accent);
+				text-decoration: none;
+			}
+			.latest-list {
+				display: flex;
+				flex-direction: column;
+			}
+			.latest-row-item {
+				display: grid;
+				grid-template-columns: 130px 80px 1fr 30px;
+				gap: 24px;
+				padding: 22px 0;
+				border-bottom: 1px solid var(--border);
+				align-items: baseline;
+				color: var(--text);
+				text-decoration: none;
+			}
+			.latest-row-item:hover { color: var(--accent); text-decoration: none; }
+			.latest-row-item:hover .latest-title { color: var(--accent); }
+			.latest-cat { white-space: nowrap; }
+			.latest-date {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 11px;
+				color: var(--text-3);
+			}
+			.latest-title {
+				font-size: 22px;
+				line-height: 1.2;
+				color: var(--text);
+				font-weight: 400;
+			}
+			.latest-arrow {
+				font-family: 'Instrument Serif', Georgia, serif;
+				font-size: 22px;
+				color: var(--text-3);
+				text-align: right;
+			}
+
+			/* RESPONSIVE */
+			@media (max-width: 900px) {
+				.hero { padding: 40px 20px 28px; }
+				.hero-grid { grid-template-columns: 1fr; gap: 32px; }
+				.hero-feed { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 24px; }
+				.featured { padding: 0 20px 40px; }
+				.featured-grid { grid-template-columns: 1fr; gap: 32px; }
+				.three-cols { padding: 0 20px 40px; }
+				.three-cols-grid { grid-template-columns: 1fr; gap: 32px; }
+				.newsletter { padding: 0 20px 40px; }
+				.newsletter-grid { grid-template-columns: 1fr; padding: 28px; gap: 24px; }
+				.latest-row { padding: 0 20px 40px; }
+				.latest-row-item { grid-template-columns: 1fr 30px; gap: 8px; row-gap: 6px; }
+				.latest-row-item .latest-cat,
+				.latest-row-item .latest-date {
+					grid-row: 1;
+				}
+				.latest-row-item .latest-title { grid-column: 1 / -1; font-size: 18px; }
+				.latest-row-item .latest-arrow { grid-row: 1; }
 			}
 		</style>
 	</body>
