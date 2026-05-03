@@ -63,7 +63,7 @@ for (const sample of SAMPLES) {
   const titleSize = titleLen > 80 ? 48 : titleLen > 55 ? 56 : 64;
   const titleText = escapeHtml(sample.title);
   const catText = escapeHtml(sample.catLabel);
-  const siteText = 'Регламент.Бизнес';
+  const siteText = 'Этикетка';
 
   const catTag = `<div style="display:flex; padding:6px 18px; background:${accent}22; color:${accent}; border:1px solid ${accent}44; border-radius:4px; font-size:20px; font-weight:700; letter-spacing:2px; margin-bottom:28px; align-self:flex-start;">${catText}</div>`;
 

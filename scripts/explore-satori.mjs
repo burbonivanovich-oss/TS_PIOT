@@ -70,7 +70,7 @@ await render('t2-gradient', `
           background:${ACCENT[SAMPLE.cat]}; color:#fff; align-items:center;
           justify-content:center; font-size:16px; font-weight:700;">РБ</div>
         <div style="display:flex; font-size:20px; font-weight:600;
-          color:rgba(255,255,255,0.45);">Регламент.Бизнес</div>
+          color:rgba(255,255,255,0.45);">Этикетка</div>
       </div>
 
       <!-- тело -->
@@ -119,7 +119,7 @@ await render('t3-split', `
     <div style="display:flex; flex-direction:column; flex:1; background:#0d0d0d;
       padding:56px 60px;">
       <div style="display:flex; font-size:20px; font-weight:700;
-        color:rgba(255,255,255,0.4);">Регламент.Бизнес</div>
+        color:rgba(255,255,255,0.4);">Этикетка</div>
       <div style="display:flex; flex:1; align-items:center;">
         <div style="display:flex; font-size:58px; font-weight:700; color:#fff;
           line-height:1.2;">${SAMPLE.title}</div>
@@ -146,7 +146,7 @@ await render('t4-band', `
           background:rgba(0,0,0,0.2); color:#fff; align-items:center;
           justify-content:center; font-size:18px; font-weight:700;">РБ</div>
         <div style="display:flex; font-size:22px; font-weight:700;
-          color:rgba(0,0,0,0.6);">Регламент.Бизнес</div>
+          color:rgba(0,0,0,0.6);">Этикетка</div>
       </div>
       <div style="display:flex; font-size:14px; font-weight:700; letter-spacing:3px;
         color:rgba(0,0,0,0.5); text-transform:uppercase; border:1.5px solid rgba(0,0,0,0.2);
@@ -186,7 +186,7 @@ await render('t5-minimal-light', `
       <!-- шапка -->
       <div style="display:flex; align-items:center; justify-content:space-between;">
         <div style="display:flex; font-size:20px; font-weight:700; color:#888;">
-          Регламент.Бизнес
+          Этикетка
         </div>
         <div style="display:flex; font-size:13px; font-weight:700; letter-spacing:2px;
           color:${ACCENT['zakonodatelstvo']}; text-transform:uppercase;">ЗАКОНОДАТЕЛЬСТВО</div>
@@ -235,7 +235,7 @@ await render('t6-dot-grid', `
           background:#3b82f6; color:#fff; align-items:center; justify-content:center;
           font-size:16px; font-weight:700;">РБ</div>
         <div style="display:flex; font-size:20px; font-weight:600;
-          color:rgba(255,255,255,0.4);">Регламент.Бизнес</div>
+          color:rgba(255,255,255,0.4);">Этикетка</div>
       </div>
 
       <div style="display:flex; flex:1; align-items:flex-end; padding-bottom:24px;">
@@ -267,7 +267,7 @@ await render('t7-tags', `
     <div style="display:flex; flex-direction:column; flex:1; padding:52px 64px;">
       <div style="display:flex; align-items:center; justify-content:space-between;">
         <div style="display:flex; font-size:20px; font-weight:600;
-          color:rgba(255,255,255,0.35);">Регламент.Бизнес</div>
+          color:rgba(255,255,255,0.35);">Этикетка</div>
         <div style="display:flex; font-size:13px; font-weight:700; letter-spacing:2px;
           color:${ACCENT[SAMPLE.cat]};">${SAMPLE.label}</div>
       </div>

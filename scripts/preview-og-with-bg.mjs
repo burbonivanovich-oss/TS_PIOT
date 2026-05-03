@@ -54,7 +54,7 @@ const TESTS = [
 ];
 
 const fontStack = "'InterCyr', 'InterLat', 'InterLatExt'";
-const SITE_TITLE = 'Регламент.Бизнес';
+const SITE_TITLE = 'Этикетка';
 
 for (const test of TESTS) {
   const { cat, title } = test;
