@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import FormattedDate from '../components/FormattedDate.astro';
 import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
@@ -12,11 +11,31 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 
 const latest = posts.slice(0, 6);
 
-const CAT_COLORS: Record<string, string> = {
-	'ts-piot': 'lime',
-	'markirovka': 'pink',
-	'zakonodatelstvo': 'dark',
+// Get abbreviation from title (2 letters)
+function abbrev(title: string): string {
+	const words = title
+		.replace(/[«»"']/g, '')
+		.split(/\s+/)
+		.filter((w: string) => /^[А-ЯЁA-Z]/i.test(w) && w.length > 2);
+	if (words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase();
+	return title.slice(0, 2).toUpperCase();
+}
+
+function fmtDate(d: Date): string {
+	return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+}
+
+const CAT_COLORS: Record<string, { bg: string; letterColor: string; tagBg: string; tagColor: string }> = {
+	'ts-piot': { bg: '#111', letterColor: '#C8F500', tagBg: '#111', tagColor: '#fff' },
+	'markirovka': { bg: '#E8175D', letterColor: '#fff', tagBg: '#E8175D', tagColor: '#fff' },
+	'zakonodatelstvo': { bg: '#C8F500', letterColor: '#111', tagBg: '#C8F500', tagColor: '#111' },
 };
+
+const catList = [
+	{ slug: 'ts-piot', num: '01', name: 'ТС ПИоТ', cls: 't1', count: posts.filter(p => p.data.categories?.includes('ts-piot')).length },
+	{ slug: 'markirovka', num: '02', name: 'Маркировка', cls: 't2', count: posts.filter(p => p.data.categories?.includes('markirovka')).length },
+	{ slug: 'zakonodatelstvo', num: '03', name: 'Законодательство', cls: 't3', count: posts.filter(p => p.data.categories?.includes('zakonodatelstvo')).length },
+];
 ---
 
 <!doctype html>
@@ -30,9 +49,9 @@ const CAT_COLORS: Record<string, string> = {
 			<!-- Hero -->
 			<section class="hero">
 				<div class="hero-eyebrow">
-					<span class="tag-pill tag-pill--lime">Медиа для бизнеса</span>
+					<span class="eyebrow-tag">Медиа для бизнеса</span>
 				</div>
-				<h1 class="hero-title">Разбираем требования,<br />которые догоняют бизнес</h1>
+				<h1 class="hero-title">РАЗБИРАЕМ ТРЕБОВАНИЯ,<br />КОТОРЫЕ ДОГОНЯЮТ БИЗНЕС</h1>
 				<p class="hero-lead">
 					ТС ПИоТ для онлайн-касс, маркировка «Честный знак», налоги, ЭДО
 					и трудовое законодательство — понятно и без паники.
@@ -43,328 +62,484 @@ const CAT_COLORS: Record<string, string> = {
 				</div>
 			</section>
 
-			<!-- Направления -->
-			<section class="categories" aria-labelledby="cat-heading">
-				<h2 class="section-label" id="cat-heading">Направления</h2>
-				<div class="cat-grid">
-					{Object.entries(CATEGORIES).map(([slug, cat]) => {
-						const color = CAT_COLORS[slug] ?? 'dark';
-						return (
-							<a class={`cat-card cat-card--${color}`} href={`/category/${slug}/`}>
-								<span class={`cat-tag tag-pill tag-pill--${color === 'lime' ? 'dark' : color === 'pink' ? 'dark' : 'lime'}`}>{cat.title}</span>
-								<p class="cat-desc">{cat.description}</p>
-								<span class="cat-arrow">→</span>
-							</a>
-						);
-					})}
+			<!-- Category tiles -->
+			<section class="categories">
+				<div class="section-label">
+					<span class="section-num">// 01</span> Разделы
+					<a href="/blog/" class="see-all">СМ. ВСЕ →</a>
+				</div>
+				<div class="cat-tiles">
+					{catList.map((cat) => (
+						<a class={`cat-tile ${cat.cls}`} href={`/category/${cat.slug}/`}>
+							<div>
+								<div class="t-num">{cat.num}</div>
+								<div class="t-name">{cat.name}</div>
+							</div>
+							<div>
+								<div class="t-count">{cat.count} материалов</div>
+								<div class="t-dot"></div>
+							</div>
+						</a>
+					))}
 				</div>
 			</section>
 
-			<!-- Последние материалы -->
-			<section class="latest" aria-labelledby="latest-heading">
-				<div class="section-header">
-					<h2 class="section-label" id="latest-heading">Последние материалы</h2>
-					<a href="/blog/" class="see-all">Все статьи →</a>
-				</div>
-				{latest.length === 0 ? (
-					<p>Скоро здесь появятся первые статьи.</p>
-				) : (
-					<ul class="post-grid">
-						{latest.map((post, idx) => {
-							const cat = post.data.categories?.[0];
-							const color = cat ? (CAT_COLORS[cat] ?? 'dark') : 'dark';
-							const isFeatured = idx === 0;
+			<!-- Latest posts -->
+			{latest.length > 0 && (
+				<section class="latest">
+					<div class="section-label">
+						<span class="section-num">// 02</span> Последние материалы
+						<a href="/blog/" class="see-all">СМ. ВСЕ →</a>
+					</div>
+
+					{/* Hero grid — first 3 posts */}
+					<div class="hero-grid">
+						{/* Main hero card */}
+						{latest[0] && (() => {
+							const cat0 = latest[0].data.categories?.[0];
+							const col0 = cat0 ? (CAT_COLORS[cat0] ?? CAT_COLORS['ts-piot']) : CAT_COLORS['ts-piot'];
 							return (
-								<li class={`post-card${isFeatured ? ' post-card--featured' : ''}`}>
-									<a href={`/blog/${post.id}/`}>
-										{post.data.previewImage && (
-											<div class="post-img">
-												<img src={post.data.previewImage} alt="" loading={idx < 2 ? 'eager' : 'lazy'} width="800" height="420" />
-											</div>
+								<a href={`/blog/${latest[0].id}/`} class="hero-main">
+									<span class="hero-bg-letter">{abbrev(latest[0].data.title)}</span>
+									<div class="hero-tags">
+										<span class="h-tag h-tag--pink">
+											{cat0 ? (CATEGORIES[cat0 as keyof typeof CATEGORIES]?.title ?? cat0) : 'Статья'}
+										</span>
+										{latest[0].data.tags?.[0] && (
+											<span class="h-tag h-tag--lime">#{latest[0].data.tags[0]}</span>
 										)}
-										<div class="post-body">
-											{cat && (
-												<span class={`tag-pill tag-pill--${color}`}>
-													{CATEGORIES[cat as keyof typeof CATEGORIES]?.title ?? cat}
-												</span>
+									</div>
+									<div class="hero-post-title">{latest[0].data.title}</div>
+									<div class="hero-meta">{fmtDate(latest[0].data.pubDate)}</div>
+								</a>
+							);
+						})()}
+						<div class="hero-side">
+							{latest[1] && (
+								<a href={`/blog/${latest[1].id}/`} class="side-card side-card--lime">
+									<div>
+										<span class="side-tag side-tag--lime-inner">
+											{latest[1].data.categories?.[0]
+												? (CATEGORIES[latest[1].data.categories[0] as keyof typeof CATEGORIES]?.title ?? latest[1].data.categories[0])
+												: 'Статья'}
+										</span>
+										<div class="side-title">{latest[1].data.title}</div>
+									</div>
+									<div class="side-meta">{fmtDate(latest[1].data.pubDate)}</div>
+								</a>
+							)}
+							{latest[2] && (
+								<a href={`/blog/${latest[2].id}/`} class="side-card side-card--white">
+									<div>
+										<span class="side-tag side-tag--pink-inner">
+											{latest[2].data.categories?.[0]
+												? (CATEGORIES[latest[2].data.categories[0] as keyof typeof CATEGORIES]?.title ?? latest[2].data.categories[0])
+												: 'Статья'}
+										</span>
+										<div class="side-title side-title--dark">{latest[2].data.title}</div>
+									</div>
+									<div class="side-meta side-meta--dark">{fmtDate(latest[2].data.pubDate)}</div>
+								</a>
+							)}
+						</div>
+					</div>
+
+					{/* Small cards grid — posts 4-6 */}
+					{latest.slice(3, 6).length > 0 && (
+						<div class="small-grid">
+							{latest.slice(3, 6).map((post) => {
+								const cat = post.data.categories?.[0];
+								const colors = cat ? (CAT_COLORS[cat] ?? { bg: '#222', letterColor: '#fff', tagBg: '#111', tagColor: '#fff' }) : { bg: '#222', letterColor: '#fff', tagBg: '#111', tagColor: '#fff' };
+								const catTitle = cat ? (CATEGORIES[cat as keyof typeof CATEGORIES]?.title ?? cat) : null;
+								return (
+									<a href={`/blog/${post.id}/`} class="small-card">
+										<div class="small-card-img" style={`background:${colors.bg}`}>
+											<span class="small-card-letter" style={`color:${colors.letterColor}`}>{abbrev(post.data.title)}</span>
+											<span class="small-card-date" style={cat === 'zakonodatelstvo' ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.6)'}>{fmtDate(post.data.pubDate)}</span>
+										</div>
+										<div class="small-card-body">
+											{catTitle && (
+												<span class="small-card-pill" style={`background:${colors.tagBg};color:${colors.tagColor}`}>{catTitle}</span>
 											)}
-											<h3 class="post-title">{post.data.title}</h3>
-											{isFeatured && <p class="post-desc">{post.data.description}</p>}
-											<p class="post-date">
-												{post.data.updatedDate ? (
-													<>обновлено <FormattedDate date={post.data.updatedDate} /></>
-												) : (
-													<FormattedDate date={post.data.pubDate} />
-												)}
-											</p>
+											<div class="small-card-title">{post.data.title}</div>
+											<div class="small-card-desc">{post.data.description}</div>
 										</div>
 									</a>
-								</li>
-							);
-						})}
-					</ul>
-				)}
-			</section>
+								);
+							})}
+						</div>
+					)}
+				</section>
+			)}
 		</main>
 		<Footer />
 
 		<style>
-			/* Hero */
-			.hero {
-				padding: 3.5rem 0 2.5rem;
-				border-bottom: 1px solid var(--border);
-				margin-bottom: 3rem;
+			main {
+				padding: 48px 32px 80px;
 			}
-			.hero-eyebrow {
-				margin-bottom: 1.25rem;
+
+			/* ── Hero ── */
+			.hero {
+				padding-bottom: 40px;
+				border-bottom: 1px solid rgba(0,0,0,.12);
+				margin-bottom: 48px;
+			}
+			.eyebrow-tag {
+				display: inline-block;
+				font-size: .65rem;
+				font-weight: 700;
+				letter-spacing: .12em;
+				text-transform: uppercase;
+				padding: 4px 8px;
+				background: #C8F500;
+				color: #111;
+				margin-bottom: 16px;
 			}
 			.hero-title {
-				font-size: clamp(2.2rem, 5vw, 3.6rem);
-				letter-spacing: -0.03em;
-				max-width: 760px;
-				line-height: 1.1;
-				margin-bottom: 1rem;
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: clamp(2.8rem, 6vw, 5rem);
+				line-height: .95;
+				letter-spacing: .03em;
+				color: #111;
+				margin-bottom: 16px;
+				text-transform: uppercase;
 			}
 			.hero-lead {
-				font-size: 1.1rem;
-				max-width: 640px;
-				color: var(--muted);
-				margin: 0 0 1.75rem;
-				line-height: 1.6;
+				font-size: 1rem;
+				color: #666;
+				max-width: 560px;
+				line-height: 1.65;
+				margin-bottom: 24px;
 			}
 			.hero-cta {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 0.75rem;
+				gap: 8px;
 			}
 			.btn {
 				display: inline-block;
-				padding: 0.65em 1.4em;
-				border-radius: 4px;
+				padding: .65em 1.5em;
 				text-decoration: none;
+				font-size: .78rem;
 				font-weight: 700;
-				font-size: 0.9rem;
-				letter-spacing: 0.01em;
-				transition: all 0.12s ease;
-				font-family: 'Commissioner', sans-serif;
+				letter-spacing: .1em;
 				text-transform: uppercase;
+				transition: all .12s ease;
+				font-family: 'Inter', sans-serif;
 			}
 			.btn-primary {
-				background: var(--dark);
-				color: var(--lime);
-				border: 2px solid var(--dark);
+				background: #111;
+				color: #C8F500;
 			}
 			.btn-primary:hover {
-				background: var(--pink);
-				border-color: var(--pink);
+				background: #E8175D;
 				color: #fff;
 			}
 			.btn-ghost {
 				background: transparent;
-				color: var(--dark);
-				border: 2px solid var(--dark);
+				color: #111;
+				border: 2px solid #111;
 			}
 			.btn-ghost:hover {
-				background: var(--dark);
-				color: var(--lime);
+				background: #111;
+				color: #C8F500;
 			}
 
-			/* Section labels */
+			/* ── Section label ── */
 			.section-label {
-				font-size: 0.75rem;
-				font-weight: 700;
-				letter-spacing: 0.1em;
-				text-transform: uppercase;
-				color: var(--muted);
-				margin: 0;
-			}
-
-			/* Categories */
-			.categories {
-				margin-bottom: 3.5rem;
-			}
-			.cat-grid {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 1px;
-				background: var(--border);
-				border: 1px solid var(--border);
-				border-radius: 8px;
-				overflow: hidden;
-				margin-top: 1.25rem;
-			}
-			.cat-card {
-				display: flex;
-				flex-direction: column;
-				padding: 1.75rem;
-				text-decoration: none;
-				transition: all 0.12s ease;
-				background: #fff;
-				gap: 0.75rem;
-			}
-			.cat-card--lime { border-top: 3px solid var(--lime); }
-			.cat-card--pink { border-top: 3px solid var(--pink); }
-			.cat-card--dark { border-top: 3px solid var(--dark); }
-			.cat-card:hover {
-				background: var(--dark);
-			}
-			.cat-card:hover .cat-desc { color: rgba(255,255,255,0.6); }
-			.cat-card:hover .cat-arrow { color: var(--lime); }
-			.cat-tag { align-self: flex-start; }
-			.cat-desc {
-				font-size: 0.88rem;
-				color: var(--muted);
-				margin: 0;
-				line-height: 1.5;
-				flex: 1;
-				transition: color 0.12s ease;
-			}
-			.cat-arrow {
-				font-size: 1.1rem;
-				color: var(--muted);
-				transition: color 0.12s ease;
-				align-self: flex-end;
-			}
-
-			/* Tag pills (переопределяем для локального использования) */
-			.tag-pill {
-				display: inline-block;
-				padding: 0.22em 0.65em;
-				border-radius: 3px;
-				font-size: 0.72rem;
-				font-weight: 700;
-				letter-spacing: 0.06em;
-				text-transform: uppercase;
-				line-height: 1.4;
-				text-decoration: none;
-			}
-			.tag-pill--lime { background: var(--lime); color: var(--dark); }
-			.tag-pill--pink { background: var(--pink); color: #fff; }
-			.tag-pill--dark { background: var(--dark); color: var(--lime); }
-
-			/* Latest posts */
-			.latest { }
-			.section-header {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 1.5rem;
+				letter-spacing: .06em;
+				color: #111;
+				margin-bottom: 20px;
 				display: flex;
 				align-items: center;
-				justify-content: space-between;
-				margin-bottom: 1.25rem;
+				gap: 12px;
+				margin-top: 0;
+			}
+			.section-num {
+				color: #ccc;
 			}
 			.see-all {
-				font-size: 0.82rem;
+				font-family: 'Inter', sans-serif;
+				font-size: .7rem;
 				font-weight: 700;
-				letter-spacing: 0.02em;
-				color: var(--muted);
-				text-decoration: none;
+				letter-spacing: .1em;
 				text-transform: uppercase;
+				color: #999;
+				margin-left: auto;
+				text-decoration: none;
+				transition: color .15s;
 			}
-			.see-all:hover { color: var(--dark); }
+			.see-all:hover {
+				color: #111;
+			}
 
-			.post-grid {
-				list-style: none;
-				padding: 0;
-				margin: 0;
+			/* ── Category tiles ── */
+			.categories {
+				margin-bottom: 56px;
+			}
+			.cat-tiles {
 				display: grid;
 				grid-template-columns: repeat(3, 1fr);
-				gap: 1px;
-				background: var(--border);
-				border: 1px solid var(--border);
-				border-radius: 8px;
-				overflow: hidden;
+				gap: 8px;
 			}
-			.post-card--featured {
-				grid-column: 1 / 3;
-			}
-			.post-card a {
+			.cat-tile {
+				padding: 24px;
+				min-height: 120px;
 				display: flex;
 				flex-direction: column;
-				background: #fff;
-				color: var(--mid);
+				justify-content: space-between;
 				text-decoration: none;
-				height: 100%;
-				overflow: hidden;
-				transition: background 0.12s ease;
+				transition: opacity .15s;
 			}
-			.post-card--featured a {
-				flex-direction: row;
+			.cat-tile:hover {
+				opacity: .88;
 			}
-			.post-card a:hover { background: var(--surface); }
-			.post-card--featured a:hover { background: var(--dark); }
-			.post-card--featured a:hover .post-title { color: var(--lime); }
-			.post-card--featured a:hover .post-desc { color: rgba(255,255,255,0.6); }
-			.post-card--featured a:hover .post-date { color: rgba(255,255,255,0.35); }
+			.cat-tile.t1 {
+				background: #EDE8DF;
+				border: 1px solid rgba(0,0,0,.15);
+			}
+			.cat-tile.t2 {
+				background: #C8F500;
+			}
+			.cat-tile.t3 {
+				background: #111;
+			}
+			.t-num {
+				font-size: .65rem;
+				font-weight: 700;
+				letter-spacing: .1em;
+				text-transform: uppercase;
+				color: #aaa;
+				margin-bottom: 4px;
+			}
+			.t2 .t-num { color: #8aaa00; }
+			.t3 .t-num { color: #555; }
+			.t-name {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 2rem;
+				letter-spacing: .04em;
+				text-transform: uppercase;
+				color: #111;
+			}
+			.t3 .t-name { color: #fff; }
+			.t-count {
+				font-size: .65rem;
+				font-weight: 600;
+				letter-spacing: .06em;
+				color: #888;
+				margin-bottom: 4px;
+			}
+			.t2 .t-count { color: #666; }
+			.t3 .t-count { color: #555; }
+			.t-dot {
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+			}
+			.t1 .t-dot { background: #E8175D; }
+			.t2 .t-dot { background: #111; }
+			.t3 .t-dot { background: #C8F500; }
 
-			.post-img {
-				width: 100%;
-				aspect-ratio: 16 / 9;
-				overflow: hidden;
-				flex-shrink: 0;
+			/* ── Latest section ── */
+			.latest {
+				margin-bottom: 0;
 			}
-			.post-card--featured .post-img {
-				width: 45%;
-				aspect-ratio: unset;
-			}
-			.post-img img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				display: block;
-				transition: transform 0.4s ease;
-			}
-			.post-card a:hover .post-img img { transform: scale(1.04); }
 
-			.post-body {
-				padding: 1.4rem 1.6rem 1.6rem;
+			/* ── Hero grid ── */
+			.hero-grid {
+				display: grid;
+				grid-template-columns: 2fr 1fr;
+				gap: 8px;
+				margin-bottom: 8px;
+			}
+			.hero-main {
+				background: #111;
+				color: #fff;
+				padding: 24px;
+				position: relative;
+				overflow: hidden;
+				min-height: 260px;
 				display: flex;
 				flex-direction: column;
-				flex: 1;
-				gap: 0.5rem;
-			}
-			.post-card--featured .post-body {
-				padding: 2rem 2rem;
 				justify-content: flex-end;
+				text-decoration: none;
 			}
-			.post-title {
-				margin: 0;
-				font-size: 1rem;
+			.hero-bg-letter {
+				position: absolute;
+				right: -10px;
+				top: -20px;
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 18rem;
+				line-height: 1;
+				color: #E8175D;
+				opacity: .35;
+				pointer-events: none;
+				letter-spacing: -.02em;
+			}
+			.hero-tags {
+				display: flex;
+				gap: 4px;
+				margin-bottom: 12px;
+				position: relative;
+				z-index: 1;
+			}
+			.h-tag {
+				font-size: .65rem;
 				font-weight: 700;
-				color: var(--dark);
-				line-height: 1.25;
-				letter-spacing: -0.01em;
-				transition: color 0.12s ease;
+				letter-spacing: .1em;
+				text-transform: uppercase;
+				padding: 4px 8px;
 			}
-			.post-card--featured .post-title {
-				font-size: 1.5rem;
-				letter-spacing: -0.02em;
-				line-height: 1.18;
+			.h-tag--pink { background: #E8175D; color: #fff; }
+			.h-tag--lime { background: #C8F500; color: #111; }
+			.hero-post-title {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 2.8rem;
+				line-height: 1.0;
+				letter-spacing: .03em;
+				color: #fff;
+				text-transform: uppercase;
+				position: relative;
+				z-index: 1;
 			}
-			.post-desc {
-				font-size: 0.88rem;
-				color: var(--muted);
-				margin: 0;
+			.hero-meta {
+				font-size: .65rem;
+				letter-spacing: .1em;
+				text-transform: uppercase;
+				color: #777;
+				margin-top: 8px;
+				position: relative;
+				z-index: 1;
+			}
+			.hero-side {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+			}
+			.side-card {
+				padding: 16px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				flex: 1;
+				min-height: 124px;
+				text-decoration: none;
+			}
+			.side-card--lime { background: #C8F500; }
+			.side-card--white { background: #fff; }
+			.side-tag {
+				font-size: .6rem;
+				font-weight: 700;
+				letter-spacing: .12em;
+				text-transform: uppercase;
+				padding: 3px 7px;
+				display: inline-block;
+				margin-bottom: 8px;
+			}
+			.side-tag--lime-inner { background: #111; color: #C8F500; }
+			.side-tag--pink-inner { background: #E8175D; color: #fff; }
+			.side-title {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 1.45rem;
+				line-height: 1.1;
+				text-transform: uppercase;
+				letter-spacing: .02em;
+				color: #111;
+			}
+			.side-title--dark { color: #111; }
+			.side-meta {
+				font-size: .6rem;
+				letter-spacing: .1em;
+				text-transform: uppercase;
+				color: #555;
+				margin-top: 8px;
+			}
+			.side-meta--dark { color: #666; }
+
+			/* ── Small cards grid ── */
+			.small-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 8px;
+			}
+			.small-card {
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+				text-decoration: none;
+				color: #111;
+				transition: opacity .15s;
+			}
+			.small-card:hover { opacity: .88; }
+			.small-card-img {
+				width: 100%;
+				aspect-ratio: 4/3;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				overflow: hidden;
+				position: relative;
+			}
+			.small-card-letter {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 7rem;
+				line-height: 1;
+				opacity: .25;
+				letter-spacing: -.02em;
+			}
+			.small-card-date {
+				position: absolute;
+				bottom: 8px;
+				right: 10px;
+				font-size: .6rem;
+				letter-spacing: .1em;
+				text-transform: uppercase;
+			}
+			.small-card-body {
+				padding: 16px;
+			}
+			.small-card-pill {
+				font-size: .6rem;
+				font-weight: 700;
+				letter-spacing: .12em;
+				text-transform: uppercase;
+				padding: 3px 7px;
+				display: inline-block;
+				margin-bottom: 10px;
+			}
+			.small-card-title {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 1.45rem;
+				line-height: 1.05;
+				text-transform: uppercase;
+				letter-spacing: .02em;
+				color: #111;
+				margin-bottom: 6px;
+			}
+			.small-card-desc {
+				font-size: .78rem;
+				color: #666;
 				line-height: 1.5;
-				transition: color 0.12s ease;
-			}
-			.post-date {
-				font-size: 0.75rem;
-				color: #9CA3AF;
-				margin: 0;
-				margin-top: auto;
-				padding-top: 0.5rem;
-				transition: color 0.12s ease;
 			}
 
-			@media (max-width: 900px) {
-				.cat-grid { grid-template-columns: 1fr 1fr; }
-				.post-grid { grid-template-columns: 1fr 1fr; }
-				.post-card--featured { grid-column: 1 / -1; }
+			/* ── Responsive ── */
+			@media (max-width: 820px) {
+				main { padding: 32px 20px 60px; }
+				.cat-tiles { grid-template-columns: 1fr 1fr; }
+				.hero-grid { grid-template-columns: 1fr; }
+				.hero-side { flex-direction: row; }
+				.small-grid { grid-template-columns: repeat(2, 1fr); }
 			}
-			@media (max-width: 600px) {
-				.cat-grid { grid-template-columns: 1fr; }
-				.post-grid { grid-template-columns: 1fr; }
-				.post-card--featured a { flex-direction: column; }
-				.post-card--featured .post-img { width: 100%; aspect-ratio: 16/9; }
-				.hero { padding: 2rem 0 1.5rem; }
+			@media (max-width: 560px) {
+				main { padding: 24px 16px 48px; }
+				.cat-tiles { grid-template-columns: 1fr; }
+				.hero-bg-letter { font-size: 10rem; }
+				.hero-post-title { font-size: 2rem; }
+				.hero-side { flex-direction: column; }
+				.small-grid { grid-template-columns: 1fr; }
 			}
 		</style>
 	</body>

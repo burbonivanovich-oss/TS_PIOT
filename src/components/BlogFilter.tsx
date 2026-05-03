@@ -18,399 +18,544 @@ type Props = {
 	pageSize?: number;
 };
 
-const fmt = (iso: string) =>
-	new Date(iso).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' });
-
-const CAT_COLORS: Record<string, string> = {
-	'ts-piot': 'lime',
-	'markirovka': 'pink',
-	'zakonodatelstvo': 'dark',
-};
-
-function getCatColor(cat: string) {
-	return CAT_COLORS[cat] ?? 'dark';
+// Format date as "25 апр."
+function fmtDate(iso: string): string {
+	return new Date(iso).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
 }
 
-export default function BlogFilter({ posts, categories, allTags, pageSize = 12 }: Props) {
+// Get 2-letter abbreviation from title
+function abbrev(title: string): string {
+	const words = title
+		.replace(/[«»"']/g, '')
+		.split(/\s+/)
+		.filter((w) => /^[А-ЯЁA-Z]/i.test(w) && w.length > 2);
+	if (words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase();
+	return title.slice(0, 2).toUpperCase();
+}
+
+// Get card colors by category
+function cardBg(cat?: string): { bg: string; letterColor: string; tagBg: string; tagColor: string; dateColor: string } {
+	if (cat === 'ts-piot')
+		return { bg: '#111', letterColor: '#C8F500', tagBg: '#111', tagColor: '#fff', dateColor: 'rgba(255,255,255,.6)' };
+	if (cat === 'markirovka')
+		return { bg: '#E8175D', letterColor: '#fff', tagBg: '#E8175D', tagColor: '#fff', dateColor: 'rgba(255,255,255,.6)' };
+	if (cat === 'zakonodatelstvo')
+		return { bg: '#C8F500', letterColor: '#111', tagBg: '#C8F500', tagColor: '#111', dateColor: 'rgba(0,0,0,.45)' };
+	return { bg: '#222', letterColor: '#fff', tagBg: '#111', tagColor: '#fff', dateColor: 'rgba(255,255,255,.5)' };
+}
+
+// Month name in Russian
+function archiveMonthLabel(iso: string): string {
+	const d = new Date(iso);
+	const month = d.toLocaleDateString('ru-RU', { month: 'long' });
+	const year = d.getFullYear();
+	return `${month.charAt(0).toUpperCase() + month.slice(1)} ${year}`;
+}
+
+// Category display names
+const CAT_NAMES: Record<string, string> = {
+	'ts-piot': 'ТС ПИоТ',
+	'markirovka': 'Маркировка',
+	'zakonodatelstvo': 'Законодательство',
+};
+
+export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }: Props) {
 	const [activeCategory, setActiveCategory] = useState<string>('all');
-	const [activeTag, setActiveTag] = useState<string>('');
+	const [sortDesc, setSortDesc] = useState(true);
 	const [page, setPage] = useState(1);
 
 	const filtered = useMemo(() => {
-		return posts.filter((p) => {
-			const catOk = activeCategory === 'all' || p.categories.includes(activeCategory);
-			const tagOk = !activeTag || p.tags.includes(activeTag);
-			return catOk && tagOk;
+		const result = posts.filter((p) => {
+			return activeCategory === 'all' || p.categories.includes(activeCategory);
 		});
-	}, [posts, activeCategory, activeTag]);
+		return sortDesc ? result : [...result].reverse();
+	}, [posts, activeCategory, sortDesc]);
 
-	const totalPages = Math.ceil(filtered.length / pageSize);
-	const paginated = filtered.slice((page - 1) * pageSize, page * pageSize);
-
-	const resetFilters = (fn: () => void) => { fn(); setPage(1); };
-
+	const totalPages = Math.ceil(Math.max(0, filtered.length - 3) / pageSize);
+	const heroItems = filtered.slice(0, 3);
+	const archiveItems = filtered.slice(3);
+	const paginatedArchive = archiveItems.slice((page - 1) * pageSize, page * pageSize);
 	const pages = buildPageList(page, totalPages);
+
+	const resetPage = () => setPage(1);
+
+	// Category counts
+	const catCounts: Record<string, number> = { all: posts.length };
+	Object.keys(categories).forEach((slug) => {
+		catCounts[slug] = posts.filter((p) => p.categories.includes(slug)).length;
+	});
 
 	return (
 		<div className="bf">
-			{/* Фильтр */}
-			<div className="bf-toolbar">
-				<div className="bf-cats">
-					<button
-						type="button"
-						className={`bf-cat${activeCategory === 'all' ? ' bf-cat--active' : ''}`}
-						onClick={() => resetFilters(() => { setActiveCategory('all'); setActiveTag(''); })}
-					>
-						Все
-					</button>
-					{Object.entries(categories).map(([slug, cat]) => (
+			{/* Filter bar */}
+			<div className="bf-filter-bar">
+				<div className="bf-filter-left">
+					<span className="bf-filter-label">Раздел:</span>
+					<div className="bf-filter-tags">
 						<button
-							key={slug}
 							type="button"
-							className={`bf-cat bf-cat--${getCatColor(slug)}${activeCategory === slug ? ' bf-cat--active' : ''}`}
-							onClick={() => resetFilters(() => { setActiveCategory(slug); setActiveTag(''); })}
+							className={`bf-ftag${activeCategory === 'all' ? ' bf-ftag--active' : ''}`}
+							onClick={() => { setActiveCategory('all'); resetPage(); }}
 						>
-							{cat.title}
+							Все {catCounts.all}
 						</button>
-					))}
-				</div>
-
-				<div className="bf-right">
-					<select
-						className="bf-tag-select"
-						value={activeTag}
-						onChange={(e) => resetFilters(() => setActiveTag(e.target.value))}
-						aria-label="Фильтр по тегу"
-					>
-						<option value="">Все теги</option>
-						{allTags.map((tag) => (
-							<option key={tag} value={tag}>{tag}</option>
+						{Object.entries(categories).map(([slug, cat]) => (
+							<button
+								key={slug}
+								type="button"
+								className={`bf-ftag${activeCategory === slug ? ' bf-ftag--active' : ''}`}
+								onClick={() => { setActiveCategory(slug); resetPage(); }}
+							>
+								{cat.title} {catCounts[slug] ?? 0}
+							</button>
 						))}
-					</select>
-					{activeTag && (
-						<button type="button" className="bf-reset" onClick={() => resetFilters(() => setActiveTag(''))}>
-							✕
-						</button>
-					)}
-					<span className="bf-count">
-						{pluralize(filtered.length, ['материал', 'материала', 'материалов'])}
-					</span>
+					</div>
 				</div>
+				<button
+					type="button"
+					className="bf-sort"
+					onClick={() => { setSortDesc((v) => !v); resetPage(); }}
+				>
+					{sortDesc ? 'Сначала новые ↓' : 'Сначала старые ↑'}
+				</button>
 			</div>
 
-			{/* Список */}
-			{paginated.length === 0 ? (
+			{filtered.length === 0 ? (
 				<p className="bf-empty">По выбранным фильтрам материалов нет.</p>
 			) : (
-				<ul className="bf-list">
-					{paginated.map((post, idx) => {
-						const cat = post.categories[0];
-						const catTitle = cat ? categories[cat]?.title : null;
-						const catColor = cat ? getCatColor(cat) : 'dark';
-						const date = post.updatedDate ?? post.pubDate;
-						const isUpdated = !!post.updatedDate;
-						const isFeatured = idx === 0 && page === 1;
-						return (
-							<li key={post.id} className={`bf-card${isFeatured ? ' bf-card--featured' : ''}`}>
-								<a href={`/blog/${post.id}/`}>
-									{post.previewImage && (
-										<div className="bf-card-img">
-											<img src={post.previewImage} alt="" loading={idx < 3 ? 'eager' : 'lazy'} width="800" height="420" />
+				<>
+					{/* Hero grid — first 3 posts */}
+					{heroItems.length > 0 && (
+						<div className="bf-hero-grid">
+							{/* Hero main card */}
+							<a href={`/blog/${heroItems[0].id}/`} className="bf-hero-main">
+								<span className="bf-hero-bg-letter">{abbrev(heroItems[0].title)}</span>
+								<div className="bf-hero-tags">
+									<span className="bf-htag bf-htag--pink">
+										{heroItems[0].categories[0] ? (CAT_NAMES[heroItems[0].categories[0]] ?? heroItems[0].categories[0]) : 'Статья'}
+									</span>
+									{heroItems[0].tags[0] && (
+										<span className="bf-htag bf-htag--lime">#{heroItems[0].tags[0]}</span>
+									)}
+								</div>
+								<div className="bf-hero-title">{heroItems[0].title}</div>
+								<div className="bf-hero-meta">{fmtDate(heroItems[0].pubDate)}</div>
+							</a>
+
+							{/* Hero side cards */}
+							<div className="bf-hero-side">
+								{heroItems[1] && (
+									<a href={`/blog/${heroItems[1].id}/`} className="bf-hero-card bf-hero-card--lime">
+										<div>
+											<span className="bf-card-tag bf-card-tag--lime-inner">
+												{heroItems[1].categories[0] ? (CAT_NAMES[heroItems[1].categories[0]] ?? heroItems[1].categories[0]) : 'Статья'}
+											</span>
+											<div className="bf-side-title">{heroItems[1].title}</div>
 										</div>
-									)}
-									{!post.previewImage && isFeatured && (
-										<div className="bf-card-placeholder" />
-									)}
-									<div className="bf-card-body">
-										{catTitle && (
-											<span className={`bf-tag bf-tag--${catColor}`}>{catTitle}</span>
-										)}
-										<h2 className="bf-card-title">{post.title}</h2>
-										{isFeatured && <p className="bf-card-desc">{post.description}</p>}
-										<p className="bf-card-date">
-											{isUpdated ? 'обновлено ' : ''}{fmt(date)}
-										</p>
-									</div>
-								</a>
-							</li>
-						);
-					})}
-				</ul>
-			)}
-
-			{/* Пагинация */}
-			{totalPages > 1 && (
-				<nav className="bf-pages" aria-label="Страницы">
-					<button
-						type="button"
-						className="bf-page-btn"
-						onClick={() => setPage((p) => p - 1)}
-						disabled={page === 1}
-						aria-label="Предыдущая"
-					>←</button>
-
-					{pages.map((p, i) =>
-						p === '…' ? (
-							<span key={`e-${i}`} className="bf-page-ellipsis">…</span>
-						) : (
-							<button
-								key={p}
-								type="button"
-								className={`bf-page-btn${page === p ? ' bf-page-btn--active' : ''}`}
-								onClick={() => setPage(p as number)}
-								aria-current={page === p ? 'page' : undefined}
-							>{p}</button>
-						)
+										<div className="bf-side-meta">{fmtDate(heroItems[1].pubDate)}</div>
+									</a>
+								)}
+								{heroItems[2] && (
+									<a href={`/blog/${heroItems[2].id}/`} className="bf-hero-card bf-hero-card--white">
+										<div>
+											<span className="bf-card-tag bf-card-tag--pink-inner">
+												{heroItems[2].categories[0] ? (CAT_NAMES[heroItems[2].categories[0]] ?? heroItems[2].categories[0]) : 'Статья'}
+											</span>
+											<div className="bf-side-title bf-side-title--dark">{heroItems[2].title}</div>
+										</div>
+										<div className="bf-side-meta bf-side-meta--dark">{fmtDate(heroItems[2].pubDate)}</div>
+									</a>
+								)}
+							</div>
+						</div>
 					)}
 
-					<button
-						type="button"
-						className="bf-page-btn"
-						onClick={() => setPage((p) => p + 1)}
-						disabled={page === totalPages}
-						aria-label="Следующая"
-					>→</button>
-				</nav>
+					{/* Archive section */}
+					{paginatedArchive.length > 0 && (
+						<>
+							<div className="bf-archive-header">
+								<span className="bf-archive-title">
+									Архив — {archiveMonthLabel(paginatedArchive[0].pubDate)}
+								</span>
+								<span className="bf-archive-count">
+									{pluralize(archiveItems.length, ['материал', 'материала', 'материалов'])}
+								</span>
+							</div>
+
+							<div className="bf-cards-grid">
+								{paginatedArchive.map((post) => {
+									const cat = post.categories[0];
+									const colors = cardBg(cat);
+									const catName = cat ? (CAT_NAMES[cat] ?? cat) : null;
+									return (
+										<a key={post.id} href={`/blog/${post.id}/`} className="bf-card">
+											<div className="bf-card-img" style={{ background: colors.bg }}>
+												<span className="bf-card-letter" style={{ color: colors.letterColor }}>
+													{abbrev(post.title)}
+												</span>
+												<span className="bf-card-date-overlay" style={{ color: colors.dateColor }}>
+													{fmtDate(post.pubDate)}
+												</span>
+											</div>
+											<div className="bf-card-body">
+												{catName && (
+													<span
+														className="bf-card-pill"
+														style={{ background: colors.tagBg, color: colors.tagColor }}
+													>
+														{catName}
+													</span>
+												)}
+												<div className="bf-card-title">{post.title}</div>
+												<div className="bf-card-desc">{post.description}</div>
+												<div className="bf-card-author">— Редакция</div>
+											</div>
+										</a>
+									);
+								})}
+							</div>
+						</>
+					)}
+
+					{/* Pagination */}
+					{totalPages > 1 && (
+						<nav className="bf-pages" aria-label="Страницы">
+							<button
+								type="button"
+								className="bf-page-btn"
+								onClick={() => setPage((p) => p - 1)}
+								disabled={page === 1}
+								aria-label="Предыдущая"
+							>←</button>
+
+							{pages.map((p, i) =>
+								p === '…' ? (
+									<span key={`e-${i}`} className="bf-page-ellipsis">…</span>
+								) : (
+									<button
+										key={p}
+										type="button"
+										className={`bf-page-btn${page === p ? ' bf-page-btn--active' : ''}`}
+										onClick={() => setPage(p as number)}
+										aria-current={page === p ? 'page' : undefined}
+									>{p}</button>
+								)
+							)}
+
+							<button
+								type="button"
+								className="bf-page-btn"
+								onClick={() => setPage((p) => p + 1)}
+								disabled={page === totalPages}
+								aria-label="Следующая"
+							>→</button>
+						</nav>
+					)}
+				</>
 			)}
 
 			<style>{`
-				.bf { margin-top: 0; }
+				.bf {
+					margin-top: 0;
+				}
 
-				/* Toolbar */
-				.bf-toolbar {
+				/* ── Filter bar ── */
+				.bf-filter-bar {
 					display: flex;
 					align-items: center;
-					flex-wrap: wrap;
-					gap: 0.75rem;
-					margin-bottom: 2rem;
-					padding-bottom: 1.25rem;
-					border-bottom: 1px solid #E8E8E6;
-				}
-				.bf-cats {
-					display: flex;
-					flex-wrap: wrap;
-					gap: 0.4rem;
-					flex: 1;
-				}
-				.bf-cat {
-					padding: 0.38em 1em;
-					border-radius: 4px;
-					border: 1.5px solid #E8E8E6;
-					background: #fff;
-					color: #1C1C1C;
-					font-size: 0.82rem;
-					font-weight: 600;
-					letter-spacing: 0.02em;
-					cursor: pointer;
-					transition: all 0.12s ease;
-					font-family: inherit;
+					justify-content: space-between;
+					margin-bottom: 36px;
+					font-size: .7rem;
+					font-weight: 700;
+					letter-spacing: .1em;
 					text-transform: uppercase;
+					flex-wrap: wrap;
+					gap: 8px;
 				}
-				.bf-cat:hover {
-					border-color: #0D0D0D;
-					background: #0D0D0D;
-					color: #fff;
-				}
-				.bf-cat--active {
-					background: #0D0D0D;
-					border-color: #0D0D0D;
-					color: #C8FF00;
-				}
-				.bf-right {
+				.bf-filter-left {
 					display: flex;
 					align-items: center;
-					gap: 0.5rem;
-					flex-shrink: 0;
+					gap: 0;
+					flex-wrap: wrap;
 				}
-				.bf-tag-select {
-					padding: 0.4em 0.75em;
-					border: 1.5px solid #E8E8E6;
-					border-radius: 4px;
-					font-size: 0.82rem;
-					font-family: inherit;
-					background: #fff;
-					color: #1C1C1C;
-					cursor: pointer;
-				}
-				.bf-tag-select:focus {
-					outline: 2px solid #C8FF00;
-					outline-offset: 1px;
-					border-color: #0D0D0D;
-				}
-				.bf-reset {
-					width: 2rem;
-					height: 2rem;
-					border-radius: 4px;
-					border: 1.5px solid #E8E8E6;
-					background: #fff;
-					color: #FF2055;
-					font-size: 0.9rem;
-					cursor: pointer;
-					font-family: inherit;
-					display: inline-flex;
-					align-items: center;
-					justify-content: center;
-					transition: all 0.12s ease;
-				}
-				.bf-reset:hover {
-					background: #FF2055;
-					border-color: #FF2055;
-					color: #fff;
-				}
-				.bf-count {
-					font-size: 0.82rem;
-					color: #6B7280;
+				.bf-filter-label {
+					color: #999;
+					margin-right: 8px;
 					white-space: nowrap;
 				}
-				.bf-empty {
-					color: #6B7280;
-					font-size: 1rem;
-					padding: 3rem 0;
-					text-align: center;
+				.bf-filter-tags {
+					display: flex;
+					gap: 4px;
+					flex-wrap: wrap;
+				}
+				.bf-ftag {
+					padding: 5px 12px;
+					background: none;
+					border: none;
+					color: #111;
+					font-size: .7rem;
+					font-weight: 700;
+					letter-spacing: .1em;
+					text-transform: uppercase;
+					cursor: pointer;
+					font-family: 'Inter', sans-serif;
+					transition: background .15s;
+					line-height: 1;
+				}
+				.bf-ftag:hover {
+					background: rgba(0,0,0,.08);
+				}
+				.bf-ftag--active {
+					background: #111;
+					color: #EDE8DF;
+				}
+				.bf-sort {
+					color: #666;
+					font-size: .7rem;
+					font-weight: 700;
+					letter-spacing: .08em;
+					text-transform: uppercase;
+					background: none;
+					border: none;
+					cursor: pointer;
+					font-family: 'Inter', sans-serif;
+					white-space: nowrap;
+				}
+				.bf-sort:hover {
+					color: #111;
 				}
 
-				/* Grid */
-				.bf-list {
-					list-style: none;
-					padding: 0;
-					margin: 0;
+				/* ── Hero grid ── */
+				.bf-hero-grid {
+					display: grid;
+					grid-template-columns: 2fr 1fr;
+					gap: 8px;
+					margin-bottom: 8px;
+				}
+				.bf-hero-main {
+					background: #111;
+					color: #fff;
+					padding: 24px;
+					position: relative;
+					overflow: hidden;
+					min-height: 260px;
+					display: flex;
+					flex-direction: column;
+					justify-content: flex-end;
+					text-decoration: none;
+				}
+				.bf-hero-bg-letter {
+					position: absolute;
+					right: -10px;
+					top: -20px;
+					font-family: 'Bebas Neue', sans-serif;
+					font-size: 18rem;
+					line-height: 1;
+					color: #E8175D;
+					opacity: .35;
+					pointer-events: none;
+					letter-spacing: -.02em;
+				}
+				.bf-hero-tags {
+					display: flex;
+					gap: 4px;
+					margin-bottom: 12px;
+					position: relative;
+					z-index: 1;
+				}
+				.bf-htag {
+					font-size: .65rem;
+					font-weight: 700;
+					letter-spacing: .1em;
+					text-transform: uppercase;
+					padding: 4px 8px;
+				}
+				.bf-htag--pink {
+					background: #E8175D;
+					color: #fff;
+				}
+				.bf-htag--lime {
+					background: #C8F500;
+					color: #111;
+				}
+				.bf-hero-title {
+					font-family: 'Bebas Neue', sans-serif;
+					font-size: 2.8rem;
+					line-height: 1.0;
+					letter-spacing: .03em;
+					color: #fff;
+					text-transform: uppercase;
+					position: relative;
+					z-index: 1;
+				}
+				.bf-hero-meta {
+					font-size: .65rem;
+					letter-spacing: .1em;
+					text-transform: uppercase;
+					color: #777;
+					margin-top: 8px;
+					position: relative;
+					z-index: 1;
+				}
+
+				/* Hero side cards */
+				.bf-hero-side {
+					display: flex;
+					flex-direction: column;
+					gap: 8px;
+				}
+				.bf-hero-card {
+					padding: 16px;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					flex: 1;
+					min-height: 124px;
+					text-decoration: none;
+				}
+				.bf-hero-card--lime {
+					background: #C8F500;
+				}
+				.bf-hero-card--white {
+					background: #fff;
+				}
+				.bf-card-tag {
+					font-size: .6rem;
+					font-weight: 700;
+					letter-spacing: .12em;
+					text-transform: uppercase;
+					padding: 3px 7px;
+					display: inline-block;
+					margin-bottom: 8px;
+				}
+				.bf-card-tag--lime-inner {
+					background: #111;
+					color: #C8F500;
+				}
+				.bf-card-tag--pink-inner {
+					background: #E8175D;
+					color: #fff;
+				}
+				.bf-side-title {
+					font-family: 'Bebas Neue', sans-serif;
+					font-size: 1.45rem;
+					line-height: 1.1;
+					text-transform: uppercase;
+					letter-spacing: .02em;
+					color: #111;
+				}
+				.bf-side-title--dark {
+					color: #111;
+				}
+				.bf-side-meta {
+					font-size: .6rem;
+					letter-spacing: .1em;
+					text-transform: uppercase;
+					color: #555;
+					margin-top: 8px;
+				}
+				.bf-side-meta--dark {
+					color: #666;
+				}
+
+				/* ── Archive header ── */
+				.bf-archive-header {
+					display: flex;
+					align-items: baseline;
+					justify-content: space-between;
+					margin: 48px 0 20px;
+					border-bottom: 1px solid rgba(0,0,0,.15);
+					padding-bottom: 8px;
+				}
+				.bf-archive-title {
+					font-family: 'Bebas Neue', sans-serif;
+					font-size: 1.8rem;
+					letter-spacing: .04em;
+					text-transform: uppercase;
+					color: #111;
+				}
+				.bf-archive-count {
+					font-size: .65rem;
+					letter-spacing: .12em;
+					text-transform: uppercase;
+					color: #999;
+				}
+
+				/* ── Archive cards grid ── */
+				.bf-cards-grid {
 					display: grid;
 					grid-template-columns: repeat(3, 1fr);
-					gap: 1px;
-					background: #E8E8E6;
-					border: 1px solid #E8E8E6;
-					border-radius: 8px;
-					overflow: hidden;
+					gap: 8px;
 				}
-				.bf-card--featured {
-					grid-column: 1 / -1;
-				}
-				.bf-card a {
+				.bf-card {
+					background: #fff;
 					display: flex;
 					flex-direction: column;
-					background: #fff;
-					color: #1C1C1C;
 					text-decoration: none;
-					height: 100%;
-					overflow: hidden;
-					transition: background 0.12s ease;
+					color: #111;
+					transition: opacity .15s;
 				}
-				.bf-card--featured a {
-					flex-direction: row;
-					min-height: 260px;
+				.bf-card:hover {
+					opacity: .9;
 				}
-				.bf-card a:hover {
-					background: #F6F6F4;
-				}
-				.bf-card--featured a:hover {
-					background: #0D0D0D;
-					color: #fff;
-				}
-				.bf-card--featured a:hover .bf-card-title {
-					color: #C8FF00;
-				}
-				.bf-card--featured a:hover .bf-card-desc {
-					color: rgba(255,255,255,0.7);
-				}
-				.bf-card--featured a:hover .bf-card-date {
-					color: rgba(255,255,255,0.4);
-				}
-
-				/* Images */
 				.bf-card-img {
 					width: 100%;
-					aspect-ratio: 16 / 9;
-					overflow: hidden;
-					flex-shrink: 0;
-				}
-				.bf-card--featured .bf-card-img {
-					width: 42%;
-					aspect-ratio: unset;
-					flex-shrink: 0;
-				}
-				.bf-card-img img {
-					width: 100%;
-					height: 100%;
-					object-fit: cover;
-					display: block;
-					transition: transform 0.4s ease;
-				}
-				.bf-card a:hover .bf-card-img img {
-					transform: scale(1.04);
-				}
-				.bf-card-placeholder {
-					width: 42%;
-					flex-shrink: 0;
-					background: linear-gradient(135deg, #0D0D0D 0%, #1C1C1C 100%);
-				}
-
-				/* Body */
-				.bf-card-body {
-					padding: 1.4rem 1.5rem 1.6rem;
+					aspect-ratio: 4/3;
 					display: flex;
-					flex-direction: column;
-					flex: 1;
-					gap: 0.5rem;
+					align-items: center;
+					justify-content: center;
+					overflow: hidden;
+					position: relative;
 				}
-				.bf-card--featured .bf-card-body {
-					padding: 2rem 2rem 2rem;
-					justify-content: flex-end;
+				.bf-card-letter {
+					font-family: 'Bebas Neue', sans-serif;
+					font-size: 7rem;
+					line-height: 1;
+					opacity: .25;
+					letter-spacing: -.02em;
 				}
-
-				/* Category tag */
-				.bf-tag {
-					display: inline-block;
-					padding: 0.22em 0.6em;
-					border-radius: 3px;
-					font-size: 0.7rem;
-					font-weight: 700;
-					letter-spacing: 0.06em;
+				.bf-card-date-overlay {
+					position: absolute;
+					bottom: 8px;
+					right: 10px;
+					font-size: .6rem;
+					letter-spacing: .1em;
 					text-transform: uppercase;
-					line-height: 1.4;
-					align-self: flex-start;
 				}
-				.bf-tag--lime {
-					background: #C8FF00;
-					color: #0D0D0D;
+				.bf-card-body {
+					padding: 16px;
 				}
-				.bf-tag--pink {
-					background: #FF2055;
-					color: #fff;
-				}
-				.bf-tag--dark {
-					background: #0D0D0D;
-					color: #C8FF00;
-				}
-
-				/* Titles */
-				.bf-card-title {
-					margin: 0;
-					font-size: 1.05rem;
+				.bf-card-pill {
+					font-size: .6rem;
 					font-weight: 700;
-					color: #0D0D0D;
-					line-height: 1.25;
-					letter-spacing: -0.01em;
+					letter-spacing: .12em;
+					text-transform: uppercase;
+					padding: 3px 7px;
+					display: inline-block;
+					margin-bottom: 10px;
 				}
-				.bf-card--featured .bf-card-title {
-					font-size: 1.6rem;
-					line-height: 1.18;
-					letter-spacing: -0.02em;
+				.bf-card-title {
+					font-family: 'Bebas Neue', sans-serif;
+					font-size: 1.45rem;
+					line-height: 1.05;
+					text-transform: uppercase;
+					letter-spacing: .02em;
+					color: #111;
+					margin-bottom: 6px;
 				}
 				.bf-card-desc {
-					font-size: 0.9rem;
-					color: #4B5563;
-					margin: 0;
+					font-size: .78rem;
+					color: #666;
 					line-height: 1.5;
+					margin-bottom: 8px;
 				}
-				.bf-card-date {
-					font-size: 0.76rem;
-					color: #9CA3AF;
-					margin: 0;
-					margin-top: auto;
-					padding-top: 0.5rem;
+				.bf-card-author {
+					font-size: .6rem;
+					letter-spacing: .06em;
+					color: #999;
 				}
 
-				/* Pagination */
+				/* ── Pagination ── */
 				.bf-pages {
 					display: flex;
 					align-items: center;
@@ -422,68 +567,72 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 12 }
 					min-width: 2.2rem;
 					height: 2.2rem;
 					padding: 0 0.5em;
-					border-radius: 4px;
-					border: 1.5px solid #E8E8E6;
+					border: 1.5px solid rgba(0,0,0,.15);
 					background: #fff;
-					color: #1C1C1C;
+					color: #111;
 					font-size: 0.88rem;
 					font-weight: 600;
 					cursor: pointer;
 					transition: all 0.12s ease;
-					font-family: inherit;
+					font-family: 'Inter', sans-serif;
 					display: inline-flex;
 					align-items: center;
 					justify-content: center;
 				}
 				.bf-page-btn:hover:not(:disabled) {
-					border-color: #0D0D0D;
-					background: #0D0D0D;
-					color: #C8FF00;
+					background: #111;
+					border-color: #111;
+					color: #EDE8DF;
 				}
 				.bf-page-btn--active {
-					background: #0D0D0D;
-					border-color: #0D0D0D;
-					color: #C8FF00;
+					background: #111;
+					border-color: #111;
+					color: #EDE8DF;
 				}
 				.bf-page-btn:disabled {
 					opacity: 0.3;
 					cursor: default;
 				}
 				.bf-page-ellipsis {
-					color: #9CA3AF;
+					color: #999;
 					padding: 0 0.3em;
 				}
 
-				/* Responsive */
-				@media (max-width: 900px) {
-					.bf-list {
-						grid-template-columns: repeat(2, 1fr);
-					}
-					.bf-card--featured {
-						grid-column: 1 / -1;
-					}
+				.bf-empty {
+					color: #666;
+					font-size: 1rem;
+					padding: 3rem 0;
+					text-align: center;
 				}
-				@media (max-width: 600px) {
-					.bf-list {
+
+				/* ── Responsive ── */
+				@media (max-width: 820px) {
+					.bf-hero-grid {
 						grid-template-columns: 1fr;
 					}
-					.bf-card--featured a {
+					.bf-hero-side {
+						flex-direction: row;
+					}
+					.bf-cards-grid {
+						grid-template-columns: repeat(2, 1fr);
+					}
+				}
+				@media (max-width: 560px) {
+					.bf-hero-bg-letter {
+						font-size: 10rem;
+					}
+					.bf-hero-title {
+						font-size: 2rem;
+					}
+					.bf-hero-side {
 						flex-direction: column;
 					}
-					.bf-card--featured .bf-card-img,
-					.bf-card-placeholder {
-						width: 100%;
-						aspect-ratio: 16 / 9;
+					.bf-cards-grid {
+						grid-template-columns: 1fr;
 					}
-					.bf-toolbar {
+					.bf-filter-bar {
 						flex-direction: column;
 						align-items: flex-start;
-					}
-					.bf-right {
-						width: 100%;
-					}
-					.bf-tag-select {
-						flex: 1;
 					}
 				}
 			`}</style>
