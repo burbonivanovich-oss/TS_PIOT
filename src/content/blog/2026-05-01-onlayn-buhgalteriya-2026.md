@@ -10,7 +10,7 @@ tags:
   - отчётность
 categories:
   - zakonodatelstvo
-draft: true
+draft: false
 seo:
   keywords:
     - онлайн бухгалтерия для малого бизнеса 2026

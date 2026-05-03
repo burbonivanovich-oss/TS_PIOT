@@ -10,7 +10,7 @@ tags:
   - ФНС
 categories:
   - kkt
-draft: true
+draft: false
 seo:
   keywords:
     - замена фискального накопителя пошагово

@@ -10,7 +10,7 @@ tags:
   - личный-кабинет
 categories:
   - kkt
-draft: true
+draft: false
 seo:
   keywords:
     - регистрация ККТ в ФНС 2026

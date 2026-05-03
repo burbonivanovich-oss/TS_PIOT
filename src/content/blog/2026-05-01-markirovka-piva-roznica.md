@@ -10,7 +10,7 @@ tags:
   - разрешительный-режим
 categories:
   - markirovka
-draft: true
+draft: false
 seo:
   keywords:
     - маркировка пива розница 2026
