@@ -52,64 +52,77 @@
 /* ─── Дизайн-токены ──────────────────────────────────────────────────────── */
 
 :root {
-	/* Палитра «Песок» */
-	--bg:          #F4EDE0;
-	--bg-muted:    #EDE3D0;
-	--bg-subtle:   #E5D9BF;
-	--bg-dark:     #1A1408;
+	/* Фоны */
+	--bg:          #FFFFFF;
+	--bg-muted:    #F8FAFC;
+	--bg-subtle:   #F1F5F9;
 
-	--border:       rgba(26,20,8,.16);
-	--border-strong:rgba(26,20,8,.32);
+	/* Границы */
+	--border:       #E2E8F0;
+	--border-strong:#CBD5E1;
 
-	--text:   #1A1408;
-	--text-2: rgba(26,20,8,.78);
-	--text-3: rgba(26,20,8,.55);
-	--text-4: rgba(26,20,8,.38);
-	--text-on-dark: #F4EDE0;
+	/* Текст */
+	--text:   #0F172A;
+	--text-2: #334155;
+	--text-3: #64748B;
+	--text-4: #94A3B8;
 
-	/* Акцент — горячий розовый */
-	--accent:        #E8175D;
-	--accent-hover:  #C40F4F;
-	--accent-light:  #FBE3EC;
-	--accent-text:   #B30E47;
-	--accent-fg:     #FFFFFF;
-	--accent-dark:   #C40F4F;
-	--accent-soft:   #FBE3EC;
+	/* Акцент */
+	--accent:        #2563EB;
+	--accent-hover:  #1D4ED8;
+	--accent-light:  #DBEAFE;
+	--accent-text:   #1E40AF;
+	--accent-dark:   #1D4ED8;  /* обратная совместимость */
+	--accent-soft:   #DBEAFE;  /* обратная совместимость */
 
-	/* Дополнительный акцент — лайм */
-	--lime:          #C8F500;
-	--lime-fg:       #1A1408;
+	/* Категории */
+	--cat-ts-piot-fg:   #1E40AF;
+	--cat-ts-piot-bg:   #DBEAFE;
+	--cat-mark-fg:      #065F46;
+	--cat-mark-bg:      #D1FAE5;
+	--cat-zakon-fg:     #92400E;
+	--cat-zakon-bg:     #FEF3C7;
 
-	/* Категории — теплые версии */
-	--cat-ts-piot-fg:   #B30E47;
-	--cat-ts-piot-bg:   #FBE3EC;
-	--cat-mark-fg:      #5C6E00;
-	--cat-mark-bg:      #ECF7B8;
-	--cat-zakon-fg:     #7A4A00;
-	--cat-zakon-bg:     #F5E0BA;
+	/* Состояния */
+	--warn-fg:    #B45309;
+	--warn-bg:    #FFFBEB;
+	--danger-fg:  #DC2626;
+	--danger-bg:  #FEF2F2;
+	--success-fg: #059669;
+	--success-bg: #ECFDF5;
+	--info-fg:    #2563EB;
+	--info-bg:    #EFF6FF;
 
-	--warn-fg:    #7A4A00;
-	--warn-bg:    #F5E0BA;
-	--danger-fg:  #B30E47;
-	--danger-bg:  #FBE3EC;
-	--success-fg: #5C6E00;
-	--success-bg: #ECF7B8;
-	--info-fg:    #B30E47;
-	--info-bg:    #FBE3EC;
+	/* Пространство */
+	--sp-1:  4px;
+	--sp-2:  8px;
+	--sp-3: 12px;
+	--sp-4: 16px;
+	--sp-5: 24px;
+	--sp-6: 32px;
+	--sp-7: 48px;
+	--sp-8: 64px;
 
-	--sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;--sp-6:32px;--sp-7:48px;--sp-8:64px;
-	--r-sm:4px;--r-md:6px;--r-lg:10px;--r-pill:999px;
+	/* Радиусы */
+	--r-sm:   6px;
+	--r-md:  10px;
+	--r-lg:  14px;
+	--r-pill: 999px;
 
-	--shadow-card:none;
-	--shadow-hover:0 4px 16px rgba(26,20,8,.08);
-	--box-shadow:none;
-	--ease:0.15s ease;
+	/* Тени */
+	--shadow-card:  0 1px 3px rgba(15,23,42,.06), 0 4px 16px rgba(15,23,42,.05);
+	--shadow-hover: 0 2px 8px rgba(15,23,42,.08), 0 8px 24px rgba(15,23,42,.07);
+	--box-shadow:   var(--shadow-card);
 
-	--black:26,20,8;
-	--gray-dark:26,20,8;
-	--gray:26,20,8;
-	--gray-light:26,20,8;
-	--gray-gradient:rgba(237,227,208,.5),#F4EDE0;
+	/* Переходы */
+	--ease: 0.15s ease;
+
+	/* Совместимость со старыми inline-стилями компонентов */
+	--black:     15, 23, 42;
+	--gray-dark: 51, 65, 85;
+	--gray:      100, 116, 139;
+	--gray-light: 226, 232, 240;
+	--gray-gradient: rgba(241,245,249,.5), #FFFFFF;
 }
 
 /* ─── Базовые стили ──────────────────────────────────────────────────────── */
@@ -119,7 +132,8 @@
 html { -webkit-text-size-adjust: 100%; }
 
 body {
-	font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+	font-family: 'Geologica', 'Inter', -apple-system, BlinkMacSystemFont,
+		'Segoe UI', Roboto, Arial, sans-serif;
 	font-size: 1.125rem; /* 18px */
 	line-height: 1.75;
 	color: var(--text-2);
@@ -141,7 +155,7 @@ main {
 /* ─── Типографика ────────────────────────────────────────────────────────── */
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Inter', -apple-system, sans-serif;
+	font-family: 'Commissioner', 'Inter', -apple-system, sans-serif;
 	color: var(--text);
 	font-weight: 700;
 	line-height: 1.2;
@@ -433,23 +447,3 @@ hr {
 @media (max-width: 480px) {
 	h1 { font-size: 1.4rem; }
 }
-
-/* ─── Утилиты «Песок» ─── */
-.font-display { font-family: 'Bebas Neue', 'Inter', sans-serif; font-weight: 400; letter-spacing: .01em; text-transform: uppercase; line-height: .92; }
-.eyebrow { font-size: .62rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
-.eyebrow--muted { color: var(--text-3); }
-.section-rule { display: flex; align-items: center; gap: 16px; padding: 38px 0 14px; }
-.section-rule::before { content:''; flex:0 0 56px; height:1px; background: var(--text); }
-.section-rule h2, .section-rule .t { font-family: 'Bebas Neue','Inter',sans-serif; font-size: 1.6rem; letter-spacing: .04em; text-transform: uppercase; color: var(--text); line-height: 1; margin: 0; font-weight: 400; }
-.section-rule .n { margin-left: auto; font-size: .6rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--text-3); }
-
-/* Кнопки в стиле Песок */
-.btn { border-radius: 0; font-family: 'Inter',sans-serif; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: .72rem; padding: 12px 22px; }
-.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
-.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
-.btn-ghost { background: transparent; color: var(--text); border: 1.5px solid var(--text); }
-.btn-ghost:hover { background: var(--text); color: var(--bg); }
-.btn-lime { background: var(--lime); color: var(--lime-fg); border-color: var(--lime); }
-.btn-lime:hover { background: #B5E000; border-color: #B5E000; color: var(--lime-fg); }
-.btn-on-dark { background: var(--bg); color: var(--text); border-color: var(--bg); }
-.btn-on-dark:hover { background: var(--lime); border-color: var(--lime); }

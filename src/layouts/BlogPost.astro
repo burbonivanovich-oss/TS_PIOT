@@ -117,29 +117,6 @@ const breadcrumbsJsonLd = {
 
 const primaryCategory = categories[0] as keyof typeof CATEGORIES | undefined;
 const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
-const catSlug = primaryCategory ?? 'ts-piot';
-
-// Боковой партнёрский баннер: для маркировки — календарь, иначе калькулятор
-const isMarkirovka = categories.includes('markirovka');
-const partner = isMarkirovka
-	? {
-			eyebrow: 'Партнёр',
-			title: 'Календарь маркировки',
-			pitch: 'Сроки введения по категориям, разрешительный режим, дедлайны — в одном месте.',
-			href: '/kalendar-markirovki/',
-		}
-	: {
-			eyebrow: 'Партнёр',
-			title: 'Калькулятор штрафов',
-			pitch: 'Подберите сценарий и узнайте сумму штрафа по КоАП за нарушение требований.',
-			href: '/kalkulyator-shtrafov/',
-		};
-
-// Связанные посты в той же категории — для сайдбара (3 шт.)
-const sameCat = candidates
-	.filter((p) => (p.data.categories ?? []).some((c) => categories.includes(c)))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
 
 const ogImage = heroImage ?? (currentSlug ? `/og/${currentSlug}.png` : undefined);
 
@@ -163,464 +140,261 @@ const shareTitle = encodeURIComponent(title);
 	</head>
 
 	<body>
-		<div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+		<div id="rp-bar" aria-hidden="true"></div>
 
 		<Header />
-
-		<article class="article" data-pagefind-body data-cat={catSlug}>
-			<!-- Hero split -->
-			<section class="post-hero">
-				<div class="post-hero-vis" aria-hidden="true">
-					{heroImage ? (
-						<Image
-							class="post-hero-img"
-							width={1200}
-							height={800}
-							src={heroImage}
-							alt={title}
-							loading="eager"
-						/>
-					) : (
-						<svg class="post-hero-rings" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax slice">
-							<g fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5" transform="translate(560 380)">
-								<circle r="80" />
-								<circle r="160" />
-								<circle r="240" />
-								<circle r="320" />
-							</g>
-						</svg>
+		<main>
+			<article class="article" data-pagefind-body>
+				<nav class="breadcrumbs" aria-label="Хлебные крошки" data-pagefind-ignore>
+					<a href="/">Главная</a>
+					<span>›</span>
+					<a href="/blog/">Статьи</a>
+					{categoryMeta && (
+						<>
+							<span>›</span>
+							<a href={`/category/${primaryCategory}/`}>{categoryMeta.title}</a>
+						</>
 					)}
-				</div>
-				<div class="post-hero-text">
-					<div class="post-hero-top">
-						<span class="post-hero-date">
-							<FormattedDate date={pubDate} />
-						</span>
-						{categoryMeta && (
-							<span class="cat-badge" data-cat={catSlug}>{categoryMeta.title}</span>
+				</nav>
+
+				<header class="article-head">
+					<h1>{title}</h1>
+					<p class="lead">{description}</p>
+					<div class="meta">
+						<FormattedDate date={pubDate} />
+						{updatedDate && (
+							<span class="updated">
+								· обновлено <FormattedDate date={updatedDate} />
+							</span>
+						)}
+						{readingTime && (
+							<span class="reading-time">· {readingTime} мин чтения</span>
 						)}
 					</div>
-					<h1 class="post-hero-title font-display">{title}</h1>
-					<hr class="post-hero-rule" />
-					<p class="post-hero-lead">{description}</p>
 					{tags.length > 0 && (
-						<div class="post-hero-tags" data-pagefind-ignore>
+						<div class="tags">
 							{tags.map((tag) => (
-								<a class="tag-pill" href={`/tag/${tagSlug(tag)}/`}>#{tag}</a>
+								<a class="tag" href={`/tag/${tagSlug(tag)}/`}>#{tag}</a>
 							))}
 						</div>
 					)}
-					<div class="post-hero-meta">
-						{readingTime && <span>{readingTime} мин чтения</span>}
-					</div>
-				</div>
-			</section>
+				</header>
 
-			<!-- Двухколонный лэйаут -->
-			<div class="post-layout">
-				<aside class="post-sidebar" data-pagefind-ignore>
-					<div class="partner-banner">
-						<span class="eyebrow partner-eyebrow">{partner.eyebrow}</span>
-						<h3 class="partner-title">{partner.title}</h3>
-						<p class="partner-pitch">{partner.pitch}</p>
-						<a href={partner.href} class="btn btn-lime partner-cta">Открыть →</a>
+				{heroImage && (
+					<div class="hero-image">
+						<Image width={1100} height={550} src={heroImage} alt={title} loading="eager" />
 					</div>
+				)}
 
-					{sameCat.length > 0 && (
-						<div class="sidebar-block">
-							<div class="sidebar-h">В этой категории</div>
-							<ul class="sidebar-list">
-								{sameCat.map((p) => (
-									<li>
-										<a href={`/blog/${p.id}/`}>
-											<span class="sidebar-title">{p.data.title}</span>
-											<span class="sidebar-date">
-												<FormattedDate date={p.data.pubDate} />
-											</span>
-										</a>
+				{tocHeadings.length > 2 && (
+					<details class="toc" data-pagefind-ignore>
+						<summary>Содержание</summary>
+						<nav>
+							<ol class="toc-list">
+								{tocHeadings.map((h) => (
+									<li class={`toc-item toc-depth-${h.depth}`}>
+										<a href={`#${h.slug}`}>{h.text}</a>
 									</li>
 								))}
-							</ul>
-						</div>
-					)}
-				</aside>
+							</ol>
+						</nav>
+					</details>
+				)}
 
-				<div class="post-content">
-					<nav class="crumbs" aria-label="Хлебные крошки" data-pagefind-ignore>
-						<a href="/">Главная</a>
-						<span>/</span>
-						<a href="/blog/">Блог</a>
-						{categoryMeta && (
-							<>
-								<span>/</span>
-								<a href={`/category/${catSlug}/`}>{categoryMeta.title}</a>
-							</>
-						)}
-						<span>/</span>
-						<span class="crumbs-current">{title}</span>
-					</nav>
-
-					<div class="post-meta" data-pagefind-ignore>
-						{updatedDate && (
-							<span>обновлено <FormattedDate date={updatedDate} /></span>
-						)}
-						{readingTime && (
-							<>
-								{updatedDate && <span class="dot">·</span>}
-								<span>{readingTime} мин чтения</span>
-							</>
-						)}
-					</div>
-
-					{tocHeadings.length > 2 && (
-						<details class="toc" data-pagefind-ignore>
-							<summary>▸ Содержание</summary>
-							<nav>
-								<ol class="toc-list">
-									{tocHeadings.map((h) => (
-										<li class={`toc-item toc-depth-${h.depth}`}>
-											<a href={`#${h.slug}`}>{h.text}</a>
-										</li>
-									))}
-								</ol>
-							</nav>
-						</details>
-					)}
-
-					<div class="prose">
-						<slot />
-					</div>
-
-					<div class="post-share" data-pagefind-ignore>
-						<span class="share-label">Поделиться</span>
-						<a
-							class="share-pill share-tg"
-							href={`https://t.me/share/url?url=${shareUrl}&text=${shareTitle}`}
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3L19.66 4.6c.73-.33 1.43.18 1.15 1.3l-2.74 12.9c-.19.91-.74 1.13-1.5.71L12.5 16.3l-1.99 1.93c-.23.23-.42.42-.85.42z"/></svg>
-							Telegram
-						</a>
-						<a
-							class="share-pill share-vk"
-							href={`https://vk.com/share.php?url=${shareUrl}`}
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.79 17.5c-7.78 0-9.05-5.43-9.05-8.69 0-.5.05-.6.6-.6h2.34c.45 0 .56.1.7.55.97 3.36 2.68 5.94 3.55 5.94.32 0 .47-.16.47-1.07v-2.45c-.13-1.13-.7-1.4-.7-1.7 0-.16.13-.32.36-.32h3.7c.4 0 .53.16.53.6v3.6c0 .43.18.59.32.59.32 0 .55-.16 1.13-.74 1.78-2 3.05-5.06 3.05-5.06.16-.32.42-.62.85-.62h2.35c.7 0 .87.36.7.85-.32 1.4-3.13 5.36-3.13 5.36-.23.4-.32.58 0 1 .22.32.97 1 1.45 1.55.97 1.07 1.7 1.97 1.9 2.6.18.6-.13.91-.74.91h-2.34c-.58 0-.87-.32-1.5-1.04-.92-1.04-1.32-1.85-1.85-1.85-.32 0-.42.07-.42.55v2.1c0 .4-.13.64-1.18.64z"/></svg>
-							ВКонтакте
-						</a>
-					</div>
-
-					{related.length > 0 && (
-						<aside class="related" aria-labelledby="related-heading" data-pagefind-ignore>
-							<div class="section-rule">
-								<span class="t" id="related-heading">Читайте также</span>
-							</div>
-							<ul class="related-list">
-								{related.map((post) => {
-									const cat = (post.data.categories?.[0] as keyof typeof CATEGORIES | undefined) ?? 'ts-piot';
-									const catMeta = CATEGORIES[cat];
-									return (
-										<li class="related-card">
-											<a href={`/blog/${post.id}/`}>
-												{catMeta && (
-													<span class="cat-badge" data-cat={cat}>{catMeta.title}</span>
-												)}
-												<h3>{post.data.title}</h3>
-												<p>{post.data.description}</p>
-											</a>
-										</li>
-									);
-								})}
-							</ul>
-						</aside>
-					)}
-
-					<footer class="article-foot" data-pagefind-ignore>
-						<p class="disclaimer">
-							Материалы носят информационный характер, не являются юридической или
-							налоговой консультацией. Перед принятием решений сверяйтесь с действующей
-							редакцией нормативных актов.
-						</p>
-					</footer>
+				<div class="prose">
+					<slot />
 				</div>
-			</div>
-		</article>
 
-		<button class="back-to-top" id="backToTop" aria-label="Наверх" type="button">↑</button>
+				<div class="share" data-pagefind-ignore>
+					<span class="share-label">Поделиться:</span>
+					<a
+						class="share-btn share-tg"
+						href={`https://t.me/share/url?url=${shareUrl}&text=${shareTitle}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Поделиться в Telegram"
+					>
+						Telegram
+					</a>
+					<a
+						class="share-btn share-vk"
+						href={`https://vk.com/share.php?url=${shareUrl}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Поделиться ВКонтакте"
+					>
+						ВКонтакте
+					</a>
+				</div>
 
+				{related.length > 0 && (
+					<aside class="related" aria-labelledby="related-heading" data-pagefind-ignore>
+						<h2 id="related-heading">Читайте также</h2>
+						<ul class="related-list">
+							{related.map((post) => {
+								const cat = post.data.categories[0] as keyof typeof CATEGORIES | undefined;
+								const catMeta = cat ? CATEGORIES[cat] : null;
+								return (
+									<li class="related-card">
+										<a href={`/blog/${post.id}/`}>
+											{catMeta && <span class="related-cat">{catMeta.title}</span>}
+											<h3>{post.data.title}</h3>
+											<p>{post.data.description}</p>
+										</a>
+									</li>
+								);
+							})}
+						</ul>
+					</aside>
+				)}
+
+				<footer class="article-foot">
+					<p class="disclaimer">
+						Материал носит информационный характер. Перед принятием решений
+						сверяйтесь с действующей редакцией нормативных актов и при необходимости
+						проконсультируйтесь со специалистом.
+					</p>
+				</footer>
+			</article>
+		</main>
 		<Footer />
 
 		<script>
-			// Прогресс-бар
-			const bar = document.getElementById('readingProgress');
-			const btt = document.getElementById('backToTop');
-			const update = () => {
-				const scrolled = document.documentElement.scrollTop;
-				const total = document.documentElement.scrollHeight - window.innerHeight;
-				if (bar) bar.style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
-				if (btt) btt.classList.toggle('is-visible', scrolled > 800);
-			};
-			window.addEventListener('scroll', update, { passive: true });
-			update();
-			btt?.addEventListener('click', () => {
-				window.scrollTo({ top: 0, behavior: 'smooth' });
-			});
+			const bar = document.getElementById('rp-bar');
+			if (bar) {
+				const update = () => {
+					const scrolled = document.documentElement.scrollTop;
+					const total = document.documentElement.scrollHeight - window.innerHeight;
+					bar.style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
+				};
+				window.addEventListener('scroll', update, { passive: true });
+				update();
+			}
 		</script>
 
 		<style>
-			/* ─── Прогресс-бар ─── */
-			.reading-progress {
+			/* Полоса прокрутки */
+			#rp-bar {
 				position: fixed;
 				top: 0; left: 0;
-				height: 3px;
+				height: 2px;
 				width: 0%;
-				background: var(--lime);
+				background: var(--accent);
 				z-index: 100;
 				transition: width 0.1s linear;
 			}
 
-			.article { background: var(--bg); }
-
-			/* ─── Hero статьи ─── */
-			.post-hero {
-				display: grid;
-				grid-template-columns: 58fr 42fr;
-				min-height: 380px;
-				border-bottom: 1px solid var(--border);
-			}
-			.post-hero-vis {
-				position: relative;
-				overflow: hidden;
-				background: linear-gradient(135deg, var(--cat-ts-piot-fg) 0%, var(--cat-ts-piot-bg) 100%);
-				min-height: 320px;
-			}
-			.article[data-cat="markirovka"] .post-hero-vis {
-				background: linear-gradient(135deg, var(--cat-mark-fg) 0%, var(--cat-mark-bg) 100%);
-			}
-			.article[data-cat="zakonodatelstvo"] .post-hero-vis {
-				background: linear-gradient(135deg, var(--cat-zakon-fg) 0%, var(--cat-zakon-bg) 100%);
-			}
-			.post-hero-img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				display: block;
-				border-radius: 0;
-			}
-			.post-hero-rings {
-				position: absolute;
-				inset: 0;
-				width: 100%;
-				height: 100%;
-			}
-
-			.post-hero-text {
-				background: var(--bg-muted);
-				padding: 36px 40px;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-			}
-			.post-hero-top {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				gap: 12px;
-				margin-bottom: 24px;
-				font-size: 0.78rem;
-			}
-			.post-hero-date {
-				color: var(--text-3);
-				letter-spacing: 0.04em;
-			}
-			.post-hero-title {
-				font-family: 'Bebas Neue', 'Inter', sans-serif;
-				font-size: clamp(2rem, 4vw, 3.4rem);
-				line-height: 0.92;
-				text-transform: uppercase;
-				color: var(--text);
-				margin: 0;
-				font-weight: 400;
-				letter-spacing: 0.01em;
-			}
-			.post-hero-rule {
-				border: none;
-				border-top: 1px solid var(--border-strong);
-				margin: 22px 0 18px;
-				width: 64px;
-			}
-			.post-hero-lead {
-				font-size: 1rem;
-				line-height: 1.55;
-				color: var(--text-2);
-				margin: 0 0 18px;
-			}
-			.post-hero-tags {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 6px;
-				margin-bottom: 14px;
-			}
-			.post-hero-meta {
-				font-size: 0.78rem;
-				color: var(--text-3);
-				letter-spacing: 0.04em;
-			}
-
-			/* ─── Двухколонный лэйаут ─── */
-			.post-layout {
-				display: grid;
-				grid-template-columns: 28fr 72fr;
-				gap: 48px;
-				max-width: 1200px;
+			.article {
+				max-width: 720px;
 				margin: 0 auto;
-				padding: 48px 28px;
 			}
 
-			.post-sidebar {
-				position: sticky;
-				top: 72px;
-				align-self: start;
-				max-height: calc(100vh - 88px);
-				overflow: auto;
-				display: flex;
-				flex-direction: column;
-				gap: 24px;
-			}
-
-			.partner-banner {
-				background: var(--bg-dark);
-				color: var(--text-on-dark);
-				padding: 22px 22px 24px;
-			}
-			.partner-eyebrow {
-				color: var(--lime) !important;
-				display: block;
-				margin-bottom: 14px;
-			}
-			.partner-title {
-				font-family: 'Bebas Neue', 'Inter', sans-serif;
-				font-size: 1.5rem;
-				text-transform: uppercase;
-				letter-spacing: 0.02em;
-				margin: 0 0 10px;
-				color: var(--text-on-dark);
-				line-height: 1;
-				font-weight: 400;
-			}
-			.partner-pitch {
-				font-size: 0.85rem;
-				color: rgba(244, 237, 224, 0.78);
-				line-height: 1.5;
-				margin: 0 0 16px;
-			}
-			.partner-cta {
-				width: 100%;
-				text-align: center;
-			}
-
-			.sidebar-block { padding: 0; }
-			.sidebar-h {
-				font-size: 0.6rem;
-				font-weight: 800;
-				letter-spacing: 0.16em;
-				text-transform: uppercase;
-				color: var(--accent);
-				margin-bottom: 14px;
-				padding-bottom: 8px;
-				border-bottom: 1px solid var(--border);
-			}
-			.sidebar-list {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-			}
-			.sidebar-list li {
-				border-bottom: 1px solid var(--border);
-			}
-			.sidebar-list li:last-child { border-bottom: none; }
-			.sidebar-list a {
-				display: block;
-				padding: 12px 0;
-				color: var(--text);
-				text-decoration: none;
-				transition: color var(--ease);
-			}
-			.sidebar-list a:hover { color: var(--accent); text-decoration: none; }
-			.sidebar-title {
-				display: block;
-				font-size: 0.875rem;
-				font-weight: 600;
-				line-height: 1.35;
-				margin-bottom: 4px;
-			}
-			.sidebar-date {
-				display: block;
-				font-size: 0.72rem;
-				color: var(--text-3);
-				letter-spacing: 0.04em;
-			}
-
-			/* ─── Контент ─── */
-			.crumbs {
-				font-size: 0.78rem;
-				color: var(--text-3);
-				margin-bottom: 16px;
+			/* Breadcrumbs */
+			.breadcrumbs {
+				font-size: var(--text-xs, 0.8125rem);
+				color: var(--text-4);
+				margin-bottom: var(--sp-5);
 				display: flex;
 				flex-wrap: wrap;
-				gap: 6px;
-				letter-spacing: 0.02em;
+				align-items: center;
+				gap: 0.2em;
 			}
-			.crumbs a {
+			.breadcrumbs a {
 				color: var(--text-3);
 				text-decoration: none;
 			}
-			.crumbs a:hover { color: var(--accent); text-decoration: none; }
-			.crumbs span { color: var(--text-4); }
-			.crumbs .crumbs-current { color: var(--text-2); }
+			.breadcrumbs a:hover { color: var(--accent); text-decoration: none; }
+			.breadcrumbs span { color: var(--text-4); }
 
-			.post-meta {
-				font-size: 0.85rem;
-				color: var(--text-3);
-				margin-bottom: 24px;
-				letter-spacing: 0.02em;
+			/* Шапка статьи */
+			.article-head { margin-bottom: var(--sp-6); }
+			.article-head h1 { margin-bottom: var(--sp-3); }
+
+			.lead {
+				font-size: 1.125rem;
+				line-height: 1.6;
+				color: var(--text-2);
+				margin-bottom: var(--sp-3);
 			}
-			.post-meta .dot { margin: 0 6px; color: var(--text-4); }
+
+			.meta {
+				font-size: 0.875rem;
+				color: var(--text-3);
+				margin-bottom: var(--sp-3);
+			}
+
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: var(--sp-1);
+				margin-bottom: var(--sp-5);
+			}
+
+			.tag {
+				background: var(--bg-subtle);
+				color: var(--text-3);
+				padding: 3px 10px;
+				border-radius: var(--r-pill);
+				font-size: 0.8125rem;
+				text-decoration: none;
+				transition: background var(--ease), color var(--ease);
+			}
+			.tag:hover {
+				background: var(--accent-light);
+				color: var(--accent);
+				text-decoration: none;
+			}
+
+			/* Hero image */
+			.hero-image { margin: var(--sp-5) 0 var(--sp-6); }
+			.hero-image img {
+				border-radius: var(--r-md);
+				box-shadow: var(--shadow-card);
+			}
 
 			/* TOC */
 			.toc {
 				border: 1px solid var(--border);
-				padding: 16px 20px;
-				margin: 0 0 32px;
+				border-radius: var(--r-md);
+				padding: var(--sp-4) var(--sp-5);
+				margin: var(--sp-5) 0 var(--sp-6);
 				background: var(--bg-muted);
 			}
 			.toc summary {
 				cursor: pointer;
+				font-family: 'Commissioner', sans-serif;
 				font-weight: 700;
-				font-size: 0.85rem;
+				font-size: 0.9375rem;
 				color: var(--text);
 				list-style: none;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
 				user-select: none;
-				letter-spacing: 0.02em;
 			}
 			.toc summary::-webkit-details-marker { display: none; }
+			.toc summary::after {
+				content: '›';
+				font-size: 1.1rem;
+				color: var(--accent);
+				transition: transform var(--ease);
+				line-height: 1;
+			}
+			.toc[open] summary::after { transform: rotate(90deg); }
 			.toc-list {
-				margin: 14px 0 0;
-				padding-left: 16px;
+				margin: var(--sp-3) 0 0;
+				padding-left: var(--sp-5);
 				list-style: none;
 			}
 			.toc-item {
-				margin-bottom: 4px;
+				margin-bottom: var(--sp-1);
 				line-height: 1.45;
 			}
-			.toc-depth-3 { padding-left: 16px; }
+			.toc-depth-3 { padding-left: var(--sp-4); }
 			.toc-item a {
 				color: var(--text-2);
 				text-decoration: none;
-				font-size: 0.875rem;
+				font-size: 0.9rem;
 			}
 			.toc-item a:hover {
 				color: var(--accent);
@@ -628,153 +402,97 @@ const shareTitle = encodeURIComponent(title);
 				text-underline-offset: 2px;
 			}
 
-			.prose {
-				max-width: 720px;
-			}
-
 			/* Share */
-			.post-share {
+			.share {
 				display: flex;
 				align-items: center;
 				flex-wrap: wrap;
-				gap: 10px;
-				margin: 48px 0 0;
-				padding-top: 28px;
-				border-top: 1px solid var(--border);
+				gap: var(--sp-2);
+				margin: var(--sp-7) 0 var(--sp-4);
 			}
 			.share-label {
-				font-size: 0.6rem;
-				font-weight: 800;
-				letter-spacing: 0.16em;
-				text-transform: uppercase;
-				color: var(--text-3);
-				margin-right: 6px;
+				font-size: 0.875rem;
+				font-weight: 600;
+				color: var(--text-2);
 			}
-			.share-pill {
-				display: inline-flex;
-				align-items: center;
-				gap: 8px;
-				padding: 8px 14px;
-				background: var(--bg-muted);
-				color: var(--text);
-				font-size: 0.8rem;
+			.share-btn {
+				display: inline-block;
+				padding: 0.4em 1em;
+				border-radius: var(--r-pill);
+				font-size: 0.875rem;
 				font-weight: 600;
 				text-decoration: none;
-				border: 1px solid var(--border);
-				transition: background var(--ease), color var(--ease), border-color var(--ease);
+				transition: background var(--ease), color var(--ease);
 			}
-			.share-pill:hover {
-				background: var(--text);
-				color: var(--bg);
-				border-color: var(--text);
-				text-decoration: none;
-			}
+			.share-tg { background: #E8F4FD; color: #0088CC; }
+			.share-tg:hover { background: #0088CC; color: #fff; text-decoration: none; }
+			.share-vk { background: #E8F0FB; color: #2787F5; }
+			.share-vk:hover { background: #2787F5; color: #fff; text-decoration: none; }
 
 			/* Related */
 			.related {
-				margin-top: 48px;
+				margin-top: var(--sp-8);
+				padding-top: var(--sp-6);
+				border-top: 1px solid var(--border);
+			}
+			.related h2 {
+				font-size: 1.25rem;
+				margin: 0 0 var(--sp-4);
 			}
 			.related-list {
 				list-style: none;
-				padding: 0;
-				margin: 0;
+				padding: 0; margin: 0;
 				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 20px;
+				grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+				gap: var(--sp-3);
 			}
 			.related-card a {
 				display: block;
-				padding: 20px;
+				padding: var(--sp-4);
 				border: 1px solid var(--border);
-				border-top: 3px solid var(--accent);
+				border-radius: var(--r-md);
 				background: var(--bg);
-				color: var(--text);
+				color: var(--text-2);
 				text-decoration: none;
 				height: 100%;
-				transition: background var(--ease);
+				transition: border-color var(--ease), box-shadow var(--ease);
 			}
 			.related-card a:hover {
-				background: var(--bg-muted);
+				border-color: var(--accent);
+				box-shadow: var(--shadow-hover);
 				text-decoration: none;
 			}
-			.related-card .cat-badge {
-				margin-bottom: 10px;
+			.related-cat {
+				display: inline-block;
+				font-size: 0.8125rem;
+				font-weight: 600;
+				color: var(--accent);
+				background: var(--accent-light);
+				padding: 2px 8px;
+				border-radius: var(--r-pill);
+				margin-bottom: var(--sp-2);
 			}
 			.related-card h3 {
-				margin: 0 0 8px;
+				margin: 0 0 var(--sp-2);
 				font-size: 1rem;
 				color: var(--text);
-				line-height: 1.3;
 			}
 			.related-card p {
-				font-size: 0.85rem;
+				font-size: 0.875rem;
 				margin: 0;
-				color: var(--text-2);
-				line-height: 1.5;
-				display: -webkit-box;
-				-webkit-line-clamp: 3;
-				-webkit-box-orient: vertical;
-				overflow: hidden;
+				color: var(--text-3);
 			}
 
 			/* Footer статьи */
 			.article-foot {
-				margin-top: 48px;
-				padding-top: 24px;
+				margin-top: var(--sp-7);
+				padding-top: var(--sp-5);
 				border-top: 1px solid var(--border);
 			}
 			.disclaimer {
-				font-size: 0.85rem;
+				font-size: 0.875rem;
 				color: var(--text-4);
 				font-style: italic;
-				margin: 0;
-			}
-
-			/* Кнопка «Наверх» */
-			.back-to-top {
-				position: fixed;
-				right: 28px;
-				bottom: 28px;
-				width: 44px;
-				height: 44px;
-				background: var(--accent);
-				color: #fff;
-				border: none;
-				font-size: 1.2rem;
-				font-weight: 800;
-				cursor: pointer;
-				z-index: 60;
-				opacity: 0;
-				pointer-events: none;
-				transition: opacity 0.2s ease, background 0.2s ease;
-			}
-			.back-to-top.is-visible {
-				opacity: 1;
-				pointer-events: auto;
-			}
-			.back-to-top:hover { background: var(--accent-hover); }
-
-			/* Адаптив */
-			@media (max-width: 900px) {
-				.post-hero {
-					grid-template-columns: 1fr;
-				}
-				.post-hero-vis { min-height: 220px; }
-				.post-hero-text { padding: 28px 24px; }
-				.post-layout {
-					grid-template-columns: 1fr;
-					gap: 36px;
-					padding: 32px 20px;
-				}
-				.post-sidebar {
-					position: static;
-					max-height: none;
-					overflow: visible;
-					order: 2;
-				}
-				.post-content { order: 1; }
-				.related-list { grid-template-columns: 1fr; }
-				.back-to-top { right: 16px; bottom: 16px; }
 			}
 		</style>
 	</body>
