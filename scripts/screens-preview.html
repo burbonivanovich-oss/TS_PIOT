@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Структура экранов — Регламент.Бизнес</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── Навигация по экранам ─────────────────────────── */
+  .nav-tabs {
+    position: sticky; top: 0; z-index: 100;
+    background: #0f172a;
+    display: flex; gap: 0; padding: 0 2rem;
+  }
+  .nav-tab {
+    padding: 1rem 1.5rem;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .nav-tab:hover { color: #fff; }
+  .nav-tab.active { color: #fff; border-bottom-color: #3b82f6; }
+
+  /* ── Контейнер экранов ───────────────────────────── */
+  .screens { display: flex; flex-direction: column; gap: 0; }
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ── Заголовок секции ────────────────────────────── */
+  .section-header {
+    background: #0f172a;
+    color: #fff;
+    padding: 1.5rem 2rem;
+    display: flex; align-items: center; gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .section-header h2 { font-size: 1.3rem; }
+  .section-header p { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+
+  /* ── Аннотации ───────────────────────────────────── */
+  .annotations {
+    background: #fff;
+    padding: 1.5rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .ann {
+    display: flex; gap: 0.8rem;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #f8fafc;
+  }
+  .ann-num {
+    width: 28px; height: 28px;
+    background: #1d4ed8; color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .ann-text strong { display: block; font-size: 0.88rem; color: #0f172a; margin-bottom: 0.2rem; }
+  .ann-text span { font-size: 0.82rem; color: #64748b; }
+
+  /* ══════════════════════════════════════════════════
+     МАКЕТЫ СТРАНИЦ
+     ══════════════════════════════════════════════════ */
+  .page-frame {
+    background: #fff;
+    margin: 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    border: 1px solid #e2e8f0;
+  }
+
+  /* ── Хедер (общий) ───────────────────────────────── */
+  .mock-header {
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    position: relative;
+    z-index: 10;
+  }
+  .mock-logo {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-weight: 700; font-size: 0.95rem; color: #0f172a;
+  }
+  .mock-logo-mark {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 0.75rem; font-weight: 700;
+  }
+  .mock-nav { display: flex; gap: 0.2rem; }
+  .mock-nav a {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.82rem;
+    color: #475569;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  .mock-nav a:hover { color: #1d4ed8; }
+  .mock-nav a.active { color: #1d4ed8; font-weight: 600; }
+
+  /* ── Футер (общий) ───────────────────────────────── */
+  .mock-footer {
+    background: #0f172a; color: rgba(255,255,255,0.6);
+    padding: 2rem;
+    font-size: 0.82rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  /* ══════════════════════════════════════════════════
+     ЭКРАН 1: ГЛАВНАЯ
+     ══════════════════════════════════════════════════ */
+  .home-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    padding: 4rem 3rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .home-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(29,78,216,0.2) 0%, transparent 70%);
+  }
+  .home-hero__badge {
+    display: inline-block;
+    background: rgba(29,78,216,0.3);
+    color: #93c5fd;
+    border: 1px solid rgba(147,197,253,0.3);
+    padding: 0.3em 0.8em;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.04em;
+  }
+  .home-hero h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.18;
+    max-width: 700px;
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .home-hero p {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 600px;
+    margin-bottom: 2rem;
+  }
+  .home-hero__ctas {
+    display: flex; gap: 0.8rem; flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .btn-primary {
+    background: #1d4ed8; color: #fff;
+    padding: 0.7em 1.4em;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .btn-ghost {
+    background: transparent; color: #93c5fd;
+    border: 1px solid rgba(147,197,253,0.4);
+    padding: 0.7em 1.4em;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .home-hero__urgency {
+    background: rgba(245,158,11,0.12);
+    border: 1px solid rgba(245,158,11,0.25);
+    border-radius: 8px;
+    padding: 0.8rem 1.2rem;
+    max-width: 680px;
+    font-size: 0.88rem;
+    color: #fde68a;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .home-hero__urgency span { color: #f59e0b; font-weight: 700; }
+
+  /* Поиск в hero */
+  .home-search {
+    background: #fff;
+    padding: 1.5rem 3rem;
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .home-search input {
+    flex: 1;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.7em 1em;
+    font-size: 0.95rem;
+    color: #64748b;
+    outline: none;
+  }
+  .home-search button {
+    background: #1d4ed8; color: #fff;
+    border: none; border-radius: 8px;
+    padding: 0.7em 1.2em;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Категории */
+  .home-cats {
+    padding: 2.5rem 3rem;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .home-cats h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    font-size: 0.8rem;
+  }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .cat-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.3rem;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .cat-card:hover { border-color: #1d4ed8; box-shadow: 0 4px 16px rgba(29,78,216,0.1); }
+  .cat-icon {
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .cat-icon--blue { background: #dbeafe; }
+  .cat-icon--green { background: #d1fae5; }
+  .cat-icon--purple { background: #ede9fe; }
+  .cat-card h3 { font-size: 1rem; color: #0f172a; margin-bottom: 0.4rem; }
+  .cat-card p { font-size: 0.83rem; color: #64748b; margin-bottom: 0.8rem; }
+  .cat-card-count { font-size: 0.78rem; color: #94a3b8; }
+  .cat-card-link { font-size: 0.85rem; color: #1d4ed8; font-weight: 600; }
+
+  /* Featured пост */
+  .home-featured {
+    padding: 2.5rem 3rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .home-featured h2 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .featured-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .featured-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+  .featured-img {
+    background: linear-gradient(135deg, #1d4ed8 0%, #0ea5e9 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.2);
+    font-size: 5rem;
+    min-height: 220px;
+  }
+  .featured-body {
+    padding: 2rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .featured-cat {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #1d4ed8;
+    background: #dbeafe;
+    padding: 0.2em 0.7em;
+    border-radius: 999px;
+    margin-bottom: 0.8rem;
+    width: fit-content;
+  }
+  .featured-body h3 { font-size: 1.4rem; color: #0f172a; line-height: 1.25; margin-bottom: 0.8rem; }
+  .featured-body p { font-size: 0.9rem; color: #475569; margin-bottom: 1.2rem; }
+  .featured-meta { font-size: 0.82rem; color: #94a3b8; display: flex; gap: 1rem; }
+
+  /* Последние статьи */
+  .home-latest {
+    padding: 2.5rem 3rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .home-latest-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+  }
+  .home-latest-header h2 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .home-latest-header a {
+    font-size: 0.85rem; color: #1d4ed8; font-weight: 600; text-decoration: none;
+  }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .post-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    text-decoration: none;
+    display: flex; flex-direction: column;
+    transition: all 0.15s;
+  }
+  .post-card:hover { border-color: #1d4ed8; box-shadow: 0 4px 16px rgba(29,78,216,0.08); }
+  .post-thumb {
+    aspect-ratio: 16/9;
+    background: #f1f5f9;
+    display: flex; align-items: center; justify-content: center;
+    color: #cbd5e1; font-size: 2rem;
+  }
+  .post-thumb.blue { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+  .post-thumb.green { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+  .post-thumb.purple { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+  .post-body { padding: 1rem; flex: 1; }
+  .post-cat {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; color: #1d4ed8; margin-bottom: 0.4rem;
+  }
+  .post-title { font-size: 0.9rem; font-weight: 700; color: #0f172a; margin-bottom: 0.4rem; line-height: 1.3; }
+  .post-desc { font-size: 0.8rem; color: #64748b; margin-bottom: 0.6rem; }
+  .post-date { font-size: 0.75rem; color: #94a3b8; }
+
+
+  /* ══════════════════════════════════════════════════
+     ЭКРАН 2: СПИСОК СТАТЕЙ
+     ══════════════════════════════════════════════════ */
+  .blog-head {
+    background: #fff;
+    padding: 2.5rem 3rem 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .blog-head h1 { font-size: 1.8rem; color: #0f172a; margin-bottom: 0.5rem; }
+  .blog-head p { font-size: 0.95rem; color: #64748b; max-width: 650px; }
+
+  /* Поиск на странице блога */
+  .blog-search {
+    padding: 1.2rem 3rem;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex; gap: 0.5rem;
+  }
+  .blog-search input {
+    flex: 1;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.6em 1em;
+    font-size: 0.9rem;
+    color: #94a3b8;
+  }
+
+  /* Фильтры */
+  .blog-filters {
+    background: #fff;
+    padding: 1.2rem 3rem;
+    border-bottom: 2px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .filter-label { font-size: 0.8rem; color: #94a3b8; font-weight: 600; }
+  .filter-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .filter-pill {
+    padding: 0.35em 0.9em;
+    border-radius: 999px;
+    border: 1.5px solid #e2e8f0;
+    background: #fff;
+    font-size: 0.82rem;
+    color: #475569;
+    cursor: pointer;
+  }
+  .filter-pill.active { background: #1d4ed8; border-color: #1d4ed8; color: #fff; }
+  .filter-divider { width: 1px; height: 24px; background: #e2e8f0; }
+  .filter-select {
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.35em 0.7em;
+    font-size: 0.82rem;
+    color: #475569;
+    background: #fff;
+  }
+  .filter-count { margin-left: auto; font-size: 0.82rem; color: #94a3b8; }
+
+  /* Грид постов блога */
+  .blog-grid {
+    padding: 2rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  /* Пагинация */
+  .blog-pagination {
+    padding: 1.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border-top: 1px solid #e2e8f0;
+  }
+  .page-btn {
+    width: 36px; height: 36px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    background: #fff;
+    color: #475569;
+    font-size: 0.88rem;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .page-btn.active { background: #1d4ed8; border-color: #1d4ed8; color: #fff; font-weight: 700; }
+
+
+  /* ══════════════════════════════════════════════════
+     ЭКРАН 3: СТРАНИЦА СТАТЬИ
+     ══════════════════════════════════════════════════ */
+
+  /* Hero статьи: 2 колонки */
+  .article-hero {
+    display: grid;
+    grid-template-columns: 58fr 42fr;
+    min-height: 520px;
+  }
+  .article-hero__left {
+    background: linear-gradient(155deg, #1d4ed8 0%, #0ea5e9 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .article-hero__left .deco {
+    opacity: 0.15;
+    width: 80%;
+    max-width: 300px;
+  }
+  .article-hero__left .deco circle, .article-hero__left .deco line {
+    stroke: #fff; fill: none;
+  }
+  .article-hero__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.5rem 3rem 2.5rem 2.5rem;
+    background: #fff;
+  }
+  .ah-top {
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .ah-date { font-size: 0.85rem; color: #94a3b8; }
+  .ah-cat {
+    font-size: 0.72rem; font-weight: 700;
+    color: #1d4ed8; background: #dbeafe;
+    padding: 0.2em 0.7em; border-radius: 999px;
+    text-decoration: none;
+  }
+  .ah-title {
+    font-size: 1.7rem; font-weight: 800;
+    color: #0f172a; line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .ah-bottom {}
+  .ah-rule { height: 1px; background: #e2e8f0; margin-bottom: 1.2rem; }
+  .ah-lead { font-size: 0.95rem; color: #475569; line-height: 1.65; margin-bottom: 0.8rem; }
+  .ah-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .ah-tag {
+    font-size: 0.78rem; color: #94a3b8;
+    background: #f1f5f9; padding: 0.2em 0.6em;
+    border-radius: 999px; text-decoration: none;
+  }
+
+  /* Тело статьи: сайдбар + контент */
+  .article-body {
+    display: grid;
+    grid-template-columns: 28fr 72fr;
+    min-height: 600px;
+  }
+
+  /* Сайдбар */
+  .article-sidebar {
+    background: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    padding: 16px;
+    min-height: 600px;
+    position: relative;
+  }
+  .sidebar-banner {
+    background: #0f172a;
+    border-radius: 12px;
+    height: 100%;
+    min-height: 560px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .sidebar-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(29,78,216,0.5) 0%, rgba(14,165,233,0.25) 100%);
+  }
+  .sidebar-banner__content { position: relative; z-index: 1; }
+  .sb-disclaimer {
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(255,255,255,0.35);
+    margin: 0 0 0.7rem;
+  }
+  .sb-label {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; color: rgba(255,255,255,0.55);
+    margin: 0;
+  }
+  .sb-name {
+    font-size: 1.1rem; font-weight: 800; color: #fff;
+    margin: 0.3rem 0 0.4rem; line-height: 1.2;
+  }
+  .sb-pitch {
+    font-size: 0.82rem; color: rgba(255,255,255,0.65);
+    line-height: 1.55; margin: 0 0 1.2rem;
+  }
+  .sb-cta {
+    display: block;
+    background: #fff; color: #0f172a;
+    text-align: center;
+    padding: 0.7em 1em;
+    border-radius: 8px;
+    font-weight: 700; font-size: 0.85rem;
+    text-decoration: none;
+  }
+
+  /* Контент */
+  .article-content {
+    padding: 2rem 2.5rem;
+    background: #fff;
+  }
+  .breadcrumbs-mock {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    margin-bottom: 0.8rem;
+  }
+  .breadcrumbs-mock a { color: #94a3b8; text-decoration: none; }
+  .breadcrumbs-mock a:hover { color: #1d4ed8; }
+  .meta-mock {
+    font-size: 0.82rem; color: #94a3b8;
+    margin-bottom: 1.5rem;
+    display: flex; gap: 0.8rem;
+  }
+  .toc-mock {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background: #f8fafc;
+  }
+  .toc-mock summary {
+    font-weight: 700; font-size: 0.88rem; color: #0f172a;
+    list-style: none; cursor: pointer;
+    display: flex; justify-content: space-between;
+  }
+  .toc-mock ol {
+    margin: 0.7rem 0 0;
+    padding-left: 1rem;
+    list-style: decimal;
+  }
+  .toc-mock li { font-size: 0.82rem; color: #475569; margin-bottom: 0.3rem; }
+
+  /* Текст статьи (заглушка) */
+  .prose-mock { }
+  .prose-p {
+    background: #f1f5f9;
+    border-radius: 4px;
+    height: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-p.short { width: 65%; }
+  .prose-p.medium { width: 82%; }
+  .prose-p.full { width: 100%; }
+  .prose-h2 {
+    font-size: 1.1rem; font-weight: 700; color: #0f172a;
+    margin: 1.5rem 0 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  /* Врезка — продукт */
+  .aff-product {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin: 1.5rem 0;
+    background: #f8fafc;
+  }
+  .aff-disclaimer-label {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; color: #94a3b8; margin: 0 0 0.8rem;
+  }
+  .aff-cat-badge {
+    display: inline-block;
+    font-size: 0.7rem; font-weight: 700;
+    color: #1d4ed8; background: #dbeafe;
+    padding: 0.15em 0.6em; border-radius: 999px; margin-bottom: 0.4rem;
+  }
+  .aff-name { display: block; font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.3rem; }
+  .aff-pitch { font-size: 0.85rem; color: #475569; margin-bottom: 0.9rem; }
+  .aff-btn {
+    display: inline-block;
+    background: #1d4ed8; color: #fff;
+    padding: 0.55em 1.2em; border-radius: 8px;
+    font-size: 0.85rem; font-weight: 700;
+    text-decoration: none;
+  }
+
+  /* Врезка — сравнение */
+  .aff-compare {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin: 1.5rem 0;
+    background: #f8fafc;
+  }
+  .aff-compare-title {
+    font-size: 0.92rem; font-weight: 700; color: #0f172a; margin-bottom: 0.8rem;
+  }
+  .compare-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;
+  }
+  .compare-item {
+    background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 8px; padding: 0.9rem;
+  }
+  .compare-item .aff-btn { display: block; text-align: center; margin-top: 0.7rem; }
+
+  /* Врезка — инструмент */
+  .aff-tool {
+    border-left: 4px solid #1d4ed8;
+    background: #dbeafe;
+    border-radius: 0 10px 10px 0;
+    padding: 1.1rem 1.3rem;
+    margin: 1.5rem 0;
+  }
+  .aff-tool .aff-name { color: #1e3a8a; }
+  .aff-tool .aff-pitch { color: #1d4ed8; }
+  .aff-tool .aff-btn { background: #1d4ed8; }
+
+  /* Шаринг */
+  .share-mock {
+    display: flex; align-items: center; gap: 0.6rem;
+    margin: 1.5rem 0;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid #e2e8f0; border-radius: 10px;
+    background: #f8fafc;
+  }
+  .share-label { font-size: 0.85rem; font-weight: 700; color: #475569; }
+  .share-tg {
+    background: #e8f4fd; color: #0088cc;
+    border: 1px solid #b3d9f0;
+    padding: 0.35em 0.9em; border-radius: 999px;
+    font-size: 0.82rem; font-weight: 700; text-decoration: none;
+  }
+  .share-vk {
+    background: #e8f0fb; color: #2787f5;
+    border: 1px solid #b3cef7;
+    padding: 0.35em 0.9em; border-radius: 999px;
+    font-size: 0.82rem; font-weight: 700; text-decoration: none;
+  }
+
+  /* Читайте также */
+  .related-mock { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; }
+  .related-mock h2 { font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.8rem; }
+  .related-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem;
+  }
+  .related-card {
+    border: 1px solid #e2e8f0; border-radius: 8px;
+    padding: 0.9rem; background: #fff;
+    text-decoration: none;
+  }
+  .related-card .aff-cat-badge { margin-bottom: 0.4rem; }
+  .related-card h3 { font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 0.3rem; }
+  .related-card p { font-size: 0.76rem; color: #64748b; }
+
+  /* Оговорка */
+  .disclaimer-mock {
+    margin-top: 1.5rem; padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    font-size: 0.82rem; color: #94a3b8; font-style: italic;
+  }
+
+  /* Кнопка наверх */
+  .back-top-mock {
+    position: absolute;
+    bottom: 1.5rem; right: 1.5rem;
+    width: 44px; height: 44px;
+    background: #1d4ed8; color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 700;
+    box-shadow: 0 4px 14px rgba(29,78,216,0.4);
+  }
+
+  /* Прогресс-бар */
+  .rp-bar {
+    height: 3px; background: #1d4ed8;
+    width: 40%;
+    position: absolute; top: 0; left: 0; right: 0;
+  }
+
+  /* ── Обёртка с relative для back-top ────────────── */
+  .page-relative { position: relative; }
+</style>
+</head>
+<body>
+
+<!-- ╔════════════════════════════════════════════════════════╗ -->
+<!-- ║              НАВИГАЦИЯ ПО ЭКРАНАМ                     ║ -->
+<!-- ╚════════════════════════════════════════════════════════╝ -->
+<div class="nav-tabs">
+  <a class="nav-tab active" onclick="showScreen(0, this)">1. Главная</a>
+  <a class="nav-tab" onclick="showScreen(1, this)">2. Список статей</a>
+  <a class="nav-tab" onclick="showScreen(2, this)">3. Страница статьи</a>
+</div>
+
+<div class="screens">
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 1: ГЛАВНАЯ
+       ══════════════════════════════════════════════════════ -->
+  <div class="screen active" id="screen-0">
+    <div class="section-header">
+      <div>
+        <h2>Главная страница</h2>
+        <p>Hero с поиском → Блок срочности → Категории → Featured пост → Последние материалы</p>
+      </div>
+    </div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-num">1</div><div class="ann-text"><strong>Hero с поиском</strong><span>H1 с болевой точкой, лид, строка поиска → /search/</span></div></div>
+      <div class="ann"><div class="ann-num">2</div><div class="ann-text"><strong>Блок срочности</strong><span>Актуальный дедлайн/изменение — жёлтый баннер</span></div></div>
+      <div class="ann"><div class="ann-num">3</div><div class="ann-text"><strong>3 категории</strong><span>Иконка + название + описание + счётчик статей</span></div></div>
+      <div class="ann"><div class="ann-num">4</div><div class="ann-text"><strong>Featured пост</strong><span>Горизонтальная карточка — лучший материал кластера</span></div></div>
+      <div class="ann"><div class="ann-num">5</div><div class="ann-text"><strong>Последние статьи</strong><span>5 карточек с превью, категорией и датой</span></div></div>
+    </div>
+
+    <div class="page-frame">
+      <!-- Header -->
+      <div class="mock-header">
+        <div class="mock-logo">
+          <div class="mock-logo-mark">Р·Б</div>
+          Регламент.Бизнес
+        </div>
+        <div class="mock-nav">
+          <a href="#">ТС ПИоТ</a>
+          <a href="#">Маркировка</a>
+          <a href="#">Законы</a>
+          <a href="#">Словарь</a>
+          <a href="#">О нас</a>
+        </div>
+      </div>
+
+      <!-- 1. Hero -->
+      <div class="home-hero">
+        <div class="home-hero__badge">📋 Информационный портал для МСБ</div>
+        <h1>ТС ПИоТ, маркировка и изменения в законах — понятно и без паники</h1>
+        <p>Разбираем требования, которые догоняют малый и средний бизнес. Актуальные даты, чёткие инструкции, без юридического языка.</p>
+        <div class="home-hero__ctas">
+          <a class="btn-primary" href="#">Все статьи</a>
+          <a class="btn-ghost" href="#">Что такое ТС ПИоТ →</a>
+        </div>
+        <!-- 2. Срочность -->
+        <div class="home-hero__urgency">
+          <span>!</span>
+          <span><strong>Действует с 28.12.2025:</strong> обязательный ТС ПИоТ для всех онлайн-касс с маркированными товарами. <a href="#" style="color:#fde68a">Читать</a></span>
+        </div>
+      </div>
+
+      <!-- Поиск -->
+      <div class="home-search">
+        <input type="text" placeholder="Найти статью: маркировка молочки, ТС ПИоТ, НДС для УСН…" readonly>
+        <button>Найти</button>
+      </div>
+
+      <!-- 3. Категории -->
+      <div class="home-cats">
+        <h2>Основные направления</h2>
+        <div class="cat-grid">
+          <div class="cat-card">
+            <div class="cat-icon cat-icon--blue">🖨</div>
+            <h3>ТС ПИоТ</h3>
+            <p>Что это, кому нужен и как подключить онлайн-кассу к «Честному знаку»</p>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span class="cat-card-count">8 статей</span>
+              <span class="cat-card-link">Перейти →</span>
+            </div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-icon cat-icon--green">🏷</div>
+            <h3>Маркировка</h3>
+            <p>Категории товаров, сроки, «Честный знак», штрафы за нарушения</p>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span class="cat-card-count">12 статей</span>
+              <span class="cat-card-link">Перейти →</span>
+            </div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-icon cat-icon--purple">⚖</div>
+            <h3>Законодательство</h3>
+            <p>Налоги, ЭДО, КЭДО, ЕНС/ЕНП, изменения для МСБ в 2026</p>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span class="cat-card-count">15 статей</span>
+              <span class="cat-card-link">Перейти →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Featured -->
+      <div class="home-featured">
+        <h2>Главный материал</h2>
+        <a class="featured-card" href="#">
+          <div class="featured-img">🖨</div>
+          <div class="featured-body">
+            <div>
+              <div class="featured-cat">ТС ПИоТ</div>
+              <h3>ТС ПИоТ: что это, кому нужен и как подключить онлайн-кассу к «Честному знаку»</h3>
+              <p>С 28 декабря 2025 года все онлайн-кассы, через которые продают маркированный товар, обязаны иметь встроенный модуль ТС ПИоТ. Разбираем, что это, кто обязан и что будет за нарушение.</p>
+            </div>
+            <div class="featured-meta">
+              <span>15 января 2026</span>
+              <span>·</span>
+              <span>обновлено 20 апреля 2026</span>
+              <span>·</span>
+              <span>10 мин чтения</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 5. Последние -->
+      <div class="home-latest">
+        <div class="home-latest-header">
+          <h2>Последние материалы</h2>
+          <a href="#">Все статьи →</a>
+        </div>
+        <div class="posts-grid">
+          <a class="post-card" href="#">
+            <div class="post-thumb green">🏷</div>
+            <div class="post-body">
+              <div class="post-cat">Маркировка</div>
+              <div class="post-title">Маркировка молочки для МСБ: что и когда</div>
+              <div class="post-desc">Сроки, категории, штрафы за нарушение требований</div>
+              <div class="post-date">1 мая 2026</div>
+            </div>
+          </a>
+          <a class="post-card" href="#">
+            <div class="post-thumb purple">⚖</div>
+            <div class="post-body">
+              <div class="post-cat">Законодательство</div>
+              <div class="post-title">НДС на УСН в 2026: ставка 5%, 7% или 20%</div>
+              <div class="post-desc">Как выбрать ставку и что изменилось с 2025</div>
+              <div class="post-date">1 мая 2026</div>
+            </div>
+          </a>
+          <a class="post-card" href="#">
+            <div class="post-thumb blue">🖨</div>
+            <div class="post-body">
+              <div class="post-cat">ТС ПИоТ</div>
+              <div class="post-title">ОФД для ТС ПИоТ: как выбрать оператора</div>
+              <div class="post-desc">Совместимость, тарифы, критерии выбора</div>
+              <div class="post-date">1 мая 2026</div>
+            </div>
+          </a>
+          <a class="post-card" href="#">
+            <div class="post-thumb green">🏷</div>
+            <div class="post-body">
+              <div class="post-cat">Маркировка</div>
+              <div class="post-title">Разрешительный режим маркировки: как работает</div>
+              <div class="post-desc">Что это, для каких категорий, как подготовиться</div>
+              <div class="post-date">1 мая 2026</div>
+            </div>
+          </a>
+          <a class="post-card" href="#">
+            <div class="post-thumb purple">⚖</div>
+            <div class="post-body">
+              <div class="post-cat">Законодательство</div>
+              <div class="post-title">Проверки бизнеса в 2026: мораторий и исключения</div>
+              <div class="post-desc">Кто вправе проверять и что изменилось</div>
+              <div class="post-date">1 мая 2026</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="mock-footer">
+        <div>© 2026 Регламент.Бизнес — информационный портал для МСБ</div>
+        <div>ТС ПИоТ · Маркировка · Законодательство · Словарь · RSS</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 2: СПИСОК СТАТЕЙ
+       ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-1">
+    <div class="section-header">
+      <div>
+        <h2>Страница списка статей /blog/</h2>
+        <p>Поиск → Фильтры (категория + тег) → Сетка карточек → Пагинация</p>
+      </div>
+    </div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-num">1</div><div class="ann-text"><strong>Поисковая строка</strong><span>Ведёт на /search/ с предзаполненным запросом</span></div></div>
+      <div class="ann"><div class="ann-num">2</div><div class="ann-text"><strong>Фильтры категорий</strong><span>Pill-кнопки: Все / ТС ПИоТ / Маркировка / Законодательство</span></div></div>
+      <div class="ann"><div class="ann-num">3</div><div class="ann-text"><strong>Тег + счётчик</strong><span>Select со всеми тегами + «N материалов» справа</span></div></div>
+      <div class="ann"><div class="ann-num">4</div><div class="ann-text"><strong>Карточки постов</strong><span>Единый вид: 16:9 превью → категория → h2 → описание → дата</span></div></div>
+      <div class="ann"><div class="ann-num">5</div><div class="ann-text"><strong>Пагинация</strong><span>10 постов на страницу, с многоточием при >7 страницах</span></div></div>
+    </div>
+
+    <div class="page-frame">
+      <div class="mock-header">
+        <div class="mock-logo">
+          <div class="mock-logo-mark">Р·Б</div>
+          Регламент.Бизнес
+        </div>
+        <div class="mock-nav">
+          <a href="#" class="active">Все статьи</a>
+          <a href="#">ТС ПИоТ</a>
+          <a href="#">Маркировка</a>
+          <a href="#">Законы</a>
+        </div>
+      </div>
+
+      <!-- Заголовок -->
+      <div class="blog-head">
+        <h1>Все статьи</h1>
+        <p>Материалы о ТС ПИоТ, маркировке «Честный знак» и изменениях в законодательстве для малого и среднего бизнеса.</p>
+      </div>
+
+      <!-- Поиск -->
+      <div class="blog-search">
+        <input placeholder="🔍  Поиск по статьям: маркировка пива, штрафы ТС ПИоТ, ЕНС…" readonly>
+      </div>
+
+      <!-- Фильтры -->
+      <div class="blog-filters">
+        <span class="filter-label">Категория:</span>
+        <div class="filter-pills">
+          <span class="filter-pill active">Все</span>
+          <span class="filter-pill">ТС ПИоТ</span>
+          <span class="filter-pill">Маркировка</span>
+          <span class="filter-pill">Законодательство</span>
+        </div>
+        <div class="filter-divider"></div>
+        <select class="filter-select">
+          <option>Тег: все</option>
+          <option>честный знак</option>
+          <option>онлайн-касса</option>
+          <option>ндс</option>
+        </select>
+        <span class="filter-count">35 материалов</span>
+      </div>
+
+      <!-- Сетка -->
+      <div class="blog-grid">
+        <a class="post-card" href="#">
+          <div class="post-thumb blue">🖨</div>
+          <div class="post-body">
+            <div class="post-cat">ТС ПИоТ</div>
+            <div class="post-title">ТС ПИоТ: что это, кому нужен и как подключить онлайн-кассу</div>
+            <div class="post-desc">Разбираем техническое средство получения информации о товаре, кто обязан внедрить…</div>
+            <div class="post-date">обновлено 20 апр 2026</div>
+          </div>
+        </a>
+        <a class="post-card" href="#">
+          <div class="post-thumb green">🏷</div>
+          <div class="post-body">
+            <div class="post-cat">Маркировка</div>
+            <div class="post-title">Маркировка «Честный знак» в 2026: все категории и сроки</div>
+            <div class="post-desc">Полный список товаров, подлежащих маркировке, даты вступления в силу…</div>
+            <div class="post-date">10 фев 2026</div>
+          </div>
+        </a>
+        <a class="post-card" href="#">
+          <div class="post-thumb purple">⚖</div>
+          <div class="post-body">
+            <div class="post-cat">Законодательство</div>
+            <div class="post-title">Налоги для МСБ в 2026: главные изменения за год</div>
+            <div class="post-desc">НДС на УСН, ЕНС, НДФЛ, взносы — что изменилось и как адаптироваться…</div>
+            <div class="post-date">5 мар 2026</div>
+          </div>
+        </a>
+        <a class="post-card" href="#">
+          <div class="post-thumb green">🏷</div>
+          <div class="post-body">
+            <div class="post-cat">Маркировка</div>
+            <div class="post-title">Маркировка молочки для МСБ: что нужно знать</div>
+            <div class="post-desc">Сроки, обязательства для розницы и поставщиков молочной продукции…</div>
+            <div class="post-date">1 мая 2026</div>
+          </div>
+        </a>
+        <a class="post-card" href="#">
+          <div class="post-thumb blue">🖨</div>
+          <div class="post-body">
+            <div class="post-cat">ТС ПИоТ</div>
+            <div class="post-title">ОФД для ТС ПИоТ: как выбрать оператора фискальных данных</div>
+            <div class="post-desc">Совместимость ОФД с ТС ПИоТ, сравнение тарифов и критерии…</div>
+            <div class="post-date">1 мая 2026</div>
+          </div>
+        </a>
+        <a class="post-card" href="#">
+          <div class="post-thumb purple">⚖</div>
+          <div class="post-body">
+            <div class="post-cat">Законодательство</div>
+            <div class="post-title">ЭДО и УПД для маркированных товаров: как оформить</div>
+            <div class="post-desc">Зачем нужен электронный документооборот, как формировать УПД с кодами…</div>
+            <div class="post-date">1 мая 2026</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Пагинация -->
+      <div class="blog-pagination">
+        <div class="page-btn">←</div>
+        <div class="page-btn active">1</div>
+        <div class="page-btn">2</div>
+        <div class="page-btn">3</div>
+        <div style="color:#94a3b8;padding:0 0.3em">…</div>
+        <div class="page-btn">4</div>
+        <div class="page-btn">→</div>
+      </div>
+
+      <div class="mock-footer">
+        <div>© 2026 Регламент.Бизнес</div>
+        <div>ТС ПИоТ · Маркировка · Законодательство</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 3: СТРАНИЦА СТАТЬИ
+       ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-2">
+    <div class="section-header">
+      <div>
+        <h2>Страница статьи /blog/[slug]/</h2>
+        <p>Hero (58/42) → Липкий сайдбар (28%) + Контент (72%) → Врезки → Шаринг → Читайте также</p>
+      </div>
+    </div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-num">1</div><div class="ann-text"><strong>Hero: левая 58%</strong><span>heroImage или градиент категории с декоративным SVG</span></div></div>
+      <div class="ann"><div class="ann-num">2</div><div class="ann-text"><strong>Hero: правая 42%</strong><span>Верх: дата + badge · Центр: H1 · Низ: черта + лид + теги</span></div></div>
+      <div class="ann"><div class="ann-num">3</div><div class="ann-text"><strong>Липкий баннер</strong><span>position:sticky, 28%, контент прибит к низу. Категориальный продукт.</span></div></div>
+      <div class="ann"><div class="ann-num">4</div><div class="ann-text"><strong>Врезка «Продукт»</strong><span>После 2-го H2 — одиночная рекомендация с CTA</span></div></div>
+      <div class="ann"><div class="ann-num">5</div><div class="ann-text"><strong>Врезка «Сравнение»</strong><span>После 4-го H2 — два продукта side-by-side</span></div></div>
+      <div class="ann"><div class="ann-num">6</div><div class="ann-text"><strong>Врезка «Инструмент»</strong><span>Акцентная полоска слева — ссылка на калькулятор или сервис</span></div></div>
+      <div class="ann"><div class="ann-num">7</div><div class="ann-text"><strong>Кнопка «Наверх»</strong><span>Fixed, появляется после прокрутки 400px</span></div></div>
+    </div>
+
+    <div class="page-frame page-relative">
+      <!-- Прогресс-бар -->
+      <div class="rp-bar"></div>
+
+      <!-- Header -->
+      <div class="mock-header">
+        <div class="mock-logo">
+          <div class="mock-logo-mark">Р·Б</div>
+          Регламент.Бизнес
+        </div>
+        <div class="mock-nav">
+          <a href="#">ТС ПИоТ</a>
+          <a href="#" class="active">Маркировка</a>
+          <a href="#">Законы</a>
+          <a href="#">Словарь</a>
+        </div>
+      </div>
+
+      <!-- HERO -->
+      <div class="article-hero">
+        <!-- Левая: градиент категории -->
+        <div class="article-hero__left">
+          <svg class="deco" viewBox="0 0 480 600" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="240" cy="300" r="220" stroke-width="80"/>
+            <circle cx="240" cy="300" r="140" stroke-width="60"/>
+            <circle cx="240" cy="300" r="70" fill="rgba(255,255,255,0.2)"/>
+            <line x1="0" y1="300" x2="480" y2="300" stroke-width="1"/>
+            <line x1="240" y1="0" x2="240" y2="600" stroke-width="1"/>
+          </svg>
+        </div>
+
+        <!-- Правая: верх / H1 / низ -->
+        <div class="article-hero__right">
+          <div class="ah-top">
+            <span class="ah-date">15 января 2026 г.</span>
+            <a class="ah-cat" href="#">ТС ПИоТ</a>
+          </div>
+
+          <h1 class="ah-title">ТС ПИоТ: что это, кому нужен и как подключить онлайн-кассу к «Честному знаку»</h1>
+
+          <div class="ah-bottom">
+            <div class="ah-rule"></div>
+            <p class="ah-lead">Разбираем, что такое техническое средство получения информации о товаре, кто обязан внедрить с 28 декабря 2025 года, как настроить и какие штрафы за отсутствие.</p>
+            <div class="ah-tags">
+              <span class="ah-tag">#тс пиот</span>
+              <span class="ah-tag">#честный знак</span>
+              <span class="ah-tag">#онлайн-касса</span>
+              <span class="ah-tag">#маркировка</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ТЕЛО: сайдбар + контент -->
+      <div class="article-body">
+
+        <!-- Липкий сайдбар -->
+        <div class="article-sidebar">
+          <div class="sidebar-banner">
+            <div class="sidebar-banner__content">
+              <p class="sb-disclaimer">Партнёрская ссылка</p>
+              <p class="sb-label">Онлайн-касса</p>
+              <p class="sb-name">Эвотор</p>
+              <p class="sb-pitch">ТС ПИоТ встроен в прошивку. Обновление до последней версии бесплатное.</p>
+              <a class="sb-cta" href="#">Выбрать кассу</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Контент -->
+        <div class="article-content">
+          <!-- Хлебные крошки -->
+          <div class="breadcrumbs-mock">
+            <a href="#">Главная</a> › <a href="#">Статьи</a> › <a href="#">ТС ПИоТ</a>
+          </div>
+          <!-- Мета -->
+          <div class="meta-mock">
+            <span>обновлено 20 апреля 2026</span>
+            <span>·</span>
+            <span>10 мин чтения</span>
+          </div>
+
+          <!-- TOC -->
+          <details class="toc-mock" open>
+            <summary>Содержание ▸</summary>
+            <ol>
+              <li>Что такое ТС ПИоТ простыми словами</li>
+              <li>Кому нужен ТС ПИоТ</li>
+              <li>Как технически работает ТС ПИоТ</li>
+              <li>ТС ПИоТ в популярных кассовых системах</li>
+              <li>Что проверить прямо сейчас</li>
+              <li>Штрафы за отсутствие ТС ПИоТ</li>
+              <li>Частые вопросы</li>
+            </ol>
+          </details>
+
+          <!-- Проза -->
+          <div class="prose-mock">
+            <p class="prose-p full"></p>
+            <p class="prose-p medium"></p>
+            <p class="prose-p full"></p>
+            <p class="prose-p short"></p>
+
+            <p class="prose-h2">Что такое ТС ПИоТ простыми словами</p>
+            <p class="prose-p full"></p>
+            <p class="prose-p medium"></p>
+
+            <p class="prose-h2">Кому нужен ТС ПИоТ</p>
+            <p class="prose-p full"></p>
+            <p class="prose-p short"></p>
+
+            <!-- ВРЕЗКА 1: Продукт (после H2[1]) -->
+            <div class="aff-product">
+              <p class="aff-disclaimer-label">Партнёрская ссылка</p>
+              <span class="aff-cat-badge">Онлайн-касса</span>
+              <strong class="aff-name">Эвотор</strong>
+              <p class="aff-pitch">ТС ПИоТ встроен в прошивку. Обновление до последней версии бесплатное.</p>
+              <a class="aff-btn" href="#">Выбрать кассу →</a>
+            </div>
+
+            <p class="prose-h2">Как технически работает ТС ПИоТ</p>
+            <p class="prose-p full"></p>
+            <p class="prose-p medium"></p>
+            <p class="prose-p full"></p>
+
+            <p class="prose-h2">ТС ПИоТ в популярных кассовых системах</p>
+            <p class="prose-p full"></p>
+            <p class="prose-p short"></p>
+
+            <!-- ВРЕЗКА 2: Сравнение (после H2[3]) -->
+            <div class="aff-compare">
+              <p class="aff-disclaimer-label">Партнёрские ссылки</p>
+              <p class="aff-compare-title">Выберите решение с поддержкой ТС ПИоТ</p>
+              <div class="compare-grid">
+                <div class="compare-item">
+                  <span class="aff-cat-badge">Онлайн-касса</span>
+                  <strong class="aff-name">Эвотор</strong>
+                  <p class="aff-pitch" style="font-size:0.8rem">ТС ПИоТ из коробки. Обновление бесплатное.</p>
+                  <a class="aff-btn compare-item" href="#">Выбрать кассу</a>
+                </div>
+                <div class="compare-item">
+                  <span class="aff-cat-badge">Онлайн-касса</span>
+                  <strong class="aff-name">МТС Касса</strong>
+                  <p class="aff-pitch" style="font-size:0.8rem">Поддержка маркировки и ТС ПИоТ. Рассрочка.</p>
+                  <a class="aff-btn compare-item" href="#">Узнать цену</a>
+                </div>
+              </div>
+            </div>
+
+            <p class="prose-h2">Штрафы за отсутствие ТС ПИоТ</p>
+            <p class="prose-p full"></p>
+            <p class="prose-p medium"></p>
+
+            <!-- ВРЕЗКА 3: Инструмент -->
+            <div class="aff-tool">
+              <strong class="aff-name">Калькулятор штрафов за маркировку</strong>
+              <p class="aff-pitch">Рассчитайте сумму штрафа по ст. 15.12 КоАП за нарушение требований маркировки.</p>
+              <a class="aff-btn" href="#">Открыть калькулятор →</a>
+            </div>
+
+            <p class="prose-p full"></p>
+            <p class="prose-p short"></p>
+          </div>
+
+          <!-- Шаринг -->
+          <div class="share-mock">
+            <span class="share-label">Поделиться:</span>
+            <a class="share-tg" href="#">Telegram</a>
+            <a class="share-vk" href="#">ВКонтакте</a>
+          </div>
+
+          <!-- Читайте также -->
+          <div class="related-mock">
+            <h2>Читайте также</h2>
+            <div class="related-grid">
+              <a class="related-card" href="#">
+                <span class="aff-cat-badge">Маркировка</span>
+                <h3>Маркировка «Честный знак» в 2026: все категории и сроки</h3>
+                <p>Полный список товаров, подлежащих маркировке…</p>
+              </a>
+              <a class="related-card" href="#">
+                <span class="aff-cat-badge">ТС ПИоТ</span>
+                <h3>ТС ПИоТ на кассах Эвотор, Атол, Штрих: сравнение</h3>
+                <p>Совместимость, стоимость, способ установки…</p>
+              </a>
+              <a class="related-card" href="#">
+                <span class="aff-cat-badge">Законодательство</span>
+                <h3>ЭДО и УПД для маркированных товаров</h3>
+                <p>Зачем нужен ЭДО, как формировать УПД…</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Оговорка -->
+          <div class="disclaimer-mock">
+            Материал носит информационный характер. Перед принятием решений сверяйтесь с действующей редакцией нормативных актов.
+          </div>
+        </div>
+      </div>
+
+      <!-- Кнопка наверх -->
+      <div class="back-top-mock">↑</div>
+
+      <!-- Footer -->
+      <div class="mock-footer">
+        <div>© 2026 Регламент.Бизнес</div>
+        <div>ТС ПИоТ · Маркировка · Законодательство · RSS</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /screens -->
+
+<script>
+function showScreen(idx, tab) {
+  document.querySelectorAll('.screen').forEach((s, i) => {
+    s.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.nav-tab').forEach((t, i) => {
+    t.classList.toggle('active', i === idx);
+  });
+}
+</script>
+</body>
+</html>

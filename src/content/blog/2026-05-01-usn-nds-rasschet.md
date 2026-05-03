@@ -7,7 +7,7 @@ tags:
   - ндс
   - налоги
   - мсб
-  - 2026
+  - "2026"
 categories:
   - zakonodatelstvo
 draft: true

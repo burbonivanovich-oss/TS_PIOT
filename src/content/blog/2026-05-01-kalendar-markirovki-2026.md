@@ -7,7 +7,7 @@ tags:
   - календарь
   - честный знак
   - сроки
-  - 2026
+  - "2026"
 categories:
   - markirovka
 draft: true
