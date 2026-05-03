@@ -10,7 +10,7 @@ tags:
   - маркировка
 categories:
   - ts-piot
-draft: true
+draft: false
 seo:
   keywords:
     - ТС ПИоТ штраф 2026

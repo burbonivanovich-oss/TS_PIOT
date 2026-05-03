@@ -10,7 +10,7 @@ tags:
   - "2026"
 categories:
   - markirovka
-draft: true
+draft: false
 seo:
   keywords:
     - календарь маркировки 2026

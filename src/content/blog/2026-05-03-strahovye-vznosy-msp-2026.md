@@ -10,7 +10,7 @@ tags:
   - 2026
 categories:
   - zakonodatelstvo
-draft: true
+draft: false
 seo:
   keywords:
     - страховые взносы МСП 2026 изменения

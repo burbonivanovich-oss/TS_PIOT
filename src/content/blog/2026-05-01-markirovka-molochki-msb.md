@@ -10,7 +10,7 @@ tags:
   - разрешительный-режим
 categories:
   - markirovka
-draft: true
+draft: false
 seo:
   keywords:
     - маркировка молочной продукции 2026

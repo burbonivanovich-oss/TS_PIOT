@@ -10,7 +10,7 @@ tags:
   - подключение
 categories:
   - ts-piot
-draft: true
+draft: false
 seo:
   keywords:
     - подключить ТС ПИоТ инструкция

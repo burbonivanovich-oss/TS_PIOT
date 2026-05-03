@@ -11,7 +11,7 @@ tags:
   - малый бизнес
 categories:
   - ts-piot
-draft: true
+draft: false
 seo:
   keywords:
     - ОФД для ТС ПИоТ 2026

@@ -11,7 +11,7 @@ tags:
   - трудовое право
 categories:
   - zakonodatelstvo
-draft: true
+draft: false
 seo:
   keywords:
     - МРОТ 2026 для работодателя

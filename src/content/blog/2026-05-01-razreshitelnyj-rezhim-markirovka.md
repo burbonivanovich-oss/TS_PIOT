@@ -10,7 +10,7 @@ tags:
   - тс пиот
 categories:
   - markirovka
-draft: true
+draft: false
 seo:
   keywords:
     - разрешительный режим Честный знак
