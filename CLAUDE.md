@@ -83,6 +83,7 @@ title: "Заголовок: что и почему"
 description: "Краткое описание для SERP, до 160 символов."
 pubDate: "YYYY-MM-DD"
 updatedDate: "YYYY-MM-DD"   # опционально
+reviewDate: "YYYY-MM-DD"    # опционально — плановая дата следующей проверки фактов
 tags:
   - тег1
   - тег2

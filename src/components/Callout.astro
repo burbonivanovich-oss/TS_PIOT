@@ -1,79 +1,131 @@
 ---
 /**
- * Акцентная врезка для выделения ключевых мыслей внутри статьи.
- * Использование в MDX:
+ * Акцентная врезка внутри статьи.
  *
+ * Использование в MDX:
  *   import Callout from '../../components/Callout.astro';
  *
- *   <Callout>
- *     Если статус кода не позволяет продажу, касса обязана заблокировать операцию.
- *     Это называется «разрешительный режим».
- *   </Callout>
+ *   <!-- Семантические типы (авто-лейбл + цвет): -->
+ *   <Callout type="penalty">ИП — 5 000–15 000 ₽, юрлицо — 50 000–300 000 ₽ + конфискация.</Callout>
+ *   <Callout type="date">Разрешительный режим обязателен с 28 декабря 2025 года.</Callout>
+ *   <Callout type="warning">Без ТС ПИоТ касса не пробьёт чек на маркированный товар.</Callout>
+ *   <Callout type="tip">Проверьте версию прошивки кассы и договор с ОФД до подключения.</Callout>
  *
- *   <Callout variant="light">
- *     При повторном нарушении должностное лицо могут дисквалифицировать на срок до двух лет.
- *   </Callout>
+ *   <!-- Декоративные варианты (без лейбла, для цитат): -->
+ *   <Callout variant="dark">Текст цитаты.</Callout>
+ *   <Callout variant="light">Текст цитаты.</Callout>
  *
- * variant:
- *   "dark"  (по умолчанию) — чёрный фон, лаймовый акцент
+ * type (семантический, лейбл подставляется автоматически):
+ *   "penalty"  — красный.  Лейбл: «Штраф»
+ *   "date"     — синий.    Лейбл: «Важная дата»
+ *   "warning"  — жёлтый.   Лейбл: «Важно»
+ *   "tip"      — зелёный.  Лейбл: «Что сделать»
+ *
+ * variant (декоративный, без лейбла):
+ *   "dark"  — чёрный фон, лаймовый акцент
  *   "light" — песочный фон, розовый акцент
  */
+
+type SemanticType = 'penalty' | 'date' | 'warning' | 'tip';
+type DecorativeVariant = 'dark' | 'light';
+
 interface Props {
-	variant?: 'dark' | 'light';
+	type?: SemanticType;
+	variant?: DecorativeVariant;
 }
 
-const { variant = 'dark' } = Astro.props;
+const LABELS: Record<SemanticType, string> = {
+	penalty: 'Штраф',
+	date:    'Важная дата',
+	warning: 'Важно',
+	tip:     'Что сделать',
+};
+
+const { type, variant = 'dark' } = Astro.props;
+const label = type ? LABELS[type] : null;
+const cls   = type ? `callout callout--${type}` : `callout callout--${variant}`;
 ---
 
-<div class={`callout callout--${variant}`}>
+<div class={cls}>
+	{label && <span class="callout-label">{label}</span>}
 	<div class="callout-text">
 		<slot />
 	</div>
 </div>
 
 <style>
+	/* ── Общая база ─────────────────────────────── */
 	.callout {
 		position: relative;
 		margin: 2rem 0;
-		padding: 24px 28px 24px 24px;
+		padding: 20px 24px;
+		border-left-width: 4px;
+		border-left-style: solid;
 		overflow: hidden;
 	}
-	.callout::before {
-		content: '"';
-		position: absolute;
-		top: -12px;
-		right: 16px;
-		font-family: 'Bebas Neue', sans-serif;
-		font-size: 8rem;
-		opacity: .18;
-		line-height: 1;
-		pointer-events: none;
-		user-select: none;
+
+	.callout-label {
+		display: block;
+		font-size: 0.68rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		margin-bottom: 6px;
 	}
+
 	.callout-text {
-		font-size: 1.08rem;
-		font-weight: 600;
-		line-height: 1.6;
-		position: relative;
-		z-index: 1;
+		font-size: 1rem;
+		font-weight: 500;
+		line-height: 1.65;
 	}
-	/* Тёмная врезка */
+
+	/* ── Семантические типы ─────────────────────── */
+	.callout--penalty {
+		background: #fff0f3;
+		border-left-color: #C8003A;
+	}
+	.callout--penalty .callout-label { color: #C8003A; }
+	.callout--penalty .callout-text  { color: #1a0008; }
+	.callout--penalty .callout-text :global(strong) { color: #C8003A; }
+
+	.callout--date {
+		background: #eff6ff;
+		border-left-color: #1a56db;
+	}
+	.callout--date .callout-label { color: #1a56db; }
+	.callout--date .callout-text  { color: #0c1a3a; }
+	.callout--date .callout-text :global(strong) { color: #1a56db; }
+
+	.callout--warning {
+		background: #fffbeb;
+		border-left-color: #c27803;
+	}
+	.callout--warning .callout-label { color: #c27803; }
+	.callout--warning .callout-text  { color: #1a1000; }
+	.callout--warning .callout-text :global(strong) { color: #c27803; }
+
+	.callout--tip {
+		background: #f0fdf4;
+		border-left-color: #057a55;
+	}
+	.callout--tip .callout-label { color: #057a55; }
+	.callout--tip .callout-text  { color: #001a0a; }
+	.callout--tip .callout-text :global(strong) { color: #057a55; }
+
+	/* ── Декоративные варианты (без лейбла) ────── */
 	.callout--dark {
 		background: #111;
-		border-left: 4px solid #C8F500;
+		border-left-color: #C8F500;
 	}
-	.callout--dark::before { color: #C8F500; }
-	.callout--dark .callout-text { color: #fff; }
-	.callout--dark .callout-text :global(em) { font-style: normal; color: #C8F500; }
+	.callout--dark .callout-text { color: #fff; font-weight: 600; font-size: 1.08rem; }
+	.callout--dark .callout-text :global(em)     { font-style: normal; color: #C8F500; }
 	.callout--dark .callout-text :global(strong) { color: #C8F500; }
 
-	/* Светлая врезка */
 	.callout--light {
 		background: #F6F4F0;
-		border-left: 4px solid #E8175D;
+		border-left-color: #E8175D;
 	}
-	.callout--light::before { color: #E8175D; }
-	.callout--light .callout-text { color: #111; }
-	.callout--light .callout-text :global(em) { font-style: normal; color: #E8175D; }
+	.callout--light .callout-text { color: #111; font-weight: 600; font-size: 1.08rem; }
+	.callout--light .callout-text :global(em)     { font-style: normal; color: #E8175D; }
 	.callout--light .callout-text :global(strong) { color: #E8175D; }
 </style>

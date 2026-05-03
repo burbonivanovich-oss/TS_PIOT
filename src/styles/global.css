@@ -167,14 +167,60 @@ hr {
 }
 
 .callout {
-	border-left: 3px solid var(--lime-dark);
+	border-left: 4px solid var(--lime-dark);
 	background: var(--lime-soft);
-	padding: 1em 1.2em;
-	margin: 1.5em 0;
+	padding: 18px 22px;
+	margin: 1.8em 0;
+}
+/* Лейбл-префикс для семантических типов (используется в .md через HTML-дивы) */
+.callout::before {
+	display: block;
+	font-size: 0.68rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	margin-bottom: 5px;
 }
 .callout--warn {
 	border-left-color: var(--pink);
 	background: var(--pink-soft);
+}
+
+/* Семантические типы — вставляются агентом как <div class="callout callout--TYPE">...</div> */
+.callout--penalty {
+	border-left-color: #C8003A;
+	background: #fff0f3;
+}
+.callout--penalty::before {
+	content: "Штраф";
+	color: #C8003A;
+}
+
+.callout--date {
+	border-left-color: #1a56db;
+	background: #eff6ff;
+}
+.callout--date::before {
+	content: "Важная дата";
+	color: #1a56db;
+}
+
+.callout--warning {
+	border-left-color: #c27803;
+	background: #fffbeb;
+}
+.callout--warning::before {
+	content: "Важно";
+	color: #c27803;
+}
+
+.callout--tip {
+	border-left-color: #057a55;
+	background: #f0fdf4;
+}
+.callout--tip::before {
+	content: "Что сделать";
+	color: #057a55;
 }
 
 /* Tag pill — переиспользуется глобально */
