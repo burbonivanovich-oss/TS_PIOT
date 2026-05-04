@@ -5,8 +5,8 @@
  * Запуск через GitHub Actions (стандартный способ):
  *   Actions → Generate Article Images → Run workflow
  *
- * Модель по умолчанию: black-forest-labs/flux.2-max
- * Переопределить: PREVIEW_MODEL=black-forest-labs/flux.2-max
+ * Модель по умолчанию: google/gemini-2.5-flash-image
+ * Переопределить: PREVIEW_MODEL=google/gemini-2.5-flash-image:free (для теста)
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,7 +16,7 @@ const __dirname   = path.dirname(fileURLToPath(import.meta.url));
 const ROOT        = path.resolve(__dirname, '..');
 const BLOG_DIR    = path.join(ROOT, 'src/content/blog');
 const PREVIEW_DIR = path.join(ROOT, 'public/images/preview');
-const MODEL       = process.env.PREVIEW_MODEL ?? 'black-forest-labs/flux.2-max';
+const MODEL       = process.env.PREVIEW_MODEL ?? 'google/gemini-2.5-flash-image';
 
 fs.mkdirSync(PREVIEW_DIR, { recursive: true });
 
@@ -63,7 +63,7 @@ async function generateImage(prompt) {
     body: JSON.stringify({
       model: MODEL,
       messages: [{ role: 'user', content: prompt }],
-      modalities: ['image'],
+      modalities: ['text', 'image'],
     }),
   });
 
