@@ -62,6 +62,7 @@ async function generateImage(prompt) {
     },
     body: JSON.stringify({
       model: MODEL,
+      provider: { order: ['black-forest-labs'], allow_fallbacks: false },
       messages: [{ role: 'user', content: prompt }],
     }),
   });
