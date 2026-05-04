@@ -33,6 +33,21 @@ function abbrev(title: string): string {
 	return title.slice(0, 2).toUpperCase();
 }
 
+// Deterministic hash for pool image selection
+function slugHash(slug: string): number {
+	let h = 0;
+	for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
+	return h;
+}
+
+// Pick preview image from pool (or use manual override from frontmatter)
+function poolPreview(post: PostData): string {
+	if (post.previewImage) return post.previewImage;
+	const cat = post.categories[0] ?? 'zakonodatelstvo';
+	const n = slugHash(post.id) % 3;
+	return `/images/preview/${cat}-${n}.jpg`;
+}
+
 // Get card colors by category
 function cardBg(cat?: string): { bg: string; letterColor: string; tagBg: string; tagColor: string; dateColor: string } {
 	if (cat === 'ts-piot')
@@ -40,7 +55,7 @@ function cardBg(cat?: string): { bg: string; letterColor: string; tagBg: string;
 	if (cat === 'markirovka')
 		return { bg: '#9E2B4F', letterColor: '#fff', tagBg: '#9E2B4F', tagColor: '#fff', dateColor: 'rgba(255,255,255,.6)' };
 	if (cat === 'zakonodatelstvo')
-		return { bg: '#AFCC00', letterColor: '#111', tagBg: '#AFCC00', tagColor: '#111', dateColor: 'rgba(0,0,0,.45)' };
+		return { bg: '#1E4A7A', letterColor: '#fff', tagBg: '#1E4A7A', tagColor: '#fff', dateColor: 'rgba(255,255,255,.6)' };
 	return { bg: '#222', letterColor: '#fff', tagBg: '#111', tagColor: '#fff', dateColor: 'rgba(255,255,255,.5)' };
 }
 
@@ -189,13 +204,8 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 									const catName = cat ? (CAT_NAMES[cat] ?? cat) : null;
 									return (
 										<a key={post.id} href={`/blog/${post.id}/`} className="bf-card">
-											<div className="bf-card-img" style={{ background: colors.bg }}>
-												<span className="bf-card-letter" style={{ color: colors.letterColor }}>
-													{abbrev(post.title)}
-												</span>
-												<span className="bf-card-date-overlay" style={{ color: colors.dateColor }}>
-													{fmtDate(post.pubDate)}
-												</span>
+											<div className="bf-card-img">
+												<img src={poolPreview(post)} alt="" loading="lazy" />
 											</div>
 											<div className="bf-card-body">
 												{catName && (
@@ -208,7 +218,10 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 												)}
 												<div className="bf-card-title">{post.title}</div>
 												<div className="bf-card-desc">{post.description}</div>
-												<div className="bf-card-author">— Редакция</div>
+												<div className="bf-card-meta">
+													<span className="bf-card-author">Редакция</span>
+													<span className="bf-card-date">{fmtDate(post.pubDate)}</span>
+												</div>
 											</div>
 										</a>
 									);
@@ -501,26 +514,22 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 				.bf-card-img {
 					width: 100%;
 					aspect-ratio: 4/3;
-					display: flex;
-					align-items: center;
-					justify-content: center;
 					overflow: hidden;
-					position: relative;
 				}
-				.bf-card-letter {
-					font-family: 'Bebas Neue', sans-serif;
-					font-size: 7rem;
-					line-height: 1;
-					opacity: .25;
-					letter-spacing: -.02em;
+				.bf-card-img img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					display: block;
 				}
-				.bf-card-date-overlay {
-					position: absolute;
-					bottom: 8px;
-					right: 10px;
-					font-size: .6rem;
-					letter-spacing: .1em;
-					text-transform: uppercase;
+				.bf-card-meta {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					margin-top: 8px;
+					font-size: .65rem;
+					color: #999;
+					letter-spacing: .04em;
 				}
 				.bf-card-body {
 					padding: 16px;

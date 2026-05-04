@@ -1,12 +1,17 @@
 /**
- * Генерирует превью-изображения для карточек статей через OpenRouter (FLUX).
- * Использует OpenAI-совместимый endpoint /v1/images/generations.
+ * Генерирует пул превью-изображений для карточек статей.
+ * Пул: 3 варианта × 5 категорий = 15 файлов.
+ * Файлы: public/images/preview/{category}-{0,1,2}.jpg
  *
- * Запуск через GitHub Actions (стандартный способ):
- *   Actions → Generate Article Images → Run workflow
+ * Статьи НЕ трогаются — карточки выбирают изображение из пула
+ * по формуле: slugHash(post.id) % 3.
  *
- * Модель по умолчанию: google/gemini-3.1-flash-image-preview
- * Переопределить: PREVIEW_MODEL=google/gemini-2.5-flash-image (дешевле)
+ * Запуск: Actions → Generate Preview Pool → Run workflow
+ *
+ * Переменные окружения:
+ *   CATEGORY   — сгенерировать только одну категорию (ts-piot, markirovka, …)
+ *   FORCE=1    — перегенерировать даже если файл уже существует
+ *   PREVIEW_MODEL — модель (по умолчанию google/gemini-3.1-flash-image-preview)
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -14,17 +19,16 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname   = path.dirname(fileURLToPath(import.meta.url));
 const ROOT        = path.resolve(__dirname, '..');
-const BLOG_DIR    = path.join(ROOT, 'src/content/blog');
 const PREVIEW_DIR = path.join(ROOT, 'public/images/preview');
 const MODEL       = process.env.PREVIEW_MODEL ?? 'google/gemini-3.1-flash-image-preview';
+const FORCE       = process.env.FORCE === '1';
+const ONLY_CAT    = process.env.CATEGORY ?? '';
 
 fs.mkdirSync(PREVIEW_DIR, { recursive: true });
 
 const API_KEY = process.env.OPENROUTER_API_KEY;
 if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
 
-/* Превью — простой графический паттерн, читается на карточке ~300px.
-   3 варианта на категорию; выбор детерминирован по хэшу слага. */
 const CAT_VARIANTS = {
   'ts-piot': [
     'flat graphic icon of a POS terminal, bold solid silhouette, charcoal #111 background, lime-green #AFCC00 accent lines, centered composition, large single symbol',
@@ -53,34 +57,9 @@ const CAT_VARIANTS = {
   ],
 };
 
-function pickVariant(slug, category) {
-  const variants = CAT_VARIANTS[category] ?? [
-    'flat graphic icon, dark background, bold silhouette, centered',
-  ];
-  let hash = 0;
-  for (let i = 0; i < slug.length; i++) hash = (hash * 31 + slug.charCodeAt(i)) >>> 0;
-  return variants[hash % variants.length];
-}
-
 const STYLE_SUFFIX =
   'flat graphic design, bold minimal icon, 2–3 solid colors, no gradients, no photography, ' +
   'no text overlays, no people, clean vector-style illustration, 4:3 aspect ratio';
-
-function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
-  if (!match) return null;
-  const fm = {};
-  for (const line of match[1].split('\n')) {
-    const kv = line.match(/^(\w+):\s*"?([^"]*)"?/);
-    if (kv) fm[kv[1]] = kv[2].trim();
-  }
-  return fm;
-}
-
-function buildPrompt(slug, category) {
-  const variant = pickVariant(slug, category);
-  return `${variant}. ${STYLE_SUFFIX}`;
-}
 
 async function generateImage(prompt) {
   const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -110,61 +89,46 @@ async function generateImage(prompt) {
   if (imgUrl.startsWith('data:image/')) {
     return Buffer.from(imgUrl.split(',')[1], 'base64');
   }
-
   const r = await fetch(imgUrl);
   if (!r.ok) throw new Error(`Скачивание ${r.status}: ${imgUrl}`);
   return Buffer.from(await r.arrayBuffer());
 }
 
-const targetSlug = process.env.SLUG;
-const limit      = process.env.LIMIT ? parseInt(process.env.LIMIT, 10) : 0;
-const files      = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
-
-let targets = files.filter(file => {
-  if (targetSlug && !file.startsWith(targetSlug) && file !== targetSlug + '.md') return false;
-  const content = fs.readFileSync(path.join(BLOG_DIR, file), 'utf8');
-  if (/^previewImage:/m.test(content)) return false;
-  if (!targetSlug && /^draft:\s*true/m.test(content)) return false;
-  return true;
-});
-
-if (limit > 0) targets = targets.slice(0, limit);
-
-if (targets.length === 0) {
-  console.log('Нет статей для генерации (все уже имеют previewImage или являются черновиками).');
-  process.exit(0);
-}
+const categories = ONLY_CAT
+  ? (CAT_VARIANTS[ONLY_CAT] ? [ONLY_CAT] : (() => { console.error(`Неизвестная категория: ${ONLY_CAT}`); process.exit(1); })())
+  : Object.keys(CAT_VARIANTS);
 
 console.log(`Модель: ${MODEL}`);
-if (limit > 0) console.log(`Лимит: ${limit} статьи(й)`);
-console.log(`Буду генерировать превью для ${targets.length} статьи(й)...\n`);
+console.log(`Категории: ${categories.join(', ')}`);
+console.log(`Режим: ${FORCE ? 'перегенерация' : 'только новые'}\n`);
 
-for (const file of targets) {
-  const filePath = path.join(BLOG_DIR, file);
-  const content  = fs.readFileSync(filePath, 'utf8');
-  const fm       = parseFrontmatter(content);
-  if (!fm) { console.warn(`Пропуск ${file}: не распарсился frontmatter`); continue; }
+let generated = 0;
+let skipped   = 0;
 
-  const slug     = file.replace(/\.md$/, '');
-  const category = (content.match(/categories:\s*\n\s*-\s*(\S+)/) || [])[1] ?? 'zakonodatelstvo';
-  const prompt   = buildPrompt(slug, category);
+for (const cat of categories) {
+  const variants = CAT_VARIANTS[cat];
+  for (let n = 0; n < variants.length; n++) {
+    const outPath = path.join(PREVIEW_DIR, `${cat}-${n}.jpg`);
+    const label   = `${cat}-${n}`;
 
-  process.stdout.write(`${slug}... `);
-  try {
-    const buffer      = await generateImage(prompt);
-    const previewPath = `/images/preview/${slug}.jpg`;
-    const outputPath  = path.join(PREVIEW_DIR, `${slug}.jpg`);
-    fs.writeFileSync(outputPath, buffer);
-    const size = (fs.statSync(outputPath).size / 1024).toFixed(0);
-    const updated = content.replace(
-      /^(---\n[\s\S]*?)(pubDate:[^\n]*\n)/m,
-      `$1$2previewImage: "${previewPath}"\n`,
-    );
-    fs.writeFileSync(filePath, updated);
-    console.log(`✓ ${size} KB → ${previewPath}`);
-  } catch (e) {
-    console.error(`✗ ${e.message}`);
+    if (!FORCE && fs.existsSync(outPath)) {
+      console.log(`↷ ${label} — уже есть, пропуск`);
+      skipped++;
+      continue;
+    }
+
+    process.stdout.write(`${label}... `);
+    const prompt = `${variants[n]}. ${STYLE_SUFFIX}`;
+    try {
+      const buffer = await generateImage(prompt);
+      fs.writeFileSync(outPath, buffer);
+      const size = (fs.statSync(outPath).size / 1024).toFixed(0);
+      console.log(`✓ ${size} KB`);
+      generated++;
+    } catch (e) {
+      console.error(`✗ ${e.message}`);
+    }
   }
 }
 
-console.log('\nГотово.');
+console.log(`\nГотово. Сгенерировано: ${generated}, пропущено: ${skipped}.`);
