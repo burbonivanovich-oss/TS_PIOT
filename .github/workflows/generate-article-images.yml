@@ -32,14 +32,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Generate preview images (FLUX via DeepInfra)
+      - name: Generate preview images (FLUX via OpenRouter)
         env:
-          DEEPINFRA_TOKEN: ${{ secrets.DEEPINFRA_TOKEN }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/generate-preview-images.mjs
 
-      - name: Generate hero images (FLUX via DeepInfra)
+      - name: Generate hero images (FLUX via OpenRouter)
         env:
-          DEEPINFRA_TOKEN: ${{ secrets.DEEPINFRA_TOKEN }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/generate-hero-images.mjs
 
       - name: Commit images
@@ -47,5 +47,5 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/images/preview/ public/images/hero/ src/content/blog/
-          git diff --staged --quiet || git commit -m "feat(images): превью + hero (FLUX via DeepInfra)"
+          git diff --staged --quiet || git commit -m "feat(images): превью + hero (FLUX via OpenRouter)"
           git push origin HEAD

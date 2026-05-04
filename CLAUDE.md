@@ -257,25 +257,24 @@ createdDate: "YYYY-MM-DD"
 
 ## OpenRouter и нейросетевые возможности
 
-**`DEEPINFRA_TOKEN` хранится в секретах GitHub репозитория** (`burbonivanovich-oss/TS_PIOT → Settings → Secrets → DEEPINFRA_TOKEN`).
+**`OPENROUTER_API_KEY` хранится в секретах GitHub репозитория** (`burbonivanovich-oss/TS_PIOT → Settings → Secrets → OPENROUTER_API_KEY`).
 Локально ключ нигде не прописан и не нужен — все скрипты генерации запускаются через GitHub Actions.
 
 **Не предлагать пользователю прописывать ключ вручную.** Стандартный способ запуска — Actions.
 
-### Генерация изображений (DeepInfra + FLUX)
+### Генерация изображений (OpenRouter + FLUX)
 
-Провайдер — **DeepInfra** (`api.deepinfra.com`). OpenAI-совместимый `/v1/openai/images/generations`.
-Цена: ~$0.0005/фото для FLUX-1-schnell. OpenRouter не поддерживает image-модели через API.
+Единственный провайдер — **OpenRouter**. Together.ai не используется.
 
 | Скрипт | Назначение | Модель по умолчанию |
 |---|---|---|
-| `generate-preview-images.mjs` | Превью для карточек | `black-forest-labs/FLUX-1-schnell` |
-| `generate-hero-images.mjs` | Hero-изображения статей | `black-forest-labs/FLUX-1-schnell` |
-| `test-pool-generation.mjs` | Тест 3 изображений из пула с выводом стоимости | `black-forest-labs/FLUX-1-schnell` |
+| `generate-preview-images.mjs` | Превью для карточек | `flux.2-max` |
+| `generate-hero-images.mjs` | Hero-изображения статей | `flux.2-max` |
+| `test-pool-generation.mjs` | Тест 3 изображений из пула с выводом стоимости | `flux.2-max` |
 
 **Запуск:** GitHub Actions → вкладка **Actions** → **Generate Article Images** → **Run workflow**.
 
-Сменить модель: переменные окружения `PREVIEW_MODEL` / `HERO_MODEL` (`FLUX-1-dev` — лучше качество, ~$0.025/фото).
+Сменить модель: переменные окружения `PREVIEW_MODEL` / `HERO_MODEL` в workflow inputs.
 
 ### AI-фоны для OG-обложек
 

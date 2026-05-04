@@ -1,12 +1,12 @@
 /**
- * Генерирует hero-изображения для статей через DeepInfra (FLUX).
- * Использует OpenAI-совместимый endpoint /v1/openai/images/generations.
+ * Генерирует hero-изображения для статей через OpenRouter (FLUX).
+ * Использует OpenAI-совместимый endpoint /v1/images/generations.
  *
  * Запуск через GitHub Actions (стандартный способ):
  *   Actions → Generate Article Images → Run workflow
  *
- * Модель по умолчанию: black-forest-labs/FLUX-1-schnell
- * Переопределить: HERO_MODEL=black-forest-labs/FLUX-1-dev
+ * Модель по умолчанию: black-forest-labs/flux.2-max
+ * Переопределить: HERO_MODEL=black-forest-labs/flux.2-max
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,12 +16,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
 const BLOG_DIR  = path.join(ROOT, 'src/content/blog');
 const HERO_DIR  = path.join(ROOT, 'public/images/hero');
-const MODEL     = process.env.HERO_MODEL ?? 'black-forest-labs/FLUX-1-schnell';
+const MODEL     = process.env.HERO_MODEL ?? 'black-forest-labs/flux.2-max';
 
 fs.mkdirSync(HERO_DIR, { recursive: true });
 
-const API_KEY = process.env.DEEPINFRA_TOKEN;
-if (!API_KEY) { console.error('DEEPINFRA_TOKEN не задан'); process.exit(1); }
+const API_KEY = process.env.OPENROUTER_API_KEY;
+if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
 
 const CAT_STYLE = {
   'ts-piot':         'modern compact POS terminal, fiscal receipt printer, retail counter, dark background',
@@ -52,13 +52,19 @@ function buildPrompt(title, category) {
 }
 
 async function generateImage(prompt) {
-  const res = await fetch('https://api.deepinfra.com/v1/openai/images/generations', {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
+      'HTTP-Referer': 'https://etiketka.media',
+      'X-Title': 'etiketka.media',
     },
-    body: JSON.stringify({ model: MODEL, prompt, n: 1, size: '1344x768' }),
+    body: JSON.stringify({
+      model: MODEL,
+      messages: [{ role: 'user', content: prompt }],
+      modalities: ['image'],
+    }),
   });
 
   const rawText = await res.text();
@@ -67,18 +73,16 @@ async function generateImage(prompt) {
   try { data = JSON.parse(rawText); }
   catch { throw new Error(`Не JSON (${res.status}): ${rawText.slice(0, 400)}`); }
 
-  const item = data?.data?.[0];
-  if (!item) throw new Error('Нет данных: ' + JSON.stringify(data).slice(0, 400));
+  const imgUrl = data?.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+  if (!imgUrl) throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 400));
 
-  if (item.b64_json) return Buffer.from(item.b64_json, 'base64');
-
-  if (item.url) {
-    const r = await fetch(item.url);
-    if (!r.ok) throw new Error(`Скачивание ${r.status}: ${item.url}`);
-    return Buffer.from(await r.arrayBuffer());
+  if (imgUrl.startsWith('data:image/')) {
+    return Buffer.from(imgUrl.split(',')[1], 'base64');
   }
 
-  throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 400));
+  const r = await fetch(imgUrl);
+  if (!r.ok) throw new Error(`Скачивание ${r.status}: ${imgUrl}`);
+  return Buffer.from(await r.arrayBuffer());
 }
 
 const targetSlug = process.env.SLUG;
