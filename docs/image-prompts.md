@@ -2,216 +2,220 @@
 
 Два типа изображений:
 - **Preview** — превью карточки, соотношение 4:3 (~800×600 px). Используется в листингах.
-- **Hero** — шапка статьи, соотношение 16:9 (~1344×768 px). Занимает левую колонку hero-блока.
+- **Hero** — шапка статьи, соотношение 16:9 (~1344×768 px). Размещается в тёмной левой колонке hero-блока (bg `#111`).
 
-## Стилевой контекст
+---
 
-Сайт — информационный портал для малого и среднего бизнеса РФ. Дизайн:
-тёмный (#111) + тёплый кремово-бежевый (#EDE8DF) + белый, акцент — приглушённый малиновый.
-Не кричащий, не корпоративно-синий, не стоковый. Ближе к деловому журналу — Monocle, РБК.
+## Стилевой контекст бренда
 
-**Общий стилевой суффикс** (добавлять к каждому промпту):
+Сайт — жёсткий, прямой, editorial. Палитра: тёмный (`#111`) + лаймовый (`#C8F500`) + малиновый (`#E8175D`) + бежевый (`#EDE8DF`). Шрифт Bebas Neue, uppercase.
+
+**Задача фотографии** — служить подложкой под bold UI: тёмные изображения с хорошим контрастом работают под лаймовые и розовые UI-элементы поверх. Изображения не обязаны буквально воспроизводить фирменные цвета — они должны *не конкурировать* с ними.
+
+**Два рабочих подхода:**
+
+1. **Тёмный editorial** — тёмный фон (`#111`-атмосфера), резкий направленный свет, высокий контраст. Объекты: кассы, сканеры, упаковка, документы, розница.
+2. **Светлый minimal** — нейтральный бежево-кремовый фон (близкий к `#EDE8DF`), чистая kompoziция, без цветового шума. Один-два объекта крупным планом.
+
+---
+
+## Общий стилевой суффикс
+
+Добавлять к каждому промпту в скрипте (не повторять в каждом):
+
 ```
-editorial photography style, warm neutral color palette (charcoal, cream, warm white),
-clean composition, shallow depth of field, soft natural light from the side,
-no text overlays, no neon colors, muted tones, professional B2B feel,
-Russian small retail or office environment context, sharp details
+high contrast editorial photography, dark dramatic background OR clean cream-beige background,
+sharp directional lighting, bold composition with strong shadows, professional B2B context,
+Russian small retail or office environment, no text overlays, photorealistic
 ```
 
 ---
 
 ## Кластер: ТС ПИоТ
 
-### 1. «Что такое ТС ПИоТ» — Hero
+### 1. «Что такое ТС ПИоТ» — Hero (тёмный editorial)
 
 ```
-Close-up of a modern compact fiscal receipt printer and a small touchscreen POS terminal
-on a clean retail counter, dark charcoal background, warm side lighting,
-a faint barcode scan visible on the terminal screen, cream-colored surface beneath devices,
-editorial photography style, warm neutral color palette, clean composition,
-shallow depth of field, soft natural light, no text overlays, muted professional tones
+Close-up of a modern compact fiscal POS terminal on a dark surface, strong directional
+side light creating sharp highlights and deep shadows, dark charcoal background,
+small glowing receipt printer next to it, bold product editorial photography,
+high contrast, no text, photorealistic
 ```
 
-### 2. «ТС ПИоТ: штрафы за отсутствие» — Hero
+### 2. «ТС ПИоТ: штрафы» — Hero (тёмный editorial)
 
 ```
-A folded official document with a visible stamp seal on a dark wooden desk,
-next to a closed cash register, warm window light casting soft shadows,
-serious and restrained mood, no people, editorial photography style,
-warm neutrals (cream, charcoal), clean composition, no text overlays
+An official stamped document and a closed receipt printer on a dark matte desk,
+single overhead spotlight, dramatic shadows, serious mood, bold editorial,
+high contrast black and cream palette, no readable text on document, photorealistic
 ```
 
-### 3. «Подключение ТС ПИоТ: пошаговая инструкция» — Preview
+### 3. «Подключение ТС ПИоТ: инструкция» — Preview (светлый minimal)
 
 ```
-Hands of a person (hands only, cropped) connecting a USB cable to a small fiscal
-receipt terminal on a retail counter, blurred background showing shelves,
-warm natural light, editorial close-up, cream and charcoal palette, no text
+Hands close-up connecting a cable to a small POS terminal on a cream-beige surface,
+clean overhead light, minimal composition, blurred retail shelves in background,
+professional product photography, sharp focus on connection point, no text
 ```
 
-### 4. «ТС ПИоТ на кассах Эвотор, АТОЛ, Штрих» — Preview
+### 4. «ТС ПИоТ на кассах Эвотор, АТОЛ, Штрих» — Preview (тёмный editorial)
 
 ```
-Three different POS terminal models lined up on a minimalist cream-colored shelf,
-dark background, product-style editorial photography, soft diffused side light,
-neutral tones, no labels or text visible on devices, professional B2B feel
+Three different compact POS terminal models arranged in a row on a dark surface,
+dramatic side lighting creating long shadows, bold product editorial composition,
+high contrast, dark background, no labels or text visible, photorealistic
 ```
 
-### 5. «ОФД для ТС ПИоТ» — Hero
+### 5. «ОФД для ТС ПИоТ» — Hero (светлый minimal)
 
 ```
-Overhead flat lay: a printed fiscal receipt next to a compact POS terminal,
-a smartphone with a blurred interface, and a glass of water on a sand-colored desk,
-editorial top-down composition, warm neutral light, charcoal and cream palette,
-clean negative space on one side, no text overlays
+Overhead flat lay on cream-beige surface: a printed fiscal receipt, a compact POS terminal,
+a smartphone face-down, clean geometric composition with negative space on left side,
+natural diffused light, minimal editorial, sharp shadows, no text overlays
 ```
 
 ---
 
 ## Кластер: Маркировка «Честный знак»
 
-### 6. «Категории маркировки 2026» — Hero
+### 6. «Категории маркировки 2026» — Hero (тёмный editorial)
 
 ```
-Wide editorial shot of supermarket shelves stocked with various consumer products —
-dairy, beverages, personal care items — photographed from a low angle,
-warm tungsten-tinted retail lighting, blurred depth in background,
-muted warm tones, no focus on specific brand labels, professional calm atmosphere
+Wide low-angle shot of supermarket shelves stocked densely with consumer products,
+dramatic tungsten retail lighting creating warm pools of light, dark upper area,
+bold editorial atmosphere, shelves in sharp focus foreground blurring to background,
+no readable brand labels, photorealistic, high contrast
 ```
 
-### 7. «Маркировка молочной продукции» — Preview
+### 7. «Маркировка молочной продукции» — Preview (светлый minimal)
 
 ```
-Close-up of a glass milk bottle and a small cardboard package of dairy on a wooden counter,
-a faint QR code label visible on the packaging, warm side light,
-editorial still life, cream and charcoal tones, soft shadows, no text overlays
+Three glass milk bottles on a cream surface, clean overhead daylight,
+minimal editorial still life, sharp geometric shadows, QR label faintly visible
+on one bottle, bold composition, no brand text readable, photorealistic
 ```
 
-### 8. «Маркировка пива и пивных напитков» — Preview
+### 8. «Маркировка пива» — Preview (тёмный editorial)
 
 ```
-Two glass beer bottles on a dark bar counter, condensation visible, warm backlight,
-editorial moody atmosphere, dark charcoal background, muted amber tones,
-no brand labels visible, professional B2B feel, shallow depth of field
+Two dark glass beer bottles on a black bar counter, strong backlight creating
+rim highlights, condensation visible, moody dramatic atmosphere, dark background,
+bold high-contrast editorial, no brand labels readable, photorealistic
 ```
 
-### 9. «Разрешительный режим маркировки» — Hero
+### 9. «Разрешительный режим маркировки» — Hero (тёмный editorial)
 
 ```
-A retail cashier's hand (hand and forearm only) hovering over a barcode scanner,
-scanner light glowing, blurred shelves in background, muted retail environment,
-editorial photography, warm neutral tones, charcoal and cream palette, no text
+Close-up of a barcode scanner actively scanning, red scan line visible,
+dark dramatic background, strong directional light on scanner and operator's hand,
+retail context blurred in background, bold editorial photography, high contrast, no text
 ```
 
-### 10. «Штрафы за нарушение маркировки» — Hero
+### 10. «Штрафы за нарушение маркировки» — Hero (тёмный editorial)
 
 ```
-A gavel and a small printed document on a minimalist dark desk, soft warm light
-from a desk lamp, serious restrained mood, charcoal and cream palette,
-no text visible, editorial photography style, clean negative space
+A gavel on a dark wooden surface, single harsh overhead spotlight,
+deep shadows, serious imposing mood, bold dramatic composition,
+dark background with strong highlights on gavel head, photorealistic, no text
 ```
 
 ---
 
 ## Кластер: Онлайн-кассы (ККТ)
 
-### 11. «Как выбрать онлайн-кассу 2026» — Hero
+### 11. «Как выбрать онлайн-кассу 2026» — Hero (тёмный editorial)
 
 ```
-Four different compact POS terminal models arranged in a row on a light cream surface,
-product editorial photography, soft diffused overhead light, dark background behind them,
-warm neutral palette, no labels, clean professional composition, no text overlays
+Four compact POS terminal models lined up in a row on a dark surface, strong side
+lighting creating sharp edge highlights, progressive focus blur from front to back,
+bold product editorial, dark background, no brand labels visible, photorealistic
 ```
 
-### 12. «Замена фискального накопителя» — Preview
+### 12. «Замена фискального накопителя» — Preview (светлый minimal)
 
 ```
-Open drawer of a fiscal receipt printer exposing the internal mechanism,
-a small rectangular fiscal accumulator module visible, warm workshop light,
-editorial close-up, dark charcoal and cream tones, no text, professional B2B
+Open fiscal receipt printer showing internal mechanism, small rectangular module
+partially removed, clean cream-beige surface, overhead workshop light,
+technical close-up editorial, sharp focus, no text, photorealistic
 ```
 
-### 13. «Смарт-терминал vs фискальный регистратор» — Hero
+### 13. «Смарт-терминал vs фискальный регистратор» — Hero (тёмный editorial)
 
 ```
-Two devices side by side: a touchscreen smart POS terminal and a compact fiscal
-receipt printer, separated by visible space on a cream-colored surface,
-dark background, editorial product photography, soft side lighting,
-warm neutral palette, no text visible, comparison-style clean composition
+A touchscreen smart POS terminal and a compact receipt printer placed apart
+on a dark surface, bold dramatic lighting with sharp separation between two devices,
+high contrast editorial, dark background, equal visual weight left and right, no text
 ```
 
 ---
 
 ## Кластер: ЕГАИС
 
-### 14. «Что такое ЕГАИС» — Hero
+### 14. «Что такое ЕГАИС» — Hero (тёмный editorial)
 
 ```
-Wide shot of a small liquor store section: shelves with wine and spirits bottles,
-warm tungsten lighting, clean orderly arrangement, no customers visible,
-editorial B2B atmosphere, warm dark tones, muted charcoal and amber palette,
-shallow depth of field, no text overlays
+Wide shot of liquor store shelves densely packed with wine and spirits bottles,
+moody low tungsten lighting, dark upper shadow, warm amber bottle tones against dark,
+bold editorial atmosphere, no readable labels, high contrast, photorealistic
 ```
 
-### 15. «Гашение ВСД в Меркурии» — Preview
+### 15. «Гашение ВСД в Меркурии» — Preview (светлый minimal)
 
 ```
-Close-up of hands (hands only) typing on a laptop keyboard, screen slightly blurred
-showing a government portal interface, warm desk lamp light, wooden desk surface,
-editorial office photography, charcoal and cream tones, no identifiable screen text
+Hands typing on a laptop keyboard on a cream desk, laptop screen blurred showing
+a government-style portal interface, harsh angular desk lamp light casting sharp shadows,
+clean minimal composition, no readable screen text, photorealistic
 ```
 
-### 16. «Учёт алкоголя в общепите» — Preview
+### 16. «Учёт алкоголя в общепите» — Preview (тёмный editorial)
 
 ```
-Overhead flat lay of a bar counter: two wine glasses, a spirits bottle, a tablet
-with a blurred inventory screen, small notepad, warm candlelight-style lighting,
-editorial hospitality photography, dark moody but restrained tones, no text visible
+Bar counter at night: two wine glasses and a spirits bottle, single spotlight from above,
+dark dramatic background, condensation on glass visible, bold moody atmosphere,
+editorial bar photography, no text, high contrast, photorealistic
 ```
 
 ---
 
 ## Кластер: Законодательство / налоги
 
-### 17. «Налоги для МСБ 2026» — Hero
+### 17. «Налоги для МСБ 2026» — Hero (светлый minimal)
 
 ```
-Wide editorial shot of a small open-plan office: a desk with a laptop, printed documents,
-a calculator, and a cup of coffee, warm window light, one person visible from the back
-only (blurred), clean business atmosphere, warm neutral palette (cream, charcoal),
-no text on papers, professional restrained mood
+Wide shot of a clean minimal desk: laptop, stacked documents, a calculator,
+cream surface, harsh directional window light casting long shadows,
+bold editorial office photography, no readable text on documents, photorealistic
 ```
 
-### 18. «УСН и НДС: расчёт» — Preview
+### 18. «УСН и НДС: расчёт» — Preview (тёмный editorial)
 
 ```
-Close-up of a printed spreadsheet table with columns of figures, a mechanical pencil
-pointing at a row, soft warm side light, dark desk surface, editorial still life,
-charcoal and cream palette, shallow depth of field, no readable text or numbers
+Close-up of a printed spreadsheet with dense rows of numbers, a mechanical pencil
+resting diagonally, dark desk surface, single sharp spotlight from above,
+dramatic contrast, no readable numbers, bold editorial, photorealistic
 ```
 
-### 19. «Проверки бизнеса 2026» — Hero
+### 19. «Проверки бизнеса 2026» — Hero (тёмный editorial)
 
 ```
-Two people seated across a desk in a minimalist office: one person (blurred, formal attire)
-facing another (back to camera, business casual), documents between them,
-serious restrained atmosphere, warm natural window light, cream and charcoal tones,
-editorial documentary photography, no text visible
+Two people at a meeting table: one in formal attire facing another (back to camera),
+documents spread between them, single overhead lamp, dark room with dramatic shadows,
+serious imposing atmosphere, bold editorial documentary, faces not visible, no text
 ```
 
-### 20. «ЕНС и ЕНП: как подать уведомление» — Preview
+### 20. «ЕНС и ЕНП: уведомления» — Preview (светлый minimal)
 
 ```
-A smartphone showing a blurred government app interface, held above a desk with
-printed documents and a pen, warm editorial lighting, shallow depth of field,
-cream desk surface, charcoal phone, muted professional tones, no readable text
+A smartphone showing a blurred government app, placed on cream surface next to a pen
+and folded printed document, harsh overhead light, minimal geometric composition,
+clean editorial, sharp shadow, no readable screen content, photorealistic
 ```
 
 ---
 
-## Технические параметры для генерации
+## Технические параметры
 
-| Тип | Соотношение | Разрешение | Параметр |
+| Тип | Соотношение | Разрешение | Параметр в скрипте |
 |---|---|---|---|
 | Preview | 4:3 | 800×600 | `width: 800, height: 600` |
 | Hero | 16:9 | 1344×768 | `width: 1344, height: 768` |
@@ -220,8 +224,8 @@ cream desk surface, charcoal phone, muted professional tones, no readable text
 
 | Модель | API | Качество | Стоимость |
 |---|---|---|---|
-| `black-forest-labs/FLUX.1-schnell-Free` | Together.ai / OpenRouter | Хорошее | Бесплатно |
+| `black-forest-labs/FLUX.1-schnell-Free` | Together.ai | Хорошее | Бесплатно |
 | `black-forest-labs/FLUX.1-dev` | Together.ai | Отличное | ~$0.025/img |
 | `black-forest-labs/FLUX.1.1-pro` | OpenRouter | Лучшее | ~$0.04/img |
 
-Текущая конфигурация в `scripts/generate-preview-images.mjs` и `scripts/generate-hero-images.mjs`.
+Текущие скрипты: `scripts/generate-preview-images.mjs` и `scripts/generate-hero-images.mjs`.
