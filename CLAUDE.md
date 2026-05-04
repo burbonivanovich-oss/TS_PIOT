@@ -257,24 +257,22 @@ createdDate: "YYYY-MM-DD"
 
 ## OpenRouter и нейросетевые возможности
 
-`OPENROUTER_API_KEY` — единственный ключ для генерации изображений статей.
-Настраивается в `.claude/settings.local.json` (gitignored) или передаётся
-через переменную окружения при запуске скриптов.
+**`OPENROUTER_API_KEY` хранится в секретах GitHub репозитория** (`burbonivanovich-oss/TS_PIOT → Settings → Secrets → OPENROUTER_API_KEY`).
+Локально ключ нигде не прописан и не нужен — все скрипты генерации запускаются через GitHub Actions.
 
-### Генерация изображений статей (OpenRouter + FLUX)
+**Не предлагать пользователю прописывать ключ вручную.** Стандартный способ запуска — Actions.
 
-Оба типа изображений генерируются через один ключ:
+### Генерация изображений (OpenRouter + FLUX)
 
-| Скрипт | Переменные | Назначение |
+| Скрипт | Назначение | Модель по умолчанию |
 |---|---|---|
-| `generate-preview-images.mjs` | `OPENROUTER_API_KEY`, `FLUX_MODEL` | Превью для карточек |
-| `generate-hero-images.mjs` | `OPENROUTER_API_KEY`, `HERO_MODEL` | Шапка статьи |
+| `generate-preview-images.mjs` | Превью для карточек | `FLUX.1-schnell-Free` (бесплатно) |
+| `generate-hero-images.mjs` | Hero-изображения статей | `gemini-3.1-flash-image-preview` |
+| `test-pool-generation.mjs` | Тест 3 изображений из пула с выводом стоимости | `flux-1.1-pro` |
 
-Модель по умолчанию для обоих — `black-forest-labs/flux-1-schnell` (бесплатно).
-Сменить: `HERO_MODEL=black-forest-labs/flux-1-1-pro`.
+**Запуск:** GitHub Actions → вкладка **Actions** → **Generate Article Images** → **Run workflow**.
 
-Запуск всего сразу через GitHub Actions:
-**Actions → Generate Article Images → Run workflow** (секрет `OPENROUTER_API_KEY`).
+Сменить модель: передать через `inputs` в workflow или напрямую в скрипте (`HERO_MODEL=black-forest-labs/flux-1-1-pro`).
 
 ### AI-фоны для OG-обложек
 
