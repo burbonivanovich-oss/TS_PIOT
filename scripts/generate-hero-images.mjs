@@ -52,7 +52,7 @@ function buildPrompt(title, category) {
 }
 
 async function generateImage(prompt) {
-  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const res = await fetch('https://openrouter.ai/api/v1/images/generations', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
@@ -60,11 +60,7 @@ async function generateImage(prompt) {
       'HTTP-Referer': 'https://etiketka.media',
       'X-Title': 'etiketka.media',
     },
-    body: JSON.stringify({
-      model: MODEL,
-      provider: { order: ['black-forest-labs'], allow_fallbacks: false },
-      messages: [{ role: 'user', content: prompt }],
-    }),
+    body: JSON.stringify({ model: MODEL, prompt, n: 1 }),
   });
 
   const rawText = await res.text();
@@ -73,38 +69,18 @@ async function generateImage(prompt) {
   try { data = JSON.parse(rawText); }
   catch { throw new Error(`Не JSON (${res.status}): ${rawText.slice(0, 400)}`); }
 
-  const msg = data?.choices?.[0]?.message;
-  if (!msg) throw new Error('Нет ответа: ' + JSON.stringify(data).slice(0, 400));
+  const item = data?.data?.[0];
+  if (!item) throw new Error('Нет данных: ' + JSON.stringify(data).slice(0, 400));
 
-  const content = msg.content;
-  if (typeof content === 'string') {
-    if (content.startsWith('data:image/')) {
-      const b64 = content.split(',')[1];
-      return Buffer.from(b64, 'base64');
-    }
-    if (content.startsWith('http')) {
-      const r = await fetch(content);
-      if (!r.ok) throw new Error(`Скачивание ${r.status}: ${content}`);
-      return Buffer.from(await r.arrayBuffer());
-    }
-    throw new Error('Неожиданный контент: ' + content.slice(0, 200));
+  if (item.url) {
+    const r = await fetch(item.url);
+    if (!r.ok) throw new Error(`Скачивание ${r.status}: ${item.url}`);
+    return Buffer.from(await r.arrayBuffer());
   }
 
-  if (Array.isArray(content)) {
-    for (const block of content) {
-      if (block.type === 'image_url') {
-        const url = block.image_url?.url ?? block.image_url;
-        if (url.startsWith('data:image/')) {
-          return Buffer.from(url.split(',')[1], 'base64');
-        }
-        const r = await fetch(url);
-        if (!r.ok) throw new Error(`Скачивание ${r.status}: ${url}`);
-        return Buffer.from(await r.arrayBuffer());
-      }
-    }
-  }
+  if (item.b64_json) return Buffer.from(item.b64_json, 'base64');
 
-  throw new Error('Нет изображения в ответе: ' + JSON.stringify(data).slice(0, 400));
+  throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 400));
 }
 
 const targetSlug = process.env.SLUG;
