@@ -1,11 +1,12 @@
 /**
- * Генерирует hero-изображения для статей через OpenRouter (FLUX или другая модель).
+ * Генерирует hero-изображения для статей через OpenRouter (FLUX).
  * Для каждой статьи без heroImage создаёт картинку и прописывает путь во frontmatter.
  *
- * Запуск:
- *   OPENROUTER_API_KEY=... node scripts/generate-hero-images.mjs           # все без hero
- *   OPENROUTER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...     # одна статья
- *   OPENROUTER_API_KEY=... HERO_MODEL=black-forest-labs/flux-1-1-pro node ... # другая модель
+ * Запуск через GitHub Actions (стандартный способ):
+ *   Actions → Generate Article Images → Run workflow
+ *
+ * Модель по умолчанию: black-forest-labs/flux-1.1-pro
+ * Переопределить: HERO_MODEL=black-forest-labs/flux-1-schnell
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -15,25 +16,32 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
 const BLOG_DIR  = path.join(ROOT, 'src/content/blog');
 const HERO_DIR  = path.join(ROOT, 'public/images/hero');
-const MODEL     = process.env.HERO_MODEL ?? 'google/gemini-3.1-flash-image-preview';
+const MODEL     = process.env.HERO_MODEL ?? 'black-forest-labs/flux-1.1-pro';
 
 fs.mkdirSync(HERO_DIR, { recursive: true });
 
 const API_KEY = process.env.OPENROUTER_API_KEY;
 if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
 
-// Цветовые темы по категории
+// Тематические акценты по категории
 const CAT_STYLE = {
   'ts-piot':
-    'deep navy blue, electric blue accents, circuit board patterns, digital technology, ' +
-    'very dark background (90% dark), cinematic lighting',
+    'modern compact POS terminal, fiscal receipt printer, retail counter, dark background',
   'markirovka':
-    'deep forest green, teal accents, barcode and data matrix patterns, logistics, ' +
-    'very dark background (90% dark), cinematic lighting',
+    'product packaging with QR labels, retail shelves, barcode scanner, dark warehouse',
   'zakonodatelstvo':
-    'dark charcoal, warm amber gold accents, marble texture, formal documents, ' +
-    'very dark background (90% dark), cinematic lighting',
+    'printed documents, laptop on office desk, pen and forms, dark desk surface',
+  'kkt':
+    'cash register, fiscal receipt, checkout counter, dark retail environment',
+  'egais':
+    'wine and spirits bottles on shelves, bar counter, dark moody lighting',
 };
+
+// Стилевой суффикс — editorial photography под бренд сайта
+const STYLE_SUFFIX =
+  'high contrast editorial photography, dark dramatic lighting, sharp shadows, ' +
+  'professional B2B context, Russian small retail or office environment, ' +
+  'no text overlays, no people faces, photorealistic, 16:9 aspect ratio';
 
 function parseFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
@@ -47,14 +55,8 @@ function parseFrontmatter(content) {
 }
 
 function buildPrompt(title, category) {
-  const style = CAT_STYLE[category] ?? 'dark abstract, professional, cinematic lighting';
-  return (
-    `Editorial photo illustration for a Russian business article. ` +
-    `Topic: "${title}". ` +
-    `Visual style: ${style}, subtle abstract composition, photorealistic, ` +
-    `16:9 aspect ratio, no text, no people, no logos, ` +
-    `suitable for white typography overlay`
-  );
+  const catStyle = CAT_STYLE[category] ?? 'dark office environment, business documents';
+  return `${catStyle}, editorial composition, topic context: ${title}. ${STYLE_SUFFIX}`;
 }
 
 async function generateImage(prompt) {
