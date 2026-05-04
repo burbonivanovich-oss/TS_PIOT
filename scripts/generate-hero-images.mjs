@@ -25,7 +25,7 @@ if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exi
 
 const CAT_STYLE = {
   'ts-piot':         'wide shot of a modern compact POS terminal and receipt printer on a dark retail counter, strong side light, deep shadows, small green LED glowing',
-  'markirovka':      'wide shot of retail shelves with consumer goods featuring large bold single-word labels and QR code stickers, warm tungsten lighting, editorial atmosphere',
+  'markirovka':      'wide shot of retail shelves with consumer goods featuring large bold single-word labels and QR code stickers, warm tungsten lighting, editorial atmosphere, no small print',
   'zakonodatelstvo': 'wide minimal desk scene: laptop and stacked documents on a deep navy-blue surface, cool directional window light, blue-grey shadows, clean editorial atmosphere',
   'kkt':             'wide shot of a checkout counter at night, smart POS terminal lit and waiting, warm ambient light, empty counter',
   'egais':           'wide shot of a wine and spirits retail section, densely packed bottle shelves, warm amber lighting, dark upper area',
@@ -33,7 +33,6 @@ const CAT_STYLE = {
 
 const STYLE_SUFFIX =
   'editorial photography, professional B2B context, no text overlays, no people faces, ' +
-  'any text on products must be large bold single words only, no small print, no fine print, ' +
   'photorealistic, sharp focus, 16:9 aspect ratio';
 
 function parseFrontmatter(content) {
