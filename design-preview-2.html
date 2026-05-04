@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Этикетка — превью дизайна v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:#EDE8DF;color:#111;font-size:17px;line-height:1.65}
+
+/* ── Switcher ── */
+.switcher{position:fixed;bottom:20px;right:20px;z-index:1000;display:flex;gap:4px;background:#111;padding:6px}
+.sw-btn{padding:6px 14px;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;font-family:inherit;background:none;color:#777}
+.sw-btn.active{background:#E8175D;color:#fff}
+.page{display:none}.page.active{display:block}
+
+/* ── Header ── */
+.site-header{background:#EDE8DF;border-bottom:1px solid rgba(0,0,0,.1);padding:0 32px;height:56px;position:sticky;top:0;z-index:50}
+.header-inner{max-width:1200px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:1rem}
+.header-left{display:flex;align-items:center;gap:24px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.04em;color:#111;text-decoration:none;line-height:1;flex-shrink:0}
+.logo sup{font-family:'Inter',sans-serif;font-size:.55rem;font-weight:600;color:#888;letter-spacing:.12em;text-transform:uppercase;vertical-align:super;margin-left:4px}
+.site-nav{display:flex;align-items:center;gap:0;white-space:nowrap}
+.site-nav a{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#555;text-decoration:none;padding:0 14px;line-height:56px;display:inline-block}
+.site-nav a:hover{color:#111}
+.header-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.search-link{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888;text-decoration:none}
+.cta-btn{background:#E8175D;color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px;text-decoration:none;white-space:nowrap}
+.cta-btn:hover{background:#c50f4b}
+
+/* ── Listing ── */
+.page-body{max-width:900px;margin:0 auto;padding:48px 32px 80px}
+.breadcrumb{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#999;margin-bottom:8px}
+.page-title-block{padding-bottom:32px;border-bottom:1px solid rgba(0,0,0,.12);margin-bottom:40px}
+.page-search-wrap{display:flex;justify-content:space-between;align-items:flex-end}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:7rem;line-height:.9;letter-spacing:.02em;color:#111;margin-bottom:12px}
+.dot{color:#E8175D}
+.page-subtitle{font-size:.95rem;color:#666;max-width:360px}
+.page-search-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.search-input{border:none;background:none;border-bottom:2px solid #111;padding:8px 0;font-size:.9rem;width:220px;outline:none;font-family:'Inter',sans-serif;color:#111}
+.search-input::placeholder{color:#aaa}
+.search-go{background:#111;color:#EDE8DF;border:none;padding:8px 14px;cursor:pointer;font-weight:700;font-size:.8rem}
+.filter-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.filter-label{color:#999;margin-right:8px}
+.filter-tags{display:flex;gap:4px}
+.ftag{padding:5px 12px;background:none;border:none;color:#111;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif}
+.ftag:hover{background:rgba(0,0,0,.08)}
+.ftag.active{background:#111;color:#EDE8DF}
+.sort{color:#666;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:none;border:none;cursor:pointer;font-family:inherit}
+.hero-grid{display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-bottom:8px}
+.hero-main{background:#111;color:#fff;padding:24px;position:relative;overflow:hidden;min-height:260px;display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none}
+.hero-bg{position:absolute;right:-10px;top:-20px;font-family:'Bebas Neue',sans-serif;font-size:18rem;line-height:1;color:#E8175D;opacity:.35;pointer-events:none;letter-spacing:-.02em}
+.hero-tags{display:flex;gap:4px;margin-bottom:12px;position:relative;z-index:1}
+.htag{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px}
+.htag-pink{background:#E8175D;color:#fff}
+.htag-lime{background:#C8F500;color:#111}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;line-height:1;letter-spacing:.03em;color:#fff;text-transform:uppercase;position:relative;z-index:1}
+.hero-meta{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:#777;margin-top:8px;position:relative;z-index:1}
+.hero-side{display:flex;flex-direction:column;gap:8px}
+.side-card{padding:16px;display:flex;flex-direction:column;justify-content:space-between;flex:1;min-height:124px;text-decoration:none}
+.side-card-lime{background:#C8F500}
+.side-card-white{background:#fff}
+.side-tag{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 7px;display:inline-block;margin-bottom:8px}
+.side-tag-lime{background:#111;color:#C8F500}
+.side-tag-pink{background:#E8175D;color:#fff}
+.side-title{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;line-height:1.1;text-transform:uppercase;letter-spacing:.02em;color:#111}
+.side-meta{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:#555;margin-top:8px}
+.archive-header{display:flex;align-items:baseline;justify-content:space-between;margin:48px 0 20px;border-bottom:1px solid rgba(0,0,0,.15);padding-bottom:8px}
+.archive-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.04em;text-transform:uppercase;color:#111}
+.archive-count{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:#999}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.card{background:#fff;display:flex;flex-direction:column;text-decoration:none;color:#111}
+.card:hover{opacity:.88}
+.card-img{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.card-letter{font-family:'Bebas Neue',sans-serif;font-size:6rem;line-height:1;opacity:.25;letter-spacing:-.02em}
+.card-date{position:absolute;bottom:8px;right:10px;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase}
+.card-body{padding:16px}
+.card-pill{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 7px;display:inline-block;margin-bottom:10px}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;line-height:1.05;text-transform:uppercase;letter-spacing:.02em;color:#111;margin-bottom:6px}
+.card-desc{font-size:.78rem;color:#666;line-height:1.5;margin-bottom:8px}
+.card-author{font-size:.6rem;letter-spacing:.06em;color:#999}
+.pages{display:flex;align-items:center;gap:4px;margin-top:48px}
+.pbtn{min-width:2rem;height:2rem;padding:0 .5em;background:none;border:none;color:#111;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center}
+.pbtn:hover{background:rgba(0,0,0,.08)}
+.pbtn.active{background:#111;color:#EDE8DF}
+.section-head{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;color:#111;margin:56px 0 20px;display:flex;align-items:center;gap:12px}
+.section-head .num{color:#ccc}
+.see-all{font-family:'Inter',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-left:auto;text-decoration:none}
+.cat-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cat-tile{padding:24px;min-height:120px;display:flex;flex-direction:column;justify-content:space-between;text-decoration:none}
+.ct1{background:#EDE8DF;border:1px solid rgba(0,0,0,.15)}
+.ct2{background:#C8F500}
+.ct3{background:#111}
+.t-num{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa}
+.ct2 .t-num{color:#8aaa00}.ct3 .t-num{color:#555}
+.t-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.04em;text-transform:uppercase;color:#111}
+.ct3 .t-name{color:#fff}
+.t-count{font-size:.65rem;font-weight:600;letter-spacing:.06em;color:#888}
+.ct2 .t-count{color:#666}.ct3 .t-count{color:#555}
+.t-dot{width:8px;height:8px;border-radius:50%;margin-top:4px}
+.ct1 .t-dot{background:#E8175D}.ct2 .t-dot{background:#111}.ct3 .t-dot{background:#C8F500}
+
+/* ── Footer ── */
+.site-footer{padding:3em 32px 2em;background:#111;color:#8A8A8A;margin-top:5rem}
+.footer-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.04em;color:#fff;line-height:1;margin-bottom:.85rem}
+.footer-logo sup{font-family:'Inter',sans-serif;font-size:.5rem;font-weight:600;color:#555;letter-spacing:.12em;text-transform:uppercase;vertical-align:super;margin-left:4px}
+.footer-about{font-size:.84rem;line-height:1.6;color:#8A8A8A;margin:0}
+.footer-col strong{display:block;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.85rem}
+.footer-col ul{list-style:none;padding:0;margin:0}.footer-col li{margin-bottom:.45rem}
+.footer-col a{color:#8A8A8A;text-decoration:none;font-size:.875rem}
+.footer-col a:hover{color:#C8F500}
+.footer-bottom{max-width:900px;margin:2.5rem auto 0;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.07);color:#555;font-size:.8rem;text-align:center}
+
+/* ════════════════════ ARTICLE — NEW LAYOUT ════════════════════ */
+
+.rp-bar{position:fixed;top:0;left:0;height:3px;background:#E8175D;z-index:200;transition:width .1s linear}
+
+/* Hero: full viewport height, two columns 58/42 */
+.art-hero{
+  display:grid;
+  grid-template-columns:58fr 42fr;
+  height:calc(100vh - 56px);
+}
+
+/* Left: dark image block */
+.art-hero-img{
+  background:#111;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.art-hero-cat{
+  position:absolute;
+  top:20px;
+  left:20px;
+  background:#E8175D;
+  color:#fff;
+  font-size:.65rem;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  padding:.3em .85em;
+  z-index:2;
+}
+.art-hero-visual-letter{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:24rem;
+  color:#C8F500;
+  opacity:.15;
+  line-height:1;
+  letter-spacing:-.03em;
+  pointer-events:none;
+  user-select:none;
+}
+
+/* Right: three-part column, space-between */
+.art-hero-info{
+  padding:32px 48px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  background:#EDE8DF;
+}
+.art-hero-top{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.art-hero-date{
+  font-size:.75rem;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#888;
+}
+.art-hero-hash{
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  color:#E8175D;
+  text-decoration:none;
+}
+.art-h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3.4rem;
+  line-height:1;
+  letter-spacing:.02em;
+  color:#111;
+  text-transform:uppercase;
+}
+.art-hero-bottom{
+  border-top:2px solid #111;
+  padding-top:20px;
+}
+.art-lead{
+  font-size:1rem;
+  color:#444;
+  line-height:1.65;
+  font-style:italic;
+}
+
+/* Body: 28% sidebar + 72% content */
+.art-body{
+  display:grid;
+  grid-template-columns:28fr 72fr;
+}
+
+/* Sidebar — 16px padding creates the gutter around the banner */
+.art-sidebar{
+  padding:16px;
+}
+.art-banner{
+  position:sticky;
+  top:calc(56px + 16px);
+  background:#111;
+  color:#fff;
+  overflow:hidden;
+}
+.art-banner-visual{
+  width:100%;
+  aspect-ratio:16/9;
+  background:#E8175D;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+.art-banner-big{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:7rem;
+  color:#fff;
+  opacity:.18;
+  line-height:1;
+  letter-spacing:-.02em;
+}
+.art-banner-eyebrow{
+  font-size:.6rem;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#C8F500;
+  display:block;
+  padding:14px 14px 6px;
+}
+.art-banner-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.5rem;
+  line-height:1.05;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  color:#fff;
+  padding:0 14px 8px;
+}
+.art-banner-desc{
+  font-size:.78rem;
+  color:#8A8A8A;
+  line-height:1.5;
+  padding:0 14px 14px;
+}
+.art-banner-cta{
+  display:block;
+  margin:0 14px 14px;
+  background:#E8175D;
+  color:#fff;
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:10px 14px;
+  text-decoration:none;
+  text-align:center;
+}
+.art-banner-cta:hover{background:#c50f4b}
+
+/* Content area */
+.art-content{
+  padding:40px 48px 80px;
+  border-left:1px solid rgba(0,0,0,.08);
+  min-height:120vh;
+}
+
+/* Breadcrumbs */
+.art-breadcrumbs{
+  font-size:.7rem;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#999;
+  margin-bottom:24px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.art-breadcrumbs a{color:#999;text-decoration:none}
+.art-breadcrumbs a:hover{color:#111}
+.art-breadcrumbs span{color:#ccc}
+
+/* Tags */
+.art-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
+.tag-pill{display:inline-block;padding:.2em .65em;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#C8F500;color:#111;text-decoration:none;line-height:1.4}
+.tag-pill:hover{background:#111;color:#C8F500}
+
+/* TOC */
+.toc{border-left:3px solid #E8175D;background:#F6F4F0;padding:1rem 1.2rem;margin-bottom:2rem}
+.toc summary{cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:#111;list-style:none;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.toc summary::-webkit-details-marker{display:none}
+.toc summary::after{content:'▸';font-size:.8rem;color:#E8175D;transition:transform .15s}
+details[open].toc summary::after{transform:rotate(90deg)}
+.toc-list{margin:.8rem 0 0;padding-left:1rem;list-style:none}
+.toc-item{margin-bottom:.3rem;line-height:1.4}
+.toc-item a{color:#444;text-decoration:none;font-size:.88rem}
+.toc-item a:hover{color:#E8175D}
+.toc-d3{padding-left:1rem}
+
+/* Prose */
+.prose{font-size:1rem;line-height:1.75;color:#1a1a1a}
+.prose p{margin-bottom:1.2em}
+.prose h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.03em;text-transform:uppercase;color:#111;margin:1.8rem 0 .6rem;line-height:1.1}
+.prose h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.03em;text-transform:uppercase;color:#111;margin:1.4rem 0 .5rem;line-height:1.1}
+.prose ul{margin-bottom:1.2em;padding-left:1.4em}
+.prose li{margin-bottom:.4em}
+.prose a{color:#E8175D;text-decoration:none}
+.prose a:hover{color:#c50f4b;text-decoration:underline}
+.prose strong{font-weight:700}
+.prose blockquote{border-left:3px solid #E8175D;padding:.5em 0 .5em 1.2em;margin:1.5em 0;font-size:1.05em;color:#666;background:#fdeef4;font-style:italic}
+.callout{border-left:3px solid #a0c200;background:#f4ffe6;padding:1em 1.2em;margin:1.5em 0;font-size:.95rem}
+.callout-warn{border-left-color:#E8175D;background:#fdeef4}
+.callout strong{display:block;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4em;color:#555}
+.callout-warn strong{color:#E8175D}
+
+/* Share */
+.art-share{display:flex;align-items:center;gap:8px;margin-top:2.5rem;padding:1.2rem 0;border-top:1px solid rgba(0,0,0,.1);border-bottom:1px solid rgba(0,0,0,.1)}
+.share-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-right:4px}
+.share-btn{display:inline-block;padding:6px 14px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;background:#111;color:#EDE8DF;border:none;cursor:pointer;font-family:inherit}
+.share-btn:hover{background:#E8175D;color:#fff}
+
+/* Related */
+.related{margin-top:3rem}
+.related-eyebrow{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.03em;color:#111;display:block;margin-bottom:1.2rem}
+.related-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(0,0,0,.1);border:1px solid rgba(0,0,0,.1)}
+.related-card{border-left:4px solid #111;background:#fff}
+.related-card a{display:block;padding:1rem 1rem 1rem .9rem;text-decoration:none;height:100%;transition:background .15s}
+.related-card a:hover{background:#F6F4F0}
+.related-cat{display:block;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:6px}
+.related-card h3{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.02em;color:#111;margin:0 0 6px;line-height:1.2;text-transform:uppercase}
+.related-card p{font-size:.8rem;color:#666;margin:0;line-height:1.4}
+
+/* Disclaimer */
+.art-foot{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(0,0,0,.1)}
+.disclaimer{font-size:.82rem;color:#999;font-style:italic;margin:0}
+</style>
+</head>
+<body>
+
+<div id="rp-bar" class="rp-bar" style="width:0%"></div>
+
+<div class="switcher">
+  <span style="color:#555;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 8px">вид:</span>
+  <button class="sw-btn active" onclick="show('listing',this)">Листинг</button>
+  <button class="sw-btn" onclick="show('article',this)">Статья</button>
+  <button class="sw-btn" onclick="show('home',this)">Главная</button>
+</div>
+
+<!-- ══════════════════════════════ ЛИСТИНГ ══════════════════════════════ -->
+<div id="listing" class="page active">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <a href="#" class="logo">ЭТИКЕТКА<sup>медиа</sup></a>
+      <nav class="site-nav"><a href="#">Статьи</a><a href="#">ТС ПИоТ</a><a href="#">Маркировка</a><a href="#">Законодательство</a></nav>
+    </div>
+    <div class="header-right"><a href="#" class="search-link">+ Поиск</a><a href="#" class="cta-btn">Подписаться →</a></div>
+  </div>
+</header>
+<div class="page-body">
+  <div class="page-title-block">
+    <div class="breadcrumb">Главная / Статьи</div>
+    <div class="page-search-wrap">
+      <div>
+        <div class="page-title">ВСЁ<span class="dot">.</span></div>
+        <div class="page-subtitle">24 материала о практике малого бизнеса</div>
+      </div>
+      <div class="page-search-right">
+        <input class="search-input" placeholder="Поиск по статьям…">
+        <div><button class="search-go">▶</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="filter-bar">
+    <div style="display:flex;align-items:center">
+      <span class="filter-label">Раздел:</span>
+      <div class="filter-tags">
+        <button class="ftag active" onclick="setF(this)">Все 24</button>
+        <button class="ftag" onclick="setF(this)">ТС ПИоТ 8</button>
+        <button class="ftag" onclick="setF(this)">Маркировка 9</button>
+        <button class="ftag" onclick="setF(this)">Законодательство 7</button>
+      </div>
+    </div>
+    <button class="sort">Сначала новые ↓</button>
+  </div>
+  <div class="hero-grid">
+    <a href="#" class="hero-main">
+      <span class="hero-bg">ТС</span>
+      <div class="hero-tags"><span class="htag htag-pink">ТС ПИоТ</span><span class="htag htag-lime">#онлайн-касса</span></div>
+      <div class="hero-title">ТС ПИоТ с 28 декабря 2025:<br>кто обязан и как подключить</div>
+      <div class="hero-meta">1 мая · О. Кравец</div>
+    </a>
+    <div class="hero-side">
+      <a href="#" class="side-card side-card-lime"><div><span class="side-tag side-tag-lime">#маркировка</span><div class="side-title">Разрешительный режим: что изменилось с апреля</div></div><div class="side-meta">30 апр · 9 мин</div></a>
+      <a href="#" class="side-card side-card-white"><div><span class="side-tag side-tag-pink">#законодательство</span><div class="side-title">НДС на УСН в 2026: ставка 5%, 7% или 20%</div></div><div class="side-meta">30 апр · 6 мин</div></a>
+    </div>
+  </div>
+  <div class="archive-header"><span class="archive-title">Архив — Май 2026</span><span class="archive-count">21 материал</span></div>
+  <div class="cards-grid">
+    <a href="#" class="card"><div class="card-img" style="background:#111"><span class="card-letter" style="color:#C8F500">СТ</span><span class="card-date" style="color:rgba(255,255,255,.6)">1 мая · 8 мин</span></div><div class="card-body"><span class="card-pill" style="background:#111;color:#fff">ТС ПИоТ</span><div class="card-title">Смарт-терминал или фискальный регистратор</div><div class="card-desc">Что выбрать для небольшого магазина в 2026 году.</div><div class="card-author">— О. Кравец</div></div></a>
+    <a href="#" class="card"><div class="card-img" style="background:#E8175D"><span class="card-letter" style="color:#fff">МП</span><span class="card-date" style="color:rgba(255,255,255,.6)">1 мая · 7 мин</span></div><div class="card-body"><span class="card-pill" style="background:#E8175D;color:#fff">Маркировка</span><div class="card-title">Маркировка пива в рознице: пошаговая инструкция</div><div class="card-desc">Как подготовиться к обязательной маркировке пива.</div><div class="card-author">— Редакция</div></div></a>
+    <a href="#" class="card"><div class="card-img" style="background:#C8F500"><span class="card-letter" style="color:#111;opacity:.2">ЕН</span><span class="card-date" style="color:rgba(0,0,0,.45)">1 мая · 5 мин</span></div><div class="card-body"><span class="card-pill" style="background:#C8F500;color:#111">Законодательство</span><div class="card-title">ЕНС, уведомления и дедлайны в мае 2026</div><div class="card-desc">Как не пропустить платежи и что проверить в ЛК.</div><div class="card-author">— Редакция</div></div></a>
+  </div>
+  <nav class="pages"><button class="pbtn" disabled>←</button><button class="pbtn active">1</button><button class="pbtn">2</button><button class="pbtn">3</button><button class="pbtn">→</button></nav>
+</div>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><div class="footer-logo">ЭТИКЕТКА<sup>медиа</sup></div><p class="footer-about">Информационный портал для малого и среднего бизнеса. Разбираем требования ТС ПИоТ, маркировки «Честный знак» и изменения в законодательстве.</p></div>
+    <div class="footer-col"><strong>Разделы</strong><ul><li><a href="#">Статьи</a></li><li><a href="#">ТС ПИоТ</a></li><li><a href="#">Маркировка</a></li><li><a href="#">Законодательство</a></li></ul></div>
+    <div class="footer-col"><strong>Инструменты</strong><ul><li><a href="#">Калькулятор штрафов</a></li><li><a href="#">Словарь терминов</a></li><li><a href="#">Поиск</a></li></ul></div>
+    <div class="footer-col"><strong>Документы</strong><ul><li><a href="#">О проекте</a></li><li><a href="#">Конфиденциальность</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><small>© 2026 Этикетка. Материалы носят информационный характер и не являются юридической консультацией.</small></div>
+</footer>
+</div>
+
+<!-- ══════════════════════════════ СТАТЬЯ ══════════════════════════════ -->
+<div id="article" class="page">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <a href="#" class="logo">ЭТИКЕТКА<sup>медиа</sup></a>
+      <nav class="site-nav"><a href="#">Статьи</a><a href="#">ТС ПИоТ</a><a href="#">Маркировка</a><a href="#">Законодательство</a></nav>
+    </div>
+    <div class="header-right"><a href="#" class="search-link">+ Поиск</a><a href="#" class="cta-btn">Подписаться →</a></div>
+  </div>
+</header>
+
+<!-- Hero: 58% dark image / 42% text info -->
+<section class="art-hero">
+  <div class="art-hero-img">
+    <span class="art-hero-cat">ТС ПИоТ</span>
+    <span class="art-hero-visual-letter">ТС</span>
+  </div>
+  <div class="art-hero-info">
+    <div class="art-hero-top">
+      <span class="art-hero-date">1 мая 2026</span>
+      <a href="#" class="art-hero-hash">#тс-пиот</a>
+      <a href="#" class="art-hero-hash">#онлайн-касса</a>
+    </div>
+    <h1 class="art-h1">ТС ПИоТ с 28 декабря 2025: кто обязан подключить и как это сделать</h1>
+    <div class="art-hero-bottom">
+      <p class="art-lead">Техническое средство получения информации о товаре — программный модуль для онлайн-кассы, обязательный для всех, кто торгует маркированными товарами. Разбираем, кого касается требование, что нужно сделать и какие штрафы грозят за нарушение.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Body: sticky sidebar (28%) + article content (72%) -->
+<div class="art-body">
+
+  <aside class="art-sidebar">
+    <!-- Banner content: eyebrow, title, desc, CTA — в продакшне берётся из consts.ts SIDEBAR_BANNER -->
+    <div class="art-banner">
+      <div class="art-banner-visual"><span class="art-banner-big">Э</span></div>
+      <span class="art-banner-eyebrow">Дайджест</span>
+      <div class="art-banner-title">Только важное — раз в две недели</div>
+      <p class="art-banner-desc">Изменения в законодательстве, новые требования к маркировке и ТС ПИоТ — коротко и по делу для вашего бизнеса.</p>
+      <a href="#" class="art-banner-cta">Подписаться →</a>
+    </div>
+  </aside>
+
+  <main class="art-content">
+    <nav class="art-breadcrumbs">
+      <a href="#">Главная</a><span>/</span><a href="#">Статьи</a><span>/</span><a href="#">ТС ПИоТ</a>
+    </nav>
+
+    <div class="art-tags">
+      <a class="tag-pill" href="#">#тс-пиот</a>
+      <a class="tag-pill" href="#">#онлайн-касса</a>
+      <a class="tag-pill" href="#">#честный-знак</a>
+      <a class="tag-pill" href="#">#маркировка</a>
+      <a class="tag-pill" href="#">#ккт</a>
+    </div>
+
+    <details class="toc" open>
+      <summary>Содержание</summary>
+      <ol class="toc-list">
+        <li class="toc-item"><a href="#">Что такое ТС ПИоТ и зачем он нужен</a></li>
+        <li class="toc-item"><a href="#">Кто обязан подключить ТС ПИоТ</a></li>
+        <li class="toc-item toc-d3"><a href="#">Исключения из требования</a></li>
+        <li class="toc-item"><a href="#">Как подключить: пошаговая инструкция</a></li>
+        <li class="toc-item"><a href="#">Штрафы за отсутствие ТС ПИоТ</a></li>
+        <li class="toc-item"><a href="#">Часто задаваемые вопросы</a></li>
+      </ol>
+    </details>
+
+    <div class="prose">
+      <h2>Что такое ТС ПИоТ и зачем он нужен</h2>
+      <p>Техническое средство получения информации о товаре (ТС ПИоТ) — это программный модуль, который встраивается в кассовое программное обеспечение и обеспечивает прямую защищённую связь между онлайн-кассой и государственной системой «Честный знак».</p>
+      <p>Когда кассир сканирует Data Matrix-код на маркированном товаре, ТС ПИоТ мгновенно проверяет его легальность: сверяет с базой «Честного знака», проверяет статус вывода из оборота и блокирует продажу, если товар поддельный или уже выбыл из оборота.</p>
+      <div class="callout">
+        <strong>Важно знать</strong>
+        С 28 декабря 2025 года продажа маркированных товаров без ТС ПИоТ является нарушением законодательства независимо от того, использует ли касса разрешительный режим.
+      </div>
+      <h2>Кто обязан подключить ТС ПИоТ</h2>
+      <p>Требование распространяется на всех участников розничной торговли, которые работают с маркированными товарами через <a href="#">контрольно-кассовую технику</a>. Это:</p>
+      <ul>
+        <li>розничные магазины — продовольственные, непродовольственные, специализированные;</li>
+        <li>предприятия общественного питания, реализующие маркированную продукцию;</li>
+        <li>индивидуальные предприниматели и организации на любой системе налогообложения;</li>
+        <li>маркетплейсы и пункты выдачи заказов — в части продажи маркированных товаров.</li>
+      </ul>
+      <blockquote>«Внедрение ТС ПИоТ — это защита честных участников рынка от контрафактной продукции» — Центр развития перспективных технологий, апрель 2025.</blockquote>
+      <h3>Исключения из требования</h3>
+      <p>Освобождены от обязательного подключения ТС ПИоТ участники, которые применяют <strong>безналичные расчёты без применения ККТ</strong> в случаях, прямо предусмотренных 54-ФЗ, а также организации, работающие исключительно с немаркированными товарами.</p>
+      <h2>Как подключить: пошаговая инструкция</h2>
+      <p>Процесс подключения зависит от модели кассы и её производителя. В общем виде алгоритм выглядит так:</p>
+      <ul>
+        <li><strong>Шаг 1.</strong> Убедитесь, что ваша касса совместима с ТС ПИоТ — проверьте реестр на сайте ФНС.</li>
+        <li><strong>Шаг 2.</strong> Обновите кассовое ПО до актуальной версии с поддержкой ТС ПИоТ.</li>
+        <li><strong>Шаг 3.</strong> Зарегистрируйте ТС ПИоТ в личном кабинете «Честного знака».</li>
+        <li><strong>Шаг 4.</strong> Протестируйте работу на нескольких маркированных позициях.</li>
+      </ul>
+      <h2>Штрафы за отсутствие ТС ПИоТ</h2>
+      <p>Нарушение квалифицируется как ненадлежащее применение ККТ по статье 14.5 КоАП РФ:</p>
+      <ul>
+        <li>для должностных лиц — от 1 500 до 3 000 рублей;</li>
+        <li>для юридических лиц — от 5 000 до 10 000 рублей;</li>
+        <li>повторное нарушение — приостановление деятельности до 90 суток.</li>
+      </ul>
+      <div class="callout callout-warn">
+        <strong>Предупреждение</strong>
+        Штрафы суммируются с санкциями за нарушение разрешительного режима. Общая сумма взыскания может достигать стоимости всей партии товара.
+      </div>
+    </div>
+
+    <div class="art-share">
+      <span class="share-label">Поделиться</span>
+      <button class="share-btn">Telegram</button>
+      <button class="share-btn">ВКонтакте</button>
+    </div>
+
+    <aside class="related">
+      <span class="related-eyebrow">Читайте также</span>
+      <ul class="related-list">
+        <li class="related-card" style="border-left-color:#E8175D"><a href="#"><span class="related-cat">Маркировка</span><h3>Разрешительный режим: что изменилось с апреля 2026</h3><p>Новые правила блокировки продаж и переходный период для бизнеса.</p></a></li>
+        <li class="related-card" style="border-left-color:#C8F500"><a href="#"><span class="related-cat">Законодательство</span><h3>Как зарегистрировать ККТ в ФНС самостоятельно</h3><p>Пошаговая инструкция: от заявления до фискального накопителя.</p></a></li>
+        <li class="related-card" style="border-left-color:#111"><a href="#"><span class="related-cat">ТС ПИоТ</span><h3>Смарт-терминал или фискальный регистратор: что выбрать</h3><p>Сравнение моделей по цене, функциям и совместимости с ТС ПИоТ.</p></a></li>
+      </ul>
+    </aside>
+
+    <footer class="art-foot">
+      <p class="disclaimer">Материал носит информационный характер и не является юридической или налоговой консультацией. Перед принятием решений сверяйтесь с действующей редакцией нормативных актов.</p>
+    </footer>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><div class="footer-logo">ЭТИКЕТКА<sup>медиа</sup></div><p class="footer-about">Информационный портал для малого и среднего бизнеса.</p></div>
+    <div class="footer-col"><strong>Разделы</strong><ul><li><a href="#">Статьи</a></li><li><a href="#">ТС ПИоТ</a></li><li><a href="#">Маркировка</a></li></ul></div>
+    <div class="footer-col"><strong>Инструменты</strong><ul><li><a href="#">Калькулятор штрафов</a></li><li><a href="#">Словарь</a></li></ul></div>
+    <div class="footer-col"><strong>Документы</strong><ul><li><a href="#">О проекте</a></li><li><a href="#">Конфиденциальность</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><small>© 2026 Этикетка. Материалы носят информационный характер.</small></div>
+</footer>
+</div>
+
+<!-- ══════════════════════════════ ГЛАВНАЯ ══════════════════════════════ -->
+<div id="home" class="page">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <a href="#" class="logo">ЭТИКЕТКА<sup>медиа</sup></a>
+      <nav class="site-nav"><a href="#">Статьи</a><a href="#">ТС ПИоТ</a><a href="#">Маркировка</a><a href="#">Законодательство</a></nav>
+    </div>
+    <div class="header-right"><a href="#" class="search-link">+ Поиск</a><a href="#" class="cta-btn">Подписаться →</a></div>
+  </div>
+</header>
+<div class="page-body">
+  <div style="padding:56px 0 48px;border-bottom:1px solid rgba(0,0,0,.12);margin-bottom:48px">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#999;margin-bottom:16px">Медиа для малого бизнеса</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:5rem;line-height:.95;letter-spacing:.02em;color:#111;margin-bottom:20px;max-width:700px">РАЗБИРАЕМ ТРЕБОВАНИЯ,<br>КОТОРЫЕ ДОГОНЯЮТ БИЗНЕС</div>
+    <p style="font-size:1rem;color:#666;max-width:520px;margin-bottom:28px;line-height:1.65">ТС ПИоТ для онлайн-касс, маркировка «Честный знак», налоги, ЭДО и трудовое законодательство — понятно и без паники.</p>
+    <div style="display:flex;gap:8px">
+      <a href="#" style="background:#111;color:#C8F500;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:10px 20px;text-decoration:none">ВСЕ СТАТЬИ</a>
+      <a href="#" style="background:none;color:#111;border:2px solid #111;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;text-decoration:none">ЧТО ТАКОЕ ТС ПИОТ →</a>
+    </div>
+  </div>
+  <div class="section-head" style="margin-top:0"><span class="num">// 01</span> Последние материалы<a href="#" class="see-all">СМ. ВСЕ →</a></div>
+  <div class="hero-grid">
+    <a href="#" class="hero-main"><span class="hero-bg">ТС</span><div class="hero-tags"><span class="htag htag-pink">ТС ПИоТ</span><span class="htag htag-lime">#онлайн-касса</span></div><div class="hero-title">ТС ПИоТ с 28 декабря 2025:<br>кто обязан и как подключить</div><div class="hero-meta">1 мая · О. Кравец</div></a>
+    <div class="hero-side">
+      <a href="#" class="side-card side-card-lime"><div><span class="side-tag side-tag-lime">#маркировка</span><div class="side-title">Разрешительный режим: что изменилось</div></div><div class="side-meta">30 апр · 9 мин</div></a>
+      <a href="#" class="side-card side-card-white"><div><span class="side-tag side-tag-pink">#законодательство</span><div class="side-title">НДС на УСН в 2026: как выбрать ставку</div></div><div class="side-meta">30 апр · 6 мин</div></a>
+    </div>
+  </div>
+  <div class="section-head"><span class="num">// 02</span> Разделы<a href="#" class="see-all">СМ. ВСЕ →</a></div>
+  <div class="cat-tiles">
+    <a class="cat-tile ct1" href="#"><div><div class="t-num">01</div><div class="t-name">ТС ПИоТ</div></div><div><div class="t-count">8 материалов</div><div class="t-dot"></div></div></a>
+    <a class="cat-tile ct2" href="#"><div><div class="t-num">02</div><div class="t-name">Маркировка</div></div><div><div class="t-count">9 материалов</div><div class="t-dot"></div></div></a>
+    <a class="cat-tile ct3" href="#"><div><div class="t-num">03</div><div class="t-name">Законодательство</div></div><div><div class="t-count">7 материалов</div><div class="t-dot"></div></div></a>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><div class="footer-logo">ЭТИКЕТКА<sup>медиа</sup></div><p class="footer-about">Информационный портал для малого и среднего бизнеса.</p></div>
+    <div class="footer-col"><strong>Разделы</strong><ul><li><a href="#">Статьи</a></li><li><a href="#">ТС ПИоТ</a></li><li><a href="#">Маркировка</a></li></ul></div>
+    <div class="footer-col"><strong>Инструменты</strong><ul><li><a href="#">Калькулятор штрафов</a></li><li><a href="#">Словарь</a></li></ul></div>
+    <div class="footer-col"><strong>Документы</strong><ul><li><a href="#">О проекте</a></li><li><a href="#">Конфиденциальность</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><small>© 2026 Этикетка. Материалы носят информационный характер.</small></div>
+</footer>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sw-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function setF(btn){
+  document.querySelectorAll('.ftag').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+window.addEventListener('scroll',()=>{
+  const bar=document.getElementById('rp-bar');
+  if(!bar)return;
+  const s=document.documentElement.scrollTop;
+  const t=document.documentElement.scrollHeight-window.innerHeight;
+  bar.style.width=t>0?`${(s/t)*100}%`:'0%';
+},{passive:true});
+</script>
+</body>
+</html>

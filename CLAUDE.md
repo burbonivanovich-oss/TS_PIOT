@@ -1,4 +1,4 @@
-# Регламент.Бизнес — инструкции для Claude Code
+# Этикетка — инструкции для Claude Code
 
 ## О проекте
 
@@ -37,7 +37,7 @@ src/
 ├── consts.ts                   # SITE_TITLE, NAV_LINKS, CATEGORIES (источник истины)
 ├── content/
 │   ├── blog/                   # YYYY-MM-DD-slug.md — публикуемые статьи
-│   ├── pillars/                # ts-piot.md, markirovka.md, zakonodatelstvo.md
+│   ├── pillars/                # ts-piot.md, markirovka.md, zakonodatelstvo.md, kkt.md, egais.md
 │   ├── glossary/               # <term>.md — термины словаря
 │   └── wiki/                   # research, контент-планы, редакционные заметки
 ├── content.config.ts           # Схемы коллекций blog, pillars, glossary, wiki
@@ -53,7 +53,7 @@ src/
 │   ├── kalkulyator-shtrafov.astro  # калькулятор штрафов
 │   ├── og/[slug].png.ts        # автогенерация OG-картинок
 │   └── rss.xml.js
-├── styles/global.css           # Дизайн-токены --accent, --gray-*
+├── styles/global.css           # Дизайн-токены --pink, --lime, --sand, --dark и legacy --accent
 └── utils/
     ├── tags.ts                 # tagSlug, collectTags, pluralPosts
     └── glossary.ts             # termSlug, firstLetter, alphabetOrder
@@ -67,7 +67,7 @@ src/
 - **Внутренние ссылки:** минимум 3 на каждую статью.
 - **Tags:** 4–7 штук, лоркейс, по делу.
 - **Categories:** одна основная из `CATEGORIES` в `src/consts.ts` (`ts-piot`,
-  `markirovka`, `zakonodatelstvo`).
+  `markirovka`, `zakonodatelstvo`, `kkt`, `egais`).
 - **Источники:** факты, цифры и нормы — со ссылкой на первоисточник в драфте
   (НПА, разъяснения ведомств, «Честный знак»). Голословных утверждений быть
   не должно.
@@ -83,11 +83,12 @@ title: "Заголовок: что и почему"
 description: "Краткое описание для SERP, до 160 символов."
 pubDate: "YYYY-MM-DD"
 updatedDate: "YYYY-MM-DD"   # опционально
+reviewDate: "YYYY-MM-DD"    # опционально — плановая дата следующей проверки фактов
 tags:
   - тег1
   - тег2
 categories:
-  - ts-piot   # или markirovka, zakonodatelstvo
+  - ts-piot   # или markirovka, zakonodatelstvo, kkt, egais
 draft: false
 seo:
   keywords:
@@ -114,11 +115,80 @@ seo:
 
 1. Тема выбирается по контент-плану (`src/content/wiki/content-plan-2026.md`).
 2. Запускается `/new-post "<тема>"` — пайплайн с агентом research → writer →
-   seo-optimizer.
-3. Драфт сохраняется как `src/content/blog/YYYY-MM-DD-slug.md` с `draft: true`.
-4. После проверки фактов (даты, нормы, ссылки на НПА) — `draft: false`.
-5. Билд `npm run build`, ручной просмотр на dev (`npm run dev`).
-6. Деплой коммитом в основную ветку (Vercel подхватывает).
+   seo-optimizer → social-media-manager (все четыре шага за один запрос).
+3. Статья сохраняется как `src/content/blog/YYYY-MM-DD-slug.md` с `draft: true`.
+4. Социальные черновики сохраняются как `src/content/wiki/social/YYYY-MM-DD-slug.md`
+   с `status: draft` (структура — см. ниже).
+5. После проверки фактов (даты, нормы, ссылки на НПА) — `draft: false` в статье,
+   `status: ready` в социальных черновиках.
+6. Билд `npm run build`, ручной просмотр на dev (`npm run dev`).
+7. Деплой коммитом в основную ветку (Vercel подхватывает).
+
+## Социальные черновики
+
+Хранятся в `src/content/wiki/social/`. Формат — один файл на статью.
+
+```
+src/content/wiki/social/
+  YYYY-MM-DD-slug.md   ← черновики для всех платформ
+```
+
+### Frontmatter
+
+```yaml
+---
+title: "Название статьи (копия)"
+slug: "YYYY-MM-DD-slug"        # совпадает с именем файла блога
+articleUrl: "/blog/slug/"
+status: draft                   # draft | ready | posted
+createdDate: "YYYY-MM-DD"
+---
+```
+
+### Структура файла
+
+```markdown
+## Telegram
+
+[600–900 знаков, один тезис, без заголовков]
+
+этикетка.рф/blog/<slug>/
+
+---
+
+## VK
+
+[900–1400 знаков, 2–3 абзаца, 3–5 хэштегов в конце]
+
+---
+
+## Дзен
+
+**Заголовок Дзен:** ...
+
+[1000–1500 знаков, storytelling-вводный блок, затем суть]
+
+---
+
+## Email
+
+**Тема:** ...
+**Прехедер:** ...
+
+[300–500 знаков основного текста + CTA-кнопка]
+```
+
+### Правила тона по платформам
+
+- **Telegram**: сухо и по делу — аудитория читает в ленте, некогда. Первые 2 строки
+  должны цеплять без «дорогой читатель». Никаких эмодзи. Последняя строка — всегда
+  ссылка на статью: `этикетка.рф/blog/<slug>/`
+- **VK**: чуть теплее, можно риторический вопрос в начале. Хэштеги — только
+  релевантные (`#маркировка`, `#УСН`, `#онлайнкасса`).
+- **Дзен**: алгоритм любит чёткий заголовок-обещание и конкретику в первом абзаце.
+  Дублировать H1 статьи нельзя — заголовок должен отличаться.
+- **Email**: тема письма — выгода или вопрос ≤ 50 символов. Прехедер раскрывает.
+  Один CTA, не два.
 
 ## Расширенный инструментарий (claude-blog)
 

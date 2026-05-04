@@ -3,14 +3,15 @@ import { SITE_TITLE, NAV_LINKS } from '../consts';
 const today = new Date();
 ---
 
-<footer>
+<footer class="site-footer">
 	<div class="footer-inner">
-		<div class="footer-col">
-			<strong>{SITE_TITLE}</strong>
-			<p class="muted">
+		<div class="footer-col footer-col--brand">
+			<div class="footer-logo">
+				ЭТИКЕТКА<sup>медиа</sup>
+			</div>
+			<p class="footer-about">
 				Информационный портал для малого и среднего бизнеса. Разбираем требования
-				ТС ПИоТ, маркировки «Честный знак» и изменения в законодательстве простым
-				языком.
+				ТС ПИоТ, маркировки «Честный знак» и изменения в законодательстве.
 			</p>
 		</div>
 		<div class="footer-col">
@@ -49,29 +50,51 @@ const today = new Date();
 </footer>
 
 <style>
-	footer {
-		padding: 2.5em 1em 3em;
-		background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
-		color: #cbd5e1;
-		margin-top: 4rem;
+	.site-footer {
+		padding: 3em 32px 2em;
+		background: #111;
+		color: #8A8A8A;
+		margin-top: 5rem;
 	}
 	.footer-inner {
-		max-width: 1100px;
+		max-width: 900px;
 		margin: 0 auto;
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-		gap: 2rem;
+		grid-template-columns: 2fr 1fr 1fr 1fr;
+		gap: 2.5rem;
+	}
+	.footer-logo {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1.5rem;
+		letter-spacing: 0.04em;
+		color: #fff;
+		line-height: 1;
+		margin-bottom: 0.85rem;
+	}
+	.footer-logo sup {
+		font-family: 'Inter', sans-serif;
+		font-size: 0.5rem;
+		font-weight: 600;
+		color: #555;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		vertical-align: super;
+		margin-left: 4px;
+	}
+	.footer-about {
+		font-size: 0.84rem;
+		line-height: 1.6;
+		margin: 0;
+		color: #8A8A8A;
 	}
 	.footer-col strong {
 		display: block;
 		color: #fff;
-		font-size: 1rem;
-		margin-bottom: 0.7rem;
-	}
-	.footer-col p,
-	.footer-col li {
-		font-size: 0.92rem;
-		line-height: 1.55;
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		margin-bottom: 0.85rem;
 	}
 	.footer-col ul {
 		list-style: none;
@@ -79,26 +102,37 @@ const today = new Date();
 		margin: 0;
 	}
 	.footer-col li {
-		margin-bottom: 0.4rem;
+		margin-bottom: 0.45rem;
 	}
 	.footer-col a {
-		color: #cbd5e1;
+		color: #8A8A8A;
 		text-decoration: none;
+		font-size: 0.875rem;
+		transition: color 0.15s;
 	}
 	.footer-col a:hover {
-		color: #fff;
-		text-decoration: underline;
-	}
-	.muted {
-		color: #94a3b8;
+		color: #C8F500;
 	}
 	.footer-bottom {
-		max-width: 1100px;
+		max-width: 900px;
 		margin: 2.5rem auto 0;
 		padding-top: 1.5rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.08);
-		color: #94a3b8;
-		font-size: 0.85rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.07);
+		color: #555;
+		font-size: 0.8rem;
 		text-align: center;
+	}
+	@media (max-width: 900px) {
+		.footer-inner {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+	@media (max-width: 560px) {
+		.site-footer {
+			padding: 2em 16px 1.5em;
+		}
+		.footer-inner {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

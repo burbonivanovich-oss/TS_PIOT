@@ -79,7 +79,23 @@ const breadcrumbsJsonLd = {
 					<span aria-current="page">{title}</span>
 				</nav>
 
-				<h1>Редакция «{SITE_TITLE}»</h1>
+				<div class="author-card">
+					<div class="author-avatar" aria-hidden="true">
+						<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="80" height="80">
+							<rect width="80" height="80" fill="#111"/>
+							<text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+								font-family="'Bebas Neue', sans-serif" font-size="36" fill="#C8F500"
+								letter-spacing="2">ЭМ</text>
+						</svg>
+					</div>
+					<div class="author-card-info">
+						<div class="author-card-name">Редакция «{SITE_TITLE}»</div>
+						<div class="author-card-role">Медиа для малого и среднего бизнеса России</div>
+						<a class="author-card-mail" href="mailto:hello@etiketka.media">hello@etiketka.media</a>
+					</div>
+				</div>
+
+				<h1>О редакции</h1>
 				<p class="lead">
 					Портал ведёт редакция, специализирующаяся на регуляторных требованиях для
 					малого и среднего бизнеса в России: онлайн-кассы, маркировка, ЕГАИС, налоги.
@@ -138,12 +154,23 @@ const breadcrumbsJsonLd = {
 					необходимости обращайтесь к профильным специалистам.
 				</p>
 
-				<h2>Контакт</h2>
-				<p>
-					Нашли ошибку в фактах, устаревшие данные или хотите предложить тему?
-					Пишите на <a href="mailto:hello@etiketka.media">hello@etiketka.media</a>.
-					Мы проверяем каждое сообщение.
-				</p>
+				<h2>Задать вопрос редакции</h2>
+				<p>Нашли ошибку, устаревшие данные или хотите предложить тему? Мы проверяем каждое сообщение.</p>
+				<form class="contact-form" action="mailto:hello@etiketka.media" method="get" enctype="text/plain">
+					<div class="contact-field">
+						<label for="cf-name">Ваше имя</label>
+						<input id="cf-name" name="name" type="text" placeholder="Иван Иванов" required />
+					</div>
+					<div class="contact-field">
+						<label for="cf-email">Email для ответа</label>
+						<input id="cf-email" name="email" type="email" placeholder="ivan@example.ru" required />
+					</div>
+					<div class="contact-field">
+						<label for="cf-msg">Сообщение</label>
+						<textarea id="cf-msg" name="body" rows="4" placeholder="Опишите вопрос или укажите, что нашли…" required></textarea>
+					</div>
+					<button type="submit" class="contact-submit">Отправить →</button>
+				</form>
 			</article>
 		</main>
 		<Footer />
@@ -155,24 +182,108 @@ const breadcrumbsJsonLd = {
 				padding: 2rem 0;
 			}
 			.breadcrumbs {
-				font-size: 0.88rem;
-				color: rgb(var(--gray));
+				font-size: .7rem;
+				font-weight: 600;
+				letter-spacing: .1em;
+				text-transform: uppercase;
+				color: #999;
+				margin-bottom: 1.5rem;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				flex-wrap: wrap;
+			}
+			.breadcrumbs a { color: #999; text-decoration: none; }
+			.breadcrumbs a:hover { color: #111; }
+			.breadcrumbs span { color: #ccc; }
+			.lead {
+				font-size: 1.1rem;
+				color: #555;
+				font-style: italic;
 				margin-bottom: 1.5rem;
 			}
-			.breadcrumbs a {
-				color: rgb(var(--gray));
+
+			/* Author card */
+			.author-card {
+				display: flex;
+				align-items: center;
+				gap: 20px;
+				padding: 20px 24px;
+				background: #111;
+				color: #fff;
+				margin-bottom: 2rem;
+			}
+			.author-avatar svg { display: block; flex-shrink: 0; }
+			.author-card-name {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 1.5rem;
+				letter-spacing: .03em;
+				text-transform: uppercase;
+				color: #fff;
+				margin-bottom: 4px;
+			}
+			.author-card-role {
+				font-size: .8rem;
+				color: #8A8A8A;
+				margin-bottom: 8px;
+			}
+			.author-card-mail {
+				font-size: .78rem;
+				font-weight: 600;
+				color: #C8F500;
 				text-decoration: none;
+				letter-spacing: .04em;
 			}
-			.breadcrumbs a:hover {
-				color: var(--accent);
+			.author-card-mail:hover { color: #fff; }
+
+			/* Contact form */
+			.contact-form {
+				margin-top: 1rem;
+				display: flex;
+				flex-direction: column;
+				gap: 14px;
 			}
-			.breadcrumbs span {
-				margin: 0 0.4em;
+			.contact-field {
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
 			}
-			.lead {
-				font-size: 1.15rem;
-				color: rgb(var(--gray-dark));
+			.contact-field label {
+				font-size: .72rem;
+				font-weight: 700;
+				letter-spacing: .08em;
+				text-transform: uppercase;
+				color: #555;
 			}
+			.contact-field input,
+			.contact-field textarea {
+				border: 1px solid rgba(0,0,0,.2);
+				background: #fff;
+				padding: 9px 12px;
+				font-size: .9rem;
+				font-family: inherit;
+				color: #111;
+				outline: none;
+				transition: border-color .15s;
+				resize: vertical;
+			}
+			.contact-field input:focus,
+			.contact-field textarea:focus { border-color: #111; }
+			.contact-submit {
+				align-self: flex-start;
+				background: #111;
+				color: #EDE8DF;
+				border: none;
+				padding: 10px 24px;
+				font-size: .72rem;
+				font-weight: 700;
+				letter-spacing: .1em;
+				text-transform: uppercase;
+				cursor: pointer;
+				font-family: inherit;
+				transition: background .15s;
+			}
+			.contact-submit:hover { background: #E8175D; color: #fff; }
 		</style>
 	</body>
 </html>

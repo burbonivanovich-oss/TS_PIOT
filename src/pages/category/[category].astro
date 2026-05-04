@@ -174,15 +174,15 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 		<style>
 			.breadcrumbs {
 				font-size: 0.88rem;
-				color: rgb(var(--gray));
+				color: var(--muted);
 				margin-top: 1rem;
 			}
 			.breadcrumbs a {
-				color: rgb(var(--gray));
+				color: var(--muted);
 				text-decoration: none;
 			}
 			.breadcrumbs a:hover {
-				color: var(--accent);
+				color: var(--pink);
 			}
 			.breadcrumbs span {
 				margin: 0 0.4em;
@@ -192,7 +192,7 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 				max-width: 820px;
 			}
 			.page-lead {
-				color: rgb(var(--gray-dark));
+				color: var(--dark);
 				font-size: 1.1rem;
 			}
 			.pillar-intro {
@@ -217,32 +217,30 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 				grid-template-columns: minmax(110px, max-content) 1fr;
 				gap: 1rem;
 				padding: 0.9rem 1rem;
-				border-left: 3px solid var(--accent);
-				background: var(--accent-soft);
-				border-radius: 6px;
+				border-left: 3px solid var(--pink);
+				background: var(--pink-soft);
 			}
 			.date-when {
 				font-weight: 700;
-				color: var(--accent-dark);
+				color: var(--pink-dark);
 				white-space: nowrap;
 			}
 			.date-what {
-				color: rgb(var(--gray-dark));
+				color: var(--dark);
 			}
 			.faq-item {
-				border: 1px solid rgb(var(--gray-light));
-				border-radius: 8px;
+				border: 1px solid var(--border);
 				padding: 0.9rem 1.1rem;
 				margin-top: 0.6rem;
-				background: #fff;
+				background: var(--white);
 			}
 			.faq-item[open] {
-				border-color: var(--accent);
+				border-color: var(--pink);
 			}
 			.faq-item summary {
 				cursor: pointer;
 				font-weight: 600;
-				color: rgb(var(--black));
+				color: var(--dark);
 				list-style: none;
 				display: flex;
 				justify-content: space-between;
@@ -254,7 +252,7 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 			.faq-item summary::after {
 				content: '+';
 				font-size: 1.4rem;
-				color: var(--accent);
+				color: var(--pink);
 				line-height: 1;
 				flex-shrink: 0;
 			}
@@ -263,11 +261,11 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 			}
 			.faq-item p {
 				margin: 0.7rem 0 0;
-				color: rgb(var(--gray-dark));
+				color: var(--dark);
 			}
 			.empty {
 				padding: 2rem 0;
-				color: rgb(var(--gray));
+				color: var(--muted);
 			}
 			.post-list {
 				list-style: none;
@@ -280,21 +278,20 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 			.post-card a {
 				display: block;
 				padding: 1.4rem;
-				border: 1px solid rgb(var(--gray-light));
-				border-radius: 10px;
-				background: #fff;
-				color: rgb(var(--gray-dark));
+				border: 1px solid var(--border);
+				background: var(--white);
+				color: var(--dark);
 				text-decoration: none;
 				height: 100%;
-				transition: all 0.15s ease;
+				transition: border-color 0.15s ease, box-shadow 0.15s ease;
 			}
 			.post-card a:hover {
-				border-color: var(--accent);
+				border-color: var(--pink);
 				box-shadow: var(--box-shadow);
 			}
 			.post-card h3 {
 				margin-top: 0;
-				color: rgb(var(--black));
+				color: var(--dark);
 				font-size: 1.15rem;
 			}
 			.post-desc {
@@ -303,7 +300,7 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 			}
 			.post-date {
 				font-size: 0.85rem;
-				color: rgb(var(--gray));
+				color: var(--muted);
 				margin: 0;
 			}
 		</style>

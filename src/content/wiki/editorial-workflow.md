@@ -1,3 +1,8 @@
+---
+title: "Редакционный workflow: форматы и процессы"
+createdDate: "2026-01-01"
+---
+
 # Редакционный workflow: форматы и процессы
 
 ## Форматы контента
@@ -10,8 +15,9 @@
 /new-post "тема"
 ```
 
-Пайплайн: research-specialist → content-writer → seo-optimizer.
+Пайплайн: research-specialist → content-writer → seo-optimizer → social-media-manager.
 После: `/blog factcheck <файл>`, `/blog seo-check <файл>`, ставим `draft: false`.
+Социальные черновики сохраняются в `src/content/wiki/social/<slug>.md` со статусом `draft`.
 
 ---
 

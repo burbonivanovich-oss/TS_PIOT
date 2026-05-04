@@ -1,0 +1,166 @@
+---
+/**
+ * Интерактивный чеклист для использования внутри статей.
+ * Состояние хранится в localStorage — галочки сохраняются при перезагрузке.
+ * Использование в MDX:
+ *
+ *   import Checklist from '../../components/Checklist.astro';
+ *   <Checklist
+ *     title="Что проверить перед 28.12.2025"
+ *     id="ts-piot-readiness"
+ *     items={[
+ *       'Убедиться, что ваша касса поддерживает ТС ПИоТ',
+ *       'Обновить кассовое ПО',
+ *       'Зарегистрировать ТС ПИоТ в «Честном знаке»',
+ *     ]}
+ *   />
+ *
+ * id обязателен — нужен для сохранения состояния в localStorage.
+ */
+interface Props {
+	items: string[];
+	title?: string;
+	id: string;
+}
+
+const { items, title, id } = Astro.props;
+---
+
+<div class="checklist" data-checklist-id={id}>
+	{title && <h3 class="checklist-title">{title}</h3>}
+	<ul class="checklist-list">
+		{items.map((item, i) => (
+			<li class="checklist-item">
+				<label class="checklist-label">
+					<input
+						type="checkbox"
+						class="checklist-cb"
+						data-index={i}
+						aria-label={item}
+					/>
+					<span class="checklist-text">{item}</span>
+				</label>
+			</li>
+		))}
+	</ul>
+	<div class="checklist-footer">
+		<span class="checklist-progress" aria-live="polite">0 / {items.length} выполнено</span>
+		<button class="checklist-reset" type="button">Сбросить</button>
+	</div>
+</div>
+
+<script>
+	document.querySelectorAll<HTMLElement>('[data-checklist-id]').forEach((el) => {
+		const id = el.dataset.checklistId!;
+		const key = 'checklist_' + id;
+		const cbs = el.querySelectorAll<HTMLInputElement>('.checklist-cb');
+		const progress = el.querySelector<HTMLElement>('.checklist-progress');
+		const reset = el.querySelector<HTMLButtonElement>('.checklist-reset');
+
+		const saved: Record<number, boolean> = JSON.parse(localStorage.getItem(key) ?? '{}');
+
+		function updateProgress() {
+			let done = 0;
+			cbs.forEach((cb, i) => {
+				if (cb.checked) done++;
+				cb.closest('.checklist-item')?.classList.toggle('done', cb.checked);
+			});
+			if (progress) progress.textContent = `${done} / ${cbs.length} выполнено`;
+		}
+
+		cbs.forEach((cb, i) => {
+			cb.checked = !!saved[i];
+			cb.addEventListener('change', () => {
+				saved[i] = cb.checked;
+				localStorage.setItem(key, JSON.stringify(saved));
+				updateProgress();
+			});
+		});
+
+		reset?.addEventListener('click', () => {
+			cbs.forEach((cb, i) => { cb.checked = false; saved[i] = false; });
+			localStorage.setItem(key, JSON.stringify(saved));
+			updateProgress();
+		});
+
+		updateProgress();
+	});
+</script>
+
+<style>
+	.checklist {
+		margin: 2rem 0;
+		border-left: 3px solid #C8F500;
+		background: #f4ffe6;
+		padding: 1.2rem 1.4rem;
+	}
+	.checklist-title {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1.3rem;
+		letter-spacing: .03em;
+		text-transform: uppercase;
+		color: #111;
+		margin: 0 0 1rem;
+	}
+	.checklist-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	.checklist-item {
+		margin-bottom: 8px;
+		transition: opacity .2s;
+	}
+	.checklist-item.done { opacity: .5; }
+	.checklist-label {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+		cursor: pointer;
+	}
+	.checklist-cb {
+		margin-top: 3px;
+		width: 16px;
+		height: 16px;
+		accent-color: #111;
+		flex-shrink: 0;
+		cursor: pointer;
+	}
+	.checklist-text {
+		font-size: .92rem;
+		color: #222;
+		line-height: 1.5;
+	}
+	.checklist-item.done .checklist-text {
+		text-decoration: line-through;
+		color: #888;
+	}
+	.checklist-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 12px;
+		padding-top: 10px;
+		border-top: 1px solid rgba(0, 0, 0, .1);
+	}
+	.checklist-progress {
+		font-size: .75rem;
+		font-weight: 700;
+		letter-spacing: .06em;
+		text-transform: uppercase;
+		color: #555;
+	}
+	.checklist-reset {
+		background: none;
+		border: none;
+		font-size: .7rem;
+		font-weight: 600;
+		letter-spacing: .06em;
+		text-transform: uppercase;
+		color: #888;
+		cursor: pointer;
+		padding: 0;
+		font-family: inherit;
+	}
+	.checklist-reset:hover { color: #E8175D; }
+</style>

@@ -9,7 +9,7 @@ tags:
   - ккт
   - малый бизнес
 categories:
-  - zakonodatelstvo
+  - kkt
 draft: true
 seo:
   keywords:

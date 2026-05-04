@@ -9,7 +9,7 @@ tags:
   - общепит
   - маркировка
 categories:
-  - zakonodatelstvo
+  - egais
 draft: true
 seo:
   keywords:

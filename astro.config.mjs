@@ -6,7 +6,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://reglament-biznes.ru',
+	site: 'https://etiketka.media',
 	trailingSlash: 'always',
 	integrations: [
 		react(),

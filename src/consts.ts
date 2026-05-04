@@ -12,12 +12,32 @@ export const NAV_LINKS = [
 	{ href: '/', label: 'Главная' },
 	{ href: '/blog/', label: 'Статьи' },
 	{ href: '/category/ts-piot/', label: 'ТС ПИоТ' },
+	{ href: '/category/kkt/', label: 'Кассы' },
 	{ href: '/category/markirovka/', label: 'Маркировка' },
+	{ href: '/category/egais/', label: 'ЕГАИС' },
 	{ href: '/category/zakonodatelstvo/', label: 'Законодательство' },
 	{ href: '/slovar/', label: 'Словарь' },
 	{ href: '/about/', label: 'О проекте' },
 	{ href: '/search/', label: 'Поиск' },
 ];
+
+export const SIDEBAR_BANNER = {
+	eyebrow: 'Дайджест',
+	title: 'Только важное — раз в две недели',
+	description:
+		'Изменения в законодательстве, новые требования к маркировке и ТС ПИоТ — коротко и по делу для вашего бизнеса.',
+	cta: 'Подписаться →',
+	ctaHref: 'https://t.me/etiketka_media',
+} as const;
+
+export const INLINE_SUBSCRIBE = {
+	title: 'Не пропустите следующий материал',
+	description: 'Дайджест раз в две недели: только важные изменения для МСБ.',
+	placeholder: 'ваш@email.ru',
+	cta: 'Подписаться',
+	/* Укажите action вашего сервиса рассылок (Mailchimp, Unisender и др.) */
+	formAction: '#',
+} as const;
 
 export const CATEGORIES = {
 	'ts-piot': {
@@ -36,6 +56,18 @@ export const CATEGORIES = {
 		title: 'Законодательство',
 		fullTitle: 'Изменения в законодательстве для бизнеса',
 		description:
-			'Налоги, ЭДО, КЭДО, ЕНС/ЕНП, онлайн-кассы, проверки, трудовое право — изменения, которые касаются МСБ в 2025–2026 годах.',
+			'Налоги, ЭДО, КЭДО, ЕНС/ЕНП, маркетплейсы, проверки, трудовое право — изменения, которые касаются МСБ в 2025–2026 годах.',
+	},
+	'kkt': {
+		title: 'Кассы',
+		fullTitle: 'Онлайн-кассы и фискальные накопители',
+		description:
+			'Выбор и регистрация онлайн-кассы, фискальные накопители ФН-1.1М и ФН-1.2, ОФД, пошаговые инструкции по настройке. Модели: Эвотор, АТОЛ, Штрих, MSPOS.',
+	},
+	'egais': {
+		title: 'ЕГАИС',
+		fullTitle: 'ЕГАИС и учёт алкоголя',
+		description:
+			'Подключение ЕГАИС, УТМ, Меркурий, гашение ВСД, журнал учёта алкоголя, декларации по формам 7 и 8. Для магазинов, кафе и баров.',
 	},
 } as const;

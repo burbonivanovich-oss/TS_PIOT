@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Preview 5 — Финальный макет</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: #EDE8DF; color: #111; }
+
+/* ── Tabs ── */
+.tabs { display: flex; border-bottom: 2px solid #111; background: #EDE8DF; position: sticky; top: 0; z-index: 50; }
+.tab { padding: 14px 22px; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; border: none; background: none; font-family: inherit; color: #888; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .15s; }
+.tab.active { color: #111; border-bottom-color: #E8175D; }
+.tab:hover:not(.active) { color: #111; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ── HEADER ── */
+.header { height: 56px; background: #111; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: sticky; top: 42px; z-index: 40; }
+.header-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: .06em; color: #EDE8DF; text-decoration: none; }
+.header-logo span { color: #C8F500; }
+.site-nav { display: flex; align-items: center; }
+.site-nav a { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #aaa; text-decoration: none; padding: 0 16px; height: 56px; display: flex; align-items: center; white-space: nowrap; border-left: 1px solid rgba(255,255,255,.06); transition: color .15s, background .15s; }
+.site-nav a:hover, .site-nav a.active { color: #EDE8DF; background: rgba(255,255,255,.05); }
+.site-nav a.hl { color: #C8F500; }
+.header-search { background: none; border: none; color: #aaa; font-size: .75rem; cursor: pointer; padding: 0 12px; height: 56px; font-family: inherit; transition: color .15s; letter-spacing: .06em; }
+.header-search:hover { color: #C8F500; }
+
+/* ── PROGRESS BAR ── */
+#rp-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: #E8175D; z-index: 200; pointer-events: none; }
+
+/* ── HERO ── */
+.art-hero { display: grid; grid-template-columns: 58fr 42fr; height: calc(100vh - 98px); min-height: 480px; }
+.art-hero-img { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #111; }
+.art-hero-cat { position: absolute; top: 20px; left: 20px; font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .3em .85em; z-index: 2; background: #E8175D; color: #fff; }
+.art-hero-bg-letter { font-family: 'Bebas Neue', sans-serif; font-size: 22rem; color: #C8F500; opacity: .15; line-height: 1; letter-spacing: -.03em; pointer-events: none; user-select: none; }
+.art-hero-info { padding: 32px 48px; display: flex; flex-direction: column; justify-content: space-between; background: #EDE8DF; overflow: auto; }
+.art-hero-breadcrumbs { font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #aaa; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.art-hero-breadcrumbs a { color: #aaa; text-decoration: none; }
+.art-hero-breadcrumbs a:hover { color: #111; }
+.art-hero-breadcrumbs span { color: #ccc; }
+.art-hero-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.art-updated-badge { background: #C8F500; color: #111; font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .2em .6em; }
+.art-hero-date { font-size: .75rem; font-weight: 600; color: #999; letter-spacing: .04em; }
+.art-h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; line-height: 1; letter-spacing: .02em; color: #111; text-transform: uppercase; }
+.art-hero-bottom { border-top: 2px solid #111; padding-top: 20px; }
+.art-lead { font-size: 1rem; color: #444; line-height: 1.65; font-style: italic; }
+
+/* ── BODY GRID ── */
+.art-body { display: grid; grid-template-columns: 28fr 72fr; }
+
+/* ── SIDEBAR ── */
+.art-sidebar { padding: 16px; }
+.art-banner { position: sticky; top: calc(56px + 58px); background: #111; color: #fff; overflow: hidden; }
+.art-banner-visual { width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; background: #E8175D; overflow: hidden; }
+.art-banner-big { font-family: 'Bebas Neue', sans-serif; font-size: 6rem; color: #fff; opacity: .18; line-height: 1; }
+.art-banner-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #C8F500; display: block; padding: 14px 14px 6px; }
+.art-banner-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; line-height: 1.05; letter-spacing: .03em; text-transform: uppercase; color: #fff; padding: 0 14px 8px; }
+.art-banner-desc { font-size: .78rem; color: #8A8A8A; line-height: 1.5; padding: 0 14px 14px; }
+.art-banner-cta { display: block; margin: 0 14px 14px; background: #E8175D; color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 10px 14px; text-decoration: none; text-align: center; transition: background .15s; }
+.art-banner-cta:hover { background: #c50f4b; }
+
+/* ── CONTENT ── */
+.art-content { padding: 40px 48px 80px; border-left: 1px solid rgba(0,0,0,.08); min-height: 100vh; }
+
+/* TOC */
+.toc { border-left: 3px solid #E8175D; background: #F6F4F0; padding: 1rem 1.2rem; margin-bottom: 2rem; }
+.toc summary { cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .06em; color: #111; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+.toc summary::-webkit-details-marker { display: none; }
+.toc summary::after { content: '▸'; font-size: .8rem; color: #E8175D; transition: transform .15s; }
+.toc[open] summary::after { transform: rotate(90deg); }
+.toc-list { margin: .8rem 0 0; padding-left: 1rem; list-style: none; }
+.toc-item { margin-bottom: .35rem; }
+.toc-item a { color: #444; text-decoration: none; font-size: .88rem; line-height: 1.4; }
+.toc-item a:hover { color: #E8175D; }
+.toc-depth-3 { padding-left: 1rem; }
+
+/* ── PROSE ── */
+.prose { font-size: 1rem; line-height: 1.75; color: #1a1a1a; }
+.prose h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; letter-spacing: .03em; text-transform: uppercase; color: #111; margin: 2.2rem 0 .8rem; border-bottom: 2px solid #111; padding-bottom: 8px; }
+.prose h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: .02em; text-transform: uppercase; color: #111; margin: 1.8rem 0 .5rem; }
+.prose p { margin-bottom: 1.2rem; }
+.prose ul, .prose ol { padding-left: 1.5rem; margin-bottom: 1.2rem; }
+.prose li { margin-bottom: .4rem; }
+.prose strong { font-weight: 700; }
+.prose a { color: #E8175D; }
+.prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: .9rem; }
+.prose th { background: #111; color: #EDE8DF; font-family: 'Bebas Neue', sans-serif; letter-spacing: .06em; padding: 10px 14px; text-align: left; }
+.prose td { padding: 9px 14px; border-bottom: 1px solid rgba(0,0,0,.08); }
+.prose tr:hover td { background: #F6F4F0; }
+
+/* ── CALLOUT (акцентная врезка) ── */
+.callout {
+  position: relative;
+  margin: 2rem 0;
+  padding: 24px 28px 24px 24px;
+  background: #111;
+  color: #fff;
+  border-left: 4px solid #C8F500;
+  overflow: hidden;
+}
+.callout::before {
+  content: '"';
+  position: absolute;
+  top: -12px;
+  right: 16px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 8rem;
+  color: #C8F500;
+  opacity: .18;
+  line-height: 1;
+  pointer-events: none;
+}
+.callout-text {
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+.callout-text em {
+  font-style: normal;
+  color: #C8F500;
+}
+/* Вариант: светлая врезка */
+.callout.callout--light {
+  background: #F6F4F0;
+  border-left-color: #E8175D;
+  color: #111;
+}
+.callout.callout--light::before { color: #E8175D; opacity: .12; }
+.callout.callout--light .callout-text { color: #111; }
+.callout.callout--light .callout-text em { color: #E8175D; }
+
+/* ── CPA ВРЕЗКА ── */
+/*
+  Данные тянутся из src/data/cpa-banners.ts
+  В frontmatter статьи: cpa: "chestny-znak"
+  Если не указан — дефолтный по категории из CATEGORIES
+*/
+.cpa-block {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0;
+  margin: 2.5rem 0;
+  border: 2px solid #111;
+  overflow: hidden;
+}
+.cpa-visual {
+  width: 120px;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+.cpa-visual-letter {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  color: #C8F500;
+  opacity: .9;
+  line-height: 1;
+  letter-spacing: -.03em;
+}
+.cpa-body {
+  padding: 20px 24px;
+  background: #fff;
+}
+.cpa-eyebrow {
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 5px;
+}
+.cpa-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: #111;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.cpa-desc {
+  font-size: .82rem;
+  color: #555;
+  line-height: 1.55;
+}
+.cpa-action {
+  padding: 0 24px;
+  background: #fff;
+  flex-shrink: 0;
+  border-left: 1px solid rgba(0,0,0,.08);
+  display: flex;
+  align-items: center;
+}
+.cpa-btn {
+  display: inline-block;
+  background: #E8175D;
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .15s;
+}
+.cpa-btn:hover { background: #c50f4b; }
+
+/* ── CHECKLIST ── */
+.checklist { margin: 2rem 0; border-left: 3px solid #C8F500; background: #f4ffe6; padding: 1.2rem 1.4rem; }
+.checklist-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: .03em; text-transform: uppercase; color: #111; margin: 0 0 1rem; }
+.checklist-list { list-style: none; padding: 0; margin: 0; }
+.checklist-item { margin-bottom: 8px; }
+.checklist-item.done { opacity: .5; }
+.checklist-label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+.checklist-cb { margin-top: 3px; width: 16px; height: 16px; accent-color: #111; flex-shrink: 0; cursor: pointer; }
+.checklist-text { font-size: .92rem; color: #222; line-height: 1.5; }
+.checklist-item.done .checklist-text { text-decoration: line-through; color: #888; }
+.checklist-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,.1); }
+.checklist-progress { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #555; }
+.checklist-reset { background: none; border: none; font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #888; cursor: pointer; padding: 0; font-family: inherit; }
+.checklist-reset:hover { color: #E8175D; }
+
+/* ── FAQ ── */
+.faq { margin: 2.5rem 0; border-top: 2px solid #111; padding-top: 1.5rem; }
+.faq-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: .03em; text-transform: uppercase; color: #111; margin: 0 0 1.2rem; }
+.faq-list { border: 1px solid rgba(0,0,0,.1); }
+.faq-item { border-bottom: 1px solid rgba(0,0,0,.08); }
+.faq-item:last-child { border-bottom: none; }
+.faq-q { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; font-size: .95rem; font-weight: 600; color: #111; list-style: none; user-select: none; background: #fff; transition: background .15s; }
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q:hover, .faq-item[open] .faq-q { background: #F6F4F0; }
+.faq-num { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: .06em; color: #E8175D; flex-shrink: 0; line-height: 1; }
+.faq-arrow { margin-left: auto; font-size: .75rem; color: #999; transition: transform .2s; flex-shrink: 0; }
+.faq-item[open] .faq-arrow { transform: rotate(180deg); }
+.faq-a { padding: 0 16px 16px calc(12px + 1rem + 12px); background: #fff; }
+.faq-a p { font-size: .92rem; color: #444; line-height: 1.7; margin: 0; }
+
+/* ── SHARE ── */
+.art-share { display: flex; align-items: center; gap: 8px; padding: 1.2rem 0; border-top: 1px solid rgba(0,0,0,.1); border-bottom: 1px solid rgba(0,0,0,.1); margin-top: 2rem; }
+.share-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #888; margin-right: 4px; }
+.share-btn { display: inline-block; padding: 6px 14px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; background: #111; color: #EDE8DF; transition: background .15s; }
+.share-btn:hover { background: #E8175D; color: #fff; }
+
+/* ── RELATED — яркий вариант ── */
+.related { margin-top: 2.5rem; }
+.related-eyebrow {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: .03em;
+  color: #111;
+  display: block;
+  margin-bottom: 1rem;
+}
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.related-card { background: #fff; display: flex; flex-direction: column; }
+.related-card-top {
+  height: 80px;
+  display: flex;
+  align-items: flex-end;
+  padding: 12px 14px;
+  position: relative;
+  overflow: hidden;
+}
+/* Категориальный цвет задаётся inline */
+.related-card-abbr {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  line-height: 1;
+  opacity: .18;
+  position: absolute;
+  right: 8px;
+  bottom: -8px;
+  letter-spacing: -.03em;
+  color: #fff;
+  pointer-events: none;
+  user-select: none;
+}
+.related-card-cat {
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.75);
+  position: relative;
+  z-index: 1;
+}
+.related-card-body { padding: 14px 14px 16px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.related-card a.related-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.related-card-link:hover .related-card-top { filter: brightness(.9); }
+.related-card-link:hover .related-card-body { background: #F6F4F0; }
+.related-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: .02em;
+  color: #111;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.related-card p { font-size: .8rem; color: #666; line-height: 1.45; }
+
+/* ── ARTICLE FOOTER ── */
+.art-foot { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,.1); }
+.art-foot p { font-size: .82rem; color: #999; font-style: italic; line-height: 1.6; }
+
+/* ── BACK TO TOP ── */
+#back-to-top { position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px; background: #111; color: #EDE8DF; border: none; font-size: 1rem; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .2s, background .15s; z-index: 90; display: flex; align-items: center; justify-content: center; }
+#back-to-top.visible { opacity: 1; pointer-events: auto; }
+#back-to-top:hover { background: #E8175D; }
+
+/* ── FOOTER ── */
+footer.site-footer { background: #111; color: #aaa; padding: 40px 24px 24px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; max-width: 1200px; margin: 0 auto 32px; }
+.footer-brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: .06em; color: #EDE8DF; margin-bottom: 8px; }
+.footer-brand-name span { color: #C8F500; }
+.footer-brand-desc { font-size: .82rem; color: #666; line-height: 1.6; max-width: 280px; }
+.footer-col-title { font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #555; margin-bottom: 12px; }
+.footer-col a { display: block; font-size: .82rem; color: #888; text-decoration: none; margin-bottom: 8px; transition: color .15s; }
+.footer-col a:hover { color: #EDE8DF; }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.06); font-size: .75rem; color: #555; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; gap: 12px; }
+.footer-bottom a { color: #555; text-decoration: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .art-body { grid-template-columns: 1fr; }
+  .art-sidebar { display: none; }
+  .art-content { padding: 32px 32px 60px; border-left: none; }
+}
+@media (max-width: 820px) {
+  .art-hero { grid-template-columns: 1fr; height: auto; }
+  .art-hero-img { height: 280px; }
+  .art-hero-info { padding: 24px; }
+  .art-h1 { font-size: 2.4rem; }
+  .art-content { padding: 24px 20px 48px; }
+  .related-list { grid-template-columns: 1fr; }
+  .cpa-block { grid-template-columns: 1fr; }
+  .cpa-visual { width: 100%; height: 80px; }
+  .cpa-action { border-left: none; border-top: 1px solid rgba(0,0,0,.08); padding: 16px 24px; }
+}
+@media (max-width: 560px) {
+  .art-h1 { font-size: 2rem; }
+  .art-content { padding: 20px 16px 40px; }
+}
+
+/* ── ARCHITECTURE TAB ── */
+.arch { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+.arch h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: .03em; text-transform: uppercase; border-bottom: 2px solid #111; padding-bottom: 8px; margin: 2.5rem 0 1rem; }
+.arch h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: .03em; text-transform: uppercase; margin: 1.5rem 0 .6rem; color: #E8175D; }
+.arch p { font-size: .9rem; color: #444; line-height: 1.7; margin-bottom: .8rem; }
+.arch pre { background: #111; color: #C8F500; padding: 20px 24px; font-size: .82rem; line-height: 1.7; overflow-x: auto; margin: 1rem 0 1.5rem; font-family: 'Courier New', monospace; }
+.arch table { width: 100%; border-collapse: collapse; font-size: .88rem; margin: 1rem 0 1.5rem; }
+.arch th { background: #111; color: #EDE8DF; font-family: 'Bebas Neue', sans-serif; letter-spacing: .06em; padding: 10px 14px; text-align: left; }
+.arch td { padding: 9px 14px; border-bottom: 1px solid rgba(0,0,0,.08); color: #444; }
+.arch td code { background: #F6F4F0; padding: .1em .35em; font-family: monospace; font-size: .9em; }
+.chip { display: inline-block; font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .2em .6em; margin-right: 4px; }
+.chip-green { background: #C8F500; color: #111; }
+.chip-red { background: #E8175D; color: #fff; }
+.chip-dark { background: #111; color: #fff; }
+</style>
+</head>
+<body>
+
+<div id="rp-bar"></div>
+
+<div class="tabs">
+  <button class="tab active" onclick="show('article')">Статья</button>
+  <button class="tab" onclick="show('arch')">Архитектура CPA</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PANEL 1: ARTICLE
+════════════════════════════════════════════════ -->
+<div id="panel-article" class="panel active">
+
+<header class="header">
+  <a class="header-logo" href="#">Этикет<span>ка</span></a>
+  <nav class="site-nav">
+    <a href="#">Статьи</a>
+    <a href="#" class="hl active">ТС ПИоТ</a>
+    <a href="#">Маркировка</a>
+    <a href="#">Законодательство</a>
+  </nav>
+  <button class="header-search">Поиск</button>
+</header>
+
+<article>
+  <!-- HERO -->
+  <section class="art-hero">
+    <div class="art-hero-img">
+      <span class="art-hero-cat">ТС ПИоТ</span>
+      <span class="art-hero-bg-letter">ТС</span>
+    </div>
+    <div class="art-hero-info">
+      <nav class="art-hero-breadcrumbs">
+        <a href="#">Главная</a><span>/</span>
+        <a href="#">Статьи</a><span>/</span>
+        <a href="#">ТС ПИоТ</a>
+      </nav>
+      <div>
+        <div class="art-hero-meta" style="margin-bottom:20px">
+          <span class="art-updated-badge">Актуально на 3 мая 2026</span>
+          <span class="art-hero-date">8 мин. чтения</span>
+        </div>
+        <h1 class="art-h1">Что такое ТС ПИоТ и зачем он нужен предпринимателю</h1>
+      </div>
+      <div class="art-hero-bottom">
+        <p class="art-lead">Технический модуль для онлайн-кассы, который проверяет маркировку в реальном времени и блокирует продажу контрафакта. С 28 декабря 2025 года обязателен для всех касс с разрешительным режимом.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <div class="art-body">
+    <aside class="art-sidebar">
+      <div class="art-banner">
+        <div class="art-banner-visual"><span class="art-banner-big">ЭМ</span></div>
+        <span class="art-banner-eyebrow">Дайджест</span>
+        <div class="art-banner-title">Только важное — раз в две недели</div>
+        <p class="art-banner-desc">Изменения в законодательстве, новые требования к маркировке и ТС ПИоТ — коротко и по делу.</p>
+        <a href="#" class="art-banner-cta">Подписаться →</a>
+      </div>
+    </aside>
+
+    <main class="art-content">
+
+      <details class="toc" open>
+        <summary>Содержание</summary>
+        <nav>
+          <ol class="toc-list">
+            <li class="toc-item"><a href="#">Что такое ТС ПИоТ</a></li>
+            <li class="toc-item"><a href="#">Как это работает</a></li>
+            <li class="toc-item toc-depth-3"><a href="#">Шаги при сканировании</a></li>
+            <li class="toc-item"><a href="#">Когда подключение обязательно</a></li>
+            <li class="toc-item"><a href="#">Штрафы за нарушения</a></li>
+            <li class="toc-item"><a href="#">Чеклист готовности</a></li>
+            <li class="toc-item"><a href="#">Частые вопросы</a></li>
+          </ol>
+        </nav>
+      </details>
+
+      <div class="prose">
+
+        <h2>Что такое ТС ПИоТ</h2>
+        <p>ТС ПИоТ (техническое средство получения информации о товаре) — программный модуль, интегрируемый в онлайн-кассу или фронтальную систему. В момент продажи он отправляет запрос в информационную систему «Честный знак» и получает разрешение либо запрет на реализацию конкретного экземпляра товара.</p>
+        <p>Нормативная основа — Федеральный закон от 29.12.2017 № 381-ФЗ с изменениями, внесёнными Федеральным законом от 26.07.2024 № 206-ФЗ.</p>
+
+        <h2>Как это работает</h2>
+        <p>При сканировании кода маркировки модуль ТС ПИоТ передаёт идентификатор товара оператору — ФГИС МДЛП или ФГИС «Честный знак» в зависимости от категории. Система проверяет статус кода: введён в оборот, выведен, похищен или просрочен.</p>
+
+      </div>
+
+      <!-- ── АКЦЕНТНАЯ ВРЕЗКА (тёмная) ── -->
+      <div class="callout">
+        <p class="callout-text">Если статус кода не позволяет продажу, касса обязана заблокировать операцию и вывести сообщение об ошибке. Это называется <em>«разрешительный режим»</em>.</p>
+      </div>
+
+      <div class="prose">
+
+        <h3>Шаги при сканировании</h3>
+        <ol>
+          <li>Кассир сканирует код маркировки на упаковке.</li>
+          <li>Касса через ТС ПИоТ отправляет запрос в «Честный знак».</li>
+          <li>«Честный знак» возвращает статус: <strong>«Продажа разрешена»</strong> или <strong>«Продажа запрещена»</strong>.</li>
+          <li>При запрете — касса блокирует позицию, кассир сообщает покупателю.</li>
+        </ol>
+
+        <h2>Когда подключение обязательно</h2>
+        <table>
+          <thead><tr><th>Категория товаров</th><th>Срок введения разрешительного режима</th></tr></thead>
+          <tbody>
+            <tr><td>Табак, никотинсодержащая продукция</td><td>1 апреля 2024</td></tr>
+            <tr><td>Молочная продукция</td><td>1 сентября 2024</td></tr>
+            <tr><td>Вода питьевая (ёмкость ≥ 0,5 л)</td><td>1 ноября 2024</td></tr>
+            <tr><td>Прочие категории маркировки</td><td>28 декабря 2025</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Штрафы за нарушения</h2>
+        <p>Работа без ТС ПИоТ при наличии обязанности приравнивается к неприменению ККТ. По ст. 14.5 КоАП РФ:</p>
+        <ul>
+          <li><strong>Должностное лицо</strong> — от 25% до 50% от суммы расчёта, но не менее 10 000 ₽.</li>
+          <li><strong>Организация</strong> — от 75% до 100% от суммы расчёта, но не менее 30 000 ₽.</li>
+        </ul>
+
+      </div>
+
+      <!-- ── АКЦЕНТНАЯ ВРЕЗКА (светлая) ── -->
+      <div class="callout callout--light">
+        <p class="callout-text">При повторном нарушении должностное лицо могут дисквалифицировать на срок до <em>двух лет</em>. Организация рискует приостановкой деятельности до <em>90 суток</em>.</p>
+      </div>
+
+      <!-- ── CPA ВРЕЗКА ── -->
+      <!--
+        src/data/cpa-banners.ts → id: "chestny-znak"
+        Frontmatter: cpa: "chestny-znak"
+        Дефолт по категории: ts-piot → "chestny-znak"
+      -->
+      <div class="cpa-block">
+        <div class="cpa-visual" style="background:#111">
+          <span class="cpa-visual-letter">ЧЗ</span>
+        </div>
+        <div class="cpa-body">
+          <div class="cpa-eyebrow">Честный знак</div>
+          <div class="cpa-title">Зарегистрируйтесь в системе маркировки бесплатно</div>
+          <p class="cpa-desc">Личный кабинет участника оборота — первый обязательный шаг перед подключением ТС ПИоТ и началом работы с маркированными товарами.</p>
+        </div>
+        <div class="cpa-action">
+          <a href="#" class="cpa-btn">Перейти →</a>
+        </div>
+      </div>
+
+      <!-- ── ЧЕКЛИСТ (опционально в MDX) ── -->
+      <div class="checklist" data-checklist-id="final-demo">
+        <h3 class="checklist-title">Чеклист готовности к 28.12.2025</h3>
+        <ul class="checklist-list">
+          <li class="checklist-item"><label class="checklist-label"><input type="checkbox" class="checklist-cb" data-index="0"><span class="checklist-text">Уточнить у производителя: поддерживается ли ТС ПИоТ в текущей прошивке</span></label></li>
+          <li class="checklist-item"><label class="checklist-label"><input type="checkbox" class="checklist-cb" data-index="1"><span class="checklist-text">Обновить кассовое ПО до версии с поддержкой ТС ПИоТ</span></label></li>
+          <li class="checklist-item"><label class="checklist-label"><input type="checkbox" class="checklist-cb" data-index="2"><span class="checklist-text">Зарегистрироваться в «Честном знаке» и получить УКЭП</span></label></li>
+          <li class="checklist-item"><label class="checklist-label"><input type="checkbox" class="checklist-cb" data-index="3"><span class="checklist-text">Зарегистрировать ТС ПИоТ в личном кабинете «Честного знака»</span></label></li>
+          <li class="checklist-item"><label class="checklist-label"><input type="checkbox" class="checklist-cb" data-index="4"><span class="checklist-text">Обучить кассиров порядку действий при блокировке продажи</span></label></li>
+        </ul>
+        <div class="checklist-footer">
+          <span class="checklist-progress">0 / 5 выполнено</span>
+          <button class="checklist-reset" type="button">Сбросить</button>
+        </div>
+      </div>
+
+      <!-- ── FAQ (всегда) ── -->
+      <div class="faq">
+        <h2 class="faq-title">Часто задаваемые вопросы</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary class="faq-q"><span class="faq-num">01</span>Нужно ли платить за подключение ТС ПИоТ?<span class="faq-arrow">↓</span></summary>
+            <div class="faq-a"><p>Само ПО ТС ПИоТ предоставляется «Честным знаком» бесплатно. За обновление прошивки производитель кассы может взять плату — уточняйте у своего поставщика.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q"><span class="faq-num">02</span>Что делать, если интернет на кассе пропадёт?<span class="faq-arrow">↓</span></summary>
+            <div class="faq-a"><p>При отсутствии соединения касса переходит в автономный режим: продажи маркированных товаров допустимы не более 30 дней подряд. Транзакции передаются после восстановления связи.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q"><span class="faq-num">03</span>Распространяется ли ТС ПИоТ на самозанятых?<span class="faq-arrow">↓</span></summary>
+            <div class="faq-a"><p>Нет. Самозанятые не обязаны применять ККТ, поэтому требование по ТС ПИоТ на них не распространяется.</p></div>
+          </details>
+        </div>
+      </div>
+
+      <!-- ── SHARE ── -->
+      <div class="art-share">
+        <span class="share-label">Поделиться</span>
+        <a class="share-btn" href="#">Telegram</a>
+        <a class="share-btn" href="#">ВКонтакте</a>
+      </div>
+
+      <!-- ── ЧИТАЙТЕ ТАКЖЕ — яркий вариант ── -->
+      <aside class="related">
+        <span class="related-eyebrow">Читайте также</span>
+        <ul class="related-list">
+          <li class="related-card">
+            <a href="#" class="related-card-link">
+              <div class="related-card-top" style="background:#111">
+                <span class="related-card-abbr">ТС</span>
+                <span class="related-card-cat">ТС ПИоТ</span>
+              </div>
+              <div class="related-card-body">
+                <h3>Как подключить ТС ПИоТ: пошаговая инструкция</h3>
+                <p>Регистрация в «Честном знаке», настройка кассы и проверка работы модуля.</p>
+              </div>
+            </a>
+          </li>
+          <li class="related-card">
+            <a href="#" class="related-card-link">
+              <div class="related-card-top" style="background:#E8175D">
+                <span class="related-card-abbr">МК</span>
+                <span class="related-card-cat">Маркировка</span>
+              </div>
+              <div class="related-card-body">
+                <h3>Разрешительный режим в 2026 году: что изменилось</h3>
+                <p>Новые категории товаров, сроки и штрафы за нарушения.</p>
+              </div>
+            </a>
+          </li>
+          <li class="related-card">
+            <a href="#" class="related-card-link">
+              <div class="related-card-top" style="background:#C8F500">
+                <span class="related-card-abbr" style="color:#111">ЗК</span>
+                <span class="related-card-cat" style="color:rgba(0,0,0,.5)">Законодательство</span>
+              </div>
+              <div class="related-card-body">
+                <h3>Штрафы по ст. 14.5 КоАП: полный разбор</h3>
+                <p>Размеры, основания, сроки давности и практика проверок ФНС.</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- ── FOOTER СТАТЬИ ── -->
+      <footer class="art-foot">
+        <p>Материал носит информационный характер и не является юридической или налоговой консультацией. Перед принятием решений сверяйтесь с действующей редакцией нормативных актов.</p>
+      </footer>
+
+    </main>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">Этикет<span>ка</span></div>
+      <p class="footer-brand-desc">Медиа для предпринимателей: маркировка «Честный знак», ТС ПИоТ, кассы, штрафы, изменения в законодательстве.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Разделы</div>
+      <a href="#">Статьи</a><a href="#">ТС ПИоТ</a><a href="#">Маркировка</a><a href="#">Законодательство</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">О проекте</div>
+      <a href="#">О редакции</a><a href="#">Калькулятор штрафов</a><a href="#">hello@etiketka.media</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Этикетка. Все права защищены.</span>
+    <a href="#">Политика конфиденциальности</a>
+  </div>
+</footer>
+</div><!-- /panel-article -->
+
+<button id="back-to-top" title="Наверх">↑</button>
+
+<!-- ═══════════════════════════════════════════════
+     PANEL 2: ARCHITECTURE
+════════════════════════════════════════════════ -->
+<div id="panel-arch" class="panel">
+<div class="arch">
+
+  <h1 style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.03em;text-transform:uppercase;margin-bottom:8px">Архитектура CPA-врезки</h1>
+  <p>Данные баннера хранятся в одном месте и не дублируются в каждой статье.</p>
+
+  <h2>Структура файлов</h2>
+  <pre>src/
+├── data/
+│   └── cpa-banners.ts        ← единственный источник истины
+└── components/
+    └── CpaBanner.astro       ← рендерит баннер по id</pre>
+
+  <h2>src/data/cpa-banners.ts</h2>
+  <p>Каждый баннер — объект с визуалом, текстами и CTA. Добавить новый = добавить запись в массив.</p>
+  <pre>export interface CpaBanner {
+  id:          string;
+  eyebrow:     string;   // «Честный знак», «Партнёр» …
+  title:       string;   // заголовок (Bebas Neue)
+  description: string;   // 1–2 предложения
+  cta:         string;   // текст кнопки
+  ctaHref:     string;   // URL (affiliate / partner)
+  visual: {
+    abbrev: string;      // 2 буквы для SVG-заглушки
+    bg:     string;      // '#111' | '#E8175D' | путь к картинке
+  };
+}
+
+export const CPA_BANNERS: Record&lt;string, CpaBanner&gt; = {
+  'chestny-znak': {
+    id:          'chestny-znak',
+    eyebrow:     'Честный знак',
+    title:       'Зарегистрируйтесь в системе маркировки бесплатно',
+    description: 'Личный кабинет участника оборота — первый шаг перед подключением ТС ПИоТ.',
+    cta:         'Перейти →',
+    ctaHref:     'https://честныйзнак.рф/...',
+    visual:      { abbrev: 'ЧЗ', bg: '#111' },
+  },
+  'evotorg-kassa': {
+    id:          'evotorg-kassa',
+    eyebrow:     'Эвотор',
+    title:       'Касса с ТС ПИоТ уже в первый день',
+    description: 'Готовое решение: онлайн-касса с предустановленным модулем и поддержкой.',
+    cta:         'Узнать стоимость →',
+    ctaHref:     'https://evotor.ru/...',
+    visual:      { abbrev: 'ЭВ', bg: '#E8175D' },
+  },
+  'default-ts-piot': {
+    id:          'default-ts-piot',
+    eyebrow:     'Полезно знать',
+    title:       'Подключите ТС ПИоТ до 28 декабря 2025',
+    description: 'Срок обязателен для всех касс с разрешительным режимом «Честного знака».',
+    cta:         'Читать инструкцию →',
+    ctaHref:     '/blog/kak-podklyuchit-ts-piot/',
+    visual:      { abbrev: 'ТС', bg: '#111' },
+  },
+};</pre>
+
+  <h2>Дефолт по категории</h2>
+  <p>Если в frontmatter не указан <code>cpa</code> — берётся дефолт по категории статьи.</p>
+  <pre>// src/layouts/BlogPost.astro
+import { CPA_BANNERS } from '../data/cpa-banners';
+
+const CATEGORY_DEFAULT_CPA: Record&lt;string, string&gt; = {
+  'ts-piot':         'chestny-znak',
+  'markirovka':      'chestny-znak',
+  'zakonodatelstvo': 'default-ts-piot',
+};
+
+const cpaBannerId = cpa
+  ?? CATEGORY_DEFAULT_CPA[primaryCategory ?? '']
+  ?? 'default-ts-piot';
+
+const cpaBanner = CPA_BANNERS[cpaBannerId];</pre>
+
+  <h2>Frontmatter статьи</h2>
+  <pre>---
+title: "Что такое ТС ПИоТ"
+categories:
+  - ts-piot
+cpa: chestny-znak      # ← опционально; если нет — дефолт по категории
+---</pre>
+
+  <h2>Компонент CpaBanner.astro</h2>
+  <pre>&lt;!-- src/components/CpaBanner.astro --&gt;
+---
+import type { CpaBanner } from '../data/cpa-banners';
+interface Props { banner: CpaBanner }
+const { banner } = Astro.props;
+---
+
+&lt;div class="cpa-block"&gt;
+  &lt;div class="cpa-visual" style={`background:${banner.visual.bg}`}&gt;
+    &lt;span class="cpa-visual-letter"&gt;{banner.visual.abbrev}&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="cpa-body"&gt;
+    &lt;div class="cpa-eyebrow"&gt;{banner.eyebrow}&lt;/div&gt;
+    &lt;div class="cpa-title"&gt;{banner.title}&lt;/div&gt;
+    &lt;p class="cpa-desc"&gt;{banner.description}&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="cpa-action"&gt;
+    &lt;a href={banner.ctaHref} class="cpa-btn"
+       target="_blank" rel="noopener noreferrer sponsored"&gt;
+      {banner.cta}
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+  <h2>Порядок элементов в статье</h2>
+  <table>
+    <thead><tr><th>Элемент</th><th>Когда</th><th>Источник</th></tr></thead>
+    <tbody>
+      <tr><td>TOC</td><td>При ≥ 3 заголовках H2/H3</td><td>автоматически из headings</td></tr>
+      <tr><td>Prose + таблицы</td><td>всегда</td><td>MDX-контент</td></tr>
+      <tr><td><span class="chip chip-green">Callout-врезки</span></td><td>по месту в тексте</td><td><code>&lt;Callout&gt;</code> в MDX</td></tr>
+      <tr><td><span class="chip chip-red">CPA-врезка</span></td><td>всегда, после основного текста</td><td><code>cpa-banners.ts</code> → frontmatter</td></tr>
+      <tr><td>Чеклист</td><td>иногда</td><td><code>&lt;Checklist&gt;</code> в MDX</td></tr>
+      <tr><td><span class="chip chip-dark">FAQ</span></td><td>всегда</td><td><code>&lt;FAQ&gt;</code> в MDX</td></tr>
+      <tr><td>Share</td><td>всегда</td><td>BlogPost.astro</td></tr>
+      <tr><td>Читайте также</td><td>при наличии совпадений</td><td>scoring по тегам</td></tr>
+      <tr><td>Дисклеймер</td><td>всегда</td><td>BlogPost.astro</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Callout-врезка в MDX</h2>
+  <pre>&lt;!-- Тёмная (по умолчанию) --&gt;
+&lt;Callout&gt;
+  Если статус кода не позволяет продажу, касса обязана заблокировать операцию.
+  Это называется «разрешительный режим».
+&lt;/Callout&gt;
+
+&lt;!-- Светлая --&gt;
+&lt;Callout variant="light"&gt;
+  При повторном нарушении должностное лицо могут дисквалифицировать на срок
+  до двух лет.
+&lt;/Callout&gt;</pre>
+
+  <h2>Что убрано относительно предыдущих превью</h2>
+  <table>
+    <thead><tr><th>Убрано</th><th>Причина</th></tr></thead>
+    <tbody>
+      <tr><td>Предыдущая / следующая статья</td><td>Уводит со страницы без ценности, заменяется «Читайте также»</td></tr>
+      <tr><td>Inline-форма подписки</td><td>Дублирует sidebar; два промпта — давление</td></tr>
+      <tr><td>Блок «Остались вопросы?»</td><td>mailto без бэкенда; дисклеймера достаточно</td></tr>
+      <tr><td>«Была ли полезна?»</td><td>Без бэкенда — только localStorage, редакция не видит</td></tr>
+      <tr><td>Пилюли тегов над TOC</td><td>Категория видна в hero; шум до содержания</td></tr>
+      <tr><td>Badge «✓ Проверено»</td><td>На каждой статье → не несёт информации</td></tr>
+      <tr><td>Дата публикации рядом с «Актуально на»</td><td>Дублирующий сигнал</td></tr>
+    </tbody>
+  </table>
+
+</div>
+</div><!-- /panel-arch -->
+
+<script>
+  function show(id) {
+    document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['article','arch'][i]===id));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    window.scrollTo({ top: 0 });
+  }
+
+  /* Progress */
+  const bar = document.getElementById('rp-bar');
+  window.addEventListener('scroll', () => {
+    const s = document.documentElement.scrollTop;
+    const t = document.documentElement.scrollHeight - window.innerHeight;
+    if (bar) bar.style.width = t > 0 ? (s/t*100)+'%' : '0%';
+  }, { passive: true });
+
+  /* Back to top */
+  const btt = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => btt?.classList.toggle('visible', window.scrollY > 400), { passive: true });
+  btt?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  /* Checklist */
+  document.querySelectorAll('[data-checklist-id]').forEach(el => {
+    const key = 'checklist_' + el.dataset.checklistId;
+    const cbs = el.querySelectorAll('.checklist-cb');
+    const progress = el.querySelector('.checklist-progress');
+    const reset = el.querySelector('.checklist-reset');
+    const saved = JSON.parse(localStorage.getItem(key) ?? '{}');
+    function upd() {
+      let done = 0;
+      cbs.forEach((cb, i) => { if (cb.checked) done++; cb.closest('.checklist-item')?.classList.toggle('done', cb.checked); });
+      if (progress) progress.textContent = done + ' / ' + cbs.length + ' выполнено';
+    }
+    cbs.forEach((cb, i) => {
+      cb.checked = !!saved[i];
+      cb.addEventListener('change', () => { saved[i] = cb.checked; localStorage.setItem(key, JSON.stringify(saved)); upd(); });
+    });
+    reset?.addEventListener('click', () => { cbs.forEach((cb,i) => { cb.checked=false; saved[i]=false; }); localStorage.setItem(key, JSON.stringify(saved)); upd(); });
+    upd();
+  });
+</script>
+</body>
+</html>

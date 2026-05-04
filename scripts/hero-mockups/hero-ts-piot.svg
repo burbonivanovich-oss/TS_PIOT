@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="38%" cy="55%" r="45%">
+      <stop offset="0%" stop-color="#0A1F3C"/>
+      <stop offset="100%" stop-color="#050D1A"/>
+    </radialGradient>
+    <linearGradient id="screenGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A4A8A" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0D2755" stop-opacity="0.4"/>
+    </linearGradient>
+    <filter id="blur-soft">
+      <feGaussianBlur stdDeviation="1.5"/>
+    </filter>
+    <filter id="glow-blue">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- BG -->
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Subtle grid lines (circuit board feel) -->
+  <g stroke="#0D2A55" stroke-width="0.5" opacity="0.4">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="105" y1="0" x2="105" y2="630"/>
+    <line x1="210" y1="0" x2="210" y2="630"/>
+    <line x1="315" y1="0" x2="315" y2="630"/>
+    <line x1="420" y1="0" x2="420" y2="630"/>
+    <line x1="630" y1="0" x2="630" y2="630"/>
+    <line x1="840" y1="0" x2="840" y2="630"/>
+    <line x1="1050" y1="0" x2="1050" y2="630"/>
+  </g>
+
+  <!-- Ambient glow center-left -->
+  <ellipse cx="420" cy="340" rx="260" ry="180" fill="#1A4A8A" opacity="0.12"/>
+
+  <!-- ── CASH REGISTER BODY ── -->
+  <g transform="translate(260, 140)">
+    <!-- Main body -->
+    <rect x="0" y="120" width="300" height="220" rx="8" fill="#0E1E35" stroke="#1E3A6A" stroke-width="1.5"/>
+    <!-- Screen bezel -->
+    <rect x="20" y="130" width="260" height="140" rx="4" fill="#0A1628" stroke="#1A3060" stroke-width="1"/>
+    <!-- Screen -->
+    <rect x="28" y="138" width="244" height="124" rx="2" fill="url(#screenGlow)"/>
+    <!-- Screen content: receipt text lines -->
+    <g fill="#4A9EE8" font-family="monospace" font-size="9" opacity="0.85">
+      <text x="38" y="158">МАРКИРОВАННЫЙ ТОВАР</text>
+      <text x="38" y="173">DataMatrix: 01046...</text>
+      <text x="38" y="188" fill="#2ECC71">✓ ТС ПИоТ: ПРОВЕРЕН</text>
+      <text x="38" y="203">Категория: МОЛОКО</text>
+      <text x="38" y="218">Статус: В ОБОРОТЕ</text>
+      <text x="38" y="233" fill="#4A9EE8">──────────────────</text>
+      <text x="38" y="248">ИТОГО: 189.00 ₽</text>
+    </g>
+    <!-- Keypad -->
+    <g fill="#0A1A30" stroke="#1A3060" stroke-width="0.8">
+      <rect x="20" y="285" width="38" height="22" rx="3"/>
+      <rect x="68" y="285" width="38" height="22" rx="3"/>
+      <rect x="116" y="285" width="38" height="22" rx="3"/>
+      <rect x="164" y="285" width="38" height="22" rx="3"/>
+      <rect x="212" y="285" width="68" height="22" rx="3" fill="#1A3A6A" stroke="#2A5A9A"/>
+    </g>
+    <g fill="#3A7ACC" font-size="9" font-family="monospace" text-anchor="middle">
+      <text x="39" y="300">1</text>
+      <text x="87" y="300">2</text>
+      <text x="135" y="300">3</text>
+      <text x="183" y="300">✕</text>
+      <text x="246" y="300">ОПЛАТА</text>
+    </g>
+    <!-- Receipt slot -->
+    <rect x="20" y="315" width="260" height="4" rx="2" fill="#1A3060" opacity="0.8"/>
+    <!-- Receipt paper -->
+    <rect x="115" y="319" width="70" height="18" rx="1" fill="#F0EBE0" opacity="0.9"/>
+    <g stroke="#555" stroke-width="0.5" opacity="0.6">
+      <line x1="125" y1="323" x2="175" y2="323"/>
+      <line x1="125" y1="327" x2="175" y2="327"/>
+      <line x1="125" y1="331" x2="165" y2="331"/>
+    </g>
+    <!-- Base -->
+    <rect x="-15" y="340" width="330" height="12" rx="4" fill="#0A1628" stroke="#1A3060" stroke-width="1"/>
+  </g>
+
+  <!-- ── SCANNER ── -->
+  <g transform="translate(590, 220)">
+    <!-- Scanner body -->
+    <rect x="0" y="0" width="130" height="60" rx="10" fill="#0C1A30" stroke="#1E3A6A" stroke-width="1.5"/>
+    <rect x="10" y="10" width="90" height="40" rx="4" fill="#071020" stroke="#1A3060" stroke-width="0.8"/>
+    <!-- Scan beam -->
+    <rect x="10" y="28" width="90" height="2" fill="#1E90FF" opacity="0.9" filter="url(#glow-blue)"/>
+    <!-- Handle -->
+    <rect x="45" y="58" width="40" height="80" rx="8" fill="#0C1A30" stroke="#1E3A6A" stroke-width="1.5"/>
+    <rect x="55" y="65" width="20" height="4" rx="2" fill="#1A3060"/>
+    <!-- Trigger -->
+    <rect x="38" y="100" width="14" height="22" rx="4" fill="#0A1628" stroke="#1A3060" stroke-width="1"/>
+    <!-- LED indicator -->
+    <circle cx="118" cy="12" r="5" fill="#2ECC71" opacity="0.9" filter="url(#glow-blue)"/>
+    <!-- Scan lines effect on product -->
+    <g stroke="#1E90FF" stroke-width="0.8" opacity="0.5">
+      <line x1="10" y1="22" x2="100" y2="22"/>
+      <line x1="10" y1="34" x2="100" y2="34"/>
+    </g>
+  </g>
+
+  <!-- DataMatrix code (simplified) -->
+  <g transform="translate(600, 340)">
+    <rect x="0" y="0" width="100" height="100" fill="#F0EBE0" rx="4"/>
+    <g fill="#111">
+      <!-- DataMatrix pattern: finder pattern + data cells -->
+      <rect x="6" y="6" width="8" height="8"/>
+      <rect x="14" y="6" width="8" height="8"/>
+      <rect x="22" y="6" width="8" height="8"/>
+      <rect x="30" y="6" width="8" height="8"/>
+      <rect x="38" y="6" width="8" height="8"/>
+      <rect x="46" y="6" width="8" height="8"/>
+      <rect x="54" y="6" width="8" height="8"/>
+      <rect x="62" y="6" width="8" height="8"/>
+      <rect x="70" y="6" width="8" height="8"/>
+      <rect x="78" y="6" width="8" height="8"/>
+      <rect x="86" y="6" width="8" height="8"/>
+      <!-- Bottom L -->
+      <rect x="6" y="14" width="8" height="8"/>
+      <rect x="6" y="22" width="8" height="8"/>
+      <rect x="6" y="30" width="8" height="8"/>
+      <rect x="6" y="38" width="8" height="8"/>
+      <rect x="6" y="46" width="8" height="8"/>
+      <rect x="6" y="54" width="8" height="8"/>
+      <rect x="6" y="62" width="8" height="8"/>
+      <rect x="6" y="70" width="8" height="8"/>
+      <rect x="6" y="78" width="8" height="8"/>
+      <rect x="6" y="86" width="8" height="8"/>
+      <!-- Alternating bottom -->
+      <rect x="14" y="86" width="8" height="8"/>
+      <rect x="30" y="86" width="8" height="8"/>
+      <rect x="46" y="86" width="8" height="8"/>
+      <rect x="62" y="86" width="8" height="8"/>
+      <rect x="78" y="86" width="8" height="8"/>
+      <!-- Alternating right -->
+      <rect x="86" y="14" width="8" height="8"/>
+      <rect x="86" y="30" width="8" height="8"/>
+      <rect x="86" y="46" width="8" height="8"/>
+      <rect x="86" y="62" width="8" height="8"/>
+      <rect x="86" y="78" width="8" height="8"/>
+      <!-- Data cells (random-ish pattern) -->
+      <rect x="22" y="22" width="8" height="8"/>
+      <rect x="38" y="22" width="8" height="8"/>
+      <rect x="54" y="22" width="8" height="8"/>
+      <rect x="70" y="22" width="8" height="8"/>
+      <rect x="30" y="30" width="8" height="8"/>
+      <rect x="46" y="30" width="8" height="8"/>
+      <rect x="22" y="46" width="8" height="8"/>
+      <rect x="54" y="46" width="8" height="8"/>
+      <rect x="70" y="38" width="8" height="8"/>
+      <rect x="38" y="54" width="8" height="8"/>
+      <rect x="62" y="54" width="8" height="8"/>
+      <rect x="22" y="62" width="8" height="8"/>
+      <rect x="46" y="62" width="8" height="8"/>
+      <rect x="70" y="62" width="8" height="8"/>
+      <rect x="30" y="70" width="8" height="8"/>
+      <rect x="54" y="70" width="8" height="8"/>
+    </g>
+    <!-- GS1 label -->
+    <text x="50" y="115" font-size="9" font-family="monospace" fill="#1E90FF" text-anchor="middle" opacity="0.7">GS1 DataMatrix</text>
+  </g>
+
+  <!-- Connection line from scanner to DataMatrix -->
+  <line x1="700" y1="280" x2="660" y2="340" stroke="#1E90FF" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>
+
+  <!-- Electric blue accent beam from scanner -->
+  <rect x="630" y="249" width="90" height="1.5" fill="#1E90FF" opacity="0.6" filter="url(#blur-soft)"/>
+
+  <!-- ── TEXT AREA (LEFT SIDE) ── -->
+  <!-- Category label -->
+  <rect x="60" y="80" width="160" height="22" fill="#1A4A8A" opacity="0.6"/>
+  <text x="72" y="96" font-family="'Bebas Neue', sans-serif" font-size="12" fill="#4A9EE8" letter-spacing="2">ТС ПИОТ</text>
+
+  <!-- Headline -->
+  <text x="60" y="145" font-family="'Bebas Neue', sans-serif" font-size="42" fill="#FFFFFF" letter-spacing="1.5">ТС ПИоТ: КАК РАБОТАЕТ</text>
+  <text x="60" y="195" font-family="'Bebas Neue', sans-serif" font-size="42" fill="#FFFFFF" letter-spacing="1.5">ПРОВЕРКА МАРКИРОВКИ</text>
+  <text x="60" y="245" font-family="'Bebas Neue', sans-serif" font-size="42" fill="#4A9EE8" letter-spacing="1.5">НА КАССЕ</text>
+
+  <!-- Separator line -->
+  <rect x="60" y="265" width="240" height="2" fill="#1E90FF" opacity="0.7"/>
+
+  <!-- Body text -->
+  <text x="60" y="295" font-family="Inter, sans-serif" font-size="15" fill="#8AADCC">Программный модуль для онлайн-кассы.</text>
+  <text x="60" y="316" font-family="Inter, sans-serif" font-size="15" fill="#8AADCC">Обязателен с 28 декабря 2025 года.</text>
+
+  <!-- Date badge -->
+  <rect x="60" y="500" width="200" height="32" rx="3" fill="#0A1F3C" stroke="#1E3A6A" stroke-width="1"/>
+  <text x="160" y="521" font-family="Inter, sans-serif" font-size="12" fill="#4A9EE8" text-anchor="middle">Этикетка · 2026</text>
+</svg>

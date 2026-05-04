@@ -28,7 +28,7 @@ const FONTS = [
 const FONT  = "'InterCyr', 'InterLat', 'InterLatExt'";
 const TITLE = 'ТС ПИоТ: что это такое и кому нужен программный модуль с 28 декабря 2025';
 const CAT   = 'ТС ПИОТ';
-const SITE  = 'Регламент.Бизнес';
+const SITE  = 'Этикетка';
 
 function bgPng(svg) {
   const r = new Resvg(svg, { fitTo: { mode: 'width', value: W } });

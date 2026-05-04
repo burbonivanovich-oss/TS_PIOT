@@ -43,10 +43,21 @@ const categoriesForFilter = Object.fromEntries(
 	<body>
 		<Header />
 		<main>
-			<header class="page-head">
-				<h1>{pageTitle}</h1>
-				<p>{pageDescription}</p>
-			</header>
+			<div class="page-title-block">
+				<div class="breadcrumb">Главная / Статьи</div>
+				<div class="page-search-wrap">
+					<div>
+						<div class="page-title">ВСЁ<span class="dot">.</span></div>
+						<div class="page-subtitle">{posts.length} материалов о практике малого бизнеса</div>
+					</div>
+					<div class="page-search-right">
+						<input class="search-input" placeholder="Поиск по статьям…" type="search" onkeydown="if(event.key==='Enter')window.location='/search/?q='+encodeURIComponent(this.value)" />
+						<div>
+							<button class="search-go" onclick="window.location='/search/?q='+encodeURIComponent(this.previousElementSibling?.value||'')" type="button">▶</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			{posts.length === 0 ? (
 				<p>Материалы появятся в ближайшее время.</p>
@@ -62,13 +73,104 @@ const categoriesForFilter = Object.fromEntries(
 		<Footer />
 
 		<style>
-			.page-head {
-				padding: 2rem 0 1rem;
+			main {
+				padding: 48px 32px 80px;
 			}
-			.page-head p {
-				color: rgb(var(--gray-dark));
-				font-size: 1.05rem;
-				max-width: 720px;
+
+			.page-title-block {
+				padding-bottom: 32px;
+				border-bottom: 1px solid rgba(0, 0, 0, .12);
+				margin-bottom: 40px;
+			}
+			.breadcrumb {
+				font-size: .7rem;
+				font-weight: 600;
+				letter-spacing: .12em;
+				text-transform: uppercase;
+				color: #999;
+				margin-bottom: 8px;
+			}
+			.page-search-wrap {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+			}
+			.page-title {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 7rem;
+				line-height: .9;
+				letter-spacing: .02em;
+				color: #111;
+				margin-bottom: 12px;
+			}
+			.page-title .dot {
+				color: #E8175D;
+			}
+			.page-subtitle {
+				font-size: .95rem;
+				color: #666;
+				max-width: 360px;
+			}
+			.page-search-right {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-end;
+				gap: 4px;
+			}
+			.search-input {
+				border: none;
+				background: none;
+				border-bottom: 2px solid #111;
+				padding: 8px 0;
+				font-size: .9rem;
+				width: 220px;
+				outline: none;
+				font-family: 'Inter', sans-serif;
+				color: #111;
+			}
+			.search-input::placeholder {
+				color: #aaa;
+			}
+			.search-go {
+				background: #111;
+				color: #EDE8DF;
+				border: none;
+				padding: 8px 14px;
+				cursor: pointer;
+				font-weight: 700;
+				font-size: .8rem;
+			}
+			.search-go:hover {
+				background: #E8175D;
+			}
+
+			@media (max-width: 820px) {
+				main {
+					padding: 32px 20px 60px;
+				}
+				.page-title {
+					font-size: 5rem;
+				}
+				.page-search-wrap {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: 16px;
+				}
+				.page-search-right {
+					align-items: flex-start;
+					width: 100%;
+				}
+				.search-input {
+					width: 100%;
+				}
+			}
+			@media (max-width: 560px) {
+				main {
+					padding: 24px 16px 48px;
+				}
+				.page-title {
+					font-size: 4rem;
+				}
 			}
 		</style>
 	</body>

@@ -1,209 +1,285 @@
-# Дизайн-система
+# Дизайн-система Этикетки
 
-Источник истины — `src/styles/global.css` и `src/consts.ts`.
-Компоненты: `src/components/`.
+Документ описывает токены, компоненты и архитектуру страницы статьи.
 
 ---
 
 ## Цветовые токены
 
-Определены в `:root` в `global.css`. Используются через `var()` и `rgb(var())`.
-
-```css
---accent:      #1d4ed8   /* синий — основной акцент */
---accent-dark: #1e3a8a   /* синий тёмный — hover на ссылках */
---accent-soft: #dbeafe   /* синий мягкий — фон тегов, callout */
-
---black:      15, 23, 42   /* почти чёрный — заголовки */
---gray-dark:  30, 41, 59   /* тёмно-серый — основной текст */
---gray:      100, 116, 139 /* средний серый — вторичный текст */
---gray-light: 226, 232, 240 /* светло-серый — рамки, делители */
-```
-
-Тени:
-```css
---box-shadow:
-  0 2px 6px rgba(15,23,42,.08),
-  0 8px 24px rgba(15,23,42,.05),
-  0 16px 32px rgba(15,23,42,.04);
-```
-
-### Акценты по категориям
-
-Используются в карточках, OG-обложках, AI-иллюстрациях:
-
-| Категория | HEX | Применение |
+| Название       | Hex       | Применение |
 |---|---|---|
-| ТС ПИоТ | `#1d4ed8` (navy/blue) | Тег, фон иллюстраций, OG-фон |
-| Маркировка | `#16a34a` (forest green) | Тег, фон иллюстраций, OG-фон |
-| Законодательство | `#d97706` (amber) | Тег, фон иллюстраций, OG-фон |
+| `dark`         | `#111111` | Header, footer, тёмные блоки |
+| `pink`         | `#E8175D` | Акцент: hover, нумерация FAQ, share-кнопки |
+| `lime`         | `#C8F500` | Логотип-точка, badge «Актуально», чеклист, eyebrow CPA |
+| `sand`         | `#EDE8DF` | Фон страницы, hero info panel |
+| `sand-light`   | `#F6F4F0` | Hover-состояния, TOC bg |
+| `white`        | `#FFFFFF` | Карточки, FAQ items, prose |
+
+Все токены — hex-литералы. CSS-переменные (`var(--accent)`, `rgb(var(--gray))`)
+в проекте **не используются** — они удалены в мае 2026.
+
+### Категориальные цвета
+
+| Категория         | Фон       | Текст |
+|---|---|---|
+| `ts-piot`         | `#111`    | `#fff` |
+| `markirovka`      | `#E8175D` | `#fff` |
+| `zakonodatelstvo` | `#C8F500` | `#111` |
+
+Используются в: hero статьи, аббревиатура CPA-баннера, аббревиатура в «Читайте также».
 
 ---
 
 ## Типографика
 
-### Текущая пара шрифтов
-
-| Роль | Шрифт | Применение |
-|---|---|---|
-| Заголовки (h1–h6) | **Commissioner** | Гуманистический гротеск, кириллица |
-| Основной текст | **Geologica** | Переменный sans-serif, кириллица |
-| Fallback (UI-элементы) | Inter → system-ui | Мелкие числа, даты, кнопки хедера |
-
-Оба шрифта подключены через `@font-face` в `global.css`. Исходники — `@fontsource`:
-
-```
-public/fonts/
-  commissioner-regular.woff   ← @fontsource/commissioner, cyrillic 400
-  commissioner-bold.woff      ← @fontsource/commissioner, cyrillic 700
-  geologica-regular.woff      ← @fontsource/geologica, cyrillic 400
-  geologica-bold.woff         ← @fontsource/geologica, cyrillic 700
-  inter-latin-regular.woff    ← @fontsource/inter, latin 400 (fallback)
-  inter-latin-bold.woff       ← @fontsource/inter, latin 700 (fallback)
-  inter-latin-ext-regular.woff ← @fontsource/inter, latin-ext 400 (fallback)
-  inter-latin-ext-bold.woff    ← @fontsource/inter, latin-ext 700 (fallback)
-```
-
-```
-Базовый размер:  19px (desktop), 18px (≤720px)
-Line-height:     1.65
-Letter-spacing:  -0.01em (заголовки)
-```
-
-### Как сменить шрифт
-
-1. Установить пакет: `npm install @fontsource/<name>`
-2. Скопировать woff-файлы в `public/fonts/`:
-   ```bash
-   cp node_modules/@fontsource/<name>/files/<name>-cyrillic-400-normal.woff public/fonts/<name>-regular.woff
-   cp node_modules/@fontsource/<name>/files/<name>-cyrillic-700-normal.woff public/fonts/<name>-bold.woff
-   ```
-3. Обновить `@font-face` в `src/styles/global.css`
-4. Поменять `font-family` на `body {}` (текст) или `h1...h6 {}` (заголовки)
-5. Обновить массив `fonts` в `src/pages/og/[slug].png.ts`
-6. Обновить этот файл (`docs/design-system.md`)
-
-**Шкала заголовков:**
-
-| Тег | Размер desktop | Размер mobile (≤720px) |
-|---|---|---|
-| h1 | 2.4rem | 1.9rem |
-| h2 | 1.75rem | 1.4rem |
-| h3 | 1.35rem | 1.35rem |
-| h4 | 1.1rem | 1.1rem |
+- **Bebas Neue** — заголовки h1–h3, логотип, uppercase-метки.
+  Подключается через Google Fonts CDN в `BaseHead.astro`.
+- **Inter** (local woff) — тело текста, UI-подписи.
+  Файлы: `public/fonts/inter-*.woff`. Не удалять — нужны при сборке OG.
 
 ---
 
-## Сетка и отступы
+## Страница статьи (`BlogPost.astro`)
+
+### Hero — сетка 58/42
 
 ```
-Контентная ширина:  max-width 1100px, margin: auto
-Основной паддинг:   2.5em 1em 3em (desktop), 1.2em 1em 2em (mobile)
-Брейкпоинт:        720px (основной контент), 820px (навигация)
+┌─────────────────────┬──────────────────┐
+│  58fr               │  42fr            │
+│  Тёмная зона        │  Песочная зона   │
+│                     │                  │
+│  [cat badge]        │  breadcrumbs     │
+│                     │  badges row      │
+│  большая буква      │  H1              │
+│  (opacity 0.15)     │  ─────────────   │
+│                     │  lead (italic)   │
+└─────────────────────┴──────────────────┘
+height: calc(100vh - 56px), min-height: 480px
 ```
+
+**Правая колонка (justify-content: space-between):**
+
+1. `nav.art-hero-breadcrumbs` — Главная / Статьи / [категория]
+2. `.art-hero-top` — badges row:
+   - `span.art-updated-badge` (lime) — «Актуально на [updatedDate]» (только при наличии `updatedDate`)
+   - `span.art-hero-readtime` — время чтения (серый)
+3. `h1.art-h1` — заголовок (Bebas Neue, 3.2rem)
+4. `.art-hero-bottom` (border-top: 2px solid #111) — `p.art-lead` (description)
+
+### Body — сетка 28/72
+
+```
+┌────────────┬────────────────────────────┐
+│  28fr      │  72fr                      │
+│  Sidebar   │  Content                   │
+│            │                            │
+│  sticky    │  TOC → prose →             │
+│  CPA-      │  callouts/checklist/FAQ →  │
+│  баннер    │  share →                   │
+│            │  CPA-врезка →              │
+│            │  «Читайте также»           │
+└────────────┴────────────────────────────┘
+```
+
+**Sidebar:** `position: sticky; top: calc(56px + 16px)`. Скрывается при ≤1024px.
+
+### Блоки контентной колонки
+
+| Блок | Условие | Описание |
+|---|---|---|
+| `toc` (`<details>`) | ≥3 заголовков H2/H3 | Оглавление, разворачивается по клику |
+| `.prose` | всегда | `<slot/>` — MDX-контент статьи |
+| `art-share` | всегда | Telegram + ВКонтакте; URL из canonical |
+| `.cpa-block` | всегда | CPA/партнёрский баннер (из `src/data/cpa-banners.ts`) |
+| `.related` | ≥2 совпадений | «Читайте также» — адаптивная сетка |
+| `art-foot` | всегда | Правовая оговорка |
+
+**Удалены** (не используются): `art-tags`, `inline-subscribe`, `helpful`,
+`post-nav` (пред./след. статья), `art-cta` («Остались вопросы?»).
+
+### CPA-блок
+
+Размещается между `art-share` и «Читайте также». Данные — из `src/data/cpa-banners.ts`.
+
+Структура HTML:
+```html
+<div class="cpa-block">
+  <div class="cpa-visual"><!-- abbrev, категориальный фон --></div>
+  <div class="cpa-body">
+    <span class="cpa-eyebrow"><!-- eyebrow --></span>
+    <strong class="cpa-title"><!-- title --></strong>
+    <p class="cpa-desc"><!-- description --></p>
+  </div>
+  <div class="cpa-action">
+    <a class="cpa-btn" href="..."><!-- cta --></a>
+  </div>
+</div>
+```
+
+Выбор баннера (в порядке приоритета):
+1. `cpa:` в frontmatter статьи
+2. `CATEGORY_DEFAULT_CPA[primaryCategory]`
+3. `'default-ts-piot'` (запасной)
+
+### «Читайте также» — адаптивные макеты
+
+Берётся до 4 постов (scoring: теги ×2, категории ×1). Макет определяется
+детерминированно — без `Math.random()`, иначе SSG не работает.
+
+| Постов | Макет | Логика выбора |
+|---|---|---|
+| 0–1 | нет блока | скрыт |
+| 2 | **A2** — два равных столбца | всегда |
+| 3 | **A3** или **B** | `slugCharSum % 2 === 0` → A3, иначе B |
+| 4+ | **C** — 1 большая + 3 компактных | всегда |
+
+`slugCharSum` — сумма char codes символов slug текущей статьи. Постоянна для
+одной статьи, варьируется между статьями.
+
+**Макет A2** — 2 равных столбца `1fr 1fr`.
+
+**Макет A3** — 2 столбца, левый шире: `3fr 2fr`. Левая карточка крупная
+(заголовок 1.4rem, описание), правая — стандартная.
+
+**Макет B** — 2 столбца `2fr 3fr`. Правая карточка крупная.
+
+**Макет C** — grid `3fr 2fr`, первая строка занимает весь левый столбец (`grid-row: span 2`).
+Три компактных справа.
+
+### Прогресс-бар и «наверх»
+
+- `#rp-bar` — `position: fixed; top: 0; height: 3px; background: #E8175D`
+- `#back-to-top` — `position: fixed; bottom: 24px; right: 24px`; появляется при `scrollY > 400`
+
+### Брейкпойнты
+
+| Ширина   | Изменение |
+|---|---|
+| `≤1024px` | Sidebar скрыт, контент 100% |
+| `≤820px`  | Hero стэкируется (1fr), hero-img: height 280px |
+| `≤560px`  | h1: 2rem, уменьшение паддингов |
 
 ---
 
 ## Компоненты
 
-### Header (`src/components/Header.astro`)
+### `Callout.astro`
 
-- Sticky top, белый фон, `border-bottom: 1px solid rgba(15,23,42,.08)`
-- Логотип: `Р·Б` — синий квадрат `gradient(#1d4ed8 → #0ea5e9)`, `border-radius: 0.4rem`
-- Ссылки: подчёркивание `border-bottom: 3px solid --accent` на активной
-- Mobile (≤820px): гамбургер-меню, навигация раскрывается вниз
+Акцентная врезка для выделения ключевых мыслей в теле статьи.
 
-### Footer (`src/components/Footer.astro`)
+```astro
+import Callout from '../../components/Callout.astro';
 
-- Тёмный фон: `gradient(#0f172a → #111827)`
-- 4 колонки в сетке `auto-fit, minmax(220px, 1fr)`
-- Текст: `#cbd5e1` основной, `#94a3b8` второстепенный
-- Правовая оговорка: материалы — информационный характер, не юридическая консультация
+{/* Тёмный (по умолчанию): чёрный фон, лаймовый акцент */}
+<Callout>
+  Если статус кода не позволяет продажу, касса обязана заблокировать операцию.
+</Callout>
 
-### Карточка статьи
-
-```
-┌─────────────────────┐
-│   previewImage      │  16:9, object-fit:cover
-│   (если есть)       │  zoom ×1.03 при hover
-├─────────────────────┤
-│ [Категория]         │  badge — accent-soft bg, accent color
-│ Заголовок           │  1.15rem, --black
-│ Описание            │  0.93rem, --gray-dark
-│ дата                │  0.83rem, --gray
-└─────────────────────┘
-border: 1px --gray-light, border-radius: 10px
-hover: border --accent, box-shadow
+{/* Светлый: песочный фон, розовый акцент */}
+<Callout variant="light">
+  При повторном нарушении должностное лицо могут дисквалифицировать на срок до двух лет.
+</Callout>
 ```
 
-Компоненты: `BlogFilter.tsx` (`/blog/`), `index.astro` (главная).
+- `variant?: 'dark' | 'light'` (default: `'dark'`)
+- `**жирный**` и `*курсив*` внутри получают цвет акцента
+- Декоративная `"` через `::before` (opacity 0.18)
 
-### Callout-блоки (`.callout`)
+### `FAQ.astro`
 
-```html
-<div class="callout">Важная информация</div>
-<div class="callout callout--warn">Предупреждение</div>
+```astro
+import FAQ from '../../components/FAQ.astro';
+<FAQ
+  title="Часто задаваемые вопросы"   // опционально
+  items={[
+    { q: 'Вопрос?', a: 'Ответ.' },
+  ]}
+/>
 ```
 
-| Вариант | Цвет полосы | Фон |
+- Автоматически эмитирует `<script type="application/ld+json">` с FAQPage schema
+- `<details name="faq">` — нативный аккордеон (открыт только один элемент)
+- Нумерация розовым (Bebas Neue), стрелка-индикатор с CSS transition
+- Яндекс и Google показывают FAQ прямо в выдаче при наличии FAQPage schema
+- Компонент **необязателен** — не добавляйте его ради галочки. Правила выбора: [content-types.md → FAQ в статье](content-types.md#faq-в-статье)
+
+### `Checklist.astro`
+
+```astro
+import Checklist from '../../components/Checklist.astro';
+<Checklist
+  id="уникальный-id"     // обязателен — ключ для localStorage
+  title="Что проверить"  // опционально
+  items={[
+    'Пункт 1',
+    'Пункт 2',
+  ]}
+/>
+```
+
+- Состояние хранится в `localStorage` с ключом `checklist_<id>`
+- Прогресс-счётчик «X / N выполнено» обновляется в реальном времени
+- Кнопка «Сбросить» очищает localStorage и снимает все галочки
+- Выполненные пункты: зачёркивание + opacity 0.5
+
+---
+
+## Страница редакции (`/about/avtor/`)
+
+- SVG-аватар с инициалами «ЭМ» (тёмный фон `#111`, лаймовый текст `#C8F500`, Bebas Neue)
+- Карточка автора: тёмный блок, имя / роль / email
+- Контактная форма: имя + email + textarea + submit
+- `action="mailto:hello@etiketka.media" method="get"` — клиентская, без бэкенда
+
+---
+
+## Источники истины
+
+| Данные | Файл | Ключ |
 |---|---|---|
-| `.callout` | `--accent` (#1d4ed8) | `--accent-soft` (#dbeafe) |
-| `.callout--warn` | `#f59e0b` (amber) | `#fef3c7` |
-
-### Blockquote
-
-Синяя левая полоса 4px, фон `rgba(accent, 0.04)`, `font-size: 1.05em`.
-
-### Таблицы
-
-Полная ширина, `border-collapse: collapse`, th с фоном `rgba(--gray-light, 0.5)`.
-`font-size: 0.95rem`.
-
-### Кнопки (страницы статей и главная)
-
-```css
-.btn          /* base: inline-block, padding, border-radius: 8px */
-.btn-primary  /* bg: --accent, color: white */
-.btn-ghost    /* border: --gray-light, color: --gray-dark */
-```
+| Заголовок, описание, URL сайта | `src/consts.ts` | `SITE_TITLE`, `SITE_URL` |
+| Навигация | `src/consts.ts` | `NAV_LINKS` |
+| Категории (slug, название) | `src/consts.ts` | `CATEGORIES` |
+| Sidebar баннер | `src/consts.ts` | `SIDEBAR_BANNER` |
+| CPA/партнёрские баннеры | `src/data/cpa-banners.ts` | `CPA_BANNERS`, `CATEGORY_DEFAULT_CPA` |
+| Сценарии штрафов | `src/data/penalties.ts` | `SCENARIOS` |
 
 ---
 
-## OG-обложки (1200×630)
+## Changelog
 
-Генерируются через Satori + Resvg в `src/pages/og/[slug].png.ts`.
+### 2026-05-03 — Упрощение статьи, адаптивный related, CPA-блок
 
-- Фон: AI-текстура из `public/og-backgrounds/{category}.jpg` или градиент категории
-- Тёмный оверлей `rgba(0,0,0,0.60)` для читаемости текста
-- Левая вертикальная полоса 8px цвета категории
-- Шрифты: Commissioner (заголовок) + Geologica (тело) + InterLat + InterLatExt (латинский fallback)
+#### Новые компоненты и данные
 
-Подробности — `docs/og-images.md`.
-
----
-
-## AI-иллюстрации
-
-Два типа на каждую статью:
-
-| Тип | Нейросеть | Стиль |
-|---|---|---|
-| Preview (карточка) | FLUX via OpenRouter | Bold flat editorial, единый стиль |
-| Hero (шапка статьи) | FLUX via OpenRouter | Фотореалистичный, тематический |
-
-Промпты и логика генерации — `docs/og-images.md`, `docs/article-cards.md`.
-
----
-
-## Что менять где
-
-| Задача | Файл |
+| Файл | Что |
 |---|---|
-| Цветовые токены | `src/styles/global.css` (`:root`) |
-| Акценты категорий | `src/consts.ts` (добавить hex в `CATEGORIES`) + скрипты |
-| Навигация | `src/consts.ts` (`NAV_LINKS`) |
-| Шрифт | `global.css` (`@font-face`) + `public/fonts/` + `src/pages/og/[slug].png.ts` |
-| Карточки статей | `src/components/BlogFilter.tsx`, `src/pages/index.astro` |
-| OG-шаблон | `src/pages/og/[slug].png.ts` |
-| Стиль AI-превью | `scripts/generate-preview-images.mjs` (`BASE_STYLE`, `CAT_STYLE`) |
-| Стиль AI-hero | `scripts/generate-hero-images.mjs` (`CAT_STYLE`) |
+| `src/components/Callout.astro` | Акцентная врезка (dark/light), декоративная `"` |
+| `src/data/cpa-banners.ts` | Единый источник CPA/партнёрских баннеров |
+
+#### `src/layouts/BlogPost.astro`
+
+**Удалено:**
+
+| Элемент | Причина |
+|---|---|
+| `art-tags` (пилюли тегов) | Избыточно — теги доступны через `/tags/` |
+| `inline-subscribe` (врезка с формой подписки) | Перегружает статью |
+| `helpful` («Была ли полезна?») | Нет бэкенда, данные нигде не используются |
+| `post-nav` (пред./след. статья) | Низкий CTR, занимает место |
+| `art-cta` («Остались вопросы?» + mailto) | Заменён CPA-блоком |
+
+**Добавлено / изменено:**
+
+| Элемент | Стало |
+|---|---|
+| CPA-блок | Баннер из `src/data/cpa-banners.ts` после `art-share` |
+| «Читайте также» | До 4 постов; 4 адаптивных макета (A2/A3/B/C) |
+| Hero meta | Только `art-updated-badge` + `art-hero-readtime`; убраны `art-pubdate`, `art-verified-badge`, `art-hero-hash` |
+| `content.config.ts` | Добавлено поле `cpa: z.string().optional()` в схему blog |
+
+#### Предыдущий редизайн (2026-05-02)
+
+Добавлены: `FAQ.astro`, `Checklist.astro`, hero 58/42, sidebar sticky,
+share-кнопки, прогресс-бар, кнопка «наверх», замена CSS-переменных на hex-токены.
+Обновлена страница редакции `/about/avtor/`.
