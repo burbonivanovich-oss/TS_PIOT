@@ -398,5 +398,5 @@ editorial product photography, bold composition, photorealistic
 
 | Задача | Модель | API |
 |---|---|---|
-| Быстрый прогон всего пула | `black-forest-labs/flux-1-schnell` | OpenRouter (~$0.29 за 72 шт.) |
-| Финальный прогон (рекомендуется) | `black-forest-labs/flux-1.1-pro` | OpenRouter (~$2.88 за 72 шт.) |
+| Быстрый прогон всего пула | `black-forest-labs/flux.2-max` | OpenRouter |
+| Финальный прогон (рекомендуется) | `black-forest-labs/flux.2-max` | OpenRouter |
