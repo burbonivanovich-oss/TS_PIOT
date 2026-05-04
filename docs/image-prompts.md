@@ -224,7 +224,6 @@ clean editorial, sharp shadow, no readable screen content, photorealistic
 
 | Модель | API | Качество | Стоимость |
 |---|---|---|---|
-| `black-forest-labs/flux-1-schnell` | OpenRouter | Хорошее | ~$0.004/img |
-| `black-forest-labs/flux-1.1-pro` | OpenRouter | Лучшее | ~$0.04/img |
+| `black-forest-labs/flux.2-max` | OpenRouter | Лучшее | — |
 
 Текущие скрипты: `scripts/generate-preview-images.mjs` и `scripts/generate-hero-images.mjs`.

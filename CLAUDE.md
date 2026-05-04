@@ -268,9 +268,9 @@ createdDate: "YYYY-MM-DD"
 
 | Скрипт | Назначение | Модель по умолчанию |
 |---|---|---|
-| `generate-preview-images.mjs` | Превью для карточек | `flux-1.1-pro` |
-| `generate-hero-images.mjs` | Hero-изображения статей | `flux-1.1-pro` |
-| `test-pool-generation.mjs` | Тест 3 изображений из пула с выводом стоимости | `flux-1.1-pro` |
+| `generate-preview-images.mjs` | Превью для карточек | `flux.2-max` |
+| `generate-hero-images.mjs` | Hero-изображения статей | `flux.2-max` |
+| `test-pool-generation.mjs` | Тест 3 изображений из пула с выводом стоимости | `flux.2-max` |
 
 **Запуск:** GitHub Actions → вкладка **Actions** → **Generate Article Images** → **Run workflow**.
 

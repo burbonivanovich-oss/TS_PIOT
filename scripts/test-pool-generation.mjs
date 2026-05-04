@@ -1,5 +1,5 @@
 /**
- * Тест генерации 3 изображений из пула через OpenRouter FLUX.1.1-pro.
+ * Тест генерации 3 изображений из пула через OpenRouter FLUX.2-max.
  * Выводит стоимость каждого запроса и итог.
  *
  * Запуск:
@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
 const OUT_DIR   = path.join(ROOT, 'scripts', 'pool-test-output');
-const MODEL     = 'black-forest-labs/flux-1.1-pro';
+const MODEL     = 'black-forest-labs/flux.2-max';
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
