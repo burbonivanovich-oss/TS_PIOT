@@ -5,8 +5,8 @@
  * Запуск через GitHub Actions (стандартный способ):
  *   Actions → Generate Article Images → Run workflow
  *
- * Модель по умолчанию: google/gemini-2.5-flash-image
- * Переопределить: PREVIEW_MODEL=google/gemini-2.5-flash-image:free (для теста)
+ * Модель по умолчанию: google/gemini-3.1-flash-image-preview
+ * Переопределить: PREVIEW_MODEL=google/gemini-2.5-flash-image (дешевле)
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,7 +16,7 @@ const __dirname   = path.dirname(fileURLToPath(import.meta.url));
 const ROOT        = path.resolve(__dirname, '..');
 const BLOG_DIR    = path.join(ROOT, 'src/content/blog');
 const PREVIEW_DIR = path.join(ROOT, 'public/images/preview');
-const MODEL       = process.env.PREVIEW_MODEL ?? 'google/gemini-2.5-flash-image';
+const MODEL       = process.env.PREVIEW_MODEL ?? 'google/gemini-3.1-flash-image-preview';
 
 fs.mkdirSync(PREVIEW_DIR, { recursive: true });
 
@@ -24,16 +24,16 @@ const API_KEY = process.env.OPENROUTER_API_KEY;
 if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
 
 const CAT_STYLE = {
-  'ts-piot':         'modern compact POS terminal, fiscal receipt printer, retail counter, dark background',
-  'markirovka':      'product packaging with QR labels, retail shelves, barcode scanner, dark warehouse',
-  'zakonodatelstvo': 'printed documents, laptop on office desk, pen and forms, dark desk surface',
-  'kkt':             'cash register, fiscal receipt, checkout counter, dark retail environment',
-  'egais':           'wine and spirits bottles on shelves, bar counter, dark moody lighting',
+  'ts-piot':         'modern compact POS terminal and receipt printer on a dark retail counter, strong directional side light, dark charcoal background',
+  'markirovka':      'consumer product packages with QR labels arranged on a cream-beige surface, clean overhead light, minimal editorial still life',
+  'zakonodatelstvo': 'stack of printed documents and a pen on a cream-beige desk, sharp angular window light, clean minimal composition',
+  'kkt':             'smart POS terminal on a dark counter, warm ambient light, moody retail atmosphere',
+  'egais':           'wine and spirits bottles on a dark bar surface, strong backlight rim highlights, moody atmosphere',
 };
 
 const STYLE_SUFFIX =
-  'high contrast editorial photography, dark dramatic lighting, sharp shadows, ' +
-  'professional B2B context, no text overlays, no people faces, photorealistic, 4:3 aspect ratio';
+  'editorial photography, professional B2B context, no text overlays, no people faces, ' +
+  'photorealistic, sharp focus, 4:3 aspect ratio';
 
 function parseFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
