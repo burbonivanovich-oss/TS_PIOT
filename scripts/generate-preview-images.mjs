@@ -25,14 +25,15 @@ if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exi
 
 const CAT_STYLE = {
   'ts-piot':         'modern compact POS terminal and receipt printer on a dark retail counter, strong directional side light, dark charcoal background',
-  'markirovka':      'consumer product packages with QR labels arranged on a cream-beige surface, clean overhead light, minimal editorial still life',
+  'markirovka':      'unlabelled consumer product packages with QR code stickers as abstract geometric elements, arranged on a cream-beige surface, clean overhead light, minimal editorial still life',
   'zakonodatelstvo': 'stack of printed documents and a pen on a deep navy-blue desk surface, cool window light with blue-grey shadows, clean minimal composition',
   'kkt':             'smart POS terminal on a dark counter, warm ambient light, moody retail atmosphere',
   'egais':           'wine and spirits bottles on a dark bar surface, strong backlight rim highlights, moody atmosphere',
 };
 
 const STYLE_SUFFIX =
-  'editorial photography, professional B2B context, no text overlays, no people faces, ' +
+  'editorial photography, professional B2B context, no text overlays, no text on products, ' +
+  'no readable labels, no words on packaging, no people faces, ' +
   'photorealistic, sharp focus, 4:3 aspect ratio';
 
 function parseFrontmatter(content) {
