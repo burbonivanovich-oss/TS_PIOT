@@ -40,7 +40,7 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 			'Более 20 категорий уже в системе «Честный знак». Штраф за отсутствие маркировки — от 50 000 ₽ для организаций.',
 		cta: 'Проверить категорию →',
 		ctaHref: '/category/markirovka/',
-		visual: { abbrev: 'МК', bg: '#E8175D' },
+		visual: { abbrev: 'МК', bg: '#9E2B4F' },
 	},
 	'default-zakonodatelstvo': {
 		id: 'default-zakonodatelstvo',
@@ -50,7 +50,7 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 			'Введите сумму расчёта и тип нарушения — получите диапазон штрафа по актуальной редакции КоАП РФ.',
 		cta: 'Открыть калькулятор →',
 		ctaHref: '/kalkulyator-shtrafov/',
-		visual: { abbrev: 'КШ', bg: '#C8F500' },
+		visual: { abbrev: 'КШ', bg: '#AFCC00' },
 	},
 };
 

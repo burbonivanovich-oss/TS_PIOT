@@ -127,8 +127,8 @@ const cpaBanner = CPA_BANNERS[cpaBannerId] ?? CPA_BANNERS['default-ts-piot'];
 
 const catAccent =
 	primaryCategory === 'ts-piot' ? '#111' :
-	primaryCategory === 'markirovka' ? '#E8175D' :
-	primaryCategory === 'zakonodatelstvo' ? '#C8F500' : '#111';
+	primaryCategory === 'markirovka' ? '#9E2B4F' :
+	primaryCategory === 'zakonodatelstvo' ? '#AFCC00' : '#111';
 const catAccentText = primaryCategory === 'zakonodatelstvo' ? '#111' : '#fff';
 
 /* Background letter from title abbreviation */
@@ -171,7 +171,7 @@ const shareTitle = encodeURIComponent(title);
 			<section class="art-hero">
 				<div class="art-hero-img" style={`background:${catAccent}`}>
 					{categoryMeta && (
-						<span class="art-hero-cat" style={`background:${primaryCategory === 'zakonodatelstvo' ? '#111' : '#E8175D'};color:#fff`}>
+						<span class="art-hero-cat" style={`background:${primaryCategory === 'zakonodatelstvo' ? '#111' : '#9E2B4F'};color:#fff`}>
 							{categoryMeta.title}
 						</span>
 					)}
@@ -296,7 +296,7 @@ const shareTitle = encodeURIComponent(title);
 								<div class="related-grid related-grid--a2">
 									{related.map((post) => {
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
-										const accent = cat === 'markirovka' ? '#E8175D' : cat === 'zakonodatelstvo' ? '#C8F500' : '#111';
+										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#AFCC00' : '#111';
 										const abbr = abbrev(post.data.title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
 										const lightText = cat === 'zakonodatelstvo';
@@ -322,7 +322,7 @@ const shareTitle = encodeURIComponent(title);
 								<div class="related-grid related-grid--a3">
 									{related.map((post, i) => {
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
-										const accent = cat === 'markirovka' ? '#E8175D' : cat === 'zakonodatelstvo' ? '#C8F500' : '#111';
+										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#AFCC00' : '#111';
 										const abbr = abbrev(post.data.title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
 										const lightText = cat === 'zakonodatelstvo';
@@ -348,7 +348,7 @@ const shareTitle = encodeURIComponent(title);
 								<div class="related-grid related-grid--b">
 									{related.map((post, i) => {
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
-										const accent = cat === 'markirovka' ? '#E8175D' : cat === 'zakonodatelstvo' ? '#C8F500' : '#111';
+										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#AFCC00' : '#111';
 										const abbr = abbrev(post.data.title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
 										const lightText = cat === 'zakonodatelstvo';
@@ -374,7 +374,7 @@ const shareTitle = encodeURIComponent(title);
 								<div class="related-grid related-grid--c">
 									{related.slice(0, 4).map((post, i) => {
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
-										const accent = cat === 'markirovka' ? '#E8175D' : cat === 'zakonodatelstvo' ? '#C8F500' : '#111';
+										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#AFCC00' : '#111';
 										const abbr = abbrev(post.data.title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
 										const lightText = cat === 'zakonodatelstvo';
@@ -441,7 +441,7 @@ const shareTitle = encodeURIComponent(title);
 
 		<style>
 			/* Reading progress */
-			#rp-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: #E8175D; z-index: 200; transition: width .1s linear; pointer-events: none; }
+			#rp-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: #9E2B4F; z-index: 200; transition: width .1s linear; pointer-events: none; }
 
 			/* ── Hero breadcrumbs ── */
 			.art-hero-breadcrumbs { font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #aaa; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
@@ -454,10 +454,10 @@ const shareTitle = encodeURIComponent(title);
 			.art-hero-img { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 			.art-hero-cat { position: absolute; top: 20px; left: 20px; font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .3em .85em; z-index: 2; }
 			.art-hero-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
-			.art-hero-bg-letter { font-family: 'Bebas Neue', sans-serif; font-size: 24rem; color: #C8F500; opacity: .15; line-height: 1; letter-spacing: -.03em; pointer-events: none; user-select: none; }
+			.art-hero-bg-letter { font-family: 'Bebas Neue', sans-serif; font-size: 24rem; color: #AFCC00; opacity: .15; line-height: 1; letter-spacing: -.03em; pointer-events: none; user-select: none; }
 			.art-hero-info { padding: 32px 48px; display: flex; flex-direction: column; justify-content: space-between; background: #EDE8DF; overflow: auto; }
 			.art-hero-top { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
-			.art-updated-badge { background: #C8F500; color: #111; font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .2em .6em; }
+			.art-updated-badge { background: #AFCC00; color: #111; font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .2em .6em; }
 			.art-hero-readtime { font-size: .75rem; font-weight: 600; color: #999; letter-spacing: .04em; }
 			.art-h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; line-height: 1; letter-spacing: .02em; color: #111; text-transform: uppercase; margin: 0; }
 			.art-hero-bottom { border-top: 2px solid #111; padding-top: 20px; }
@@ -471,26 +471,26 @@ const shareTitle = encodeURIComponent(title);
 			.art-banner { position: sticky; top: calc(56px + 16px); background: #111; color: #fff; overflow: hidden; }
 			.art-banner-visual { width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 			.art-banner-big { font-family: 'Bebas Neue', sans-serif; font-size: 7rem; color: #fff; opacity: .18; line-height: 1; }
-			.art-banner-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #C8F500; display: block; padding: 14px 14px 6px; }
+			.art-banner-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #AFCC00; display: block; padding: 14px 14px 6px; }
 			.art-banner-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; line-height: 1.05; letter-spacing: .03em; text-transform: uppercase; color: #fff; padding: 0 14px 8px; }
 			.art-banner-desc { font-size: .78rem; color: #8A8A8A; line-height: 1.5; padding: 0 14px 14px; margin: 0; }
-			.art-banner-cta { display: block; margin: 0 14px 14px; background: #E8175D; color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 10px 14px; text-decoration: none; text-align: center; transition: background .15s; }
-			.art-banner-cta:hover { background: #c50f4b; }
+			.art-banner-cta { display: block; margin: 0 14px 14px; background: #9E2B4F; color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 10px 14px; text-decoration: none; text-align: center; transition: background .15s; }
+			.art-banner-cta:hover { background: #7d2240; }
 
 			/* ── Content column ── */
 			.art-content { padding: 40px 48px 80px; border-left: 1px solid rgba(0,0,0,.08); min-height: 100vh; }
 
 			/* TOC */
-			.toc { border-left: 3px solid #E8175D; background: #F6F4F0; padding: 1rem 1.2rem; margin-bottom: 2rem; }
+			.toc { border-left: 3px solid #9E2B4F; background: #F6F4F0; padding: 1rem 1.2rem; margin-bottom: 2rem; }
 			.toc summary { cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .06em; color: #111; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
 			.toc summary::-webkit-details-marker { display: none; }
-			.toc summary::after { content: '▸'; font-size: .8rem; color: #E8175D; transition: transform .15s; }
+			.toc summary::after { content: '▸'; font-size: .8rem; color: #9E2B4F; transition: transform .15s; }
 			.toc[open] summary::after { transform: rotate(90deg); }
 			.toc-list { margin: .8rem 0 0; padding-left: 1rem; list-style: none; }
 			.toc-item { margin-bottom: .3rem; line-height: 1.4; }
 			.toc-depth-3 { padding-left: 1rem; }
 			.toc-item a { color: #444; text-decoration: none; font-size: .88rem; }
-			.toc-item a:hover { color: #E8175D; }
+			.toc-item a:hover { color: #9E2B4F; }
 
 			/* Prose */
 			.prose { font-size: 1rem; line-height: 1.75; color: #1a1a1a; }
@@ -498,27 +498,27 @@ const shareTitle = encodeURIComponent(title);
 			/* ── CPA-врезка ── */
 			.cpa-block { display: grid; grid-template-columns: 120px 1fr auto; align-items: stretch; margin: 2.5rem 0; border: 2px solid #111; overflow: hidden; }
 			.cpa-visual { display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-			.cpa-visual-letter { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: #C8F500; line-height: 1; letter-spacing: -.03em; }
+			.cpa-visual-letter { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: #AFCC00; line-height: 1; letter-spacing: -.03em; }
 			.cpa-body { padding: 18px 22px; background: #fff; }
 			.cpa-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #888; margin-bottom: 4px; }
 			.cpa-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: .03em; text-transform: uppercase; color: #111; line-height: 1.1; margin-bottom: 5px; }
 			.cpa-desc { font-size: .82rem; color: #555; line-height: 1.55; margin: 0; }
 			.cpa-action { padding: 0 22px; background: #fff; border-left: 1px solid rgba(0,0,0,.08); display: flex; align-items: center; }
-			.cpa-btn { display: inline-block; background: #E8175D; color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 12px 18px; text-decoration: none; white-space: nowrap; transition: background .15s; }
-			.cpa-btn:hover { background: #c50f4b; }
+			.cpa-btn { display: inline-block; background: #9E2B4F; color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 12px 18px; text-decoration: none; white-space: nowrap; transition: background .15s; }
+			.cpa-btn:hover { background: #7d2240; }
 
 			/* ── Share ── */
 			.art-share { display: flex; align-items: center; gap: 8px; padding: 1.2rem 0; border-top: 1px solid rgba(0,0,0,.1); border-bottom: 1px solid rgba(0,0,0,.1); }
 			.share-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #888; margin-right: 4px; }
 			.share-btn { display: inline-block; padding: 6px 14px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; background: #111; color: #EDE8DF; transition: background .15s; }
-			.share-btn:hover { background: #E8175D; color: #fff; }
+			.share-btn:hover { background: #9E2B4F; color: #fff; }
 
 			/* ── Читайте также ── */
 			.related { margin-top: 2.5rem; }
 			.related-eyebrow { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: .03em; color: #111; display: block; margin-bottom: 12px; }
 			.related-more { display: flex; justify-content: flex-end; margin-top: 10px; }
 			.related-more a { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #888; text-decoration: none; transition: color .15s; }
-			.related-more a:hover { color: #E8175D; }
+			.related-more a:hover { color: #9E2B4F; }
 
 			/* Базовая карточка */
 			.r-card { display: flex; flex-direction: column; background: #fff; text-decoration: none; color: inherit; overflow: hidden; transition: transform .15s; }
@@ -530,7 +530,7 @@ const shareTitle = encodeURIComponent(title);
 			.r-card-body { padding: 14px 16px 18px; flex: 1; display: flex; flex-direction: column; gap: 7px; transition: background .15s; }
 			.r-card-body h3 { font-family: 'Bebas Neue', sans-serif; letter-spacing: .02em; text-transform: uppercase; color: #111; line-height: 1.15; margin: 0; }
 			.r-card-body p { font-size: .82rem; color: #666; line-height: 1.5; margin: 0; }
-			.r-card-read { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #E8175D; margin-top: auto; padding-top: 6px; }
+			.r-card-read { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #9E2B4F; margin-top: auto; padding-top: 6px; }
 
 			/* A2: две равные */
 			.related-grid--a2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
@@ -572,7 +572,7 @@ const shareTitle = encodeURIComponent(title);
 			/* Back to top */
 			#back-to-top { position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px; background: #111; color: #EDE8DF; border: none; font-size: 1rem; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .2s, background .15s; z-index: 90; display: flex; align-items: center; justify-content: center; }
 			#back-to-top.visible { opacity: 1; pointer-events: auto; }
-			#back-to-top:hover { background: #E8175D; }
+			#back-to-top:hover { background: #9E2B4F; }
 
 			/* ── Responsive ── */
 			@media (max-width: 1024px) {

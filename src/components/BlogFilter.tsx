@@ -36,11 +36,11 @@ function abbrev(title: string): string {
 // Get card colors by category
 function cardBg(cat?: string): { bg: string; letterColor: string; tagBg: string; tagColor: string; dateColor: string } {
 	if (cat === 'ts-piot')
-		return { bg: '#111', letterColor: '#C8F500', tagBg: '#111', tagColor: '#fff', dateColor: 'rgba(255,255,255,.6)' };
+		return { bg: '#111', letterColor: '#AFCC00', tagBg: '#111', tagColor: '#fff', dateColor: 'rgba(255,255,255,.6)' };
 	if (cat === 'markirovka')
-		return { bg: '#E8175D', letterColor: '#fff', tagBg: '#E8175D', tagColor: '#fff', dateColor: 'rgba(255,255,255,.6)' };
+		return { bg: '#9E2B4F', letterColor: '#fff', tagBg: '#9E2B4F', tagColor: '#fff', dateColor: 'rgba(255,255,255,.6)' };
 	if (cat === 'zakonodatelstvo')
-		return { bg: '#C8F500', letterColor: '#111', tagBg: '#C8F500', tagColor: '#111', dateColor: 'rgba(0,0,0,.45)' };
+		return { bg: '#AFCC00', letterColor: '#111', tagBg: '#AFCC00', tagColor: '#111', dateColor: 'rgba(0,0,0,.45)' };
 	return { bg: '#222', letterColor: '#fff', tagBg: '#111', tagColor: '#fff', dateColor: 'rgba(255,255,255,.5)' };
 }
 
@@ -351,7 +351,7 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 					font-family: 'Bebas Neue', sans-serif;
 					font-size: 18rem;
 					line-height: 1;
-					color: #E8175D;
+					color: #9E2B4F;
 					opacity: .35;
 					pointer-events: none;
 					letter-spacing: -.02em;
@@ -371,11 +371,11 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 					padding: 4px 8px;
 				}
 				.bf-htag--pink {
-					background: #E8175D;
+					background: #9E2B4F;
 					color: #fff;
 				}
 				.bf-htag--lime {
-					background: #C8F500;
+					background: #AFCC00;
 					color: #111;
 				}
 				.bf-hero-title {
@@ -414,7 +414,7 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 					text-decoration: none;
 				}
 				.bf-hero-card--lime {
-					background: #C8F500;
+					background: #AFCC00;
 				}
 				.bf-hero-card--white {
 					background: #fff;
@@ -430,10 +430,10 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 				}
 				.bf-card-tag--lime-inner {
 					background: #111;
-					color: #C8F500;
+					color: #AFCC00;
 				}
 				.bf-card-tag--pink-inner {
-					background: #E8175D;
+					background: #9E2B4F;
 					color: #fff;
 				}
 				.bf-side-title {
