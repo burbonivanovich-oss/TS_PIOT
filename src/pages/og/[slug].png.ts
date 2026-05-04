@@ -47,61 +47,79 @@ function escapeHtml(s: string): string {
 		.replace(/"/g, '&quot;');
 }
 
-// Цвет акцента по категории — левая вертикальная полоса и тег
-const CAT_ACCENT: Record<string, string> = {
-	'ts-piot':        '#3b82f6', // blue-500
-	'markirovka':     '#10b981', // emerald-500
-	'zakonodatelstvo':'#f59e0b', // amber-500
+// Цвета по категории — полоса и бейдж
+const CAT_STRIPE: Record<string, string> = {
+	'ts-piot':         '#AFCC00',
+	'markirovka':      '#9E2B4F',
+	'zakonodatelstvo': '#AFCC00',
+	'kkt':             '#AFCC00',
+	'egais':           '#AFCC00',
+};
+const CAT_BADGE_BG: Record<string, string> = {
+	'ts-piot':         '#AFCC00',
+	'markirovka':      '#9E2B4F',
+	'zakonodatelstvo': '#AFCC00',
+	'kkt':             '#AFCC00',
+	'egais':           '#AFCC00',
+};
+const CAT_BADGE_COLOR: Record<string, string> = {
+	'ts-piot':         '#111',
+	'markirovka':      '#fff',
+	'zakonodatelstvo': '#111',
+	'kkt':             '#111',
+	'egais':           '#111',
 };
 
 export async function GET({ props }: { props: Props }) {
 	const { post } = props;
 	const cat = post.data.categories[0] as keyof typeof CATEGORIES | undefined;
 	const catLabel = cat ? CATEGORIES[cat]?.title?.toUpperCase() : '';
-	const accent = (cat && CAT_ACCENT[cat]) ?? '#3b82f6';
+	const stripe    = (cat && CAT_STRIPE[cat])     ?? '#AFCC00';
+	const badgeBg   = (cat && CAT_BADGE_BG[cat])   ?? '#AFCC00';
+	const badgeColor = (cat && CAT_BADGE_COLOR[cat]) ?? '#111';
 
 	const bgDataUri = cat ? loadBgDataUri(cat) : null;
 
 	const headingStack = "'Commissioner', 'InterLat', 'InterLatExt'";
-	const bodyStack = "'Geologica', 'InterLat', 'InterLatExt'";
-	const fontStack = bodyStack;
+	const bodyStack    = "'Geologica', 'InterLat', 'InterLatExt'";
 	const titleText = escapeHtml(post.data.title);
-	const siteText = escapeHtml(SITE_TITLE);
-	const catText = escapeHtml(catLabel ?? '');
+	const catText   = escapeHtml(catLabel ?? '');
 
-	// Подбираем размер заголовка под длину — длинные заголовки уменьшаем
-	const titleLen = post.data.title.length;
-	const titleSize = titleLen > 80 ? 48 : titleLen > 55 ? 56 : 64;
+	// Размер заголовка под длину
+	const titleLen  = post.data.title.length;
+	const titleSize = titleLen > 80 ? 46 : titleLen > 55 ? 56 : 66;
 
-	const catTag = catText
-		? `<div style="display:flex; padding:6px 18px; background:${accent}22; color:${accent}; border:1px solid ${accent}44; border-radius:4px; font-size:20px; font-weight:700; letter-spacing:2px; margin-bottom:28px; align-self:flex-start;">${catText}</div>`
+	const catBadge = catText
+		? `<div style="display:flex; padding:5px 16px; background:${badgeBg}; color:${badgeColor}; font-size:18px; font-weight:700; letter-spacing:3px; margin-bottom:32px; align-self:flex-start; font-family:${bodyStack};">${catText}</div>`
 		: '';
 
-	// bgDataUri используется как background-image на внешнем wrapper.
-	// Overlay rgba(0,0,0,0.6) — на вложенном flex-контейнере, без position:absolute.
 	const outerBg = bgDataUri
 		? `background-image:url(${bgDataUri}); background-size:cover; background-position:center;`
-		: `background:#0d0d0d;`;
-	const overlayBg = bgDataUri ? `background:rgba(0,0,0,0.60);` : '';
+		: `background:#111;`;
+	const overlayBg = bgDataUri ? `background:rgba(0,0,0,0.68);` : '';
 
 	const markupString = `
-		<div style="display:flex; width:100%; height:100%; ${outerBg} font-family:${fontStack};">
+		<div style="display:flex; width:100%; height:100%; ${outerBg} font-family:${bodyStack};">
 			<div style="display:flex; flex-direction:row; width:100%; height:100%; ${overlayBg}">
-				<div style="display:flex; width:8px; background:${accent}; flex-shrink:0;"></div>
-				<div style="display:flex; flex-direction:column; flex:1; padding:56px 64px;">
-					<div style="display:flex; align-items:center; gap:14px;">
-						<div style="display:flex; width:52px; height:52px; border-radius:10px; background:${accent}; color:#fff; align-items:center; justify-content:center; font-size:20px; font-weight:700; letter-spacing:-0.5px;">Р·Б</div>
-						<div style="display:flex; font-size:22px; font-weight:700; color:rgba(255,255,255,0.5); letter-spacing:0.5px;">${siteText}</div>
+				<div style="display:flex; width:10px; background:${stripe}; flex-shrink:0;"></div>
+				<div style="display:flex; flex-direction:column; flex:1; padding:52px 68px;">
+
+					<div style="display:flex; align-items:baseline; gap:8px; margin-bottom:auto;">
+						<div style="display:flex; font-size:28px; font-weight:700; color:#fff; letter-spacing:3px; font-family:${headingStack};">ЭТИКЕТКА</div>
+						<div style="display:flex; font-size:13px; font-weight:600; color:rgba(255,255,255,0.4); letter-spacing:4px; text-transform:uppercase; margin-left:4px;">МЕДИА</div>
 					</div>
-					<div style="display:flex; flex-direction:column; flex:1; justify-content:center; padding:32px 0 24px;">
-						${catTag}
-						<div style="display:flex; font-size:${titleSize}px; font-weight:700; color:#ffffff; line-height:1.15; letter-spacing:-0.5px; font-family:${headingStack};">${titleText}</div>
+
+					<div style="display:flex; flex-direction:column; flex:1; justify-content:center; padding:24px 0;">
+						${catBadge}
+						<div style="display:flex; font-size:${titleSize}px; font-weight:700; color:#ffffff; line-height:1.12; letter-spacing:0.5px; font-family:${headingStack}; text-transform:uppercase;">${titleText}</div>
 					</div>
-					<div style="display:flex; align-items:center; gap:12px; font-size:20px; color:rgba(255,255,255,0.25);">
-						<div style="display:flex;">etiketka.media</div>
-						<div style="display:flex; width:3px; height:3px; border-radius:50%; background:rgba(255,255,255,0.2);"></div>
+
+					<div style="display:flex; align-items:center; gap:16px; font-size:18px; color:rgba(255,255,255,0.3); font-family:${bodyStack}; border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;">
+						<div style="display:flex;">этикетка.рф</div>
+						<div style="display:flex; width:4px; height:4px; background:rgba(255,255,255,0.2);"></div>
 						<div style="display:flex;">Для малого и среднего бизнеса</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
