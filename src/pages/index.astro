@@ -28,7 +28,7 @@ function fmtDate(d: Date): string {
 const CAT_COLORS: Record<string, { bg: string; letterColor: string; tagBg: string; tagColor: string }> = {
 	'ts-piot': { bg: '#111', letterColor: '#AFCC00', tagBg: '#111', tagColor: '#fff' },
 	'markirovka': { bg: '#9E2B4F', letterColor: '#fff', tagBg: '#9E2B4F', tagColor: '#fff' },
-	'zakonodatelstvo': { bg: '#AFCC00', letterColor: '#111', tagBg: '#AFCC00', tagColor: '#111' },
+	'zakonodatelstvo': { bg: '#1E4A7A', letterColor: '#fff', tagBg: '#1E4A7A', tagColor: '#fff' },
 };
 
 const catList = [
@@ -155,7 +155,7 @@ const catList = [
 									<a href={`/blog/${post.id}/`} class="small-card">
 										<div class="small-card-img" style={`background:${colors.bg}`}>
 											<span class="small-card-letter" style={`color:${colors.letterColor}`}>{abbrev(post.data.title)}</span>
-											<span class="small-card-date" style={cat === 'zakonodatelstvo' ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.6)'}>{fmtDate(post.data.pubDate)}</span>
+											<span class="small-card-date" style="color:rgba(255,255,255,.6)">{fmtDate(post.data.pubDate)}</span>
 										</div>
 										<div class="small-card-body">
 											{catTitle && (
@@ -305,7 +305,7 @@ const catList = [
 				background: #AFCC00;
 			}
 			.cat-tile.t3 {
-				background: #111;
+				background: #1E4A7A;
 			}
 			.t-num {
 				font-size: .65rem;
@@ -316,7 +316,7 @@ const catList = [
 				margin-bottom: 4px;
 			}
 			.t2 .t-num { color: #8aaa00; }
-			.t3 .t-num { color: #555; }
+			.t3 .t-num { color: rgba(255,255,255,.45); }
 			.t-name {
 				font-family: 'Bebas Neue', sans-serif;
 				font-size: 2rem;
@@ -333,7 +333,7 @@ const catList = [
 				margin-bottom: 4px;
 			}
 			.t2 .t-count { color: #666; }
-			.t3 .t-count { color: #555; }
+			.t3 .t-count { color: rgba(255,255,255,.45); }
 			.t-dot {
 				width: 8px;
 				height: 8px;
@@ -341,7 +341,7 @@ const catList = [
 			}
 			.t1 .t-dot { background: #9E2B4F; }
 			.t2 .t-dot { background: #111; }
-			.t3 .t-dot { background: #AFCC00; }
+			.t3 .t-dot { background: #AFCC00; } /* lime dot on blue — intentional contrast */
 
 			/* ── Latest section ── */
 			.latest {

@@ -128,8 +128,8 @@ const cpaBanner = CPA_BANNERS[cpaBannerId] ?? CPA_BANNERS['default-ts-piot'];
 const catAccent =
 	primaryCategory === 'ts-piot' ? '#111' :
 	primaryCategory === 'markirovka' ? '#9E2B4F' :
-	primaryCategory === 'zakonodatelstvo' ? '#AFCC00' : '#111';
-const catAccentText = primaryCategory === 'zakonodatelstvo' ? '#111' : '#fff';
+	primaryCategory === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
+const catAccentText = '#fff';
 
 /* Background letter from title abbreviation */
 function abbrev(t: string): string {
@@ -171,7 +171,7 @@ const shareTitle = encodeURIComponent(title);
 			<section class="art-hero">
 				<div class="art-hero-img" style={`background:${catAccent}`}>
 					{categoryMeta && (
-						<span class="art-hero-cat" style={`background:${primaryCategory === 'zakonodatelstvo' ? '#111' : '#9E2B4F'};color:#fff`}>
+						<span class="art-hero-cat" style={`background:#9E2B4F;color:#fff`}>
 							{categoryMeta.title}
 						</span>
 					)}
@@ -296,10 +296,10 @@ const shareTitle = encodeURIComponent(title);
 								<div class="related-grid related-grid--a2">
 									{related.map((post) => {
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
-										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#AFCC00' : '#111';
+										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
 										const abbr = abbrev(post.data.title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
-										const lightText = cat === 'zakonodatelstvo';
+										const lightText = false;
 										return (
 											<a href={`/blog/${post.id}/`} class="r-card">
 												<div class="r-card-top" style={`background:${accent}`}>
@@ -322,10 +322,10 @@ const shareTitle = encodeURIComponent(title);
 								<div class="related-grid related-grid--a3">
 									{related.map((post, i) => {
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
-										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#AFCC00' : '#111';
+										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
 										const abbr = abbrev(post.data.title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
-										const lightText = cat === 'zakonodatelstvo';
+										const lightText = false;
 										return (
 											<a href={`/blog/${post.id}/`} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--side'}>
 												<div class="r-card-top" style={`background:${accent}`}>
@@ -348,10 +348,10 @@ const shareTitle = encodeURIComponent(title);
 								<div class="related-grid related-grid--b">
 									{related.map((post, i) => {
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
-										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#AFCC00' : '#111';
+										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
 										const abbr = abbrev(post.data.title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
-										const lightText = cat === 'zakonodatelstvo';
+										const lightText = false;
 										return (
 											<a href={`/blog/${post.id}/`} class={i === 2 ? 'r-card r-card--wide' : 'r-card'}>
 												<div class="r-card-top" style={`background:${accent}`}>
@@ -374,10 +374,10 @@ const shareTitle = encodeURIComponent(title);
 								<div class="related-grid related-grid--c">
 									{related.slice(0, 4).map((post, i) => {
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
-										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#AFCC00' : '#111';
+										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
 										const abbr = abbrev(post.data.title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
-										const lightText = cat === 'zakonodatelstvo';
+										const lightText = false;
 										return (
 											<a href={`/blog/${post.id}/`} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--compact'}>
 												<div class="r-card-top" style={`background:${accent}`}>
