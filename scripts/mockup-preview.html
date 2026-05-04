@@ -3,179 +3,356 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Мокап статьи</title>
+<title>Мокап статьи — ТС ПИоТ</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', system-ui, sans-serif; background: #f6f4f0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: #F6F4F0; color: #1a1a1a; }
 
-  /* ── HEADER ── */
-  .header {
-    height: 56px; background: #111; display: flex; align-items: center;
-    padding: 0 32px; justify-content: space-between;
-  }
-  .logo { font-family: Georgia, serif; font-size: 1.1rem; color: #fff; letter-spacing: .05em; }
-  .logo span { color: #AFCC00; }
-  .nav { display: flex; gap: 24px; }
-  .nav a { color: #aaa; text-decoration: none; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; }
-  .cta-btn { background: #9E2B4F; color: #fff; padding: .4em 1.1em; font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; }
+/* ── HEADER ── */
+.site-header { height: 56px; background: #111; display: flex; align-items: center; padding: 0 32px; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.logo { font-size: 1rem; color: #fff; letter-spacing: .08em; font-weight: 700; text-transform: uppercase; }
+.logo em { color: #AFCC00; font-style: normal; }
+.nav { display: flex; gap: 24px; }
+.nav a { color: #aaa; text-decoration: none; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; }
+.nav a:hover { color: #fff; }
+.cta-btn { background: #9E2B4F; color: #fff; padding: .42em 1.1em; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; transition: background .15s; }
+.cta-btn:hover { background: #7d2240; }
 
-  /* ── HERO ── */
-  .art-hero {
-    display: grid;
-    grid-template-columns: 58fr 42fr;
-    height: calc(100vh - 56px);
-    min-height: 480px;
-    max-height: 700px;
-  }
-  .art-hero-img {
-    position: relative; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-    background: #111;
-  }
-  .art-hero-cat {
-    position: absolute; top: 20px; left: 20px;
-    font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-    padding: .3em .85em; z-index: 2;
-    background: #9E2B4F; color: #fff;
-  }
-  .art-hero-photo {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-  }
-  .art-hero-bg-letter {
-    font-size: 20rem; color: #AFCC00; opacity: .15; line-height: 1;
-    letter-spacing: -.03em; pointer-events: none; user-select: none;
-    font-weight: 900;
-  }
-  .art-hero-info {
-    padding: 32px 48px; display: flex; flex-direction: column;
-    justify-content: space-between; background: #EDE8DF; overflow: auto;
-  }
-  .art-hero-breadcrumbs {
-    font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-    color: #aaa; display: flex; align-items: center; gap: 6px;
-  }
-  .art-hero-breadcrumbs a { color: #aaa; text-decoration: none; }
-  .art-hero-top { display: flex; align-items: center; gap: 10px; }
-  .art-hero-date { font-size: .75rem; color: #888; }
-  .art-hero-readtime { font-size: .75rem; font-weight: 600; color: #999; letter-spacing: .04em; }
-  .art-h1 {
-    font-size: 3.2rem; line-height: 1; letter-spacing: .02em;
-    color: #111; text-transform: uppercase; margin: 0;
-    font-weight: 900; font-family: Impact, Arial Black, sans-serif;
-  }
-  .art-hero-bottom { border-top: 2px solid #111; padding-top: 20px; }
-  .art-lead { font-size: 1rem; color: #444; line-height: 1.65; font-style: italic; }
+/* ── PROGRESS BAR ── */
+#rp-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: #9E2B4F; z-index: 200; transition: width .1s linear; pointer-events: none; }
 
-  /* ── VARIANTS ── */
-  h2 { padding: 32px 32px 16px; font-size: 1rem; color: #666; font-weight: 400; }
+/* ── HERO ── */
+.art-hero { display: grid; grid-template-columns: 58fr 42fr; height: calc(100vh - 56px); min-height: 480px; max-height: 800px; }
+.art-hero-img { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #111; }
+.art-hero-cat { position: absolute; top: 20px; left: 20px; font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .3em .85em; z-index: 2; background: #9E2B4F; color: #fff; }
+.art-hero-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
+.art-hero-info { padding: 32px 48px; display: flex; flex-direction: column; justify-content: space-between; background: #EDE8DF; overflow: auto; }
+.art-hero-breadcrumbs { font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #aaa; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.art-hero-breadcrumbs a { color: #aaa; text-decoration: none; }
+.art-hero-breadcrumbs span { color: #ccc; }
+.art-hero-top { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+.art-updated-badge { background: #AFCC00; color: #111; font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .2em .6em; }
+.art-hero-readtime { font-size: .75rem; font-weight: 600; color: #999; letter-spacing: .04em; }
+.art-h1 { font-size: 2.9rem; line-height: 1.02; letter-spacing: .02em; color: #111; text-transform: uppercase; margin: 0 0 16px; font-weight: 900; font-family: Impact, 'Arial Black', Arial, sans-serif; }
+.art-hero-bottom { border-top: 2px solid #111; padding-top: 20px; }
+.art-lead { font-size: 1rem; color: #444; line-height: 1.65; font-style: italic; margin: 0; }
 
-  /* ── No image fallback ── */
-  .fallback-letter { font-size: 20rem; color: #AFCC00; opacity: .12; font-weight: 900; }
+/* ── BODY ── */
+.art-body { display: grid; grid-template-columns: 28fr 72fr; }
+
+/* ── SIDEBAR ── */
+.art-sidebar { padding: 16px; }
+.art-banner { position: sticky; top: calc(56px + 16px); background: #111; color: #fff; overflow: hidden; }
+.art-banner-visual { width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #9E2B4F; }
+.art-banner-big { font-size: 6rem; color: #fff; opacity: .18; line-height: 1; font-weight: 900; font-family: Impact, sans-serif; }
+.art-banner-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #AFCC00; display: block; padding: 14px 14px 6px; }
+.art-banner-title { font-family: Impact, 'Arial Black', sans-serif; font-size: 1.4rem; line-height: 1.05; letter-spacing: .03em; text-transform: uppercase; color: #fff; padding: 0 14px 8px; }
+.art-banner-desc { font-size: .78rem; color: #8A8A8A; line-height: 1.5; padding: 0 14px 14px; margin: 0; }
+.art-banner-cta { display: block; margin: 0 14px 14px; background: #9E2B4F; color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 10px 14px; text-decoration: none; text-align: center; }
+.art-banner-cta:hover { background: #7d2240; }
+
+/* ── CONTENT ── */
+.art-content { padding: 40px 48px 80px; border-left: 1px solid rgba(0,0,0,.08); min-height: 100vh; background: #fff; }
+
+/* TOC */
+.toc { border-left: 3px solid #9E2B4F; background: #F6F4F0; padding: 1rem 1.2rem; margin-bottom: 2rem; }
+.toc summary { cursor: pointer; font-family: Impact, 'Arial Black', sans-serif; font-size: 1.05rem; letter-spacing: .06em; color: #111; text-transform: uppercase; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.toc summary::-webkit-details-marker { display: none; }
+.toc summary::after { content: '▸'; font-size: .8rem; color: #9E2B4F; }
+.toc[open] summary::after { transform: rotate(90deg); display: inline-block; }
+.toc-list { margin: .8rem 0 0; padding-left: 1rem; list-style: none; }
+.toc-item { margin-bottom: .3rem; }
+.toc-depth-3 { padding-left: 1rem; }
+.toc-item a { color: #444; text-decoration: none; font-size: .88rem; }
+.toc-item a:hover { color: #9E2B4F; }
+
+/* PROSE */
+.prose { font-size: 1rem; line-height: 1.75; color: #1a1a1a; }
+.prose p { margin-bottom: 1.2rem; }
+.prose h2 { font-family: Impact, 'Arial Black', sans-serif; font-size: 1.7rem; font-weight: 900; letter-spacing: .02em; text-transform: uppercase; color: #111; margin: 2.2rem 0 .8rem; line-height: 1.1; }
+.prose h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin: 1.6rem 0 .6rem; }
+.prose ul, .prose ol { padding-left: 1.4rem; margin-bottom: 1.2rem; }
+.prose li { margin-bottom: .4rem; }
+.prose strong { font-weight: 700; color: #111; }
+.prose a { color: #9E2B4F; text-decoration: underline; text-underline-offset: 3px; }
+.prose blockquote { border-left: 3px solid #AFCC00; padding: .8rem 1.2rem; background: #f0f7d0; margin: 1.5rem 0; font-style: italic; color: #444; }
+.prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: .9rem; }
+.prose th { background: #111; color: #fff; padding: .6rem .8rem; text-align: left; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+.prose td { padding: .55rem .8rem; border-bottom: 1px solid rgba(0,0,0,.08); }
+.prose tr:nth-child(even) td { background: #F6F4F0; }
+
+/* CPA-врезка */
+.cpa-block { display: grid; grid-template-columns: 120px 1fr auto; align-items: stretch; margin: 2.5rem 0; border: 2px solid #111; overflow: hidden; }
+.cpa-visual { display: flex; align-items: center; justify-content: center; background: #111; }
+.cpa-visual-letter { font-family: Impact, sans-serif; font-size: 3.5rem; color: #AFCC00; line-height: 1; }
+.cpa-body { padding: 18px 22px; background: #fff; }
+.cpa-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #888; margin-bottom: 4px; }
+.cpa-title { font-family: Impact, 'Arial Black', sans-serif; font-size: 1.2rem; letter-spacing: .03em; text-transform: uppercase; color: #111; line-height: 1.1; margin-bottom: 5px; }
+.cpa-desc { font-size: .82rem; color: #555; line-height: 1.55; margin: 0; }
+.cpa-action { padding: 0 22px; background: #fff; border-left: 1px solid rgba(0,0,0,.08); display: flex; align-items: center; }
+.cpa-btn { display: inline-block; background: #9E2B4F; color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 12px 18px; text-decoration: none; white-space: nowrap; }
+
+/* Share */
+.art-share { display: flex; align-items: center; gap: 8px; padding: 1.2rem 0; border-top: 1px solid rgba(0,0,0,.1); border-bottom: 1px solid rgba(0,0,0,.1); margin-top: 2rem; }
+.share-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #888; margin-right: 4px; }
+.share-btn { display: inline-block; padding: 6px 14px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; background: #111; color: #EDE8DF; }
+
+/* Читайте также */
+.related { margin-top: 2.5rem; }
+.related-eyebrow { font-family: Impact, 'Arial Black', sans-serif; font-size: 1.7rem; letter-spacing: .03em; color: #111; display: block; margin-bottom: 12px; text-transform: uppercase; }
+.related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.r-card { display: flex; flex-direction: column; background: #fff; text-decoration: none; color: inherit; overflow: hidden; }
+.r-card-top { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 14px 16px; flex-shrink: 0; height: 130px; }
+.r-card-abbr { position: absolute; right: 6px; bottom: -10px; font-family: Impact, sans-serif; font-size: 5.5rem; line-height: 1; opacity: .14; }
+.r-card-cat { font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; position: relative; z-index: 1; color: #AFCC00; }
+.r-card-body { padding: 14px 16px 18px; flex: 1; display: flex; flex-direction: column; gap: 7px; background: #F6F4F0; }
+.r-card-body h3 { font-family: Impact, 'Arial Black', sans-serif; letter-spacing: .02em; text-transform: uppercase; color: #111; line-height: 1.15; margin: 0; font-size: 1.1rem; }
+.r-card-body p { font-size: .82rem; color: #666; line-height: 1.5; margin: 0; }
+.r-card-read { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #9E2B4F; margin-top: auto; padding-top: 6px; }
+
+/* Disclaimer */
+.art-foot { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,.1); }
+.disclaimer { font-size: .82rem; color: #999; font-style: italic; }
+
+/* FOOTER */
+.site-footer { background: #111; color: #666; padding: 40px 32px; margin-top: 0; font-size: .82rem; }
+.site-footer a { color: #888; text-decoration: none; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .art-body { grid-template-columns: 1fr; }
+  .art-sidebar { display: none; }
+  .art-content { border-left: none; }
+}
+@media (max-width: 820px) {
+  .art-hero { grid-template-columns: 1fr; height: auto; }
+  .art-hero-img { height: 280px; }
+  .art-hero-info { padding: 24px; }
+  .art-h1 { font-size: 2rem; }
+  .related-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
+<div id="rp-bar"></div>
+
 <!-- HEADER -->
-<div class="header">
-  <div class="logo">ЭТИКЕТКА<span>.</span>МЕДИА</div>
+<header class="site-header">
+  <div class="logo">ЭТИКЕТКА<em>.</em>МЕДИА</div>
   <nav class="nav">
     <a href="#">Статьи</a>
     <a href="#">ТС ПИоТ</a>
     <a href="#">Маркировка</a>
+    <a href="#">ККТ</a>
     <a href="#">Словарь</a>
   </nav>
-  <a href="#" class="cta-btn">Консультация</a>
-</div>
+  <a href="#" class="cta-btn">Задать вопрос</a>
+</header>
 
-<h2>Вариант 1 — с тёмным hero-изображением (сгенерировано)</h2>
+<article>
 
-<!-- HERO с фото -->
-<section class="art-hero">
-  <div class="art-hero-img">
-    <span class="art-hero-cat">ТС ПИоТ</span>
-    <!-- Вставить путь к реальному файлу, если есть: -->
-    <img
-      class="art-hero-photo"
-      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='700'%3E%3Crect width='900' height='700' fill='%23111'/%3E%3Crect x='180' y='200' width='260' height='180' rx='12' fill='%23222'/%3E%3Crect x='220' y='230' width='180' height='110' rx='6' fill='%23333'/%3E%3Ccircle cx='310' cy='285' r='25' fill='%23444'/%3E%3Crect x='460' y='280' width='160' height='100' rx='8' fill='%23222'/%3E%3Crect x='460' y='380' width='80' height='8' fill='%23eee'/%3E%3Crect x='460' y='396' width='60' height='4' fill='%23888'/%3E%3Crect x='460' y='408' width='70' height='4' fill='%23888'/%3E%3Crect x='100' y='420' width='700' height='2' fill='%23222'/%3E%3C/svg%3E"
-      alt="POS-терминал"
-      onerror="this.style.display='none'"
-    />
-    <!-- Показать если нет изображения -->
-  </div>
-  <div class="art-hero-info">
-    <nav class="art-hero-breadcrumbs">
-      <a href="#">Главная</a><span>/</span>
-      <a href="#">Статьи</a><span>/</span>
-      <a href="#">ТС ПИоТ</a>
-    </nav>
-    <div>
-      <div class="art-hero-top">
-        <span class="art-hero-date">15 января 2026</span>
-        <span class="art-hero-readtime">8 мин</span>
+  <!-- HERO -->
+  <section class="art-hero">
+    <div class="art-hero-img">
+      <span class="art-hero-cat">ТС ПИоТ</span>
+      <img
+        class="art-hero-photo"
+        src="../public/images/hero/2026-01-15-chto-takoe-ts-piot.jpg"
+        alt="ТС ПИоТ: что это, кому нужен и как подключить онлайн-кассу к «Честному знаку»"
+      />
+    </div>
+    <div class="art-hero-info">
+      <nav class="art-hero-breadcrumbs">
+        <a href="#">Главная</a><span>/</span>
+        <a href="#">Статьи</a><span>/</span>
+        <a href="#">ТС ПИоТ</a>
+      </nav>
+      <div>
+        <div class="art-hero-top">
+          <span class="art-updated-badge">Актуально на 20 апр 2026</span>
+          <span class="art-hero-readtime">12 мин</span>
+        </div>
+        <h1 class="art-h1">ТС ПИоТ: что это, кому нужен и как подключить онлайн-кассу к «Честному знаку»</h1>
       </div>
-      <h1 class="art-h1">Что такое ТС ПИоТ и зачем он нужен на кассе</h1>
-    </div>
-    <div class="art-hero-bottom">
-      <p class="art-lead">С 28 декабря 2025 года большинство розничных магазинов обязаны установить ТС ПИоТ — программный модуль для работы с маркированными товарами. Разбираемся, что это, кого касается и как подключить.</p>
-    </div>
-  </div>
-</section>
-
-<h2 style="margin-top:32px">Вариант 2 — без изображения (fallback: буква на цветном фоне)</h2>
-
-<section class="art-hero">
-  <div class="art-hero-img" style="background:#111">
-    <span class="art-hero-cat">ТС ПИоТ</span>
-    <span class="fallback-letter">ЧТ</span>
-  </div>
-  <div class="art-hero-info">
-    <nav class="art-hero-breadcrumbs">
-      <a href="#">Главная</a><span>/</span>
-      <a href="#">Статьи</a><span>/</span>
-      <a href="#">ТС ПИоТ</a>
-    </nav>
-    <div>
-      <div class="art-hero-top">
-        <span class="art-hero-date">15 января 2026</span>
-        <span class="art-hero-readtime">8 мин</span>
+      <div class="art-hero-bottom">
+        <p class="art-lead">Разбираем, что такое техническое средство получения информации о товаре, кто обязан его внедрить с 28 декабря 2025 года, как настроить и какие штрафы за отсутствие.</p>
       </div>
-      <h1 class="art-h1">Что такое ТС ПИоТ и зачем он нужен на кассе</h1>
     </div>
-    <div class="art-hero-bottom">
-      <p class="art-lead">С 28 декабря 2025 года большинство розничных магазинов обязаны установить ТС ПИоТ — программный модуль для работы с маркированными товарами. Разбираемся, что это, кого касается и как подключить.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<h2 style="margin-top:32px">Вариант 3 — светлый minimal (zakonodatelstvo, кремовый фон)</h2>
+  <!-- BODY -->
+  <div class="art-body">
 
-<section class="art-hero">
-  <div class="art-hero-img" style="background:#EDE8DF">
-    <span class="art-hero-cat" style="background:#AFCC00;color:#111">Законодательство</span>
-    <img
-      class="art-hero-photo"
-      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='700'%3E%3Crect width='900' height='700' fill='%23EDE8DF'/%3E%3Crect x='200' y='160' width='320' height='420' rx='4' fill='%23fff' stroke='%23ddd' stroke-width='1'/%3E%3Crect x='220' y='190' width='200' height='8' rx='2' fill='%23ccc'/%3E%3Crect x='220' y='210' width='260' height='4' rx='2' fill='%23ddd'/%3E%3Crect x='220' y='224' width='240' height='4' rx='2' fill='%23ddd'/%3E%3Crect x='220' y='238' width='220' height='4' rx='2' fill='%23ddd'/%3E%3Crect x='220' y='270' width='260' height='4' rx='2' fill='%23ddd'/%3E%3Crect x='220' y='284' width='240' height='4' rx='2' fill='%23ddd'/%3E%3Crect x='480' y='300' width='180' height='220' rx='4' fill='%23f5f5f0' stroke='%23ddd' stroke-width='1'/%3E%3Crect x='400' y='520' width='80' height='16' rx='2' fill='%239E2B4F'/%3E%3C/svg%3E"
-      alt="Документы"
-    />
-  </div>
-  <div class="art-hero-info" style="background:#fff">
-    <nav class="art-hero-breadcrumbs">
-      <a href="#">Главная</a><span>/</span>
-      <a href="#">Статьи</a><span>/</span>
-      <a href="#">Законодательство</a>
-    </nav>
-    <div>
-      <div class="art-hero-top">
-        <span class="art-hero-date">1 мая 2026</span>
-        <span class="art-hero-readtime">6 мин</span>
+    <!-- SIDEBAR -->
+    <aside class="art-sidebar">
+      <div class="art-banner">
+        <div class="art-banner-visual">
+          <span class="art-banner-big">ЧЗ</span>
+        </div>
+        <span class="art-banner-eyebrow">Партнёрский материал</span>
+        <div class="art-banner-title">Подключите ТС ПИоТ без лишних хлопот</div>
+        <p class="art-banner-desc">Настройка кассы под «Честный знак» за 1 день. Эвотор, Атол, Штрих, Дримкас.</p>
+        <a href="#" class="art-banner-cta">Узнать условия</a>
       </div>
-      <h1 class="art-h1">Налоги для МСБ в 2026 году: что изменилось на УСН</h1>
-    </div>
-    <div class="art-hero-bottom">
-      <p class="art-lead">С 1 января 2026 предприниматели на упрощённой системе налогообложения платят НДС. Разбираемся, кого это касается, как считать и можно ли избежать двойной нагрузки.</p>
-    </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="art-content">
+
+      <details class="toc" open>
+        <summary>Содержание</summary>
+        <nav>
+          <ol class="toc-list">
+            <li class="toc-item"><a href="#">Что такое ТС ПИоТ простыми словами</a></li>
+            <li class="toc-item"><a href="#">Кому нужен ТС ПИоТ</a></li>
+            <li class="toc-item"><a href="#">Как технически работает ТС ПИоТ</a></li>
+            <li class="toc-item toc-depth-3"><a href="#">Что происходит, когда нет интернета</a></li>
+            <li class="toc-item"><a href="#">Как работает ТС ПИоТ в популярных кассовых системах</a></li>
+            <li class="toc-item"><a href="#">Что проверить прямо сейчас</a></li>
+            <li class="toc-item"><a href="#">Что грозит, если ТС ПИоТ не подключить</a></li>
+            <li class="toc-item"><a href="#">Какие бывают сценарии отказа</a></li>
+            <li class="toc-item"><a href="#">Частые вопросы</a></li>
+          </ol>
+        </nav>
+      </details>
+
+      <div class="prose">
+        <p>С 28 декабря 2025 года все онлайн-кассы, через которые продают маркированный товар, обязаны работать с <strong>техническим средством получения информации о товаре</strong> — ТС ПИоТ. Это не железка, а программа внутри кассы. В момент, когда кассир сканирует код Data Matrix, ТС ПИоТ напрямую спрашивает у «Честного знака»: «этот товар легальный?» — и, если что-то не так, не даёт пробить чек.</p>
+        <p>Дальше разбираем, кому он нужен, как работает, как его подключить и что будет, если этого не сделать.</p>
+
+        <h2>Что такое ТС ПИоТ простыми словами?</h2>
+        <p>ТС ПИоТ — это «фильтр» между кассой и «Честным знаком». Раньше касса печатала чек с кодом, а оператор фискальных данных (ОФД) отправлял эти данные в систему уже после продажи. Сейчас проверка идёт <strong>до того, как касса напечатает чек</strong>:</p>
+        <ol>
+          <li>Кассир сканирует код Data Matrix на упаковке.</li>
+          <li>ТС ПИоТ сразу отправляет этот код в «Честный знак».</li>
+          <li>Система отвечает: код в порядке / товар уже продан / снят с оборота / просрочен / заблокирован.</li>
+          <li>Если ответ «всё хорошо» — касса печатает чек. Если нет — продажа не проходит.</li>
+        </ol>
+        <p>Этот порядок называется <strong>разрешительным режимом</strong>, и ТС ПИоТ — это та самая программа, которая делает его возможным в обычной рознице.</p>
+
+        <h2>Кому нужен ТС ПИоТ?</h2>
+        <p>Правило касается всех, кто продаёт маркированный товар покупателю — в магазине или в кафе. Под маркировку сейчас попадают:</p>
+        <ul>
+          <li>сигареты, вейпы и стики;</li>
+          <li>молочка;</li>
+          <li>бутилированная вода;</li>
+          <li>пиво и слабый алкоголь в упаковке;</li>
+          <li>обувь и часть одежды;</li>
+          <li>безалкогольные напитки и лимонады в упаковке;</li>
+          <li>БАДы, антисептики, парфюмерия — список расширяется.</li>
+        </ul>
+        <p>Размер бизнеса не важен. Если вы на УСН, патенте или самозанятый и продаёте через кассу хотя бы один маркированный товар — правило для вас такое же, как для сетевого магазина.</p>
+
+        <blockquote>
+          <strong>На заметку.</strong> Если у вас вообще нет маркированных товаров (например, кафе без пива и молочки в упаковке), ТС ПИоТ не нужен. Но обновить кассовую программу до версии с этим модулем всё равно полезно — список товаров под маркировкой растёт.
+        </blockquote>
+
+        <h2>Как технически работает ТС ПИоТ?</h2>
+        <p>Модуль встраивается в кассовую программу (Эвотор, Атол, МойСклад, 1С, Дримкас и т.д.) и общается с «Честным знаком» по защищённому каналу. Все настройки шифрования и сертификатов делает поставщик кассы — вам ничего вручную крутить не нужно.</p>
+        <p>Что важно знать на практике:</p>
+        <ul>
+          <li><strong>Нужен интернет.</strong> Без сети касса работает в особом режиме — есть лимит по количеству чеков и времени.</li>
+          <li><strong>Скорость.</strong> Проверка обычно занимает меньше секунды.</li>
+          <li><strong>Блокировка.</strong> Если «Честный знак» ответил «нет» — касса не пробьёт чек.</li>
+        </ul>
+
+        <h3>Что происходит, когда нет интернета</h3>
+        <p>ТС ПИоТ поддерживает <strong>офлайн-режим</strong>, но с ограничениями. Пока связь отсутствует, касса обращается к локальному кешу. Если интернета нет долго — кассовое ПО переходит в режим блокировки продаж маркированных товаров.</p>
+
+        <h2>Что проверить прямо сейчас?</h2>
+        <table>
+          <thead><tr><th>Шаг</th><th>Что проверить</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Касса работает с ТС ПИоТ. Спросите у поставщика — он подтвердит письмом или счётом за обновление.</td></tr>
+            <tr><td>2</td><td>На точке стабильный интернет, и есть резервный канал — хотя бы 4G на телефоне.</td></tr>
+            <tr><td>3</td><td>Кассиры знают, что делать, если касса не пропускает товар.</td></tr>
+            <tr><td>4</td><td>Учётная программа видит, какой маркированный товар продали, и сводит остатки с реальностью.</td></tr>
+            <tr><td>5</td><td>Договор с ОФД действует, и оператор поддерживает разрешительный режим.</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Что грозит, если ТС ПИоТ не подключить?</h2>
+        <p>Отдельной строки «штраф за отсутствие ТС ПИоТ» в законе нет. Но рисков несколько, и все ощутимые:</p>
+        <ul>
+          <li><strong>Продажа немаркированного товара</strong> — ст. 15.12 КоАП РФ. ИП — до 15 000 ₽, юрлицу — до 300 000 ₽ плюс изъятие товара.</li>
+          <li><strong>Нарушение в работе кассы</strong> — ст. 14.5 КоАП РФ. ИП — от 1 500 ₽, юрлицу — от 5 000 ₽ за каждый случай.</li>
+          <li><strong>Просто перестанете продавать.</strong> Кассы без ТС ПИоТ просто не пробьют чек на маркированный товар.</li>
+        </ul>
+      </div>
+
+      <!-- CPA-врезка -->
+      <div class="cpa-block">
+        <div class="cpa-visual"><span class="cpa-visual-letter">ЧЗ</span></div>
+        <div class="cpa-body">
+          <div class="cpa-eyebrow">Партнёрский блок</div>
+          <div class="cpa-title">Настройка ТС ПИоТ под ключ</div>
+          <p class="cpa-desc">Эвотор, Атол, Штрих, Дримкас — подключим за 1 рабочий день. Договор, акт, гарантия.</p>
+        </div>
+        <div class="cpa-action">
+          <a href="#" class="cpa-btn">Получить предложение</a>
+        </div>
+      </div>
+
+      <!-- Share -->
+      <div class="art-share">
+        <span class="share-label">Поделиться</span>
+        <a href="#" class="share-btn">Telegram</a>
+        <a href="#" class="share-btn">ВКонтакте</a>
+      </div>
+
+      <!-- Читайте также -->
+      <aside class="related">
+        <span class="related-eyebrow">Читайте также</span>
+        <div class="related-grid">
+          <a href="#" class="r-card">
+            <div class="r-card-top" style="background:#9E2B4F">
+              <span class="r-card-abbr" style="color:#fff">КМ</span>
+              <span class="r-card-cat">Маркировка</span>
+            </div>
+            <div class="r-card-body">
+              <h3>Категории маркировки в 2026 году</h3>
+              <p>Какие товары охвачены и в какие сроки — полный список с датами.</p>
+              <span class="r-card-read">Читать →</span>
+            </div>
+          </a>
+          <a href="#" class="r-card">
+            <div class="r-card-top" style="background:#AFCC00">
+              <span class="r-card-abbr" style="color:#111">НМ</span>
+              <span class="r-card-cat" style="color:#111">Законодательство</span>
+            </div>
+            <div class="r-card-body">
+              <h3>Налоги для МСБ в 2026 году</h3>
+              <p>ЕНС, УСН с НДС, проверки и ЭДО в одном обзоре для малого бизнеса.</p>
+              <span class="r-card-read">Читать →</span>
+            </div>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Disclaimer -->
+      <div class="art-foot">
+        <p class="disclaimer">Материал носит информационный характер и не является юридической консультацией. Нормы актуальны на дату публикации — проверяйте изменения в законодательстве.</p>
+      </div>
+
+    </main>
   </div>
-</section>
+</article>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <span>© 2026 Этикетка.Медиа — информационный портал для МСБ</span>
+</footer>
+
+<script>
+// Progress bar
+const bar = document.getElementById('rp-bar');
+document.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  bar.style.width = pct + '%';
+});
+</script>
 
 </body>
 </html>
