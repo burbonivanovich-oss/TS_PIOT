@@ -23,18 +23,29 @@ fs.mkdirSync(PREVIEW_DIR, { recursive: true });
 const API_KEY = process.env.OPENROUTER_API_KEY;
 if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
 
+/* Превью — простой графический паттерн, читается на карточке ~300px.
+   Один доминирующий символ/форма + плашка цвета категории. Без фото. */
 const CAT_STYLE = {
-  'ts-piot':         'modern compact POS terminal and receipt printer on a dark retail counter, strong directional side light, dark charcoal background',
-  'markirovka':      'consumer product packages with large bold single-word labels and QR code stickers, arranged on a cream-beige surface, clean overhead light, minimal editorial still life',
-  'zakonodatelstvo': 'stack of printed documents and a pen on a deep navy-blue desk surface, cool window light with blue-grey shadows, clean minimal composition',
-  'kkt':             'smart POS terminal on a dark counter, warm ambient light, moody retail atmosphere',
-  'egais':           'wine and spirits bottles on a dark bar surface, strong backlight rim highlights, moody atmosphere',
+  'ts-piot':
+    'flat graphic icon of a POS terminal, bold solid silhouette, charcoal #111 background, ' +
+    'lime-green #AFCC00 accent lines, centered composition, large single symbol',
+  'markirovka':
+    'flat graphic QR code pattern as bold geometric tile, cream-beige #EDE8DF background, ' +
+    'dark #111 graphic elements, large centered motif',
+  'zakonodatelstvo':
+    'flat graphic icon of a document with a pen, bold solid silhouette, deep navy #1E4A7A background, ' +
+    'white accent, centered composition, large single symbol',
+  'kkt':
+    'flat graphic icon of a receipt printer with paper roll, bold solid silhouette, ' +
+    'charcoal #111 background, warm amber accent, centered composition, large single symbol',
+  'egais':
+    'flat graphic icon of a wine bottle, bold solid silhouette, dark #111 background, ' +
+    'burgundy #9E2B4F accent, centered composition, large single symbol',
 };
 
 const STYLE_SUFFIX =
-  'editorial photography, professional B2B context, no text overlays, no people faces, ' +
-  'omit any small print or fine print; keep only naturally large legible text where it belongs, ' +
-  'photorealistic, sharp focus, 4:3 aspect ratio';
+  'flat graphic design, bold minimal icon, 2–3 solid colors, no gradients, no photography, ' +
+  'no text overlays, no people, clean vector-style illustration, 4:3 aspect ratio';
 
 function parseFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
@@ -48,8 +59,8 @@ function parseFrontmatter(content) {
 }
 
 function buildPrompt(title, category) {
-  const catStyle = CAT_STYLE[category] ?? 'dark office environment, business documents';
-  return `${catStyle}, editorial still life composition, topic context: ${title}. ${STYLE_SUFFIX}`;
+  const catStyle = CAT_STYLE[category] ?? 'flat graphic icon, dark background, bold silhouette';
+  return `${catStyle}. ${STYLE_SUFFIX}`;
 }
 
 async function generateImage(prompt) {
