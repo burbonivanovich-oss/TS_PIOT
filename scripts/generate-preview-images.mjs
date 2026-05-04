@@ -24,24 +24,43 @@ const API_KEY = process.env.OPENROUTER_API_KEY;
 if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
 
 /* Превью — простой графический паттерн, читается на карточке ~300px.
-   Один доминирующий символ/форма + плашка цвета категории. Без фото. */
-const CAT_STYLE = {
-  'ts-piot':
-    'flat graphic icon of a POS terminal, bold solid silhouette, charcoal #111 background, ' +
-    'lime-green #AFCC00 accent lines, centered composition, large single symbol',
-  'markirovka':
-    'flat graphic QR code pattern as bold geometric tile, cream-beige #EDE8DF background, ' +
-    'dark #111 graphic elements, large centered motif',
-  'zakonodatelstvo':
-    'flat graphic icon of a document with a pen, bold solid silhouette, deep navy #1E4A7A background, ' +
-    'white accent, centered composition, large single symbol',
-  'kkt':
-    'flat graphic icon of a receipt printer with paper roll, bold solid silhouette, ' +
-    'charcoal #111 background, warm amber accent, centered composition, large single symbol',
-  'egais':
-    'flat graphic icon of a wine bottle, bold solid silhouette, dark #111 background, ' +
-    'burgundy #9E2B4F accent, centered composition, large single symbol',
+   3 варианта на категорию; выбор детерминирован по хэшу слага. */
+const CAT_VARIANTS = {
+  'ts-piot': [
+    'flat graphic icon of a POS terminal, bold solid silhouette, charcoal #111 background, lime-green #AFCC00 accent lines, centered composition, large single symbol',
+    'flat graphic icon of a receipt tape unrolling from a printer, bold minimal lines, charcoal #111 background, lime-green #AFCC00 accent, centered large symbol',
+    'flat graphic icon of a chip card inserted into a terminal slot, bold geometric silhouette, charcoal #111 background, lime-green #AFCC00 highlight, centered composition',
+  ],
+  'markirovka': [
+    'flat graphic QR code pattern as bold geometric tile, cream-beige #EDE8DF background, dark #111 graphic elements, large centered motif',
+    'flat graphic icon of a product tag with a barcode, bold solid shapes, cream-beige #EDE8DF background, dark #111 lines, centered large symbol',
+    'flat graphic icon of a scanning beam over a label, bold minimal composition, cream-beige #EDE8DF background, dark #111 elements, centered motif',
+  ],
+  'zakonodatelstvo': [
+    'flat graphic icon of a document with a pen, bold solid silhouette, deep navy #1E4A7A background, white accent, centered composition, large single symbol',
+    'flat graphic icon of legal scales (balance), bold minimal silhouette, deep navy #1E4A7A background, white accent lines, centered large symbol',
+    'flat graphic icon of a calendar page with a checkmark, bold solid shapes, deep navy #1E4A7A background, white graphic elements, centered composition',
+  ],
+  'kkt': [
+    'flat graphic icon of a receipt printer with paper roll, bold solid silhouette, charcoal #111 background, warm amber accent, centered composition, large single symbol',
+    'flat graphic icon of a cash register, bold minimal silhouette, charcoal #111 background, warm amber #E8A000 accent, centered large symbol',
+    'flat graphic icon of a fiscal storage drive (small rectangle chip), bold geometric shape, charcoal #111 background, warm amber accent lines, centered composition',
+  ],
+  'egais': [
+    'flat graphic icon of a wine bottle, bold solid silhouette, dark #111 background, burgundy #9E2B4F accent, centered composition, large single symbol',
+    'flat graphic icon of a wine glass, bold minimal silhouette, dark #111 background, burgundy #9E2B4F fill, centered large symbol',
+    'flat graphic icon of two spirits bottles side by side, bold solid shapes, dark #111 background, burgundy #9E2B4F and white accents, centered composition',
+  ],
 };
+
+function pickVariant(slug, category) {
+  const variants = CAT_VARIANTS[category] ?? [
+    'flat graphic icon, dark background, bold silhouette, centered',
+  ];
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) hash = (hash * 31 + slug.charCodeAt(i)) >>> 0;
+  return variants[hash % variants.length];
+}
 
 const STYLE_SUFFIX =
   'flat graphic design, bold minimal icon, 2–3 solid colors, no gradients, no photography, ' +
@@ -58,9 +77,9 @@ function parseFrontmatter(content) {
   return fm;
 }
 
-function buildPrompt(title, category) {
-  const catStyle = CAT_STYLE[category] ?? 'flat graphic icon, dark background, bold silhouette';
-  return `${catStyle}. ${STYLE_SUFFIX}`;
+function buildPrompt(slug, category) {
+  const variant = pickVariant(slug, category);
+  return `${variant}. ${STYLE_SUFFIX}`;
 }
 
 async function generateImage(prompt) {
@@ -127,9 +146,8 @@ for (const file of targets) {
   if (!fm) { console.warn(`Пропуск ${file}: не распарсился frontmatter`); continue; }
 
   const slug     = file.replace(/\.md$/, '');
-  const title    = fm.title ?? slug;
   const category = (content.match(/categories:\s*\n\s*-\s*(\S+)/) || [])[1] ?? 'zakonodatelstvo';
-  const prompt   = buildPrompt(title, category);
+  const prompt   = buildPrompt(slug, category);
 
   process.stdout.write(`${slug}... `);
   try {
