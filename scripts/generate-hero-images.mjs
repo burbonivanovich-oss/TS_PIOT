@@ -102,9 +102,10 @@ async function generateImage(prompt) {
 
 // Собираем список статей для обработки
 const targetSlug = process.env.SLUG;
+const limit      = process.env.LIMIT ? parseInt(process.env.LIMIT, 10) : 0;
 const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
 
-const targets = files.filter(file => {
+let targets = files.filter(file => {
   if (targetSlug && !file.startsWith(targetSlug) && file !== targetSlug + '.md') return false;
   const content = fs.readFileSync(path.join(BLOG_DIR, file), 'utf8');
   if (/^heroImage:/m.test(content)) return false;
@@ -112,12 +113,15 @@ const targets = files.filter(file => {
   return true;
 });
 
+if (limit > 0) targets = targets.slice(0, limit);
+
 if (targets.length === 0) {
   console.log('Нет статей для генерации (все уже имеют heroImage или являются черновиками).');
   process.exit(0);
 }
 
 console.log(`Модель: ${MODEL}`);
+if (limit > 0) console.log(`Лимит: ${limit} статьи(й)`);
 console.log(`Буду генерировать hero для ${targets.length} статьи(й)...\n`);
 
 for (const file of targets) {

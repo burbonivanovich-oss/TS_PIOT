@@ -1,16 +1,16 @@
 name: Generate Article Images
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'src/content/blog/**.md'
   workflow_dispatch:
     inputs:
       slug:
-        description: 'Slug статьи (без .md). Пусто = все статьи без изображений'
+        description: 'Slug статьи (без .md). Пусто = по лимиту'
         required: false
         default: ''
+      limit:
+        description: 'Сколько статей обработать (0 = все без изображений)'
+        required: false
+        default: '0'
 
 jobs:
   generate:
@@ -20,6 +20,7 @@ jobs:
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       SLUG: ${{ inputs.slug }}
+      LIMIT: ${{ inputs.limit }}
 
     steps:
       - uses: actions/checkout@v4
