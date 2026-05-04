@@ -63,8 +63,13 @@ async function generateImage(prompt) {
     body: JSON.stringify({ model: MODEL, prompt, n: 1 }),
   });
 
-  if (!res.ok) throw new Error(`API ${res.status}: ${(await res.text()).slice(0, 400)}`);
-  const data = await res.json();
+  const rawText = await res.text();
+  console.log(`\n[DEBUG] status=${res.status} content-type=${res.headers.get('content-type')}`);
+  console.log(`[DEBUG] body=${rawText.slice(0, 600)}\n`);
+  if (!res.ok) throw new Error(`API ${res.status}: ${rawText.slice(0, 400)}`);
+  let data;
+  try { data = JSON.parse(rawText); }
+  catch { throw new Error(`Не JSON (${res.status}): ${rawText.slice(0, 400)}`); }
 
   const item = data?.data?.[0];
   if (!item) throw new Error('Нет данных: ' + JSON.stringify(data).slice(0, 400));
