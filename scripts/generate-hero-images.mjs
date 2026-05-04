@@ -1,12 +1,12 @@
 /**
  * Генерирует hero-изображения для статей через OpenRouter (FLUX).
- * Для каждой статьи без heroImage создаёт картинку и прописывает путь во frontmatter.
+ * Использует OpenAI-совместимый endpoint /v1/images/generations.
  *
  * Запуск через GitHub Actions (стандартный способ):
  *   Actions → Generate Article Images → Run workflow
  *
- * Модель по умолчанию: black-forest-labs/flux-1.1-pro
- * Переопределить: HERO_MODEL=black-forest-labs/flux-1-schnell
+ * Модель по умолчанию: black-forest-labs/flux-pro-1.1
+ * Переопределить: HERO_MODEL=black-forest-labs/flux-pro
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,32 +16,24 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
 const BLOG_DIR  = path.join(ROOT, 'src/content/blog');
 const HERO_DIR  = path.join(ROOT, 'public/images/hero');
-const MODEL     = process.env.HERO_MODEL ?? 'black-forest-labs/flux-1.1-pro';
+const MODEL     = process.env.HERO_MODEL ?? 'black-forest-labs/flux-pro-1.1';
 
 fs.mkdirSync(HERO_DIR, { recursive: true });
 
 const API_KEY = process.env.OPENROUTER_API_KEY;
 if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
 
-// Тематические акценты по категории
 const CAT_STYLE = {
-  'ts-piot':
-    'modern compact POS terminal, fiscal receipt printer, retail counter, dark background',
-  'markirovka':
-    'product packaging with QR labels, retail shelves, barcode scanner, dark warehouse',
-  'zakonodatelstvo':
-    'printed documents, laptop on office desk, pen and forms, dark desk surface',
-  'kkt':
-    'cash register, fiscal receipt, checkout counter, dark retail environment',
-  'egais':
-    'wine and spirits bottles on shelves, bar counter, dark moody lighting',
+  'ts-piot':         'modern compact POS terminal, fiscal receipt printer, retail counter, dark background',
+  'markirovka':      'product packaging with QR labels, retail shelves, barcode scanner, dark warehouse',
+  'zakonodatelstvo': 'printed documents, laptop on office desk, pen and forms, dark desk surface',
+  'kkt':             'cash register, fiscal receipt, checkout counter, dark retail environment',
+  'egais':           'wine and spirits bottles on shelves, bar counter, dark moody lighting',
 };
 
-// Стилевой суффикс — editorial photography под бренд сайта
 const STYLE_SUFFIX =
   'high contrast editorial photography, dark dramatic lighting, sharp shadows, ' +
-  'professional B2B context, Russian small retail or office environment, ' +
-  'no text overlays, no people faces, photorealistic, 16:9 aspect ratio';
+  'professional B2B context, no text overlays, no people faces, photorealistic, 16:9 aspect ratio';
 
 function parseFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
@@ -60,52 +52,37 @@ function buildPrompt(title, category) {
 }
 
 async function generateImage(prompt) {
-  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const res = await fetch('https://openrouter.ai/api/v1/images/generations', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://reglament.business',
-      'X-Title': 'Reglament Business',
+      'HTTP-Referer': 'https://etiketka.media',
+      'X-Title': 'etiketka.media',
     },
-    body: JSON.stringify({
-      model: MODEL,
-      messages: [{ role: 'user', content: prompt }],
-    }),
+    body: JSON.stringify({ model: MODEL, prompt, n: 1 }),
   });
 
   if (!res.ok) throw new Error(`API ${res.status}: ${(await res.text()).slice(0, 400)}`);
   const data = await res.json();
 
-  const content = data?.choices?.[0]?.message?.content;
-  if (!content) throw new Error('Нет content: ' + JSON.stringify(data).slice(0, 400));
+  const item = data?.data?.[0];
+  if (!item) throw new Error('Нет данных: ' + JSON.stringify(data).slice(0, 400));
 
-  // content — строка-URL
-  if (typeof content === 'string' && /^https?:\/\//.test(content.trim())) {
-    const r = await fetch(content.trim());
-    if (!r.ok) throw new Error(`Скачивание ${r.status}: ${content}`);
+  if (item.url) {
+    const r = await fetch(item.url);
+    if (!r.ok) throw new Error(`Скачивание ${r.status}: ${item.url}`);
     return Buffer.from(await r.arrayBuffer());
   }
 
-  // content — массив (multimodal)
-  if (Array.isArray(content)) {
-    for (const part of content) {
-      const url = part?.image_url?.url ?? (part?.type === 'image_url' ? part.url : null);
-      if (!url) continue;
-      if (url.startsWith('data:')) return Buffer.from(url.split(',')[1], 'base64');
-      const r = await fetch(url);
-      if (!r.ok) throw new Error(`Скачивание ${r.status}: ${url}`);
-      return Buffer.from(await r.arrayBuffer());
-    }
-  }
+  if (item.b64_json) return Buffer.from(item.b64_json, 'base64');
 
-  throw new Error('Нет изображения в ответе: ' + JSON.stringify(data).slice(0, 400));
+  throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 400));
 }
 
-// Собираем список статей для обработки
 const targetSlug = process.env.SLUG;
 const limit      = process.env.LIMIT ? parseInt(process.env.LIMIT, 10) : 0;
-const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
+const files      = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
 
 let targets = files.filter(file => {
   if (targetSlug && !file.startsWith(targetSlug) && file !== targetSlug + '.md') return false;
@@ -144,7 +121,6 @@ for (const file of targets) {
     const outPath  = path.join(HERO_DIR, `${slug}.jpg`);
     fs.writeFileSync(outPath, buffer);
     const size = (fs.statSync(outPath).size / 1024).toFixed(0);
-
     const updated = content.replace(
       /^(---\n[\s\S]*?)(pubDate:[^\n]*\n)/m,
       `$1$2heroImage: "${heroPath}"\n`,
