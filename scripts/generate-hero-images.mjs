@@ -49,7 +49,7 @@ function parseFrontmatter(content) {
 
 function buildPrompt(title, category) {
   const catStyle = CAT_STYLE[category] ?? 'dark office environment, business documents';
-  return `${catStyle}, editorial composition. ${STYLE_SUFFIX}`;
+  return `${catStyle}, editorial composition, topic context: ${title}. ${STYLE_SUFFIX}`;
 }
 
 async function generateImage(prompt) {
