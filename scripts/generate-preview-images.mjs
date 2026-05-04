@@ -1,45 +1,46 @@
 /**
- * Генерирует превью-изображения для карточек статей через FLUX (Together.ai).
+ * Генерирует превью-изображения для карточек статей через OpenRouter (FLUX).
  * Единый editorial-стиль на все статьи, тематические объекты по содержанию.
  *
- * Запуск:
- *   TOGETHER_API_KEY=... node scripts/generate-preview-images.mjs           # все без previewImage
- *   TOGETHER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node ...        # одна статья
- *   TOGETHER_API_KEY=... FLUX_MODEL=black-forest-labs/FLUX.1-dev node ...   # другая модель
+ * Запуск через GitHub Actions (стандартный способ):
+ *   Actions → Generate Article Images → Run workflow
+ *
+ * Модель по умолчанию: black-forest-labs/flux-1.1-pro
+ * Переопределить: PREVIEW_MODEL=black-forest-labs/flux-1-schnell
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname   = path.dirname(fileURLToPath(import.meta.url));
 const ROOT        = path.resolve(__dirname, '..');
 const BLOG_DIR    = path.join(ROOT, 'src/content/blog');
 const PREVIEW_DIR = path.join(ROOT, 'public/images/preview');
-const MODEL       = process.env.FLUX_MODEL ?? 'black-forest-labs/FLUX.1-schnell-Free';
+const MODEL       = process.env.PREVIEW_MODEL ?? 'black-forest-labs/flux-1.1-pro';
 
 fs.mkdirSync(PREVIEW_DIR, { recursive: true });
 
-const API_KEY = process.env.TOGETHER_API_KEY;
-if (!API_KEY) { console.error('TOGETHER_API_KEY не задан'); process.exit(1); }
+const API_KEY = process.env.OPENROUTER_API_KEY;
+if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exit(1); }
 
-// Единый визуальный стиль — editorial flat illustration, consistent across articles
-const BASE_STYLE =
-  'bold flat editorial illustration, minimalist geometric shapes, ' +
-  'clean vector aesthetic, muted professional color palette, ' +
-  'no text, no people, no faces, no logos, ' +
-  'Tinkoff Journal style, 16:9 aspect ratio';
+// Стилевой суффикс — editorial photography под бренд-палитру сайта (#9E2B4F, #AFCC00, #111)
+const STYLE_SUFFIX =
+  'high contrast editorial photography, dark dramatic lighting, sharp shadows, ' +
+  'professional B2B context, Russian small retail or office environment, ' +
+  'no text overlays, no people faces, photorealistic';
 
-// Акцентные цвета и тематические элементы по категории
+// Тематические акценты по категории
 const CAT_STYLE = {
   'ts-piot':
-    'navy blue and electric blue tones, cash register, QR code, digital receipt, ' +
-    'circuit board fragments, software interface elements',
+    'modern compact POS terminal, fiscal receipt printer, retail counter, dark background',
   'markirovka':
-    'forest green and teal tones, barcode, data matrix code, product packaging, ' +
-    'supply chain icons, warehouse shelving',
+    'product packaging with QR labels, retail shelves, barcode scanner, dark warehouse',
   'zakonodatelstvo':
-    'warm amber and charcoal tones, legal documents, scales of justice, ' +
-    'official stamps, calendar pages, tax forms',
+    'printed documents, laptop on office desk, pen and forms, dark desk surface',
+  'kkt':
+    'cash register, fiscal receipt, checkout counter, dark retail environment',
+  'egais':
+    'wine and spirits bottles on shelves, bar counter, dark moody lighting',
 };
 
 function parseFrontmatter(content) {
@@ -50,49 +51,69 @@ function parseFrontmatter(content) {
     const kv = line.match(/^(\w+):\s*"?([^"]*)"?/);
     if (kv) fm[kv[1]] = kv[2].trim();
   }
-  fm._raw = match[1];
-  fm._body = content.slice(match[0].length);
   return fm;
 }
 
 function buildPrompt(title, category) {
-  const catStyle = CAT_STYLE[category] ?? 'neutral tones, business documents, abstract shapes';
-  return `${BASE_STYLE}, ${catStyle}. Topic context: ${title}`;
+  const catStyle = CAT_STYLE[category] ?? 'dark office environment, business documents';
+  return `${catStyle}, editorial still life composition, topic context: ${title}. ${STYLE_SUFFIX}`;
 }
 
 async function generateImage(prompt) {
-  const res = await fetch('https://api.together.xyz/v1/images/generations', {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
+      'HTTP-Referer': 'https://etiketka.media',
+      'X-Title': 'Этикетка Медиа',
     },
     body: JSON.stringify({
       model: MODEL,
-      prompt,
-      n: 1,
-      width: 1344,
-      height: 768,
+      messages: [{ role: 'user', content: prompt }],
     }),
   });
 
   if (!res.ok) throw new Error(`API ${res.status}: ${(await res.text()).slice(0, 400)}`);
   const data = await res.json();
 
-  const item = data?.data?.[0];
-  if (!item) throw new Error('Нет данных: ' + JSON.stringify(data).slice(0, 400));
+  const msg = data?.choices?.[0]?.message;
+  if (!msg) throw new Error('Нет message: ' + JSON.stringify(data).slice(0, 400));
 
-  // URL-формат
-  if (item.url) {
-    const r = await fetch(item.url);
-    if (!r.ok) throw new Error(`Скачивание ${r.status}: ${item.url}`);
-    return Buffer.from(await r.arrayBuffer());
+  // content — строка-URL или data URI
+  if (typeof msg.content === 'string') {
+    const s = msg.content.trim();
+    if (s.startsWith('data:')) return Buffer.from(s.split(',')[1], 'base64');
+    if (/^https?:\/\//.test(s)) {
+      const r = await fetch(s);
+      if (!r.ok) throw new Error(`Скачивание ${r.status}: ${s}`);
+      return Buffer.from(await r.arrayBuffer());
+    }
   }
 
-  // base64-формат
-  if (item.b64_json) return Buffer.from(item.b64_json, 'base64');
+  // content — массив частей (multimodal)
+  if (Array.isArray(msg.content)) {
+    for (const part of msg.content) {
+      const url = part?.image_url?.url;
+      if (!url) continue;
+      if (url.startsWith('data:')) return Buffer.from(url.split(',')[1], 'base64');
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`Скачивание ${r.status}`);
+      return Buffer.from(await r.arrayBuffer());
+    }
+  }
 
-  throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 400));
+  // images field
+  if (Array.isArray(msg.images) && msg.images.length > 0) {
+    const url = msg.images[0]?.image_url?.url;
+    if (url) {
+      if (url.startsWith('data:')) return Buffer.from(url.split(',')[1], 'base64');
+      const r = await fetch(url);
+      return Buffer.from(await r.arrayBuffer());
+    }
+  }
+
+  throw new Error('Нет изображения в ответе: ' + JSON.stringify(data).slice(0, 400));
 }
 
 const targetSlug = process.env.SLUG;
@@ -135,7 +156,7 @@ for (const file of targets) {
 
     const updated = content.replace(
       /^(---\n[\s\S]*?)(pubDate:[^\n]*\n)/m,
-      `$1$2previewImage: "${previewPath}"\n`
+      `$1$2previewImage: "${previewPath}"\n`,
     );
     fs.writeFileSync(filePath, updated);
     console.log(`✓ ${size} KB → ${previewPath}`);

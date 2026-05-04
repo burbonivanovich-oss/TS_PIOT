@@ -2,7 +2,7 @@ name: Generate Article Images
 
 on:
   push:
-    branches: [main, claude/generate-article-images-RXhwD]
+    branches: [main]
     paths:
       - 'src/content/blog/**.md'
   workflow_dispatch:
@@ -31,17 +31,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Generate preview images (FLUX Schnell via Together.ai)
+      - name: Generate preview images (FLUX via OpenRouter)
         env:
-          TOGETHER_API_KEY: ${{ secrets.TOGETHER_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/generate-preview-images.mjs
-        continue-on-error: false
 
-      - name: Generate hero images (Nano Banana 2 via OpenRouter)
+      - name: Generate hero images (FLUX via OpenRouter)
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/generate-hero-images.mjs
-        continue-on-error: false
 
       - name: Commit images
         run: |

@@ -264,15 +264,17 @@ createdDate: "YYYY-MM-DD"
 
 ### Генерация изображений (OpenRouter + FLUX)
 
+Единственный провайдер — **OpenRouter**. Together.ai не используется.
+
 | Скрипт | Назначение | Модель по умолчанию |
 |---|---|---|
-| `generate-preview-images.mjs` | Превью для карточек | `FLUX.1-schnell-Free` (бесплатно) |
-| `generate-hero-images.mjs` | Hero-изображения статей | `gemini-3.1-flash-image-preview` |
+| `generate-preview-images.mjs` | Превью для карточек | `flux-1.1-pro` |
+| `generate-hero-images.mjs` | Hero-изображения статей | `flux-1.1-pro` |
 | `test-pool-generation.mjs` | Тест 3 изображений из пула с выводом стоимости | `flux-1.1-pro` |
 
 **Запуск:** GitHub Actions → вкладка **Actions** → **Generate Article Images** → **Run workflow**.
 
-Сменить модель: передать через `inputs` в workflow или напрямую в скрипте (`HERO_MODEL=black-forest-labs/flux-1-1-pro`).
+Сменить модель: переменные окружения `PREVIEW_MODEL` / `HERO_MODEL` в workflow inputs.
 
 ### AI-фоны для OG-обложек
 
