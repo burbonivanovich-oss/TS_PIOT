@@ -177,7 +177,7 @@ const shareTitle = encodeURIComponent(title);
 					)}
 					{heroImage ? (
 						<img
-							src={heroImage}
+							src={u(heroImage)}
 							alt={title}
 							loading="eager"
 							class="art-hero-photo"
@@ -457,7 +457,7 @@ const shareTitle = encodeURIComponent(title);
 			.art-hero-top { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
 			.art-updated-badge { background: #AFCC00; color: #111; font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .2em .6em; }
 			.art-hero-readtime { font-size: .75rem; font-weight: 600; color: #999; letter-spacing: .04em; }
-			.art-h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; line-height: 1; letter-spacing: .02em; color: #111; text-transform: uppercase; margin: 0; }
+			.art-h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; line-height: 1; letter-spacing: .02em; color: #111; margin: 0; }
 			.art-hero-bottom { border-top: 2px solid #111; padding-top: 20px; }
 			.art-lead { font-size: 1rem; color: #444; line-height: 1.65; font-style: italic; margin: 0; }
 
@@ -526,7 +526,7 @@ const shareTitle = encodeURIComponent(title);
 			.r-card-abbr { position: absolute; right: 6px; bottom: -10px; font-family: 'Bebas Neue', sans-serif; font-size: 6rem; line-height: 1; opacity: .14; letter-spacing: -.03em; pointer-events: none; user-select: none; }
 			.r-card-cat { font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; position: relative; z-index: 1; }
 			.r-card-body { padding: 14px 16px 18px; flex: 1; display: flex; flex-direction: column; gap: 7px; transition: background .15s; }
-			.r-card-body h3 { font-family: 'Bebas Neue', sans-serif; letter-spacing: .02em; text-transform: uppercase; color: #111; line-height: 1.15; margin: 0; }
+			.r-card-body h3 { font-family: 'Bebas Neue', sans-serif; letter-spacing: .02em; color: #111; line-height: 1.15; margin: 0; }
 			.r-card-body p { font-size: .82rem; color: #666; line-height: 1.5; margin: 0; }
 			.r-card-read { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #9E2B4F; margin-top: auto; padding-top: 6px; }
 

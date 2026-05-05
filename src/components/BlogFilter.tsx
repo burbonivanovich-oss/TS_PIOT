@@ -455,7 +455,6 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 					font-family: 'Bebas Neue', sans-serif;
 					font-size: 1.45rem;
 					line-height: 1.1;
-					text-transform: uppercase;
 					letter-spacing: .02em;
 					color: #111;
 				}
@@ -549,7 +548,6 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 					font-family: 'Bebas Neue', sans-serif;
 					font-size: 1.45rem;
 					line-height: 1.05;
-					text-transform: uppercase;
 					letter-spacing: .02em;
 					color: #111;
 					margin-bottom: 6px;

@@ -82,7 +82,6 @@ h6 {
 	color: var(--dark);
 	line-height: 1.1;
 	letter-spacing: 0.03em;
-	text-transform: uppercase;
 }
 h1 { font-size: 3rem; }
 h2 { font-size: 2rem; margin-top: 1.8rem; }
