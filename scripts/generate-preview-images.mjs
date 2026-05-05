@@ -6,8 +6,8 @@
  * Статьи НЕ трогаются — карточки выбирают изображение из пула
  * по формуле: slugHash(post.id) % 3.
  *
- * Модель по умолчанию: black-forest-labs/flux.2-max
- * Переопределить: PREVIEW_MODEL=black-forest-labs/flux.2-max
+ * Модель по умолчанию: google/gemini-3.1-flash-image-preview
+ * Переопределить: PREVIEW_MODEL=google/gemini-3.1-flash-image-preview
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,7 +16,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname   = path.dirname(fileURLToPath(import.meta.url));
 const ROOT        = path.resolve(__dirname, '..');
 const PREVIEW_DIR = path.join(ROOT, 'public/images/preview');
-const MODEL       = process.env.PREVIEW_MODEL ?? 'black-forest-labs/flux.2-max';
+const MODEL       = process.env.PREVIEW_MODEL ?? 'google/gemini-3.1-flash-image-preview';
 const FORCE       = process.env.FORCE === '1';
 const ONLY_CAT    = process.env.CATEGORY ?? '';
 

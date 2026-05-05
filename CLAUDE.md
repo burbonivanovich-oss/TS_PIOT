@@ -268,9 +268,9 @@ createdDate: "YYYY-MM-DD"
 
 | Скрипт | Назначение | Модель по умолчанию |
 |---|---|---|
-| `generate-preview-images.mjs` | Превью для карточек | `flux.2-max` |
-| `generate-hero-images.mjs` | Hero-изображения статей | `flux.2-max` |
-| `test-pool-generation.mjs` | Тест 3 изображений из пула с выводом стоимости | `flux.2-max` |
+| `generate-preview-images.mjs` | Превью для карточек | `google/gemini-3.1-flash-image-preview` |
+| `generate-hero-images.mjs` | Hero-изображения статей | `google/gemini-3.1-flash-image-preview` |
+| `test-pool-generation.mjs` | Тест 3 изображений из пула с выводом стоимости | `google/gemini-3.1-flash-image-preview` |
 
 **Запуск:** GitHub Actions → вкладка **Actions** → **Generate Article Images** → **Run workflow**.
 

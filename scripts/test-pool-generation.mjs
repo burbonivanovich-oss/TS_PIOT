@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
 const OUT_DIR   = path.join(ROOT, 'scripts', 'pool-test-output');
-const MODEL     = 'black-forest-labs/flux.2-max';
+const MODEL     = 'google/gemini-3.1-flash-image-preview';
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
