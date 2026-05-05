@@ -10,7 +10,7 @@ tags:
   - "2026"
 categories:
   - zakonodatelstvo
-draft: false
+draft: true
 seo:
   keywords:
     - НДС на УСН какая ставка 2026

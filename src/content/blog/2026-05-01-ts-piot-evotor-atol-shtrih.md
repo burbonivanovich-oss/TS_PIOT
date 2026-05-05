@@ -12,7 +12,7 @@ tags:
   - честный знак
 categories:
   - ts-piot
-draft: false
+draft: true
 seo:
   keywords:
     - ТС ПИоТ касса какая
