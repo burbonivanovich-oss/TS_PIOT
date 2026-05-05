@@ -68,6 +68,7 @@ const definedTermSetJsonLd = {
 		inDefinedTermSet: new URL('/slovar/', Astro.site).toString(),
 	})),
 };
+import { u } from '../../utils/url';
 ---
 
 <!doctype html>
@@ -83,7 +84,7 @@ const definedTermSetJsonLd = {
 		<Header />
 		<main>
 			<nav class="breadcrumbs" aria-label="Хлебные крошки" data-pagefind-ignore>
-				<a href="/">Главная</a>
+				<a href={u("/")}>Главная</a>
 				<span>›</span>
 				<span aria-current="page">{title}</span>
 			</nav>
@@ -117,7 +118,7 @@ const definedTermSetJsonLd = {
 											<a href={`#${slug}`}>{entry.data.term}</a>
 										</h3>
 										{catMeta && (
-											<a class="term-cat" href={`/category/${cat}/`}>
+											<a class="term-cat" href={u(`/category/${cat}/`)}>
 												{catMeta.title}
 											</a>
 										)}

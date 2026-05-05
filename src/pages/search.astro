@@ -6,13 +6,14 @@ import Header from '../components/Header.astro';
 const title = 'Поиск по сайту';
 const description =
 	'Поиск по материалам «Этикетки»: статьи о ТС ПИоТ, маркировке «Честный знак» и изменениях в законодательстве для МСБ.';
+import { u } from '../utils/url';
 ---
 
 <!doctype html>
 <html lang="ru">
 	<head>
 		<BaseHead title={title} description={description} />
-		<link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+		<link rel="stylesheet" href={u("/pagefind/pagefind-ui.css")} />
 	</head>
 	<body>
 		<Header />
@@ -27,10 +28,10 @@ const description =
 			<noscript>
 				<p class="noscript">
 					Для поиска требуется JavaScript. Если он у вас отключён —
-					<a href="/blog/">посмотрите все статьи</a> или перейдите в нужный раздел:
-					<a href="/category/ts-piot/">ТС ПИоТ</a>,
-					<a href="/category/markirovka/">Маркировка</a>,
-					<a href="/category/zakonodatelstvo/">Законодательство</a>.
+					<a href={u("/blog/")}>посмотрите все статьи</a> или перейдите в нужный раздел:
+					<a href={u("/category/ts-piot/")}>ТС ПИоТ</a>,
+					<a href={u("/category/markirovka/")}>Маркировка</a>,
+					<a href={u("/category/zakonodatelstvo/")}>Законодательство</a>.
 				</p>
 			</noscript>
 		</main>

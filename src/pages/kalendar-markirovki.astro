@@ -27,6 +27,7 @@ const breadcrumbsJsonLd = {
 		},
 	],
 };
+import { u } from '../utils/url';
 ---
 
 <!doctype html>
@@ -38,9 +39,9 @@ const breadcrumbsJsonLd = {
 		<Header />
 		<main>
 			<nav class="breadcrumbs" aria-label="Хлебные крошки">
-				<a href="/">Главная</a>
+				<a href={u("/")}>Главная</a>
 				<span>›</span>
-				<a href="/category/markirovka/">Маркировка</a>
+				<a href={u("/category/markirovka/")}>Маркировка</a>
 				<span>›</span>
 				<span aria-current="page">{title}</span>
 			</nav>
@@ -52,7 +53,7 @@ const breadcrumbsJsonLd = {
 					Фильтруйте по статусу или категории, чтобы найти нужное быстро.
 				</p>
 				<p class="intro">
-					С 28 декабря 2025 года обязательным стал <a href="/blog/2026-01-15-chto-takoe-ts-piot/">ТС ПИоТ</a> —
+					С 28 декабря 2025 года обязательным стал <a href={u("/blog/2026-01-15-chto-takoe-ts-piot/")}>ТС ПИоТ</a> —
 					программный модуль кассы, который проверяет коды при продаже. Каждая строка таблицы
 					ниже — это момент, когда ваша касса должна уметь отклонять немаркированный товар.
 					Сверьтесь со своей товарной группой и убедитесь, что касса и договор с ОФД готовы.
@@ -66,7 +67,7 @@ const breadcrumbsJsonLd = {
 				<ul>
 					<li>
 						<strong>«Действует»</strong> — маркировка уже обязательна. Продажа без кода Data Matrix
-						влечёт штраф по <a href="/kalkulyator-shtrafov/">ст. 15.12 КоАП РФ</a>.
+						влечёт штраф по <a href={u("/kalkulyator-shtrafov/")}>ст. 15.12 КоАП РФ</a>.
 					</li>
 					<li>
 						<strong>«С 2026 года»</strong> — срок наступит в 2026 году. Уже сейчас нужно зарегистрироваться
@@ -84,17 +85,17 @@ const breadcrumbsJsonLd = {
 				<h2>Полезно почитать</h2>
 				<ul>
 					<li>
-						<a href="/category/markirovka/">Маркировка «Честный знак»</a> — все материалы раздела.
+						<a href={u("/category/markirovka/")}>Маркировка «Честный знак»</a> — все материалы раздела.
 					</li>
 					<li>
-						<a href="/blog/2026-02-10-kategorii-markirovki-2026/">Категории маркировки в 2026 году</a> —
+						<a href={u("/blog/2026-02-10-kategorii-markirovki-2026/")}>Категории маркировки в 2026 году</a> —
 						подробный разбор по товарным группам.
 					</li>
 					<li>
-						<a href="/kalkulyator-shtrafov/">Калькулятор штрафов</a> — сколько стоит нарушение по ст. 15.12 КоАП.
+						<a href={u("/kalkulyator-shtrafov/")}>Калькулятор штрафов</a> — сколько стоит нарушение по ст. 15.12 КоАП.
 					</li>
 					<li>
-						<a href="/blog/2026-01-15-chto-takoe-ts-piot/">Что такое ТС ПИоТ</a> — как касса проверяет маркировку.
+						<a href={u("/blog/2026-01-15-chto-takoe-ts-piot/")}>Что такое ТС ПИоТ</a> — как касса проверяет маркировку.
 					</li>
 				</ul>
 			</section>

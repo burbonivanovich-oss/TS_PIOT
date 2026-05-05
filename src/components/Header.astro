@@ -1,22 +1,23 @@
 ---
 import { SITE_TITLE, NAV_LINKS } from '../consts';
+import { u } from '../utils/url';
 ---
 
 <header class="site-header">
 	<div class="header-inner">
 		<div class="header-left">
-			<a href="/" class="logo" aria-label={SITE_TITLE}>
+			<a href={u('/')} class="logo" aria-label={SITE_TITLE}>
 				ЭТИКЕТКА<sup>медиа</sup>
 			</a>
 			<nav class="site-nav" id="primary-nav">
 				{NAV_LINKS.filter(l => !['/', '/slovar/', '/about/', '/search/'].includes(l.href)).map((link) => (
-					<a href={link.href}>{link.label}</a>
+					<a href={u(link.href)}>{link.label}</a>
 				))}
 			</nav>
 		</div>
 		<div class="header-right">
-			<a href="/search/" class="search-link">+ Поиск</a>
-			<a href="/blog/" class="cta-btn">Подписаться →</a>
+			<a href={u('/search/')} class="search-link">+ Поиск</a>
+			<a href={u('/blog/')} class="cta-btn">Подписаться →</a>
 		</div>
 		<button class="nav-toggle" aria-label="Открыть меню" aria-controls="primary-nav" aria-expanded="false">
 			<span></span><span></span><span></span>

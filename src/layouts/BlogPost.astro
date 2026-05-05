@@ -14,6 +14,7 @@ import {
 } from '../consts';
 import { CPA_BANNERS, CATEGORY_DEFAULT_CPA } from '../data/cpa-banners';
 import { tagSlug } from '../utils/tags';
+import { u } from '../utils/url';
 
 type Props = CollectionEntry<'blog'>['data'] & {
 	slug?: string;
@@ -188,10 +189,10 @@ const shareTitle = encodeURIComponent(title);
 				<div class="art-hero-info">
 					<!-- Breadcrumbs in hero -->
 					<nav class="art-hero-breadcrumbs" aria-label="Хлебные крошки">
-						<a href="/">Главная</a><span>/</span>
-						<a href="/blog/">Статьи</a>
+						<a href={u('/')}>Главная</a><span>/</span>
+						<a href={u('/blog/')}>Статьи</a>
 						{categoryMeta && (
-							<><span>/</span><a href={`/category/${primaryCategory}/`}>{categoryMeta.title}</a></>
+							<><span>/</span><a href={u(`/category/${primaryCategory}/`)}>{categoryMeta.title}</a></>
 						)}
 					</nav>
 
@@ -298,7 +299,7 @@ const shareTitle = encodeURIComponent(title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
 										const lightText = false;
 										return (
-											<a href={`/blog/${post.id}/`} class="r-card">
+											<a href={u(`/blog/${post.id}/`)} class="r-card">
 												<div class="r-card-top" style={`background:${accent}`}>
 													<span class="r-card-abbr" style={lightText ? 'color:#111' : 'color:#fff'}>{abbr}</span>
 													{catLabel && <span class="r-card-cat" style={lightText ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.65)'}>{catLabel}</span>}
@@ -324,7 +325,7 @@ const shareTitle = encodeURIComponent(title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
 										const lightText = false;
 										return (
-											<a href={`/blog/${post.id}/`} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--side'}>
+											<a href={u(`/blog/${post.id}/`)} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--side'}>
 												<div class="r-card-top" style={`background:${accent}`}>
 													<span class="r-card-abbr" style={lightText ? 'color:#111' : 'color:#fff'}>{abbr}</span>
 													{catLabel && <span class="r-card-cat" style={lightText ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.65)'}>{catLabel}</span>}
@@ -350,7 +351,7 @@ const shareTitle = encodeURIComponent(title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
 										const lightText = false;
 										return (
-											<a href={`/blog/${post.id}/`} class={i === 2 ? 'r-card r-card--wide' : 'r-card'}>
+											<a href={u(`/blog/${post.id}/`)} class={i === 2 ? 'r-card r-card--wide' : 'r-card'}>
 												<div class="r-card-top" style={`background:${accent}`}>
 													<span class="r-card-abbr" style={lightText ? 'color:#111' : 'color:#fff'}>{abbr}</span>
 													{catLabel && <span class="r-card-cat" style={lightText ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.65)'}>{catLabel}</span>}
@@ -376,7 +377,7 @@ const shareTitle = encodeURIComponent(title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
 										const lightText = false;
 										return (
-											<a href={`/blog/${post.id}/`} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--compact'}>
+											<a href={u(`/blog/${post.id}/`)} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--compact'}>
 												<div class="r-card-top" style={`background:${accent}`}>
 													<span class="r-card-abbr" style={lightText ? 'color:#111' : 'color:#fff'}>{abbr}</span>
 													{catLabel && <span class="r-card-cat" style={lightText ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.65)'}>{catLabel}</span>}
@@ -392,7 +393,7 @@ const shareTitle = encodeURIComponent(title);
 								</div>
 							)}
 
-							<div class="related-more"><a href="/blog/">Все статьи →</a></div>
+							<div class="related-more"><a href={u('/blog/')}>Все статьи →</a></div>
 						</aside>
 					)}
 

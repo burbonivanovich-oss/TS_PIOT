@@ -63,6 +63,7 @@ const collectionJsonLd = {
 	url: new URL(`/tag/${slug}/`, Astro.site).toString(),
 	inLanguage: 'ru-RU',
 };
+import { u } from '../../utils/url';
 ---
 
 <!doctype html>
@@ -78,9 +79,9 @@ const collectionJsonLd = {
 		<Header />
 		<main>
 			<nav class="breadcrumbs" aria-label="Хлебные крошки">
-				<a href="/">Главная</a>
+				<a href={u("/")}>Главная</a>
 				<span>›</span>
-				<a href="/tags/">Теги</a>
+				<a href={u("/tags/")}>Теги</a>
 				<span>›</span>
 				<span aria-current="page">{displayName}</span>
 			</nav>
@@ -98,7 +99,7 @@ const collectionJsonLd = {
 					const catMeta = cat ? CATEGORIES[cat] : null;
 					return (
 						<li class="post-card">
-							<a href={`/blog/${post.id}/`}>
+							<a href={u(`/blog/${post.id}/`)}>
 								{catMeta && <span class="post-cat">{catMeta.title}</span>}
 								<h2>{post.data.title}</h2>
 								<p class="post-desc">{post.data.description}</p>

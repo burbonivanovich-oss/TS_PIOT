@@ -4,6 +4,7 @@
 import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import { SITE_TITLE, SITE_LOCALE } from '../consts';
+import { u } from '../utils/url';
 
 interface Props {
 	title: string;
@@ -68,15 +69,15 @@ const extraJsonLd = jsonLd
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="generator" content={Astro.generator} />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="sitemap" href="/sitemap.xml" />
+<link rel="icon" type="image/svg+xml" href={u('/favicon.svg')} />
+<link rel="sitemap" href={u('/sitemap.xml')} />
 <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
 <link rel="canonical" href={canonicalURL} />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
-<link rel="preload" href="/fonts/inter-regular.woff" as="font" type="font/woff" crossorigin />
-<link rel="preload" href="/fonts/inter-bold.woff" as="font" type="font/woff" crossorigin />
+<link rel="preload" href={u('/fonts/inter-regular.woff')} as="font" type="font/woff" crossorigin />
+<link rel="preload" href={u('/fonts/inter-bold.woff')} as="font" type="font/woff" crossorigin />
 
 {noindex && <meta name="robots" content="noindex,nofollow" />}
 

@@ -84,6 +84,7 @@ const faqJsonLd =
 
 const jsonLd: Record<string, unknown>[] = [collectionJsonLd, breadcrumbsJsonLd];
 if (faqJsonLd) jsonLd.push(faqJsonLd);
+import { u } from '../../utils/url';
 ---
 
 <!doctype html>
@@ -95,9 +96,9 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 		<Header />
 		<main>
 			<nav class="breadcrumbs" aria-label="Хлебные крошки" data-pagefind-ignore>
-				<a href="/">Главная</a>
+				<a href={u("/")}>Главная</a>
 				<span>›</span>
-				<a href="/blog/">Статьи</a>
+				<a href={u("/blog/")}>Статьи</a>
 				<span>›</span>
 				<span aria-current="page">{meta.title}</span>
 			</nav>
@@ -146,13 +147,13 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 				{posts.length === 0 ? (
 					<p class="empty">
 						Материалы в этом разделе скоро появятся. Загляните позже или
-						<a href="/blog/">посмотрите все статьи</a>.
+						<a href={u("/blog/")}>посмотрите все статьи</a>.
 					</p>
 				) : (
 					<ul class="post-list">
 						{posts.map((post) => (
 							<li class="post-card">
-								<a href={`/blog/${post.id}/`}>
+								<a href={u(`/blog/${post.id}/`)}>
 									<h3>{post.data.title}</h3>
 									<p class="post-desc">{post.data.description}</p>
 									<p class="post-date">

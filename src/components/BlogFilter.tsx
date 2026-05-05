@@ -1,4 +1,6 @@
 import { useState, useMemo } from 'react';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const u = (path: string) => base + path;
 
 export type PostData = {
 	id: string;
@@ -143,7 +145,7 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 					{heroItems.length > 0 && (
 						<div className="bf-hero-grid">
 							{/* Hero main card */}
-							<a href={`/blog/${heroItems[0].id}/`} className="bf-hero-main">
+							<a href={u(`/blog/${heroItems[0].id}/`)} className="bf-hero-main">
 								<span className="bf-hero-bg-letter">{abbrev(heroItems[0].title)}</span>
 								<div className="bf-hero-tags">
 									<span className="bf-htag bf-htag--pink">
@@ -160,7 +162,7 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 							{/* Hero side cards */}
 							<div className="bf-hero-side">
 								{heroItems[1] && (
-									<a href={`/blog/${heroItems[1].id}/`} className="bf-hero-card bf-hero-card--lime">
+									<a href={u(`/blog/${heroItems[1].id}/`)} className="bf-hero-card bf-hero-card--lime">
 										<div>
 											<span className="bf-card-tag bf-card-tag--lime-inner">
 												{heroItems[1].categories[0] ? (CAT_NAMES[heroItems[1].categories[0]] ?? heroItems[1].categories[0]) : 'Статья'}
@@ -171,7 +173,7 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 									</a>
 								)}
 								{heroItems[2] && (
-									<a href={`/blog/${heroItems[2].id}/`} className="bf-hero-card bf-hero-card--white">
+									<a href={u(`/blog/${heroItems[2].id}/`)} className="bf-hero-card bf-hero-card--white">
 										<div>
 											<span className="bf-card-tag bf-card-tag--pink-inner">
 												{heroItems[2].categories[0] ? (CAT_NAMES[heroItems[2].categories[0]] ?? heroItems[2].categories[0]) : 'Статья'}
@@ -203,7 +205,7 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 9 }:
 									const colors = cardBg(cat);
 									const catName = cat ? (CAT_NAMES[cat] ?? cat) : null;
 									return (
-										<a key={post.id} href={`/blog/${post.id}/`} className="bf-card">
+										<a key={post.id} href={u(`/blog/${post.id}/`)} className="bf-card">
 											<div className="bf-card-img">
 												<img src={poolPreview(post)} alt="" loading="lazy" />
 											</div>

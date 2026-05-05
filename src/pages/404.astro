@@ -13,6 +13,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 const latest = posts.slice(0, 3);
+import { u } from '../utils/url';
 ---
 
 <!doctype html>
@@ -28,8 +29,8 @@ const latest = posts.slice(0, 3);
 				<h1>{title}</h1>
 				<p class="lead">{description}</p>
 				<div class="cta">
-					<a href="/" class="btn btn-primary">На главную</a>
-					<a href="/blog/" class="btn btn-ghost">Все статьи</a>
+					<a href={u("/")} class="btn btn-primary">На главную</a>
+					<a href={u("/blog/")} class="btn btn-ghost">Все статьи</a>
 				</div>
 			</section>
 
@@ -37,7 +38,7 @@ const latest = posts.slice(0, 3);
 				<h2 id="cat-heading">Возможно, вам нужны эти разделы</h2>
 				<div class="cat-grid">
 					{Object.entries(CATEGORIES).map(([slug, cat]) => (
-						<a class="cat-card" href={`/category/${slug}/`}>
+						<a class="cat-card" href={u(`/category/${slug}/`)}>
 							<h3>{cat.title}</h3>
 							<p>{cat.description}</p>
 						</a>
@@ -51,7 +52,7 @@ const latest = posts.slice(0, 3);
 					<ul class="post-list">
 						{latest.map((post) => (
 							<li class="post-card">
-								<a href={`/blog/${post.id}/`}>
+								<a href={u(`/blog/${post.id}/`)}>
 									<h3>{post.data.title}</h3>
 									<p>{post.data.description}</p>
 								</a>

@@ -1,5 +1,6 @@
 ---
 import { SITE_TITLE, NAV_LINKS } from '../consts';
+import { u } from '../utils/url';
 const today = new Date();
 ---
 
@@ -18,26 +19,26 @@ const today = new Date();
 			<strong>Разделы</strong>
 			<ul>
 				{NAV_LINKS.filter((l) => l.href !== '/').map((link) => (
-					<li><a href={link.href}>{link.label}</a></li>
+					<li><a href={u(link.href)}>{link.label}</a></li>
 				))}
-				<li><a href="/rss.xml">RSS-лента</a></li>
+				<li><a href={u('/rss.xml')}>RSS-лента</a></li>
 			</ul>
 		</div>
 		<div class="footer-col">
 			<strong>Инструменты</strong>
 			<ul>
-				<li><a href="/kalkulyator-shtrafov/">Калькулятор штрафов</a></li>
-				<li><a href="/kalendar-markirovki/">Календарь маркировки</a></li>
-				<li><a href="/slovar/">Словарь терминов</a></li>
-				<li><a href="/tags/">Все теги</a></li>
-				<li><a href="/search/">Поиск</a></li>
+				<li><a href={u('/kalkulyator-shtrafov/')}>Калькулятор штрафов</a></li>
+				<li><a href={u('/kalendar-markirovki/')}>Календарь маркировки</a></li>
+				<li><a href={u('/slovar/')}>Словарь терминов</a></li>
+				<li><a href={u('/tags/')}>Все теги</a></li>
+				<li><a href={u('/search/')}>Поиск</a></li>
 			</ul>
 		</div>
 		<div class="footer-col">
 			<strong>Документы</strong>
 			<ul>
-				<li><a href="/about/">О проекте</a></li>
-				<li><a href="/privacy/">Политика конфиденциальности</a></li>
+				<li><a href={u('/about/')}>О проекте</a></li>
+				<li><a href={u('/privacy/')}>Политика конфиденциальности</a></li>
 			</ul>
 		</div>
 	</div>
