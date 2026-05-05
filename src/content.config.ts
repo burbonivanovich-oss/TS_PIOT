@@ -79,7 +79,7 @@ const glossary = defineCollection({
 		aliases: z.array(z.string()).default([]),
 		summary: z.string().optional(),
 		category: z
-			.enum(['ts-piot', 'markirovka', 'zakonodatelstvo'])
+			.enum(['ts-piot', 'markirovka', 'zakonodatelstvo', 'kkt', 'egais'])
 			.optional(),
 		relatedLinks: z
 			.array(
