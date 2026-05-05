@@ -191,8 +191,8 @@ OG-картинки используют ту же пару, что и сайт 
 
 | Имя в Satori | Файл | Покрытие |
 |---|---|---|
-| `Commissioner` | `public/fonts/commissioner-regular/bold.woff` | а-я, А-Я (заголовок) |
-| `Geologica` | `public/fonts/geologica-regular/bold.woff` | а-я, А-Я (тело) |
+| `Commissioner` | `public/fonts/commissioner-regular.woff` / `commissioner-bold.woff` | а-я, А-Я (заголовок) |
+| `Geologica` | `public/fonts/geologica-regular.woff` / `geologica-bold.woff` | а-я, А-Я (тело) |
 | `InterLat` | `public/fonts/inter-latin-regular.woff` | a-z, 0-9, ASCII |
 | `InterLatExt` | `public/fonts/inter-latin-ext-regular.woff` | «», —, ё, диакритика |
 

@@ -17,7 +17,7 @@
 - `dist/pagefind/pagefind.js` — runtime-API
 - `dist/pagefind/index/` и `dist/pagefind/fragment/` — индексы и фрагменты
 
-Vercel кэширует эти ассеты как иммутабельные (см. `vercel.json`).
+GitHub Pages отдаёт эти ассеты как статические файлы.
 
 ## Что попадает в индекс
 

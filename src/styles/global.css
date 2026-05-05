@@ -38,6 +38,8 @@
 	--accent: #9E2B4F;
 	--accent-dark: #7d2240;
 	--accent-soft: #f7edf1;
+	--gray-dark: 34, 41, 57;
+	--gray-light: 229, 233, 240;
 	--mid: #222;
 	--box-shadow:
 		0 1px 3px rgba(0, 0, 0, 0.06),

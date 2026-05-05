@@ -17,6 +17,7 @@
 | `/search/` | `src/pages/search.astro` | Pagefind UI |
 | `/slovar/` | `src/pages/slovar/index.astro` | Глоссарий с алфавитной группировкой и якорями |
 | `/kalkulyator-shtrafov/` | `src/pages/kalkulyator-shtrafov.astro` | Калькулятор штрафов |
+| `/kalendar-markirovki/` | `src/pages/kalendar-markirovki.astro` | Календарь маркировки |
 | `/tags/` | `src/pages/tags/index.astro` | Облако тегов |
 
 ### Динамические шаблоны
@@ -32,7 +33,7 @@
 ### Служебные эндпоинты
 
 - `/rss.xml` — фид через `@astrojs/rss`
-- `/sitemap-index.xml` — карта сайта от `@astrojs/sitemap`
+- `/sitemap.xml` — карта сайта (кастомный `src/pages/sitemap.xml.ts` + `@astrojs/sitemap`)
 - `/pagefind/*` — индекс Pagefind (генерируется после `astro build`)
 
 ## Контент-коллекции (`src/content.config.ts`)
@@ -51,8 +52,10 @@
 | Категории (slug, название, цвет) | `src/consts.ts` | `CATEGORIES` |
 | Навигация | `src/consts.ts` | `NAV_LINKS` |
 | Sidebar-баннер (дайджест) | `src/consts.ts` | `SIDEBAR_BANNER` |
+| Инлайн-подписка | `src/consts.ts` | `INLINE_SUBSCRIBE` |
 | CPA-баннеры (партнёрские/редакционные) | `src/data/cpa-banners.ts` | `CPA_BANNERS`, `CATEGORY_DEFAULT_CPA` |
 | Сценарии калькулятора штрафов | `src/data/penalties.ts` | `SCENARIOS` |
+| Данные календаря маркировки | `src/data/markingCalendar.ts` | `MARKING_CALENDAR` |
 
 ## Компоненты
 
@@ -60,14 +63,20 @@
 |---|---|
 | `src/components/BaseHead.astro` | `<head>`: мета, OG, JSON-LD, шрифты |
 | `src/components/Header.astro` | Шапка с навигацией (4 ссылки) |
+| `src/components/HeaderLink.astro` | Ссылка в шапке с active-стилем |
 | `src/components/Footer.astro` | Подвал |
 | `src/components/FormattedDate.astro` | Форматирование дат на русском |
 | `src/components/FAQ.astro` | FAQ-аккордеон + FAQPage JSON-LD |
 | `src/components/Checklist.astro` | Интерактивный чеклист с localStorage |
 | `src/components/Callout.astro` | Акцентная врезка (тёмная / светлая) |
+| `src/components/BlogFilter.tsx` | React-компонент фильтрации/поиска карточек блога |
+| `src/components/MarkingCalendar.tsx` | React-компонент календаря маркировки |
+| `src/components/PenaltyCalculator.tsx` | React-компонент калькулятора штрафов |
 
 ## Утилиты
 
+- `src/utils/url.ts`
+  - `u(path)` — оборачивает путь в `BASE_URL` (нужно для GitHub Pages с subpath)
 - `src/utils/tags.ts`
   - `tagSlug(tag)` — кириллический slug из тега
   - `collectTags(posts)` — `{ slug → { name, posts[] } }` со всеми тегами
@@ -91,7 +100,7 @@ Native-зависимости:
 - `@resvg/resvg-js` — нативный binding для конвертации SVG → PNG в OG-эндпоинте
 - `pagefind` — Rust-бинарь индексатора
 
-Шрифты в `public/fonts/inter-*.woff` нужны при сборке (`fs.readFileSync` в OG-эндпоинте). **Не удаляйте их.**
+Шрифты в `public/fonts/` (inter-*, commissioner-*, geologica-*) нужны при сборке (`fs.readFileSync` в OG-эндпоинте). **Не удаляйте их.**
 
 ## JSON-LD на страницах
 
