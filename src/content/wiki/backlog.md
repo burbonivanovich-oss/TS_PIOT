@@ -1,6 +1,9 @@
 ---
 title: Бэклог — идеи и улучшения сайта
-updatedDate: "2026-05-05"
+createdDate: "2026-05-05"
+lastModified: "2026-05-05"
+type: reference
+status: draft
 ---
 
 # Бэклог
