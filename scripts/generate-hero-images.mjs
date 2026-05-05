@@ -5,8 +5,8 @@
  * Запуск через GitHub Actions (стандартный способ):
  *   Actions → Generate Article Images → Run workflow
  *
- * Модель по умолчанию: google/gemini-3.1-flash-image-preview
- * Переопределить: HERO_MODEL=google/gemini-2.5-flash-image (дешевле)
+ * Модель по умолчанию: black-forest-labs/flux.2-max
+ * Переопределить: HERO_MODEL=black-forest-labs/flux.2-max
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,7 +16,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
 const BLOG_DIR  = path.join(ROOT, 'src/content/blog');
 const HERO_DIR  = path.join(ROOT, 'public/images/hero');
-const MODEL     = process.env.HERO_MODEL ?? 'google/gemini-3.1-flash-image-preview';
+const MODEL     = process.env.HERO_MODEL ?? 'black-forest-labs/flux.2-max';
 
 fs.mkdirSync(HERO_DIR, { recursive: true });
 

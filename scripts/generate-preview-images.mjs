@@ -6,12 +6,8 @@
  * Статьи НЕ трогаются — карточки выбирают изображение из пула
  * по формуле: slugHash(post.id) % 3.
  *
- * Запуск: Actions → Generate Preview Pool → Run workflow
- *
- * Переменные окружения:
- *   CATEGORY   — сгенерировать только одну категорию (ts-piot, markirovka, …)
- *   FORCE=1    — перегенерировать даже если файл уже существует
- *   PREVIEW_MODEL — модель (по умолчанию google/gemini-3.1-flash-image-preview)
+ * Модель по умолчанию: black-forest-labs/flux.2-max
+ * Переопределить: PREVIEW_MODEL=black-forest-labs/flux.2-max
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -20,7 +16,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname   = path.dirname(fileURLToPath(import.meta.url));
 const ROOT        = path.resolve(__dirname, '..');
 const PREVIEW_DIR = path.join(ROOT, 'public/images/preview');
-const MODEL       = process.env.PREVIEW_MODEL ?? 'google/gemini-3.1-flash-image-preview';
+const MODEL       = process.env.PREVIEW_MODEL ?? 'black-forest-labs/flux.2-max';
 const FORCE       = process.env.FORCE === '1';
 const ONLY_CAT    = process.env.CATEGORY ?? '';
 

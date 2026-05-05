@@ -7,7 +7,7 @@ tags:
   - косметика
   - парфюмерия
   - честный знак
-  - 2026
+  - "2026"
 categories:
   - markirovka
 draft: true
