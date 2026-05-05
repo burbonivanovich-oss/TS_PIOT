@@ -1,7 +1,15 @@
 ---
-description: Полный пайплайн создания статьи с шлюзами качества — от темы до публикации и соцсетей. research → дедупликация → write → factcheck → редполитика → seo → каннибализация → publish → repurpose
+description: "[LEGACY] Используйте /create-article + /release-article. Монолитный пайплайн: research → write → factcheck → редполитика → seo → каннибализация → publish → repurpose."
 argument-hint: "<тема или целевой запрос>"
 ---
+
+> **Устарело.** Используйте новые процессы:
+> - `/create-article "<тема>"` — создание с шлюзами (до draft:true)
+> - `/release-article <slug>` — публикация, перелинковка, соцсети, индексация
+>
+> Этот файл сохранён для совместимости.
+
+
 
 # /publish-article — гейтированный пайплайн статьи
 
