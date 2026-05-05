@@ -7,7 +7,7 @@ tags:
   - мсп
   - пониженный тариф
   - оквэд
-  - 2026
+  - "2026"
 categories:
   - zakonodatelstvo
 draft: false

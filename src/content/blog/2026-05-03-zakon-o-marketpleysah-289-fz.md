@@ -8,7 +8,7 @@ tags:
   - продавцы
   - wildberries
   - ozon
-  - 2026
+  - "2026"
 categories:
   - zakonodatelstvo
 draft: true
