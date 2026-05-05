@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { type CollectionEntry, getCollection } from 'astro:content';
 import type { MarkdownHeading } from 'astro';
 import BaseHead from '../components/BaseHead.astro';
@@ -176,9 +175,7 @@ const shareTitle = encodeURIComponent(title);
 						</span>
 					)}
 					{heroImage ? (
-						<Image
-							width={900}
-							height={700}
+						<img
 							src={heroImage}
 							alt={title}
 							loading="eager"
