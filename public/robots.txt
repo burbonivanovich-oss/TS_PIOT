@@ -2,5 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /draft/
 
-Sitemap: https://etiketka.media/sitemap.xml
-Host: https://etiketka.media
+Sitemap: https://etiketka-media.ru/sitemap.xml
+Host: https://etiketka-media.ru
