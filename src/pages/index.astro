@@ -125,9 +125,9 @@ const CAT_COLOR: Record<string, string> = {
 
 			/* ── Hero ── */
 			.hero {
-				padding-bottom: 40px;
+				padding: 56px 0 56px;
 				border-bottom: 1px solid rgba(0,0,0,.12);
-				margin-bottom: 48px;
+				margin-bottom: 56px;
 			}
 			.eyebrow-tag {
 				display: inline-block;
@@ -138,15 +138,15 @@ const CAT_COLOR: Record<string, string> = {
 				padding: 4px 8px;
 				background: #AFCC00;
 				color: #111;
-				margin-bottom: 16px;
+				margin-bottom: 20px;
 			}
 			.hero-title {
 				font-family: 'Bebas Neue', sans-serif;
-				font-size: clamp(2.4rem, 4vw, 4rem);
-				line-height: .97;
-				letter-spacing: .03em;
+				font-size: clamp(3rem, 5.5vw, 5rem);
+				line-height: .95;
+				letter-spacing: .02em;
 				color: #111;
-				margin-bottom: 16px;
+				margin-bottom: 20px;
 				text-transform: uppercase;
 			}
 			.hero-lead {
@@ -234,11 +234,13 @@ const CAT_COLOR: Record<string, string> = {
 			.t3 .t-num { color: rgba(255,255,255,.4); }
 			.t-name {
 				font-family: 'Bebas Neue', sans-serif;
-				font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+				font-size: clamp(1.3rem, 1.7vw, 1.9rem);
 				letter-spacing: .04em;
 				text-transform: uppercase;
 				color: #111;
-				line-height: 1.05;
+				line-height: 1.1;
+				overflow-wrap: break-word;
+				word-break: break-word;
 			}
 			.t3 .t-name { color: #fff; }
 			.t-count {
