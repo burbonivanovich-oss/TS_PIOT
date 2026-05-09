@@ -1,0 +1,279 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import BlogFilter from '../../components/BlogFilter';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { CATEGORIES } from '../../consts';
+import { collectTags } from '../../utils/tags';
+
+const PAGE_SIZE = 12;
+
+export async function getStaticPaths({ paginate }: { paginate: Function }) {
+	const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+		(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	);
+	return paginate(posts, { pageSize: 12 });
+}
+
+const { page } = Astro.props;
+const isFirstPage = page.currentPage === 1;
+
+// All posts passed to BlogFilter for client-side filtering
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const pageTitle = isFirstPage
+	? 'Все статьи'
+	: `Все статьи — страница ${page.currentPage}`;
+const pageDescription =
+	'Архив материалов: ТС ПИоТ, маркировка «Честный знак», изменения в законодательстве для малого и среднего бизнеса.';
+
+const allPostData = allPosts.map((p) => ({
+	id: p.id,
+	title: p.data.title,
+	description: p.data.description,
+	pubDate: p.data.pubDate.toISOString(),
+	updatedDate: p.data.updatedDate?.toISOString(),
+	categories: p.data.categories ?? [],
+	tags: p.data.tags ?? [],
+	previewImage: p.data.previewImage,
+}));
+
+const allTags = Object.values(collectTags(allPosts))
+	.map((t) => t.name)
+	.sort((a, b) => a.localeCompare(b, 'ru'));
+
+const categoriesForFilter = Object.fromEntries(
+	Object.entries(CATEGORIES).map(([k, v]) => [k, { title: v.title }]),
+);
+
+const itemListJsonLd = isFirstPage
+	? {
+			'@context': 'https://schema.org',
+			'@type': 'CollectionPage',
+			name: 'Все статьи',
+			description: pageDescription,
+			url: new URL('/blog/', Astro.site).toString(),
+			mainEntity: {
+				'@type': 'ItemList',
+				itemListElement: allPosts.map((p, i) => ({
+					'@type': 'ListItem',
+					position: i + 1,
+					url: new URL(`/blog/${p.id}/`, Astro.site).toString(),
+					name: p.data.title,
+				})),
+			},
+		}
+	: undefined;
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead
+			title={pageTitle}
+			description={pageDescription}
+			jsonLd={itemListJsonLd}
+		/>
+		{page.url.prev && <link rel="prev" href={new URL(page.url.prev, Astro.site).toString()} />}
+		{page.url.next && <link rel="next" href={new URL(page.url.next, Astro.site).toString()} />}
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="page-head">
+				<h1>{isFirstPage ? 'Все статьи' : `Статьи — страница ${page.currentPage}`}</h1>
+				{isFirstPage && <p>{pageDescription}</p>}
+			</header>
+
+			{allPosts.length === 0 ? (
+				<p>Материалы появятся в ближайшее время.</p>
+			) : (
+				<>
+					<!-- Фильтр + результаты фильтрации (React, client-side) -->
+					<BlogFilter
+						client:load
+						posts={allPostData}
+						categories={categoriesForFilter}
+						allTags={allTags}
+						withServerPagination={true}
+					/>
+
+					<!-- Статический список текущей страницы: виден краулеру и при отсутствии фильтра -->
+					<div id="static-posts">
+						<ul class="s-list">
+							{page.data.map((post) => {
+								const cat = post.data.categories[0] as string | undefined;
+								const catMeta = cat
+									? CATEGORIES[cat as keyof typeof CATEGORIES]
+									: null;
+								const date = post.data.updatedDate ?? post.data.pubDate;
+								const isUpdated = !!post.data.updatedDate;
+								return (
+									<li class="s-card">
+										<a href={`/blog/${post.id}/`}>
+											{post.data.previewImage && (
+												<div class="s-card-img">
+													<img
+														src={post.data.previewImage}
+														alt={post.data.title}
+														loading="lazy"
+														width="800"
+														height="420"
+													/>
+												</div>
+											)}
+											<div class="s-card-body">
+												{catMeta && (
+													<span class="s-card-cat">{catMeta.title}</span>
+												)}
+												<h2 class="s-card-title">{post.data.title}</h2>
+												<p class="s-card-desc">{post.data.description}</p>
+												<p class="s-card-date">
+													{isUpdated ? 'обновлено ' : ''}
+													<FormattedDate date={date} />
+												</p>
+											</div>
+										</a>
+									</li>
+								);
+							})}
+						</ul>
+
+						{page.lastPage > 1 && (
+							<nav class="s-pages" aria-label="Страницы блога">
+								{page.url.prev && (
+									<a href={page.url.prev} class="s-page-btn" rel="prev">
+										← Предыдущая
+									</a>
+								)}
+								<span class="s-page-info">
+									Страница {page.currentPage} из {page.lastPage}
+								</span>
+								{page.url.next && (
+									<a href={page.url.next} class="s-page-btn" rel="next">
+										Следующая →
+									</a>
+								)}
+							</nav>
+						)}
+					</div>
+				</>
+			)}
+		</main>
+		<Footer />
+
+		<style>
+			.page-head {
+				padding: 2rem 0 1rem;
+			}
+			.page-head p {
+				color: rgb(var(--gray-dark));
+				font-size: 1.05rem;
+				max-width: 720px;
+			}
+			.s-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+				gap: 1rem;
+			}
+			.s-card a {
+				display: flex;
+				flex-direction: column;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				background: #fff;
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+				height: 100%;
+				overflow: hidden;
+				transition: all 0.15s ease;
+			}
+			.s-card a:hover {
+				border-color: var(--accent);
+				box-shadow: var(--box-shadow);
+			}
+			.s-card-img {
+				width: 100%;
+				aspect-ratio: 16 / 9;
+				overflow: hidden;
+				flex-shrink: 0;
+			}
+			.s-card-img img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+				transition: transform 0.3s ease;
+			}
+			.s-card a:hover .s-card-img img {
+				transform: scale(1.03);
+			}
+			.s-card-body {
+				padding: 1.2rem 1.4rem 1.4rem;
+				display: flex;
+				flex-direction: column;
+				flex: 1;
+			}
+			.s-card-cat {
+				display: inline-block;
+				font-size: 0.78rem;
+				font-weight: 600;
+				color: var(--accent);
+				background: var(--accent-soft);
+				padding: 0.2em 0.7em;
+				border-radius: 999px;
+				margin-bottom: 0.5rem;
+			}
+			.s-card-title {
+				margin: 0 0 0.5rem;
+				font-size: 1.15rem;
+				color: rgb(var(--black));
+				line-height: 1.3;
+			}
+			.s-card-desc {
+				font-size: 0.93rem;
+				margin-bottom: 0.8rem;
+			}
+			.s-card-date {
+				font-size: 0.83rem;
+				color: rgb(var(--gray));
+				margin: 0;
+			}
+			.s-pages {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 1.2rem;
+				margin-top: 2.5rem;
+				padding: 1rem 0;
+			}
+			.s-page-btn {
+				display: inline-block;
+				padding: 0.6em 1.3em;
+				border: 1.5px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				text-decoration: none;
+				color: rgb(var(--gray-dark));
+				font-size: 0.95rem;
+				font-weight: 600;
+				transition: all 0.15s ease;
+			}
+			.s-page-btn:hover {
+				border-color: var(--accent);
+				color: var(--accent);
+				background: var(--accent-soft);
+			}
+			.s-page-info {
+				font-size: 0.9rem;
+				color: rgb(var(--gray));
+			}
+		</style>
+	</body>
+</html>

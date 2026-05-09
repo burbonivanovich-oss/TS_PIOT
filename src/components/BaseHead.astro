@@ -78,8 +78,14 @@ const extraJsonLd = jsonLd
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
 <link rel="preload" href={u('/fonts/inter-regular.woff')} as="font" type="font/woff" crossorigin />
 <link rel="preload" href={u('/fonts/inter-bold.woff')} as="font" type="font/woff" crossorigin />
+<link rel="preload" href={u('/fonts/geologica-regular.woff')} as="font" type="font/woff" crossorigin />
+<link rel="preload" href={u('/fonts/commissioner-bold.woff')} as="font" type="font/woff" crossorigin />
 
-{noindex && <meta name="robots" content="noindex,nofollow" />}
+{noindex ? (
+	<meta name="robots" content="noindex,nofollow" />
+) : (
+	<meta name="robots" content="index,follow" />
+)}
 
 
 <!-- Основные мета -->
