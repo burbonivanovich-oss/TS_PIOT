@@ -4,39 +4,31 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { u } from '../utils/url';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-const latest = posts.slice(0, 6);
-
-// Get abbreviation from title (2 letters)
-function abbrev(title: string): string {
-	const words = title
-		.replace(/[«»"']/g, '')
-		.split(/\s+/)
-		.filter((w: string) => /^[А-ЯЁA-Z]/i.test(w) && w.length > 2);
-	if (words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase();
-	return title.slice(0, 2).toUpperCase();
-}
+const latest = posts.slice(0, 7);
 
 function fmtDate(d: Date): string {
 	return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
 }
 
-const CAT_COLORS: Record<string, { bg: string; letterColor: string; tagBg: string; tagColor: string }> = {
-	'ts-piot': { bg: '#111', letterColor: '#AFCC00', tagBg: '#111', tagColor: '#fff' },
-	'markirovka': { bg: '#9E2B4F', letterColor: '#fff', tagBg: '#9E2B4F', tagColor: '#fff' },
-	'zakonodatelstvo': { bg: '#1E4A7A', letterColor: '#fff', tagBg: '#1E4A7A', tagColor: '#fff' },
-};
-
 const catList = [
-	{ slug: 'ts-piot', num: '01', name: 'ТС ПИоТ', cls: 't1', count: posts.filter(p => p.data.categories?.includes('ts-piot')).length },
-	{ slug: 'markirovka', num: '02', name: 'Маркировка', cls: 't2', count: posts.filter(p => p.data.categories?.includes('markirovka')).length },
-	{ slug: 'zakonodatelstvo', num: '03', name: 'Законодательство', cls: 't3', count: posts.filter(p => p.data.categories?.includes('zakonodatelstvo')).length },
+	{ slug: 'ts-piot',          num: '01', name: 'ТС ПИоТ',         cls: 't1', count: posts.filter(p => p.data.categories?.includes('ts-piot')).length },
+	{ slug: 'markirovka',       num: '02', name: 'Маркировка',       cls: 't2', count: posts.filter(p => p.data.categories?.includes('markirovka')).length },
+	{ slug: 'zakonodatelstvo',  num: '03', name: 'Законодательство', cls: 't3', count: posts.filter(p => p.data.categories?.includes('zakonodatelstvo')).length },
 ];
-import { u } from '../utils/url';
+
+const CAT_COLOR: Record<string, string> = {
+	'ts-piot':         '#111',
+	'markirovka':      '#9E2B4F',
+	'zakonodatelstvo': '#1E4A7A',
+	'kkt':             '#5A3E7A',
+	'egais':           '#1A5C3A',
+};
 ---
 
 <!doctype html>
@@ -93,83 +85,32 @@ import { u } from '../utils/url';
 						<a href={u("/blog/")} class="see-all">СМ. ВСЕ →</a>
 					</div>
 
-					{/* Hero grid — first 3 posts */}
-					<div class="hero-grid">
-						{/* Main hero card */}
-						{latest[0] && (() => {
-							const cat0 = latest[0].data.categories?.[0];
-							const col0 = cat0 ? (CAT_COLORS[cat0] ?? CAT_COLORS['ts-piot']) : CAT_COLORS['ts-piot'];
+					<div class="posts-grid">
+						{latest.map((post, i) => {
+							const cat = post.data.categories?.[0];
+							const catTitle = cat ? (CATEGORIES[cat as keyof typeof CATEGORIES]?.title ?? cat) : 'Статья';
+							const accentColor = cat ? (CAT_COLOR[cat] ?? '#111') : '#111';
+							const img = post.data.previewImage ?? post.data.heroImage ?? null;
 							return (
-								<a href={u(`/blog/${latest[0].id}/`)} class="hero-main">
-									<span class="hero-bg-letter">{abbrev(latest[0].data.title)}</span>
-									<div class="hero-tags">
-										<span class="h-tag h-tag--pink">
-											{cat0 ? (CATEGORIES[cat0 as keyof typeof CATEGORIES]?.title ?? cat0) : 'Статья'}
-										</span>
-										{latest[0].data.tags?.[0] && (
-											<span class="h-tag h-tag--lime">#{latest[0].data.tags[0]}</span>
-										)}
+								<a href={u(`/blog/${post.id}/`)} class={`post-card${i === 0 ? ' post-card--featured' : ''}`}>
+									<div class="post-card-img" style={`--accent:${accentColor}`}>
+										{img
+											? <img src={u(img)} alt={post.data.title} loading={i === 0 ? 'eager' : 'lazy'} />
+											: <span class="post-card-placeholder" style={`background:${accentColor}`}></span>
+										}
 									</div>
-									<div class="hero-post-title">{latest[0].data.title}</div>
-									<div class="hero-meta">{fmtDate(latest[0].data.pubDate)}</div>
+									<div class="post-card-body">
+										<span class="post-card-cat" style={`background:${accentColor};color:#fff`}>{catTitle}</span>
+										<div class="post-card-title">{post.data.title}</div>
+										{i === 0 && post.data.description && (
+											<div class="post-card-desc">{post.data.description}</div>
+										)}
+										<div class="post-card-meta">{fmtDate(post.data.pubDate)}</div>
+									</div>
 								</a>
 							);
-						})()}
-						<div class="hero-side">
-							{latest[1] && (
-								<a href={u(`/blog/${latest[1].id}/`)} class="side-card side-card--lime">
-									<div>
-										<span class="side-tag side-tag--lime-inner">
-											{latest[1].data.categories?.[0]
-												? (CATEGORIES[latest[1].data.categories[0] as keyof typeof CATEGORIES]?.title ?? latest[1].data.categories[0])
-												: 'Статья'}
-										</span>
-										<div class="side-title">{latest[1].data.title}</div>
-									</div>
-									<div class="side-meta">{fmtDate(latest[1].data.pubDate)}</div>
-								</a>
-							)}
-							{latest[2] && (
-								<a href={u(`/blog/${latest[2].id}/`)} class="side-card side-card--white">
-									<div>
-										<span class="side-tag side-tag--pink-inner">
-											{latest[2].data.categories?.[0]
-												? (CATEGORIES[latest[2].data.categories[0] as keyof typeof CATEGORIES]?.title ?? latest[2].data.categories[0])
-												: 'Статья'}
-										</span>
-										<div class="side-title side-title--dark">{latest[2].data.title}</div>
-									</div>
-									<div class="side-meta side-meta--dark">{fmtDate(latest[2].data.pubDate)}</div>
-								</a>
-							)}
-						</div>
+						})}
 					</div>
-
-					{/* Small cards grid — posts 4-6 */}
-					{latest.slice(3, 6).length > 0 && (
-						<div class="small-grid">
-							{latest.slice(3, 6).map((post) => {
-								const cat = post.data.categories?.[0];
-								const colors = cat ? (CAT_COLORS[cat] ?? { bg: '#222', letterColor: '#fff', tagBg: '#111', tagColor: '#fff' }) : { bg: '#222', letterColor: '#fff', tagBg: '#111', tagColor: '#fff' };
-								const catTitle = cat ? (CATEGORIES[cat as keyof typeof CATEGORIES]?.title ?? cat) : null;
-								return (
-									<a href={u(`/blog/${post.id}/`)} class="small-card">
-										<div class="small-card-img" style={`background:${colors.bg}`}>
-											<span class="small-card-letter" style={`color:${colors.letterColor}`}>{abbrev(post.data.title)}</span>
-											<span class="small-card-date" style="color:rgba(255,255,255,.6)">{fmtDate(post.data.pubDate)}</span>
-										</div>
-										<div class="small-card-body">
-											{catTitle && (
-												<span class="small-card-pill" style={`background:${colors.tagBg};color:${colors.tagColor}`}>{catTitle}</span>
-											)}
-											<div class="small-card-title">{post.data.title}</div>
-											<div class="small-card-desc">{post.data.description}</div>
-										</div>
-									</a>
-								);
-							})}
-						</div>
-					)}
 				</section>
 			)}
 		</main>
@@ -178,6 +119,8 @@ import { u } from '../utils/url';
 		<style>
 			main {
 				padding: 48px 32px 80px;
+				max-width: 1280px;
+				margin: 0 auto;
 			}
 
 			/* ── Hero ── */
@@ -199,8 +142,8 @@ import { u } from '../utils/url';
 			}
 			.hero-title {
 				font-family: 'Bebas Neue', sans-serif;
-				font-size: clamp(2.8rem, 6vw, 5rem);
-				line-height: .95;
+				font-size: clamp(2.4rem, 4vw, 4rem);
+				line-height: .97;
 				letter-spacing: .03em;
 				color: #111;
 				margin-bottom: 16px;
@@ -227,25 +170,11 @@ import { u } from '../utils/url';
 				letter-spacing: .1em;
 				text-transform: uppercase;
 				transition: all .12s ease;
-				font-family: 'Inter', sans-serif;
 			}
-			.btn-primary {
-				background: #111;
-				color: #AFCC00;
-			}
-			.btn-primary:hover {
-				background: #9E2B4F;
-				color: #fff;
-			}
-			.btn-ghost {
-				background: transparent;
-				color: #111;
-				border: 2px solid #111;
-			}
-			.btn-ghost:hover {
-				background: #111;
-				color: #AFCC00;
-			}
+			.btn-primary { background: #111; color: #AFCC00; }
+			.btn-primary:hover { background: #9E2B4F; color: #fff; }
+			.btn-ghost { background: transparent; color: #111; border: 2px solid #111; }
+			.btn-ghost:hover { background: #111; color: #AFCC00; }
 
 			/* ── Section label ── */
 			.section-label {
@@ -259,9 +188,7 @@ import { u } from '../utils/url';
 				gap: 12px;
 				margin-top: 0;
 			}
-			.section-num {
-				color: #ccc;
-			}
+			.section-num { color: #ccc; }
 			.see-all {
 				font-family: 'Inter', sans-serif;
 				font-size: .7rem;
@@ -273,57 +200,45 @@ import { u } from '../utils/url';
 				text-decoration: none;
 				transition: color .15s;
 			}
-			.see-all:hover {
-				color: #111;
-			}
+			.see-all:hover { color: #111; }
 
 			/* ── Category tiles ── */
-			.categories {
-				margin-bottom: 56px;
-			}
+			.categories { margin-bottom: 56px; }
 			.cat-tiles {
 				display: grid;
-				grid-template-columns: repeat(3, 1fr);
+				grid-template-columns: repeat(3, minmax(0, 1fr));
 				gap: 8px;
 			}
 			.cat-tile {
 				padding: 24px;
-				min-height: 120px;
+				min-height: 140px;
 				display: flex;
 				flex-direction: column;
 				justify-content: space-between;
 				text-decoration: none;
 				transition: opacity .15s;
 			}
-			.cat-tile:hover {
-				opacity: .88;
-			}
-			.cat-tile.t1 {
-				background: #EDE8DF;
-				border: 1px solid rgba(0,0,0,.15);
-			}
-			.cat-tile.t2 {
-				background: #AFCC00;
-			}
-			.cat-tile.t3 {
-				background: #1E4A7A;
-			}
+			.cat-tile:hover { opacity: .88; }
+			.cat-tile.t1 { background: #EDE8DF; border: 1px solid rgba(0,0,0,.12); }
+			.cat-tile.t2 { background: #AFCC00; }
+			.cat-tile.t3 { background: #1E4A7A; }
 			.t-num {
 				font-size: .65rem;
 				font-weight: 700;
 				letter-spacing: .1em;
 				text-transform: uppercase;
 				color: #aaa;
-				margin-bottom: 4px;
+				margin-bottom: 6px;
 			}
 			.t2 .t-num { color: #8aaa00; }
-			.t3 .t-num { color: rgba(255,255,255,.45); }
+			.t3 .t-num { color: rgba(255,255,255,.4); }
 			.t-name {
 				font-family: 'Bebas Neue', sans-serif;
-				font-size: 2rem;
+				font-size: clamp(1.6rem, 2.2vw, 2.2rem);
 				letter-spacing: .04em;
 				text-transform: uppercase;
 				color: #111;
+				line-height: 1.05;
 			}
 			.t3 .t-name { color: #fff; }
 			.t-count {
@@ -334,213 +249,128 @@ import { u } from '../utils/url';
 				margin-bottom: 4px;
 			}
 			.t2 .t-count { color: #666; }
-			.t3 .t-count { color: rgba(255,255,255,.45); }
-			.t-dot {
-				width: 8px;
-				height: 8px;
-				border-radius: 50%;
-			}
+			.t3 .t-count { color: rgba(255,255,255,.4); }
+			.t-dot { width: 8px; height: 8px; border-radius: 50%; }
 			.t1 .t-dot { background: #9E2B4F; }
 			.t2 .t-dot { background: #111; }
-			.t3 .t-dot { background: #AFCC00; } /* lime dot on blue — intentional contrast */
+			.t3 .t-dot { background: #AFCC00; }
 
-			/* ── Latest section ── */
-			.latest {
-				margin-bottom: 0;
-			}
-
-			/* ── Hero grid ── */
-			.hero-grid {
+			/* ── Posts grid ── */
+			.latest { margin-bottom: 0; }
+			.posts-grid {
 				display: grid;
-				grid-template-columns: 2fr 1fr;
-				gap: 8px;
-				margin-bottom: 8px;
-			}
-			.hero-main {
-				background: #111;
-				color: #fff;
-				padding: 24px;
-				position: relative;
-				overflow: hidden;
-				min-height: 260px;
-				display: flex;
-				flex-direction: column;
-				justify-content: flex-end;
-				text-decoration: none;
-			}
-			.hero-bg-letter {
-				position: absolute;
-				right: -10px;
-				top: -20px;
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 18rem;
-				line-height: 1;
-				color: #9E2B4F;
-				opacity: .35;
-				pointer-events: none;
-				letter-spacing: -.02em;
-			}
-			.hero-tags {
-				display: flex;
-				gap: 4px;
-				margin-bottom: 12px;
-				position: relative;
-				z-index: 1;
-			}
-			.h-tag {
-				font-size: .65rem;
-				font-weight: 700;
-				letter-spacing: .1em;
-				text-transform: uppercase;
-				padding: 4px 8px;
-			}
-			.h-tag--pink { background: #9E2B4F; color: #fff; }
-			.h-tag--lime { background: #AFCC00; color: #111; }
-			.hero-post-title {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 2.8rem;
-				line-height: 1.0;
-				letter-spacing: .03em;
-				color: #fff;
-				text-transform: uppercase;
-				position: relative;
-				z-index: 1;
-			}
-			.hero-meta {
-				font-size: .65rem;
-				letter-spacing: .1em;
-				text-transform: uppercase;
-				color: #777;
-				margin-top: 8px;
-				position: relative;
-				z-index: 1;
-			}
-			.hero-side {
-				display: flex;
-				flex-direction: column;
+				grid-template-columns: repeat(3, minmax(0, 1fr));
 				gap: 8px;
 			}
-			.side-card {
-				padding: 16px;
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
-				flex: 1;
-				min-height: 124px;
-				text-decoration: none;
-			}
-			.side-card--lime { background: #AFCC00; }
-			.side-card--white { background: #fff; }
-			.side-tag {
-				font-size: .6rem;
-				font-weight: 700;
-				letter-spacing: .12em;
-				text-transform: uppercase;
-				padding: 3px 7px;
-				display: inline-block;
-				margin-bottom: 8px;
-			}
-			.side-tag--lime-inner { background: #111; color: #AFCC00; }
-			.side-tag--pink-inner { background: #9E2B4F; color: #fff; }
-			.side-title {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 1.45rem;
-				line-height: 1.1;
-				text-transform: uppercase;
-				letter-spacing: .02em;
-				color: #111;
-			}
-			.side-title--dark { color: #111; }
-			.side-meta {
-				font-size: .6rem;
-				letter-spacing: .1em;
-				text-transform: uppercase;
-				color: #555;
-				margin-top: 8px;
-			}
-			.side-meta--dark { color: #666; }
 
-			/* ── Small cards grid ── */
-			.small-grid {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 8px;
+			/* Featured card spans full width */
+			.post-card--featured {
+				grid-column: 1 / -1;
+				flex-direction: row;
 			}
-			.small-card {
+			.post-card--featured .post-card-img {
+				width: 45%;
+				flex-shrink: 0;
+				aspect-ratio: 16/9;
+			}
+			.post-card--featured .post-card-body {
+				padding: 28px 32px;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.post-card--featured .post-card-title {
+				font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+			}
+
+			/* All cards */
+			.post-card {
 				background: #fff;
 				display: flex;
 				flex-direction: column;
 				text-decoration: none;
 				color: #111;
-				transition: opacity .15s;
+				border: 1px solid rgba(0,0,0,.08);
+				transition: box-shadow .15s, transform .15s;
 			}
-			.small-card:hover { opacity: .88; }
-			.small-card-img {
+			.post-card:hover {
+				box-shadow: 0 4px 20px rgba(0,0,0,.1);
+				transform: translateY(-2px);
+			}
+			.post-card-img {
 				width: 100%;
-				aspect-ratio: 4/3;
-				display: flex;
-				align-items: center;
-				justify-content: center;
+				aspect-ratio: 16/9;
 				overflow: hidden;
 				position: relative;
+				background: var(--accent, #111);
 			}
-			.small-card-letter {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 7rem;
-				line-height: 1;
-				opacity: .25;
-				letter-spacing: -.02em;
+			.post-card-img img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
 			}
-			.small-card-date {
-				position: absolute;
-				bottom: 8px;
-				right: 10px;
-				font-size: .6rem;
-				letter-spacing: .1em;
-				text-transform: uppercase;
+			.post-card-placeholder {
+				display: block;
+				width: 100%;
+				height: 100%;
 			}
-			.small-card-body {
-				padding: 16px;
+			.post-card-body {
+				padding: 20px;
+				flex: 1;
+				display: flex;
+				flex-direction: column;
 			}
-			.small-card-pill {
+			.post-card-cat {
+				display: inline-block;
 				font-size: .6rem;
 				font-weight: 700;
 				letter-spacing: .12em;
 				text-transform: uppercase;
-				padding: 3px 7px;
-				display: inline-block;
+				padding: 3px 8px;
 				margin-bottom: 10px;
+				align-self: flex-start;
 			}
-			.small-card-title {
+			.post-card-title {
 				font-family: 'Bebas Neue', sans-serif;
 				font-size: 1.45rem;
 				line-height: 1.05;
-				text-transform: uppercase;
 				letter-spacing: .02em;
+				text-transform: uppercase;
 				color: #111;
-				margin-bottom: 6px;
+				flex: 1;
+				margin-bottom: 8px;
 			}
-			.small-card-desc {
-				font-size: .78rem;
-				color: #666;
-				line-height: 1.5;
+			.post-card-desc {
+				font-size: .88rem;
+				color: #555;
+				line-height: 1.55;
+				margin-bottom: 12px;
+			}
+			.post-card-meta {
+				font-size: .65rem;
+				letter-spacing: .08em;
+				text-transform: uppercase;
+				color: #aaa;
+				margin-top: auto;
 			}
 
 			/* ── Responsive ── */
+			@media (max-width: 960px) {
+				.post-card--featured { flex-direction: column; }
+				.post-card--featured .post-card-img { width: 100%; aspect-ratio: 16/9; }
+			}
 			@media (max-width: 820px) {
 				main { padding: 32px 20px 60px; }
-				.cat-tiles { grid-template-columns: 1fr 1fr; }
-				.hero-grid { grid-template-columns: 1fr; }
-				.hero-side { flex-direction: row; }
-				.small-grid { grid-template-columns: repeat(2, 1fr); }
+				.cat-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+				.posts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 			}
 			@media (max-width: 560px) {
 				main { padding: 24px 16px 48px; }
+				.hero-title { font-size: 2.2rem; }
 				.cat-tiles { grid-template-columns: 1fr; }
-				.hero-bg-letter { font-size: 10rem; }
-				.hero-post-title { font-size: 2rem; }
-				.hero-side { flex-direction: column; }
-				.small-grid { grid-template-columns: 1fr; }
+				.posts-grid { grid-template-columns: 1fr; }
+				.post-card--featured { grid-column: auto; }
 			}
 		</style>
 	</body>
