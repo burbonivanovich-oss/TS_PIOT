@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-      ASTRO_SITE: https://burbonivanovich-oss.github.io
-      ASTRO_BASE: /TS_PIOT
+      ASTRO_SITE: https://etiketka-media.ru
+      ASTRO_BASE: /
 
     steps:
       - uses: actions/checkout@v4
