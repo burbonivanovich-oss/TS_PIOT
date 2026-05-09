@@ -1,6 +1,9 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIES, SITE_URL } from '../consts';
+import { collectTags } from '../utils/tags';
+
+const BLOG_PAGE_SIZE = 12;
 
 type SitemapEntry = {
 	url: string;
@@ -25,9 +28,22 @@ function entry(
 export const GET: APIRoute = async () => {
 	const posts = await getCollection('blog', ({ data }) => !data.draft && !data.seo?.noindex);
 
+	// Paginated blog pages (page 1 = /blog/, page 2+ = /blog/2/ etc.)
+	const totalBlogPages = Math.ceil(posts.length / BLOG_PAGE_SIZE);
+	const blogPageEntries: SitemapEntry[] = Array.from({ length: totalBlogPages }, (_, i) => {
+		const pageNum = i + 1;
+		const path = pageNum === 1 ? '/blog/' : `/blog/${pageNum}/`;
+		return entry(path, '0.7', 'daily');
+	});
+
+	// Tag pages
+	const tagSlugs = Object.keys(collectTags(posts));
+	const tagEntries: SitemapEntry[] = tagSlugs.map((slug) =>
+		entry(`/tag/${slug}/`, '0.4', 'weekly'),
+	);
+
 	const staticEntries: SitemapEntry[] = [
 		entry('/', '1.0', 'daily'),
-		entry('/blog/', '0.7', 'daily'),
 		entry('/slovar/', '0.7', 'weekly'),
 		entry('/kalkulyator-shtrafov/', '0.7', 'monthly'),
 		entry('/kalendar-markirovki/', '0.6', 'weekly'),
@@ -49,7 +65,7 @@ export const GET: APIRoute = async () => {
 		),
 	);
 
-	const all = [...staticEntries, ...categoryEntries, ...postEntries];
+	const all = [...staticEntries, ...blogPageEntries, ...categoryEntries, ...tagEntries, ...postEntries];
 
 	const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

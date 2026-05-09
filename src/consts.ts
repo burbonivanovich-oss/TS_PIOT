@@ -4,7 +4,7 @@
 export const SITE_TITLE = 'Этикетка';
 export const SITE_DESCRIPTION =
 	'Медиа для предпринимателей: маркировка «Честный знак», ТС ПИоТ, кассы, штрафы, изменения в законодательстве 2025–2026. Разбираем понятно — без паники.';
-export const SITE_URL = 'https://etiketka.media';
+export const SITE_URL = 'https://etiketka-media.ru';
 export const SITE_AUTHOR = 'Этикетка';
 export const SITE_LOCALE = 'ru-RU';
 

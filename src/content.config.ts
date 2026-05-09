@@ -27,6 +27,11 @@ const blog = defineCollection({
 				keywords: z.array(z.string()).default([]),
 			}).optional(),
 		cpa: z.string().optional(),
+		faq: z.array(z.object({
+			question: z.string(),
+			answer: z.string(),
+		})).optional(),
+		affiliates: z.array(z.string()).optional(),
 		}),
 });
 
