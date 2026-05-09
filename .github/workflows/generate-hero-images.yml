@@ -4,11 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       slug:
-        description: 'Slug статьи (без .md). Пусто = все статьи без hero'
+        description: 'Slug статьи (без даты, например 2026-05-01-markirovka-piva-roznica). Пусто = все статьи без hero'
         required: false
         default: ''
       limit:
-        description: 'Сколько статей обработать (0 = все без ограничений)'
+        description: 'Сколько статей обработать за раз (0 = все без ограничений)'
+        required: false
+        default: '5'
+      force:
+        description: 'Перегенерировать даже если heroImage уже есть (1 = да)'
         required: false
         default: '0'
 
@@ -19,8 +23,9 @@ jobs:
       contents: write
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-      SLUG: ${{ inputs.slug }}
+      SLUG:  ${{ inputs.slug }}
       LIMIT: ${{ inputs.limit }}
+      FORCE: ${{ inputs.force }}
 
     steps:
       - uses: actions/checkout@v4
