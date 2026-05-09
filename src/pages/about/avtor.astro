@@ -14,7 +14,7 @@ const personJsonLd = {
 	name: 'Редакция Этикетки',
 	url: `${SITE_URL}/about/avtor/`,
 	description,
-	email: 'hello@etiketka.media',
+	email: 'hello@etiketka-media.ru',
 	knowsAbout: [
 		'ТС ПИоТ (техническое средство получения информации о товаре)',
 		'Маркировка «Честный знак»',
@@ -56,6 +56,7 @@ const breadcrumbsJsonLd = {
 		},
 	],
 };
+import { u } from '../../utils/url';
 ---
 
 <!doctype html>
@@ -72,9 +73,9 @@ const breadcrumbsJsonLd = {
 		<main>
 			<article class="static-page">
 				<nav class="breadcrumbs" aria-label="Хлебные крошки">
-					<a href="/">Главная</a>
+					<a href={u("/")}>Главная</a>
 					<span>›</span>
-					<a href="/about/">О проекте</a>
+					<a href={u("/about/")}>О проекте</a>
 					<span>›</span>
 					<span aria-current="page">{title}</span>
 				</nav>
@@ -91,7 +92,7 @@ const breadcrumbsJsonLd = {
 					<div class="author-card-info">
 						<div class="author-card-name">Редакция «{SITE_TITLE}»</div>
 						<div class="author-card-role">Медиа для малого и среднего бизнеса России</div>
-						<a class="author-card-mail" href="mailto:hello@etiketka.media">hello@etiketka.media</a>
+						<a class="author-card-mail" href="mailto:hello@etiketka-media.ru">hello@etiketka-media.ru</a>
 					</div>
 				</div>
 
@@ -156,7 +157,7 @@ const breadcrumbsJsonLd = {
 
 				<h2>Задать вопрос редакции</h2>
 				<p>Нашли ошибку, устаревшие данные или хотите предложить тему? Мы проверяем каждое сообщение.</p>
-				<form class="contact-form" action="mailto:hello@etiketka.media" method="get" enctype="text/plain">
+				<form class="contact-form" action="mailto:hello@etiketka-media.ru" method="get" enctype="text/plain">
 					<div class="contact-field">
 						<label for="cf-name">Ваше имя</label>
 						<input id="cf-name" name="name" type="text" placeholder="Иван Иванов" required />
