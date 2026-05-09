@@ -12,7 +12,7 @@
 
 До 01.11.2026: обновить кассовое ПО и систему товарного учёта под поэкземплярный учёт. Молоко в розлив без индивидуальной упаковки под маркировку не подпадает.
 
-Читать: etiketka.media/blog/markirovka-molochki-msb/
+Читать: etiketka-media.ru/blog/markirovka-molochki-msb/
 
 ## ВКонтакте
 
@@ -39,7 +39,7 @@
 
 Малым производителям дополнительно: заказывать коды маркировки (50 копеек без НДС за единицу), наносить код Data Matrix до первой передачи продукции, передавать данные об отгрузке через УПД.
 
-Подробнее в нашей статье: etiketka.media/blog/markirovka-molochki-msb/
+Подробнее в нашей статье: etiketka-media.ru/blog/markirovka-molochki-msb/
 
 ## Дзен
 
@@ -87,4 +87,4 @@
 
 Использование 1D-сканера. Лазерный одномерный сканер не считывает коды Data Matrix. Нужен 2D-сканер (imager).
 
-Источник: etiketka.media/blog/markirovka-molochki-msb/
+Источник: etiketka-media.ru/blog/markirovka-molochki-msb/

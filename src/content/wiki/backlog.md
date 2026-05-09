@@ -18,7 +18,7 @@ status: draft
 
 | # | Задача | Приоритет | Статус |
 |---|---|---|---|
-| 1 | Подключить домен etiketka.media к GitHub Pages | P0 | idea |
+| 1 | Подключить домен etiketka-media.ru к GitHub Pages | P0 | idea |
 | 2 | Верифицировать сайт в Google Search Console | P0 | idea |
 | 3 | Верифицировать сайт в Яндекс.Вебмастере | P0 | idea |
 | 4 | Установить счётчик Яндекс.Метрики (BaseHead.astro, плейсхолдер есть) | P0 | idea |

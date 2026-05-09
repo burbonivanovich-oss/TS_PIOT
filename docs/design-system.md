@@ -237,7 +237,7 @@ import Checklist from '../../components/Checklist.astro';
 - SVG-аватар с инициалами «ЭМ» (тёмный фон `#111`, лаймовый текст `#C8F500`, Bebas Neue)
 - Карточка автора: тёмный блок, имя / роль / email
 - Контактная форма: имя + email + textarea + submit
-- `action="mailto:hello@etiketka.media" method="get"` — клиентская, без бэкенда
+- `action="mailto:hello@etiketka-media.ru" method="get"` — клиентская, без бэкенда
 
 ---
 
