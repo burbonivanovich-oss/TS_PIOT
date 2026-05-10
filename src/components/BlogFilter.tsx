@@ -268,7 +268,8 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 12 }
 				.bf-card--featured .bf-card-img {
 					width: 45%;
 					flex-shrink: 0;
-					aspect-ratio: 16/9;
+					min-height: 220px;
+					overflow: hidden;
 				}
 				.bf-card--featured .bf-card-body {
 					padding: 28px 32px;

@@ -59,7 +59,7 @@ const CAT_COLOR: Record<string, string> = {
 			<!-- Category tiles -->
 			<section class="categories">
 				<div class="section-label">
-					<span class="section-num">// 01</span> Разделы
+					Разделы
 					<a href={u("/blog/")} class="see-all">СМ. ВСЕ →</a>
 				</div>
 				<div class="cat-tiles">
@@ -92,7 +92,7 @@ const CAT_COLOR: Record<string, string> = {
 			{latest.length > 0 && (
 				<section class="latest">
 					<div class="section-label">
-						<span class="section-num">// 02</span> Последние материалы
+						Последние материалы
 						<a href={u("/blog/")} class="see-all">СМ. ВСЕ →</a>
 					</div>
 
@@ -288,7 +288,8 @@ const CAT_COLOR: Record<string, string> = {
 			.post-card--featured .post-card-img {
 				width: 45%;
 				flex-shrink: 0;
-				aspect-ratio: 16/9;
+				min-height: 220px;
+				overflow: hidden;
 			}
 			.post-card--featured .post-card-body {
 				padding: 28px 32px;
