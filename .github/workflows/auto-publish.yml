@@ -1,0 +1,84 @@
+name: Auto Publish Article
+
+on:
+  schedule:
+    # 4 раза в день: 07:00, 11:00, 15:00, 19:00 МСК (UTC+3)
+    - cron: '0 4 * * *'
+    - cron: '0 8 * * *'
+    - cron: '0 12 * * *'
+    - cron: '0 16 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — показать следующий черновик без публикации (1 = да)'
+        required: false
+        default: '0'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Pick and release next draft
+        id: release
+        run: |
+          if [ "${{ inputs.dry_run }}" = "1" ]; then
+            # Dry run: только показать следующий черновик, не менять файл
+            SLUG=$(node -e "
+              import { readdirSync, readFileSync } from 'fs';
+              import { join, basename } from 'path';
+              const dir = 'src/content/blog';
+              const files = readdirSync(dir).filter(f => f.endsWith('.md') || f.endsWith('.mdx')).sort();
+              for (const f of files) {
+                const c = readFileSync(join(dir, f), 'utf8');
+                if (/^draft:\s*true\s*$/m.test(c)) { process.stdout.write(basename(f, f.endsWith('.mdx') ? '.mdx' : '.md')); break; }
+              }
+            " --input-type=module 2>/dev/null || echo '')
+            echo "slug=$SLUG" >> $GITHUB_OUTPUT
+            echo "dry_run=1" >> $GITHUB_OUTPUT
+            echo "Dry run. Next draft: $SLUG"
+          else
+            SLUG=$(node scripts/release-next-draft.mjs 2>/dev/null || echo '')
+            echo "slug=$SLUG" >> $GITHUB_OUTPUT
+            echo "dry_run=0" >> $GITHUB_OUTPUT
+            if [ -n "$SLUG" ]; then
+              echo "Released: $SLUG"
+            else
+              echo "No draft articles left."
+            fi
+          fi
+
+      - name: Generate hero image for released article
+        if: steps.release.outputs.slug != '' && steps.release.outputs.dry_run == '0'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          SLUG: ${{ steps.release.outputs.slug }}
+          FORCE: '1'
+          LIMIT: '1'
+        run: node scripts/generate-hero-images.mjs
+
+      - name: Commit and push
+        if: steps.release.outputs.slug != '' && steps.release.outputs.dry_run == '0'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/blog/ public/images/hero/
+          git diff --staged --quiet && echo "Nothing to commit." && exit 0
+          git commit -m "feat(publish): ${{ steps.release.outputs.slug }}"
+          git push origin main
