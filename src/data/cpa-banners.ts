@@ -19,7 +19,7 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 		description:
 			'Личный кабинет участника оборота — обязательный первый шаг перед подключением ТС ПИоТ и работой с маркированными товарами.',
 		cta: 'Перейти →',
-		ctaHref: 'https://честныйзнак.рф/',
+		ctaHref: '/',
 		visual: { abbrev: 'ЧЗ', bg: '#111' },
 	},
 	'default-ts-piot': {
@@ -29,7 +29,7 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 		description:
 			'Срок обязателен для всех касс с разрешительным режимом «Честного знака». Без модуля — касса заблокирует продажи маркированных товаров.',
 		cta: 'Инструкция по подключению →',
-		ctaHref: '/blog/',
+		ctaHref: '/blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/',
 		visual: { abbrev: 'ТС', bg: '#111' },
 	},
 	'default-markirovka': {
@@ -52,6 +52,16 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 		ctaHref: '/kalkulyator-shtrafov/',
 		visual: { abbrev: 'КШ', bg: '#AFCC00' },
 	},
+	'ts-piot-provider': {
+		id: 'ts-piot-provider',
+		eyebrow: 'Следующий шаг',
+		title: 'Выберите провайдера ТС ПИоТ',
+		description:
+			'Подключение занимает от 1 до 5 рабочих дней при совместимой кассе. До 1 июля 2026 осталось немного времени.',
+		cta: 'Выбрать провайдера →',
+		ctaHref: '/',
+		visual: { abbrev: 'ТС', bg: '#9E2B4F' },
+	},
 };
 
 /** Дефолтный баннер по категории статьи. */
@@ -59,4 +69,9 @@ export const CATEGORY_DEFAULT_CPA: Record<string, string> = {
 	'ts-piot': 'chestny-znak',
 	'markirovka': 'default-markirovka',
 	'zakonodatelstvo': 'default-zakonodatelstvo',
+};
+
+/** Второй CPA-баннер по категории (необязательный). */
+export const CATEGORY_DEFAULT_CPA2: Record<string, string> = {
+	'ts-piot': 'ts-piot-provider',
 };

@@ -12,7 +12,7 @@ import {
 	SITE_LOCALE,
 	SIDEBAR_BANNER,
 } from '../consts';
-import { CPA_BANNERS, CATEGORY_DEFAULT_CPA } from '../data/cpa-banners';
+import { CPA_BANNERS, CATEGORY_DEFAULT_CPA, CATEGORY_DEFAULT_CPA2 } from '../data/cpa-banners';
 import { tagSlug } from '../utils/tags';
 import { u } from '../utils/url';
 
@@ -124,6 +124,10 @@ const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
 /* CPA-баннер: из frontmatter или дефолт по категории */
 const cpaBannerId = cpa ?? CATEGORY_DEFAULT_CPA[primaryCategory ?? ''] ?? 'default-ts-piot';
 const cpaBanner = CPA_BANNERS[cpaBannerId] ?? CPA_BANNERS['default-ts-piot'];
+
+/* Второй CPA-баннер (только если определён для категории) */
+const cpaBanner2Id = CATEGORY_DEFAULT_CPA2[primaryCategory ?? ''];
+const cpaBanner2 = cpaBanner2Id ? CPA_BANNERS[cpaBanner2Id] : null;
 
 const catAccent =
 	primaryCategory === 'ts-piot' ? '#111' :
@@ -266,6 +270,25 @@ const shareTitle = encodeURIComponent(title);
 							</a>
 						</div>
 					</div>
+
+					<!-- Второй CPA-баннер (только для ts-piot) -->
+					{cpaBanner2 && (
+						<div class="cpa-block" data-pagefind-ignore>
+							<div class="cpa-visual" style={`background:${cpaBanner2.visual.bg}`}>
+								<span class="cpa-visual-letter">{cpaBanner2.visual.abbrev}</span>
+							</div>
+							<div class="cpa-body">
+								<div class="cpa-eyebrow">{cpaBanner2.eyebrow}</div>
+								<div class="cpa-title">{cpaBanner2.title}</div>
+								<p class="cpa-desc">{cpaBanner2.description}</p>
+							</div>
+							<div class="cpa-action">
+								<a href={cpaBanner2.ctaHref} class="cpa-btn">
+									{cpaBanner2.cta}
+								</a>
+							</div>
+						</div>
+					)}
 
 					<!-- Share -->
 					<div class="art-share" data-pagefind-ignore>

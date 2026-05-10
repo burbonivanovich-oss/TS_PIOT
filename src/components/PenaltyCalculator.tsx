@@ -160,6 +160,18 @@ export default function PenaltyCalculator() {
 				</div>
 			)}
 
+			{result && scenario && (
+				<div className="rcalc-cta">
+					<span className="rcalc-cta-label">Как избежать:</span>
+					<a href="/" className="rcalc-cta-link">
+						{group === 'kkt' && 'Подключить ТС ПИоТ и настроить кассу →'}
+						{group === 'markirovka' && 'Зарегистрироваться в «Честном знаке» →'}
+						{group === 'egais' && 'Как настроить ЕГАИС для вашей кассы →'}
+						{group === 'merkuriy' && 'Как подключиться к системе Меркурий →'}
+					</a>
+				</div>
+			)}
+
 			<style>{`
 				.rcalc {
 					background: var(--accent-soft);
@@ -278,6 +290,31 @@ export default function PenaltyCalculator() {
 					border-top: 1px solid rgb(226, 232, 240);
 					padding-top: 0.8rem;
 					margin: 0.8rem 0 0;
+				}
+				.rcalc-cta {
+					background: #f0fdf4;
+					border-left: 4px solid #16a34a;
+					padding: 0.8rem 1rem;
+					display: flex;
+					align-items: center;
+					gap: 0.6rem;
+					flex-wrap: wrap;
+				}
+				.rcalc-cta-label {
+					font-size: 0.85rem;
+					font-weight: 600;
+					color: #166534;
+				}
+				.rcalc-cta-link {
+					font-size: 0.88rem;
+					font-weight: 600;
+					color: #16a34a;
+					text-decoration: none;
+					transition: color 0.15s;
+				}
+				.rcalc-cta-link:hover {
+					color: #15803d;
+					text-decoration: underline;
 				}
 			`}</style>
 		</div>

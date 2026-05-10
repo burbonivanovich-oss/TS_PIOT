@@ -79,7 +79,7 @@ export default function MarkingCalendar() {
 						<thead>
 							<tr>
 								<th>Категория товаров</th>
-								<th>Группа</th>
+								<th className="mc-th-group">Группа</th>
 								<th>Дата</th>
 								<th>Требование</th>
 								<th>Статус</th>
@@ -235,6 +235,9 @@ export default function MarkingCalendar() {
 					font-size: 0.78rem;
 					font-weight: 600;
 					white-space: nowrap;
+				}
+				@media (max-width: 640px) {
+					.mc-th-group, .mc-td-group { display: none; }
 				}
 			`}</style>
 		</div>
