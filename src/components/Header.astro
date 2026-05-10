@@ -13,6 +13,7 @@ import { u } from '../utils/url';
 				{NAV_LINKS.filter(l => !['/', '/slovar/', '/about/', '/search/'].includes(l.href)).map((link) => (
 					<a href={u(link.href)}>{link.label}</a>
 				))}
+				<a href={u('/search/')} class="nav-search-mobile">Поиск</a>
 			</nav>
 		</div>
 		<div class="header-right">
@@ -116,6 +117,9 @@ import { u } from '../utils/url';
 	.search-link:hover {
 		color: #111;
 	}
+	.nav-search-mobile {
+		display: none;
+	}
 	.nav-toggle {
 		display: none;
 		background: none;
@@ -168,6 +172,9 @@ import { u } from '../utils/url';
 		.site-nav a {
 			line-height: 2.2;
 			padding: 0 0;
+		}
+		.nav-search-mobile {
+			display: block;
 		}
 	}
 </style>

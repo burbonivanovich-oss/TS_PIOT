@@ -295,16 +295,15 @@ const shareTitle = encodeURIComponent(title);
 									{related.map((post) => {
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
 										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
-										const abbr = abbrev(post.data.title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
-										const lightText = false;
+										const img = post.data.previewImage ?? post.data.heroImage ?? null;
 										return (
 											<a href={u(`/blog/${post.id}/`)} class="r-card">
-												<div class="r-card-top" style={`background:${accent}`}>
-													<span class="r-card-abbr" style={lightText ? 'color:#111' : 'color:#fff'}>{abbr}</span>
-													{catLabel && <span class="r-card-cat" style={lightText ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.65)'}>{catLabel}</span>}
+												<div class="r-card-img" style={`background:${accent}`}>
+													{img && <img src={u(img)} alt="" loading="lazy" />}
 												</div>
 												<div class="r-card-body">
+													{catLabel && <span class="r-card-pill" style={`background:${accent};color:#fff`}>{catLabel}</span>}
 													<h3>{post.data.title}</h3>
 													{post.data.description && <p>{post.data.description}</p>}
 													<span class="r-card-read">Читать →</span>
@@ -321,16 +320,15 @@ const shareTitle = encodeURIComponent(title);
 									{related.map((post, i) => {
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
 										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
-										const abbr = abbrev(post.data.title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
-										const lightText = false;
+										const img = post.data.previewImage ?? post.data.heroImage ?? null;
 										return (
 											<a href={u(`/blog/${post.id}/`)} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--side'}>
-												<div class="r-card-top" style={`background:${accent}`}>
-													<span class="r-card-abbr" style={lightText ? 'color:#111' : 'color:#fff'}>{abbr}</span>
-													{catLabel && <span class="r-card-cat" style={lightText ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.65)'}>{catLabel}</span>}
+												<div class="r-card-img" style={`background:${accent}`}>
+													{img && <img src={u(img)} alt="" loading="lazy" />}
 												</div>
 												<div class="r-card-body">
+													{catLabel && <span class="r-card-pill" style={`background:${accent};color:#fff`}>{catLabel}</span>}
 													<h3>{post.data.title}</h3>
 													{i === 0 && post.data.description && <p>{post.data.description}</p>}
 													<span class="r-card-read">Читать →</span>
@@ -347,16 +345,15 @@ const shareTitle = encodeURIComponent(title);
 									{related.map((post, i) => {
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
 										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
-										const abbr = abbrev(post.data.title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
-										const lightText = false;
+										const img = post.data.previewImage ?? post.data.heroImage ?? null;
 										return (
 											<a href={u(`/blog/${post.id}/`)} class={i === 2 ? 'r-card r-card--wide' : 'r-card'}>
-												<div class="r-card-top" style={`background:${accent}`}>
-													<span class="r-card-abbr" style={lightText ? 'color:#111' : 'color:#fff'}>{abbr}</span>
-													{catLabel && <span class="r-card-cat" style={lightText ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.65)'}>{catLabel}</span>}
+												<div class="r-card-img" style={`background:${accent}`}>
+													{img && <img src={u(img)} alt="" loading="lazy" />}
 												</div>
 												<div class="r-card-body">
+													{catLabel && <span class="r-card-pill" style={`background:${accent};color:#fff`}>{catLabel}</span>}
 													<h3>{post.data.title}</h3>
 													{post.data.description && <p>{post.data.description}</p>}
 													<span class="r-card-read">Читать →</span>
@@ -373,16 +370,15 @@ const shareTitle = encodeURIComponent(title);
 									{related.slice(0, 4).map((post, i) => {
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
 										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
-										const abbr = abbrev(post.data.title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
-										const lightText = false;
+										const img = post.data.previewImage ?? post.data.heroImage ?? null;
 										return (
 											<a href={u(`/blog/${post.id}/`)} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--compact'}>
-												<div class="r-card-top" style={`background:${accent}`}>
-													<span class="r-card-abbr" style={lightText ? 'color:#111' : 'color:#fff'}>{abbr}</span>
-													{catLabel && <span class="r-card-cat" style={lightText ? 'color:rgba(0,0,0,.45)' : 'color:rgba(255,255,255,.65)'}>{catLabel}</span>}
+												<div class="r-card-img" style={`background:${accent}`}>
+													{img && <img src={u(img)} alt="" loading="lazy" />}
 												</div>
 												<div class="r-card-body">
+													{catLabel && <span class="r-card-pill" style={`background:${accent};color:#fff`}>{catLabel}</span>}
 													<h3>{post.data.title}</h3>
 													{i === 0 && post.data.description && <p>{post.data.description}</p>}
 													<span class="r-card-read">Читать →</span>
@@ -519,47 +515,40 @@ const shareTitle = encodeURIComponent(title);
 			.related-more a:hover { color: #9E2B4F; }
 
 			/* Базовая карточка */
-			.r-card { display: flex; flex-direction: column; background: #fff; text-decoration: none; color: inherit; overflow: hidden; transition: transform .15s; }
-			.r-card:hover { transform: translateY(-2px); }
-			.r-card:hover .r-card-body { background: #F6F4F0; }
-			.r-card-top { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 14px 16px; flex-shrink: 0; }
-			.r-card-abbr { position: absolute; right: 6px; bottom: -10px; font-family: 'Bebas Neue', sans-serif; font-size: 6rem; line-height: 1; opacity: .14; letter-spacing: -.03em; pointer-events: none; user-select: none; }
-			.r-card-cat { font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; position: relative; z-index: 1; }
-			.r-card-body { padding: 14px 16px 18px; flex: 1; display: flex; flex-direction: column; gap: 7px; transition: background .15s; }
+			.r-card { display: flex; flex-direction: column; background: #fff; text-decoration: none; color: inherit; overflow: hidden; border: 1px solid rgba(0,0,0,.08); transition: box-shadow .15s, transform .15s; }
+			.r-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,.1); }
+			.r-card-img { width: 100%; aspect-ratio: 16/9; overflow: hidden; flex-shrink: 0; }
+			.r-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+			.r-card-body { padding: 14px 16px 18px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+			.r-card-pill { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 2px 7px; display: inline-block; align-self: flex-start; }
 			.r-card-body h3 { font-family: 'Bebas Neue', sans-serif; letter-spacing: .02em; color: #111; line-height: 1.15; margin: 0; }
 			.r-card-body p { font-size: .82rem; color: #666; line-height: 1.5; margin: 0; }
-			.r-card-read { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #9E2B4F; margin-top: auto; padding-top: 6px; }
+			.r-card-read { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #9E2B4F; margin-top: auto; padding-top: 4px; }
 
 			/* A2: две равные */
-			.related-grid--a2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
-			.related-grid--a2 .r-card-top { height: 160px; }
+			.related-grid--a2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 			.related-grid--a2 .r-card-body h3 { font-size: 1.15rem; }
 
 			/* A3: 1 большая + 2 компактных */
-			.related-grid--a3 { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 3px; }
+			.related-grid--a3 { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 8px; }
 			.related-grid--a3 .r-card--main { grid-row: 1/3; }
-			.related-grid--a3 .r-card--main .r-card-top { height: 220px; }
 			.related-grid--a3 .r-card--main .r-card-body h3 { font-size: 1.4rem; }
-			.related-grid--a3 .r-card--side .r-card-top { height: 100px; }
+			.related-grid--a3 .r-card--side .r-card-img { aspect-ratio: 4/3; }
 			.related-grid--a3 .r-card--side .r-card-body h3 { font-size: 1rem; }
 
 			/* B: 2 стандартных + 1 горизонтальная */
-			.related-grid--b { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
-			.related-grid--b .r-card-top { height: 130px; }
+			.related-grid--b { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 			.related-grid--b .r-card-body h3 { font-size: 1.1rem; }
 			.related-grid--b .r-card--wide { grid-column: 1/3; flex-direction: row; }
-			.related-grid--b .r-card--wide .r-card-top { width: 200px; height: auto; flex-shrink: 0; }
+			.related-grid--b .r-card--wide .r-card-img { width: 220px; aspect-ratio: unset; flex-shrink: 0; }
 			.related-grid--b .r-card--wide .r-card-body { justify-content: center; }
 			.related-grid--b .r-card--wide .r-card-body h3 { font-size: 1.3rem; }
 
 			/* C: 1 большая + 3 компактных без описания */
-			.related-grid--c { display: grid; grid-template-columns: 5fr 3fr; grid-template-rows: repeat(3, auto); gap: 3px; }
+			.related-grid--c { display: grid; grid-template-columns: 5fr 3fr; grid-template-rows: repeat(3, auto); gap: 8px; }
 			.related-grid--c .r-card--main { grid-row: 1/4; }
-			.related-grid--c .r-card--main .r-card-top { height: 240px; }
-			.related-grid--c .r-card--main .r-card-abbr { font-size: 9rem; }
 			.related-grid--c .r-card--main .r-card-body h3 { font-size: 1.4rem; }
-			.related-grid--c .r-card--compact .r-card-top { height: 80px; }
-			.related-grid--c .r-card--compact .r-card-abbr { font-size: 4rem; }
+			.related-grid--c .r-card--compact .r-card-img { aspect-ratio: 4/3; }
 			.related-grid--c .r-card--compact .r-card-body h3 { font-size: .95rem; }
 			.related-grid--c .r-card--compact .r-card-body p { display: none; }
 
@@ -591,7 +580,7 @@ const shareTitle = encodeURIComponent(title);
 				.related-grid--a3 .r-card--main,
 				.related-grid--c .r-card--main { grid-row: auto; }
 				.related-grid--b .r-card--wide { flex-direction: column; grid-column: auto; }
-				.related-grid--b .r-card--wide .r-card-top { width: 100%; height: 120px; }
+				.related-grid--b .r-card--wide .r-card-img { width: 100%; aspect-ratio: 16/9; }
 				.cpa-block { grid-template-columns: 1fr; }
 				.cpa-visual { height: 80px; }
 				.cpa-action { border-left: none; border-top: 1px solid rgba(0,0,0,.08); padding: 14px 22px; }
