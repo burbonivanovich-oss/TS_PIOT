@@ -62,6 +62,26 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 		ctaHref: '/',
 		visual: { abbrev: 'ТС', bg: '#9E2B4F' },
 	},
+	'online-buh': {
+		id: 'online-buh',
+		eyebrow: 'Автоматизация учёта',
+		title: 'Онлайн-бухгалтерия справится с ЕНС, налогами и отчётностью',
+		description:
+			'Сервис сам рассчитывает налоги, формирует уведомления по ЕНС и напоминает о сроках. Подходит для ИП и ООО на УСН.',
+		cta: 'Подобрать сервис →',
+		ctaHref: '/',
+		visual: { abbrev: 'БУХ', bg: '#1E4A7A' },
+	},
+	'edo-operator': {
+		id: 'edo-operator',
+		eyebrow: 'Обязательный шаг',
+		title: 'Подключите ЭДО — без него приёмка маркированных товаров невозможна',
+		description:
+			'УПД с кодами маркировки принимается только через аккредитованного ЭДО-оператора. До дедлайна осталось немного времени.',
+		cta: 'Подключить ЭДО →',
+		ctaHref: '/',
+		visual: { abbrev: 'ЭДО', bg: '#1E4A7A' },
+	},
 };
 
 /** Дефолтный баннер по категории статьи. */
@@ -69,9 +89,12 @@ export const CATEGORY_DEFAULT_CPA: Record<string, string> = {
 	'ts-piot': 'chestny-znak',
 	'markirovka': 'default-markirovka',
 	'zakonodatelstvo': 'default-zakonodatelstvo',
+	'kkt': 'chestny-znak',
+	'egais': 'default-zakonodatelstvo',
 };
 
 /** Второй CPA-баннер по категории (необязательный). */
 export const CATEGORY_DEFAULT_CPA2: Record<string, string> = {
 	'ts-piot': 'ts-piot-provider',
+	'markirovka': 'ts-piot-provider',
 };

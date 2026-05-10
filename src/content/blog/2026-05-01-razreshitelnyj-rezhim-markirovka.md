@@ -12,6 +12,7 @@ tags:
   - тс пиот
 categories:
   - markirovka
+cpa: 'ts-piot-provider'
 draft: false
 seo:
   keywords:
