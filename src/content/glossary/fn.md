@@ -7,8 +7,10 @@ aliases:
 summary: "Съёмный криптографический модуль онлайн-кассы, который защищает и хранит фискальные данные до передачи в ОФД."
 category: "ts-piot"
 relatedLinks:
+  - label: "Как заменить ФН пошагово"
+    url: "/blog/2026-05-01-zamena-fn-poshagovo/"
   - label: "ТС ПИоТ: что это и кому нужен"
-    url: "/blog/chto-takoe-ts-piot/"
+    url: "/blog/2026-01-15-chto-takoe-ts-piot/"
   - label: "Категория: ТС ПИоТ"
     url: "/category/ts-piot/"
 ---

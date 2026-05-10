@@ -20,6 +20,7 @@ const catList = [
 	{ slug: 'ts-piot',          num: '01', name: 'ТС ПИоТ',         cls: 't1', count: posts.filter(p => p.data.categories?.includes('ts-piot')).length },
 	{ slug: 'markirovka',       num: '02', name: 'Маркировка',       cls: 't2', count: posts.filter(p => p.data.categories?.includes('markirovka')).length },
 	{ slug: 'zakonodatelstvo',  num: '03', name: 'Законодательство', cls: 't3', count: posts.filter(p => p.data.categories?.includes('zakonodatelstvo')).length },
+	{ slug: 'tools',            num: '04', name: 'Инструменты',      cls: 't4', count: null },
 ];
 
 const CAT_COLOR: Record<string, string> = {
@@ -51,7 +52,7 @@ const CAT_COLOR: Record<string, string> = {
 				</p>
 				<div class="hero-cta">
 					<a href={u("/blog/")} class="btn btn-primary">Все статьи</a>
-					<a href={u("/category/ts-piot/")} class="btn btn-ghost">Что такое ТС ПИоТ →</a>
+					<a href={u("/blog/2026-05-01-ofd-dlya-ts-piot/")} class="btn btn-ghost">ОФД для ТС ПИоТ →</a>
 				</div>
 			</section>
 
@@ -62,7 +63,7 @@ const CAT_COLOR: Record<string, string> = {
 					<a href={u("/blog/")} class="see-all">СМ. ВСЕ →</a>
 				</div>
 				<div class="cat-tiles">
-					{catList.map((cat) => (
+					{catList.filter(c => c.slug !== 'tools').map((cat) => (
 						<a class={`cat-tile ${cat.cls}`} href={u(`/category/${cat.slug}/`)}>
 							<div>
 								<div class="t-num">{cat.num}</div>
@@ -74,6 +75,16 @@ const CAT_COLOR: Record<string, string> = {
 							</div>
 						</a>
 					))}
+					<div class="cat-tile t4">
+						<div>
+							<div class="t-num">04</div>
+							<div class="t-name">Инструменты</div>
+						</div>
+						<div class="t4-links">
+							<a href={u('/kalkulyator-shtrafov/')} class="t4-link">Калькулятор штрафов →</a>
+							<a href={u('/kalendar-markirovki/')} class="t4-link">Календарь маркировки →</a>
+						</div>
+					</div>
 				</div>
 			</section>
 
@@ -206,7 +217,7 @@ const CAT_COLOR: Record<string, string> = {
 			.categories { margin-bottom: 56px; }
 			.cat-tiles {
 				display: grid;
-				grid-template-columns: repeat(3, minmax(0, 1fr));
+				grid-template-columns: repeat(4, minmax(0, 1fr));
 				gap: 8px;
 			}
 			.cat-tile {
@@ -256,6 +267,10 @@ const CAT_COLOR: Record<string, string> = {
 			.t1 .t-dot { background: #9E2B4F; }
 			.t2 .t-dot { background: #111; }
 			.t3 .t-dot { background: #AFCC00; }
+			.cat-tile.t4 { background: #F6F4F0; border: 1px solid rgba(0,0,0,.12); cursor: default; }
+			.t4-links { display: flex; flex-direction: column; gap: 6px; }
+			.t4-link { font-size: .75rem; font-weight: 700; letter-spacing: .06em; color: #9E2B4F; text-decoration: none; transition: color .15s; }
+			.t4-link:hover { color: #7d2240; }
 
 			/* ── Posts grid ── */
 			.latest { margin-bottom: 0; }
@@ -364,7 +379,7 @@ const CAT_COLOR: Record<string, string> = {
 			}
 			@media (max-width: 820px) {
 				main { padding: 32px 20px 60px; }
-				.cat-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+				.cat-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 				.posts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 			}
 			@media (max-width: 560px) {

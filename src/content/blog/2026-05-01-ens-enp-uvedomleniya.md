@@ -11,6 +11,7 @@ tags:
   - мсб
 categories:
   - zakonodatelstvo
+cpa: 'online-buh'
 draft: false
 seo:
   keywords:

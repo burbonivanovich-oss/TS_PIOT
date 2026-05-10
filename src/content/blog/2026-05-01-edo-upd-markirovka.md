@@ -12,6 +12,7 @@ tags:
   - документооборот
 categories:
   - zakonodatelstvo
+cpa: 'edo-operator'
 draft: false
 seo:
   keywords:

@@ -56,9 +56,20 @@ import { u } from '../utils/url';
 					С 28 декабря 2025 года обязательным стал <a href={u("/blog/2026-01-15-chto-takoe-ts-piot/")}>ТС ПИоТ</a> —
 					программный модуль кассы, который проверяет коды при продаже. Каждая строка таблицы
 					ниже — это момент, когда ваша касса должна уметь отклонять немаркированный товар.
-					Сверьтесь со своей товарной группой и убедитесь, что касса и договор с ОФД готовы.
+					Сверьтесь со своей товарной группой и убедитесь, что касса и <a href="/">договор с ОФД</a> готовы.
 				</p>
 			</header>
+
+			<div class="deadline-banner" id="deadline-banner">
+				<strong>До обязательной маркировки косметики и бытовой химии — <span id="days-left">…</span> дней.</strong>
+				Успейте подготовить кассу и ОФД. <a href="/">Подготовиться →</a>
+			</div>
+			<script>
+				const diff = Math.ceil((new Date('2026-07-01').getTime() - new Date().getTime()) / 86400000);
+				const el = document.getElementById('days-left');
+				if (el) el.textContent = diff > 0 ? String(diff) : '0';
+				if (diff <= 0) document.getElementById('deadline-banner')?.classList.add('deadline-banner--past');
+			</script>
 
 			<MarkingCalendar client:load />
 
@@ -97,6 +108,9 @@ import { u } from '../utils/url';
 					<li>
 						<a href={u("/blog/2026-01-15-chto-takoe-ts-piot/")}>Что такое ТС ПИоТ</a> — как касса проверяет маркировку.
 					</li>
+					<li>
+						<a href="/">Подготовить кассу к маркировке</a> — провайдеры ТС ПИоТ и ОФД.
+					</li>
 				</ul>
 			</section>
 		</main>
@@ -128,6 +142,23 @@ import { u } from '../utils/url';
 				color: rgb(var(--gray-dark));
 				margin-top: 0.5rem;
 				line-height: 1.65;
+			}
+			.deadline-banner {
+				background: #fffbeb;
+				border-left: 4px solid #d97706;
+				padding: 1rem 1.2rem;
+				margin-bottom: 1.5rem;
+				font-size: 0.95rem;
+				line-height: 1.6;
+				color: rgb(var(--gray-dark));
+			}
+			.deadline-banner a {
+				color: #d97706;
+				font-weight: 600;
+			}
+			.deadline-banner--past {
+				background: #f0fdf4;
+				border-left-color: #16a34a;
 			}
 			.note, .related {
 				max-width: 820px;
