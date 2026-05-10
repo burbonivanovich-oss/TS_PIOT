@@ -270,7 +270,7 @@ async function generateImage(prompt) {
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': 'https://etiketka-media.ru',
-      'X-Title': 'Этикетка медиа',
+      'X-Title': 'etiketka-media',
     },
     body: JSON.stringify({
       model: MODEL,

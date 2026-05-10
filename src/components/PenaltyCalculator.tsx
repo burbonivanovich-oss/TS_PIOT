@@ -197,6 +197,9 @@ export default function PenaltyCalculator() {
 					cursor: pointer;
 					transition: all 0.15s ease;
 					font-family: inherit;
+					text-align: left;
+					word-break: break-word;
+					hyphens: auto;
 				}
 				.rcalc-pill:hover {
 					border-color: #1d4ed8;
