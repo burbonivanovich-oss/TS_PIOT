@@ -29,7 +29,10 @@ if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exi
 const STYLE_SUFFIX =
   'editorial photography, professional Russian B2B media, ' +
   'no people faces visible, no laptop computers unless essential, ' +
-  'no generic stock-photo clichés, photorealistic, sharp focus, natural commercial lighting, 16:9 aspect ratio; ' +
+  'no generic stock-photo clichés, 16:9 aspect ratio; ' +
+  'SHARPNESS: tack-sharp focus on the primary subject, crisp clear edges, ' +
+  'high-frequency detail visible on surfaces and textures, no soft-focus, no haze, no motion blur, ' +
+  'no AI-generated softness, photorealistic with DSLR-grade clarity, natural commercial lighting; ' +
   'TEXT RULES: any text visible in the image must be large, naturally legible and look intentional — ' +
   'never render small text that appears artificially scaled up or blurry; ' +
   'if no text fits naturally at readable size, omit it entirely; ' +
