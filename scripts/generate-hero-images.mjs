@@ -44,46 +44,61 @@ const STYLE_SUFFIX =
 // Используются в slug-промптах для фотореалистичного воспроизведения формы
 const DEV = {
   mspos_f20:
-    'MSPOS F20 compact Android smart POS terminal: portrait-oriented 5.5-inch capacitive touchscreen, ' +
-    'slim rectangular body ~200mm tall and ~80mm wide, integrated 58mm thermal printer slot at the bottom, ' +
-    'matte black finish, small "MSPOS F20" lettering on front bezel, modern angular design',
+    'MSPOS-F20-Ф mobile Android POS terminal: portrait-oriented 5.5-inch HD IPS touchscreen (1280×720), ' +
+    'slim rectangular pocketable body 212×79×52mm, weight ~430g, ' +
+    'integrated 58mm thermal receipt printer at the bottom, ' +
+    'matte black plastic finish, "MSPOS" lettering on front bezel, ' +
+    'designed for mobile retail, courier delivery, and on-the-go sales',
 
   mspos_t:
-    'MSPOS T-Ф large-format Android POS terminal: 11.6-inch IPS display in wide landscape orientation, ' +
-    'mounted on a brushed aluminium adjustable desktop stand, wide rectangular tablet form factor, ' +
-    'premium retail appearance, visible "MSPOS" branding on the bezel, separate receipt printer or integrated base unit',
+    'MSPOS-T-Ф stationary smart POS terminal for retail counters: ' +
+    'large 11.6-inch landscape touchscreen (1366×768 or higher), ' +
+    'flat tablet-style body resting on the counter, no external stand needed, ' +
+    'integrated 80mm thermal receipt printer at the side or back, ' +
+    'matte black finish with visible "MSPOS" branding on the bezel, ' +
+    'designed for mid-traffic shops, cafés, and salons',
 
   mspos_d3_mini:
-    'MSPOS D3 Mini ultra-compact handheld Android POS: 3.5-inch portrait touchscreen, ' +
-    'small enough to fit in one palm (~135mm tall), integrated mini thermal printer at bottom, ' +
-    'rounded corners, matte finish, battery-powered mobile form factor',
+    'MSPOS-T-Ф D3 Mini compact stationary smart POS terminal: ' +
+    '10.1-inch capacitive landscape touchscreen, ' +
+    'small all-in-one form factor that sits flat on a small counter, ' +
+    'integrated 57mm thermal printer, built-in 2D scanner camera, ' +
+    'matte black finish, "MSPOS" branding, designed for small shops and cafés ' +
+    'where the cashier picks items from on-screen tile shortcuts',
 
   atol_27f:
-    'ATOL 27F fiscal registrar (фискальный регистратор): compact standalone receipt printer, ' +
-    'white/light-grey rectangular box ~155×110×80mm, NO screen, NO keypad, ' +
-    '80mm thermal paper roll slot at the top, USB and RS-232 ports on the back, ' +
-    '"ATOL 27F" label on the front panel, connects to a PC or tablet — it is a printer, not a POS terminal',
+    'ATOL 27F fiscal registrar (фискальный регистратор): standalone receipt printer, ' +
+    '**black** high-strength plastic rectangular body, no screen, no keypad, ' +
+    'three small coloured status LEDs (power, error, paper) on top, paper-feed button, ' +
+    '80mm thermal paper roll slot with automatic guillotine cutter, ' +
+    'USB / RS-232 / Ethernet ports on the rear, "ATOL 27F" label on the front, ' +
+    'connects to an external PC or tablet — it prints receipts, it is not a POS terminal',
 
   atol_30f:
     'ATOL 30F fiscal registrar (фискальный регистратор): compact standalone receipt printer, ' +
-    'slightly wider white/grey rectangular box ~185×120×85mm, NO screen, NO keypad, ' +
-    '80mm thermal paper slot at top, USB/Ethernet/RS-232 ports on rear, ' +
-    '"ATOL 30F" label on front, connects to an external PC or tablet — printer only, not a smart terminal',
+    'dark-grey / charcoal plastic body, dimensions 88×160×79mm, no screen, no keypad, ' +
+    '57mm thermal paper roll slot at the top, no auto-cutter, ' +
+    'USB / Wi-Fi / Bluetooth connectivity (no Ethernet, no RS-232), ' +
+    '"ATOL 30F" label on front, connects to a PC, tablet, or smartphone',
 
   atol_optima:
-    'ATOL Optima 15F fiscal registrar: very compact white standalone receipt printer ~105×105×75mm, ' +
-    'no display, no keypad, 80mm thermal paper roll slot at top, ' +
-    '"ATOL" logo on front face, USB port on side, sits on a counter beside a PC or POS tablet',
+    'ATOL Optima 15F fiscal registrar: very compact standalone receipt printer ~105×105×75mm, ' +
+    'no display, no keypad, 80mm thermal paper roll slot at the top, ' +
+    '"ATOL" logo on the front face, USB port on the side, ' +
+    'sits on a counter beside a PC or POS tablet',
 
   evotor_5:
-    'Evotor 5 compact Android POS terminal: portrait-oriented 5-inch touchscreen, ' +
-    'slim black rectangular body with "Эвотор" branding on the bezel, integrated 58mm printer at bottom, ' +
-    'modern Russian retail design, green Evotor logo accent',
+    'Evotor 5 (Эвотор 5) mobile Android smart POS terminal: portrait-oriented 5.5-inch IPS touchscreen (1280×720, 267 DPI), ' +
+    'slim pocketable body 208×86×50mm, weight ~400g, ' +
+    'integrated 57mm thermal printer at the bottom, ' +
+    'matte black finish with "Эвотор" branding on the bezel, subtle green accent on the logo, ' +
+    'designed for delivery, market stalls, and on-the-go sales',
 
   fiskal_registrar:
-    'standalone fiscal receipt printer / registrar: compact white rectangular unit ~150×130mm, ' +
-    'no touchscreen, 80mm thermal paper slot at top, USB and serial ports on the side, ' +
-    'meant to connect to a PC or tablet, minimal industrial design',
+    'standalone fiscal receipt printer / registrar (generic): compact rectangular unit ~150×130mm, ' +
+    'no touchscreen, no keypad, thermal paper roll slot at the top, ' +
+    'USB and serial ports on the side, meant to connect to a PC or tablet, ' +
+    'minimal industrial design',
 };
 
 // ─── Пул промптов по категориям ───────────────────────────────────────────────
@@ -197,12 +212,16 @@ const SLUG_PROMPTS = {
     `dramatic side rim lighting on the device body`,
 
   '2026-05-03-mspos-t-d3-mini-obzor':
-    `Product hero shot: ${DEV.mspos_d3_mini}; held in one hand against a white studio background, ` +
-    `screen lit with a simple POS UI, product photography style with soft shadows`,
+    `Product hero shot: ${DEV.mspos_d3_mini}; sitting flat on a small café or shop counter, ` +
+    `landscape screen lit with a simple POS tile UI, three-quarter angle, ` +
+    `warm bokeh background of a small retail interior`,
 
   '2026-05-03-mspos-f20-vs-d3-mini':
-    `Size comparison on white studio surface: left — ${DEV.mspos_f20}; right — ${DEV.mspos_d3_mini}; ` +
-    `a small ruler placed between them for scale, overhead three-quarter angle, clean product photography`,
+    `Two MSPOS devices side by side on a white studio surface for comparison — ` +
+    `left: ${DEV.mspos_f20} (slim mobile pocket-sized portrait terminal); ` +
+    `right: ${DEV.mspos_d3_mini} (larger stationary landscape terminal that sits on a counter); ` +
+    `the size difference is dramatic — mobile vs stationary form factors; ` +
+    `overhead three-quarter angle, clean product photography`,
 
   '2026-05-03-vidy-kkt':
     `Five Russian fiscal devices arranged in a row on a clean retail counter showing different types: ` +
