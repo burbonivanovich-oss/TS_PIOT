@@ -220,9 +220,7 @@ const shareTitle = encodeURIComponent(title);
 				<!-- Sticky sidebar -->
 				<aside class="art-sidebar" data-pagefind-ignore>
 					<div class="art-banner">
-						<div class="art-banner-visual" style={`background:${catAccent}`}>
-							<span class="art-banner-big" aria-hidden="true">{bgLetter}</span>
-						</div>
+						<div class="art-banner-strip" style={`background:${catAccent}`} aria-hidden="true"></div>
 						<span class="art-banner-eyebrow">{SIDEBAR_BANNER.eyebrow}</span>
 						<div class="art-banner-title">{SIDEBAR_BANNER.title}</div>
 						<p class="art-banner-desc">{SIDEBAR_BANNER.description}</p>
@@ -396,14 +394,13 @@ const shareTitle = encodeURIComponent(title);
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
 										const img = post.data.previewImage ?? post.data.heroImage ?? null;
 										return (
-											<a href={u(`/blog/${post.id}/`)} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--compact'}>
+											<a href={u(`/blog/${post.id}/`)} class="r-card">
 												<div class="r-card-img" style={`background:${accent}`}>
 													{img && <img src={u(img)} alt="" loading="lazy" />}
 												</div>
 												<div class="r-card-body">
 													{catLabel && <span class="r-card-pill" style={`background:${accent};color:#fff`}>{catLabel}</span>}
 													<h3>{post.data.title}</h3>
-													{i === 0 && post.data.description && <p>{post.data.description}</p>}
 													<span class="r-card-read">Читать →</span>
 												</div>
 											</a>
@@ -486,8 +483,7 @@ const shareTitle = encodeURIComponent(title);
 			/* ── Sidebar ── */
 			.art-sidebar { padding: 16px; }
 			.art-banner { position: sticky; top: calc(56px + 16px); background: #111; color: #fff; overflow: hidden; }
-			.art-banner-visual { width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-			.art-banner-big { font-family: 'Bebas Neue', sans-serif; font-size: 7rem; color: #fff; opacity: .18; line-height: 1; }
+			.art-banner-strip { width: 100%; height: 6px; }
 			.art-banner-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #AFCC00; display: block; padding: 14px 14px 6px; }
 			.art-banner-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; line-height: 1.05; letter-spacing: .03em; text-transform: uppercase; color: #fff; padding: 0 14px 8px; }
 			.art-banner-desc { font-size: .78rem; color: #8A8A8A; line-height: 1.5; padding: 0 14px 14px; margin: 0; }
@@ -568,12 +564,10 @@ const shareTitle = encodeURIComponent(title);
 			.related-grid--b .r-card--wide .r-card-body h3 { font-size: 1.3rem; }
 
 			/* C: 1 большая + 3 компактных без описания */
-			.related-grid--c { display: grid; grid-template-columns: 5fr 3fr; grid-template-rows: repeat(3, auto); gap: 8px; }
-			.related-grid--c .r-card--main { grid-row: 1/4; }
-			.related-grid--c .r-card--main .r-card-body h3 { font-size: 1.4rem; }
-			.related-grid--c .r-card--compact .r-card-img { aspect-ratio: 4/3; }
-			.related-grid--c .r-card--compact .r-card-body h3 { font-size: .95rem; }
-			.related-grid--c .r-card--compact .r-card-body p { display: none; }
+			.related-grid--c { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+			.related-grid--c .r-card-body h3 { font-size: 1rem; }
+			.related-grid--c .r-card-body p { display: none; }
+			.related-grid--c .r-card-img { aspect-ratio: 4/3; }
 
 			/* Disclaimer */
 			.art-foot { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,.1); }
@@ -598,10 +592,9 @@ const shareTitle = encodeURIComponent(title);
 				.art-content { padding: 24px 20px 48px; }
 				.related-grid--a2,
 				.related-grid--a3,
-				.related-grid--b,
-				.related-grid--c { grid-template-columns: 1fr; grid-template-rows: auto; }
-				.related-grid--a3 .r-card--main,
-				.related-grid--c .r-card--main { grid-row: auto; }
+				.related-grid--b { grid-template-columns: 1fr; grid-template-rows: auto; }
+				.related-grid--c { grid-template-columns: 1fr 1fr; }
+				.related-grid--a3 .r-card--main { grid-row: auto; }
 				.related-grid--b .r-card--wide { flex-direction: column; grid-column: auto; }
 				.related-grid--b .r-card--wide .r-card-img { width: 100%; aspect-ratio: 16/9; }
 				.cpa-block { grid-template-columns: 1fr; }

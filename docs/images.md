@@ -58,8 +58,9 @@ PREVIEW_MODEL=google/gemini-2.5-flash-image
 
 ### Что это
 
-Уникальное редакционное фото **под каждую статью** (1344×768, 16:9).
-Генерируется один раз и сохраняется в `public/images/hero/{slug}.jpg`.
+Уникальное редакционное фото **под каждую статью**.
+Генерируется один раз (1376×768) и сохраняется в `public/images/hero/{slug}.jpg`.
+После [постобработки sharpen](#постобработка-резкость-sharpen-heroesmjs) — 2752×1536 для retina-дисплеев.
 Путь прописывается в frontmatter статьи: `heroImage: "/images/hero/{slug}.jpg"`.
 
 ### Как запустить генерацию
@@ -79,6 +80,40 @@ PREVIEW_MODEL=google/gemini-2.5-flash-image
 ```
 HERO_MODEL=google/gemini-2.5-flash-image
 ```
+
+### Промпты для hero
+
+См. `docs/image-prompts.md` — там описаны:
+- актуальный `STYLE_SUFFIX` (резкость, текст, точность устройств);
+- словарь `DEV` с визуальными профилями реальных моделей ККТ.
+
+---
+
+## Постобработка: резкость (`sharpen-heroes.mjs`)
+
+Gemini Image склонна к мягкому AI-блюру. Чтобы вытащить резкость и закрыть retina-разрешение, после генерации применяется `scripts/sharpen-heroes.mjs`:
+
+- Апскейл 2x через Lanczos3 (1376×768 → 2752×1536).
+- Unsharp mask (`sigma 1.2, m2 2.5`).
+- Mozjpeg `q88` с chroma subsampling 4:4:4.
+
+**Запуск локально:**
+
+```bash
+# Все hero сразу (с бэкапом оригиналов в public/images/hero/_orig/)
+BACKUP=1 node scripts/sharpen-heroes.mjs
+
+# Только один файл
+FILE=2026-05-01-kak-vybrat node scripts/sharpen-heroes.mjs
+
+# Посмотреть, что будет сделано
+DRY_RUN=1 node scripts/sharpen-heroes.mjs
+
+# Только sharpen без апскейла
+NO_UPSCALE=1 node scripts/sharpen-heroes.mjs
+```
+
+Папка `_orig/` исключена из git (`.gitignore`). Идемпотентно: повторный запуск на уже обработанном файле снова умножит размер на 2 — поэтому после повторной генерации `FORCE=1` запускать `sharpen-heroes.mjs` только для свежесгенерированного `SLUG`.
 
 ---
 

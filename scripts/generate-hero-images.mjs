@@ -29,8 +29,77 @@ if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exi
 const STYLE_SUFFIX =
   'editorial photography, professional Russian B2B media, ' +
   'no people faces visible, no laptop computers unless essential, ' +
-  'no oversized unnatural text overlays, no generic stock-photo clichés, ' +
-  'photorealistic, sharp focus, natural commercial lighting, 16:9 aspect ratio';
+  'no generic stock-photo clichés, 16:9 aspect ratio; ' +
+  'SHARPNESS: tack-sharp focus on the primary subject, crisp clear edges, ' +
+  'high-frequency detail visible on surfaces and textures, no soft-focus, no haze, no motion blur, ' +
+  'no AI-generated softness, photorealistic with DSLR-grade clarity, natural commercial lighting; ' +
+  'TEXT RULES: any text visible in the image must be large, naturally legible and look intentional — ' +
+  'never render small text that appears artificially scaled up or blurry; ' +
+  'if no text fits naturally at readable size, omit it entirely; ' +
+  'device screens may show a simple receipt or POS UI but keep it minimal and sharp; ' +
+  'DEVICE ACCURACY: render hardware devices with photorealistic accuracy matching their real-world industrial design; ' +
+  'do not place brand names or model numbers on a device unless its visual form exactly matches that model';
+
+// ─── Точные визуальные профили реальных устройств ─────────────────────────────
+// Используются в slug-промптах для фотореалистичного воспроизведения формы
+const DEV = {
+  mspos_f20:
+    'MSPOS-F20-Ф mobile Android POS terminal: portrait-oriented 5.5-inch HD IPS touchscreen (1280×720), ' +
+    'slim rectangular pocketable body 212×79×52mm, weight ~430g, ' +
+    'integrated 58mm thermal receipt printer at the bottom, ' +
+    'matte black plastic finish, "MSPOS" lettering on front bezel, ' +
+    'designed for mobile retail, courier delivery, and on-the-go sales',
+
+  mspos_t:
+    'MSPOS-T-Ф stationary smart POS terminal for retail counters: ' +
+    'large 11.6-inch landscape touchscreen (1366×768 or higher), ' +
+    'flat tablet-style body resting on the counter, no external stand needed, ' +
+    'integrated 80mm thermal receipt printer at the side or back, ' +
+    'matte black finish with visible "MSPOS" branding on the bezel, ' +
+    'designed for mid-traffic shops, cafés, and salons',
+
+  mspos_d3_mini:
+    'MSPOS-T-Ф D3 Mini compact stationary smart POS terminal: ' +
+    '10.1-inch capacitive landscape touchscreen, ' +
+    'small all-in-one form factor that sits flat on a small counter, ' +
+    'integrated 57mm thermal printer, built-in 2D scanner camera, ' +
+    'matte black finish, "MSPOS" branding, designed for small shops and cafés ' +
+    'where the cashier picks items from on-screen tile shortcuts',
+
+  atol_27f:
+    'ATOL 27F fiscal registrar (фискальный регистратор): standalone receipt printer, ' +
+    '**black** high-strength plastic rectangular body, no screen, no keypad, ' +
+    'three small coloured status LEDs (power, error, paper) on top, paper-feed button, ' +
+    '80mm thermal paper roll slot with automatic guillotine cutter, ' +
+    'USB / RS-232 / Ethernet ports on the rear, "ATOL 27F" label on the front, ' +
+    'connects to an external PC or tablet — it prints receipts, it is not a POS terminal',
+
+  atol_30f:
+    'ATOL 30F fiscal registrar (фискальный регистратор): compact standalone receipt printer, ' +
+    'dark-grey / charcoal plastic body, dimensions 88×160×79mm, no screen, no keypad, ' +
+    '57mm thermal paper roll slot at the top, no auto-cutter, ' +
+    'USB / Wi-Fi / Bluetooth connectivity (no Ethernet, no RS-232), ' +
+    '"ATOL 30F" label on front, connects to a PC, tablet, or smartphone',
+
+  atol_optima:
+    'ATOL Optima 15F fiscal registrar: very compact standalone receipt printer ~105×105×75mm, ' +
+    'no display, no keypad, 80mm thermal paper roll slot at the top, ' +
+    '"ATOL" logo on the front face, USB port on the side, ' +
+    'sits on a counter beside a PC or POS tablet',
+
+  evotor_5:
+    'Evotor 5 (Эвотор 5) mobile Android smart POS terminal: portrait-oriented 5.5-inch IPS touchscreen (1280×720, 267 DPI), ' +
+    'slim pocketable body 208×86×50mm, weight ~400g, ' +
+    'integrated 57mm thermal printer at the bottom, ' +
+    'matte black finish with "Эвотор" branding on the bezel, subtle green accent on the logo, ' +
+    'designed for delivery, market stalls, and on-the-go sales',
+
+  fiskal_registrar:
+    'standalone fiscal receipt printer / registrar (generic): compact rectangular unit ~150×130mm, ' +
+    'no touchscreen, no keypad, thermal paper roll slot at the top, ' +
+    'USB and serial ports on the side, meant to connect to a PC or tablet, ' +
+    'minimal industrial design',
+};
 
 // ─── Пул промптов по категориям ───────────────────────────────────────────────
 // Детерминированный выбор: slugHash(slug) % pool.length
@@ -102,13 +171,19 @@ const SLUG_PROMPTS = {
   '2026-05-01-ts-piot-shtrafy':
     'Official penalty notice document with a government stamp on a desk, red pen underlining a paragraph, natural window light',
   '2026-05-01-ts-piot-evotor-atol-shtrih':
-    'Three compact POS terminals of different brands side by side on a counter, product comparison layout, studio soft lighting',
+    `Three Russian smart POS terminals side by side on a retail counter for brand comparison: ` +
+    `left — ${DEV.evotor_5}; center — ${DEV.mspos_f20}; right — ${DEV.atol_30f}; ` +
+    `soft studio lighting, slight angle, all three clearly distinct in design`,
   '2026-05-01-ofd-dlya-ts-piot':
     'Server rack with blinking status LEDs in a dark data center, shallow depth of field, blue-tinted ambient glow',
   '2026-05-01-registraciya-kkt-v-fns':
     'Close-up of a hands filling in a government registration form for equipment, official stamp nearby, warm office light',
   '2026-05-01-kak-vybrat-onlayn-kassu-2026':
-    'Overhead flat-lay of three different POS terminals on a white surface with spec sheets beside each, clean product comparison',
+    `Overhead flat-lay product comparison on a white surface — three different cash register form factors: ` +
+    `left: ${DEV.atol_27f} (compact receipt printer, connects to tablet); ` +
+    `center: ${DEV.mspos_f20} (slim all-in-one smart terminal with touchscreen); ` +
+    `right: ${DEV.mspos_t} (large landscape tablet terminal on stand); ` +
+    `clean studio lighting, professional product photography`,
   '2026-05-01-chto-takoe-fn':
     'Small rectangular fiscal storage module (FN) isolated on a dark surface, macro lens, metallic surface reflection',
   '2026-05-01-zamena-fn-poshagovo':
@@ -116,25 +191,53 @@ const SLUG_PROMPTS = {
   '2026-05-03-srok-fn-15-36':
     'Calendar page with "36 months" circled and a fiscal storage module placed next to it, shallow focus, dark background',
   '2026-05-03-atol-27f-obzor':
-    'ATOL-style compact POS fiscal register on a white product display surface, three-quarter view, product photography',
+    `Product hero shot: ${DEV.atol_27f}; ` +
+    `placed on a white studio surface beside a tablet showing POS software (to illustrate the connection), ` +
+    `soft three-quarter studio lighting, sharp detail on paper slot and ports, bokeh white background`,
+
   '2026-05-03-atol-30f-obzor':
-    'Compact thermal POS register on a checkout counter in a small retail store, warm shop lighting, three-quarter angle',
+    `Product hero shot: ${DEV.atol_30f}; ` +
+    `on a retail checkout counter next to a tablet, USB cable connecting them, ` +
+    `warm shop ambient lighting, three-quarter angle, receipt paper visible at the top slot`,
+
   '2026-05-03-atol-30f-vs-27f':
-    'Two compact POS terminals side by side on a white table with specification papers between them, clean comparison shot',
+    `Side-by-side product comparison on a white studio surface: ` +
+    `left — ${DEV.atol_27f}; right — ${DEV.atol_30f}; ` +
+    `both are standalone receipt printers with no screens, slightly different sizes and port configurations, ` +
+    `spec sheets between them, even studio lighting, clean product photography`,
+
   '2026-05-03-mspos-f20-obzor':
-    'Sleek modern smart terminal with touchscreen on a retail counter, screen showing a receipt UI, bokeh background',
+    `Product hero shot: ${DEV.mspos_f20}; on a retail counter, ` +
+    `screen displaying a simple POS checkout UI, shallow depth of field, bokeh store background, ` +
+    `dramatic side rim lighting on the device body`,
+
   '2026-05-03-mspos-t-d3-mini-obzor':
-    'Tiny compact smart POS device with screen on a palm of a hand concept shot, white studio background, product hero',
+    `Product hero shot: ${DEV.mspos_d3_mini}; sitting flat on a small café or shop counter, ` +
+    `landscape screen lit with a simple POS tile UI, three-quarter angle, ` +
+    `warm bokeh background of a small retail interior`,
+
   '2026-05-03-mspos-f20-vs-d3-mini':
-    'Two smart POS terminals of very different sizes placed next to a ruler for scale comparison, studio white background',
+    `Two MSPOS devices side by side on a white studio surface for comparison — ` +
+    `left: ${DEV.mspos_f20} (slim mobile pocket-sized portrait terminal); ` +
+    `right: ${DEV.mspos_d3_mini} (larger stationary landscape terminal that sits on a counter); ` +
+    `the size difference is dramatic — mobile vs stationary form factors; ` +
+    `overhead three-quarter angle, clean product photography`,
+
   '2026-05-03-vidy-kkt':
-    'Five different types of fiscal devices arranged in a row on a counter: compact register, smart terminal, fiscal registrar, tablet POS, mobile POS',
+    `Five Russian fiscal devices arranged in a row on a clean retail counter showing different types: ` +
+    `(1) ${DEV.atol_27f} — compact fiscal registrar/printer; ` +
+    `(2) ${DEV.mspos_f20} — compact smart terminal; ` +
+    `(3) ${DEV.mspos_t} — large tablet POS on stand; ` +
+    `(4) ${DEV.mspos_d3_mini} — handheld mobile terminal; ` +
+    `(5) ${DEV.evotor_5} — mid-size smart terminal; ` +
+    `each clearly different in size and form factor, even studio lighting, product lineup photography`,
   '2026-05-03-chto-takoe-ofd':
     'Abstract visualization: data streams between a POS terminal and server icons, bokeh light background, blue and green tones',
   '2026-05-03-kak-vybrat-ofd-2026':
     'Comparison chart on paper beside a POS terminal and a cup of coffee on an office desk, pen ready to check boxes',
   '2026-05-03-smart-terminal-vs-fiskalnyj-registrator':
-    'Two devices side by side: a smart tablet POS terminal and a standalone fiscal receipt printer, white background, product shot',
+    `Side-by-side product comparison on white: left — ${DEV.mspos_f20}; right — ${DEV.fiskal_registrar}; ` +
+    `clean studio lighting, three-quarter angle, both devices in sharp focus`,
 
   // Маркировка
   '2026-02-10-kategorii-markirovki-2026':
@@ -144,7 +247,7 @@ const SLUG_PROMPTS = {
   '2026-05-01-markirovka-piva-roznica':
     'Beer bottles on a retail shelf at eye level, DataMatrix code stickers on the neck labels, warm store lighting',
   '2026-05-01-kalendar-markirovki-2026':
-    'Large wall calendar with specific months highlighted in different product-category colors, flat-lay on wooden surface',
+    'Flat-lay of product items from different marking categories — dairy carton, clothing tag, beer bottle, cosmetic tube — arranged in a circle on a neutral linen surface, each with a small DataMatrix sticker, soft natural daylight, no text visible anywhere',
   '2026-05-01-razreshitelnyj-rezhim-markirovka':
     'POS terminal scanner beeping on a product at checkout, screen showing "разрешено / blocked" status, retail lighting',
   '2026-05-01-shtraf-za-markirovku':

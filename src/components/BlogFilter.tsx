@@ -260,25 +260,32 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 12 }
 					gap: 8px;
 				}
 
-				/* Featured card spans full width */
+				/* Featured card: горизонтальный layout, картинка слева 58% */
 				.bf-card--featured {
 					grid-column: 1 / -1;
 					flex-direction: row;
+					align-items: stretch;
 				}
 				.bf-card--featured .bf-card-img {
-					width: 45%;
+					width: 58%;
 					flex-shrink: 0;
-					min-height: 220px;
+					min-height: 320px;
 					overflow: hidden;
 				}
 				.bf-card--featured .bf-card-body {
-					padding: 28px 32px;
+					padding: 32px 36px;
 					display: flex;
 					flex-direction: column;
-					justify-content: center;
+					justify-content: flex-start;
 				}
 				.bf-card--featured .bf-card-title {
 					font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+					margin-bottom: 14px;
+				}
+				.bf-card--featured .bf-card-desc {
+					font-size: .95rem;
+					line-height: 1.6;
+					color: #444;
 				}
 
 				/* All cards */
