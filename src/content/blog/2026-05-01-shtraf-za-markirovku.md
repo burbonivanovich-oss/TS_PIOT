@@ -11,7 +11,7 @@ tags:
   - быстрый-ответ
 categories:
   - markirovka
-draft: true
+draft: false
 seo:
   keywords:
     - штраф за отсутствие маркировки 2026
