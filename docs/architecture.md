@@ -72,6 +72,8 @@
 | `src/components/BlogFilter.tsx` | React-компонент фильтрации/поиска карточек блога |
 | `src/components/MarkingCalendar.tsx` | React-компонент календаря маркировки |
 | `src/components/PenaltyCalculator.tsx` | React-компонент калькулятора штрафов |
+| `src/components/Quiz.tsx` | Ветвящийся квиз для подбора продуктов (ОФД/Эльба/Бухгалтерия/Диадок/Экстерн) — 3–4 вопроса с условным шагом для ИП+Бухгалтерия, открывается из hero на главной |
+| `src/components/PopupBanner.tsx` | Всплывающий баннер подписки. Появляется через 60 с после загрузки, закрывается крестиком/оверлеем/CTA. Флаг закрытия — `localStorage.popup_dismissed_v1`. Подключается с `client:load` на `/` |
 
 ## Утилиты
 

@@ -21,13 +21,56 @@
 
 ## Общий стилевой суффикс
 
-Добавлять к каждому промпту в скрипте (не повторять в каждом):
+Актуальный `STYLE_SUFFIX` в `scripts/generate-hero-images.mjs` (приклеивается к каждому промпту автоматически):
 
 ```
-high contrast editorial photography, dark dramatic background OR clean cream-beige background,
-sharp directional lighting, bold composition with strong shadows, professional B2B context,
-Russian small retail or office environment, no text overlays, photorealistic
+editorial photography, professional Russian B2B media,
+no people faces visible, no laptop computers unless essential,
+no generic stock-photo clichés, 16:9 aspect ratio;
+
+SHARPNESS: tack-sharp focus on the primary subject, crisp clear edges,
+high-frequency detail visible on surfaces and textures, no soft-focus, no haze, no motion blur,
+no AI-generated softness, photorealistic with DSLR-grade clarity, natural commercial lighting;
+
+TEXT RULES: any text visible in the image must be large, naturally legible and look intentional —
+never render small text that appears artificially scaled up or blurry;
+if no text fits naturally at readable size, omit it entirely;
+device screens may show a simple receipt or POS UI but keep it minimal and sharp;
+
+DEVICE ACCURACY: render hardware devices with photorealistic accuracy matching their real-world
+industrial design; do not place brand names or model numbers on a device unless its visual form
+exactly matches that model
 ```
+
+**Принципы:**
+- Текст не запрещён, но только крупный и естественный — мелкие нечитаемые подписи запрещены.
+- Если модель устройства упомянута в промпте — её внешний вид должен соответствовать реальному.
+
+---
+
+## Словарь устройств (`DEV`)
+
+В `scripts/generate-hero-images.mjs` есть объект `DEV` с точными визуальными описаниями реальных моделей ККТ. Используется в slug-промптах для статей про конкретные кассы.
+
+| Ключ | Что это | Визуально |
+|---|---|---|
+| `mspos_f20` | смарт-терминал | портретный 5.5", встроенный 58 mm принтер снизу, матовый чёрный |
+| `mspos_t` | большой смарт-терминал | 11.6" ландшафт на подставке, премиум-вид |
+| `mspos_d3_mini` | мобильный POS | портретный 3.5", помещается в ладонь, встроенный мини-принтер |
+| `atol_27f` | **фискальный регистратор** | компактный белый бокс, **без экрана и клавиатуры**, 80 mm бумага сверху, USB/RS-232 |
+| `atol_30f` | **фискальный регистратор** | чуть шире 27F, тоже без экрана, USB/Ethernet/RS-232 |
+| `atol_optima` | компактный регистратор | очень маленький белый бокс ~105×105 мм, без экрана |
+| `evotor_5` | смарт-терминал | портретный 5", чёрный, «Эвотор» на безеле, зелёный акцент |
+| `fiskal_registrar` | обобщённый регистратор | компактный белый блок без экрана, для иллюстраций без конкретной модели |
+
+**Использование в slug-промпте:**
+
+```js
+'2026-05-03-mspos-f20-obzor':
+  `Product hero shot: ${DEV.mspos_f20}; on a retail counter, screen displaying...`,
+```
+
+При добавлении новой модели — расширять словарь, не выдумывать описания инлайн.
 
 ---
 
