@@ -2,6 +2,7 @@
 title: "Онлайн-бухгалтерия для продавца на маркетплейсах в 2026"
 description: "Бухгалтерия для маркетплейса Wildberries Ozon 2026: как учитывать доходы, работать с отчётами WB и Ozon, платить НДС на УСН и совмещать с маркировкой."
 pubDate: "2026-05-01"
+heroImage: "/images/hero/2026-05-01-buh-dlya-marketplace.jpg"
 tags:
   - онлайн-бухгалтерия
   - маркетплейс
@@ -10,7 +11,7 @@ tags:
   - усн
 categories:
   - zakonodatelstvo
-draft: true
+draft: false
 seo:
   keywords:
     - бухгалтерия для маркетплейса Wildberries Ozon 2026
