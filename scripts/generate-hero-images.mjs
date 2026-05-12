@@ -29,8 +29,11 @@ if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exi
 const STYLE_SUFFIX =
   'editorial photography, professional Russian B2B media, ' +
   'no people faces visible, no laptop computers unless essential, ' +
-  'no oversized unnatural text overlays, no generic stock-photo clichés, ' +
-  'photorealistic, sharp focus, natural commercial lighting, 16:9 aspect ratio';
+  'no generic stock-photo clichés, photorealistic, sharp focus, natural commercial lighting, 16:9 aspect ratio, ' +
+  'IMPORTANT: do not include any text, labels, brand names, or model numbers anywhere in the image — ' +
+  'no text on device screens, no text on product packaging text elements, no signage with readable words; ' +
+  'if a screen must be shown keep it dark or show only abstract UI shapes without legible characters; ' +
+  'do not invent or depict specific brand or model names on any hardware device';
 
 // ─── Пул промптов по категориям ───────────────────────────────────────────────
 // Детерминированный выбор: slugHash(slug) % pool.length
@@ -108,7 +111,7 @@ const SLUG_PROMPTS = {
   '2026-05-01-registraciya-kkt-v-fns':
     'Close-up of a hands filling in a government registration form for equipment, official stamp nearby, warm office light',
   '2026-05-01-kak-vybrat-onlayn-kassu-2026':
-    'Overhead flat-lay of three different POS terminals on a white surface with spec sheets beside each, clean product comparison',
+    'Overhead flat-lay of three compact POS terminals of clearly different sizes on a white surface — small, medium, large — no text on devices, no brand markings, clean product comparison shot',
   '2026-05-01-chto-takoe-fn':
     'Small rectangular fiscal storage module (FN) isolated on a dark surface, macro lens, metallic surface reflection',
   '2026-05-01-zamena-fn-poshagovo':
@@ -144,7 +147,7 @@ const SLUG_PROMPTS = {
   '2026-05-01-markirovka-piva-roznica':
     'Beer bottles on a retail shelf at eye level, DataMatrix code stickers on the neck labels, warm store lighting',
   '2026-05-01-kalendar-markirovki-2026':
-    'Large wall calendar with specific months highlighted in different product-category colors, flat-lay on wooden surface',
+    'Flat-lay of product items from different marking categories — dairy carton, clothing tag, beer bottle, cosmetic tube — arranged in a circle on a neutral linen surface, each with a small DataMatrix sticker, soft natural daylight, no text visible anywhere',
   '2026-05-01-razreshitelnyj-rezhim-markirovka':
     'POS terminal scanner beeping on a product at checkout, screen showing "разрешено / blocked" status, retail lighting',
   '2026-05-01-shtraf-za-markirovku':
