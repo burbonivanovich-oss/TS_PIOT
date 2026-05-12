@@ -2,6 +2,7 @@
 title: "Учёт алкоголя в кафе и баре: ЕГАИС без ошибок в 2026"
 description: "Учёт алкоголя в общепите через ЕГАИС в 2026: что подтверждать, как списывать крепкий алкоголь и кеги, декларации форм 7 и 8 — актуальные правила."
 pubDate: "2026-05-01"
+heroImage: "/images/hero/2026-05-01-uchyot-alkogolya-v-obschepite.jpg"
 tags:
   - егаис
   - алкоголь
@@ -10,7 +11,7 @@ tags:
   - кафе
 categories:
   - egais
-draft: true
+draft: false
 seo:
   keywords:
     - учёт алкоголя в общепите ЕГАИС
