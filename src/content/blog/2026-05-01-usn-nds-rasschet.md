@@ -2,6 +2,7 @@
 title: "НДС на УСН в 2026: ставка 5%, 7% или 20% — как выбрать"
 description: "НДС на УСН в 2026: ставки 5%, 7% и 20%, порог освобождения 20 млн ₽ — таблица сравнения и пошаговый алгоритм выбора ставки для ИП и ООО на упрощёнке."
 pubDate: "2026-05-01"
+heroImage: "/images/hero/2026-05-01-usn-nds-rasschet.jpg"
 tags:
   - усн
   - ндс
@@ -10,7 +11,7 @@ tags:
   - "2026"
 categories:
   - zakonodatelstvo
-draft: true
+draft: false
 seo:
   keywords:
     - НДС на УСН какая ставка 2026
