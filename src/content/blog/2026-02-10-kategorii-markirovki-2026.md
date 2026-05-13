@@ -1,7 +1,7 @@
 ---
 title: "Маркировка «Честный знак» 2026: категории товаров и сроки"
 description: "Полный список категорий, которые подлежат обязательной маркировке Data Matrix в 2026 году. Сроки, этапы, штрафы и план действий для розницы и поставщиков."
-pubDate: "2026-02-10"
+pubDate: "2026-05-02"
 heroImage: "/images/hero/2026-02-10-kategorii-markirovki-2026.jpg"
 previewImage: "/images/preview/2026-02-10-kategorii-markirovki-2026.jpg"
 updatedDate: "2026-04-22"
