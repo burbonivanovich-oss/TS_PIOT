@@ -104,6 +104,7 @@ Thumbs.db
 # Claude Code specific
 .claude/research/*
 .claude/social/*
+.claude/worktrees/
 !.claude/research/.gitkeep
 !.claude/social/.gitkeep
 
