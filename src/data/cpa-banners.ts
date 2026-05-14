@@ -92,7 +92,7 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 		description:
 			'Передача чеков в ФНС по 54-ФЗ, регистрация и перерегистрация кассы онлайн без визита в налоговую. Совместим со всеми моделями касс.',
 		cta: 'Подключить ОФД →',
-		ctaHref: 'https://kontur.ru/ofd/price',
+		ctaHref: 'https://kontur.ru/ofd/price?p=f74746',
 		visual: { abbrev: 'ОФД', bg: '#1A3A6C' },
 	},
 	'kontur-markirovka': {
@@ -102,7 +102,7 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 		description:
 			'Полный цикл: от нанесения кода на производстве до выбытия из оборота через кассу. Интеграция с 1С, ERP и «Честным знаком».',
 		cta: 'Подробнее →',
-		ctaHref: 'https://kontur.ru/markirovka',
+		ctaHref: 'https://kontur.ru/markirovka?p=f74746',
 		visual: { abbrev: 'МК', bg: '#9E2B4F' },
 	},
 	'kontur-diadoc': {
@@ -112,7 +112,7 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 		description:
 			'УПД с кодами маркировки принимается только через аккредитованного ЭДО-оператора. Диадок используют более 1,5 млн компаний.',
 		cta: 'Подключить Диадок →',
-		ctaHref: 'https://diadoc.ru/order',
+		ctaHref: 'https://diadoc.ru/order?p=f74746',
 		visual: { abbrev: 'ДД', bg: '#007A6E' },
 	},
 	'diadoc-logistika': {
@@ -122,7 +122,7 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 		description:
 			'Сервис Логистика от Контура обеспечивает юридически значимый ЭДО между всеми участниками грузоперевозок с передачей данных в ГИС ЭПД.',
 		cta: 'Подготовиться к переходу →',
-		ctaHref: 'https://kontur.ru/logistika',
+		ctaHref: 'https://kontur.ru/logistika?p=f74746',
 		visual: { abbrev: 'ЭТрН', bg: '#1E4A7A' },
 	},
 	'kontur-elba': {
@@ -132,7 +132,7 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 		description:
 			'Эльба сама считает налоги, формирует уведомления по ЕНС и сдаёт отчётность. Работает с УСН, патентом, НДС 5% и 7%.',
 		cta: 'Попробовать бесплатно →',
-		ctaHref: 'https://e-kontur.ru/',
+		ctaHref: 'https://e-kontur.ru/?p=f74746',
 		visual: { abbrev: 'ЭЛБ', bg: '#C25000' },
 	},
 };
