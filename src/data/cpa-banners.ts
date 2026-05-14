@@ -82,14 +82,67 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 		ctaHref: '/',
 		visual: { abbrev: 'ЭДО', bg: '#1E4A7A' },
 	},
+
+	// --- CPA: партнёрская программа Контура ---
+
+	'kontur-ofd': {
+		id: 'kontur-ofd',
+		eyebrow: 'Реклама · Контур.ОФД',
+		title: 'Подключите ОФД до регистрации кассы — скидка 15% при онлайн-оплате',
+		description:
+			'Передача чеков в ФНС по 54-ФЗ, регистрация и перерегистрация кассы онлайн без визита в налоговую. Совместим со всеми моделями касс.',
+		cta: 'Подключить ОФД →',
+		ctaHref: 'https://kontur.ru/ofd/price',
+		visual: { abbrev: 'ОФД', bg: '#1A3A6C' },
+	},
+	'kontur-markirovka': {
+		id: 'kontur-markirovka',
+		eyebrow: 'Реклама · Контур.Маркировка',
+		title: 'Работа с маркировкой под ключ — скидка 20% при онлайн-оплате',
+		description:
+			'Полный цикл: от нанесения кода на производстве до выбытия из оборота через кассу. Интеграция с 1С, ERP и «Честным знаком».',
+		cta: 'Подробнее →',
+		ctaHref: 'https://kontur.ru/markirovka',
+		visual: { abbrev: 'МК', bg: '#9E2B4F' },
+	},
+	'kontur-diadoc': {
+		id: 'kontur-diadoc',
+		eyebrow: 'Реклама · Диадок',
+		title: 'ЭДО для приёмки маркированных товаров — скидка 10% онлайн',
+		description:
+			'УПД с кодами маркировки принимается только через аккредитованного ЭДО-оператора. Диадок используют более 1,5 млн компаний.',
+		cta: 'Подключить Диадок →',
+		ctaHref: 'https://diadoc.ru/order',
+		visual: { abbrev: 'ДД', bg: '#007A6E' },
+	},
+	'diadoc-logistika': {
+		id: 'diadoc-logistika',
+		eyebrow: 'Реклама · Диадок: Логистика',
+		title: 'Обязательный переход на ЭТрН с 1 сентября 2026 по 140-ФЗ',
+		description:
+			'Сервис Логистика от Контура обеспечивает юридически значимый ЭДО между всеми участниками грузоперевозок с передачей данных в ГИС ЭПД.',
+		cta: 'Подготовиться к переходу →',
+		ctaHref: 'https://kontur.ru/logistika',
+		visual: { abbrev: 'ЭТрН', bg: '#1E4A7A' },
+	},
+	'kontur-elba': {
+		id: 'kontur-elba',
+		eyebrow: 'Реклама · Контур.Эльба',
+		title: '30 дней бесплатно: налоги и отчётность для ИП и ООО на УСН',
+		description:
+			'Эльба сама считает налоги, формирует уведомления по ЕНС и сдаёт отчётность. Работает с УСН, патентом, НДС 5% и 7%.',
+		cta: 'Попробовать бесплатно →',
+		ctaHref: 'https://e-kontur.ru/',
+		visual: { abbrev: 'ЭЛБ', bg: '#C25000' },
+	},
 };
 
 /** Дефолтный баннер по категории статьи. */
 export const CATEGORY_DEFAULT_CPA: Record<string, string> = {
 	'ts-piot': 'chestny-znak',
-	'markirovka': 'default-markirovka',
+	'markirovka': 'kontur-markirovka',
 	'zakonodatelstvo': 'default-zakonodatelstvo',
-	'kkt': 'chestny-znak',
+	'kkt': 'kontur-ofd',
 	'egais': 'default-zakonodatelstvo',
 };
 
