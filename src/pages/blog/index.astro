@@ -7,7 +7,8 @@ import Header from '../../components/Header.astro';
 import { CATEGORIES } from '../../consts';
 import { collectTags } from '../../utils/tags';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+const now = new Date();
+const posts = (await getCollection('blog', ({ data }) => !data.draft && data.pubDate <= now)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 

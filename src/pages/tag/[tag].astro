@@ -8,7 +8,8 @@ import { CATEGORIES, SITE_TITLE } from '../../consts';
 import { collectTags, pluralPosts } from '../../utils/tags';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog', ({ data }) => !data.draft);
+	const now = new Date();
+	const posts = await getCollection('blog', ({ data }) => !data.draft && data.pubDate <= now);
 	const tags = collectTags(posts);
 	return Object.entries(tags).map(([slug, info]) => ({
 		params: { tag: slug },
