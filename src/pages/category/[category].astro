@@ -20,7 +20,8 @@ type Props = {
 
 const { slug, meta } = Astro.props as Props;
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const now = new Date();
+const allPosts = await getCollection('blog', ({ data }) => !data.draft && data.pubDate <= now);
 const posts = allPosts
 	.filter((p) => p.data.categories.includes(slug))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());

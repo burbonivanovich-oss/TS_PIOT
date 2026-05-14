@@ -1,7 +1,7 @@
 ---
 title: "MSPOS T D3 Mini: характеристики и сценарии использования"
 description: "Обзор смарт-терминала MSPOS T D3 Mini: технические характеристики, поддержка маркировки, сравнение с MSPOS F20, сценарии применения."
-pubDate: "2026-06-19"
+pubDate: "2026-05-20"
 tags:
   - mspos
   - смарт-терминал
@@ -10,7 +10,7 @@ tags:
   - pos-терминал
 categories:
   - kkt
-draft: true
+draft: false
 seo:
   keywords:
     - MSPOS T D3 Mini обзор
