@@ -12,7 +12,7 @@ tags:
   - трудовое право
 categories:
   - zakonodatelstvo
-cpa: 'online-buh'
+cpa: 'kontur-elba'
 draft: false
 seo:
   keywords:

@@ -12,7 +12,7 @@ tags:
   - документооборот
 categories:
   - zakonodatelstvo
-cpa: 'edo-operator'
+cpa: 'kontur-diadoc'
 draft: false
 seo:
   keywords:

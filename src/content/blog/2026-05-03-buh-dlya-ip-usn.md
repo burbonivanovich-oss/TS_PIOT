@@ -11,6 +11,7 @@ tags:
   - автоматизация
 categories:
   - zakonodatelstvo
+cpa: 'kontur-elba'
 draft: false
 seo:
   keywords:

@@ -10,6 +10,7 @@ tags:
   - бухгалтерия
 categories:
   - zakonodatelstvo
+cpa: 'kontur-elba'
 draft: true
 seo:
   keywords:
