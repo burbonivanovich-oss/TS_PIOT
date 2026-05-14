@@ -2,6 +2,7 @@
 title: "Журнал учёта розничной продажи алкоголя в 2026"
 description: "Как вести журнал учёта розничной продажи алкоголя в 2026 году: форма, сроки, порядок заполнения для магазина и общепита. Требования ФСРАР."
 pubDate: "2026-05-18"
+heroImage: "/images/hero/2026-05-03-egais-zhurnal-roznichnoy-prodazhi.jpg"
 tags:
   - егаис
   - алкоголь
@@ -10,7 +11,7 @@ tags:
   - розница
 categories:
   - egais
-draft: true
+draft: false
 seo:
   keywords:
     - журнал учёта алкоголя
