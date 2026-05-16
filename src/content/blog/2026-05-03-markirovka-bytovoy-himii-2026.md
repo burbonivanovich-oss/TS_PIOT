@@ -2,6 +2,7 @@
 title: "Маркировка бытовой химии с 1 июля 2026"
 description: "Обязательная маркировка бытовой химии с 1 июля 2026: перечень товаров, этапы введения, что нужно сделать магазину и поставщику до срока."
 pubDate: "2026-05-30"
+heroImage: "/images/hero/2026-05-03-markirovka-bytovoy-himii-2026.jpg"
 tags:
   - маркировка
   - бытовая химия
@@ -10,7 +11,7 @@ tags:
   - розница
 categories:
   - markirovka
-draft: true
+draft: false
 seo:
   keywords:
     - маркировка бытовой химии
