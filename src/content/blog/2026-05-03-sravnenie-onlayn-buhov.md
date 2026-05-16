@@ -2,6 +2,7 @@
 title: "Сравнение Контур.Эльба, Моё дело, 1С:Облако, Тинькофф Бухгалтерия"
 description: "Сравнение онлайн-бухгалтерий для малого бизнеса: Контур.Эльба, Моё дело, 1С:Облако, Тинькофф Бухгалтерия — функции, цены, плюсы и минусы."
 pubDate: "2026-05-22"
+heroImage: "/images/hero/2026-05-03-sravnenie-onlayn-buhov.jpg"
 tags:
   - онлайн-бухгалтерия
   - усн
@@ -11,7 +12,7 @@ tags:
 categories:
   - zakonodatelstvo
 cpa: 'kontur-elba'
-draft: true
+draft: false
 seo:
   keywords:
     - сравнение онлайн бухгалтерий
