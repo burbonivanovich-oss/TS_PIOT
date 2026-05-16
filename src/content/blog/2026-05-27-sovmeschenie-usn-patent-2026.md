@@ -11,7 +11,7 @@ tags:
   - раздельный-учёт
 categories:
   - zakonodatelstvo
-draft: true
+draft: false
 cpa: "kontur-elba"
 seo:
   keywords:

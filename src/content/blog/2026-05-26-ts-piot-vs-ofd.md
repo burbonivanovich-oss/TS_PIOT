@@ -10,7 +10,7 @@ tags:
   - онлайн-касса
 categories:
   - ts-piot
-draft: true
+draft: false
 cpa: "kontur-ofd"
 seo:
   keywords:

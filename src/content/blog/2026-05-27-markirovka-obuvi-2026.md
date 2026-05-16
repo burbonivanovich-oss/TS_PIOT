@@ -10,7 +10,7 @@ tags:
   - честный-знак
 categories:
   - markirovka
-draft: true
+draft: false
 cpa: "kontur-markirovka"
 seo:
   keywords:

@@ -10,7 +10,7 @@ tags:
   - разрешительный-режим
 categories:
   - ts-piot
-draft: true
+draft: false
 cpa: "default-ts-piot"
 seo:
   keywords:
