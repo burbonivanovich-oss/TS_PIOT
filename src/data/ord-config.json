@@ -1,60 +1,30 @@
 {
-  "_comment": "Конфигурация ОРД. Заполнить реквизиты перед запуском ord-register.mjs",
-
-  "publisher": {
-    "_comment": "Владелец площадки — ваши реквизиты",
-    "externalId": "etiketka-publisher",
-    "inn": "REPLACE_WITH_YOUR_INN",
-    "fullOpf": "REPLACE: ИП Иванов И.И. / ООО «Этикетка»",
-    "legalType": "LEGAL_TYPE_ENTREPRENEUR",
-    "isOpc": false,
-    "isPp": true,
-    "legalAddress": {
-      "address": "REPLACE_WITH_YOUR_ADDRESS",
-      "locality": "REPLACE_WITH_YOUR_CITY",
-      "postcode": "REPLACE"
-    }
-  },
+  "_comment": "Организации и договор уже зарегистрированы в ОРД вручную. Скрипт регистрирует только креативы.",
 
   "platform": {
-    "_comment": "Ваш сайт как рекламная площадка",
     "externalId": "etiketka-media-site",
     "platformType": "PLATFORM_TYPE_SITE",
     "url": "https://etiketka-media.ru",
     "appName": "Этикетка"
   },
 
-  "advertisers": [
-    {
-      "_comment": "ШАБЛОН — дублируйте блок для каждого рекламодателя. Пока баннеры ведут на '/', этот блок не активен.",
-      "bannerId": "chestny-znak",
-      "externalId": "advertiser-chestny-znak",
-      "name": "Честный знак",
-      "inn": "7731376812",
-      "fullOpf": "АО «ЦРПТ»",
-      "legalType": "LEGAL_TYPE_LEGAL",
-      "isOpc": false,
-      "isPp": false,
-      "legalAddress": {
-        "address": "REPLACE_WITH_ADVERTISER_ADDRESS",
-        "locality": "Москва",
-        "postcode": "REPLACE"
-      },
-      "contract": {
-        "_comment": "Реквизиты договора с рекламодателем",
-        "externalId": "contract-chestny-znak-2026",
-        "number": "REPLACE_WITH_CONTRACT_NUMBER",
-        "date": "2026-01-01",
-        "type": "CONTRACT_TYPE_SERVICE",
-        "actionType": "ACTION_TYPE_DISTRIBUTION",
-        "subjectType": "SUBJECT_TYPE_DISTRIBUTION",
-        "withNds": false
-      },
-      "creative": {
-        "externalId": "creative-chestny-znak-banner-v1",
-        "name": "Честный знак — регистрация в системе маркировки",
-        "type": "CREATIVE_TYPE_DISPLAY"
-      }
-    }
+  "publisherExternalId": "c-FWKJ-mkJUEsVUQQfu91QodpRCRH",
+  "advertiserExternalId": "c-FWKJ-MRLBKCtzZcc2U1JLHpZUrW",
+
+  "creatives": [
+    { "bannerId": "kontur-ofd",        "externalId": "creative-kontur-ofd-v1",        "name": "Контур.ОФД — подключите ОФД до регистрации кассы",           "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "kontur-markirovka", "externalId": "creative-kontur-markirovka-v1", "name": "Контур.Маркировка — работа с маркировкой под ключ",           "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "kontur-diadoc",     "externalId": "creative-kontur-diadoc-v1",     "name": "Контур.Диадок — ЭДО для приёмки маркированных товаров",       "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "diadoc-logistika",  "externalId": "creative-diadoc-logistika-v1",  "name": "Диадок Логистика — переход на ЭТрН с 1 сентября 2026",        "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "kontur-elba",       "externalId": "creative-kontur-elba-v1",       "name": "Контур.Эльба — налоги и отчётность для ИП и ООО на УСН",      "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "kontur-extern",     "externalId": "creative-kontur-extern-v1",     "name": "Контур.Экстерн — отчётность в ФНС, СФР и Росстат",            "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "kontur-focus",      "externalId": "creative-kontur-focus-v1",      "name": "Контур.Фокус — проверьте контрагента до сделки",              "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "diadoc-kedo",       "externalId": "creative-diadoc-kedo-v1",       "name": "Диадок КЭДО — кадровые документы в электронном виде",         "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "kontur-mchd",       "externalId": "creative-kontur-mchd-v1",       "name": "Контур.Доверенность — МЧД за 5 минут",                        "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "kontur-market",     "externalId": "creative-kontur-market-v1",     "name": "Контур.Маркет — учёт товаров и работа на кассе",              "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "bank-elba",         "externalId": "creative-bank-elba-v1",         "name": "Контур.Банк + Эльба — расчётный счёт и бухгалтерия",          "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "ts-piot-provider",  "externalId": "creative-ts-piot-provider-v1",  "name": "Контур.ОФД — подключите ОФД с поддержкой ТС ПИоТ",            "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "online-buh",        "externalId": "creative-online-buh-v1",        "name": "Контур.Эльба — онлайн-бухгалтерия справится с ЕНС",           "type": "CREATIVE_TYPE_DISPLAY" },
+    { "bannerId": "edo-operator",      "externalId": "creative-edo-operator-v1",      "name": "Контур.Диадок — подключите ЭДО для приёмки маркированных товаров", "type": "CREATIVE_TYPE_DISPLAY" }
   ]
 }

@@ -11,7 +11,7 @@ tags:
   - мсб
 categories:
   - zakonodatelstvo
-cpa: 'kontur-elba'
+cpa: 'online-buh'
 draft: false
 seo:
   keywords:
