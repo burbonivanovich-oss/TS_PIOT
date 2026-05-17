@@ -205,8 +205,6 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 	},
 };
 
-};
-
 export const CPA_BANNERS: Record<string, CpaBanner> = Object.fromEntries(
 	Object.entries(_BANNERS_RAW).map(([id, banner]) => [
 		id,
