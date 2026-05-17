@@ -39,6 +39,15 @@ export const INLINE_SUBSCRIBE = {
 	formAction: '#',
 } as const;
 
+/* Курируемый список ключевых статей для 404 и других fallback-блоков.
+   До подключения аналитики (#6–8) — список ведётся вручную. */
+export const POPULAR_POSTS = [
+	'2026-01-15-chto-takoe-ts-piot',
+	'2026-02-10-kategorii-markirovki-2026',
+	'2026-05-01-kalendar-markirovki-2026',
+	'2026-05-01-shtraf-za-markirovku',
+] as const;
+
 export const CATEGORIES = {
 	'ts-piot': {
 		title: 'ТС ПИоТ',
