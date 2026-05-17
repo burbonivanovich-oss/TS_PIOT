@@ -1,3 +1,5 @@
+import ordErids from './ord-erids.json';
+
 export interface CpaBanner {
 	id: string;
 	eyebrow: string;
@@ -9,9 +11,15 @@ export interface CpaBanner {
 		abbrev: string;
 		bg: string;
 	};
+	/** erid-токен из Яндекс ОРД. Проставляется автоматически из ord-erids.json. */
+	erid?: string;
 }
 
-export const CPA_BANNERS: Record<string, CpaBanner> = {
+const _erids: Record<string, string> = Object.fromEntries(
+	Object.entries(ordErids as Record<string, string>).filter(([k]) => !k.startsWith('_'))
+);
+
+const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 	'chestny-znak': {
 		id: 'chestny-znak',
 		eyebrow: 'Честный знак',
@@ -142,7 +150,7 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 		description:
 			'Актуальные формы деклараций, сверка с ЕНС, электронная подпись в комплекте. Подходит для ИП и ООО на любом режиме налогообложения.',
 		cta: 'Подключить Экстерн →',
-		ctaHref: 'https://kontur-extern.ru/price?p=f74746',
+		ctaHref: 'https://kontur.ru/extern/price?p=f74746',
 		visual: { abbrev: 'ЭКС', bg: '#1A3A6C' },
 	},
 	'kontur-focus': {
@@ -196,6 +204,15 @@ export const CPA_BANNERS: Record<string, CpaBanner> = {
 		visual: { abbrev: 'БНК', bg: '#0A5C36' },
 	},
 };
+
+};
+
+export const CPA_BANNERS: Record<string, CpaBanner> = Object.fromEntries(
+	Object.entries(_BANNERS_RAW).map(([id, banner]) => [
+		id,
+		{ ...banner, ...(id in _erids ? { erid: _erids[id] } : {}) },
+	])
+);
 
 /** Дефолтный баннер по категории статьи. */
 export const CATEGORY_DEFAULT_CPA: Record<string, string> = {

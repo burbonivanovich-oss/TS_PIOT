@@ -53,7 +53,7 @@ const PRODUCTS: Record<string, Product> = {
 		description:
 			'Учёт НДС, НДФЛ, страховых взносов. Выставление счетов, первичка, зарплата сотрудников. Совместная работа с бухгалтером в одном кабинете. Пробный период 14 дней.',
 		cta: 'Попробовать Контур.Бухгалтерию',
-		href: 'https://kontur.ru/buhgalteriya?p=f74746',
+		href: 'https://kontur.ru/extern/price?p=f74746',
 		color: '#1E4A7A',
 		abbrev: 'БУХ',
 	},
@@ -73,7 +73,7 @@ const PRODUCTS: Record<string, Product> = {
 		description:
 			'Сдача деклараций и расчётов онлайн прямо из браузера. Проверка перед отправкой, уведомления о статусе, квитанции. Подходит ИП, которым нужна отчётность без полного бухучёта.',
 		cta: 'Попробовать Контур.Экстерн',
-		href: 'https://kontur-extern.ru/price?p=f74746',
+		href: 'https://kontur.ru/extern/price?p=f74746',
 		color: '#1A5C3A',
 		abbrev: 'ЭКС',
 	},
@@ -103,7 +103,7 @@ const PRODUCTS: Record<string, Product> = {
 		description:
 			'Учёт, зарплата, налоги и отчётность для ООО на УСН и ОСНО. Несколько сотрудников в одном кабинете, интеграция с банком и ЭДО. Пробный период 14 дней.',
 		cta: 'Попробовать Контур.Бухгалтерию',
-		href: 'https://kontur.ru/buhgalteriya?p=f74746',
+		href: 'https://kontur.ru/extern/price?p=f74746',
 		color: '#1E4A7A',
 		abbrev: 'БУХ',
 	},
@@ -123,7 +123,7 @@ const PRODUCTS: Record<string, Product> = {
 		description:
 			'Декларации по НДС, налогу на прибыль, имущество. РСВ, 6-НДФЛ, отчёты в СФР и Росстат. Выгрузка из 1С, проверка на ошибки, квитанции о приёме. Мультипользовательский доступ.',
 		cta: 'Попробовать Контур.Экстерн',
-		href: 'https://kontur-extern.ru/price?p=f74746',
+		href: 'https://kontur.ru/extern/price?p=f74746',
 		color: '#1A5C3A',
 		abbrev: 'ЭКС',
 	},

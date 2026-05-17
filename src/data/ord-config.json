@@ -1,0 +1,60 @@
+{
+  "_comment": "Конфигурация ОРД. Заполнить реквизиты перед запуском ord-register.mjs",
+
+  "publisher": {
+    "_comment": "Владелец площадки — ваши реквизиты",
+    "externalId": "etiketka-publisher",
+    "inn": "REPLACE_WITH_YOUR_INN",
+    "fullOpf": "REPLACE: ИП Иванов И.И. / ООО «Этикетка»",
+    "legalType": "LEGAL_TYPE_ENTREPRENEUR",
+    "isOpc": false,
+    "isPp": true,
+    "legalAddress": {
+      "address": "REPLACE_WITH_YOUR_ADDRESS",
+      "locality": "REPLACE_WITH_YOUR_CITY",
+      "postcode": "REPLACE"
+    }
+  },
+
+  "platform": {
+    "_comment": "Ваш сайт как рекламная площадка",
+    "externalId": "etiketka-media-site",
+    "platformType": "PLATFORM_TYPE_SITE",
+    "url": "https://etiketka-media.ru",
+    "appName": "Этикетка"
+  },
+
+  "advertisers": [
+    {
+      "_comment": "ШАБЛОН — дублируйте блок для каждого рекламодателя. Пока баннеры ведут на '/', этот блок не активен.",
+      "bannerId": "chestny-znak",
+      "externalId": "advertiser-chestny-znak",
+      "name": "Честный знак",
+      "inn": "7731376812",
+      "fullOpf": "АО «ЦРПТ»",
+      "legalType": "LEGAL_TYPE_LEGAL",
+      "isOpc": false,
+      "isPp": false,
+      "legalAddress": {
+        "address": "REPLACE_WITH_ADVERTISER_ADDRESS",
+        "locality": "Москва",
+        "postcode": "REPLACE"
+      },
+      "contract": {
+        "_comment": "Реквизиты договора с рекламодателем",
+        "externalId": "contract-chestny-znak-2026",
+        "number": "REPLACE_WITH_CONTRACT_NUMBER",
+        "date": "2026-01-01",
+        "type": "CONTRACT_TYPE_SERVICE",
+        "actionType": "ACTION_TYPE_DISTRIBUTION",
+        "subjectType": "SUBJECT_TYPE_DISTRIBUTION",
+        "withNds": false
+      },
+      "creative": {
+        "externalId": "creative-chestny-znak-banner-v1",
+        "name": "Честный знак — регистрация в системе маркировки",
+        "type": "CREATIVE_TYPE_DISPLAY"
+      }
+    }
+  ]
+}
