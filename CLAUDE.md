@@ -352,8 +352,6 @@ Gemini больше не нужен.
 
 | Скрипт | Назначение |
 |---|---|
-| `preview-og.mjs` | Рендерит текущий OG-шаблон для 4 тестовых заголовков |
-| `explore-satori.mjs` | Генерирует 6 альтернативных шаблонов для сравнения |
 | `generate-og-backgrounds-local.mjs` | Процедурные SVG-фоны без API-ключей |
 | `generate-og-backgrounds-openrouter.mjs` | AI-фоны через OpenRouter (FLUX) |
 

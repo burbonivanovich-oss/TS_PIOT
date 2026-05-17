@@ -98,4 +98,4 @@ for (const bg of BACKGROUNDS) {
   }
 }
 
-console.log('\nГотово. Запустите node scripts/preview-og-with-bg.mjs для просмотра.');
+console.log('\nГотово. Фоны лежат в public/og-backgrounds/, OG-картинки доступны по /og/<slug>.png.');
