@@ -1,0 +1,27 @@
+name: ORD Bootstrap — организации, договор, площадка
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'DRY_RUN=1 — не отправлять запросы (только лог)'
+        required: false
+        default: 'false'
+
+jobs:
+  bootstrap:
+    name: Bootstrap ОРД через API
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Bootstrap
+        env:
+          ORD_API_KEY: ${{ secrets.ORD_API_KEY }}
+          DRY_RUN:     ${{ github.event.inputs.dry_run == 'true' && '1' || '' }}
+        run: node scripts/ord-bootstrap.mjs
