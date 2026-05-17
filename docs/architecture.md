@@ -33,7 +33,7 @@
 ### Служебные эндпоинты
 
 - `/rss.xml` — фид через `@astrojs/rss`
-- `/sitemap.xml` — карта сайта (кастомный `src/pages/sitemap.xml.ts` + `@astrojs/sitemap`)
+- `/sitemap.xml` — карта сайта (кастомный `src/pages/sitemap.xml.ts`)
 - `/pagefind/*` — индекс Pagefind (генерируется после `astro build`)
 
 ## Контент-коллекции (`src/content.config.ts`)

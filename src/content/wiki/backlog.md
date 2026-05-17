@@ -82,18 +82,6 @@ status: draft
 
 ---
 
-## 🚀 Запуск на домене
-
-| # | Задача | Приоритет | Статус |
-|---|---|---|---|
-| 1 | Подключить домен etiketka-media.ru к GitHub Pages | P0 | idea |
-| 2 | Верифицировать сайт в Google Search Console | P0 | idea |
-| 3 | Верифицировать сайт в Яндекс.Вебмастере | P0 | idea |
-| 4 | Установить счётчик Яндекс.Метрики (BaseHead.astro, плейсхолдер есть) | P0 | idea |
-| 5 | Добавить `google-site-verification` и `yandex-verification` в BaseHead.astro | P0 | idea |
-
----
-
 ## 📊 Аналитика и данные
 
 | # | Задача | Приоритет | Статус |
@@ -105,16 +93,12 @@ status: draft
 | 10 | Настроить `/blog google` (плагин claude-blog) — GSC + GA4 | P2 | idea |
 | 11 | Дашборд: сводная таблица статей с позицией + трафиком + оценкой | P2 | idea |
 
-> **Блокеры для пп. 6–11:** сначала запуск на домене (п. 1) + верификация (пп. 2–5).
-
 ---
 
 ## ⚙️ Технические задачи
 
 | # | Задача | Приоритет | Статус |
 |---|---|---|---|
-| 12 | Разобраться с двойным sitemap: кастомный `sitemap.xml.ts` + `@astrojs/sitemap` — один из них лишний | P1 | idea |
-| 13 | Добавить `<link rel="sitemap">` на правильный URL после п. 12 | P1 | idea |
 | 14 | Pagefind: добавить фильтры по категории в поиске | P2 | idea |
 | 15 | Pagefind: добавить pillar-страницы и глоссарий в индекс | P2 | idea |
 | 16 | Добавить время чтения в шапку статьи | P2 | idea |
@@ -128,8 +112,6 @@ status: draft
 
 | # | Задача | Приоритет | Статус |
 |---|---|---|---|
-| 20 | Проверить и опубликовать 4 статьи в `draft: true`: `usn-nds-rasschet`, `shtraf-za-markirovku`, `ts-piot-evotor-atol-shtrih`, `strahovye-vznosy-msp-2026` | P0 | idea |
-| 21 | Сгенерировать hero-изображение для `usn-nds-rasschet` (единственная опубликованная без hero) | P1 | idea |
 | 22 | Добавить `reviewDate` в статьи, у которых его нет | P1 | idea |
 | 23 | Аудит внутренней перелинковки: найти статьи без входящих ссылок («сироты») | P1 | idea |
 | 24 | Обновить pillar-страницы: добавить ссылки на новые статьи | P2 | idea |
@@ -216,3 +198,12 @@ status: draft
 | — | Аудит документации: 25 расхождений устранено | 2026-05-05 |
 | — | 4 процесса контент-операций: `/plan-content`, `/create-article`, `/release-article`, `/maintain-content` | 2026-05-05 |
 | — | Определены CSS-переменные `--gray-dark` и `--gray-light` | 2026-05-05 |
+| 1 | Подключён домен etiketka-media.ru к GitHub Pages (`public/CNAME`, `SITE_URL`, `astro.config.mjs:site`) | 2026-05-17 |
+| 2 | Сайт верифицирован в Google Search Console | 2026-05-17 |
+| 3 | Сайт верифицирован в Яндекс.Вебмастере | 2026-05-17 |
+| 4 | Установлен счётчик Яндекс.Метрики (id 109130279, webvisor + clickmap) в `BaseHead.astro` | 2026-05-17 |
+| 5 | Добавлены `yandex-verification` и `google-site-verification` в `BaseHead.astro` | 2026-05-17 |
+| 12 | Двойной sitemap устранён — остался только кастомный `src/pages/sitemap.xml.ts`, зависимость `@astrojs/sitemap` удалена из `package.json` | 2026-05-17 |
+| 13 | `<link rel="sitemap" href={u('/sitemap.xml')} />` добавлен в `BaseHead.astro` | 2026-05-17 |
+| 20 | Опубликованы 4 статьи: `usn-nds-rasschet`, `shtraf-za-markirovku`, `ts-piot-evotor-atol-shtrih`, `strahovye-vznosy-msp-2026` (`draft: false`) | 2026-05-17 |
+| 21 | Hero-изображение для `usn-nds-rasschet` сгенерировано; все 83 статьи имеют `heroImage` | 2026-05-17 |
