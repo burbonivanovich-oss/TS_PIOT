@@ -8,7 +8,8 @@
     "appName": "Этикетка"
   },
 
-  "advertiserExternalId": "REPLACE_WITH_KONTOUR_ORG_EXTERNAL_ID",
+  "publisherExternalId": "c-FWKJ-mkJUEsVUQQfu91QodpRCRH",
+  "advertiserExternalId": "c-FWKJ-MRLBKCtzZcc2U1JLHpZUrW",
 
   "creatives": [
     { "bannerId": "kontur-ofd",        "externalId": "creative-kontur-ofd-v1",        "name": "Контур.ОФД — подключите ОФД до регистрации кассы",           "type": "CREATIVE_TYPE_DISPLAY" },
