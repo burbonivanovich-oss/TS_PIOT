@@ -1,30 +1,137 @@
 {
-  "_comment": "Организации и договор уже зарегистрированы в ОРД вручную. Скрипт регистрирует только креативы.",
+  "_comment": "Организации и договор зарегистрированы вручную в кабинете ОРД (https://ord.yandex.ru/). Скрипт регистрирует площадку и креативы через API v7. Подробности схемы — https://ord.yandex.net/api/docs.",
+
+  "organizationId": "c-FWKJ-mkJUEsVUQQfu91QodpRCRH",
+  "contractId": "c-FWKJ-Tj7cyDSG4DzAE88gKJWSZN",
 
   "platform": {
-    "externalId": "etiketka-media-site",
-    "platformType": "PLATFORM_TYPE_SITE",
-    "url": "https://etiketka-media.ru",
-    "appName": "Этикетка"
+    "platformId": "etiketka-media-site",
+    "isOwned": true,
+    "type": "site",
+    "name": "Этикетка",
+    "url": "https://etiketka-media.ru"
   },
 
-  "publisherExternalId": "c-FWKJ-mkJUEsVUQQfu91QodpRCRH",
-  "advertiserExternalId": "c-FWKJ-MRLBKCtzZcc2U1JLHpZUrW",
+  "defaults": {
+    "creativeType": "creative",
+    "form": "text-graphic-block",
+    "isSocial": false,
+    "isSocialQuota": false,
+    "coBranding": false
+  },
 
   "creatives": [
-    { "bannerId": "kontur-ofd",        "externalId": "creative-kontur-ofd-v1",        "name": "Контур.ОФД — подключите ОФД до регистрации кассы",           "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "kontur-markirovka", "externalId": "creative-kontur-markirovka-v1", "name": "Контур.Маркировка — работа с маркировкой под ключ",           "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "kontur-diadoc",     "externalId": "creative-kontur-diadoc-v1",     "name": "Контур.Диадок — ЭДО для приёмки маркированных товаров",       "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "diadoc-logistika",  "externalId": "creative-diadoc-logistika-v1",  "name": "Диадок Логистика — переход на ЭТрН с 1 сентября 2026",        "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "kontur-elba",       "externalId": "creative-kontur-elba-v1",       "name": "Контур.Эльба — налоги и отчётность для ИП и ООО на УСН",      "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "kontur-extern",     "externalId": "creative-kontur-extern-v1",     "name": "Контур.Экстерн — отчётность в ФНС, СФР и Росстат",            "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "kontur-focus",      "externalId": "creative-kontur-focus-v1",      "name": "Контур.Фокус — проверьте контрагента до сделки",              "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "diadoc-kedo",       "externalId": "creative-diadoc-kedo-v1",       "name": "Диадок КЭДО — кадровые документы в электронном виде",         "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "kontur-mchd",       "externalId": "creative-kontur-mchd-v1",       "name": "Контур.Доверенность — МЧД за 5 минут",                        "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "kontur-market",     "externalId": "creative-kontur-market-v1",     "name": "Контур.Маркет — учёт товаров и работа на кассе",              "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "bank-elba",         "externalId": "creative-bank-elba-v1",         "name": "Контур.Банк + Эльба — расчётный счёт и бухгалтерия",          "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "ts-piot-provider",  "externalId": "creative-ts-piot-provider-v1",  "name": "Контур.ОФД — подключите ОФД с поддержкой ТС ПИоТ",            "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "online-buh",        "externalId": "creative-online-buh-v1",        "name": "Контур.Эльба — онлайн-бухгалтерия справится с ЕНС",           "type": "CREATIVE_TYPE_DISPLAY" },
-    { "bannerId": "edo-operator",      "externalId": "creative-edo-operator-v1",      "name": "Контур.Диадок — подключите ЭДО для приёмки маркированных товаров", "type": "CREATIVE_TYPE_DISPLAY" }
+    {
+      "bannerId": "kontur-ofd",
+      "id": "creative-kontur-ofd-v1",
+      "description": "Контур.ОФД — оператор фискальных данных для онлайн-касс по 54-ФЗ",
+      "kktuCodes": ["9.2.1"],
+      "urls": ["https://kontur.ru/ofd/price?p=f74746"],
+      "textData": ["Подключите ОФД до регистрации кассы — скидка 15% при онлайн-оплате. Передача чеков в ФНС по 54-ФЗ, регистрация и перерегистрация кассы онлайн без визита в налоговую. Совместим со всеми моделями касс."]
+    },
+    {
+      "bannerId": "kontur-markirovka",
+      "id": "creative-kontur-markirovka-v1",
+      "description": "Контур.Маркировка — программное обеспечение для работы с системой «Честный знак»",
+      "kktuCodes": ["9.2.1"],
+      "urls": ["https://kontur.ru/markirovka?p=f74746"],
+      "textData": ["Работа с маркировкой под ключ — скидка 20% при онлайн-оплате. Полный цикл: от нанесения кода на производстве до выбытия из оборота через кассу. Интеграция с 1С, ERP и «Честным знаком»."]
+    },
+    {
+      "bannerId": "kontur-diadoc",
+      "id": "creative-kontur-diadoc-v1",
+      "description": "Контур.Диадок — сервис электронного документооборота для приёмки маркированных товаров",
+      "kktuCodes": ["9.2.1"],
+      "urls": ["https://diadoc.ru/order?p=f74746"],
+      "textData": ["ЭДО для приёмки маркированных товаров — скидка 10% онлайн. УПД с кодами маркировки принимается только через аккредитованного ЭДО-оператора. Диадок используют более 1,5 млн компаний."]
+    },
+    {
+      "bannerId": "diadoc-logistika",
+      "id": "creative-diadoc-logistika-v1",
+      "description": "Диадок Логистика — электронный документооборот для грузоперевозок и переход на ЭТрН",
+      "kktuCodes": ["9.2.1"],
+      "urls": ["https://kontur.ru/logistika?p=f74746"],
+      "textData": ["Обязательный переход на ЭТрН с 1 сентября 2026 по 140-ФЗ. Сервис Логистика от Контура обеспечивает юридически значимый ЭДО между всеми участниками грузоперевозок с передачей данных в ГИС ЭПД."]
+    },
+    {
+      "bannerId": "kontur-elba",
+      "id": "creative-kontur-elba-v1",
+      "description": "Контур.Эльба — онлайн-бухгалтерия для ИП и ООО на УСН и патенте",
+      "kktuCodes": ["9.2.1"],
+      "urls": ["https://e-kontur.ru/?p=f74746"],
+      "textData": ["30 дней бесплатно: налоги и отчётность для ИП и ООО на УСН. Эльба сама считает налоги, формирует уведомления по ЕНС и сдаёт отчётность. Работает с УСН, патентом, НДС 5% и 7%."]
+    },
+    {
+      "bannerId": "kontur-extern",
+      "id": "creative-kontur-extern-v1",
+      "description": "Контур.Экстерн — сервис электронной отчётности в ФНС, СФР и Росстат",
+      "kktuCodes": ["9.2.1"],
+      "urls": ["https://kontur.ru/extern/price?p=f74746"],
+      "textData": ["Отчётность в ФНС, СФР и Росстат — скидка 15% при онлайн-оплате. Актуальные формы деклараций, сверка с ЕНС, электронная подпись в комплекте. Подходит для ИП и ООО на любом режиме налогообложения."]
+    },
+    {
+      "bannerId": "kontur-focus",
+      "id": "creative-kontur-focus-v1",
+      "description": "Контур.Фокус — сервис проверки контрагентов по данным ФНС, ЕГРЮЛ и арбитражей",
+      "kktuCodes": ["6.1.1"],
+      "urls": ["https://focus.kontur.ru/site/buy?p=f74746"],
+      "textData": ["Проверьте контрагента до сделки — скидка 7% онлайн. Данные из реестров ФНС, судов, ЕГРЮЛ и ЕГРИП. Проверка директора, учредителей, аффилированных лиц и арбитражных дел."]
+    },
+    {
+      "bannerId": "diadoc-kedo",
+      "id": "creative-diadoc-kedo-v1",
+      "description": "Диадок КЭДО — кадровый электронный документооборот для работодателей",
+      "kktuCodes": ["9.2.1"],
+      "urls": ["https://kontur.ru/kedo?p=f74746"],
+      "textData": ["Переведите кадровые документы в электронный вид — экономия до 5 800 ₽ на сотрудника. Трудовые договоры, приказы и заявления без бумаги и курьеров. Юридически значимый КЭДО, интеграция с 1С:ЗУП."]
+    },
+    {
+      "bannerId": "kontur-mchd",
+      "id": "creative-kontur-mchd-v1",
+      "description": "Контур.Доверенность — оформление машиночитаемых доверенностей онлайн",
+      "kktuCodes": ["9.2.1"],
+      "urls": ["https://kontur.ru/mchd/price?p=f74746"],
+      "textData": ["МЧД за 5 минут: сотрудники подписывают документы своей ЭП. С 01.09.2024 сотрудники подписывают документы только через машиночитаемую доверенность. Оформите МЧД онлайн без визита в офис."]
+    },
+    {
+      "bannerId": "kontur-market",
+      "id": "creative-kontur-market-v1",
+      "description": "Контур.Маркет — сервис товарного учёта с кассовой программой по 54-ФЗ",
+      "kktuCodes": ["9.2.1"],
+      "urls": ["https://kontur.ru/market/kkt?p=f74746"],
+      "textData": ["Учёт товаров и работа на кассе — бесплатный доступ 14 дней. Товарный учёт с маркировкой, кассовая программа по 54-ФЗ, инвентаризация. Скидка 15% при онлайн-оплате."]
+    },
+    {
+      "bannerId": "bank-elba",
+      "id": "creative-bank-elba-v1",
+      "description": "Контур.Банк + Эльба — расчётный счёт и онлайн-бухгалтерия в одном пакете",
+      "kktuCodes": ["29.2.7"],
+      "urls": ["https://kontur.ru/lp/bank_and_elba?p=f74746"],
+      "textData": ["Расчётный счёт + бухгалтерия — обслуживание 0 ₽ по тарифу «Ноль». Счёт в Контур.Банке открывается онлайн. В комплекте — Эльба для учёта налогов и отчётности. Без скрытых комиссий."]
+    },
+    {
+      "bannerId": "ts-piot-provider",
+      "id": "creative-ts-piot-provider-v1",
+      "description": "Контур.ОФД — оператор фискальных данных с поддержкой ТС ПИоТ для разрешительного режима",
+      "kktuCodes": ["9.2.1"],
+      "urls": ["https://kontur.ru/ofd/price?p=f74746"],
+      "textData": ["Подключите ОФД с поддержкой ТС ПИоТ. Срок обязателен для всех касс с разрешительным режимом «Честного знака» с 01.07.2026. Контур.ОФД совместим со всеми моделями касс."]
+    },
+    {
+      "bannerId": "online-buh",
+      "id": "creative-online-buh-v1",
+      "description": "Контур.Эльба — онлайн-бухгалтерия с расчётом ЕНС, уведомлениями и отчётностью",
+      "kktuCodes": ["9.2.1"],
+      "urls": ["https://e-kontur.ru/?p=f74746"],
+      "textData": ["Онлайн-бухгалтерия справится с ЕНС, налогами и отчётностью. Сервис сам рассчитывает налоги, формирует уведомления по ЕНС и напоминает о сроках. Подходит для ИП и ООО на УСН."]
+    },
+    {
+      "bannerId": "edo-operator",
+      "id": "creative-edo-operator-v1",
+      "description": "Контур.Диадок — аккредитованный оператор ЭДО для приёмки УПД с кодами маркировки",
+      "kktuCodes": ["9.2.1"],
+      "urls": ["https://diadoc.ru/order?p=f74746"],
+      "textData": ["Подключите ЭДО для приёмки маркированных товаров. УПД с кодами маркировки принимается только через аккредитованного ЭДО-оператора. Диадок — крупнейший оператор ЭДО в России."]
+    }
   ]
 }
