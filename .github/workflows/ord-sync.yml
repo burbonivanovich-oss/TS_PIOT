@@ -36,9 +36,10 @@ jobs:
 
       - name: Регистрация креативов в ОРД
         env:
-          ORD_API_KEY: ${{ secrets.ORD_API_KEY }}
-          BANNER:      ${{ github.event.inputs.banner }}
-          FORCE:       ${{ github.event.inputs.force == 'true' && '1' || '' }}
+          ORD_API_KEY:   ${{ secrets.ORD_API_KEY }}
+          BANNER:        ${{ github.event.inputs.banner }}
+          FORCE:         ${{ github.event.inputs.force == 'true' && '1' || '' }}
+          SKIP_PLATFORM: '1'
         run: node scripts/ord-register.mjs
 
       - name: Закоммитить ord-erids.json (если изменился)
