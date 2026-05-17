@@ -14,7 +14,7 @@
 
   "defaults": {
     "creativeType": "creative",
-    "form": "text-graphic-block",
+    "form": "text-block",
     "isSocial": false,
     "isSocialQuota": false,
     "coBranding": false
