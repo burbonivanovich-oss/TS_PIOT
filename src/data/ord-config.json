@@ -32,7 +32,6 @@
       "clientId":                 "kontur-advertiser",
       "isRegReport":              true,
       "agentActingForPublisher":  true,
-      "isChargePaidByAgent":      false,
       "actionType":               "commercial",
       "subjectType":              "mediation",
       "number":                   "№ 881/20",
