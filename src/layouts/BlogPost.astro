@@ -267,6 +267,9 @@ const shareTitle = encodeURIComponent(title);
 								{cpaBanner.cta}
 							</a>
 						</div>
+						{cpaBanner.erid && (
+							<div class="cpa-erid">Реклама · erid: {cpaBanner.erid}</div>
+						)}
 					</div>
 
 					<!-- Второй CPA-баннер (только для ts-piot) -->
@@ -285,6 +288,9 @@ const shareTitle = encodeURIComponent(title);
 									{cpaBanner2.cta}
 								</a>
 							</div>
+							{cpaBanner2.erid && (
+								<div class="cpa-erid">Реклама · erid: {cpaBanner2.erid}</div>
+							)}
 						</div>
 					)}
 
@@ -509,7 +515,7 @@ const shareTitle = encodeURIComponent(title);
 			.prose { font-size: 1rem; line-height: 1.75; color: #1a1a1a; }
 
 			/* ── CPA-врезка ── */
-			.cpa-block { display: grid; grid-template-columns: 120px 1fr auto; align-items: stretch; margin: 2.5rem 0; border: 2px solid #111; overflow: hidden; }
+			.cpa-block { display: grid; grid-template-columns: 120px 1fr auto; grid-template-rows: auto auto; align-items: stretch; margin: 2.5rem 0; border: 2px solid #111; overflow: hidden; }
 			.cpa-visual { display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
 			.cpa-visual-letter { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: #AFCC00; line-height: 1; letter-spacing: -.03em; }
 			.cpa-body { padding: 18px 22px; background: #fff; }
@@ -519,6 +525,7 @@ const shareTitle = encodeURIComponent(title);
 			.cpa-action { padding: 0 22px; background: #fff; border-left: 1px solid rgba(0,0,0,.08); display: flex; align-items: center; }
 			.cpa-btn { display: inline-block; background: #9E2B4F; color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 12px 18px; text-decoration: none; white-space: nowrap; transition: background .15s; }
 			.cpa-btn:hover { background: #7d2240; }
+			.cpa-erid { grid-column: 1 / -1; padding: 4px 12px; background: rgba(0,0,0,.04); font-size: .62rem; color: #999; letter-spacing: .04em; border-top: 1px solid rgba(0,0,0,.07); }
 
 			/* ── Share ── */
 			.art-share { display: flex; align-items: center; gap: 8px; padding: 1.2rem 0; border-top: 1px solid rgba(0,0,0,.1); border-bottom: 1px solid rgba(0,0,0,.1); }
