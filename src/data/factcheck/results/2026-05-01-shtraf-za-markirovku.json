@@ -1,0 +1,172 @@
+{
+  "slug": "2026-05-01-shtraf-za-markirovku",
+  "checkedAt": "2026-05-18T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 20,
+    "checked": 9,
+    "match": 4,
+    "mismatch": 2,
+    "incompleteContext": 3,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "applied-critical-fixes",
+    "criticalIssues": 2,
+    "note": "Найдено критическое расхождение по ст. 15.12 ч. 2: в статье ИП «5 000 – 15 000 ₽», по действующей редакции — «5 000 – 10 000 ₽» (верхняя граница 10K, а не 15K). Также во всех 4 упоминаниях статьи 15.12 КоАП отсутствовала часть — по политике A2 добавлена «ч. 2». Дополнительно: в статье не упоминалась ч. 3 ст. 15.12 для алкоголя/табака с резко повышенными штрафами, и пороги 400K/1.5M по 171.1 УК отнесены ко всем товарам, хотя относятся только к продовольственным."
+  },
+  "claims": [
+    {
+      "id": "c-fines-15.12-ip",
+      "type": "MONEY",
+      "raw": "от 5 000 до 15 000 ₽ (ИП)",
+      "context": "В лиде и в таблице — штраф ИП по ст. 15.12 КоАП «5 000 – 15 000 ₽»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "5 000 – 10 000 ₽ по ч. 2 ст. 15.12 КоАП РФ",
+      "explanation": "Действующая редакция ч. 2 ст. 15.12 КоАП РФ: штраф для должностных лиц и ИП — 5 000–10 000 ₽; для юрлиц — 50 000–300 000 ₽. Верхняя граница 15 000 ₽ некорректна. Расхождение 5 000 ₽ по верхней границе ИП, +50% — критическое по политике A1.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/",
+        "https://base.garant.ru/12125267/7b8e1cd613832736ca0a22fade07f0e6/",
+        "https://rulaws.ru/koap/Razdel-II/Glava-15/Statya-15.12/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Заменено в лиде, в таблице, в description frontmatter: «от 5 000 до 15 000 ₽» → «5 000 – 10 000 ₽».",
+      "applied": true
+    },
+    {
+      "id": "c-npa-15.12-part",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ (без указания части)",
+      "context": "4 упоминания в тексте: лид, таблица, два FAQ. Часть статьи не указана.",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "ст. 15.12 ч. 2 КоАП РФ — продажа немаркированных непродовольственных товаров (общий случай); ч. 3 — для алкоголя и табака",
+      "explanation": "По политике A2 указание части КоАП обязательно. Ст. 15.12 содержит 4 части с разными штрафами: ч. 1 — производство; ч. 2 — продажа/хранение/перевозка; ч. 3 — производство/ввод в оборот алкоголя/табака; ч. 4 — оборот алкоголя/табака. Без указания части у читателя нет ориентира.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Во всех 4 местах «ст. 15.12 КоАП РФ» заменено на «ст. 15.12 ч. 2 КоАП РФ». В лиде и в таблице добавлено уточнение про ч. 3 для алкоголя/табака.",
+      "applied": true
+    },
+    {
+      "id": "c-fines-15.12-jur",
+      "type": "MONEY",
+      "raw": "от 50 000 до 300 000 ₽ (юрлица)",
+      "context": "Лид и таблица — штраф юрлица по ст. 15.12",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "50 000 – 300 000 ₽ для юрлиц по ч. 2 ст. 15.12 КоАП РФ",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ]
+    },
+    {
+      "id": "c-alko-tabak-missing",
+      "type": "MISSING_CONTEXT",
+      "raw": "(не упомянуты ч. 3/4 для алкоголя и табака)",
+      "context": "Статья про штрафы за маркировку — без упоминания резко повышенных санкций по ч. 3 ст. 15.12 для алкогольной/табачной продукции",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.9,
+      "expectedValue": "ч. 3 ст. 15.12: производство алкоголя/табака без маркировки — должностные/ИП 300 000–500 000 ₽, юрлица 200 000–300 000 ₽; ч. 4 (оборот): юрлица 300 000–500 000 ₽, либо до 1 500 000 ₽ по последней редакции",
+      "explanation": "Категории алкоголь и табак прямо упомянуты в перечне «Честного знака» в статье. Без блока про ч. 3/4 читатель из этих сегментов считает, что штраф 5–10K ИП — это полная картина.",
+      "sources": [
+        "https://buh.ru/articles/shtrafy-i-ugolovnaya-otvetstvennost-za-markirovku-v-2026-godu.html",
+        "https://torg.1c.ru/news/povysyat-shtraf-za-oborot-alkogolya-i-sigaret-bez-markirovki/",
+        "http://39.rospotrebnadzor.ru/content/povyshena-administrativnaya-otvetstvennost-po-chastyam-3-4-stati-1512-koap-rf-za"
+      ],
+      "action": "expand-bullet",
+      "actionDetail": "В лид добавлено: «Для алкоголя и табачной продукции действует более жёсткая ч. 3 ст. 15.12 (ИП — 300 000–500 000 ₽, юрлица — до 1 500 000 ₽)». В таблицу добавлена отдельная строка.",
+      "applied": true
+    },
+    {
+      "id": "c-uk-171.1-thresholds",
+      "type": "MONEY",
+      "raw": "крупный размер 400 000 ₽, особо крупный 1 500 000 ₽",
+      "context": "«Крупным размером по ст. 171.1 УК РФ считается стоимость немаркированных товаров свыше 400 000 ₽. Особо крупный размер — свыше 1 500 000 ₽»",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Пороги 400K/1.5M действуют только для продовольственных товаров (примечание 1 к ст. 171.1 УК РФ, для ч. 3, 4). Для непродовольственных (ч. 1, 2) — 2 250 000 ₽ / 9 000 000 ₽. Для алкоголя/табака (ч. 5, 6) — 100 000 ₽ / 1 000 000 ₽.",
+      "explanation": "В статье пороги поданы как универсальные, хотя относятся только к продовольственным товарам. Это вводит в заблуждение продавцов одежды, обуви, шин и т. п.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_10699/0abcfeb2817c95237e7ab7ae330a7a2a79eefe54/",
+        "https://www.ugolkod.ru/statya-171-1"
+      ],
+      "action": "expand-bullet",
+      "actionDetail": "Абзац после таблицы переписан: 400K/1.5M отнесены к продовольственным товарам, добавлены пороги для непродовольственных (2.25M/9M) и для алкоголя/табака (100K/1M).",
+      "applied": true
+    },
+    {
+      "id": "c-uk-171.1-fine",
+      "type": "MONEY",
+      "raw": "до 300 000 ₽ (ст. 171.1 УК РФ)",
+      "context": "Строка таблицы: «Ст. 171.1 УК РФ: штраф до 300 000 ₽ или лишение свободы»",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "ч. 1 ст. 171.1 УК РФ — штраф до 300 000 ₽ или лишение свободы до 3 лет",
+      "actionDetail": "В строку добавлено указание ч. 1 для точности.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_10699/0abcfeb2817c95237e7ab7ae330a7a2a79eefe54/"
+      ]
+    },
+    {
+      "id": "c-date-01.03.2025",
+      "type": "DATE_DMY",
+      "raw": "01.03.2025",
+      "context": "«С 01.03.2025 на кассах действует разрешительный режим»",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "С 01.03.2025 — обязательная офлайн-проверка кодов маркировки в разрешительном режиме (ПП РФ от 21.11.2023 № 1944)",
+      "sources": [
+        "https://markirovka.ru/community/rezhim-proverok-na-kassakh/rezhim-proverok-na-kassakh",
+        "https://mertech.ru/blog/vse-o-markirovke/razreshitelniy-rezhim-na-kassah-s-1-marta-2025-goda/",
+        "https://kontur.ru/market/spravka/55385-izmeneniya_v_pravilah_markirovki_tovarov"
+      ]
+    },
+    {
+      "id": "c-link-15.12",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_34661/",
+      "context": "Ссылка на КоАП общим документом, без якоря на конкретную статью",
+      "status": "incomplete-context",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "Якорная ссылка на ст. 15.12 КоАП РФ: /cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/",
+      "action": "rewrite",
+      "actionDetail": "Заменена на якорь ст. 15.12 КоАП.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ]
+    },
+    {
+      "id": "c-fz-54",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "context": "«отключение кассового оборудования... является нарушением 54-ФЗ»",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "ФЗ от 22.05.2003 № 54-ФЗ «О применении ККТ»"
+    }
+  ],
+  "recommendations": [
+    "Применено: ИП штраф по ч. 2 ст. 15.12 поправлен с «5 000 – 15 000 ₽» на «5 000 – 10 000 ₽» во всех местах (лид, таблица, description).",
+    "Применено: во всех 4 упоминаниях «ст. 15.12 КоАП» добавлена «ч. 2».",
+    "Применено: в лиде и в таблице добавлен контекст ч. 3 ст. 15.12 для алкоголя и табака.",
+    "Применено: пороги 400K/1.5M в 171.1 УК уточнены — только для продовольственных товаров; добавлены пороги для непродовольственных и для алкоголя/табака.",
+    "Применено: ссылка на consultant.ru заменена на якорь конкретно ст. 15.12.",
+    "Применено: updatedDate=2026-05-18, reviewDate=2026-09-01.",
+    "Перепроверить осенью 2026 после публикации новой редакции КоАП (поправки Минфина по ст. 14.5/15.12)."
+  ],
+  "nextReview": "2026-09-01"
+}
