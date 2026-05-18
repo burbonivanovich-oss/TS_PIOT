@@ -35,7 +35,14 @@ const API_BASE = "https://api.wordstat.yandex.net";
 const TOKEN = process.env.WORDSTAT_OAUTH_TOKEN || "";
 const DRY_RUN = process.env.DRY_RUN === "1";
 const MAX_QUOTA = parseInt(process.env.MAX_QUOTA || "500", 10);
-const TOP_REQUESTS_LIMIT = parseInt(process.env.TOP_REQUESTS_LIMIT || "50", 10);
+// Сколько P1-ключей получают /v1/topRequests. По умолчанию — все,
+// потому что точная фраза часто даёт 0 (мы спрашиваем длинную формулировку
+// типа «АТОЛ 27Ф обзор», а аудитория ищет «атол 27» или «атол 27 касса»).
+// topRequests показывает реальные популярные вариации.
+const TOP_REQUESTS_LIMIT = parseInt(
+  process.env.TOP_REQUESTS_LIMIT || "1000",
+  10,
+);
 const REGION_ID = parseInt(process.env.REGION_ID || "225", 10);
 const FRESH_DAYS = parseInt(process.env.FRESH_DAYS || "7", 10);
 const REQUEST_DELAY_MS = parseInt(process.env.REQUEST_DELAY_MS || "200", 10);
@@ -138,6 +145,24 @@ function loadJSON(file, fallback) {
   return JSON.parse(readFileSync(file, "utf8"));
 }
 
+function isUsefulKey(norm) {
+  if (!norm || norm.length < 3) return false;
+  if (/^\d+$/.test(norm)) return false;
+  const tokens = norm.split(/[\s-]+/).filter(Boolean);
+  return tokens.length >= 2;
+}
+
+function pruneCache(cache) {
+  let removed = 0;
+  for (const k of Object.keys(cache.keys)) {
+    if (!isUsefulKey(k)) {
+      delete cache.keys[k];
+      removed++;
+    }
+  }
+  return removed;
+}
+
 function selectStaleKeys(candidates, cache) {
   const now = todayISO();
   const stale = [];
@@ -177,6 +202,11 @@ async function main() {
     lastFullUpdate: null,
     keys: {},
   });
+
+  const pruned = pruneCache(cache);
+  if (pruned > 0) {
+    console.log(`prune: удалено ${pruned} устаревших по правилам ключей из кеша`);
+  }
 
   const stale = selectStaleKeys(candidates, cache);
 
@@ -228,6 +258,10 @@ async function main() {
         await sleep(REQUEST_DELAY_MS);
       }
       const last = history[history.length - 1];
+      const shows = last ? last.count : 0;
+      const topShows = related && related.length
+        ? Math.max(...related.map((r) => r.count))
+        : undefined;
       const entry = cache.keys[p.norm] || {};
       cache.keys[p.norm] = {
         ...entry,
@@ -236,10 +270,17 @@ async function main() {
         sources: p.sources,
         fetchedAt: new Date().toISOString(),
         history,
-        shows: last ? last.count : 0,
+        shows,
         trend: classifyTrend(history),
         ...(related
-          ? { related, relatedFetchedAt: new Date().toISOString() }
+          ? {
+              related,
+              topShows,
+              // Если точная фраза молчит, а топ говорит — это сигнал
+              // переформулировать целевой запрос. Скиллы это покажут.
+              topPhrase: related[0]?.phrase,
+              relatedFetchedAt: new Date().toISOString(),
+            }
           : {}),
       };
       updated++;
