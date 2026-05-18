@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 // Собирает все ключи-кандидаты для запросов в Wordstat API.
-// Источники:
+// Источники (только мультисловные информационные запросы):
 //   1. src/content/blog/*.md → frontmatter.seo.keywords (приоритет 1)
 //   2. src/content/wiki/content-plan-2026.md → колонка «Целевой запрос» (приоритет 1)
-//   3. src/content/blog/*.md → frontmatter.tags (приоритет 2)
+//
+// Тэги не собираем — это категориальные ярлыки, их частота смешана
+// с чужими интентами и даёт бесполезный шум.
 //
 // Вывод: src/data/wordstat/.candidates.json — список уникальных фраз с тегами источника.
 // Файл затем читает fetch.mjs.
@@ -33,6 +35,11 @@ function normalize(s) {
 function isUseful(norm) {
   if (!norm || norm.length < 3) return false;
   if (/^\d+$/.test(norm)) return false; // чистое число вроде "2026"
+  // Минимум 2 значимых слова. Однословные ключи («штраф», «регистрация»)
+  // дают сильно завышенную частоту — туда подмешиваются интенты другой
+  // тематики (автомобильные штрафы, регистрация на госуслугах и т.д.).
+  const tokens = norm.split(/[\s-]+/).filter(Boolean);
+  if (tokens.length < 2) return false;
   return true;
 }
 
@@ -40,16 +47,6 @@ function parseFrontmatter(md) {
   const m = md.match(/^---\n([\s\S]*?)\n---/);
   if (!m) return null;
   return m[1];
-}
-
-function extractListBlock(fm, key) {
-  const re = new RegExp(`^${key}:\\s*\\n((?:\\s+- .+\\n?)+)`, "m");
-  const m = fm.match(re);
-  if (!m) return [];
-  return m[1]
-    .split("\n")
-    .map((l) => l.replace(/^\s*-\s*/, "").trim())
-    .filter(Boolean);
 }
 
 function extractSeoKeywords(fm) {
@@ -63,12 +60,10 @@ function extractSeoKeywords(fm) {
     .filter(Boolean);
 }
 
-function extractDraftFlag(fm) {
-  const m = fm.match(/^draft:\s*(true|false)/m);
-  return m ? m[1] === "true" : false;
-}
-
 function collectFromBlog() {
+  // Тэги мы НЕ собираем — это категориальные ярлыки, не информационные запросы.
+  // Их частота в Wordstat смешивается с чужими интентами («штраф», «алкоголь»).
+  // Источник истины для частот — frontmatter.seo.keywords + content-plan.
   const items = [];
   for (const file of readdirSync(BLOG_DIR)) {
     if (!file.endsWith(".md") && !file.endsWith(".mdx")) continue;
@@ -76,14 +71,8 @@ function collectFromBlog() {
     const md = readFileSync(full, "utf8");
     const fm = parseFrontmatter(md);
     if (!fm) continue;
-    const draft = extractDraftFlag(fm);
-    const keywords = extractSeoKeywords(fm);
-    const tags = extractListBlock(fm, "tags");
-    for (const k of keywords) {
-      items.push({ phrase: k, priority: 1, source: `blog:${file}:seo`, draft });
-    }
-    for (const t of tags) {
-      items.push({ phrase: t, priority: 2, source: `blog:${file}:tag`, draft });
+    for (const k of extractSeoKeywords(fm)) {
+      items.push({ phrase: k, priority: 1, source: `blog:${file}:seo` });
     }
   }
   return items;

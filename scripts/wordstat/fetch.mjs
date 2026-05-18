@@ -138,6 +138,24 @@ function loadJSON(file, fallback) {
   return JSON.parse(readFileSync(file, "utf8"));
 }
 
+function isUsefulKey(norm) {
+  if (!norm || norm.length < 3) return false;
+  if (/^\d+$/.test(norm)) return false;
+  const tokens = norm.split(/[\s-]+/).filter(Boolean);
+  return tokens.length >= 2;
+}
+
+function pruneCache(cache) {
+  let removed = 0;
+  for (const k of Object.keys(cache.keys)) {
+    if (!isUsefulKey(k)) {
+      delete cache.keys[k];
+      removed++;
+    }
+  }
+  return removed;
+}
+
 function selectStaleKeys(candidates, cache) {
   const now = todayISO();
   const stale = [];
@@ -177,6 +195,11 @@ async function main() {
     lastFullUpdate: null,
     keys: {},
   });
+
+  const pruned = pruneCache(cache);
+  if (pruned > 0) {
+    console.log(`prune: удалено ${pruned} устаревших по правилам ключей из кеша`);
+  }
 
   const stale = selectStaleKeys(candidates, cache);
 
