@@ -18,7 +18,11 @@ status: draft
 
 | # | Задача | Приоритет | Статус |
 |---|---|---|---|
-| 37 | Подключить Wordstat API через `oauth.yandex.ru` (без рекламного кабинета) — заменить эвристику WebSearch на цифры. См. `docs/wordstat.md`. Интегрировано в `/find-topics`, `/cluster-gaps`, `/maintain-content`. | P0 | done |
+| 37 | Подключить Wordstat API через `oauth.yandex.ru` (без рекламного кабинета). **Сделано:** два контура — точечный (`fetch.mjs` по `seo.keywords` + content-plan, ~240 ключей, поля `shows`/`topShows`/`trend`/`history`) и trend discovery (`discover.mjs` + `diff-snapshots.mjs` по 162 широким seed-ам с weekly diff NEW/RISING/FALLING/DROPPED). Workflow `Wordstat Weekly Refresh` запускается еженедельно. Интегрировано в `/find-topics`, `/cluster-gaps`, `/maintain-content`. См. `docs/wordstat.md`. | P0 | done |
+| 51 | После второго weekly-прогона (когда появится первый осмысленный diff) — прогнать `/find-topics` на нём, проверить что скилл корректно подхватывает NEW/RISING и предлагает темы | P1 | idea |
+| 52 | Ревизия `seeds.json` после 2–3 прогонов: выкинуть seeds, у которых всегда 0 фраз в выгрузке (слишком узкие), добавить недостающие если в diff проявятся «сироты» (фразы без подходящего seed) | P2 | idea |
+| 53 | Уборка orphaned ключей в `keys.json`: записи, которых уже нет в `.candidates.json` 90+ дней, удалять. Сейчас они копятся вечно — не критично, но через год накопится мусор | P2 | idea |
+| 54 | Расширить `/maintain-content`: использовать `history` из `keys.json` для трендового анализа (×2 рост за 6 мес → флаг «обновить»; ×2 падение → «архив»). Сейчас только подшаг 2а-bis в инструкции, нужна реализация | P1 | idea |
 
 > **Связь:** п. 37 пересекается с пп. 6–11 (аналитика).
 
