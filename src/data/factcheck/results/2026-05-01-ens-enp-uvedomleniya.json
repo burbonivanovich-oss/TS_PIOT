@@ -1,0 +1,213 @@
+{
+  "slug": "2026-05-01-ens-enp-uvedomleniya",
+  "checkedAt": "2026-05-18T16:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 47,
+    "checked": 14,
+    "match": 9,
+    "mismatch": 4,
+    "uncertain": 0,
+    "missing": 1,
+    "overallStatus": "fixed-with-critical-corrections",
+    "criticalIssues": 3,
+    "note": "Найдены три критические ошибки: (1) ст. 45.2 НК РФ — утратила силу с 01.01.2023, ЕНС определяется в ст. 11.3 НК РФ, очерёдность списания — в п. 8 ст. 45 НК РФ; (2) порог НДС на УСН в 2026 — 20 млн ₽, а не 60 млн ₽ (60 млн был лимит 2024-го года для освобождения с 2025); (3) ключевая ставка ЦБ на начало 2026 — 16% (с дальнейшим снижением до 14,5% к маю 2026), а не 21%. Дополнительно: ст. 126 НК РФ формально применима, но ФНС мораторно не штрафует за непредставление ЕНП-уведомлений — добавлен blockquote-disclaimer. H2 в форме вопроса заменены на тематические."
+  },
+  "claims": [
+    {
+      "id": "c-npa-45.2",
+      "type": "NPA_NK",
+      "raw": "ст. 45.2 НК РФ в ред. Федерального закона от 14.07.2022 № 263-ФЗ",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "ст. 11.3 НК РФ (определение ЕНС/ЕНП, введена 263-ФЗ); очерёдность распределения — п. 8 ст. 45 НК РФ. Статьи 45.1 и 45.2 утратили силу с 01.01.2023.",
+      "action": "rewrite",
+      "actionDetail": "Заменено упоминание ст. 45.2 на корректную связку ст. 11.3 + п. 8 ст. 45 НК РФ с описанием реальной очерёдности (приоритет НДФЛ с июня 2023).",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_19671/795657fa74fe3b5dafa19383d710da465a553969/",
+        "https://www.consultant.ru/document/cons_doc_LAW_19671/f617e29feb9214c71dccc78a0333c2d26e71d67c/",
+        "https://base.garant.ru/10900200/0d8d5dcbe517302f5af2dbb58be80a8a/"
+      ]
+    },
+    {
+      "id": "c-vat-usn-threshold",
+      "type": "MONEY",
+      "raw": "при доходах свыше 60 млн ₽ — порог для автоматического применения НДС",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "С 01.01.2026 порог освобождения от НДС для УСН снижен до 20 млн ₽ (за 2025 год). 60 млн ₽ — это устаревший лимит 2025 года. Поэтапное снижение: 15 млн с 2027, 10 млн с 2028.",
+      "action": "rewrite",
+      "actionDetail": "Заменён пассаж про 60 млн ₽ на корректное описание снижения порога до 20 млн ₽ с 2026 года и графика снижения.",
+      "applied": true,
+      "sources": [
+        "https://its.1c.ru/db/content/newscomm/src/497596.htm",
+        "https://www.rnk.ru/article/218396-usn-2026-izmeneniya",
+        "https://www.glavbukh.ru/art/391050-kak-na-usn-poluchit-osvobojdenie-ot-nds"
+      ]
+    },
+    {
+      "id": "c-cb-rate",
+      "type": "PERCENT",
+      "raw": "При ставке ЦБ 21% (начало 2026 года)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "Ключевая ставка ЦБ на январь 2026 — 16%, на 24 апреля 2026 — 14,5%. Никакой 21% в 2026 году не было.",
+      "action": "rewrite",
+      "actionDetail": "Заменено 21% на актуальную ставку 14,5% (май 2026) с уточнением, что в январе была 16%. Пересчитан пример пеней.",
+      "applied": true,
+      "sources": [
+        "https://www.cbr.ru/press/pr/?file=24042026_133000key.htm",
+        "https://www.cbr.ru/hd_base/keyrate/"
+      ]
+    },
+    {
+      "id": "c-shtraf-126",
+      "type": "MONEY",
+      "raw": "200 ₽ за каждый непредставленный документ (ст. 126 НК РФ)",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Сумма 200 ₽ по ст. 126 НК РФ — корректна, но ФНС не применяет штраф за непредставление ЕНП-уведомлений (мораторий с 2023, подтверждён письмами 26.01.2023 № ЕД-26-8/2@ и от 28.12.2024). Без disclaimer'а статья вводит в заблуждение.",
+      "action": "add-disclaimer",
+      "actionDetail": "Добавлен blockquote-disclaimer о моратории ФНС на штрафы по ст. 126 за непредставление уведомлений ЕНП.",
+      "applied": true,
+      "sources": [
+        "https://glavkniga.ru/news/15571",
+        "https://probusiness.news/nalogi/enp-i-ens/fns-vremenno-ne-shtrafuet-za-nepodachu-uvedomleniy-po-enp",
+        "https://www.business.ru/article/5311-shtraf-za-nepodachu-uvedomleniya-ob-ischislennyh-nalogah"
+      ]
+    },
+    {
+      "id": "c-knd-1110355",
+      "type": "FORM",
+      "raw": "форма по КНД 1110355, приказ ФНС от 02.11.2022 № ЕД-7-8/1047@",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.98,
+      "expectedValue": "Форма утверждена приказом ФНС от 02.11.2022 № ЕД-7-8/1047@ — подтверждено.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_415155/8f2d3595bc40a11a9f94a044cea6e8d5bdba70e4/",
+        "https://www.nalog.gov.ru/html/sites/www.new.nalog.ru/docs/about_fts/pril1_fns1047_021122.pdf"
+      ]
+    },
+    {
+      "id": "c-ndfl-dual",
+      "type": "DATE_DAY",
+      "raw": "1–22 → 25 (увед.) / 28 (упл.); 23–31 → 3 (увед.) / 5 (упл.)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Подтверждено: первое уведомление — до 25 числа за период 1–22, уплата до 28; второе — до 3 числа следующего месяца за период 23–конец, уплата до 5.",
+      "sources": [
+        "https://www.regberry.ru/nalogooblozhenie/srok-uplaty-ndfl",
+        "https://www.26-2.ru/art/358080-uvedomleniya-po-ndfl-novye-sroki-kody-periodov"
+      ]
+    },
+    {
+      "id": "c-ndfl-december",
+      "type": "DATE_TEXT",
+      "raw": "НДФЛ, удержанный 23–31 декабря, уплачивается последним рабочим днём декабря. Уведомление — не позднее 29 декабря.",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Особый порядок декабря подтверждён: третье уведомление за 23–31 декабря подаётся в последний рабочий день года (обычно 29 декабря в зависимости от выходных), уплата — в этот же день.",
+      "sources": [
+        "https://www.26-2.ru/art/357400-sroki-uplaty-ndfl-tablitsa"
+      ]
+    },
+    {
+      "id": "c-deadlines-25-28",
+      "type": "DATE_DAY",
+      "raw": "Срок подачи уведомления — 25-е, срок уплаты — 28-е",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.98,
+      "expectedValue": "Базовое правило ЕНС с 2023: уведомление до 25-го числа, уплата до 28-го. Подтверждено."
+    },
+    {
+      "id": "c-peni-organisations",
+      "type": "PERCENT",
+      "raw": "1/300 для организаций первые 30 дней, 1/150 — с 31-го дня",
+      "status": "incomplete-context",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "На 2025–2026 действует трёхступенчатая шкала: 1/300 (1–30 дн.) → 1/150 (31–90 дн.) → 1/300 (с 91 дн.). Статья опускает третью ступень.",
+      "action": "rewrite",
+      "actionDetail": "Дописана третья ступень: с 91-го дня снова 1/300 ставки ЦБ.",
+      "applied": true,
+      "sources": [
+        "https://buh.ru/news/osobyy-rezhim-rascheta-peney-prodlen-na-2026-god.html",
+        "https://www.consultant.ru/document/cons_doc_LAW_19671/10fdf2faa7c30851b7673ac4ca893589c88f24f7/"
+      ]
+    },
+    {
+      "id": "c-statusyo-02-cancel",
+      "type": "DATE_DMY",
+      "raw": "С 01.01.2025 отменены платёжные поручения-«уведомления» со статусом 02",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "С 2025 года переходный порядок (статус 02) окончательно прекращён, все обязаны подавать форму КНД 1110355 — подтверждено."
+    },
+    {
+      "id": "c-correction-replace",
+      "type": "PROCEDURE",
+      "raw": "новое уведомление автоматически аннулирует предыдущее",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.85,
+      "expectedValue": "Корректировка действительно работает по принципу замены: новое уведомление с теми же реквизитами заменяет предыдущее. При ошибке в реквизитах (КБК/ОКТМО) есть особый порядок: повторить ошибочную строку с суммой 0 + новая строка с верными данными.",
+      "sources": [
+        "https://www.kontur-extern.ru/info/38084-ispravit_uvedomlenie_po_enp_pravila_i_primery",
+        "https://saby.ru/articles/accounting/korrektirovka_uvedomleniya_po_enp"
+      ]
+    },
+    {
+      "id": "c-h2-questions",
+      "type": "STYLE",
+      "raw": "H2 в форме вопроса (Каковы / Какие / Что такое ... ?)",
+      "status": "mismatch",
+      "severity": "minor",
+      "confidence": 1.0,
+      "expectedValue": "По CLAUDE.md и редполитике H2 — тема, не вопрос. Формы «Каков/Каковы/Какие» запрещены.",
+      "action": "rewrite",
+      "actionDetail": "Все восемь H2 переписаны в тематические: «Сроки подачи...», «Кто обязан...», «Штрафы и пени за нарушения» и т. д.",
+      "applied": true
+    },
+    {
+      "id": "c-link-consultant-LAW_19671",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_19671/ — общая ссылка на НК РФ ч.1 без якоря",
+      "status": "incomplete-context",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "Ссылки на ст. 75, 122, 126 НК РФ вели на корень документа. Заменены на якорные ссылки на конкретные статьи.",
+      "action": "rewrite",
+      "applied": true
+    },
+    {
+      "id": "c-link-LAW_421734",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_421734/ — 263-ФЗ от 14.07.2022",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Корректная ссылка на 263-ФЗ от 14.07.2022, который ввёл институт ЕНС/ЕНП в НК РФ."
+    }
+  ],
+  "recommendations": [
+    "Применено: ст. 45.2 → ст. 11.3 + п. 8 ст. 45 НК РФ.",
+    "Применено: порог НДС на УСН 60 млн → 20 млн ₽ с 2026.",
+    "Применено: ставка ЦБ 21% → 14,5% (май 2026) с упоминанием 16% (январь 2026).",
+    "Применено: добавлен disclaimer о моратории ФНС на штрафы по ст. 126.",
+    "Применено: H2 в форме вопросов переписаны тематически.",
+    "Применено: updatedDate=2026-05-18, reviewDate=2026-09-01.",
+    "Осенью 2026 перепроверить: ставка ЦБ продолжит снижаться, может появиться новое разъяснение ФНС по штрафам, может измениться форма КНД 1110355."
+  ],
+  "nextReview": "2026-09-01"
+}

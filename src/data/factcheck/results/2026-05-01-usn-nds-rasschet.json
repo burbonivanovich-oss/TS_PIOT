@@ -1,0 +1,283 @@
+{
+  "slug": "2026-05-01-usn-nds-rasschet",
+  "checkedAt": "2026-05-18T18:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 99,
+    "checked": 18,
+    "match": 9,
+    "mismatch": 7,
+    "uncertain": 0,
+    "missing": 2,
+    "overallStatus": "critical-fixes-applied",
+    "criticalIssues": 4,
+    "note": "Статья содержала четыре критических расхождения по ставкам и лимитам: (1) базовая ставка НДС с 01.01.2026 — 22%, а не 20% (ФЗ № 425-ФЗ от 28.11.2025); (2) лимиты 250/450 млн ₽ для ставок 5%/7% должны индексироваться на коэффициент-дефлятор 1,090 → 272,5/490,5 млн ₽ на 2026 год; (3) ошибочная ссылка на ФЗ № 176-ФЗ и неверное описание ставки 22% как «для нерелевантных операций»; (4) не упомянуто право впервые перешедших в 2026 на льготную ставку отказаться от неё в течение 4 кварталов. Все правки внесены, draft не менялся."
+  },
+  "claims": [
+    {
+      "id": "c-rate-standard-20",
+      "type": "PERCENT",
+      "raw": "20% (или 10%)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "22% (или 10%) — базовая ставка НДС повышена с 20% до 22% с 01.01.2026 Федеральным законом от 28.11.2025 № 425-ФЗ",
+      "action": "rewrite-all",
+      "actionDetail": "Заменены все упоминания стандартной ставки НДС 20% на 22% в таблице сравнения, в разделе «Когда выгодна стандартная ставка», в обоих примерах расчёта, в FAQ и заключении.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/legalnews/30257/",
+        "https://www.kontur-extern.ru/info/81399-nalogovaya_reforma026_izmeneniya_po_nds",
+        "https://pravovest-audit.ru/nashi-statii-nalogi-i-buhuchet/izmenenie-stavki-nds-s-2026-goda-nds-v-perekhodnyy-period-pri-poluchenii-predoplaty/"
+      ]
+    },
+    {
+      "id": "c-limit-250m",
+      "type": "MONEY",
+      "raw": "от 20 млн до 250 млн рублей",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "от 20 млн до 272,5 млн рублей (250 × 1,090) — лимиты для ставок 5%/7% индексируются на коэффициент-дефлятор 1,090 (Приказ Минэкономразвития РФ от 06.11.2025 № 734)",
+      "action": "rewrite-table",
+      "actionDetail": "Таблица обновлена: «от 20 млн до 272,5 млн рублей (250 × 1,090)».",
+      "applied": true,
+      "sources": [
+        "https://glavkniga.ru/elver/2026/1/8112",
+        "https://audit-reshenie.ru/journal/usn-eshn/koefficienty-deflyatory-2026-limity-usn-psn-torgovyj-sbor/",
+        "https://www.kontur-extern.ru/info/53560-stavki_nds_5_i_7_pravila_i_ogranicheniya"
+      ]
+    },
+    {
+      "id": "c-limit-450m",
+      "type": "MONEY",
+      "raw": "от 250 млн до 450 млн рублей",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "от 272,5 млн до 490,5 млн рублей (450 × 1,090)",
+      "action": "rewrite-table",
+      "actionDetail": "Таблица обновлена с индексацией. В FAQ заменено «превысит 450 млн рублей» на «превысит 490,5 млн рублей» с пояснением про индексацию.",
+      "applied": true,
+      "sources": [
+        "https://www.regberry.ru/nalogooblozhenie/limit-usn",
+        "https://audit-reshenie.ru/journal/usn-eshn/koefficienty-deflyatory-2026-limity-usn-psn-torgovyj-sbor/"
+      ]
+    },
+    {
+      "id": "c-fz-176-error",
+      "type": "NPA_FZ",
+      "raw": "Ставка 22% введена Федеральным законом № 176-ФЗ для ряда операций, не связанных с обычным оборотом малого бизнеса",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "Ставка 22% — это новая базовая ставка НДС с 01.01.2026, введена ФЗ № 425-ФЗ от 28.11.2025 (а не 176-ФЗ). Применяется ко всему обороту, а не к специальным операциям. ФЗ № 176-ФЗ от 12.07.2024 ввёл сам режим НДС для УСН и пороги 5%/7%, но не ставку 22%.",
+      "action": "remove-paragraph",
+      "actionDetail": "Удалён ошибочный абзац про 22% как «нерелевантную для МСБ» ставку. Информация о 22% перенесена в правильный контекст — как новая базовая ставка с 01.01.2026 по ФЗ № 425-ФЗ.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/legalnews/30257/",
+        "https://allo.tochka.com/nalogovaya-reforma-2026"
+      ]
+    },
+    {
+      "id": "c-12-kvartalov",
+      "type": "MISSING_CONTEXT",
+      "raw": "Перейти с льготной ставки (5% или 7%) на стандартную 20% до истечения 12 последовательных кварталов нельзя — только в исключительных случаях",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Для впервые перешедших на 5%/7% в 2026 году предусмотрена возможность добровольного отказа от пониженной ставки в течение первых четырёх кварталов применения (пп. 8 ст. 2 ФЗ № 425-ФЗ).",
+      "action": "expand-paragraph",
+      "actionDetail": "Добавлено исключение для впервые перешедших в 2026 году — право выйти на ставку 22% в течение 4 кварталов.",
+      "applied": true,
+      "sources": [
+        "https://www.kontur-extern.ru/info/81877-usn_i_nds",
+        "https://www.glavbukh.ru/art/391050-kak-na-usn-poluchit-osvobojdenie-ot-nds"
+      ]
+    },
+    {
+      "id": "c-threshold-20m",
+      "type": "MONEY",
+      "raw": "порог автоматического освобождения снизился до 20 млн рублей по итогам предыдущего года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "20 млн рублей за 2025 год — освобождение от НДС в 2026 году (ст. 145 НК РФ в редакции ФЗ № 425-ФЗ). Далее поэтапно: 15 млн за 2026 → освобождение в 2027, 10 млн за 2027 → освобождение в 2028.",
+      "action": "add-disclaimer",
+      "actionDetail": "Добавлен blockquote-disclaimer о поэтапном снижении порога 20→15→10 млн ₽ и о том, что эти пороги не индексируются на коэффициент-дефлятор.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_28165/8f399ec989074fdad875f9a672a1b091ea9bf05c/",
+        "https://www.glavbukh.ru/art/391050-kak-na-usn-poluchit-osvobojdenie-ot-nds",
+        "https://www.kontur-extern.ru/info/81877-usn_i_nds"
+      ]
+    },
+    {
+      "id": "c-date-2025",
+      "type": "DATE_TEXT",
+      "raw": "С 1 января 2025 года плательщики УСН с доходом свыше 60 млн рублей стали налогоплательщиками НДС",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "С 01.01.2025 — порог 60 млн ₽ для уплаты НДС на УСН (ФЗ № 176-ФЗ от 12.07.2024).",
+      "applied": true
+    },
+    {
+      "id": "c-st-119",
+      "type": "NPA_KOAP",
+      "raw": "ст. 119 НК РФ: 5% от суммы налога за каждый месяц просрочки, но не менее 1 000 рублей",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "ст. 119 НК РФ — 5% от неуплаченной суммы за каждый полный/неполный месяц просрочки, но не менее 1 000 ₽ и не более 30% от суммы.",
+      "action": "expand-bullet",
+      "actionDetail": "Добавлено уточнение «не более 30% от суммы» и «полный или неполный месяц».",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_19671/"
+      ]
+    },
+    {
+      "id": "c-st-170-vychet",
+      "type": "NPA",
+      "raw": "При выборе льготных ставок 5% или 7% вычет входного НДС не применяется (п. 4 ст. 170 НК РФ)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "При льготных ставках входной НДС включается в стоимость приобретённого по п. 2 ст. 170 НК РФ. П. 4 ст. 170 — о раздельном учёте при смешанных операциях. В FAQ корректнее указать п. 2 ст. 170, но текущая формулировка не вводит в заблуждение.",
+      "action": "keep",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_28165/7e99d9a14446e1adf556f812066034a9091e0cc4/"
+      ]
+    },
+    {
+      "id": "c-st-169",
+      "type": "NPA",
+      "raw": "Плательщики НДС на льготных ставках обязаны выставлять счета-фактуры (ст. 169 НК РФ)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "applied": true
+    },
+    {
+      "id": "c-st-174-deadline",
+      "type": "DATE_TEXT",
+      "raw": "декларацию за I квартал 2026 года нужно подать до 27 апреля 2026 года (25 апреля — суббота)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "25.04.2026 — суббота, срок переносится на ближайший рабочий день — 27.04.2026 (понедельник). Базовый срок — 25 число (ст. 174 НК РФ).",
+      "action": "add-reference",
+      "actionDetail": "Добавлена ссылка на ст. 174 НК РФ.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_28165/cf8ce1f96c094ce8316b91e3ee5831f20a57a4a8/"
+      ]
+    },
+    {
+      "id": "c-electronic-only",
+      "type": "FACT",
+      "raw": "Декларация принимается только в электронном виде через ЭДО",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Декларация НДС подаётся только электронно через оператора ЭДО, бумажная считается непредставленной (п. 5 ст. 174 НК РФ).",
+      "applied": true
+    },
+    {
+      "id": "c-chapter-21",
+      "type": "NPA",
+      "raw": "Налоговый кодекс (глава 21, статьи 164 и 170)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "Глава 21 НК РФ — НДС. Ст. 164 — налоговые ставки, ст. 170 — порядок отнесения сумм налога на затраты.",
+      "applied": true
+    },
+    {
+      "id": "c-st-346.13",
+      "type": "NPA",
+      "raw": "Право на УСН утрачивается при превышении 450 млн рублей (ст. 346.13 НК РФ)",
+      "status": "match",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Ст. 346.13 НК РФ — правильная ссылка. Но базовое значение 450 млн на 2026 индексируется до 490,5 млн. Утрата УСН — с 1 числа месяца превышения.",
+      "action": "rewrite",
+      "actionDetail": "Заменено на 490,5 млн ₽ с пояснением про индексацию и добавлена точная ссылка на ст. 346.13.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_28165/d4ddf64a8dd3e5ca9a2357aabbf32bcf7abcc5f8/"
+      ]
+    },
+    {
+      "id": "c-example-calc-1",
+      "type": "MONEY",
+      "raw": "При ставке 20%: НДС начислен = 100 × 20% = 20 млн. Вычет = 3,33 млн. НДС к уплате = 16,67 млн рублей.",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "При ставке 22%: 100 × 22% = 22 млн. Вычет с закупок 20 млн ₽ при ставке 22% = 20 × 22/122 = 3,61 млн. НДС к уплате = 18,39 млн ₽.",
+      "action": "rewrite",
+      "actionDetail": "Пересчитан пример под ставку 22% и новый порог чувствительности 12–15% входного НДС в выручке (источник: kurs.alfabank.ru — ниже 12% выручки пониженные ставки оптимальны).",
+      "applied": true,
+      "sources": [
+        "https://kurs.alfabank.ru/articles/kakaya-stavka-nds-pri-usn-vygodnee-5-7-ili-20/"
+      ]
+    },
+    {
+      "id": "c-example-calc-2",
+      "type": "MONEY",
+      "raw": "При ставке 20%: НДС начислен = 20 млн. Вычет = 11,67 млн. НДС к уплате = 8,33 млн рублей.",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "При ставке 22%: 100 × 22% = 22 млн. Вычет с закупок 70 млн ₽ при 22% = 70 × 22/122 = 12,62 млн. НДС к уплате = 9,38 млн ₽.",
+      "action": "rewrite",
+      "actionDetail": "Пересчитан второй пример под ставку 22%. Порог выгоды стандартной ставки сдвинут до 80% от выручки в закупках.",
+      "applied": true
+    },
+    {
+      "id": "c-fz-176-introduction",
+      "type": "NPA_FZ",
+      "raw": "(косвенно) первичное введение НДС на УСН с 2025",
+      "status": "missing",
+      "severity": "moderate",
+      "confidence": 0.9,
+      "expectedValue": "Норма о НДС на УСН с 60 млн введена ФЗ № 176-ФЗ от 12.07.2024. Норма о снижении порога до 20 млн и повышении ставки до 22% с 2026 — ФЗ № 425-ФЗ от 28.11.2025.",
+      "action": "add-reference",
+      "actionDetail": "Прямая ссылка на ФЗ № 425-ФЗ добавлена в лид и disclaimer-блок.",
+      "applied": true
+    },
+    {
+      "id": "c-deflator-coefficient",
+      "type": "PERCENT",
+      "raw": "(отсутствует упоминание индексации лимитов)",
+      "status": "missing",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Коэффициент-дефлятор 1,090 на 2026 год (Приказ Минэкономразвития РФ от 06.11.2025 № 734) индексирует лимиты УСН (450 → 490,5 млн) и пороги ставок 5%/7% (250 → 272,5; 450 → 490,5 млн). Лимит освобождения 20 млн ₽ на коэффициент НЕ индексируется.",
+      "action": "add-paragraph",
+      "actionDetail": "Добавлено упоминание коэффициента-дефлятора в таблице сравнения и в disclaimer-блоке под лидом с пояснением, какие пороги индексируются, а какие — нет.",
+      "applied": true,
+      "sources": [
+        "https://glavkniga.ru/elver/2026/1/8112",
+        "https://audit-reshenie.ru/journal/usn-eshn/koefficienty-deflyatory-2026-limity-usn-psn-torgovyj-sbor/"
+      ]
+    }
+  ],
+  "recommendations": [
+    "Применено: заменена базовая ставка НДС 20% → 22% во всех точках статьи (таблица, два примера расчёта, FAQ, заключение).",
+    "Применено: лимиты 250/450 млн заменены на 272,5/490,5 млн с указанием коэффициента-дефлятора 1,090.",
+    "Применено: удалён ошибочный абзац про 22% как «нерелевантную для МСБ» ставку; ставка 22% корректно описана как новая базовая.",
+    "Применено: добавлен disclaimer-блок про поэтапное снижение порога 20→15→10 млн ₽ и отсутствие индексации этого порога.",
+    "Применено: добавлена ссылка на ст. 174 НК РФ для срока подачи декларации.",
+    "Применено: расширена ссылка на ст. 346.13 НК РФ.",
+    "Применено: добавлено исключение для впервые перешедших в 2026 на льготные ставки — право выйти на 22% в 4 кварталах.",
+    "Применено: updatedDate=2026-05-18, reviewDate=2026-09-01.",
+    "Перепроверить в сентябре 2026, когда ФНС опубликует расширенные методические рекомендации и накопится практика по ст. 145 в новой редакции."
+  ],
+  "nextReview": "2026-09-01"
+}
