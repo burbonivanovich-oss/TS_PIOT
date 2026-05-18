@@ -18,12 +18,22 @@ const PLAN_FILE = join(ROOT, "src", "content", "wiki", "content-plan-2026.md");
 const OUT_DIR = join(ROOT, "src", "data", "wordstat");
 const OUT_FILE = join(OUT_DIR, ".candidates.json");
 
+function stripQuotes(s) {
+  return s.replace(/^["'`«»]+|["'`«»]+$/g, "");
+}
+
 function normalize(s) {
-  return s
+  return stripQuotes(s)
     .trim()
     .replace(/[«»"]/g, "")
     .replace(/\s+/g, " ")
     .toLowerCase();
+}
+
+function isUseful(norm) {
+  if (!norm || norm.length < 3) return false;
+  if (/^\d+$/.test(norm)) return false; // чистое число вроде "2026"
+  return true;
 }
 
 function parseFrontmatter(md) {
@@ -126,11 +136,11 @@ function main() {
   const byNorm = new Map();
   for (const it of all) {
     const key = normalize(it.phrase);
-    if (!key || key.length < 3) continue;
+    if (!isUseful(key)) continue;
     const prev = byNorm.get(key);
     if (!prev) {
       byNorm.set(key, {
-        phrase: it.phrase.trim(),
+        phrase: stripQuotes(it.phrase.trim()),
         norm: key,
         priority: it.priority,
         sources: [it.source],
