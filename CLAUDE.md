@@ -408,6 +408,8 @@ Gemini больше не нужен.
 | `wordstat/diff-snapshots.mjs` | Сравнивает discovery-выгрузки неделя-к-неделе |
 | `factcheck/extract-claims.mjs` | Regex-парсер дат/сумм/ст. КоАП из статей |
 | `audit/linkgraph.mjs` | Граф внутренней перелинковки, поиск сирот, кандидаты на ссылки |
+| `audit/embed-articles.mjs` | Семантические embeddings всех статей (Jina v3 / OpenAI). Запуск — workflow `embeddings-monthly.yml`, нужен `JINA_API_KEY` или `OPENAI_API_KEY` |
+| `audit/similarity.mjs` | Cosine similarity на embeddings.json. Отчёт: возможные дубли (≥ 0.92) и близкие пары (≥ 0.80) — для перелинковки и каннибализации |
 
 Запуск: `node scripts/<имя>.mjs`. Результаты в `scripts/og-previews/` (gitignored).
 Wordstat-скрипты пишут в `src/data/wordstat/` — там же лежит весь кеш.

@@ -1,0 +1,353 @@
+{
+  "slug": "2026-03-05-nalogi-msb-2026",
+  "checkedAt": "2026-05-18T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 54,
+    "checked": 22,
+    "match": 12,
+    "mismatch": 8,
+    "uncertain": 1,
+    "missing": 1,
+    "overallStatus": "critical-rewrite-applied",
+    "criticalIssues": 5,
+    "note": "Обзорная статья по налогам МСБ 2026 содержала пять критических ошибок: устарели порог НДС для УСН (60→20 млн с 01.01.2026), лимит патента (60→20 млн), основная ставка НДС (20%→22%), пороги пониженных ставок 5%/7% (60-250 / 250-450 → 20-272,5 / 272,5-490,5), сам лимит выручки УСН (450 → 490,5 млн с учётом дефлятора 1,090). Все исправлены по 425-ФЗ от 28.11.2025 и приказу Минэкономразвития 06.11.2025 № 734. Дополнительно: ст. 22.2 ТК РФ не фиксирует срок 30 дней — поправлено на 'устанавливается в ЛНА работодателя'; уточнён номер постановления о моратории на проверки."
+  },
+  "claims": [
+    {
+      "id": "c-usn-limit-450",
+      "type": "MONEY",
+      "raw": "450 млн ₽ (с учётом коэффициента-дефлятора)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "490,5 млн ₽ (450 × 1,090 — дефлятор на 2026 утверждён приказом Минэкономразвития от 06.11.2025 № 734)",
+      "action": "rewrite",
+      "actionDetail": "Указана базовая сумма 450 млн ₽ без применения дефлятора. Реальный лимит на 2026 — 490,5 млн ₽.",
+      "applied": true,
+      "sources": [
+        "https://www.regberry.ru/nalogooblozhenie/limit-usn",
+        "https://taxcom.ru/baza-znaniy/otchetnost/stati/usn-v-2026-godu-vse-goryachie-voprosy/"
+      ]
+    },
+    {
+      "id": "c-usn-employees-130",
+      "type": "MONEY",
+      "raw": "130 человек (НК РФ, ст. 346.12)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "130 чел., пп. 15 п. 3 ст. 346.12 НК РФ",
+      "sources": [
+        "https://taxcom.ru/baza-znaniy/otchetnost/stati/usn-v-2026-godu-vse-goryachie-voprosy/"
+      ]
+    },
+    {
+      "id": "c-nds-usn-threshold-60",
+      "type": "MONEY",
+      "raw": "Если в прошлом году вы заработали больше 60 млн ₽, с этого года придётся платить НДС",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "20 млн ₽ — порог снижен с 1 января 2026 года по 425-ФЗ от 28.11.2025. К 2027 — 15 млн, к 2028 — 10 млн.",
+      "action": "rewrite",
+      "actionDetail": "Главный критический факт: статья сообщала пользователю неверный порог НДС, что могло привести к реальным финансовым потерям (предприниматель с выручкой 25 млн думал бы, что освобождён, а на деле он плательщик НДС с 01.01.2026).",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_520020/",
+        "https://www.nalog.gov.ru/rn25/ifns/r25_01/info/16596484/",
+        "https://www.glavbukh.ru/art/391540-nds-na-usn-snijenie-porog-43-news"
+      ]
+    },
+    {
+      "id": "c-nds-rate-20",
+      "type": "PERCENT",
+      "raw": "обычные 20 % — но с вычетами",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "22 % — основная ставка НДС повышена с 20 % до 22 % с 01.01.2026 (ФЗ № 425-ФЗ от 28.11.2025)",
+      "action": "rewrite",
+      "actionDetail": "Главная макроэкономическая новость 2026 года: ставка НДС повышена. Упоминание 20 % в статье после 01.01.2026 — серьёзная ошибка, читатель усомнится в актуальности всего материала.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/legalnews/30257/",
+        "https://www.rbc.ru/economics/01/01/2026/694e6db39a79474d9340011e",
+        "https://ofd.ru/blog/cases/povyshenie-stavki-nds-do-22-s-1-yanvarya-2026-goda-chto-menyaetsya-dlya-biznesa"
+      ]
+    },
+    {
+      "id": "c-nds-5pct-range",
+      "type": "MONEY",
+      "raw": "пониженная ставка 5 % (для выручки от 60 до 250 млн ₽)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "5 % применяется при доходе от 20 до 272,5 млн ₽ (нижняя граница — новый порог НДС, верхняя — 250 × 1,090 дефлятор)",
+      "action": "rewrite",
+      "actionDetail": "Диапазон сдвинут и снизу (порог НДС теперь 20 млн), и сверху (250 → 272,5 млн с учётом дефлятора).",
+      "applied": true,
+      "sources": [
+        "https://www.kontur-extern.ru/info/81799-povyshenie_stavki_nds",
+        "https://e-kontur.ru/enquiry/2384/stavki-nds-na-usn",
+        "https://www.glavbukh.ru/art/392097-stavka-nds"
+      ]
+    },
+    {
+      "id": "c-nds-7pct-range",
+      "type": "MONEY",
+      "raw": "или 7 % (от 250 до 450 млн ₽)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "7 % при доходе от 272,5 до 490,5 млн ₽ (с учётом дефлятора 1,090)",
+      "action": "rewrite",
+      "actionDetail": "Диапазон сдвинут на индексацию.",
+      "applied": true,
+      "sources": [
+        "https://www.kontur-extern.ru/info/81799-povyshenie_stavki_nds",
+        "https://e-kontur.ru/enquiry/2384/stavki-nds-na-usn"
+      ]
+    },
+    {
+      "id": "c-patent-limit-60",
+      "type": "MONEY",
+      "raw": "Можно зарабатывать максимум 60 млн ₽ в год по всем патентам вместе (НК РФ, ст. 346.45)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "20 млн ₽ в 2026 году — поэтапное снижение: 20 (2026) → 15 (2027) → 10 (2028) млн ₽ (пп. 1 п. 6 ст. 346.45 в ред. 425-ФЗ от 28.11.2025)",
+      "action": "rewrite",
+      "actionDetail": "Критическая ошибка: ИП с доходом 30 млн ₽ на патенте по старой логике статьи был бы 'в норме', по новой — патент отменяется.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_520020/",
+        "https://www.rnk.ru/article/218816-patent-dlya-ip-izmeneniya",
+        "https://glavkniga.ru/situations/s518926"
+      ]
+    },
+    {
+      "id": "c-vychet-3-years",
+      "type": "DATE_RANGE",
+      "raw": "поменять её можно будет только через три года",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.9,
+      "expectedValue": "12 кварталов (3 года применяемые подряд) — формулировка верная по существу, но в 425-ФЗ установлено различие: компании, перешедшие на 5/7% в 2025 — должны применять 12 кварталов; перешедшие в 2026 — могут вернуться на общую в первые 4 квартала",
+      "action": "rewrite-bullet",
+      "actionDetail": "Заменили 'три года' на '12 кварталов' — точнее в терминологии 425-ФЗ.",
+      "applied": true,
+      "sources": [
+        "https://www.kontur-extern.ru/info/81799-povyshenie_stavki_nds"
+      ]
+    },
+    {
+      "id": "c-176-fz",
+      "type": "NPA_FZ_FULL",
+      "raw": "Федеральный закон от 12.07.2024 № 176-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Реальный закон, ввёл НДС на УСН с порогом 60 млн в 2025 году. В 2026 действует в редакции 425-ФЗ от 28.11.2025 (пороги пересмотрены).",
+      "action": "keep",
+      "actionDetail": "Историческая ссылка корректна. Рядом добавлена ссылка на 425-ФЗ как актуальную редакцию.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_479011/"
+      ]
+    },
+    {
+      "id": "c-tk-22-2-30days",
+      "type": "DATE_RANGE",
+      "raw": "Уведомите сотрудников не позднее чем за 30 дней до перехода на КЭДО (ТК РФ, ст. 22.2)",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.9,
+      "expectedValue": "Ст. 22.2 ТК РФ требует определить срок уведомления в локальном нормативном акте работодателя; конкретный срок (в т.ч. '30 дней') в самом ТК не зафиксирован — это сложившаяся практика и рекомендация",
+      "action": "rewrite-bullet",
+      "actionDetail": "Сохранили рекомендацию 30 дней как практику, но сняли утверждение, что её требует именно ТК РФ. Привязка к ст. 22.2 без указания на ЛНА — ошибка ссылки на источник.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34683/f9c7ee89ea58b2910a7cfff23b04240bb094e871/",
+        "https://www.garant.ru/news/1609339/",
+        "https://www.audit-it.ru/tk/22_2.html"
+      ]
+    },
+    {
+      "id": "c-tk-22-3",
+      "type": "NPA_FZ",
+      "raw": "ТК РФ, ст. 22.3",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Статья 22.3 ТК РФ регулирует взаимодействие работодателя и работника через КЭДО; право отказаться от КЭДО подтверждено в ТК",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34683/00a8ce6ce116fc26361a0c9a23eebf37074acf6e/"
+      ]
+    },
+    {
+      "id": "c-moratory-2026",
+      "type": "DATE_YEAR",
+      "raw": "Мораторий на плановые проверки в 2026 году продлили",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Мораторий продлён до 1 января 2030 года (ПП РФ от 10.03.2022 № 336 в редакции ПП РФ от 28.12.2024 № 1955)",
+      "action": "expand-bullet",
+      "actionDetail": "Добавили номер ПП РФ и горизонт действия моратория — до 2030 года, а не 'в 2026'.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/legalnews/21913/",
+        "https://www.garant.ru/news/1779560/"
+      ]
+    },
+    {
+      "id": "c-deflator-2026",
+      "type": "MONEY",
+      "raw": "(с учётом коэффициента-дефлятора)",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Коэффициент-дефлятор на 2026 = 1,090 (приказ Минэкономразвития от 06.11.2025 № 734)",
+      "action": "expand-bullet",
+      "actionDetail": "Дефлятор упомянут абстрактно — добавлено конкретное значение 1,090 и реквизиты приказа.",
+      "applied": true,
+      "sources": [
+        "https://www.pro-ability.ru/article_gf/tpost/2xkt1huv01-koeffitsienti-deflyatori-na-2026-god-nov"
+      ]
+    },
+    {
+      "id": "c-example-20pct",
+      "type": "PERCENT",
+      "raw": "Вариант Б: ставка 20 % с правом на вычеты. Начислено: 120 млн × 20 % = 24 млн ₽",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "22 % с 01.01.2026; пересчёт: 120 × 22% = 26,4 млн; к уплате 18,4 млн ₽",
+      "action": "rewrite",
+      "actionDetail": "Расчётный пример полностью перетянут под новую ставку 22 %.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/legalnews/30257/"
+      ]
+    },
+    {
+      "id": "c-todo-20pct",
+      "type": "PERCENT",
+      "raw": "по 20 % с вычетами",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "22 % с вычетами — основная ставка изменилась",
+      "action": "rewrite-bullet",
+      "actionDetail": "Чек-лист в финале статьи поправлен: 22 % вместо 20 %.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/legalnews/30257/"
+      ]
+    },
+    {
+      "id": "c-date-01-01-2025",
+      "type": "DATE_TEXT",
+      "raw": "С 1 января 2025 года УСН работает по новым правилам",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Корректная историческая дата вступления 176-ФЗ. Переформулирована в '01.01.2026 425-ФЗ' для актуальности.",
+      "action": "rewrite",
+      "actionDetail": "Перенесли акцент на актуальную реформу 425-ФЗ от 28.11.2025.",
+      "applied": true
+    },
+    {
+      "id": "c-link-cons-479011",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_479011/",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Ссылка на 176-ФЗ корректна; добавлена параллельная ссылка на 425-ФЗ (cons_doc_LAW_520020)",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_479011/",
+        "https://www.consultant.ru/document/cons_doc_LAW_520020/"
+      ]
+    },
+    {
+      "id": "c-faq-60mln",
+      "type": "MONEY",
+      "raw": "FAQ: 'выручка меньше 60 млн ₽' — порог НДС",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "20 млн ₽ с 01.01.2026 по 425-ФЗ от 28.11.2025",
+      "action": "rewrite",
+      "actionDetail": "FAQ полностью перепиcан под новый порог 20 млн ₽; упомянуто поэтапное снижение до 10 млн к 2028.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_520020/",
+        "https://www.nalog.gov.ru/rn25/ifns/r25_01/info/16596484/"
+      ]
+    },
+    {
+      "id": "c-faq-ens",
+      "type": "DATE_TEXT",
+      "raw": "Без уведомления налоговая не знает, как разнести деньги на ЕНС",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.85,
+      "expectedValue": "Корректное описание механики ЕНС/ЕНП. Уведомление об исчисленных суммах налогов и взносов — обязательно по 263-ФЗ от 14.07.2022."
+    },
+    {
+      "id": "c-faq-kedo",
+      "type": "DATE_TEXT",
+      "raw": "Обязан ли малый бизнес переходить на КЭДО? — для большинства добровольно",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Верно. КЭДО для коммерческого МСБ не обязателен; обязателен для дистанционных работников и отдельных категорий."
+    },
+    {
+      "id": "c-kkt-link-tspiot",
+      "type": "LINK",
+      "raw": "ТС ПИоТ внутренняя ссылка",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Внутренняя ссылка на /blog/2026-01-15-chto-takoe-ts-piot/ — действующая (правило C1)"
+    },
+    {
+      "id": "c-edo-upd",
+      "type": "DATE_TEXT",
+      "raw": "УПД нужен в электронном виде через аккредитованных операторов ЭДО",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Верно. УПД на маркированный товар между ЮЛ/ИП передаётся через операторов ЭДО с привязкой к ГИС МТ."
+    },
+    {
+      "id": "c-vat-rate-22-added",
+      "type": "PERCENT",
+      "raw": "(добавлено) основная ставка НДС с 01.01.2026 — 22%",
+      "status": "missing",
+      "severity": "moderate",
+      "expectedValue": "Главная макроэкономическая новость 2026 в материалах о налогах МСБ. Введено явным упоминанием в тексте.",
+      "action": "add-paragraph",
+      "actionDetail": "В блоке про НДС на УСН добавлено явное указание на 22 % основной ставки.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/legalnews/30257/",
+        "https://ofd.ru/blog/cases/povyshenie-stavki-nds-do-22-s-1-yanvarya-2026-goda-chto-menyaetsya-dlya-biznesa"
+      ]
+    }
+  ],
+  "recommendations": [
+    "Применено: блок про УСН/НДС/патент полностью переписан под 425-ФЗ от 28.11.2025.",
+    "Применено: основная ставка НДС поправлена с 20 % на 22 %.",
+    "Применено: порог НДС на УСН 60 → 20 млн; лимит патента 60 → 20 млн; лимит УСН 450 → 490,5 млн (с дефлятором 1,090).",
+    "Применено: пересчёт примера выгоды между ставкой 5 % и 22 %; чек-лист в финале статьи синхронизирован.",
+    "Применено: исправлено утверждение про 30 дней уведомления по ст. 22.2 ТК РФ — срок определяется ЛНА работодателя.",
+    "Применено: добавлены реквизиты постановления о моратории на проверки (ПП РФ № 336 в ред. ПП РФ № 1955) и горизонт — до 2030.",
+    "Применено: updatedDate=2026-05-18, reviewDate=2026-09-01.",
+    "Рекомендация: запланировать обзорную статью о 425-ФЗ отдельно (как опорный материал кластера 'налоговая реформа 2026') — слишком много изменений для одного раздела."
+  ],
+  "nextReview": "2026-09-01"
+}
