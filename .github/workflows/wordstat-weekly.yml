@@ -13,7 +13,7 @@ on:
       top_requests_limit:
         description: "Сколько верхних P1-ключей также получают /v1/topRequests"
         required: false
-        default: "50"
+        default: "1000"
       fresh_days:
         description: "Ключ считается актуальным, если обновлён за N дней"
         required: false
@@ -39,7 +39,7 @@ jobs:
         env:
           WORDSTAT_OAUTH_TOKEN: ${{ secrets.WORDSTAT_OAUTH_TOKEN }}
           MAX_QUOTA: ${{ inputs.max_quota || '500' }}
-          TOP_REQUESTS_LIMIT: ${{ inputs.top_requests_limit || '50' }}
+          TOP_REQUESTS_LIMIT: ${{ inputs.top_requests_limit || '1000' }}
           FRESH_DAYS: ${{ inputs.fresh_days || '7' }}
           REGION_ID: "225"
         run: node scripts/wordstat/fetch.mjs
