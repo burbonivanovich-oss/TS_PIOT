@@ -81,7 +81,10 @@ argument-hint: "<тема или целевой запрос>"
 
 ## Стадия 3 — FACTCHECK
 
-Запустить `/blog factcheck src/content/blog/SLUG.md`.
+Запустить `/factcheck <slug>` (наш собственный стек, не плагин claude-blog).
+Скилл извлекает claims, сверяет с первоисточниками, применяет редполитику
+из `docs/editorial-policy.md` (классы A/B/C). Подробности —
+`docs/factcheck.md`.
 
 **Шлюз 3:**
 ```

@@ -43,15 +43,17 @@ argument-hint: "<тема>" [целевой запрос]
    - Скор должен быть ≤ 5. Если выше — исправить стоп-фразы и структуру.
    - Машинный скрипт выдаёт конкретные строки с заменами.
 
-6. **Фактчекинг** — блокирующий gate. (`/blog factcheck <файл>`)
-   - Извлечь все числовые утверждения, нормы, штрафы.
-   - Сверить с источниками, получить confidence score.
-   - Исправить или поставить [нужна проверка] для claims с score < 0.7.
-   - После успешного прохождения создать маркер:
-     ```
-     mkdir -p .claude/factchecked && touch .claude/factchecked/<slug>
-     ```
-   - **Без маркера pre-commit хук заблокирует коммит** статьи с `draft: false`.
+6. **Фактчекинг** — блокирующий gate. `/factcheck <slug>` (свой стек, не
+   плагин claude-blog).
+   - Скрипт `scripts/factcheck/extract-claims.mjs` извлекает даты, штрафы,
+     ст. КоАП, ссылки на НПА.
+   - Скилл сверяет каждый claim с первоисточником через WebSearch/WebFetch.
+   - Решения принимаются по `docs/editorial-policy.md` (класс A — правим,
+     класс B — добавляем disclaimer, класс C — пропускаем).
+   - Результат: `src/data/factcheck/results/<slug>.json` + автомаркер
+     `.claude/factchecked/<slug>` с датой.
+   - При критических расхождениях статья остаётся в `draft: true`.
+   - Подробнее — `docs/factcheck.md`.
 
 7. **AI-цитируемость** (`/blog geo <файл>`).
    - Оценить passage-level citability под ChatGPT / Perplexity / AI Overviews.
@@ -99,5 +101,5 @@ argument-hint: "<тема>" [целевой запрос]
 - Никаких артефактов английского текста или эмодзи.
 - `/check-ai` + `check-ai-markers.mjs` — скор ≤ 5.
 - `/blog cannibalization` — нет дублей с > 60% пересечением ключей.
-- `/blog factcheck` — нет claims с confidence < 0.7 без пометки + маркер создан.
+- `/factcheck` — нет критических расхождений; маркер `.claude/factchecked/<slug>` создан.
 - `/blog geo` — AI Citation score ≥ 60.

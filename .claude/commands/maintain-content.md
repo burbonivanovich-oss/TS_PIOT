@@ -118,8 +118,9 @@ argument-hint: "[<slug>]"
 1. Внести правки по списку (только конкретные пункты, не «улучши статью»).
 2. Добавить/обновить `updatedDate: YYYY-MM-DD`.
 3. Обновить `reviewDate` на +6 месяцев.
-4. Если изменились ключевые факты — повторить factcheck:
-   `/blog factcheck src/content/blog/SLUG.md`
+4. Если изменились ключевые факты — повторить factcheck: `/factcheck <slug>`.
+   Маркер `.claude/factchecked/<slug>` перезапишется новой датой. Решения
+   принимаются по `docs/editorial-policy.md`.
 5. Закоммитить: `update(content): актуализация [slug] — [что изменено]`
 
 ### Для ПЕРЕПИСАТЬ:

@@ -135,11 +135,15 @@ seo:
    seo-optimizer → social-media-manager (все четыре шага за один запрос).
 3. Статья сохраняется как `src/content/blog/YYYY-MM-DD-slug.md` с `draft: true`.
 4. Социальные черновики сохраняются как `src/content/wiki/social/YYYY-MM-DD-slug.md`
-   с `status: draft` (структура — см. ниже).
-5. После проверки фактов (даты, нормы, ссылки на НПА) — `draft: false` в статье,
-   `status: ready` в социальных черновиках.
-6. Билд `npm run build`, ручной просмотр на dev (`npm run dev`).
-7. Деплой коммитом в основную ветку (GitHub Actions → GitHub Pages).
+   с `status: draft`.
+5. **Проверка фактов:** `/factcheck <slug>`. Скилл извлекает даты, штрафы,
+   ст. КоАП, ссылки на НПА и сверяет с первоисточниками. Решения по
+   `docs/editorial-policy.md` (классы A/B/C). При критических расхождениях
+   статья остаётся в `draft: true`. После проверки — маркер
+   `.claude/factchecked/<slug>`.
+6. После успешного фактчека — `draft: false`, `status: ready` в социальных.
+7. Билд `npm run build`, ручной просмотр на dev (`npm run dev`).
+8. Деплой коммитом в основную ветку (GitHub Actions → GitHub Pages).
 
 ## Социальные черновики
 
@@ -208,10 +212,30 @@ createdDate: "YYYY-MM-DD"
 - **Email**: тема письма — выгода или вопрос ≤ 50 символов. Прехедер раскрывает.
   Один CTA, не два.
 
-## Расширенный инструментарий (claude-blog)
+## Свой инструментарий контроля качества
 
-Установлен плагин [claude-blog](https://github.com/AgriciDaniel/claude-blog) —
-20 скиллов для углублённой работы с контентом. Живут в `~/.claude/skills/`.
+### Фактчек — `/factcheck <slug>`
+
+Свой стек проверки фактов (без плагина claude-blog, который в облачном
+эфемерном контейнере не выживает между сессиями):
+
+- `scripts/factcheck/extract-claims.mjs` извлекает claims (даты, штрафы,
+  ст. КоАП, ссылки на НПА).
+- Скилл `/factcheck` сверяет каждый claim с первоисточником через
+  WebSearch/WebFetch, опираясь на `src/data/factcheck/sources.json`.
+- Решения принимаются по `docs/editorial-policy.md` — классы A/B/C.
+- Результат: `src/data/factcheck/results/<slug>.json` + маркер
+  `.claude/factchecked/<slug>` с датой.
+
+**Используется обязательно** перед `draft: false` в `Workflow создания статьи`
+(шаг 5). Подробности — `docs/factcheck.md` и `docs/editorial-policy.md`.
+
+### Расширенный инструментарий (claude-blog, опционально)
+
+В CLAUDE.md ниже описаны команды плагина [claude-blog](https://github.com/AgriciDaniel/claude-blog).
+**Внимание:** в облачном эфемерном контейнере плагин не сохраняется между
+сессиями. Если вы работаете локально и хотите им пользоваться — установите
+вручную в `~/.claude/skills/`. В облачных сессиях используем свой `/factcheck`.
 
 ### Контроль качества (запускать после написания)
 
@@ -219,8 +243,8 @@ createdDate: "YYYY-MM-DD"
   техника, AI-цитируемость). Детектирует AI-текст.
 - `/blog seo-check <file>` — быстрый SEO-чеклист: title, meta, H2, внутренние
   ссылки, alt, schema.
-- `/blog factcheck <file>` — извлекает все числа и нормы, идёт по источникам,
-  ставит confidence 0.0–1.0. **Особенно важно для НПА и штрафов.**
+- `/blog factcheck <file>` — старая команда из claude-blog. **Не используем** —
+  есть свой `/factcheck`.
 - `/blog schema <file>` — генерирует JSON-LD: BlogPosting + FAQPage +
   BreadcrumbList. Дополняет то, что уже есть в `BlogPost.astro`.
 
