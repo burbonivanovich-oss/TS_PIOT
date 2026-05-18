@@ -65,18 +65,46 @@ src/data/wordstat/
 формулировка совпадает с поведением аудитории. Если `topShows >> shows`,
 формулировку стоит переписать на `topPhrase`.
 
-## Архитектура
+## Два контура
+
+### Контур A — точечная валидация (fetch.mjs)
+
+Берёт известные нам ключи (`seo.keywords` опубликованных статей + «Целевой
+запрос» из content-plan) и тянет по ним `/v1/dynamics` (история за 12 мес) +
+`/v1/topRequests` (популярные вариации). Цель — подтвердить частоту того,
+о чём мы уже пишем.
 
 ```
 src/content/blog/*.md  seo.keywords  ─┐
-src/content/blog/*.md  tags          ─┼─► extract-keys.mjs ─► .candidates.json
-src/content/wiki/content-plan-2026.md ┘                              │
+src/content/wiki/content-plan-2026.md ┴─► extract-keys.mjs ─► .candidates.json
+                                                                     │
                                                                      ▼
                               ┌───────── fetch.mjs ─────────┐
                               │  POST /v1/dynamics  (12mo)  │ ── keys.json
-                              │  POST /v1/topRequests (top) │ ── snapshots/<date>.json
+                              │  POST /v1/topRequests       │ ── snapshots/<date>.json
                               └─────────────────────────────┘
 ```
+
+### Контур B — trend discovery (discover.mjs)
+
+Берёт ~162 широких seed-ов из `discoveries/seeds.json` (зонтичные сущности,
+интент-паттерны, проблемы, аудитория) и тянет `/v1/topRequests` numPhrases=2000
+на каждый. Результат — до 2000 фраз вокруг каждого seed-а. Через неделю
+сравниваем с предыдущей выгрузкой — получаем NEW/RISING/FALLING/DROPPED.
+Цель — **открытие новых тем**, которых нет в плане.
+
+```
+discoveries/seeds.json ─► discover.mjs ─► discoveries/YYYY-MM-DD/*.json
+                                                       │
+                                              diff-snapshots.mjs
+                                                       │
+                                                       ▼
+                                         discoveries/diffs/YYYY-MM-DD.md
+                                          (читает /find-topics)
+```
+
+162 seeds × 1 квота = 162 квоты/неделю. С точечным `fetch.mjs` суммарно
+~640 квот/неделю — в пределах 1000/сутки.
 
 Источники ключей и их приоритет:
 
@@ -149,11 +177,40 @@ WORDSTAT_OAUTH_TOKEN=… node scripts/wordstat/fetch.mjs
 
 ## Как этим пользуются скиллы
 
-| Скилл | Использование |
-|---|---|
-| `/find-topics` | Читает `keys.json`, сортирует темы по `shows`; добавляет идеи из `related` для тем, которых ещё нет в плане. |
-| `/cluster-gaps` | (план) Маркирует пробел P0, если эталонный запрос имеет `shows > 2000` или `trend = up`. |
-| `/maintain-content` | (план) Сигнализирует «обновить статью», если `shows` целевого ключа вырос ×2 за 6 месяцев. |
+| Скилл | Что читает | Зачем |
+|---|---|---|
+| `/find-topics` | `discoveries/diffs/<latest>.md` + `keys.json` | Получает свежие NEW/RISING фразы за неделю, проверяет, что они не покрыты блогом, выдаёт темы в `content-plan-2026.md`. |
+| `/cluster-gaps` | `keys.json` | Ранжирование пробелов кластера по `max(shows, topShows)` и `trend`. |
+| `/maintain-content` | `keys.json` (история) | Триггер «обновить статью», если `shows` целевого ключа вырос/упал ×2 за 6 месяцев. |
+
+## Цикл недели
+
+```
+Понедельник 04:00 UTC ─ workflow:
+  1. extract-keys.mjs           — собирает кандидатов из блога + плана
+  2. fetch.mjs                  — точечно по seo.keywords (контур A)
+  3. discover.mjs               — broad по 162 seeds (контур B)
+  4. diff-snapshots.mjs         — сравнивает с прошлой неделей
+  5. commit                     — пушит keys.json, discoveries/<date>/, diffs/<date>.md
+
+Понедельник днём:
+  /find-topics                  — открывает diff, предлагает новые темы
+  ручной просмотр               — добавить в content-plan-2026.md что годное
+  /create-article               — запускает пайплайн на выбранной теме
+```
+
+## Где править seeds
+
+`src/data/wordstat/discoveries/seeds.json` — JSON-массив с полями `phrase`,
+`category`, `cluster`. Категории: `entity` (узкая сущность), `intent`
+(паттерн запроса), `audience` (срез), `problem` (боль/ошибка), `system`
+(платформа), `seasonal` (календарь). Cluster — один из 18 кластеров
+контент-плана или `any`.
+
+Добавление/удаление seed-а — простой редит JSON. На следующем weekly:
+- Новый seed → создастся файл `<date>/<slug>.json`. Через 2 weekly появится
+  diff против самого себя (нужны 2 точки).
+- Удалённый seed → больше не фетчится, в diff просто отсутствует.
 
 ## Обновление при изменениях
 
