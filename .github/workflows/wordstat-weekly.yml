@@ -4,6 +4,10 @@ on:
   schedule:
     # Каждый понедельник в 04:00 UTC (≈07:00 МСК)
     - cron: "0 4 * * 1"
+  # TEMP: триггер для первого прогона; откатить после успешного запуска.
+  push:
+    paths:
+      - ".github/workflows/wordstat-weekly.yml"
   workflow_dispatch:
     inputs:
       max_quota:
