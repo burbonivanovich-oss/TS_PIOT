@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "note": "Маппинг типов claims и тематик на первоисточники. Используется скиллом /factcheck для выбора, куда идти за подтверждением.",
+  "byClaimType": {
+    "DATE_TEXT": ["pravo.gov.ru", "publication.pravo.gov.ru", "consultant.ru/law/hotdocs/"],
+    "DATE_DMY": ["pravo.gov.ru", "publication.pravo.gov.ru"],
+    "MONEY": ["consultant.ru", "garant.ru", "base.garant.ru", "rulaws.ru"],
+    "NPA_KOAP": [
+      "consultant.ru/document/cons_doc_LAW_34661/",
+      "base.garant.ru/12125267/",
+      "rulaws.ru/koap/"
+    ],
+    "NPA_FZ": ["pravo.gov.ru", "consultant.ru"]
+  },
+  "byTopic": {
+    "markirovka": [
+      "честныйзнак.рф",
+      "markirovka.ru",
+      "crpt.ru"
+    ],
+    "ts-piot": [
+      "честныйзнак.рф/info/news/reestr-tekhnicheskikh-sredstv",
+      "markirovka.ru/knowledge/tovarnye-gruppy/obschie-voprosy-gis/tekhnicheskie-sredstva-polucheniya-informatsii-o-tovare-ts-piot"
+    ],
+    "kkt": ["nalog.gov.ru", "consultant.ru"],
+    "egais": ["fsrar.gov.ru"],
+    "merkuriy": ["vetrf.ru", "fsvps.gov.ru"],
+    "nalogi": ["nalog.gov.ru", "minfin.gov.ru"],
+    "kadry": ["mintrud.gov.ru", "sfr.gov.ru"],
+    "banki": ["cbr.ru", "fedsfm.ru"],
+    "edo-kedo": ["nalog.gov.ru", "minfin.gov.ru"]
+  },
+  "blocked": {
+    "note": "Эти домены отдают 403 WebFetch — используем WebSearch вместо прямого fetch и опираемся на агрегаторы (rulaws.ru, base.garant.ru) или сниппеты выдачи.",
+    "domains": [
+      "consultant.ru",
+      "pravo.gov.ru",
+      "yandex.ru",
+      "yandex.cloud"
+    ]
+  }
+}
