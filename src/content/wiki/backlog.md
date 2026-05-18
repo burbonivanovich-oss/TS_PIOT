@@ -1,7 +1,7 @@
 ---
 title: Бэклог — идеи и улучшения сайта
 createdDate: "2026-05-05"
-lastModified: "2026-05-17"
+lastModified: "2026-05-18"
 type: reference
 status: draft
 ---
@@ -18,7 +18,7 @@ status: draft
 
 | # | Задача | Приоритет | Статус |
 |---|---|---|---|
-| 37 | Подключить Wordstat API (через сервис `direct.yandex.ru` OAuth) или альтернативу для оценки частотности — заменить эвристику WebSearch на цифры | P0 | idea |
+| 37 | Подключить Wordstat API через `oauth.yandex.ru` (без рекламного кабинета) — заменить эвристику WebSearch на цифры. См. `docs/wordstat.md`. Интегрировано в `/find-topics`, `/cluster-gaps`, `/maintain-content`. | P0 | done |
 
 > **Связь:** п. 37 пересекается с пп. 6–11 (аналитика).
 
