@@ -406,6 +406,8 @@ Gemini больше не нужен.
 | `wordstat/fetch.mjs` | Точечно тянет /v1/dynamics + /v1/topRequests (контур A) |
 | `wordstat/discover.mjs` | Trend discovery: /v1/topRequests на 162 широких seed-а (контур B) |
 | `wordstat/diff-snapshots.mjs` | Сравнивает discovery-выгрузки неделя-к-неделе |
+| `factcheck/extract-claims.mjs` | Regex-парсер дат/сумм/ст. КоАП из статей |
+| `audit/linkgraph.mjs` | Граф внутренней перелинковки, поиск сирот, кандидаты на ссылки |
 
 Запуск: `node scripts/<имя>.mjs`. Результаты в `scripts/og-previews/` (gitignored).
 Wordstat-скрипты пишут в `src/data/wordstat/` — там же лежит весь кеш.
