@@ -3,16 +3,17 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { CATEGORIES } from '../consts';
+import { CATEGORIES, POPULAR_POSTS } from '../consts';
 
 const title = 'Страница не найдена';
 const description =
-	'Такой страницы на «Этикетке» нет. Возможно, материал переехал — посмотрите свежие статьи или перейдите в нужный раздел.';
+	'Такой страницы на «Этикетке» нет. Возможно, материал переехал — посмотрите ключевые материалы или перейдите в нужный раздел.';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const bySlug = new Map(allPosts.map((p) => [p.id, p]));
+const popular = POPULAR_POSTS.map((slug) => bySlug.get(slug)).filter(
+	(p): p is NonNullable<typeof p> => Boolean(p),
 );
-const latest = posts.slice(0, 3);
 import { u } from '../utils/url';
 ---
 
@@ -28,6 +29,18 @@ import { u } from '../utils/url';
 				<p class="code">404</p>
 				<h1>{title}</h1>
 				<p class="lead">{description}</p>
+				<form class="quick-search" role="search" action={u('/search/')} method="get">
+					<label for="quick-q" class="sr-only">Поиск по сайту</label>
+					<input
+						id="quick-q"
+						name="q"
+						type="search"
+						placeholder="Найти: ТС ПИоТ, маркировка, УСН…"
+						autocomplete="off"
+						enterkeyhint="search"
+					/>
+					<button type="submit">Искать</button>
+				</form>
 				<div class="cta">
 					<a href={u("/")} class="btn btn-primary">На главную</a>
 					<a href={u("/blog/")} class="btn btn-ghost">Все статьи</a>
@@ -46,11 +59,11 @@ import { u } from '../utils/url';
 				</div>
 			</section>
 
-			{latest.length > 0 && (
+			{popular.length > 0 && (
 				<section class="latest" aria-labelledby="latest-heading">
-					<h2 id="latest-heading">Свежие материалы</h2>
+					<h2 id="latest-heading">Популярные материалы</h2>
 					<ul class="post-list">
-						{latest.map((post) => (
+						{popular.map((post) => (
 							<li class="post-card">
 								<a href={u(`/blog/${post.id}/`)}>
 									<h3>{post.data.title}</h3>
@@ -84,6 +97,46 @@ import { u } from '../utils/url';
 				color: rgb(var(--gray-dark));
 				max-width: 620px;
 				margin: 0 auto 1.5rem;
+			}
+			.quick-search {
+				display: flex;
+				gap: 0.5rem;
+				max-width: 520px;
+				margin: 0 auto 1.5rem;
+			}
+			.quick-search input {
+				flex: 1;
+				min-width: 0;
+				padding: 0.75rem 1rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				background: #fff;
+				font: inherit;
+				color: rgb(var(--gray-dark));
+			}
+			.quick-search input:focus {
+				outline: 2px solid var(--accent);
+				outline-offset: 1px;
+				border-color: var(--accent);
+			}
+			.quick-search button {
+				padding: 0.75rem 1.2rem;
+				border: 0;
+				border-radius: 8px;
+				background: var(--accent);
+				color: #fff;
+				font: inherit;
+				font-weight: 600;
+				cursor: pointer;
+				transition: background 0.15s ease;
+			}
+			.quick-search button:hover {
+				background: var(--accent-dark);
+			}
+			@media (max-width: 480px) {
+				.quick-search {
+					flex-direction: column;
+				}
 			}
 			.cta {
 				display: flex;
