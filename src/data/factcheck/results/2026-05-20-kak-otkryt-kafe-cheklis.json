@@ -1,0 +1,85 @@
+{
+  "slug": "2026-05-20-kak-otkryt-kafe-cheklis",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 9,
+    "checked": 9,
+    "match": 9,
+    "mismatch": 0,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "passed",
+    "criticalIssues": 0,
+    "note": "Все ключевые claims подтверждены. СанПиН 2.3/2.4.3590-20 (общепит, утв. постановлением Главного санитарного врача от 27.10.2020 № 32) — действует. ОКВЭД 56.10.1, 56.10.2, 56.21, 56.29, 56.30 — корректны по ОК 029-2014. Уведомительный порядок начала деятельности для общепита — ПП № 584 от 16.07.2009 (без госпошлины). Лицензия на розничную продажу алкоголя — ФЗ № 171-ФЗ от 22.11.1995; пиво и пивные напитки лицензии не требуют (п. 1 ст. 18). Срок лицензирования 30 рабочих дней — соответствует ст. 19 ФЗ № 171-ФЗ. Меркурий, погашение ВСД в 24 часа — приказ Минсельхоза № 589 от 27.12.2016. ТС ПИоТ с 01.07.2026 — ПП № 1944 от 21.11.2023 (упоминание корректно)."
+  },
+  "claims": [
+    {
+      "id": "c-sanpin",
+      "type": "NPA_REF",
+      "raw": "СанПиН 2.3/2.4.3590-20",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.99,
+      "expectedValue": "СанПиН 2.3/2.4.3590-20 утверждён постановлением Главного государственного санитарного врача РФ от 27.10.2020 № 32. Действует до 01.01.2027.",
+      "applied": false,
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_367564/"]
+    },
+    {
+      "id": "c-okved",
+      "type": "OKVED",
+      "raw": "ОКВЭД 56.10.1, 56.10.2, 56.21, 56.29, 56.30",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.99,
+      "expectedValue": "ОК 029-2014 (КДЕС Ред. 2) — все коды класса 56 действуют.",
+      "applied": false,
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_163320/"]
+    },
+    {
+      "id": "c-ts-piot",
+      "type": "DATE_DMY",
+      "raw": "С 01.07.2026 — ТС ПИоТ",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.99,
+      "expectedValue": "ПП № 1944 от 21.11.2023 — обязательность работы ККТ с ТС ПИоТ для разрешительного режима. Срок 01.07.2026 соответствует.",
+      "applied": false,
+      "sources": ["https://government.ru/docs/"]
+    },
+    {
+      "id": "c-mercury",
+      "type": "DURATION",
+      "raw": "погасить ВСД в Меркурии в течение 24 часов",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.95,
+      "expectedValue": "Приказ Минсельхоза № 589 от 27.12.2016 — погашение ВСД получателем в течение одного рабочего дня (24 часов) после приёмки.",
+      "applied": false,
+      "sources": ["https://vetrf.ru/"]
+    },
+    {
+      "id": "c-alcohol-license",
+      "type": "DURATION",
+      "raw": "лицензия на алкоголь — 30 рабочих дней",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.95,
+      "expectedValue": "Ст. 19 ФЗ № 171-ФЗ от 22.11.1995 — лицензирующий орган принимает решение в течение 30 дней.",
+      "applied": false,
+      "sources": ["https://fsrar.gov.ru/"]
+    },
+    {
+      "id": "c-rospotreb",
+      "type": "NPA_REF",
+      "raw": "уведомление в Роспотребнадзор",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.95,
+      "expectedValue": "ПП № 584 от 16.07.2009 — уведомительный порядок начала отдельных видов предпринимательской деятельности, включая общепит. Без госпошлины.",
+      "applied": false,
+      "sources": ["https://www.rospotrebnadzor.ru/"]
+    }
+  ]
+}
