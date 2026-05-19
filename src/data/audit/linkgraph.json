@@ -1,322 +1,14 @@
 {
-  "generatedAt": "2026-05-18T15:48:04.245Z",
+  "generatedAt": "2026-05-19T04:57:45.233Z",
   "totals": {
     "total": 83,
     "published": 83,
     "drafts": 0,
-    "orphans": 61,
-    "weak": 11,
+    "orphans": 34,
+    "weak": 13,
     "deadends": 10
   },
   "orphans": [
-    {
-      "slug": "2026-05-01-buh-dlya-marketplace",
-      "title": "Онлайн-бухгалтерия для продавца на маркетплейсах в 2026",
-      "categories": [
-        "zakonodatelstvo"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-17-nalogi-s-wildberries-2026",
-          "title": "Налоги с продаж на Wildberries в 2026 году: УСН, НДС и отчётность",
-          "score": 5,
-          "outboundCount": 0
-        },
-        {
-          "slug": "2026-05-21-samozanyatyj-na-wildberries",
-          "title": "Самозанятый на Wildberries в 2026 году: лимит, налог и маркировка",
-          "score": 4,
-          "outboundCount": 0
-        },
-        {
-          "slug": "2026-05-03-zakon-o-marketpleysah-289-fz",
-          "title": "Закон о маркетплейсах 289-ФЗ: что изменится для продавцов с 1 октября 2026",
-          "score": 4,
-          "outboundCount": 2
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-01-chto-takoe-fn",
-      "title": "Фискальный накопитель: ФН-1.1М и ФН-1.2 — что выбрать в 2026",
-      "categories": [
-        "kkt"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-01-kak-vybrat-onlayn-kassu-2026",
-          "title": "Как выбрать онлайн-кассу для малого бизнеса в 2026",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-atol-30f-obzor",
-          "title": "АТОЛ 30Ф: обзор фискального регистратора",
-          "score": 5,
-          "outboundCount": 4
-        },
-        {
-          "slug": "2026-05-03-kak-vybrat-ofd-2026",
-          "title": "Сравнение операторов фискальных данных в 2026",
-          "score": 5,
-          "outboundCount": 4
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-01-chto-takoe-merkuriy",
-      "title": "ФГИС Меркурий: что это, кому обязателен и как работает",
-      "categories": [
-        "egais"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-01-gashenie-vsd-merkuriy",
-          "title": "Гашение ВСД в Меркурии: сроки, порядок, частые ошибки",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-deklaracii-po-alkogolyu",
-          "title": "Декларации по алкоголю: формы 7 и 8, сроки сдачи",
-          "score": 3,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-01-egais-chto-eto",
-          "title": "ЕГАИС: что это, кому нужен и как подключить",
-          "score": 3,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-01-egais-chto-eto",
-      "title": "ЕГАИС: что это, кому нужен и как подключить",
-      "categories": [
-        "egais"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-deklaracii-po-alkogolyu",
-          "title": "Декларации по алкоголю: формы 7 и 8, сроки сдачи",
-          "score": 6,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-03-egais-zhurnal-roznichnoy-prodazhi",
-          "title": "Журнал учёта розничной продажи алкоголя в 2026",
-          "score": 6,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-utm-egais-podklyuchenie",
-          "title": "Подключение УТМ ЕГАИС: пошаговая инструкция",
-          "score": 5,
-          "outboundCount": 2
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-01-ens-enp-uvedomleniya",
-      "title": "Уведомления по ЕНС в 2026: как не получить штраф из-за опоздания",
-      "categories": [
-        "zakonodatelstvo"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-03-05-nalogi-msb-2026",
-          "title": "Налоги МСБ в 2026: УСН, патент, ЕНС и КЭДО — что изменилось",
-          "score": 5,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-01-onlayn-buhgalteriya-2026",
-          "title": "Онлайн-бухгалтерия для малого бизнеса в 2026: как выбрать сервис",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-01-usn-nds-rasschet",
-          "title": "НДС на УСН в 2026: ставка 5%, 7% или 22% — как выбрать",
-          "score": 5,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-01-gashenie-vsd-merkuriy",
-      "title": "Гашение ВСД в Меркурии: сроки, порядок, частые ошибки",
-      "categories": [
-        "egais"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-01-chto-takoe-merkuriy",
-          "title": "ФГИС Меркурий: что это, кому обязателен и как работает",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-deklaracii-po-alkogolyu",
-          "title": "Декларации по алкоголю: формы 7 и 8, сроки сдачи",
-          "score": 4,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-01-egais-chto-eto",
-          "title": "ЕГАИС: что это, кому нужен и как подключить",
-          "score": 4,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-01-kak-vybrat-onlayn-kassu-2026",
-      "title": "Как выбрать онлайн-кассу для малого бизнеса в 2026",
-      "categories": [
-        "kkt"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-01-chto-takoe-fn",
-          "title": "Фискальный накопитель: ФН-1.1М и ФН-1.2 — что выбрать в 2026",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
-          "title": "Смарт-терминал или фискальный регистратор: что выбрать для бизнеса",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-atol-30f-obzor",
-          "title": "АТОЛ 30Ф: обзор фискального регистратора",
-          "score": 5,
-          "outboundCount": 4
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-01-kalendar-markirovki-2026",
-      "title": "Календарь маркировки 2026: что и когда вступает в силу",
-      "categories": [
-        "markirovka"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-markirovka-bezalk-napitkov-2026",
-          "title": "Безалкогольные напитки: проверки кодов с 1 сентября 2026",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-markirovka-bytovoy-himii-2026",
-          "title": "Маркировка бытовой химии с 1 июля 2026",
-          "score": 5,
-          "outboundCount": 4
-        },
-        {
-          "slug": "2026-05-03-markirovka-igrushek-2026",
-          "title": "Маркировка игрушек с 1 сентября 2026: поэкземплярный учёт",
-          "score": 5,
-          "outboundCount": 4
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-01-markirovka-cherez-marketplace",
-      "title": "Маркировка на маркетплейсах Wildberries и Ozon в 2026 году: что должен знать продавец",
-      "categories": [
-        "markirovka"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-02-10-kategorii-markirovki-2026",
-          "title": "Маркировка «Честный знак» 2026: категории товаров и сроки",
-          "score": 4,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-01-kalendar-markirovki-2026",
-          "title": "Календарь маркировки 2026: что и когда вступает в силу",
-          "score": 4,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-01-markirovka-molochki-msb",
-          "title": "Маркировка молочной продукции для малого бизнеса: что нужно делать в 2026",
-          "score": 4,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-01-markirovka-molochki-msb",
-      "title": "Маркировка молочной продукции для малого бизнеса: что нужно делать в 2026",
-      "categories": [
-        "markirovka"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-01-markirovka-piva-roznica",
-          "title": "Маркировка пива в рознице: пошаговая настройка в 2026",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-01-razreshitelnyj-rezhim-markirovka",
-          "title": "Разрешительный режим Честного знака: как работает и кого касается",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-02-10-kategorii-markirovki-2026",
-          "title": "Маркировка «Честный знак» 2026: категории товаров и сроки",
-          "score": 4,
-          "outboundCount": 2
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-01-onlayn-buhgalteriya-2026",
-      "title": "Онлайн-бухгалтерия для малого бизнеса в 2026: как выбрать сервис",
-      "categories": [
-        "zakonodatelstvo"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-01-ens-enp-uvedomleniya",
-          "title": "Уведомления по ЕНС в 2026: как не получить штраф из-за опоздания",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-01-usn-nds-rasschet",
-          "title": "НДС на УСН в 2026: ставка 5%, 7% или 22% — как выбрать",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-buh-dlya-ip-usn",
-          "title": "Онлайн-бухгалтерия для ИП на УСН: чек-лист функций",
-          "score": 5,
-          "outboundCount": 4
-        }
-      ]
-    },
     {
       "slug": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
       "title": "Смарт-терминал или фискальный регистратор: что выбрать для бизнеса",
@@ -342,34 +34,6 @@
           "title": "MSPOS F20: характеристики, для кого подходит",
           "score": 5,
           "outboundCount": 4
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-01-uchyot-alkogolya-v-obschepite",
-      "title": "Учёт алкоголя в кафе и баре: ЕГАИС без ошибок в 2026",
-      "categories": [
-        "egais"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-deklaracii-po-alkogolyu",
-          "title": "Декларации по алкоголю: формы 7 и 8, сроки сдачи",
-          "score": 5,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-01-egais-chto-eto",
-          "title": "ЕГАИС: что это, кому нужен и как подключить",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-egais-zhurnal-roznichnoy-prodazhi",
-          "title": "Журнал учёта розничной продажи алкоголя в 2026",
-          "score": 5,
-          "outboundCount": 3
         }
       ]
     },
@@ -402,62 +66,6 @@
       ]
     },
     {
-      "slug": "2026-05-03-atol-30f-obzor",
-      "title": "АТОЛ 30Ф: обзор фискального регистратора",
-      "categories": [
-        "kkt"
-      ],
-      "outboundCount": 4,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-atol-30f-vs-27f",
-          "title": "Сравнение АТОЛ 30Ф и АТОЛ 27Ф: чем отличаются",
-          "score": 6,
-          "outboundCount": 4
-        },
-        {
-          "slug": "2026-05-03-atol-27f-obzor",
-          "title": "АТОЛ 27Ф: обзор и сценарии установки",
-          "score": 6,
-          "outboundCount": 5
-        },
-        {
-          "slug": "2026-05-01-chto-takoe-fn",
-          "title": "Фискальный накопитель: ФН-1.1М и ФН-1.2 — что выбрать в 2026",
-          "score": 5,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-atol-30f-vs-27f",
-      "title": "Сравнение АТОЛ 30Ф и АТОЛ 27Ф: чем отличаются",
-      "categories": [
-        "kkt"
-      ],
-      "outboundCount": 4,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-atol-30f-obzor",
-          "title": "АТОЛ 30Ф: обзор фискального регистратора",
-          "score": 6,
-          "outboundCount": 4
-        },
-        {
-          "slug": "2026-05-03-atol-27f-obzor",
-          "title": "АТОЛ 27Ф: обзор и сценарии установки",
-          "score": 6,
-          "outboundCount": 5
-        },
-        {
-          "slug": "2026-05-03-mspos-f20-vs-d3-mini",
-          "title": "Сравнение MSPOS F20 и MSPOS T D3 Mini: что выбрать",
-          "score": 5,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
       "slug": "2026-05-03-buh-dlya-ip-usn",
       "title": "Онлайн-бухгалтерия для ИП на УСН: чек-лист функций",
       "categories": [
@@ -486,62 +94,6 @@
       ]
     },
     {
-      "slug": "2026-05-03-deklaracii-po-alkogolyu",
-      "title": "Декларации по алкоголю: формы 7 и 8, сроки сдачи",
-      "categories": [
-        "egais"
-      ],
-      "outboundCount": 2,
-      "suggestions": [
-        {
-          "slug": "2026-05-01-egais-chto-eto",
-          "title": "ЕГАИС: что это, кому нужен и как подключить",
-          "score": 6,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-egais-zhurnal-roznichnoy-prodazhi",
-          "title": "Журнал учёта розничной продажи алкоголя в 2026",
-          "score": 6,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-utm-egais-podklyuchenie",
-          "title": "Подключение УТМ ЕГАИС: пошаговая инструкция",
-          "score": 5,
-          "outboundCount": 2
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-egais-zhurnal-roznichnoy-prodazhi",
-      "title": "Журнал учёта розничной продажи алкоголя в 2026",
-      "categories": [
-        "egais"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-deklaracii-po-alkogolyu",
-          "title": "Декларации по алкоголю: формы 7 и 8, сроки сдачи",
-          "score": 6,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-01-egais-chto-eto",
-          "title": "ЕГАИС: что это, кому нужен и как подключить",
-          "score": 6,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-utm-egais-podklyuchenie",
-          "title": "Подключение УТМ ЕГАИС: пошаговая инструкция",
-          "score": 5,
-          "outboundCount": 2
-        }
-      ]
-    },
-    {
       "slug": "2026-05-03-etrn-2026",
       "title": "ЭТрН с 1 сентября 2026: кто обязан оформлять электронную транспортную накладную",
       "categories": [
@@ -549,6 +101,12 @@
       ],
       "outboundCount": 2,
       "suggestions": [
+        {
+          "slug": "2026-05-03-mrot-2026-rabotodatel",
+          "title": "МРОТ 27 093 рублей: как пересчитать зарплаты, больничные и взносы",
+          "score": 3,
+          "outboundCount": 2
+        },
         {
           "slug": "2026-05-03-samozanyatye-riski-2026",
           "title": "Самозанятые и работодатель в 2026: риски переквалификации, новые ограничения с октября",
@@ -560,40 +118,6 @@
           "title": "Закон о маркетплейсах 289-ФЗ: что изменится для продавцов с 1 октября 2026",
           "score": 3,
           "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-01-usn-nds-rasschet",
-          "title": "НДС на УСН в 2026: ставка 5%, 7% или 22% — как выбрать",
-          "score": 3,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-kak-vybrat-ofd-2026",
-      "title": "Сравнение операторов фискальных данных в 2026",
-      "categories": [
-        "kkt"
-      ],
-      "outboundCount": 4,
-      "suggestions": [
-        {
-          "slug": "2026-05-01-chto-takoe-fn",
-          "title": "Фискальный накопитель: ФН-1.1М и ФН-1.2 — что выбрать в 2026",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-01-kak-vybrat-onlayn-kassu-2026",
-          "title": "Как выбрать онлайн-кассу для малого бизнеса в 2026",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-atol-30f-obzor",
-          "title": "АТОЛ 30Ф: обзор фискального регистратора",
-          "score": 5,
-          "outboundCount": 4
         }
       ]
     },
@@ -878,62 +402,6 @@
       ]
     },
     {
-      "slug": "2026-05-03-merkuriy-i-chestnyj-znak",
-      "title": "Меркурий и Честный знак: молочка и рыба — как работают вместе",
-      "categories": [
-        "egais"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-registraciya-v-merkurii",
-          "title": "Регистрация в Меркурии для ИП и ООО: пошагово",
-          "score": 4,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-01-chto-takoe-merkuriy",
-          "title": "ФГИС Меркурий: что это, кому обязателен и как работает",
-          "score": 3,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-01-egais-chto-eto",
-          "title": "ЕГАИС: что это, кому нужен и как подключить",
-          "score": 3,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-mrot-2026-rabotodatel",
-      "title": "МРОТ 27 093 рублей: как пересчитать зарплаты, больничные и взносы",
-      "categories": [
-        "zakonodatelstvo"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-strahovye-vznosy-msp-2026",
-          "title": "Страховые взносы МСП в 2026: пониженный тариф 15% только для 54 ОКВЭД",
-          "score": 4,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-etrn-2026",
-          "title": "ЭТрН с 1 сентября 2026: кто обязан оформлять электронную транспортную накладную",
-          "score": 3,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-03-samozanyatye-riski-2026",
-          "title": "Самозанятые и работодатель в 2026: риски переквалификации, новые ограничения с октября",
-          "score": 3,
-          "outboundCount": 2
-        }
-      ]
-    },
-    {
       "slug": "2026-05-03-mspos-f20-obzor",
       "title": "MSPOS F20: характеристики, для кого подходит",
       "categories": [
@@ -956,34 +424,6 @@
         {
           "slug": "2026-05-01-chto-takoe-fn",
           "title": "Фискальный накопитель: ФН-1.1М и ФН-1.2 — что выбрать в 2026",
-          "score": 5,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-mspos-f20-vs-d3-mini",
-      "title": "Сравнение MSPOS F20 и MSPOS T D3 Mini: что выбрать",
-      "categories": [
-        "kkt"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-mspos-f20-obzor",
-          "title": "MSPOS F20: характеристики, для кого подходит",
-          "score": 6,
-          "outboundCount": 4
-        },
-        {
-          "slug": "2026-05-03-mspos-t-d3-mini-obzor",
-          "title": "MSPOS T D3 Mini: характеристики и сценарии использования",
-          "score": 6,
-          "outboundCount": 4
-        },
-        {
-          "slug": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
-          "title": "Смарт-терминал или фискальный регистратор: что выбрать для бизнеса",
           "score": 5,
           "outboundCount": 3
         }
@@ -1018,34 +458,6 @@
       ]
     },
     {
-      "slug": "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj",
-      "title": "Объёмно-сортовой и поэкземплярный учёт: разница и кому что",
-      "categories": [
-        "markirovka"
-      ],
-      "outboundCount": 4,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-markirovka-igrushek-2026",
-          "title": "Маркировка игрушек с 1 сентября 2026: поэкземплярный учёт",
-          "score": 5,
-          "outboundCount": 4
-        },
-        {
-          "slug": "2026-02-10-kategorii-markirovki-2026",
-          "title": "Маркировка «Честный знак» 2026: категории товаров и сроки",
-          "score": 4,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-01-kalendar-markirovki-2026",
-          "title": "Календарь маркировки 2026: что и когда вступает в силу",
-          "score": 4,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
       "slug": "2026-05-03-personalnye-dannye-shtrafy-2025",
       "title": "Персональные данные: штрафы до 500 млн рублей — что делать малому бизнесу",
       "categories": [
@@ -1070,34 +482,6 @@
           "title": "Налоги с продаж на Wildberries в 2026 году: УСН, НДС и отчётность",
           "score": 2,
           "outboundCount": 0
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-poshtuchnyj-uchyot-alkogolya",
-      "title": "Поштучный учёт крепкого алкоголя в общепите",
-      "categories": [
-        "egais"
-      ],
-      "outboundCount": 3,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-deklaracii-po-alkogolyu",
-          "title": "Декларации по алкоголю: формы 7 и 8, сроки сдачи",
-          "score": 5,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-01-egais-chto-eto",
-          "title": "ЕГАИС: что это, кому нужен и как подключить",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-01-uchyot-alkogolya-v-obschepite",
-          "title": "Учёт алкоголя в кафе и баре: ЕГАИС без ошибок в 2026",
-          "score": 5,
-          "outboundCount": 3
         }
       ]
     },
@@ -1158,34 +542,6 @@
       ]
     },
     {
-      "slug": "2026-05-03-sravnenie-onlayn-buhov",
-      "title": "Сравнение Контур.Эльба, Моё дело, 1С:Облако, Тинькофф Бухгалтерия",
-      "categories": [
-        "zakonodatelstvo"
-      ],
-      "outboundCount": 4,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-buh-dlya-ip-usn",
-          "title": "Онлайн-бухгалтерия для ИП на УСН: чек-лист функций",
-          "score": 6,
-          "outboundCount": 4
-        },
-        {
-          "slug": "2026-05-19-kakoy-nalog-vybrat-ip",
-          "title": "Какую систему налогообложения выбрать ИП в 2026 году",
-          "score": 5,
-          "outboundCount": 0
-        },
-        {
-          "slug": "2026-05-01-onlayn-buhgalteriya-2026",
-          "title": "Онлайн-бухгалтерия для малого бизнеса в 2026: как выбрать сервис",
-          "score": 5,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
       "slug": "2026-05-03-srok-fn-15-36",
       "title": "Срок действия ФН: 15 или 36 месяцев — кому какой",
       "categories": [
@@ -1208,118 +564,6 @@
         {
           "slug": "2026-05-01-chto-takoe-fn",
           "title": "Фискальный накопитель: ФН-1.1М и ФН-1.2 — что выбрать в 2026",
-          "score": 4,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-uchyot-razlivnogo-piva",
-      "title": "Учёт разливного пива в пабе: марки, кеги, остатки",
-      "categories": [
-        "egais"
-      ],
-      "outboundCount": 4,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-deklaracii-po-alkogolyu",
-          "title": "Декларации по алкоголю: формы 7 и 8, сроки сдачи",
-          "score": 4,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-01-egais-chto-eto",
-          "title": "ЕГАИС: что это, кому нужен и как подключить",
-          "score": 4,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-01-uchyot-alkogolya-v-obschepite",
-          "title": "Учёт алкоголя в кафе и баре: ЕГАИС без ошибок в 2026",
-          "score": 4,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-utm-egais-podklyuchenie",
-      "title": "Подключение УТМ ЕГАИС: пошаговая инструкция",
-      "categories": [
-        "egais"
-      ],
-      "outboundCount": 2,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-deklaracii-po-alkogolyu",
-          "title": "Декларации по алкоголю: формы 7 и 8, сроки сдачи",
-          "score": 5,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-01-egais-chto-eto",
-          "title": "ЕГАИС: что это, кому нужен и как подключить",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-egais-zhurnal-roznichnoy-prodazhi",
-          "title": "Журнал учёта розничной продажи алкоголя в 2026",
-          "score": 5,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-vidy-kkt",
-      "title": "Виды ККТ: автономные кассы, смарт-терминалы, фискальные регистраторы",
-      "categories": [
-        "kkt"
-      ],
-      "outboundCount": 4,
-      "suggestions": [
-        {
-          "slug": "2026-05-03-atol-27f-obzor",
-          "title": "АТОЛ 27Ф: обзор и сценарии установки",
-          "score": 6,
-          "outboundCount": 5
-        },
-        {
-          "slug": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
-          "title": "Смарт-терминал или фискальный регистратор: что выбрать для бизнеса",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-05-03-mspos-f20-vs-d3-mini",
-          "title": "Сравнение MSPOS F20 и MSPOS T D3 Mini: что выбрать",
-          "score": 5,
-          "outboundCount": 3
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-vyvod-iz-oborota-cherez-kassu",
-      "title": "Вывод товаров из оборота через кассу: как настроить в 2026",
-      "categories": [
-        "markirovka"
-      ],
-      "outboundCount": 5,
-      "suggestions": [
-        {
-          "slug": "2026-05-01-razreshitelnyj-rezhim-markirovka",
-          "title": "Разрешительный режим Честного знака: как работает и кого касается",
-          "score": 5,
-          "outboundCount": 3
-        },
-        {
-          "slug": "2026-02-10-kategorii-markirovki-2026",
-          "title": "Маркировка «Честный знак» 2026: категории товаров и сроки",
-          "score": 4,
-          "outboundCount": 2
-        },
-        {
-          "slug": "2026-05-01-kalendar-markirovki-2026",
-          "title": "Календарь маркировки 2026: что и когда вступает в силу",
           "score": 4,
           "outboundCount": 3
         }
@@ -1720,34 +964,6 @@
   ],
   "weak": [
     {
-      "slug": "2026-05-01-edo-upd-markirovka",
-      "title": "ЭДО и УПД для маркированных товаров: как правильно оформить документы",
-      "inbound": [
-        "2026-05-27-markirovka-obuvi-2026"
-      ]
-    },
-    {
-      "slug": "2026-05-01-markirovka-piva-roznica",
-      "title": "Маркировка пива в рознице: пошаговая настройка в 2026",
-      "inbound": [
-        "2026-05-01-edo-upd-markirovka"
-      ]
-    },
-    {
-      "slug": "2026-05-01-proverki-2026",
-      "title": "Мораторий на проверки бизнеса в 2026 году: кого не проверят",
-      "inbound": [
-        "2026-05-01-ens-enp-uvedomleniya"
-      ]
-    },
-    {
-      "slug": "2026-05-01-registraciya-kkt-v-fns",
-      "title": "Регистрация онлайн-кассы в ФНС в 2026: пошаговая инструкция",
-      "inbound": [
-        "2026-05-01-ofd-dlya-ts-piot"
-      ]
-    },
-    {
       "slug": "2026-05-01-ts-piot-evotor-atol-shtrih",
       "title": "ТС ПИоТ на кассах Эвотор, Атол, Штрих и Дримкас: сравнение поддержки",
       "inbound": [
@@ -1755,17 +971,59 @@
       ]
     },
     {
-      "slug": "2026-05-01-zamena-fn-poshagovo",
-      "title": "Замена фискального накопителя: пошаговая инструкция 2026",
+      "slug": "2026-05-03-atol-30f-obzor",
+      "title": "АТОЛ 30Ф: обзор фискального регистратора",
       "inbound": [
-        "2026-05-01-ts-piot-evotor-atol-shtrih"
+        "2026-05-03-atol-27f-obzor"
       ]
     },
     {
-      "slug": "2026-05-03-chto-takoe-ofd",
-      "title": "ОФД: что это, как работает и кому обязателен",
+      "slug": "2026-05-03-kak-vybrat-ofd-2026",
+      "title": "Сравнение операторов фискальных данных в 2026",
       "inbound": [
-        "2026-05-26-ts-piot-vs-ofd"
+        "2026-05-03-srok-fn-15-36"
+      ]
+    },
+    {
+      "slug": "2026-05-03-merkuriy-i-chestnyj-znak",
+      "title": "Меркурий и Честный знак: молочка и рыба — как работают вместе",
+      "inbound": [
+        "2026-05-03-registraciya-v-merkurii"
+      ]
+    },
+    {
+      "slug": "2026-05-03-mrot-2026-rabotodatel",
+      "title": "МРОТ 27 093 рублей: как пересчитать зарплаты, больничные и взносы",
+      "inbound": [
+        "2026-05-03-strahovye-vznosy-msp-2026"
+      ]
+    },
+    {
+      "slug": "2026-05-03-poshtuchnyj-uchyot-alkogolya",
+      "title": "Поштучный учёт крепкого алкоголя в общепите",
+      "inbound": [
+        "2026-05-03-egais-zhurnal-roznichnoy-prodazhi"
+      ]
+    },
+    {
+      "slug": "2026-05-03-sravnenie-onlayn-buhov",
+      "title": "Сравнение Контур.Эльба, Моё дело, 1С:Облако, Тинькофф Бухгалтерия",
+      "inbound": [
+        "2026-05-03-buh-dlya-ip-usn"
+      ]
+    },
+    {
+      "slug": "2026-05-03-uchyot-razlivnogo-piva",
+      "title": "Учёт разливного пива в пабе: марки, кеги, остатки",
+      "inbound": [
+        "2026-05-03-poshtuchnyj-uchyot-alkogolya"
+      ]
+    },
+    {
+      "slug": "2026-05-03-vyvod-iz-oborota-cherez-kassu",
+      "title": "Вывод товаров из оборота через кассу: как настроить в 2026",
+      "inbound": [
+        "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj"
       ]
     },
     {
@@ -1841,54 +1099,54 @@
   ],
   "topInbound": [
     {
-      "slug": "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-      "title": "Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026",
-      "inboundCount": 7
-    },
-    {
-      "slug": "2026-05-01-razreshitelnyj-rezhim-markirovka",
-      "title": "Разрешительный режим Честного знака: как работает и кого касается",
-      "inboundCount": 4
+      "slug": "2026-01-15-chto-takoe-ts-piot",
+      "title": "ТС ПИоТ: что это, кому нужен и как подключить онлайн-кассу к «Честному знаку»",
+      "inboundCount": 29
     },
     {
       "slug": "2026-02-10-kategorii-markirovki-2026",
       "title": "Маркировка «Честный знак» 2026: категории товаров и сроки",
-      "inboundCount": 3
+      "inboundCount": 22
     },
     {
-      "slug": "2026-03-05-nalogi-msb-2026",
-      "title": "Налоги МСБ в 2026: УСН, патент, ЕНС и КЭДО — что изменилось",
-      "inboundCount": 3
+      "slug": "2026-05-01-edo-upd-markirovka",
+      "title": "ЭДО и УПД для маркированных товаров: как правильно оформить документы",
+      "inboundCount": 16
+    },
+    {
+      "slug": "2026-05-01-registraciya-kkt-v-fns",
+      "title": "Регистрация онлайн-кассы в ФНС в 2026: пошаговая инструкция",
+      "inboundCount": 15
+    },
+    {
+      "slug": "2026-05-01-razreshitelnyj-rezhim-markirovka",
+      "title": "Разрешительный режим Честного знака: как работает и кого касается",
+      "inboundCount": 11
     },
     {
       "slug": "2026-05-01-ofd-dlya-ts-piot",
       "title": "ОФД для ТС ПИоТ 2026: что такое оператор фискальных данных и как его выбрать",
-      "inboundCount": 3
+      "inboundCount": 10
     },
     {
-      "slug": "2026-05-01-shtraf-za-markirovku",
-      "title": "Штраф за отсутствие маркировки в 2026 году: размеры и последствия",
-      "inboundCount": 3
+      "slug": "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+      "title": "Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026",
+      "inboundCount": 10
     },
     {
-      "slug": "2026-05-01-ts-piot-shtrafy",
-      "title": "Штраф за работу без ТС ПИоТ в 2026: размеры, статья КоАП, как избежать",
-      "inboundCount": 3
+      "slug": "2026-03-05-nalogi-msb-2026",
+      "title": "Налоги МСБ в 2026: УСН, патент, ЕНС и КЭДО — что изменилось",
+      "inboundCount": 8
     },
     {
       "slug": "2026-05-01-usn-nds-rasschet",
       "title": "НДС на УСН в 2026: ставка 5%, 7% или 22% — как выбрать",
-      "inboundCount": 3
+      "inboundCount": 8
     },
     {
-      "slug": "2026-01-15-chto-takoe-ts-piot",
-      "title": "ТС ПИоТ: что это, кому нужен и как подключить онлайн-кассу к «Честному знаку»",
-      "inboundCount": 2
-    },
-    {
-      "slug": "2026-05-03-strahovye-vznosy-msp-2026",
-      "title": "Страховые взносы МСП в 2026: пониженный тариф 15% только для 54 ОКВЭД",
-      "inboundCount": 2
+      "slug": "2026-05-01-chto-takoe-fn",
+      "title": "Фискальный накопитель: ФН-1.1М и ФН-1.2 — что выбрать в 2026",
+      "inboundCount": 7
     }
   ]
 }

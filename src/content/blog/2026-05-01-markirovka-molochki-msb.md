@@ -133,5 +133,5 @@ seo:
 
 Полезные материалы:
 - [Все категории маркировки в 2026 году](/blog/2026-02-10-kategorii-markirovki-2026/)
-- [Разрешительный режим «Честного знака»: как работает](/blog/razreshitelnyj-rezhim-markirovka/)
-- [Что такое ТС ПИоТ и зачем он нужен](/blog/chto-takoe-ts-piot/)
+- [Разрешительный режим «Честного знака»: как работает](/blog/2026-05-01-razreshitelnyj-rezhim-markirovka/)
+- [Что такое ТС ПИоТ и зачем он нужен](/blog/2026-01-15-chto-takoe-ts-piot/)
