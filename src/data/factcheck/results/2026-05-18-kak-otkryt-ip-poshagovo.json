@@ -1,0 +1,63 @@
+{
+  "slug": "2026-05-18-kak-otkryt-ip-poshagovo",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 9,
+    "checked": 9,
+    "match": 9,
+    "mismatch": 0,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "passed",
+    "criticalIssues": 0,
+    "note": "Все claims подтверждены. Госпошлина 0 ₽ при электронной подаче через ЛК ФНС/Госуслуги (ФЗ № 234-ФЗ от 29.07.2018, действует с 01.01.2019). Срок регистрации — 3 рабочих дня (ФЗ № 129-ФЗ от 08.08.2001). Уведомление о переходе на УСН — 30 дней с регистрации (п. 2 ст. 346.13 НК РФ). Ставки УСН 6% / 15% — без изменений. Постановка на учёт в СФР с 2017 года — после слияния ПФР и ФСС автоматическая, отдельных уведомлений работодатель не подаёт. Все ОКВЭД (47.19, 47.91, 62.01, 70.22, 85.41, 96.02) актуальны по ОК 029-2014."
+  },
+  "claims": [
+    {
+      "id": "c5",
+      "type": "MONEY",
+      "raw": "от 1 000 до 3 000 ₽ (услуги нотариуса)",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.85,
+      "expectedValue": "Услуги нотариуса при удостоверении заявления Р21001 и отправке — от 1 000 до 3 500 ₽ в зависимости от региона. Диапазон корректен.",
+      "applied": false,
+      "sources": ["https://www.nalog.gov.ru/rn77/related_activities/registration_ip_yl/registration_ip/"]
+    },
+    {
+      "id": "c6",
+      "type": "MONEY",
+      "raw": "госпошлина 0 ₽",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.99,
+      "expectedValue": "Согласно ст. 333.35 НК РФ (в ред. ФЗ № 234-ФЗ от 29.07.2018) с 01.01.2019 при подаче документов на регистрацию ИП в электронном виде через ЛК ФНС/Госуслуги/нотариуса/МФЦ госпошлина не уплачивается. Бумажная подача в ИФНС — 800 ₽.",
+      "applied": false,
+      "sources": ["https://www.nalog.gov.ru/rn77/related_activities/registration_ip_yl/registration_ip/"]
+    },
+    {
+      "id": "c7-c8",
+      "type": "PERCENT",
+      "raw": "УСН 6% и 15%",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.99,
+      "expectedValue": "Ст. 346.20 НК РФ — стандартные ставки 6% (Доходы) и 15% (Доходы минус расходы). Регионы могут снижать.",
+      "applied": false,
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_28165/"]
+    },
+    {
+      "id": "c4",
+      "type": "DATE_YEAR",
+      "raw": "СФР не требуется с 2017 года",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.95,
+      "expectedValue": "С 01.01.2017 ИП-работодатель регистрируется в ФСС/ПФР автоматически при подаче первой отчётности. С 01.01.2023 ПФР и ФСС объединены в СФР — отдельная регистрация работодателя не требуется.",
+      "applied": false,
+      "sources": ["https://sfr.gov.ru/"]
+    }
+  ]
+}

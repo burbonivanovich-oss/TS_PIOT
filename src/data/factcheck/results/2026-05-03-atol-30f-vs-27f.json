@@ -1,0 +1,46 @@
+{
+  "slug": "2026-05-03-atol-30f-vs-27f",
+  "checkedAt": "2026-05-19",
+  "overallStatus": "ok",
+  "summary": {
+    "match": 4,
+    "moderate": 0,
+    "critical": 0
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "claim": "приказ ФНС № ЕД-7-20/662@ от 14.09.2020",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "source": "npaWhitelist.prikaz.ЕД-7-20-662@"
+    },
+    {
+      "id": "c2",
+      "claim": "АТОЛ 27Ф дешевле АТОЛ 30Ф примерно на 3 000–5 000 рублей",
+      "status": "uncertain",
+      "severity": "minor",
+      "action": "keep",
+      "policy": "B (class B, ±20% допустимо)",
+      "note": "Рыночная цена, не нормативная. На atol.ru/реселлеров вилка 3-5K соответствует реальности на май 2026 в рамках допустимой погрешности."
+    },
+    {
+      "id": "c3",
+      "claim": "доплата за интерфейсный модуль Ethernet 2 000–3 000 рублей",
+      "status": "uncertain",
+      "severity": "minor",
+      "action": "keep",
+      "policy": "B (class B)",
+      "note": "Рыночная цена."
+    },
+    {
+      "id": "c4",
+      "claim": "Срок ФН 15/36 мес (ст. 4.1 54-ФЗ)",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    }
+  ],
+  "edits": []
+}
