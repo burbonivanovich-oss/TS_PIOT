@@ -99,6 +99,71 @@
       "type": "action"
     },
     {
+      "id": "flagship-ts-piot-request-online-explored",
+      "name": "Флагман ТС ПИоТ — Шаг 3: режим «связь есть»",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-request-offline-explored",
+      "name": "Флагман ТС ПИоТ — Шаг 3: режим «связи нет»",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-offline-short-explored",
+      "name": "Флагман ТС ПИоТ — оффлайн < 2 ч (локальная база)",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-offline-medium-explored",
+      "name": "Флагман ТС ПИоТ — оффлайн 2–72 ч (фиксация сбоя)",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-offline-long-explored",
+      "name": "Флагман ТС ПИоТ — оффлайн ~72 ч (база на исходе)",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-offline-expired-explored",
+      "name": "Флагман ТС ПИоТ — оффлайн > 72 ч (блокировка)",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-module-fn-explored",
+      "name": "Флагман ТС ПИоТ — модуль кассы: ФН",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-module-pos-explored",
+      "name": "Флагман ТС ПИоТ — модуль кассы: Кассовая программа",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-module-kkt-driver-explored",
+      "name": "Флагман ТС ПИоТ — модуль кассы: Драйвер ККТ",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-module-scanner-driver-explored",
+      "name": "Флагман ТС ПИоТ — модуль кассы: Драйвер сканера",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-module-ofd-explored",
+      "name": "Флагман ТС ПИоТ — модуль кассы: Модуль ОФД",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-module-tspot-explored",
+      "name": "Флагман ТС ПИоТ — модуль кассы: ТС ПИоТ",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-module-lm-explored",
+      "name": "Флагман ТС ПИоТ — модуль кассы: ЛМ ЧЗ",
+      "type": "action"
+    },
+    {
       "id": "flagship-ts-piot-error-branch-clicked",
       "name": "Флагман ТС ПИоТ — выбрал ошибочную ветку (Шаг 4)",
       "type": "action"

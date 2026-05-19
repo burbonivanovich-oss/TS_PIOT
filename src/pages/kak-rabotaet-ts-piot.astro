@@ -6,6 +6,8 @@ import DataMatrixDissector from '../components/interactive/DataMatrixDissector.t
 import FfdToggle from '../components/interactive/FfdToggle.tsx';
 import CmStatusToggle from '../components/interactive/CmStatusToggle.tsx';
 import ResponseBranch from '../components/interactive/ResponseBranch.tsx';
+import KkmDiagram from '../components/interactive/KkmDiagram.tsx';
+import RequestAnimation from '../components/interactive/RequestAnimation.tsx';
 import { u } from '../utils/url';
 
 const title = 'Как работает ТС ПИоТ: путь чека от кассы до Честного знака';
@@ -94,10 +96,7 @@ const description =
 						через токен X-API-KEY от ЦРПТ — но после этой даты токены отключают,
 						и без ТС ПИоТ маркированный товар продать невозможно.
 					</p>
-					<aside class="sim-placeholder">
-						<strong>Интерактив в работе:</strong> схема модулей с кликабельными
-						подсказками — закрывается компонентом <code>KkmDiagram</code> на этапе MVP.
-					</aside>
+					<KkmDiagram client:visible />
 				</section>
 
 				<section class="sim-step" data-step="3">
@@ -119,10 +118,7 @@ const description =
 						не восстановилась за это время, локальная проверка не проходит —
 						маркированный товар продать нельзя до восстановления связи.
 					</p>
-					<aside class="sim-placeholder">
-						<strong>Интерактив в работе:</strong> тогл «связь есть / связи нет» и
-						ползунок «сколько касса без интернета» — компонент <code>RequestAnimation</code>.
-					</aside>
+					<RequestAnimation client:visible />
 				</section>
 
 				<section class="sim-step" data-step="4">
