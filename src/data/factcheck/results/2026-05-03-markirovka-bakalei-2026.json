@@ -1,0 +1,138 @@
+{
+  "slug": "2026-05-03-markirovka-bakalei-2026",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 16,
+    "checked": 7,
+    "match": 3,
+    "mismatch": 4,
+    "incompleteContext": 0,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "applied-critical-fixes",
+    "criticalIssues": 4,
+    "note": "Системная ошибка по этапам маркировки бакалеи: статья утверждала, что «01.09.2026 — обязательная маркировка при производстве и ввозе», но фактически маркировка для производителей/импортёров действует с 01.05.2025 (снеки) и 01.07.2025 (соусы, специи, сухие супы, уксусы). 01.09.2026 — это рубеж для розницы (приёмка через ЭДО + вывод из оборота на кассах в объёмно-сортовом учёте). Дата «01.11.2026 — разрешительный режим на кассе» неверна — фактический срок 01.03.2027. Поэкземплярный учёт — с 01.12.2027. Постановление, регулирующее маркировку бакалеи, не было указано в исходной статье — добавлено: ПП РФ от 30.11.2024 № 1682. Ст. 15.12 КоАП без части — добавлена ч. 2; ИП объединены с должностными лицами."
+  },
+  "claims": [
+    {
+      "id": "c-pp-1682",
+      "type": "NPA_OTHER",
+      "raw": "Постановление Правительства РФ (без номера в исходной статье)",
+      "context": "Статья ссылалась на «постановление Правительства» без номера",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 1.0,
+      "expectedValue": "ПП РФ от 30.11.2024 № 1682 «Об утверждении Правил маркировки отдельных видов бакалейной и иной пищевой продукции...»",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_491968/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "В тексте указан ПП РФ от 30.11.2024 № 1682 со ссылкой на consultant.ru.",
+      "applied": true
+    },
+    {
+      "id": "c-date-01.09.2026-framing",
+      "type": "DATE_TEXT",
+      "raw": "1 сентября 2026 — обязательная маркировка при производстве и ввозе",
+      "context": "Таблица этапов и лид",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "Производители/импортёры обязаны маркировать снеки с 01.05.2025, соусы/специи/сухие супы/уксусы — с 01.07.2025. 01.09.2026 — рубеж для розницы (приёмка через ЭДО + вывод из оборота на кассах в объёмно-сортовом учёте).",
+      "explanation": "Политика A3: список этапов и адресаты норм — критический параметр.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_491968/",
+        "https://www.moysklad.ru/poleznoe/markirovka-tovarov/markirovka-bakalei/",
+        "https://kontur.ru/markirovka/spravka/53358-obyazatelnaya_markirovka_bakalei",
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/bakaleinaya-produkciya/sroki-i-etapy-markirovki-bakaleynoy-produktsii"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Таблица этапов полностью переписана: добавлены 01.03.2025, 01.05.2025, 01.07.2025, скорректирована формулировка для 01.09.2026.",
+      "applied": true
+    },
+    {
+      "id": "c-date-01.11.2026-rezhim",
+      "type": "DATE_TEXT",
+      "raw": "1 ноября 2026 — разрешительный режим на кассе",
+      "context": "Таблица этапов",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "Разрешительный режим (онлайн-проверка кода) для бакалеи — с 01.03.2027. Поэкземплярный учёт — с 01.12.2027.",
+      "explanation": "Политика A3.",
+      "sources": [
+        "https://kontur.ru/markirovka/spravka/53358-obyazatelnaya_markirovka_bakalei",
+        "https://www.moysklad.ru/poleznoe/markirovka-tovarov/markirovka-bakalei/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "«1 ноября 2026 — разрешительный режим» → «1 марта 2027 — разрешительный режим; 1 декабря 2027 — поэкземплярный учёт».",
+      "applied": true
+    },
+    {
+      "id": "c-npa-15.12-part",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ (без указания части)",
+      "context": "Раздел «Штрафы»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "ст. 15.12 ч. 2 КоАП РФ",
+      "explanation": "Политика A2.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Заменено на «ст. 15.12 ч. 2 КоАП РФ» со ссылкой на consultant.ru.",
+      "applied": true
+    },
+    {
+      "id": "c-fines-ip",
+      "type": "MONEY",
+      "raw": "должностные лица — 5 000–10 000 рублей",
+      "context": "Штрафы",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "5 000–10 000 ₽ — для должностных лиц И ИП (примечание к ст. 2.4 КоАП)",
+      "explanation": "Политика A1: субъекты обязательны.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "«должностные лица — 5 000–10 000 ₽» → «должностные лица и ИП — 5 000–10 000 ₽ с конфискацией». Добавлено «с конфискацией».",
+      "applied": true
+    },
+    {
+      "id": "c-fines-jur",
+      "type": "MONEY",
+      "raw": "организации — 50 000–300 000 рублей с конфискацией",
+      "context": "Штрафы",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1.0,
+      "expectedValue": "50 000–300 000 ₽ для организаций по ч. 2 ст. 15.12 КоАП"
+    },
+    {
+      "id": "c-ts-piot",
+      "type": "TECH",
+      "raw": "ТС ПИоТ — программный модуль для проверки кодов маркировки в реальном времени",
+      "context": "Что делать магазину",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1.0,
+      "expectedValue": "ТС ПИоТ обязателен с 01.07.2026"
+    }
+  ],
+  "recommendations": [
+    "Применено: добавлен ПП № 1682 от 30.11.2024 как основной НПА.",
+    "Применено: таблица этапов переписана — корректные даты для производителей/импортёров (01.05.2025, 01.07.2025) и розницы (01.09.2026, 01.03.2027, 01.12.2027).",
+    "Применено: лид переформулирован — 01.09.2026 теперь правильно описывает этап для розницы.",
+    "Применено: ст. 15.12 КоАП → ст. 15.12 ч. 2 КоАП; ИП объединены с должностными лицами; добавлена ссылка на consultant.ru.",
+    "Применено: чек-лист подготовки разделён на 01.09.2026 и 01.03.2027.",
+    "Применено: updatedDate=2026-05-19.",
+    "Перепроверить в августе 2026 — приближается дедлайн розницы."
+  ],
+  "nextReview": "2026-08-24"
+}
