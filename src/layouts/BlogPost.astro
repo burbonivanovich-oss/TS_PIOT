@@ -20,6 +20,7 @@ type Props = CollectionEntry<'blog'>['data'] & {
 	slug?: string;
 	headings?: MarkdownHeading[];
 	readingTime?: number;
+	wordCount?: number;
 };
 
 const {
@@ -36,6 +37,7 @@ const {
 	slug: currentSlug,
 	headings = [],
 	readingTime,
+	wordCount,
 } = Astro.props;
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);

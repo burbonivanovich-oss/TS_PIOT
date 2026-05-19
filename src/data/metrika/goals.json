@@ -1,0 +1,135 @@
+{
+  "$comment": "Декларативный список целей Яндекс.Метрики. Синхронизируется со счётчиком через scripts/metrika/sync-goals.mjs. Не редактируйте id целей после создания — это поле, которое отправляется в reachGoal из src/utils/track.ts. Менять name можно свободно — sync-скрипт обновит человеко-читаемое имя в UI Метрики.",
+  "counterId": 109130279,
+  "goals": [
+    {
+      "id": "flagship-ts-piot-step-0-reached",
+      "name": "Флагман ТС ПИоТ — Шаг 0 (открыл страницу)",
+      "type": "action",
+      "comment": "Воронка флагмана-симулятора, точка входа"
+    },
+    {
+      "id": "flagship-ts-piot-step-1-reached",
+      "name": "Флагман ТС ПИоТ — Шаг 1 (DataMatrix)",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-step-2-reached",
+      "name": "Флагман ТС ПИоТ — Шаг 2 (модули кассы)",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-step-3-reached",
+      "name": "Флагман ТС ПИоТ — Шаг 3 (запрос в ЧЗ)",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-step-4-reached",
+      "name": "Флагман ТС ПИоТ — Шаг 4 (ответ от ЧЗ)",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-step-5-reached",
+      "name": "Флагман ТС ПИоТ — Шаг 5 (тег 1163/2106)",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-step-6-reached",
+      "name": "Флагман ТС ПИоТ — Шаг 6 (ОФД)",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-step-7-reached",
+      "name": "Флагман ТС ПИоТ — Шаг 7 (статус в ЧЗ)",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-completed",
+      "name": "Флагман ТС ПИоТ — дочитал до конца",
+      "type": "action",
+      "comment": "Главная конверсионная цель флагмана"
+    },
+    {
+      "id": "flagship-ts-piot-dm-gtin-explored",
+      "name": "Флагман ТС ПИоТ — DataMatrix: изучил GTIN",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-dm-serial-explored",
+      "name": "Флагман ТС ПИоТ — DataMatrix: изучил серийник",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-dm-gs-explored",
+      "name": "Флагман ТС ПИоТ — DataMatrix: изучил GS-разделитель",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-dm-crypto-explored",
+      "name": "Флагман ТС ПИоТ — DataMatrix: изучил криптохвост",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-offline-toggle",
+      "name": "Флагман ТС ПИоТ — переключил тогл «связь/нет»",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-error-branch-clicked",
+      "name": "Флагман ТС ПИоТ — выбрал ошибочную ветку (Шаг 4)",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-ffd-toggle",
+      "name": "Флагман ТС ПИоТ — переключил тогл «до/после 01.07.2026»",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-status-emitted-explored",
+      "name": "Флагман ТС ПИоТ — статус: Эмитирован",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-status-applied-explored",
+      "name": "Флагман ТС ПИоТ — статус: Нанесён",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-status-in_orb-explored",
+      "name": "Флагман ТС ПИоТ — статус: В обороте",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-status-withdrawn-explored",
+      "name": "Флагман ТС ПИоТ — статус: Выведен из оборота",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-status-blocked-explored",
+      "name": "Флагман ТС ПИоТ — статус: Заблокирован",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-replay",
+      "name": "Флагман ТС ПИоТ — нажал «пройти ещё раз с ошибкой»",
+      "type": "action"
+    },
+    {
+      "id": "calc-usn-nds-used",
+      "name": "Калькулятор НДС/УСН — выполнен расчёт",
+      "type": "action",
+      "comment": "Статья nalogi-msb-2026, вторичный артефакт Спринта A"
+    },
+    {
+      "id": "calc-shtraf-markirovka-used",
+      "name": "Калькулятор штрафа за маркировку — выполнен расчёт",
+      "type": "action",
+      "comment": "Статья shtraf-za-markirovku, вторичный артефакт Спринта A"
+    },
+    {
+      "id": "zakon-2026-filter-used",
+      "name": "Трекер /zakon-2026/ — взаимодействие с фильтром",
+      "type": "action"
+    }
+  ]
+}

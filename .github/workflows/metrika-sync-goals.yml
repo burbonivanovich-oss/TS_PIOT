@@ -1,0 +1,39 @@
+name: Metrika — Sync Goals
+
+# Синхронизация целей в счётчике Яндекс.Метрики со списком в
+# src/data/metrika/goals.json через Management API.
+# Скрипт: scripts/metrika/sync-goals.mjs
+# Идемпотентно, безопасно: создаёт недостающие, обновляет имена,
+# не удаляет orphan-цели (только предупреждает).
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'DRY_RUN (1 = только показать план, не записывать)'
+        required: false
+        default: '1'
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/data/metrika/goals.json'
+      - 'scripts/metrika/sync-goals.mjs'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      DRY_RUN: ${{ inputs.dry_run || '0' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Sync goals
+        env:
+          METRIKA_OAUTH_TOKEN: ${{ secrets.METRIKA_OAUTH_TOKEN }}
+        run: node scripts/metrika/sync-goals.mjs
