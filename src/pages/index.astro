@@ -105,14 +105,11 @@ const CAT_COLOR: Record<string, string> = {
 							const cat = post.data.categories?.[0];
 							const catTitle = cat ? (CATEGORIES[cat as keyof typeof CATEGORIES]?.title ?? cat) : 'Статья';
 							const accentColor = cat ? (CAT_COLOR[cat] ?? '#111') : '#111';
-							const img = post.data.previewImage ?? post.data.heroImage ?? null;
+							const img = post.data.previewImage ?? post.data.heroImage ?? `/og/${post.id}.png`;
 							return (
 								<a href={u(`/blog/${post.id}/`)} class={`post-card${i === 0 ? ' post-card--featured' : ''}`}>
 									<div class="post-card-img" style={`--accent:${accentColor}`}>
-										{img
-											? <img src={u(img)} alt={post.data.title} loading={i === 0 ? 'eager' : 'lazy'} />
-											: <span class="post-card-placeholder" style={`background:${accentColor}`}></span>
-										}
+										<img src={u(img)} alt={post.data.title} loading={i === 0 ? 'eager' : 'lazy'} />
 									</div>
 									<div class="post-card-body">
 										<span class="post-card-cat" style={`background:${accentColor};color:#fff`}>{catTitle}</span>

@@ -142,14 +142,11 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 					{/* Featured card — first post */}
 					{posts[0] && (() => {
 						const post = posts[0];
-						const img = post.data.previewImage ?? post.data.heroImage ?? null;
+						const img = post.data.previewImage ?? post.data.heroImage ?? `/og/${post.id}.png`;
 						return (
 							<a href={u(`/blog/${post.id}/`)} class="post-card post-card--featured">
 								<div class="post-card-img" style={`--accent:${accentColor}`}>
-									{img
-										? <img src={u(img)} alt={post.data.title} loading="eager" />
-										: <span class="post-card-placeholder" style={`background:${accentColor}`}></span>
-									}
+									<img src={u(img)} alt={post.data.title} loading="eager" />
 								</div>
 								<div class="post-card-body">
 									<span class="post-card-cat" style={`background:${accentColor};color:#fff`}>{meta.title}</span>
@@ -167,14 +164,11 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 					{posts.length > 1 && (
 						<div class="posts-grid">
 							{posts.slice(1).map((post) => {
-								const img = post.data.previewImage ?? post.data.heroImage ?? null;
+								const img = post.data.previewImage ?? post.data.heroImage ?? `/og/${post.id}.png`;
 								return (
 									<a href={u(`/blog/${post.id}/`)} class="post-card">
 										<div class="post-card-img" style={`--accent:${accentColor}`}>
-											{img
-												? <img src={u(img)} alt={post.data.title} loading="lazy" />
-												: <span class="post-card-placeholder" style={`background:${accentColor}`}></span>
-											}
+											<img src={u(img)} alt={post.data.title} loading="lazy" />
 										</div>
 										<div class="post-card-body">
 											<span class="post-card-cat" style={`background:${accentColor};color:#fff`}>{meta.title}</span>
