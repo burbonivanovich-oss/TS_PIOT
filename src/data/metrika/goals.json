@@ -1,7 +1,31 @@
 {
-  "$comment": "Декларативный список целей Яндекс.Метрики. Синхронизируется со счётчиком через scripts/metrika/sync-goals.mjs. Не редактируйте id целей после создания — это поле, которое отправляется в reachGoal из src/utils/track.ts. Менять name можно свободно — sync-скрипт обновит человеко-читаемое имя в UI Метрики.",
+  "$comment": "Декларативный список целей Яндекс.Метрики. Синхронизируется со счётчиком через scripts/metrika/sync-goals.mjs. Поддерживаемые типы: action (JavaScript-событие, шлётся через reachGoal в src/utils/track.ts), number (количество просмотров за визит), time (время на сайте в секундах). Не редактируйте id целей после создания — sync-скрипт идентифицирует цели по комбинации type/operator/value (для number/time) или по id (для action). Менять name можно свободно.",
   "counterId": 109130279,
   "goals": [
+    {
+      "id": "engagement-depth-3",
+      "name": "Качество визита — посмотрел 3+ страниц",
+      "type": "number",
+      "operator": "gt",
+      "value": "2",
+      "comment": "gt 2 = более 2-х = 3 и больше страниц"
+    },
+    {
+      "id": "engagement-time-2min",
+      "name": "Качество визита — провёл 2+ минут на сайте",
+      "type": "time",
+      "operator": "gt",
+      "value": "119",
+      "comment": "gt 119 = более 119 секунд = от 2 минут"
+    },
+    {
+      "id": "engagement-time-5min",
+      "name": "Качество визита — провёл 5+ минут на сайте",
+      "type": "time",
+      "operator": "gt",
+      "value": "299",
+      "comment": "Глубокий интерес — 5+ минут чтения"
+    },
     {
       "id": "flagship-ts-piot-step-0-reached",
       "name": "Флагман ТС ПИоТ — Шаг 0 (открыл страницу)",

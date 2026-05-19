@@ -55,23 +55,55 @@ async function api(path, { method = 'GET', body } = {}) {
   return text ? JSON.parse(text) : null;
 }
 
-// Action-цель в Metrika API:
-//   { name, type: "action", conditions: [{ type: "exact", url: "<id из reachGoal>" }] }
-function asActionPayload(g) {
-  return {
-    goal: {
-      name: g.name,
-      type: 'action',
-      conditions: [{ type: 'exact', url: g.id }],
-    },
-  };
+// Payload для разных типов целей:
+//   action: JavaScript-событие через reachGoal.
+//           conditions[0]: { type: 'exact', url: <id> }
+//   number: количество просмотров за визит.
+//           conditions[0]: { type: <operator>, url: <число> }
+//   time:   время на сайте, в секундах.
+//           conditions[0]: { type: <operator>, url: <секунды> }
+function buildPayload(g) {
+  if (g.type === 'action') {
+    return {
+      goal: {
+        name: g.name,
+        type: 'action',
+        conditions: [{ type: 'exact', url: g.id }],
+      },
+    };
+  }
+  if (g.type === 'number' || g.type === 'time') {
+    if (!g.operator || !g.value) {
+      throw new Error(`Цель ${g.id} типа ${g.type} требует operator и value`);
+    }
+    return {
+      goal: {
+        name: g.name,
+        type: g.type,
+        conditions: [{ type: g.operator, url: String(g.value) }],
+      },
+    };
+  }
+  throw new Error(`Неподдерживаемый тип цели: ${g.type} (id=${g.id})`);
 }
 
-function extractIdFromRemote(remote) {
-  // У action-целей идентификатор хранится в conditions[0].url
-  if (remote.type !== 'action') return null;
-  const cond = (remote.conditions || [])[0];
-  return cond?.url ?? null;
+// Ключ идентификации, по которому сравниваем декларацию и существующее.
+// Для action — стабильный id из reachGoal.
+// Для number/time — комбинация type+operator+value (это уникально для цели,
+// и id в Метрике мы при этом сохраняем для PUT при изменении name).
+function declaredKey(g) {
+  if (g.type === 'action') return `action:${g.id}`;
+  return `${g.type}:${g.operator}:${g.value}`;
+}
+
+function remoteKey(r) {
+  const cond = (r.conditions || [])[0];
+  if (!cond) return null;
+  if (r.type === 'action') return `action:${cond.url}`;
+  if (r.type === 'number' || r.type === 'time') {
+    return `${r.type}:${cond.type}:${cond.url}`;
+  }
+  return null;
 }
 
 console.log(`Счётчик: ${counterId}`);
@@ -79,20 +111,25 @@ console.log(`Целей в конфиге: ${declared.length}`);
 console.log(`Режим: ${DRY_RUN ? 'DRY_RUN (без записи)' : 'боевой'}\n`);
 
 // ─── Чтение существующих ──────────────────────────────────────────────────────
+// GET безопасен — делаем его и в DRY_RUN тоже, чтобы план был точным.
+// Без токена пропускаем (например, локальный прогон для проверки парсинга
+// goals.json), но честно предупреждаем, что план неполный.
 let remote = [];
-if (!DRY_RUN) {
+if (TOKEN) {
   const resp = await api(`/counter/${counterId}/goals`);
   remote = resp?.goals || [];
   console.log(`Существующих целей на счётчике: ${remote.length}\n`);
+} else {
+  console.log('Без METRIKA_OAUTH_TOKEN пропускаю чтение счётчика — план будет показывать «создать всё».\n');
 }
 
-const remoteByActionId = new Map();
+const remoteByKey = new Map();
 for (const r of remote) {
-  const id = extractIdFromRemote(r);
-  if (id) remoteByActionId.set(id, r);
+  const key = remoteKey(r);
+  if (key) remoteByKey.set(key, r);
 }
 
-const declaredIds = new Set(declared.map(g => g.id));
+const declaredKeys = new Set(declared.map(declaredKey));
 
 // ─── План ─────────────────────────────────────────────────────────────────────
 const toCreate = [];
@@ -100,7 +137,8 @@ const toUpdate = [];
 const orphans = [];
 
 for (const g of declared) {
-  const existing = remoteByActionId.get(g.id);
+  const key = declaredKey(g);
+  const existing = remoteByKey.get(key);
   if (!existing) {
     toCreate.push(g);
     continue;
@@ -111,9 +149,9 @@ for (const g of declared) {
 }
 
 for (const r of remote) {
-  const id = extractIdFromRemote(r);
-  if (!id) continue;
-  if (!declaredIds.has(id)) orphans.push({ id, name: r.name, remoteId: r.id });
+  const key = remoteKey(r);
+  if (!key) continue;
+  if (!declaredKeys.has(key)) orphans.push({ key, name: r.name, remoteId: r.id, type: r.type });
 }
 
 console.log(`План:`);
@@ -124,19 +162,19 @@ console.log(`  ORPHAN (есть на счётчике, нет в конфиге)
 
 if (toCreate.length) {
   console.log('Создать:');
-  for (const g of toCreate) console.log(`  + ${g.id} → "${g.name}"`);
+  for (const g of toCreate) console.log(`  + [${g.type}] ${g.id} → "${g.name}"`);
   console.log('');
 }
 if (toUpdate.length) {
   console.log('Обновить (изменилось имя):');
   for (const { remote, declared } of toUpdate) {
-    console.log(`  ~ ${declared.id}: "${remote.name}" → "${declared.name}" (remoteId=${remote.id})`);
+    console.log(`  ~ [${declared.type}] ${declared.id}: "${remote.name}" → "${declared.name}" (remoteId=${remote.id})`);
   }
   console.log('');
 }
 if (orphans.length) {
   console.log('ORPHAN (не трогаем — решение за человеком):');
-  for (const o of orphans) console.log(`  ? remoteId=${o.remoteId} "${o.name}"`);
+  for (const o of orphans) console.log(`  ? [${o.type}] remoteId=${o.remoteId} "${o.name}"`);
   console.log('');
 }
 
@@ -152,9 +190,9 @@ for (const g of toCreate) {
   try {
     const resp = await api(`/counter/${counterId}/goals`, {
       method: 'POST',
-      body: asActionPayload(g),
+      body: buildPayload(g),
     });
-    console.log(`OK создал: ${g.id} (remoteId=${resp?.goal?.id ?? '?'})`);
+    console.log(`OK создал: [${g.type}] ${g.id} (remoteId=${resp?.goal?.id ?? '?'})`);
     created++;
   } catch (err) {
     console.error(`FAIL создание ${g.id}: ${err.message}`);
@@ -166,9 +204,9 @@ for (const { remote, declared } of toUpdate) {
   try {
     await api(`/counter/${counterId}/goal/${remote.id}`, {
       method: 'PUT',
-      body: asActionPayload(declared),
+      body: buildPayload(declared),
     });
-    console.log(`OK обновил: ${declared.id} (remoteId=${remote.id})`);
+    console.log(`OK обновил: [${declared.type}] ${declared.id} (remoteId=${remote.id})`);
     updated++;
   } catch (err) {
     console.error(`FAIL обновление ${declared.id}: ${err.message}`);
