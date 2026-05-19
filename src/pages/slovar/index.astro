@@ -102,7 +102,12 @@ import { u } from '../../utils/url';
 				</nav>
 			)}
 
-			<div class="terms" data-pagefind-body>
+			<div
+				class="terms"
+				data-pagefind-body
+				data-pagefind-meta="type:glossary"
+				data-pagefind-filter="type:Словарь"
+			>
 				{Array.from(grouped.entries()).map(([letter, items]) => (
 					<section class="letter-section" aria-labelledby={`letter-${letter}`}>
 						<h2 class="letter-head" id={`letter-${letter}`}>{letter}</h2>

@@ -30,6 +30,7 @@ const pillar = await getEntry('pillars', slug);
 const pillarTitle = pillar?.data?.title ?? meta.fullTitle;
 const pillarSummary = pillar?.data?.summary ?? meta.description;
 const faq = pillar?.data?.faq ?? [];
+const { Content: PillarContent } = pillar ? await pillar.render() : { Content: null };
 
 const CAT_COLOR: Record<string, string> = {
 	'ts-piot':         '#111',
@@ -119,6 +120,17 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 				<h1 class="page-title">{pillarTitle}</h1>
 				<p class="page-lead">{pillarSummary}</p>
 			</header>
+
+			{PillarContent && (
+				<section
+					class="pillar-body prose"
+					data-pagefind-body
+					data-pagefind-meta={`type:pillar,category:${meta.title}`}
+					data-pagefind-filter={`type:Раздел,category:${meta.title}`}
+				>
+					<PillarContent />
+				</section>
+			)}
 
 			{posts.length === 0 ? (
 				<p class="empty">
@@ -231,6 +243,39 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 				color: #555;
 				line-height: 1.65;
 				margin: 0;
+			}
+
+			.pillar-body {
+				max-width: 760px;
+				margin: 2.5rem auto;
+				padding: 0 1rem;
+				font-size: 1.05rem;
+				line-height: 1.7;
+				color: #222;
+			}
+			.pillar-body :global(h2) {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 1.6rem;
+				letter-spacing: .03em;
+				margin: 2rem 0 1rem;
+			}
+			.pillar-body :global(h3) {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 1.25rem;
+				letter-spacing: .03em;
+				margin: 1.5rem 0 .8rem;
+			}
+			.pillar-body :global(a) {
+				color: #9E2B4F;
+				text-decoration: underline;
+				text-underline-offset: 2px;
+			}
+			.pillar-body :global(ul) {
+				padding-left: 1.4rem;
+				margin: 1rem 0;
+			}
+			.pillar-body :global(li) {
+				margin-bottom: .5rem;
 			}
 
 			.empty {
