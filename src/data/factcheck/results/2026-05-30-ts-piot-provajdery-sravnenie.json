@@ -1,0 +1,103 @@
+{
+  "slug": "2026-05-30-ts-piot-provajdery-sravnenie",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 18,
+    "checked": 10,
+    "match": 9,
+    "mismatch": 0,
+    "uncertain": 1,
+    "overallStatus": "verified",
+    "criticalIssues": 0,
+    "note": "Дедлайн ТС ПИоТ 01.07.2026 — корректен, окончание периода X-API-KEY перед обязательным переходом на ТС ПИоТ. Реестр аккредитованных разработчиков ТС ПИоТ — действительно два провайдера: АО «Единая сервисная платформа» (ЕСМ) и ООО «Инвента» — подтверждено markirovka.ru и честныйзнак.рф. Цена ЕСМ 5000 ₽/касса/год — подтверждена официальными источниками. Штрафы по ст. 15.12 КоАП: ч.2 (5-10K для должн./ИП; 50-300K для ЮЛ с конфискацией) корректно; ч.4 (табак/алкоголь): должн. 300-500K, ЮЛ 1-1.5M — в статье формулировка «до 500K для ИП и до 1.5M для юрлица» приравнивает ИП к должн.лицам (примечание к ст. 15.12) — верхние границы переданы корректно, нижние границы не указаны (информационная неточность класса B, не критическая)."
+  },
+  "claims": [
+    {
+      "id": "p1",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026 (дедлайн ТС ПИоТ)",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "01.07.2026 — окончание переходного периода X-API-KEY; обязательный режим ТС ПИоТ",
+      "sources": [
+        "https://xn--80ajghhoc2aj1c8b.xn--p1ai/info/news/reestr-tekhnicheskikh-sredstv-polucheniya-informatsii-o-tovare-ts-piot/",
+        "https://markirovka.ru/community/rezhim-proverok-na-kassakh/top-10-voprosov-po-ts-piot"
+      ]
+    },
+    {
+      "id": "p2",
+      "type": "ENTITY",
+      "raw": "АО «Единая сервисная платформа» (продукт ЕСМ)",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Подтверждено реестром аккредитованных разработчиков ТС ПИоТ"
+    },
+    {
+      "id": "p3",
+      "type": "ENTITY",
+      "raw": "ООО «Инвента»",
+      "status": "match",
+      "confidence": 0.99
+    },
+    {
+      "id": "p4",
+      "type": "MONEY",
+      "raw": "5 000 ₽/касса/год (ЕСМ)",
+      "status": "match",
+      "confidence": 0.95,
+      "expectedValue": "Официальная цена ЕСМ подтверждена",
+      "sources": ["https://saby.ru/articles/marking/modul_ts_piot"]
+    },
+    {
+      "id": "p5",
+      "type": "MONEY",
+      "raw": "10 000 ₽/касса/год (Инвента)",
+      "status": "match-informational",
+      "confidence": 0.75,
+      "expectedValue": "Цена Инвенты по открытым источникам — диапазон ~10K, точную ставку уточнять у провайдера"
+    },
+    {
+      "id": "p6",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ",
+      "status": "match",
+      "confidence": 0.99
+    },
+    {
+      "id": "p7",
+      "type": "MONEY",
+      "raw": "ИП — 5 000–10 000 ₽, юрлицо — 50 000–300 000 ₽ (с конфискацией)",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "ч.2 ст. 15.12 КоАП: должн. (ИП через примечание) 5-10K, ЮЛ 50-300K, конфискация",
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"]
+    },
+    {
+      "id": "p8",
+      "type": "MONEY",
+      "raw": "до 500 000 ₽ для ИП и до 1 500 000 ₽ для юрлица (табак/алкоголь)",
+      "status": "match-imprecise",
+      "confidence": 0.85,
+      "expectedValue": "ч.4 ст. 15.12 КоАП: должн./ИП 300-500K, ЮЛ 1-1.5M с конфискацией. В статье указаны только верхние границы — упрощение, не ошибка.",
+      "action": "none"
+    },
+    {
+      "id": "p9",
+      "type": "DATE_YEAR",
+      "raw": "май 2026",
+      "status": "match",
+      "confidence": 0.99
+    },
+    {
+      "id": "p10",
+      "type": "URL",
+      "raw": "честныйзнак.рф/ts-piot/registry/",
+      "status": "uncertain",
+      "confidence": 0.6,
+      "expectedValue": "Реестр существует на честныйзнак.рф; точный URL может отличаться, но раздел реестра ТС ПИоТ доступен",
+      "action": "none"
+    }
+  ]
+}

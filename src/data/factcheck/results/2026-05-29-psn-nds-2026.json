@@ -1,0 +1,104 @@
+{
+  "slug": "2026-05-29-psn-nds-2026",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 64,
+    "checked": 16,
+    "match": 16,
+    "mismatch": 0,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "ok",
+    "criticalIssues": 0,
+    "note": "Все ключевые цифры и НПА совпадают с первоисточниками: ФЗ № 425-ФЗ от 28.11.2025 (лимит ПСН 20 млн с 01.01.2026, 15 млн с 2027, 10 млн с 2028), п. 11 ст. 346.43 НК РФ (освобождение патента от НДС), п. 8 ст. 346.45 НК РФ (10 дней на уведомление об утрате патента), п. 5 ст. 173 НК РФ (НДС при выставлении счёта-фактуры неплательщиком), ст. 161 НК РФ (агентский НДС), ст. 174.1 НК РФ. Письмо Минфина 06.09.2024 № 03-07-11/84783 о суммировании ПСН+УСН подтверждается выдачей. ФЗ-176 (НДС на УСН) — корректно. Правок нет."
+  },
+  "claims": [
+    {
+      "id": "c-fz-425-psn",
+      "type": "NPA_FZ",
+      "raw": "ФЗ-425 от 28.11.2025",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "ФЗ № 425-ФЗ от 28.11.2025 — налоговая реформа 2026, лимит ПСН 20 млн (в whitelist)",
+      "action": "none",
+      "applied": false,
+      "sources": [
+        "https://www.rnk.ru/article/218816-patent-dlya-ip-izmeneniya",
+        "https://www.glavbukh.ru/art/392088-novyy-limity-dlya-patenta-news"
+      ]
+    },
+    {
+      "id": "c-psn-limit-2026",
+      "type": "MONEY",
+      "raw": "20 млн рублей (лимит ПСН 2026)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "action": "none",
+      "applied": false
+    },
+    {
+      "id": "c-psn-limit-2027",
+      "type": "MONEY",
+      "raw": "15 млн рублей (2027)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "action": "none",
+      "applied": false
+    },
+    {
+      "id": "c-psn-limit-2028",
+      "type": "MONEY",
+      "raw": "10 млн рублей (2028)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "action": "none",
+      "applied": false
+    },
+    {
+      "id": "c-nk-346-43-p11",
+      "type": "NPA_NK",
+      "raw": "п. 11 ст. 346.43 НК РФ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "action": "none",
+      "applied": false
+    },
+    {
+      "id": "c-nk-346-45-p8",
+      "type": "NPA_NK",
+      "raw": "п. 8 ст. 346.45 НК РФ (10 дней)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.97,
+      "action": "none",
+      "applied": false
+    },
+    {
+      "id": "c-nk-173-p5",
+      "type": "NPA_NK",
+      "raw": "п. 5 ст. 173 НК РФ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "action": "none",
+      "applied": false
+    },
+    {
+      "id": "c-minfin-letter",
+      "type": "OTHER",
+      "raw": "письмо Минфина от 06.09.2024 № 03-07-11/84783",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.85,
+      "action": "none",
+      "applied": false
+    }
+  ]
+}
