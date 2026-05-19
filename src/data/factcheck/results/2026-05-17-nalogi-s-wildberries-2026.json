@@ -1,0 +1,108 @@
+{
+  "slug": "2026-05-17-nalogi-s-wildberries-2026",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 31,
+    "checked": 6,
+    "match": 2,
+    "mismatch": 4,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "critical-fixes-applied",
+    "criticalIssues": 4,
+    "note": "Статья описывала режим НДС на УСН по нормам 2025 года (порог 60 млн ₽, ставка 20%, лимиты 250/450 млн). С 01.01.2026 (ФЗ № 425-ФЗ от 28.11.2025) порог освобождения снижен до 20 млн ₽, базовая ставка НДС повышена с 20% до 22%, лимиты для пониженных ставок индексируются на коэффициент-дефлятор 1,090 (Приказ Минэкономразвития РФ от 06.11.2025 № 734) → 272,5 и 490,5 млн ₽. Все четыре расхождения исправлены точечно в разделе «НДС», таблице отчётности и итоге. updatedDate=2026-05-19."
+  },
+  "claims": [
+    {
+      "id": "c-nds-threshold-60m",
+      "type": "MONEY",
+      "raw": "Если годовой доход превысит 60 млн ₽, вы автоматически становитесь плательщиком НДС",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "С 01.01.2026 порог снижен до 20 млн ₽ за предыдущий календарный год (ст. 145 НК РФ в редакции ФЗ № 425-ФЗ от 28.11.2025). Далее поэтапно: 15 млн за 2026 → освобождение в 2027, 10 млн за 2027 → в 2028.",
+      "action": "rewrite-section",
+      "actionDetail": "Заголовок раздела заменён на «НДС с 2026 года». Порог 60 млн → 20 млн с прямой ссылкой на ФЗ № 425-ФЗ. Добавлен disclaimer о поэтапном снижении и об отсутствии индексации этого порога.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/legalnews/30257/",
+        "https://www.kontur-extern.ru/info/81877-usn_i_nds"
+      ]
+    },
+    {
+      "id": "c-nds-rate-20",
+      "type": "PERCENT",
+      "raw": "стандартные ставки 10%/20%",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "С 01.01.2026 базовая ставка НДС повышена с 20% до 22% (ФЗ № 425-ФЗ от 28.11.2025). Корректно: 10%/22%.",
+      "action": "rewrite",
+      "actionDetail": "Все упоминания 20% заменены на 22% в разделе НДС и в итоге.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/legalnews/30257/"
+      ]
+    },
+    {
+      "id": "c-nds-bracket-250",
+      "type": "MONEY",
+      "raw": "60–250 млн ₽ — НДС 5%",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "На 2026 год: 20–272,5 млн ₽ (250 × 1,090 коэффициент-дефлятор, Приказ Минэкономразвития РФ от 06.11.2025 № 734).",
+      "action": "rewrite",
+      "actionDetail": "Диапазон 60–250 млн заменён на 20–272,5 млн с пояснением про коэффициент-дефлятор.",
+      "applied": true,
+      "sources": [
+        "https://glavkniga.ru/elver/2026/1/8112",
+        "https://audit-reshenie.ru/journal/usn-eshn/koefficienty-deflyatory-2026-limity-usn-psn-torgovyj-sbor/"
+      ]
+    },
+    {
+      "id": "c-nds-bracket-450",
+      "type": "MONEY",
+      "raw": "250–450 млн ₽ — НДС 7%",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "На 2026 год: 272,5–490,5 млн ₽ (450 × 1,090).",
+      "action": "rewrite",
+      "actionDetail": "Диапазон 250–450 млн заменён на 272,5–490,5 млн.",
+      "applied": true,
+      "sources": [
+        "https://audit-reshenie.ru/journal/usn-eshn/koefficienty-deflyatory-2026-limity-usn-psn-torgovyj-sbor/"
+      ]
+    },
+    {
+      "id": "c-npd-limit",
+      "type": "MONEY",
+      "raw": "Лимит дохода по НПД — 2,4 млн ₽ в год",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "ФЗ № 422-ФЗ — лимит НПД 2,4 млн ₽ в год, не индексируется.",
+      "applied": true
+    },
+    {
+      "id": "c-st-346.16",
+      "type": "NPA",
+      "raw": "ст. 346.16 НК РФ — перечень расходов на УСН",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "applied": true
+    }
+  ],
+  "recommendations": [
+    "Применено: раздел «НДС» переписан под нормы 2026 года — порог 20 млн ₽, ставка 22%, лимиты 272,5/490,5 млн.",
+    "Применено: таблица отчётности обновлена (порог НДС-декларации).",
+    "Применено: итоговый абзац обновлён.",
+    "Применено: updatedDate=2026-05-19.",
+    "Перепроверить в августе 2026 после публикации первой квартальной декларации НДС на УСН и разъяснений ФНС."
+  ],
+  "nextReview": "2026-08-15"
+}

@@ -1,0 +1,157 @@
+{
+  "slug": "2026-05-01-ofd-dlya-ts-piot",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 44,
+    "checked": 14,
+    "match": 14,
+    "mismatch": 0,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "good",
+    "criticalIssues": 0,
+    "note": "Статья проверена: даты (01.07.2026 — конец переходного периода, 28.12.2025 — формальное вступление в силу нормы о ТС ПИоТ, 21.11.2023 — ПП № 1944), нормативные основания (ст. 4.5, 4.6, 3.1 54-ФЗ), штрафные вилки по ч. 2/3/4 ст. 14.5 КоАП РФ, обязательность ФФД 1.2, реестр ОФД на nalog.gov.ru — всё корректно. Корректно разведены ТС ПИоТ (модуль на кассе/сервере) и ОФД (канал передачи в ФНС и ГИС МТ). Срок 13 месяцев для ФН Контур.ОФД — допустим, ФН на 13 мес есть в реестре."
+  },
+  "claims": [
+    {
+      "id": "c-date-01-07-2026",
+      "type": "DATE_TEXT",
+      "raw": "1 июля 2026 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "01.07.2026 — конец переходного периода по ПП РФ № 1944, после этого ТС ПИоТ обязателен без X-API-KEY"
+    },
+    {
+      "id": "c-date-28-12-2025",
+      "type": "DATE_DMY",
+      "raw": "28.12.2025",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "28.12.2025 — формальная дата вступления в силу требований ПП № 1944 о ТС ПИоТ"
+    },
+    {
+      "id": "c-npa-1944",
+      "type": "NPA",
+      "raw": "постановление Правительства РФ от 21.11.2023 № 1944",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "ПП РФ № 1944 от 21.11.2023 — основная норма о ТС ПИоТ и разрешительном режиме",
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_462894/"]
+    },
+    {
+      "id": "c-fz-54",
+      "type": "NPA_FZ_FULL",
+      "raw": "Федеральный закон от 22.05.2003 № 54-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "54-ФЗ «О применении ККТ» — действует, актуальная редакция от 24.06.2025"
+    },
+    {
+      "id": "c-st-4-5",
+      "type": "NPA_REF",
+      "raw": "ст. 4.5 54-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Ст. 4.5 — обязанности ОФД: реальный режим времени, передача в ФНС, хранение 5 лет, конфиденциальность",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_42359/75dae8854d505373959b0667d20bb89a5e9199ae/",
+        "https://base.garant.ru/12130951/67a7f09b5657910aecdf5b4533161aad/"
+      ]
+    },
+    {
+      "id": "c-fines-14.5-ch2",
+      "type": "TABLE",
+      "raw": "ч. 2 ст. 14.5 КоАП: ИП 1/4–1/2 расчёта, не менее 10 000 ₽; юрлица 3/4–1, не менее 30 000 ₽",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "ч. 2 ст. 14.5 КоАП РФ — точная вилка",
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_34661/3824bbacc6e85f19f12895b0ee20f3bbae92f439/"]
+    },
+    {
+      "id": "c-fines-14.5-ch3",
+      "type": "TABLE",
+      "raw": "ч. 3 ст. 14.5 КоАП: дисквалификация ИП 1–2 года, приостановление деятельности юрлица до 90 суток (при ≥ 1 млн ₽)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Повторное нарушение при сумме ≥ 1 млн ₽"
+    },
+    {
+      "id": "c-fines-14.5-ch4",
+      "type": "TABLE",
+      "raw": "ч. 4 ст. 14.5 КоАП: ИП 1 500–3 000 ₽, юрлица 5 000–10 000 ₽",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "ч. 4 ст. 14.5 КоАП РФ — нарушение порядка применения ККТ"
+    },
+    {
+      "id": "c-ffd-1-2",
+      "type": "TECH",
+      "raw": "ФФД 1.2 обязателен для ТС ПИоТ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "ФФД 1.2 — обязателен для продажи маркированных товаров (приказ ФНС ЕД-7-20/662@)"
+    },
+    {
+      "id": "c-ofd-30-days-block",
+      "type": "TECH",
+      "raw": "ФН блокируется через 30 дней непереданных документов",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Ст. 4.1 54-ФЗ — 30 календарных дней без передачи в ОФД блокирует ФН"
+    },
+    {
+      "id": "c-reestr-ofd",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/related_activities/registries/fiscaloperators/",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Реестр аккредитованных ОФД ведёт ФНС"
+    },
+    {
+      "id": "c-kkt-online-reg",
+      "type": "LINK",
+      "raw": "kkt-online.nalog.ru/registration/",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Сервис ФНС для регистрации ККТ онлайн"
+    },
+    {
+      "id": "c-10-days-20-attempts",
+      "type": "TECH",
+      "raw": "10 рабочих дней и не более 20 попыток на отчёт о регистрации",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "После присвоения РН ККТ — 10 рабочих дней, не более 20 попыток ввода параметров"
+    },
+    {
+      "id": "c-fn-srok-13-15-36",
+      "type": "TECH",
+      "raw": "ФН 13 / 15 / 36 месяцев",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.85,
+      "expectedValue": "В реестре ФНС есть ФН на 13, 15, 18 и 36 мес.; для УСН/ПСН/ЕСХН — 36, для ОСН/подакцизы — 15"
+    }
+  ],
+  "recommendations": [
+    "Статья оставлена без правок — все ключевые claims согласованы с НПА.",
+    "Перепроверить в августе 2026 после окончания переходного периода (статусы X-API-KEY и фактическое применение).",
+    "При следующем обновлении проверить актуальность долей рынка ОФД (33,6% / 13,8%)."
+  ],
+  "nextReview": "2026-08-02"
+}
