@@ -79,11 +79,16 @@ console.log(`Целей в конфиге: ${declared.length}`);
 console.log(`Режим: ${DRY_RUN ? 'DRY_RUN (без записи)' : 'боевой'}\n`);
 
 // ─── Чтение существующих ──────────────────────────────────────────────────────
+// GET безопасен — делаем его и в DRY_RUN тоже, чтобы план был точным.
+// Без токена пропускаем (например, локальный прогон для проверки парсинга
+// goals.json), но честно предупреждаем, что план неполный.
 let remote = [];
-if (!DRY_RUN) {
+if (TOKEN) {
   const resp = await api(`/counter/${counterId}/goals`);
   remote = resp?.goals || [];
   console.log(`Существующих целей на счётчике: ${remote.length}\n`);
+} else {
+  console.log('Без METRIKA_OAUTH_TOKEN пропускаю чтение счётчика — план будет показывать «создать всё».\n');
 }
 
 const remoteByActionId = new Map();
