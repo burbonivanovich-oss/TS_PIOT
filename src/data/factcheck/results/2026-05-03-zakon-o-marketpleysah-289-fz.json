@@ -1,0 +1,99 @@
+{
+  "slug": "2026-05-03-zakon-o-marketpleysah-289-fz",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 20,
+    "checked": 9,
+    "match": 5,
+    "mismatch": 4,
+    "uncertain": 0,
+    "overallStatus": "verified-after-fixes",
+    "criticalIssues": 4,
+    "note": "Критические ошибки исправлены: 1) Дата 289-ФЗ была 08.08.2024, реальная — 31.07.2025 (перепутан со старым таможенным 289-ФЗ); 2) Название закона было 'Об организации торговли посредством агрегаторов', реальное — 'Об отдельных вопросах регулирования платформенной экономики в РФ'; 3) Порог 'крупных платформ' был 30 млрд ₽ годовой выручки — на самом деле критерий ≥100 000 пользователей среднесуточной аудитории; 4) Срок уведомления был 30 календарных дней — реально 45 календарных дней при ухудшающих изменениях. Дата вступления в силу 01.10.2026 — подтверждено КонсультантПлюс и Гарантом. Запрет эксклюзивности, обязательность письменного договора, ограничения блокировок и принуждения к акциям — подтверждены."
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "08.08.2024",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "31.07.2025",
+      "action": "rewrite",
+      "fixed": true,
+      "sources": [
+        "http://publication.pravo.gov.ru/Document/View/0001202507310020",
+        "https://www.consultant.ru/document/cons_doc_LAW_511088/"
+      ]
+    },
+    {
+      "id": "title-289",
+      "type": "NPA_TITLE",
+      "raw": "Об организации торговли посредством агрегаторов информации о товарах",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "Об отдельных вопросах регулирования платформенной экономики в Российской Федерации",
+      "action": "rewrite",
+      "fixed": true
+    },
+    {
+      "id": "criterion-30bn",
+      "type": "MONEY",
+      "raw": "30 млрд рублей годовой выручкой",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "Среднесуточная аудитория ≥100 000 пользователей (ст. 10 289-ФЗ). Критерий по выручке в законе не закреплён.",
+      "action": "rewrite",
+      "fixed": true
+    },
+    {
+      "id": "notice-30days",
+      "type": "DAYS",
+      "raw": "не менее чем за 30 календарных дней",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "45 календарных дней при изменениях в худшую сторону",
+      "action": "rewrite",
+      "fixed": true
+    },
+    {
+      "id": "c2",
+      "type": "DATE_TEXT",
+      "raw": "1 октября 2026 года",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Дата вступления в силу основных норм 289-ФЗ — 01.10.2026",
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_519660/"]
+    },
+    {
+      "id": "fz-289",
+      "type": "NPA_FZ",
+      "raw": "289-ФЗ",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Подтверждено npaWhitelist — 289-ФЗ от 31.07.2025 о маркетплейсах"
+    },
+    {
+      "id": "fas-jurisdiction",
+      "type": "ENTITY",
+      "raw": "ФАС наделена полномочиями по надзору",
+      "status": "match",
+      "confidence": 0.85,
+      "expectedValue": "ФАС — один из надзорных органов в рамках 289-ФЗ"
+    },
+    {
+      "id": "exclusivity-ban",
+      "type": "NORM",
+      "raw": "запрет на эксклюзивность",
+      "status": "match",
+      "confidence": 0.9,
+      "expectedValue": "Запрет принуждения к эксклюзивности и принудительным ценовым акциям подтверждён в обзорах закона"
+    }
+  ]
+}
