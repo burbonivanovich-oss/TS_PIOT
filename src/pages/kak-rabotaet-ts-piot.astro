@@ -5,6 +5,7 @@ import Header from '../components/Header.astro';
 import DataMatrixDissector from '../components/interactive/DataMatrixDissector.tsx';
 import FfdToggle from '../components/interactive/FfdToggle.tsx';
 import CmStatusToggle from '../components/interactive/CmStatusToggle.tsx';
+import ResponseBranch from '../components/interactive/ResponseBranch.tsx';
 import { u } from '../utils/url';
 
 const title = 'Как работает ТС ПИоТ: путь чека от кассы до Честного знака';
@@ -142,10 +143,7 @@ const description =
 						КоАП онлайн не выписывается: он накладывается уже Роспотребнадзором
 						или Минпромторгом по результатам проверки.
 					</p>
-					<aside class="sim-placeholder">
-						<strong>Интерактив в работе:</strong> три ветки сценария с возвратом к
-						нормальному пути — компонент <code>ResponseBranch</code>.
-					</aside>
+					<ResponseBranch client:visible />
 				</section>
 
 				<section class="sim-step" data-step="5">

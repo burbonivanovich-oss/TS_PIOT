@@ -104,6 +104,21 @@
       "type": "action"
     },
     {
+      "id": "flagship-ts-piot-branch-valid-explored",
+      "name": "Флагман ТС ПИоТ — ветка Шаг 4: Валиден",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-branch-withdrawn-explored",
+      "name": "Флагман ТС ПИоТ — ветка Шаг 4: Выведен из оборота",
+      "type": "action"
+    },
+    {
+      "id": "flagship-ts-piot-branch-missing-explored",
+      "name": "Флагман ТС ПИоТ — ветка Шаг 4: Нет в системе",
+      "type": "action"
+    },
+    {
       "id": "flagship-ts-piot-ffd-toggle",
       "name": "Флагман ТС ПИоТ — переключил тогл «до/после 01.07.2026»",
       "type": "action"
