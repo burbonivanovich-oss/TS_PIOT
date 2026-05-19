@@ -98,6 +98,7 @@ status: draft
 | 9 | Интегрировать аналитику в `/maintain-content` — показывать позиции при аудите | P1 | idea |
 | 10 | Настроить `/blog google` (плагин claude-blog) — GSC + GA4 | P2 | idea |
 | 11 | Дашборд: сводная таблица статей с позицией + трафиком + оценкой | P2 | idea |
+| 68 | **Подумать над мини-админкой.** Не «делаем сразу», а исследование: что туда могло бы попасть и нужна ли она вообще. Сейчас часть рутины делается через GitHub Actions UI (Generate Hero Images, Wordstat Weekly Refresh), часть через slash-команды в Claude, часть через ручное чтение JSON-отчётов в `src/data/`. Возможные кандидаты в админку: (1) дашборд статей со статусами factcheck/heroImage/балл analyze/трафик — фактически #11; (2) триггеры workflow'ов одной кнопкой вместо UI Actions; (3) очередь `maintain-queue.md` визуально; (4) preview JSON-отчётов (linkgraph, similarity, npa-audit, factcheck/results); (5) toggle draft/published; (6) форма для быстрого добавления RSS-источника. **Сначала ответить на вопросы:** что из этого делается чаще всего и реально болит? Где админка даст профит vs текущий путь? Авторизация (GitHub Pages статика — auth нетривиальна; cloudflare/vercel с middleware vs простой password в localStorage)? Где живёт — в `/admin/` на etiketka.media с `noindex` или отдельный поддомен? После ответов — сформировать MVP (3-5 экранов) и завести как отдельные задачи. | P2 | research |
 
 ---
 
