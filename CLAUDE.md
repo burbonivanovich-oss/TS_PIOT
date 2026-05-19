@@ -35,6 +35,8 @@ public/
 src/
 ├── components/                 # Header, Footer, BaseHead, FormattedDate, HeaderLink.astro,
 │                               # BlogFilter.tsx, MarkingCalendar.tsx, PenaltyCalculator.tsx
+│   └── interactive/            # F26 — встраиваемые в MDX интерактивные блоки
+│                               # (планируется в Спринте A — см. docs/content-formats-roadmap.md)
 ├── consts.ts                   # SITE_TITLE, NAV_LINKS, CATEGORIES, INLINE_SUBSCRIBE (источник истины)
 ├── content/
 │   ├── blog/                   # YYYY-MM-DD-slug.md — публикуемые статьи
@@ -482,6 +484,7 @@ Wordstat-скрипты пишут в `src/data/wordstat/` — там же ле�
 | Factcheck pipeline, extract-claims, sources.json, audit-npa-references | `docs/factcheck.md` |
 | Backfill истории и системные паттерны фактчека | `docs/factcheck-history.md` |
 | Post-mortem крупных сессий (что пошло не так / уроки) | `docs/session-YYYY-MM-DD-postmortem.md` |
+| Roadmap новых контент-форматов (#33) | `docs/content-formats-roadmap.md` |
 | Редполитика, классы решений в фактчеке | `docs/editorial-policy.md` |
 | Крупные кросс-функциональные сессии (PR-ревью) | `CHANGELOG.md` в корне (короткий swod) |
 
