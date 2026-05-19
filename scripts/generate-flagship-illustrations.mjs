@@ -120,7 +120,7 @@ const STEPS = [
 ];
 
 // ─── API ──────────────────────────────────────────────────────────────────────
-async function generateImage(prompt) {
+async function callOpenRouter(prompt) {
   const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -143,7 +143,12 @@ async function generateImage(prompt) {
   catch { throw new Error(`Не JSON (${res.status}): ${rawText.slice(0, 400)}`); }
 
   const imgUrl = data?.choices?.[0]?.message?.images?.[0]?.image_url?.url;
-  if (!imgUrl) throw new Error('Нет изображения: ' + JSON.stringify(data).slice(0, 400));
+  if (!imgUrl) {
+    const reply = data?.choices?.[0]?.message?.content ?? JSON.stringify(data);
+    const err = new Error(`Нет изображения. Модель вернула: ${String(reply).slice(0, 200)}`);
+    err.code = 'NO_IMAGE';
+    throw err;
+  }
 
   if (imgUrl.startsWith('data:image/')) {
     return Buffer.from(imgUrl.split(',')[1], 'base64');
@@ -151,6 +156,21 @@ async function generateImage(prompt) {
   const r = await fetch(imgUrl);
   if (!r.ok) throw new Error(`Скачивание ${r.status}: ${imgUrl}`);
   return Buffer.from(await r.arrayBuffer());
+}
+
+// Главный вызов с retry: на ответе без изображения модель иногда
+// возвращает только текст (объяснение, что бы она сгенерила). Один
+// retry с усиленным промтом «output image only» обычно лечит.
+async function generateImage(prompt) {
+  try {
+    return await callOpenRouter(prompt);
+  } catch (err) {
+    if (err.code !== 'NO_IMAGE') throw err;
+    process.stdout.write(`retry (text-only response) → `);
+    const reinforced =
+      'Output: a single image, no text explanation, no markdown. ' + prompt;
+    return await callOpenRouter(reinforced);
+  }
 }
 
 function buildPrompt(step) {
@@ -189,9 +209,15 @@ for (const step of targets) {
   }
 }
 
-console.log(`\nГотово. Успешно: ${targets.length - failures.length}/${targets.length}.`);
+const succeeded = targets.length - failures.length;
+console.log(`\nГотово. Успешно: ${succeeded}/${targets.length}.`);
 if (failures.length) {
   console.log('Сбои:');
   for (const f of failures) console.log(`  step-${f.id}: ${f.error}`);
-  process.exit(1);
 }
+
+// Exit-стратегия: даже при частичном успехе возвращаем 0, чтобы
+// следующий step workflow (commit) сохранил то, что получилось.
+// Полный провал (0 успехов) — exit 1, чтобы workflow честно
+// помечался failed.
+if (succeeded === 0) process.exit(1);
