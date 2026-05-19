@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
@@ -30,7 +30,7 @@ const pillar = await getEntry('pillars', slug);
 const pillarTitle = pillar?.data?.title ?? meta.fullTitle;
 const pillarSummary = pillar?.data?.summary ?? meta.description;
 const faq = pillar?.data?.faq ?? [];
-const { Content: PillarContent } = pillar ? await pillar.render() : { Content: null };
+const { Content: PillarContent } = pillar ? await render(pillar) : { Content: null };
 
 const CAT_COLOR: Record<string, string> = {
 	'ts-piot':         '#111',
