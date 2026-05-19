@@ -1,0 +1,110 @@
+{
+  "slug": "2026-05-03-markirovka-avtozhidkostey-2026",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 17,
+    "checked": 5,
+    "match": 1,
+    "mismatch": 3,
+    "incompleteContext": 1,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "applied-critical-fixes",
+    "criticalIssues": 3,
+    "note": "Маркировку моторных масел и автомобильных жидкостей регулирует ПП РФ от 30.11.2024 № 1683 — этот номер в статье не упоминался, добавлен. Критические ошибки в таблице ключевых дат: «2025» без конкретики и «1 июля 2026 — запрет оборота немаркированных в опте» — обе строки неверны. Реальный календарь: 01.09.2025 (производство/импорт), 01.12.2025 (запрет оборота немаркированных), 01.04.2026 (касса + поэкз. учёт), 01.10.2026 (полный разрешительный режим). Дата 01.10.2026 как маркетинговый якорь сохранена, добавлен disclaimer с реальным графиком. Ст. 15.12 КоАП во всех упоминаниях — без указания части, добавлена ч. 2, ИП объединены с должностными лицами."
+  },
+  "claims": [
+    {
+      "id": "c-pp-1683",
+      "type": "NPA_OTHER",
+      "raw": "номер постановления Правительства не указан",
+      "context": "Статья ссылается на «постановление Правительства» без номера",
+      "status": "missing",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "Постановление Правительства РФ от 30.11.2024 № 1683 «Об утверждении Правил маркировки отдельных видов смазочных материалов и специальных автомобильных жидкостей»",
+      "explanation": "По политике A2 ссылка на НПА должна быть с номером и датой.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_491967/",
+        "https://www.garant.ru/hotlaw/federal/1771120/",
+        "https://www.alta.ru/tamdoc/24ps1683/"
+      ],
+      "action": "add-references",
+      "actionDetail": "В disclaimer добавлена ссылка на ПП РФ от 30.11.2024 № 1683.",
+      "applied": true
+    },
+    {
+      "id": "c-table-dates",
+      "type": "DATE_TEXT",
+      "raw": "Таблица: «2025 / производство-ввоз»; «1 июля 2026 / запрет оборота в опте»",
+      "context": "Раздел «Ключевые даты»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "01.09.2025 — обязательная маркировка при производстве и ввозе; 01.12.2025 — запрет оборота немаркированных смазочных материалов; 01.04.2026 — обязательное сканирование на кассе + поэкземплярный учёт; 01.10.2026 — полный разрешительный режим.",
+      "explanation": "Политика A2 — даты НПА должны соответствовать реестру. Запрет немаркированных — 01.12.2025, а не 01.07.2026. Розничное сканирование на кассе — 01.04.2026, а не 01.10.2026.",
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/motornye-masla/sroki-i-etapy-markirovki-motornykh-masel",
+        "https://kontur.ru/market/news/84751-markirovka_motornyh_masel_i_avtozhidkostey",
+        "https://kontur.ru/markirovka/spravka/55409-obyazatelnaya_markirovka_motornyh_masel"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Таблица перестроена с 4 этапами (01.09.2025, 01.12.2025, 01.04.2026, 01.10.2026).",
+      "applied": true
+    },
+    {
+      "id": "c-date-01.10.2026-framing",
+      "type": "DATE_TEXT",
+      "raw": "С 1 октября 2026 года вводится разрешительный режим",
+      "context": "Лид статьи",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "01.10.2026 — полный разрешительный режим, но обязательное сканирование на кассе действует уже с 01.04.2026.",
+      "explanation": "Политика B1 — оставляем 01.10.2026 в лиде как маркетинговый якорь (это финальный этап), добавлен disclaimer с реальной хронологией.",
+      "sources": [
+        "https://kontur.ru/market/news/84751-markirovka_motornyh_masel_i_avtozhidkostey",
+        "https://kontur.ru/market/spravka/82063-prodavat_motornoe_maslo_v_roznicu"
+      ],
+      "action": "add-disclaimer",
+      "actionDetail": "После лида добавлен blockquote с реальным графиком и упоминанием 01.04.2026.",
+      "applied": true
+    },
+    {
+      "id": "c-npa-15.12-part",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ (без части)",
+      "context": "Раздел «Штрафы»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "ст. 15.12 ч. 2 КоАП РФ — продажа/хранение/перевозка немаркированных товаров",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Добавлена ч. 2; ИП объединены с должностными лицами в одну строку (примечание к ст. 2.4 КоАП).",
+      "applied": true
+    },
+    {
+      "id": "c-fz-204",
+      "type": "NPA_FZ",
+      "raw": "Федерального закона № 204-ФЗ от 04.08.2023",
+      "context": "ссылка на редакцию 54-ФЗ для ТС ПИоТ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "ФЗ от 04.08.2023 № 204-ФЗ — внёс изменения в 54-ФЗ в части ТС ПИоТ"
+    }
+  ],
+  "recommendations": [
+    "Применено: добавлен ПП РФ от 30.11.2024 № 1683 в disclaimer.",
+    "Применено: таблица ключевых дат перестроена под реальный график.",
+    "Применено: ст. 15.12 КоАП дополнена ч. 2; ИП объединены с должностными лицами.",
+    "Применено: updatedDate=2026-05-19.",
+    "Перепроверить осенью 2026 после старта полного разрешительного режима."
+  ],
+  "nextReview": "2026-08-22"
+}

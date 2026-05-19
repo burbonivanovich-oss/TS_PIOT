@@ -1,0 +1,29 @@
+{
+  "slug": "2026-05-01-edo-upd-markirovka",
+  "checkedAt": "2026-05-19T12:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 13,
+    "checked": 13,
+    "match": 13,
+    "mismatch": 0,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "ok",
+    "criticalIssues": 0,
+    "note": "Все правовые ссылки подтверждены: ПП РФ № 1944 от 21.11.2023 (разрешительный режим), письмо ФНС от 21.10.2013 № ММВ-20-3/96@ (УПД), приказ ФНС от 19.12.2018 № ММВ-7-15/820@ (формат УПД), ФЗ 63-ФЗ от 06.04.2011 (об ЭП). Штрафы по ч. 2 ст. 15.12 КоАП (50–300 тыс. для юрлиц) и ст. 14.5 КоАП — корректны для действующей редакции."
+  },
+  "claims": [
+    { "id": "c1", "raw": "ПП РФ № 1944 от 21.11.2023 (разрешительный режим)", "status": "match", "severity": "none", "confidence": 0.95 },
+    { "id": "c2", "raw": "Письмо ФНС от 21.10.2013 № ММВ-20-3/96@ (УПД)", "status": "match", "severity": "none", "confidence": 0.95 },
+    { "id": "c3", "raw": "Приказ ФНС от 19.12.2018 № ММВ-7-15/820@", "status": "match", "severity": "none", "confidence": 0.95 },
+    { "id": "c4", "raw": "ФЗ от 06.04.2011 № 63-ФЗ «Об электронной подписи»", "status": "match", "severity": "none", "confidence": 0.99 },
+    { "id": "c5+c6+c9", "raw": "ст. 15.12 КоАП: ИП 5–10K, юрлицо 50–300K + конфискация", "status": "match", "severity": "none", "confidence": 0.9, "note": "Совпадает с ч. 2 ст. 15.12 КоАП РФ для оборота немаркированных товаров." },
+    { "id": "c7+c8+c10", "raw": "ст. 14.5 КоАП: 10K (ИП) – 30K (юрлицо)", "status": "match", "severity": "none", "confidence": 0.9 }
+  ],
+  "recommendations": [
+    "Статья правовой основы корректна. Изменений не требуется."
+  ],
+  "nextReview": "2026-08-06"
+}

@@ -1,0 +1,110 @@
+{
+  "slug": "2026-05-03-markirovka-bezalk-napitkov-2026",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 21,
+    "checked": 5,
+    "match": 1,
+    "mismatch": 2,
+    "incompleteContext": 2,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "applied-critical-fixes",
+    "criticalIssues": 2,
+    "note": "Фейковое ПП: в статье «ПП РФ № 2464 от 31.12.2024» — этого документа в отношении безалкогольных напитков не существует. Реальный регулирующий документ — ПП РФ от 31.05.2023 № 887. Дата 01.09.2026 подана как «начало проверки кодов на кассе» — но обязательное сканирование на кассе для расширенного перечня уже действует с 01.03.2026 (поэкземплярный учёт). 01.09.2026 — это переход на полный разрешительный режим. Ст. 15.12 КоАП без ч. 2 — добавлена. Ст. 14.5 КоАП без части — добавлена ч. 4 для случая работы без ТС ПИоТ."
+  },
+  "claims": [
+    {
+      "id": "c-pp-2464",
+      "type": "NPA_OTHER",
+      "raw": "постановление Правительства РФ № 2464 от 31.12.2024",
+      "context": "Лид: «Основание — постановление Правительства РФ № 2464 от 31.12.2024»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "Постановление Правительства РФ от 31.05.2023 № 887 «Об утверждении Правил маркировки отдельных видов безалкогольных напитков, в том числе с соком, и соков»",
+      "explanation": "ПП № 2464 от 31.12.2024 в данном контексте не существует. Маркировку безалкогольных напитков и соков регулирует ПП № 887 от 31.05.2023 в актуальной редакции.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_448570/",
+        "https://www.garant.ru/hotlaw/federal/1627704/",
+        "http://publication.pravo.gov.ru/document/0001202306010033"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Номер исправлен на ПП РФ от 31.05.2023 № 887 с гиперссылкой на consultant.ru.",
+      "applied": true
+    },
+    {
+      "id": "c-date-01.09.2026-framing",
+      "type": "DATE_TEXT",
+      "raw": "С 1 сентября 2026 года участники оборота безалкогольных напитков обязаны проверять коды маркировки при продаже через кассу",
+      "context": "Лид статьи",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "С 01.03.2026 — обязательное сканирование кодов на кассе для расширенного перечня (включая соки, нектары, морсы) + поэкземплярный учёт. С 01.09.2026 — полный разрешительный режим.",
+      "explanation": "Политика B1 — 01.09.2026 как маркетинговый дедлайн сохранён в заголовке, добавлен disclaimer с упоминанием 01.03.2026 как уже действующего обязательства.",
+      "sources": [
+        "https://kontur.ru/market/spravka/53230-markirovka_bezalkogolnyh_napitkov",
+        "https://www.moysklad.ru/poleznoe/markirovka-tovarov/markirovka-bezalkogolnykh-napitkov/",
+        "https://docsinbox.ru/blog/uchet_bezalco_napitkov"
+      ],
+      "action": "add-disclaimer",
+      "actionDetail": "После лида добавлен blockquote-disclaimer о ПП № 887, реальной хронологии 01.03.2026 → 01.09.2026.",
+      "applied": true
+    },
+    {
+      "id": "c-stages-table",
+      "type": "DATE_TEXT",
+      "raw": "«2021–2023 / добровольная»; «2024 / обязательная производство-ввоз»; «1.09.2026 / проверка кодов»",
+      "context": "Раздел «Что уже действует и что добавляется»",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "01.12.2023 (стекло/ПЭТ), 01.03.2024 (банки), 01.06.2024 (кеги/Tetra Pak); 05.11.2024–28.02.2026 ОСУ; 01.03.2026 поэкз. + касса; 01.09.2026 расширение.",
+      "sources": [
+        "https://kontur.ru/market/spravka/53230-markirovka_bezalkogolnyh_napitkov",
+        "https://taxcom.ru/markirovka/markirovka-bezalkogolnyh-napitkov/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Список этапов перестроен с реальными датами 01.12.2023, 01.03.2024, 01.06.2024, 05.11.2024–28.02.2026, 01.03.2026, 01.09.2026.",
+      "applied": true
+    },
+    {
+      "id": "c-npa-15.12-part",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ (без части)",
+      "context": "Раздел «Ответственность»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "ст. 15.12 ч. 2 КоАП РФ",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Во всех упоминаниях добавлена ч. 2; для нарушений без ТС ПИоТ уточнена ч. 4 ст. 14.5; ИП объединены с должностными лицами.",
+      "applied": true
+    },
+    {
+      "id": "c-fz-204",
+      "type": "NPA_FZ",
+      "raw": "Федерального закона № 204-ФЗ от 04.08.2023",
+      "context": "ссылка на редакцию 54-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "ФЗ от 04.08.2023 № 204-ФЗ — внёс изменения в 54-ФЗ в части ТС ПИоТ"
+    }
+  ],
+  "recommendations": [
+    "Применено: ПП № 2464 от 31.12.2024 заменено на ПП № 887 от 31.05.2023.",
+    "Применено: добавлен disclaimer о реальном графике с упоминанием 01.03.2026.",
+    "Применено: список этапов перестроен с фактическими датами.",
+    "Применено: в ст. 15.12 КоАП добавлена ч. 2; в ст. 14.5 — ч. 4.",
+    "Применено: updatedDate=2026-05-19.",
+    "Перепроверить после 01.09.2026 (расширение перечня)."
+  ],
+  "nextReview": "2026-09-15"
+}
