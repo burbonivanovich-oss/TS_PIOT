@@ -1,0 +1,65 @@
+{
+  "slug": "2026-05-01-proverki-2026",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 36,
+    "checked": 14,
+    "match": 14,
+    "mismatch": 0,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "ok",
+    "criticalIssues": 0,
+    "note": "Все ключевые НПА сверены и совпадают: ПП РФ от 10.03.2022 № 336 (мораторий, продлён до 2030 г. ПП РФ от 10.03.2023 № 372 и далее), ФЗ от 31.07.2020 № 248-ФЗ (база гос. контроля), ФЗ от 22.05.2003 № 54-ФЗ (ККТ), ст. 5.27 КоАП. Ссылки на ст. 35 248-ФЗ, ст. 7 54-ФЗ — корректны. Внеплановые проверки и индикаторы риска — текст соответствует действующей редакции. Без правок."
+  },
+  "claims": [
+    {
+      "id": "c-pp-336",
+      "type": "NPA_PP_NUMBERED",
+      "raw": "постановление Правительства РФ от 10.03.2022 № 336",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.97,
+      "expectedValue": "ПП РФ от 10.03.2022 № 336 'Об особенностях организации и осуществления гос. контроля...'",
+      "action": "none",
+      "applied": false,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_411714/",
+        "https://sufps70.organizations.mchs.gov.ru/deyatelnost/napravleniya-deyatelnosti/profilakticheskaya-rabota-i-nadzornaya-deyatelnost/informirovanie/prodlen-moratoriy-na-provedenie-proverok-do-2030-goda"
+      ]
+    },
+    {
+      "id": "c-fz-248",
+      "type": "NPA_FZ",
+      "raw": "Федеральный закон от 31.07.2020 № 248-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "action": "none",
+      "applied": false
+    },
+    {
+      "id": "c-fz-54",
+      "type": "NPA_FZ",
+      "raw": "Федеральный закон от 22.05.2003 № 54-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "action": "none",
+      "applied": false
+    },
+    {
+      "id": "c-pp-1944",
+      "type": "NPA_PP_NUMBERED",
+      "raw": "ПП № 1944",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "ПП РФ от 21.11.2023 № 1944 (ТС ПИоТ) — в whitelist",
+      "action": "none",
+      "applied": false
+    }
+  ]
+}

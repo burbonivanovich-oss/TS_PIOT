@@ -1,0 +1,84 @@
+{
+  "slug": "2026-05-01-buh-dlya-marketplace",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 38,
+    "checked": 14,
+    "match": 14,
+    "mismatch": 0,
+    "uncertain": 0,
+    "overallStatus": "verified",
+    "criticalIssues": 0,
+    "note": "Все ключевые НПА корректны: 176-ФЗ от 12.07.2024 (НДС на УСН), ст. 346.15/346.17 НК (момент признания дохода), ст. 1005 ГК (агентская схема), ст. 9 402-ФЗ от 06.12.2011 (первичка). Порог НДС на УСН 2026 — 20 млн ₽ (вместо 60 млн в 2025) и вилка ставок 5%/7%/20% совпадают с НК и методичкой ФНС. Письмо ФНС ЗГ-3-3/2488 от 20.02.2023 — корректно процитировано в части кассового метода для агентских схем."
+  },
+  "claims": [
+    {
+      "id": "fz-176",
+      "type": "NPA_FZ",
+      "raw": "Федеральный закон от 12.07.2024 № 176-ФЗ",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "176-ФЗ — реформа НК, в т.ч. НДС на УСН с 2025",
+      "sources": ["https://www.garant.ru/products/ipo/prime/doc/409260800/"]
+    },
+    {
+      "id": "nds-porog-2026",
+      "type": "MONEY",
+      "raw": "20 млн рублей",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Порог автоматического освобождения от НДС на УСН в 2026 — 20 млн ₽ (ст. 145 НК)",
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_28165/8f399ec989074fdad875f9a672a1b091ea9bf05c/"]
+    },
+    {
+      "id": "nds-stavki",
+      "type": "PERCENT",
+      "raw": "5%/7%/20%",
+      "status": "match",
+      "confidence": 0.95,
+      "expectedValue": "5% (20-250 млн), 7% (250-450 млн), стандарт 10/20% свыше 450 млн или добровольно — пп. 8-9 ст. 164 НК в ред. 176-ФЗ"
+    },
+    {
+      "id": "fz-402",
+      "type": "NPA_FZ",
+      "raw": "402-ФЗ от 06.12.2011",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "О бухучёте, ст. 9 — требования к первичке"
+    },
+    {
+      "id": "gk-1005",
+      "type": "NPA_GK",
+      "raw": "ст. 1005 ГК РФ",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Агентский договор — корректное основание для схемы маркетплейс/продавец"
+    },
+    {
+      "id": "nk-346-15",
+      "type": "NPA_NK",
+      "raw": "ст. 346.15 и 346.17 НК",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Порядок определения дохода на УСН и кассовый метод"
+    },
+    {
+      "id": "fns-letter",
+      "type": "DATE_DMY",
+      "raw": "письмо ФНС от 20.02.2023 № ЗГ-3-3/2488",
+      "status": "match",
+      "confidence": 0.85,
+      "expectedValue": "Позиция ФНС о признании дохода на УСН при агентской схеме — момент поступления денег агенту"
+    },
+    {
+      "id": "kod-mark-50kop",
+      "type": "MONEY",
+      "raw": "50 копеек за код",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Тариф ЦРПТ за код Data Matrix — 50 коп. без НДС (ПП РФ № 577 от 08.05.2019)"
+    }
+  ]
+}

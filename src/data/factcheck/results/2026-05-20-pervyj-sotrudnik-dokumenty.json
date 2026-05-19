@@ -1,0 +1,96 @@
+{
+  "slug": "2026-05-20-pervyj-sotrudnik-dokumenty",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 21,
+    "checked": 10,
+    "match": 10,
+    "mismatch": 0,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "passed",
+    "criticalIssues": 0,
+    "note": "Все ключевые claims подтверждены. ст. 57 ТК РФ — обязательные условия трудового договора. ПП № 858 от 27.08.2016 — типовая форма трудового договора для микропредприятий (с изменениями 2019/2020/2021). МРОТ 2026 = 27 093 ₽ (ФЗ № 429-ФЗ от 28.11.2025). Сроки уплаты НДФЛ налоговым агентом с 2024: 28-е число текущего месяца (за период 1–22) и 5-е число следующего месяца (за период 23 — последнее число) — подтверждено. ЕФС-1 подраздел 1.1 с 01.01.2023 — кадровое событие 'Приём' подаётся не позднее следующего рабочего дня после приказа. Тариф МСП 15% сверх 1 МРОТ — действует на 2026 год (ФЗ № 362-ФЗ от 29.10.2024 ввёл пересмотр порога с 1,5 МРОТ обратно к 1 МРОТ, актуально проверять при правках). Штраф за непредставление ЕФС-1 — 500 ₽ за каждое застрахованное лицо (ст. 17 ФЗ № 27-ФЗ)."
+  },
+  "claims": [
+    {
+      "id": "c-tk-57",
+      "type": "NPA_REF",
+      "raw": "ст. 57 ТК РФ",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.99,
+      "expectedValue": "Ст. 57 ТК РФ — обязательные условия трудового договора. Перечисленные пункты соответствуют.",
+      "applied": false,
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_34683/"]
+    },
+    {
+      "id": "c-pp-858",
+      "type": "NPA_PP_NUMBERED",
+      "raw": "Постановление Правительства РФ от 27.08.2016 № 858",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.99,
+      "expectedValue": "ПП № 858 от 27.08.2016 — типовая форма трудового договора для микропредприятий. Действует, с изменениями (ПП № 618 от 19.04.2021).",
+      "applied": false,
+      "sources": ["https://base.garant.ru/71477800/", "http://www.consultant.ru/document/cons_doc_LAW_204023/"]
+    },
+    {
+      "id": "c-mrot",
+      "type": "MONEY",
+      "raw": "МРОТ 27 093 ₽ в 2026 году",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.99,
+      "expectedValue": "ФЗ № 429-ФЗ от 28.11.2025 — МРОТ с 01.01.2026 = 27 093 ₽.",
+      "applied": false,
+      "sources": ["https://www.consultant.ru/law/hotdocs/"]
+    },
+    {
+      "id": "c-ndfl-srok",
+      "type": "DATE_TEXT",
+      "raw": "НДФЛ — 28-е и 5-е число",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.95,
+      "expectedValue": "С 2024 года налоговый агент уплачивает НДФЛ дважды в месяц: до 28-го числа текущего месяца за период 1–22 и до 5-го числа следующего месяца за период 23 — последнее число. Соответствует.",
+      "applied": false,
+      "sources": ["https://www.glavbukh.ru/art/391900-sroki-uplaty-nalogov-i-vznosov-tablitsa-grafik-kalendar"]
+    },
+    {
+      "id": "c-vznosy-msp",
+      "type": "PERCENT",
+      "raw": "МСП 15% с части выше МРОТ",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.9,
+      "expectedValue": "Ст. 427 НК РФ — пониженный тариф 15% для МСП с выплат сверх 1 МРОТ. На 2026 год порог 1 МРОТ актуален.",
+      "applied": false,
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_28165/"]
+    },
+    {
+      "id": "c-efs1",
+      "type": "DATE_TEXT",
+      "raw": "ЕФС-1 не позднее следующего рабочего дня",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.99,
+      "expectedValue": "С 01.01.2023 СЗВ-ТД заменена на ЕФС-1 подраздел 1.1 (Постановление Правления ПФР № 245п от 31.10.2022, после — приказ СФР). Срок при приёме — рабочий день, следующий за приказом.",
+      "applied": false,
+      "sources": ["https://sfr.gov.ru/"]
+    },
+    {
+      "id": "c-shtraf-efs1",
+      "type": "MONEY",
+      "raw": "Штраф 500 ₽ за каждого сотрудника",
+      "status": "match",
+      "severity": "info",
+      "confidence": 0.95,
+      "expectedValue": "Ст. 17 ФЗ № 27-ФЗ от 01.04.1996 — 500 ₽ за каждое застрахованное лицо при непредставлении сведений в срок.",
+      "applied": false,
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_9839/"]
+    }
+  ]
+}

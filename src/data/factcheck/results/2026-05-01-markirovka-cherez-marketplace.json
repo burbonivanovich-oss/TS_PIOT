@@ -1,0 +1,129 @@
+{
+  "slug": "2026-05-01-markirovka-cherez-marketplace",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 34,
+    "checked": 8,
+    "match": 6,
+    "mismatch": 2,
+    "incompleteContext": 0,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "applied-critical-fixes",
+    "criticalIssues": 2,
+    "note": "Все ключевые НПА верны: 289-ФЗ от 31.07.2025 действительно вступает в силу с 01.10.2026; ПП РФ № 1956 от 31.12.2019 (одежда) и ПП РФ № 860 от 05.07.2019 (обувь) подтверждены. Штрафные вилки по ст. 15.12 ч. 2 КоАП (ИП 5–10K, юр 50–300K) соответствуют действующей редакции. Критика: ст. 15.12 КоАП упоминалась без части — в двух местах добавлена «ч. 2». Гражданин 2–4K тоже совпадает с ч. 1 (но в статье обоснованно подаётся как часть таблицы санкций)."
+  },
+  "claims": [
+    {
+      "id": "c-fz-289",
+      "type": "NPA_FZ",
+      "raw": "Федеральный закон от 31.07.2025 № 289-ФЗ",
+      "context": "Лид и тело статьи: «Об отдельных вопросах регулирования платформенной экономики», вступает с 01.10.2026",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1.0,
+      "expectedValue": "ФЗ от 31.07.2025 № 289-ФЗ «Об отдельных вопросах регулирования платформенной экономики в Российской Федерации», вступает в силу 01.10.2026",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_511088/",
+        "https://base.garant.ru/412423594/",
+        "https://www.garant.ru/hotlaw/federal/1837651/"
+      ]
+    },
+    {
+      "id": "c-pp-1956",
+      "type": "NPA_OTHER",
+      "raw": "Постановление Правительства РФ от 31.12.2019 № 1956 для одежды",
+      "context": "Маркировка товаров лёгкой промышленности",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1.0,
+      "expectedValue": "ПП РФ от 31.12.2019 № 1956 «Об утверждении Правил маркировки товаров лёгкой промышленности средствами идентификации»",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_342501/",
+        "https://base.garant.ru/73367437/"
+      ]
+    },
+    {
+      "id": "c-pp-860",
+      "type": "NPA_OTHER",
+      "raw": "Постановление Правительства РФ от 05.07.2019 № 860 для обуви",
+      "context": "Маркировка обуви",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "ПП РФ от 05.07.2019 № 860 «Об утверждении Правил маркировки обувных товаров средствами идентификации»",
+      "sources": ["https://www.consultant.ru/"]
+    },
+    {
+      "id": "c-rasporyazhenie-792r",
+      "type": "NPA_OTHER",
+      "raw": "распоряжение Правительства РФ от 28.04.2018 № 792-р",
+      "context": "Перечень обязательной маркировки",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Распоряжение Правительства РФ от 28.04.2018 № 792-р"
+    },
+    {
+      "id": "c-npa-15.12-part-1",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ (без указания части) — упоминание #1",
+      "context": "«не освобождает от государственных санкций по ст. 15.12 КоАП РФ»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "ст. 15.12 ч. 2 КоАП РФ — продажа/хранение/перевозка немаркированных товаров",
+      "explanation": "Политика A2: часть статьи КоАП обязательна.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Заменено на «ст. 15.12 ч. 2 КоАП РФ».",
+      "applied": true
+    },
+    {
+      "id": "c-npa-15.12-part-2",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ (без указания части) — упоминание #2",
+      "context": "Раздел «Штрафы»: «административное правонарушение по ст. 15.12 КоАП РФ»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "ст. 15.12 ч. 2 КоАП РФ",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Заменено на «ст. 15.12 ч. 2 КоАП РФ».",
+      "applied": true
+    },
+    {
+      "id": "c-fines-ip",
+      "type": "MONEY",
+      "raw": "Должностное лицо / ИП — от 5 000 до 10 000 ₽",
+      "context": "Таблица штрафов по ст. 15.12 ч. 2 КоАП",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1.0,
+      "expectedValue": "5 000–10 000 ₽ для ИП и должностных лиц по ч. 2 ст. 15.12 КоАП (примечание к ст. 2.4 КоАП)"
+    },
+    {
+      "id": "c-fines-jur",
+      "type": "MONEY",
+      "raw": "Юридическое лицо — от 50 000 до 300 000 ₽",
+      "context": "Таблица штрафов",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1.0,
+      "expectedValue": "50 000–300 000 ₽ для организаций по ч. 2 ст. 15.12 КоАП"
+    }
+  ],
+  "recommendations": [
+    "Применено: ст. 15.12 КоАП → ст. 15.12 ч. 2 КоАП в двух местах.",
+    "Применено: updatedDate=2026-05-19.",
+    "Перепроверить осенью 2026, когда вступит 289-ФЗ — возможны подзаконные акты с уточнениями для маркетплейсов."
+  ],
+  "nextReview": "2026-08-06"
+}

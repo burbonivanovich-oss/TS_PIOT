@@ -1,0 +1,107 @@
+{
+  "slug": "2026-05-01-markirovka-molochki-msb",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 21,
+    "checked": 7,
+    "match": 6,
+    "mismatch": 0,
+    "incompleteContext": 1,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "match-no-fixes",
+    "criticalIssues": 0,
+    "note": "Статья хорошо выверена. Все ключевые даты этапов маркировки молочной продукции 2021–2026 подтверждены. Дедлайн ТС ПИоТ 01.07.2026 корректен. ПП РФ № 2099 от 15.12.2020 (правила маркировки) и ПП РФ № 2362 от 28.12.2022 (поэкземплярный учёт молочки) — действующие документы. Дата 01.11.2026 для поэкземплярного учёта продукции со сроком хранения >40 дней — корректна; в свежих новостях обсуждается возможная замена на партионный учёт, но юридически закреплённая дата — 01.11.2026. Раздел штрафов отсутствует — нечего фактчекить по ст. 15.12."
+  },
+  "claims": [
+    {
+      "id": "c-date-01.11.2026-peu",
+      "type": "DATE_TEXT",
+      "raw": "1 ноября 2026 — переход на поэкземплярный учёт молочной продукции >40 дней",
+      "context": "Ключевые изменения 2026",
+      "status": "incomplete-context",
+      "severity": "low",
+      "confidence": 0.9,
+      "expectedValue": "С 01.11.2026 — переход на поэкземплярный учёт для молочной продукции со сроком хранения более 40 суток (ПП РФ № 2099 в ред. 26.11.2024). Параллельно прорабатывается замена на партионный учёт — следить за обновлениями.",
+      "explanation": "Политика B1: оставляем якорь, новости о возможной замене на партионный учёт не превращают дату в ошибку — она пока действующая.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_371342/",
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/molochnaya-produkciya/kogda-nachnetsya-obyazatelnaya-markirovka-molochnoy-produktsii-sroki-i-etapy-markirovki-moloka",
+        "https://www.retail.ru/news/pravila-markirovki-molochnoy-produktsii-dopolnyat-mekhanizmom-partionnogo-ucheta-27-yanvarya-2026-273814/"
+      ],
+      "action": "monitor",
+      "actionDetail": "Не правим текст. Помечаем для следующего reviewDate.",
+      "applied": false
+    },
+    {
+      "id": "c-date-2021-stages",
+      "type": "DATE_TEXT",
+      "raw": "20.01.2021 регистрация / 01.06.2021 мороженое и сыры / 01.09.2021 >40 дней / 01.12.2021 <40 дней",
+      "context": "История этапов маркировки молочной продукции",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Эти даты соответствуют этапам, утверждённым ПП РФ № 2099 от 15.12.2020",
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/molochnaya-produkciya/kogda-nachnetsya-obyazatelnaya-markirovka-molochnoy-produktsii-sroki-i-etapy-markirovki-moloka"
+      ]
+    },
+    {
+      "id": "c-date-31.03.2022",
+      "type": "DATE_DMY",
+      "raw": "31.03.2022 — завершение маркировки остатков",
+      "context": "2022 год",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9
+    },
+    {
+      "id": "c-date-01.09.2022-rezhim",
+      "type": "DATE_TEXT",
+      "raw": "01.09.2022 — запуск разрешительного режима для молочки на кассах",
+      "context": "2022 год",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Разрешительный режим для молочной продукции на кассах действительно начал внедряться поэтапно с 2022 года для крупного ритейла; для МСБ — позднее. Формулировка статьи общая и допустимая."
+    },
+    {
+      "id": "c-ts-piot-01.07.2026",
+      "type": "DATE_TEXT",
+      "raw": "ТС ПИоТ на кассе с 01.07.2026",
+      "context": "Чек-лист рознице",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1.0,
+      "expectedValue": "01.07.2026 — обязательность ТС ПИоТ для всех маркированных категорий"
+    },
+    {
+      "id": "c-code-price-50kop",
+      "type": "MONEY",
+      "raw": "Код маркировки стоит 50 копеек без НДС",
+      "context": "Стоимость кодов для производителей",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1.0,
+      "expectedValue": "50 коп. без НДС — действующая ставка ЦРПТ"
+    },
+    {
+      "id": "c-data-matrix-format",
+      "type": "TECH",
+      "raw": "Data Matrix",
+      "context": "Формат кода маркировки",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1.0,
+      "expectedValue": "Data Matrix — стандартный формат GS1 для маркировки в «Честном знаке»"
+    }
+  ],
+  "recommendations": [
+    "Статья не требует правок.",
+    "Следить за судьбой инициативы по замене поэкземплярного учёта молочки >40 дней на партионный — возможна правка в августе 2026.",
+    "В будущем добавить раздел «Штрафы» со ссылкой на ст. 15.12 ч. 2 КоАП — сейчас он отсутствует."
+  ],
+  "nextReview": "2026-08-04"
+}

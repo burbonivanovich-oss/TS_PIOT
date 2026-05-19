@@ -1,0 +1,44 @@
+{
+  "slug": "2026-05-03-mspos-f20-vs-d3-mini",
+  "checkedAt": "2026-05-19",
+  "overallStatus": "ok",
+  "summary": {
+    "match": 4,
+    "moderate": 0,
+    "critical": 0
+  },
+  "claims": [
+    {
+      "id": "c3",
+      "claim": "ОФД должен получать фискальные данные в течение 30 дней (ст. 4.6 54-ФЗ)",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "source": "ст. 4.6 п. 1 54-ФЗ — 30 дней хранения в ФН без передачи в ОФД; при превышении ККТ блокируется."
+    },
+    {
+      "id": "c1",
+      "claim": "С 1 июля 2026 года ТС ПИоТ обязателен при продаже маркированных товаров",
+      "status": "incomplete-context",
+      "severity": "minor",
+      "action": "keep",
+      "policy": "B1",
+      "note": "Формально с 28.12.2025 (ПП № 1944). 01.07.2026 — конец X-API-KEY перехода. Формулировка как маркетинговый якорь допустима по B1; полный контекст — по внутренней ссылке на /blog/2026-01-15-chto-takoe-ts-piot/."
+    },
+    {
+      "id": "c2",
+      "claim": "2026 года (повтор)",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    },
+    {
+      "id": "c4",
+      "claim": "соответствуют требованиям 54-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    }
+  ],
+  "edits": []
+}

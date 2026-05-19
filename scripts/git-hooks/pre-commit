@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Запускает factcheck-guard. См. scripts/git-hooks/pre-commit-factcheck-guard.mjs.
+# Для других проверок (lint, typecheck) — добавлять отдельные блоки ниже.
+
+set -e
+
+node "$(git rev-parse --show-toplevel)/scripts/git-hooks/pre-commit-factcheck-guard.mjs"

@@ -169,7 +169,11 @@ const shareTitle = encodeURIComponent(title);
 
 		<Header />
 
-		<article data-pagefind-body>
+		<article
+			data-pagefind-body
+			data-pagefind-meta={`type:article${categoryMeta ? `,category:${categoryMeta.title}` : ''}`}
+			data-pagefind-filter={`type:Статья${categoryMeta ? `,category:${categoryMeta.title}` : ''}`}
+		>
 
 			<!-- ═══ HERO: 58% image / 42% text ═══ -->
 			<section class="art-hero">
@@ -233,8 +237,8 @@ const shareTitle = encodeURIComponent(title);
 				<!-- Main content -->
 				<main class="art-content">
 
-					{tocHeadings.length > 2 && (
-						<details class="toc" data-pagefind-ignore>
+					{(tocHeadings.length >= 4 || (wordCount && wordCount >= 2000 && tocHeadings.length >= 2)) && (
+						<details class="toc" data-pagefind-ignore open={(wordCount ?? 0) >= 2000}>
 							<summary>Содержание</summary>
 							<nav>
 								<ol class="toc-list">

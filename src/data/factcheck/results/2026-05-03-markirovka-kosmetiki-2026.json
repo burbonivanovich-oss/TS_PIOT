@@ -1,0 +1,111 @@
+{
+  "slug": "2026-05-03-markirovka-kosmetiki-2026",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 14,
+    "checked": 5,
+    "match": 1,
+    "mismatch": 2,
+    "incompleteContext": 2,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "applied-critical-fixes",
+    "criticalIssues": 2,
+    "note": "Критическое расхождение по номеру постановления: «ПП РФ № 2456 от 31.12.2024» не существует — маркировка косметики и парфюмерии регулируется ПП РФ от 30.11.2024 № 1681 (тем же документом, что и бытовая химия). Дата 01.07.2026 в лиде подана как «становится обязательной маркировка» — но косметика начала маркироваться с 01.07.2025 (волосы, дезодоранты) и 01.10.2025 (декоративная, уход, зубы). 01.07.2026 — это передача данных через кассу и ЭДО для розницы. Во всех упоминаниях ст. 15.12 КоАП добавлена ч. 2. Пороги ст. 171.1 УК уточнены — 400K — только для продовольственных, для непродовольственных (косметика) — 2 250 000 ₽."
+  },
+  "claims": [
+    {
+      "id": "c-pp-2456",
+      "type": "NPA_OTHER",
+      "raw": "постановление Правительства РФ № 2456 от 31.12.2024",
+      "context": "Лид: «Основание — постановление Правительства РФ № 2456 от 31.12.2024»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "Постановление Правительства РФ от 30.11.2024 № 1681",
+      "explanation": "Маркировку парфюмерно-косметической продукции и бытовой химии регулирует единое ПП № 1681 от 30.11.2024, а не отдельные № 2456/№ 2457.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_491963/",
+        "http://government.ru/docs/all/156464/",
+        "https://www.garant.ru/hotlaw/federal/1771115/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Номер исправлен на ПП РФ от 30.11.2024 № 1681. В описании отмечено, что документ покрывает и косметику, и бытовую химию.",
+      "applied": true
+    },
+    {
+      "id": "c-date-01.07.2026-framing",
+      "type": "DATE_TEXT",
+      "raw": "С 1 июля 2026 года маркировка становится обязательной для косметических средств",
+      "context": "Лид статьи преподносит 01.07.2026 как старт обязательной маркировки",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Маркировка косметики и парфюмерии стартовала поэтапно: 01.07.2025 — волосы, дезодоранты, бритьё; 01.10.2025 — декоративная косметика, уход, зубы. С 01.07.2026 — обязательная передача данных через кассу и ЭДО для розницы.",
+      "explanation": "Политика B1 — оставляем якорь 01.07.2026 как маркетинговый дедлайн (конец переходного периода для розницы), но добавляем disclaimer.",
+      "sources": [
+        "https://markirovka.ru/community/markirovka-kosmetiki-i-bytovoy-khimii/markirovka-kosmetiki-i-bytovoy-khimii-sroki-etapy-i-chto-nuzhno-znat-uchastnikam-oborota-v-2026-godu",
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/kosmetika-bytovaya-himiya/sroki-i-etapy-markirovki-parfyumerno-kosmeticheskoy-produktsii-i-bytovoy-khimii"
+      ],
+      "action": "add-disclaimer",
+      "actionDetail": "После лида добавлен blockquote-disclaimer с этапами 2025 и реальным смыслом 01.07.2026.",
+      "applied": true
+    },
+    {
+      "id": "c-npa-15.12-part",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ (без указания части)",
+      "context": "Раздел «Штрафы за нарушения»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "ст. 15.12 ч. 2 КоАП РФ",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Добавлена ч. 2; ИП объединены с должностными лицами.",
+      "applied": true
+    },
+    {
+      "id": "c-uk-171.1-thresholds",
+      "type": "MONEY",
+      "raw": "крупный (от 400 000 рублей)",
+      "context": "«ст. 171.1 УК РФ наступает при крупном (от 400 000 рублей) размере»",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Для продовольственных товаров — 400K/1.5M; для непродовольственных (включая косметику и парфюмерию) — 2 250 000 ₽ / 9 000 000 ₽ (примечание 1 к ст. 171.1 УК РФ).",
+      "explanation": "Косметика — непродовольственный товар, для неё крупный размер — 2.25M, а не 400K. Подача в статье вводит в заблуждение.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_10699/0abcfeb2817c95237e7ab7ae330a7a2a79eefe54/",
+        "https://www.ugolkod.ru/statya-171-1"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Уточнено: 400K — для продовольственных; для косметики и парфюмерии — от 2 250 000 ₽.",
+      "applied": true
+    },
+    {
+      "id": "c-fines-15.12-jur",
+      "type": "MONEY",
+      "raw": "от 50 000 до 300 000 рублей с конфискацией",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "50 000–300 000 ₽ для юрлиц по ч. 2 ст. 15.12 КоАП с конфискацией",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ]
+    }
+  ],
+  "recommendations": [
+    "Применено: ПП № 2456 от 31.12.2024 заменено на ПП № 1681 от 30.11.2024.",
+    "Применено: добавлен disclaimer о реальных этапах маркировки косметики (01.07.2025, 01.10.2025).",
+    "Применено: в ст. 15.12 КоАП добавлена ч. 2.",
+    "Применено: пороги ст. 171.1 УК скорректированы для непродовольственных товаров.",
+    "Применено: updatedDate=2026-05-19."
+  ],
+  "nextReview": "2026-08-16"
+}

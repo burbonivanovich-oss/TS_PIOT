@@ -1,0 +1,134 @@
+{
+  "slug": "2026-05-03-markirovka-sportpita-2026",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 19,
+    "checked": 6,
+    "match": 1,
+    "mismatch": 3,
+    "incompleteContext": 2,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "applied-critical-fixes",
+    "criticalIssues": 3,
+    "note": "Маркировку пищевой продукции для питания спортсменов регулирует ПП РФ от 31.05.2025 № 811 (в статье номер не упоминался — добавлен). Дата «2024» как «начало обязательной маркировки» неверна — обязательная маркировка стартовала 01.10.2025. Дата «1 ноября 2026 / разрешительный режим» в источниках не подтверждается: ключевая дата для розницы — 01.03.2026 (поэкземплярный учёт + сканирование на кассе). 01.09.2026 — конец срока для остатков. Пороги ст. 171.1 УК уточнены: для продовольственных (спортпит — продовольственный) — 400K крупный / 1.5M особо крупный. БАД упомянуты как смежная категория — добавлена ссылка на ПП № 2173 от 30.11.2022. Ст. 15.12 КоАП без ч. 2 — добавлена."
+  },
+  "claims": [
+    {
+      "id": "c-pp-811",
+      "type": "NPA_OTHER",
+      "raw": "номер постановления Правительства не указан",
+      "context": "Статья ссылается на «постановление Правительства» без номера",
+      "status": "missing",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "Постановление Правительства РФ от 31.05.2025 № 811 «Об утверждении Правил маркировки пищевой продукции для питания спортсменов»",
+      "explanation": "По политике A2 ссылка на НПА должна быть с номером и датой.",
+      "sources": [
+        "http://publication.pravo.gov.ru/document/0001202505310018",
+        "https://www.consultant.ru/law/hotdocs/89516.html",
+        "https://zpp.rospotrebnadzor.ru/news/federal/561204"
+      ],
+      "action": "add-references",
+      "actionDetail": "В disclaimer добавлена ссылка на ПП РФ от 31.05.2025 № 811 на publication.pravo.gov.ru.",
+      "applied": true
+    },
+    {
+      "id": "c-table-dates",
+      "type": "DATE_TEXT",
+      "raw": "Таблица: «2024 / производство-ввоз»; «1.11.2026 / разрешительный режим на кассе»",
+      "context": "Раздел «Ключевые даты»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "01.10.2025 — обязательная маркировка при производстве и ввозе; 01.03.2026 — поэкземплярный учёт + сканирование на кассе + передача сведений о розничной продаже; 01.09.2026 — запрет оборота немаркированных остатков. Дата 01.11.2026 для разрешительного режима в источниках не подтверждается.",
+      "explanation": "Политика A2 — даты должны соответствовать НПА. Стартовая дата — не 2024, а 01.10.2025.",
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/sportivnoe-pitanie/etapy-markirovki-sportivnogo-pitaniya",
+        "https://www.moysklad.ru/poleznoe/markirovka-tovarov/markirovka-sportivnogo-pitaniya/",
+        "https://www.markirovka.ru/community/best-practics/obyazatelnaya-markirovka-sportpita-v-2026-godu-trebovaniya-k-proizvoditelyam-i-prodavtsam-677"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Таблица перестроена: 01.10.2025, 01.03.2026, 01.09.2026. Упоминание 01.11.2026 удалено из подписи под таблицей и подзаголовков.",
+      "applied": true
+    },
+    {
+      "id": "c-date-01.09.2026-framing",
+      "type": "DATE_TEXT",
+      "raw": "С 1 сентября 2026 года запрещается оборот немаркированных остатков спортивного питания",
+      "context": "Лид",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Обязательная маркировка с 01.10.2025; обязательная розничная передача через ККТ — с 01.03.2026; запрет немаркированных остатков — с 01.09.2026.",
+      "explanation": "Политика B1 — 01.09.2026 сохранён как маркетинговый дедлайн, добавлен disclaimer с реальной хронологией.",
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/sportivnoe-pitanie/etapy-markirovki-sportivnogo-pitaniya"
+      ],
+      "action": "add-disclaimer",
+      "actionDetail": "После лида добавлен blockquote с ПП № 811 и хронологией 01.10.2025 → 01.03.2026 → 01.09.2026.",
+      "applied": true
+    },
+    {
+      "id": "c-bad-confusion",
+      "type": "NPA_OTHER",
+      "raw": "БАДЫ и пищевые добавки регулируются отдельно и могут иметь другие сроки маркировки",
+      "context": "Раздел «Специфика специализированных магазинов»",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.9,
+      "expectedValue": "БАД регулируются ПП РФ от 30.11.2022 № 2173. Спортпит — отдельный НПА (ПП № 811 от 31.05.2025).",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_433460/",
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/badi/sroki-i-etapy-zapuska-obyazatelnoy-markirovki-bad"
+      ],
+      "action": "add-references",
+      "actionDetail": "Добавлена ссылка на ПП РФ № 2173 от 30.11.2022 для БАД, написание «БАДЫ» исправлено на «БАД».",
+      "applied": true
+    },
+    {
+      "id": "c-npa-15.12-part",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ (без части)",
+      "context": "Раздел «Ответственность»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "ст. 15.12 ч. 2 КоАП РФ",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Во всех упоминаниях ст. 15.12 КоАП добавлена ч. 2; ИП объединены с должностными лицами. Слово «ФСРАР» заменено на «Россельхознадзор» (ФСРАР — алкогольный регулятор, спортпит не его компетенция).",
+      "applied": true
+    },
+    {
+      "id": "c-uk-171.1-thresholds",
+      "type": "MONEY",
+      "raw": "крупный (от 400 000 рублей стоимостью)",
+      "context": "Раздел «Ответственность»",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Для продовольственных товаров (спортпит относится к ним) — 400K крупный / 1.5M особо крупный (примечание 1 к ст. 171.1 УК РФ).",
+      "actionDetail": "Уточнено: пороги применимы к продовольственным товарам, добавлена ссылка на ст. 171.1 УК РФ.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_10699/0abcfeb2817c95237e7ab7ae330a7a2a79eefe54/"
+      ]
+    }
+  ],
+  "recommendations": [
+    "Применено: добавлен ПП РФ от 31.05.2025 № 811 как основание.",
+    "Применено: таблица дат перестроена (01.10.2025, 01.03.2026, 01.09.2026); упоминание 01.11.2026 удалено.",
+    "Применено: lid-disclaimer о реальной хронологии.",
+    "Применено: уточнение по БАД с ссылкой на ПП № 2173.",
+    "Применено: ст. 15.12 КоАП дополнена ч. 2; ФСРАР заменён на Россельхознадзор.",
+    "Применено: пороги ст. 171.1 УК для продовольственных товаров уточнены.",
+    "Применено: updatedDate=2026-05-19.",
+    "Перепроверить после 01.09.2026 (запрет немаркированных)."
+  ],
+  "nextReview": "2026-09-15"
+}

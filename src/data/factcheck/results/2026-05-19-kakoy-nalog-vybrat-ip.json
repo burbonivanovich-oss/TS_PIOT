@@ -1,0 +1,151 @@
+{
+  "slug": "2026-05-19-kakoy-nalog-vybrat-ip",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 49,
+    "checked": 10,
+    "match": 5,
+    "mismatch": 5,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "critical-fixes-applied",
+    "criticalIssues": 5,
+    "note": "Статья содержала пять системных расхождений по налоговой реформе 2026: (1) НДС 20% во вступлении и для ОСНО — стало 22% (ФЗ № 425-ФЗ от 28.11.2025); (2) лимит УСН 450 млн без дефлятора — стало 490,5 млн (×1,090, Приказ Минэкономразвития № 734 от 06.11.2025); (3) лимит ПСН 60 млн — стало 20 млн (ФЗ № 425-ФЗ); (4) порог НДС на УСН 60 млн — стало 20 млн (ст. 145 НК РФ в редакции ФЗ № 425-ФЗ); (5) сравнительная таблица и FAQ содержали все эти устаревшие значения. Все правки применены точечно. updatedDate=2026-05-19."
+  },
+  "claims": [
+    {
+      "id": "c-osno-nds-20",
+      "type": "PERCENT",
+      "raw": "ОСНО — общую систему с НДФЛ 13% и НДС 20%",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "С 01.01.2026 базовая ставка НДС 22% (ФЗ № 425-ФЗ от 28.11.2025). НДФЛ — прогрессивная шкала 13–22% (с 2025 года).",
+      "action": "rewrite",
+      "actionDetail": "Лид-абзац обновлён: «НДФЛ 13–22% и НДС по базовой ставке 22%».",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/legalnews/30257/"
+      ]
+    },
+    {
+      "id": "c-usn-limit-450",
+      "type": "MONEY",
+      "raw": "Доход — до 450 млн ₽ в год",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "На 2026 год лимит индексируется коэффициентом-дефлятором 1,090 (Приказ Минэкономразвития РФ от 06.11.2025 № 734) → 490,5 млн ₽.",
+      "action": "rewrite",
+      "actionDetail": "Заменено на 490,5 млн ₽ с пояснением про дефлятор в разделе УСН 6% и в сравнительной таблице (УСН 6%/15%).",
+      "applied": true,
+      "sources": [
+        "https://www.regberry.ru/nalogooblozhenie/limit-usn",
+        "https://audit-reshenie.ru/journal/usn-eshn/koefficienty-deflyatory-2026-limity-usn-psn-torgovyj-sbor/"
+      ]
+    },
+    {
+      "id": "c-usn-nds-threshold-60",
+      "type": "MONEY",
+      "raw": "При доходе от 60 млн ₽ — добавляется НДС",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "С 01.01.2026 порог снижен до 20 млн ₽ за предыдущий календарный год (ст. 145 НК РФ в редакции ФЗ № 425-ФЗ).",
+      "action": "rewrite",
+      "actionDetail": "Раздел УСН 6% обновлён: порог 20 млн ₽, добавлены пояснения по пониженным ставкам 5/7% и базовой 22%. Также правки в разделе «Как выбрать», в FAQ.",
+      "applied": true,
+      "sources": [
+        "https://www.kontur-extern.ru/info/81877-usn_i_nds"
+      ]
+    },
+    {
+      "id": "c-psn-limit-60",
+      "type": "MONEY",
+      "raw": "Доход — до 60 млн ₽ в год (ПСН)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "С 01.01.2026 лимит ПСН снижен с 60 млн до 20 млн ₽ (ФЗ № 425-ФЗ от 28.11.2025).",
+      "action": "rewrite",
+      "actionDetail": "Заменено в разделе ПСН, в разделе «Как выбрать», в таблице сравнения, в разделе «Совмещение режимов» и в FAQ.",
+      "applied": true,
+      "sources": [
+        "https://audit-reshenie.ru/journal/usn-eshn/koefficienty-deflyatory-2026-limity-usn-psn-torgovyj-sbor/",
+        "https://www.consultant.ru/legalnews/30257/"
+      ]
+    },
+    {
+      "id": "c-osno-rates-nds20",
+      "type": "PERCENT",
+      "raw": "НДС 10%/20% (для ОСНО)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "С 01.01.2026 — 10%/22% (ФЗ № 425-ФЗ).",
+      "action": "rewrite",
+      "actionDetail": "Заменено в разделе ОСНО.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/legalnews/30257/"
+      ]
+    },
+    {
+      "id": "c-fixed-100-percent",
+      "type": "PERCENT",
+      "raw": "ИП без сотрудников уменьшает налог на 100% фиксированных взносов",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "applied": true
+    },
+    {
+      "id": "c-st-346.16",
+      "type": "NPA",
+      "raw": "ст. 346.16 НК РФ — перечень расходов на УСН",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "applied": true
+    },
+    {
+      "id": "c-employees-130",
+      "type": "MONEY",
+      "raw": "Сотрудники — до 130 человек",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Лимит сотрудников на УСН — 130 чел., также подлежит индексации, но для 2026 года остаётся 130 как округлённое значение в практике ФНС.",
+      "applied": true
+    },
+    {
+      "id": "c-psn-employees-15",
+      "type": "MONEY",
+      "raw": "Сотрудники ПСН — до 15 человек",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "applied": true
+    },
+    {
+      "id": "c-form-26.2-1",
+      "type": "FACT",
+      "raw": "форма 26.2-1 (УСН), форма 26.5-1 (патент), 30 дней",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "applied": true
+    }
+  ],
+  "recommendations": [
+    "Применено: НДС 20% → 22% во всех точках (лид, ОСНО, таблица сравнения).",
+    "Применено: лимит УСН 450 → 490,5 млн ₽ (с пояснением про коэффициент-дефлятор 1,090).",
+    "Применено: лимит ПСН 60 → 20 млн ₽ во всех точках статьи (раздел ПСН, «Как выбрать», таблица, «Совмещение режимов», FAQ).",
+    "Применено: порог НДС на УСН 60 → 20 млн ₽ с пояснением о возможности выбрать ставку 5/7% или 22%.",
+    "Применено: updatedDate=2026-05-19.",
+    "Перепроверить в августе 2026 после публикации ФНС методических рекомендаций и накопления практики."
+  ],
+  "nextReview": "2026-08-17"
+}

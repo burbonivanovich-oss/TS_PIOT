@@ -1,0 +1,115 @@
+{
+  "slug": "2026-05-03-strahovye-vznosy-msp-2026",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 55,
+    "checked": 18,
+    "match": 11,
+    "mismatch": 6,
+    "uncertain": 1,
+    "missing": 0,
+    "overallStatus": "critical-rewrite-applied",
+    "criticalIssues": 5,
+    "note": "Пять критических правок: (1) пороговая величина — было 'свыше МРОТ', с 01.01.2025 действует 1,5 МРОТ (ФЗ № 362-ФЗ от 29.10.2024); (2) сумма примера пересчитана (40 639,50 ₽ вместо 27 093 ₽); (3) основной НПА перечня 54 ОКВЭД — было ПП № 1951 от 24.11.2023 (не существует), правильно Распоряжение Правительства РФ № 4125-р от 27.12.2025; (4) основной закон, ограничивший круг получателей льготы 2026 — было ФЗ № 389-ФЗ от 31.07.2023, правильно ФЗ № 425-ФЗ от 28.11.2025 (новый п. 13.3 ст. 427 НК РФ); (5) ФЗ № 263-ФЗ от 29.10.2024 о МРОТ-2026 — несуществующий; правильно ФЗ № 429-ФЗ от 28.11.2025. Добавлено условие 70% доли доходов (п. 13.3 ст. 427 НК РФ)."
+  },
+  "claims": [
+    {
+      "id": "c-msp-threshold-1mrot",
+      "type": "PERCENT",
+      "raw": "тариф 15% с выплат, превышающих МРОТ",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "Порог 1,5 МРОТ (40 639,50 ₽ в 2026), действует с 01.01.2025 — ФЗ № 362-ФЗ от 29.10.2024, п. 2.4 ст. 427 НК РФ",
+      "action": "rewrite",
+      "applied": true,
+      "sources": [
+        "https://www.kontur-extern.ru/info/83977-ponizhennyy_tarif_po_strahovym_vznosam_dlya_msp",
+        "https://www.rnk.ru/article/218668-ponijennyy-tarif-vznosov-dlya-msp"
+      ]
+    },
+    {
+      "id": "c-msp-example",
+      "type": "MONEY",
+      "raw": "с 27 093 руб. — 30%, с 32 907 руб. — 15%, экономия 5 000",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "с 40 639,50 — 30% (12 191,85), с 19 360,50 — 15% (2 904,08), экономия ~2 900",
+      "action": "rewrite",
+      "applied": true
+    },
+    {
+      "id": "c-fz-389",
+      "type": "NPA_FZ",
+      "raw": "Федеральный закон № 389-ФЗ от 31.07.2023 (условия льготы для МСП)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "ФЗ № 425-ФЗ от 28.11.2025 — ввёл новый п. 13.3 ст. 427 НК РФ с условием перечня приоритетных отраслей и долей ≥ 70%",
+      "action": "rewrite",
+      "applied": true,
+      "sources": [
+        "https://buh.ru/articles/ponizhennyy-tarif-strakhovykh-vznosov-dlya-msp-v-2026-godu-komu-polozhen-kak-opredelit-dolyu-dokhoda.html"
+      ]
+    },
+    {
+      "id": "c-pp-1951",
+      "type": "NPA_PP_NUMBERED",
+      "raw": "Постановление Правительства РФ № 1951 от 24.11.2023",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.93,
+      "expectedValue": "Распоряжение Правительства РФ № 4125-р от 27.12.2025 (перечень 54 ОКВЭД для целей применения МСП пониженного тарифа взносов с 2026)",
+      "action": "rewrite",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/law/hotdocs/92298.html",
+        "https://www.kontur-extern.ru/info/82978-kto_smozhet_primenyat_lgotu_po_vznosam"
+      ]
+    },
+    {
+      "id": "c-fz-263-mrot",
+      "type": "NPA_FZ",
+      "raw": "Федеральный закон № 263-ФЗ от 29.10.2024 (МРОТ-2026)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "ФЗ № 429-ФЗ от 28.11.2025",
+      "action": "rewrite",
+      "applied": true
+    },
+    {
+      "id": "c-mrot-2026",
+      "type": "MONEY",
+      "raw": "27 093 рублей",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "action": "none",
+      "applied": false
+    },
+    {
+      "id": "c-rsv-code-20",
+      "type": "OTHER",
+      "raw": "код тарифа 20",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.85,
+      "action": "none",
+      "applied": false
+    },
+    {
+      "id": "c-st-122-nk",
+      "type": "NPA_NK",
+      "raw": "штраф 20% (ст. 122 НК РФ)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.97,
+      "action": "none",
+      "applied": false
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "slug": "2026-05-03-srok-fn-15-36",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 8,
+    "checked": 8,
+    "match": 8,
+    "mismatch": 0,
+    "uncertain": 0,
+    "overallStatus": "verified",
+    "criticalIssues": 0,
+    "note": "Это эталонная статья по срокам ФН. 54-ФЗ от 22.05.2003 — действующая редакция, whitelist fz.54. Ст. 4.1 54-ФЗ — корректная статья, регулирующая требования к ФН и срокам действия. Разделение 15 мес (ОСН, подакцизные, сезонная деятельность) / 36 мес (УСН/ПСН/ЕСХН без подакцизных) — совпадает с действующей редакцией ст. 4.1 п.6 54-ФЗ. Штрафы ч.4 ст. 14.5 КоАП РФ за применение несоответствующей ККТ: должностные лица 1.5-3K, юрлица 5-10K — корректно (whitelist koap.14.5). Цены ФН 6-8K (ФН-15М) / 12-15K (ФН-36М) — рыночные ориентиры. Все юридические факты подтверждены."
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "22.05.2003",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Дата принятия 54-ФЗ"
+    },
+    {
+      "id": "c7",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Whitelist fz.54"
+    },
+    {
+      "id": "c8",
+      "type": "NPA_FZ",
+      "raw": "ст. 4.1 Закона № 54-ФЗ",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Ст. 4.1 54-ФЗ — требования к ФН, в т.ч. сроки действия (п.6: ОСН/подакцизные — мин. 13 мес/макс. 15; УСН/ПСН/ЕСХН — макс. 36)"
+    },
+    {
+      "id": "c6",
+      "type": "NPA_KOAP",
+      "raw": "ст. 14.5 КоАП",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Whitelist koap.14.5 — нарушения применения ККТ. Ч.4 — применение ККТ не соответствующей требованиям: должностные/ИП 1.5-3K, юрлица 5-10K."
+    },
+    {
+      "id": "c4",
+      "type": "MONEY",
+      "raw": "3 000 рублей",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Верхняя граница штрафа для должностных лиц по ч.4 ст. 14.5 КоАП"
+    },
+    {
+      "id": "c5",
+      "type": "MONEY",
+      "raw": "10 000 рублей",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Верхняя граница штрафа для юрлиц по ч.4 ст. 14.5 КоАП"
+    },
+    {
+      "id": "c2",
+      "type": "MONEY",
+      "raw": "8 000 руб (ФН-15М)",
+      "status": "match-informational",
+      "confidence": 0.7,
+      "expectedValue": "Рыночный ориентир для ФН-15М в 2026 г."
+    },
+    {
+      "id": "c3",
+      "type": "MONEY",
+      "raw": "15 000 руб (ФН-36М)",
+      "status": "match-informational",
+      "confidence": 0.7,
+      "expectedValue": "Рыночный ориентир для ФН-36М в 2026 г."
+    }
+  ],
+  "fixes": []
+}

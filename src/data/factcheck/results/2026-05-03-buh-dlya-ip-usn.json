@@ -1,0 +1,35 @@
+{
+  "slug": "2026-05-03-buh-dlya-ip-usn",
+  "checkedAt": "2026-05-19T12:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 22,
+    "checked": 22,
+    "match": 18,
+    "mismatch": 4,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "fixed-with-critical-corrections",
+    "criticalIssues": 3,
+    "note": "Три критические правки: (1) порог НДС на УСН 60 млн → 20 млн с 01.01.2026 (ФЗ 425-ФЗ от 28.11.2025); (2) диапазон 60–450 млн → 20–490,5 млн; (3) прогрессивная шкала НДФЛ — пятиступенчатая (13/15/18/20/22), вступила в силу 01.01.2025, не 'с 2024'."
+  },
+  "claims": [
+    { "id": "c-vat-threshold", "raw": "С 2025 года ИП на УСН платит НДС при доходах свыше 60 млн", "status": "mismatch", "severity": "critical", "confidence": 0.98, "expectedValue": "С 01.01.2026 порог снижен до 20 млн ₽ (ФЗ 425-ФЗ от 28.11.2025)", "action": "rewrite", "applied": true },
+    { "id": "c-vat-range", "raw": "доходы 60–450 млн рублей платят НДС", "status": "mismatch", "severity": "critical", "confidence": 0.98, "expectedValue": "20–490,5 млн с 2026; льготные ставки 5%/7% или основная 22%", "action": "rewrite", "applied": true },
+    { "id": "c-ndfl-progressive", "raw": "С 2024 года: 13% до 2,4 млн, 15% на превышение", "status": "mismatch", "severity": "critical", "confidence": 0.98, "expectedValue": "С 01.01.2025: 5 ступеней 13/15/18/20/22% (ФЗ 176-ФЗ от 12.07.2024)", "action": "rewrite", "applied": true },
+    { "id": "c-vat-checklist", "raw": "Поддерживает ли НДС (если доход превышает 60 млн)?", "status": "mismatch", "severity": "moderate", "confidence": 0.95, "action": "rewrite", "applied": true },
+    { "id": "c-ens-2025", "raw": "С 2025 года авансы УСН через ЕНС", "status": "match", "severity": "none", "confidence": 0.95, "note": "Точнее с 2023, но и в 2025 корректно — обязанность сохраняется." },
+    { "id": "c-knd-1110355", "raw": "Приказ ФНС № ЕД-7-8/1047@ от 02.11.2022 (КНД 1110355)", "status": "match", "severity": "none", "confidence": 0.98 },
+    { "id": "c-strahvznosy-300k", "raw": "Дополнительный взнос ИП 1% свыше 300 000 ₽ (ст. 430 НК РФ)", "status": "match", "severity": "none", "confidence": 0.98 },
+    { "id": "c-shtraf-119", "raw": "Штраф от 5% до 30% по ст. 119 НК РФ", "status": "match", "severity": "none", "confidence": 0.95 },
+    { "id": "c-shtraf-126", "raw": "200 ₽ за непредставленное уведомление (ст. 126 НК РФ)", "status": "match", "severity": "none", "confidence": 0.9, "note": "Норма корректна; ФНС применяет мораторий де-факто, но в законе сумма указана верно." }
+  ],
+  "recommendations": [
+    "Применено: порог НДС 60 → 20 млн с 2026.",
+    "Применено: диапазон 20–490,5 млн.",
+    "Применено: пятиступенчатая шкала НДФЛ с 2025 (13/15/18/20/22).",
+    "Применено: updatedDate=2026-05-19."
+  ],
+  "nextReview": "2026-08-10"
+}

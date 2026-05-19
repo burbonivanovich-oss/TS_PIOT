@@ -1,0 +1,104 @@
+{
+  "slug": "2026-05-03-markirovka-konservov-2026",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 14,
+    "checked": 5,
+    "match": 2,
+    "mismatch": 2,
+    "incompleteContext": 1,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "applied-critical-fixes",
+    "criticalIssues": 1,
+    "note": "Главное расхождение: дата 01.12.2026 в статье подана как «разрешительный режим на кассе» — фактически по «Честному знаку» с 01.10.2026 уже идёт передача сведений о розничных продажах через ККТ, а 01.12.2026 — это переход на обязательный ЭДО при оптовых отгрузках и поэкземплярный учёт. По ст. 15.12 КоАП добавлена ч. 2; ИП объединены с должностными лицами; пороги ст. 171.1 УК уточнены — 400K/1.5M действительно для продовольственных товаров (консервы — это продовольствие, формулировка корректна, но добавлен явный контекст)."
+  },
+  "claims": [
+    {
+      "id": "c-date-01.12.2026-framing",
+      "type": "DATE_TEXT",
+      "raw": "1 декабря 2026 — разрешительный режим на кассе",
+      "context": "Таблица «Ключевые даты» и формулировка после неё",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "По «Честному знаку»: с 01.10.2026 — обязательная передача сведений о розничных продажах консервов через ККТ и о выводе из оборота в объёмно-сортовом учёте. С 01.12.2026 — обязательный ЭДО при оптовых отгрузках/приёмках и переход к поэкземплярному учёту.",
+      "explanation": "Статья перепутала смысл двух milestones: сканирование на кассе фактически вводится с 01.10.2026, а не с 01.12.2026. С 01.12.2026 milestone касается оптового звена (ЭДО+поэкземплярка), а не кассы.",
+      "sources": [
+        "https://xn--80ajghhoc2aj1c8b.xn--p1ai/business/projects/canned_food/marking/",
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/otdelnye-vidy-konservirovannyx-produktov/sroki-i-etapy-markirovki-tovarov-konservov",
+        "https://scanport.ru/blog/konservirovannye-produkty-i-chestnyj-znak-v-2026-godu-kak-podavat-svedeniya-o-roznichnyh-prodazhah-cherez-kkt-optovyh-otgruzkah-i-spisanii-tovarov/",
+        "https://ca-rakurs.ru/news/2026/25152/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Таблица «Ключевые даты» переформулирована: 01.10.2026 = ККТ-сканирование + объёмно-сортовая передача; 01.12.2026 = ЭДО + поэкземплярный учёт. Лид и заключение синхронизированы. Сканирование на кассе перенесено к 01.10.2026.",
+      "applied": true
+    },
+    {
+      "id": "c-npa-15.12-part",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ (без указания части)",
+      "context": "Раздел «Ответственность»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 1.0,
+      "expectedValue": "ст. 15.12 ч. 2 КоАП РФ",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ],
+      "action": "rewrite",
+      "actionDetail": "Добавлена ч. 2; ИП объединены с должностными лицами.",
+      "applied": true
+    },
+    {
+      "id": "c-uk-171.1-thresholds",
+      "type": "MONEY",
+      "raw": "крупный объём",
+      "context": "«При крупном объёме нарушения — уголовная ответственность по ст. 171.1 УК РФ»",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Консервы = продовольственные товары. Крупный размер по примечанию 1 к ст. 171.1 УК — от 400 000 ₽, особо крупный — от 1 500 000 ₽.",
+      "explanation": "Размытое «крупный объём» по A1 заменяется на конкретные пороги. Для продовольственных товаров (консервы) — 400K/1.5M.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_10699/0abcfeb2817c95237e7ab7ae330a7a2a79eefe54/"
+      ],
+      "action": "expand-bullet",
+      "actionDetail": "Добавлены конкретные пороги 400K/1.5M с пояснением «для продовольственных товаров».",
+      "applied": true
+    },
+    {
+      "id": "c-fines-15.12-jur",
+      "type": "MONEY",
+      "raw": "50 000–300 000 рублей с конфискацией товара",
+      "context": "Штраф для организаций",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "По ч. 2 ст. 15.12 КоАП — 50 000–300 000 ₽ с конфискацией",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ]
+    },
+    {
+      "id": "c-fz-54",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "context": "ст. 4.3 54-ФЗ при блокировке на кассе",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "ФЗ от 22.05.2003 № 54-ФЗ"
+    }
+  ],
+  "recommendations": [
+    "Применено: таблица ключевых дат и сопровождающий текст переформулированы — кассовое сканирование с 01.10.2026, ЭДО+поэкземплярка с 01.12.2026.",
+    "Применено: ст. 15.12 ч. 2 КоАП во всех упоминаниях; ИП объединены с должностными лицами.",
+    "Применено: пороги ст. 171.1 УК (400K/1.5M) с явным контекстом продовольственных товаров.",
+    "Применено: updatedDate=2026-05-19.",
+    "Перепроверить осенью 2026 — возможны уточняющие приказы Минпромторга по консервам."
+  ],
+  "nextReview": "2026-08-15"
+}

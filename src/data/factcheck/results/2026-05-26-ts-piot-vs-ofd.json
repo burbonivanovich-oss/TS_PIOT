@@ -1,0 +1,98 @@
+{
+  "slug": "2026-05-26-ts-piot-vs-ofd",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 23,
+    "checked": 8,
+    "match": 8,
+    "mismatch": 0,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "match",
+    "criticalIssues": 0,
+    "note": "Статья описывает разницу между ОФД и ТС ПИоТ. Все ключевые факты соответствуют нормам: дедлайн ТС ПИоТ 01.07.2026, токен X-API-KEY прекращает работу с этой даты, штраф ст. 15.12 ч. 2 КоАП для ИП 5 000–10 000 ₽ — точная редакция, ОФД по ст. 4.5 54-ФЗ, регуляторы ТС ПИоТ — Минпромторг/ЦРПТ (ПП № 1944, ПП № 303, Приказ № 2044), HoReCa-исключение через тег 1265. Правок не требуется."
+  },
+  "claims": [
+    {
+      "id": "c-ts-piot-deadline",
+      "type": "DATE",
+      "raw": "С 01.07.2026 работать без ТС ПИоТ при продаже маркированных товаров нельзя",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "Дата корректна — нормативное требование разрешительного режима с ТС ПИоТ для всех маркированных групп.",
+      "applied": true
+    },
+    {
+      "id": "c-st-4.5-54fz",
+      "type": "NPA",
+      "raw": "ст. 4.5 Федерального закона № 54-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "applied": true
+    },
+    {
+      "id": "c-pp-1944",
+      "type": "NPA",
+      "raw": "ПП № 1944 от 21.11.2023",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "applied": true
+    },
+    {
+      "id": "c-pp-303",
+      "type": "NPA",
+      "raw": "ПП № 303",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "applied": true
+    },
+    {
+      "id": "c-prikaz-2044",
+      "type": "NPA",
+      "raw": "Приказ Минпромторга № 2044",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "applied": true
+    },
+    {
+      "id": "c-koap-14.5",
+      "type": "NPA_KOAP",
+      "raw": "ст. 14.5 КоАП РФ: ИП от 10 000 ₽ (не менее ¼ суммы расчёта), юрлицо от 30 000 ₽ (не менее ¾)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "applied": true
+    },
+    {
+      "id": "c-koap-15.12-ip",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 ч. 2 КоАП РФ: ИП 5 000–10 000 ₽, юрлицо 50 000–300 000 ₽ с возможной конфискацией",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "Соответствует действующей редакции ч. 2 ст. 15.12 КоАП РФ.",
+      "applied": true
+    },
+    {
+      "id": "c-horeca-tag-1265",
+      "type": "FACT",
+      "raw": "Общепит в режиме HoReCa (тег 1265 в чеке) — освобождён от разрешительного режима",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "applied": true
+    }
+  ],
+  "recommendations": [
+    "Правок не требуется — все ключевые факты актуальны.",
+    "Перепроверить в ноябре 2026 (reviewDate уже выставлен) — после старта обязательного применения ТС ПИоТ."
+  ],
+  "nextReview": "2026-11-26"
+}

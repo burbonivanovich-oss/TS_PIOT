@@ -1,0 +1,97 @@
+{
+  "slug": "2026-05-03-mrot-2026-rabotodatel",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 78,
+    "checked": 20,
+    "match": 14,
+    "mismatch": 5,
+    "uncertain": 1,
+    "missing": 0,
+    "overallStatus": "critical-rewrite-applied",
+    "criticalIssues": 4,
+    "note": "Четыре критические правки: (1) закон о МРОТ-2026 — был ФЗ № 263-ФЗ от 29.10.2024, правильно ФЗ № 429-ФЗ от 28.11.2025; (2) МРОТ-2025 — был 25 371 ₽, правильно 22 440 ₽ (ФЗ № 365-ФЗ от 29.10.2024); (3) % роста — был 6,8%, правильно 20,7%; (4) льготный тариф МСП — статья утверждала 'свыше МРОТ', с 01.01.2025 действует порог 1,5 МРОТ (ФЗ № 362-ФЗ от 29.10.2024). Все суммы расчёта порога (33 660 → 40 639,50 ₽) пересчитаны. Расчёты больничных и пособий по уходу остаются верными (формула 27 093 × 24 / 730)."
+  },
+  "claims": [
+    {
+      "id": "c-mrot-law",
+      "type": "NPA_FZ",
+      "raw": "Федеральный закон № 263-ФЗ от 29.10.2024",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "Федеральный закон № 429-ФЗ от 28.11.2025",
+      "action": "rewrite",
+      "actionDetail": "Заменено в основном разделе. ФЗ № 263-ФЗ к МРОТ не относится; реальный закон, установивший МРОТ-2026 27 093 ₽ — № 429-ФЗ от 28.11.2025.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/legalnews/30162/",
+        "https://aif.ru/politics/russia/sovfed-odobril-zakon-ob-ustanovlenii-mrot-v-27093-rublya-s-2026-goda"
+      ]
+    },
+    {
+      "id": "c-mrot-2025",
+      "type": "MONEY",
+      "raw": "2025 год — 25 371 рублей",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "22 440 рублей (ФЗ № 365-ФЗ от 29.10.2024)",
+      "action": "rewrite",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/law/ref/mrot/2025/",
+        "https://www.garant.ru/news/1762710/"
+      ]
+    },
+    {
+      "id": "c-mrot-growth",
+      "type": "PERCENT",
+      "raw": "на 6,8% больше, чем в 2025 году",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.99,
+      "expectedValue": "20,7% ((27 093 − 22 440) / 22 440)",
+      "action": "rewrite",
+      "applied": true
+    },
+    {
+      "id": "c-msp-threshold",
+      "type": "PERCENT",
+      "raw": "пониженный тариф 15% на часть выплат, превышающую МРОТ",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.97,
+      "expectedValue": "Порог 1,5 МРОТ с 01.01.2025 (ФЗ № 362-ФЗ от 29.10.2024). В 2026 — 40 639,50 ₽ (1,5 × 27 093).",
+      "action": "rewrite",
+      "actionDetail": "Переписан расчётный пример: было «с 27 093 — 30%, с 22 907 — 15%», стало «с 40 639,50 — 30%, с 9 360,50 — 15%».",
+      "applied": true,
+      "sources": [
+        "https://www.kontur-extern.ru/info/83977-ponizhennyy_tarif_po_strahovym_vznosam_dlya_msp",
+        "https://buhexpert8.ru/1s-zup/ndfl-i-strahovye-vznosy-1s-zup/uchet-po-strahovym-vznosam/s-2025-goda-msp-primenyayut-lgotu-po-vznosam-k-vyplatam-svyshe-1-5-mrot-a-ne-1-mrot.html"
+      ]
+    },
+    {
+      "id": "c-mrot-value",
+      "type": "MONEY",
+      "raw": "27 093 рублей",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "action": "none",
+      "applied": false
+    },
+    {
+      "id": "c-koap-527",
+      "type": "NPA_KOAP",
+      "raw": "ч. 6 ст. 5.27 КоАП РФ — должн. 10–20K, юрлица 30–50K",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "action": "none",
+      "applied": false
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "slug": "2026-05-01-chto-takoe-fn",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 21,
+    "checked": 12,
+    "match": 12,
+    "mismatch": 0,
+    "uncertain": 0,
+    "overallStatus": "verified",
+    "criticalIssues": 0,
+    "note": "Все ключевые НПА и нормы корректны: 54-ФЗ от 22.05.2003 (ст. 4.1 о сроках ФН), ФФД 1.2 с 06.08.2021 — подтверждено ФНС/ОФД источниками. Штрафы по ч.1 и ч.2 ст. 14.5 КоАП (1.5-3K / 5-10K и 25-50% / 75-100%) совпадают с КонсультантПлюс. Сроки ФН 15/36 мес и правила пересчёта при смене режима — закреплены п. 6 ст. 4.1 54-ФЗ. Цены ФН в 2026 году — ориентировочные, без жёсткой нормативной привязки."
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "22.05.2003",
+      "status": "match",
+      "confidence": 0.99,
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_42359/"]
+    },
+    {
+      "id": "c13",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Федеральный закон от 22.05.2003 № 54-ФЗ — действующая редакция, подтверждено npaWhitelist"
+    },
+    {
+      "id": "c2",
+      "type": "DATE_TEXT",
+      "raw": "6 августа 2021 года",
+      "status": "match",
+      "confidence": 0.98,
+      "expectedValue": "С 06.08.2021 регистрация ККТ для маркированных товаров — только на ФФД 1.2",
+      "sources": [
+        "https://platformaofd.ru/news/novye-pravila-dlya-kkt-i-fn-izmeneniya-s-6-avgusta-2021/",
+        "https://secrets.tinkoff.ru/novosti/s-6-avgusta-dlya-kkt-vvodyat-novyj-format-fiskalnyh-dokumentov-ffd-1-2/"
+      ]
+    },
+    {
+      "id": "c6",
+      "type": "MONEY",
+      "raw": "9 000 рублей",
+      "status": "match-informational",
+      "confidence": 0.7,
+      "expectedValue": "Ориентировочная розничная цена ФН-1.1М в 2026 г. — диапазон рыночный, нормативом не регулируется"
+    },
+    {
+      "id": "c9",
+      "type": "MONEY",
+      "raw": "3 000 рублей",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "ч.2 ст. 14.5 КоАП: должн./ИП 1500-3000 руб",
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_34661/"]
+    },
+    {
+      "id": "c10",
+      "type": "MONEY",
+      "raw": "10 000 рублей (юрлица)",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "ч.2 ст. 14.5 КоАП: юр.лица 5000-10000"
+    },
+    {
+      "id": "c18",
+      "type": "PERCENT",
+      "raw": "25%-50% (ИП без ККТ)",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "ч.2 ст. 14.5 КоАП: ИП 25-50% суммы расчёта, не менее 10K"
+    },
+    {
+      "id": "c20",
+      "type": "PERCENT",
+      "raw": "75%-100% (юрлица без ККТ)",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "ч.2 ст. 14.5 КоАП: ЮЛ 75-100%, не менее 30K"
+    },
+    {
+      "id": "c12",
+      "type": "MONEY",
+      "raw": "30 000 рублей",
+      "status": "match",
+      "confidence": 0.99
+    }
+  ]
+}
