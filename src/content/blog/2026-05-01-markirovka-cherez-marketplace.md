@@ -2,6 +2,7 @@
 title: "Маркировка на маркетплейсах Wildberries и Ozon в 2026 году: что должен знать продавец"
 description: "Маркировка маркетплейс Wildberries Ozon 2026: кто несёт ответственность, требования площадок, штрафы до 300 000 ₽ и пошаговый порядок отгрузки."
 pubDate: "2026-05-08"
+reviewDate: "2026-08-06"
 heroImage: "/images/hero/2026-05-01-markirovka-cherez-marketplace.jpg"
 tags:
   - маркировка
