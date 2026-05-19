@@ -33,9 +33,18 @@ const {
 } = Astro.props;
 
 const fullTitle = title === SITE_TITLE ? title : `${title} — ${SITE_TITLE}`;
+// PNG default обязателен: Telegram игнорирует SVG для og:image.
 const imageSrc =
-	typeof image === 'string' ? image : image?.src ?? '/og-default.svg';
+	typeof image === 'string' ? image : image?.src ?? '/og-default.png';
 const ogImage = new URL(imageSrc, Astro.url);
+const ogImageIsSvg = imageSrc.endsWith('.svg');
+const ogImageType = imageSrc.endsWith('.jpg') || imageSrc.endsWith('.jpeg')
+	? 'image/jpeg'
+	: imageSrc.endsWith('.png')
+	? 'image/png'
+	: imageSrc.endsWith('.webp')
+	? 'image/webp'
+	: undefined;
 
 const orgJsonLd = {
 	'@context': 'https://schema.org',
@@ -103,8 +112,11 @@ const extraJsonLd = jsonLd
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:secure_url" content={ogImage} />
+{ogImageType && <meta property="og:image:type" content={ogImageType} />}
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
 {publishedTime && <meta property="article:published_time" content={publishedTime} />}
 {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
 
