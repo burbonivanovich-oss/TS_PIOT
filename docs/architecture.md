@@ -74,6 +74,8 @@
 | `src/components/PenaltyCalculator.tsx` | React-компонент калькулятора штрафов |
 | `src/components/Quiz.tsx` | Ветвящийся квиз для подбора продуктов (ОФД/Эльба/Бухгалтерия/Диадок/Экстерн) — 3–4 вопроса с условным шагом для ИП+Бухгалтерия, открывается из hero на главной |
 | `src/components/PopupBanner.tsx` | Всплывающий баннер подписки. Появляется через 60 с после загрузки, закрывается крестиком/оверлеем/CTA. Флаг закрытия — `localStorage.popup_dismissed_v1`. Подключается с `client:load` на `/` |
+| `src/components/interactive/` | Интерактивные блоки для встраивания в статьи и лонгриды (F26 из roadmap'а контент-форматов). Цели в Метрике отправляются через `src/utils/track.ts`. |
+| `src/components/interactive/DataMatrixDissector.tsx` | Первый компонент из Спринта A — Шаг 1 флагмана-симулятора. Разбор кода маркировки DataMatrix на части (GTIN / серийник / GS-разделитель / криптохвост) с интерактивной подсветкой |
 
 ## Утилиты
 
@@ -83,6 +85,9 @@
   - `tagSlug(tag)` — кириллический slug из тега
   - `collectTags(posts)` — `{ slug → { name, posts[] } }` со всеми тегами
   - `pluralPosts(count)` — «материал/материала/материалов»
+- `src/utils/track.ts`
+  - `track(event, params?)` — обёртка над `window.ym('reachGoal', …)` для счётчика 109130279
+  - `trackOnce(event, params?)` — отправляет цель один раз за сессию (для воронок «дошёл до шага N»)
 - `src/utils/glossary.ts`
   - `termSlug(term)` — slug для якоря
   - `firstLetter(term)` — буква для группировки
