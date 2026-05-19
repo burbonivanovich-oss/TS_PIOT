@@ -99,15 +99,39 @@
 | Factcheck claims | `src/data/factcheck/claims/<slug>.json` | Извлечённые claims статьи | `docs/factcheck.md` |
 | Factcheck results | `src/data/factcheck/results/<slug>.json` | Отчёт проверки + recommendations | `docs/factcheck.md` |
 | Factcheck маркеры | `.claude/factchecked/<slug>` | «Эта статья проверена YYYY-MM-DD» | `docs/factcheck.md` |
+| Whitelist НПА | `src/data/factcheck/sources.json.npaWhitelist` | Реальные действующие ФЗ/ПП/Приказы — справочник для writer'а и аудита | `docs/factcheck.md` |
+| NPA audit | `src/data/factcheck/audit/npa-references.json` | Незнакомые НПА в статьях для ручной верификации | — |
+| Linkgraph | `src/data/audit/linkgraph.json` | Граф `slug → outbound[] / inbound[]`, orphans/weak/deadends | — |
+| Embeddings | `src/data/audit/embeddings.json` | 1024d вектора статей (Jina v3) | — |
+| Similarity | `src/data/audit/similarity.json` + `similarity-report.md` | Cosine top-6 соседей + горячие пары | — |
 | Редполитика | `docs/editorial-policy.md` | Классы решений A/B/C для фактчека | — |
 
 Запуск:
 - Wordstat — еженедельный workflow `.github/workflows/wordstat-weekly.yml`.
+- Embeddings — ежемесячный `.github/workflows/embeddings-monthly.yml` (нужен `JINA_API_KEY` или `OPENAI_API_KEY`).
 - Factcheck — скилл `/factcheck <slug>` вручную, на статью.
 
 Скрипты в `scripts/`:
 - `scripts/wordstat/{extract-keys,fetch,discover,diff-snapshots}.mjs`
-- `scripts/factcheck/extract-claims.mjs`
+- `scripts/factcheck/extract-claims.mjs` — типы claims: даты, суммы, NPA_KOAP/UK/NK/FZ/FZ_FULL/PP_NUMBERED/PRIKAZ, PERCENT, LINK.
+- `scripts/factcheck/audit-npa-references.mjs` — регрессионный аудит против `sources.json.npaWhitelist`. Флаг `--strict` для CI.
+- `scripts/audit/embed-articles.mjs` — semantic embeddings (Jina v3 default, OpenAI fallback).
+- `scripts/audit/similarity.mjs` — cosine top-6 + отчёт пар по порогам 0.92 / 0.80.
+- `scripts/audit/linkgraph.mjs` — граф ссылок, orphans/weak/deadends + кандидаты доноров.
+- `scripts/audit/fix-broken-blog-links.mjs` — чинит `/blog/<slug-без-даты>/` → `/blog/<полный-slug>/`. Идемпотентен.
+- `scripts/audit/check-blog-links.mjs` — регрессионный CI-чек битых ссылок.
+- `scripts/audit/set-review-dates.mjs` — проставляет `reviewDate = pubDate + 90 дней` в статьях без него. Идемпотентен.
+
+## Внутренние ссылки между статьями
+
+Astro 5 `glob` loader использует **полное имя файла без расширения** как
+`id` коллекции и параметр маршрута `/blog/[...slug]`. То есть для
+`2026-01-15-chto-takoe-ts-piot.md` рабочий URL — `/blog/2026-01-15-chto-takoe-ts-piot/`,
+а короткая форма `/blog/chto-takoe-ts-piot/` ведёт в 404.
+
+Все внутренние ссылки в `src/content/blog/*.md` обязаны использовать
+полный slug с датой. Регрессионный чек — `scripts/audit/check-blog-links.mjs`
+(падает с exit 1 на любой битой ссылке).
 
 ## Build pipeline
 
