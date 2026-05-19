@@ -1,0 +1,385 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import DataMatrixDissector from '../components/interactive/DataMatrixDissector.tsx';
+import FfdToggle from '../components/interactive/FfdToggle.tsx';
+import CmStatusToggle from '../components/interactive/CmStatusToggle.tsx';
+import { u } from '../utils/url';
+
+const title = 'Как работает ТС ПИоТ: путь чека от кассы до Честного знака';
+const description =
+	'Пошаговый интерактивный разбор: как касса сканирует код маркировки, отправляет в ТС ПИоТ и Честный знак, формирует фискальный чек и фиксирует продажу. Можно пройти весь путь самому.';
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+
+		<div class="sim-progress" aria-hidden="true">
+			<div class="sim-progress-bar" id="sim-progress-bar"></div>
+		</div>
+
+		<main class="simulator">
+			<article>
+				<header class="sim-intro">
+					<p class="sim-eyebrow">Интерактивный разбор · 7 шагов</p>
+					<h1>{title}</h1>
+					<p class="sim-lead">
+						Кассир сканирует пачку зефира. Что произойдёт за следующие 3 секунды?
+						Пройдём весь путь — от штрих-кода до отметки в «Честном знаке».
+						Прокручивайте страницу, нажимайте на элементы — каждый шаг это
+						маленькая интерактивная карточка.
+					</p>
+					<div class="sim-meta">
+						<span>Категория-пример: сахаристые кондитерские изделия</span>
+						<span>Норматив: ПП № 1944 от 21.11.2023, Приказ ФНС ЕД-7-20/662@</span>
+					</div>
+				</header>
+
+				<section class="sim-step" data-step="0">
+					<div class="sim-step-num">0</div>
+					<h2>Пролог. 3 секунды до фискального чека</h2>
+					<div class="sim-illu">
+						<img src={u('/images/flagship/step-0.jpg')} alt="Касса с пачкой зефира на ленте, надпись «3 секунды»" width="1200" height="675" loading="lazy" />
+					</div>
+					<p>
+						Покупатель кладёт пачку зефира на ленту. На упаковке — DataMatrix-код
+						маркировки. Кассир проводит сканером, и за следующие три секунды
+						произойдёт цепочка из семи шагов, которые обычно остаются невидимыми.
+						Мы их откроем.
+					</p>
+				</section>
+
+				<section class="sim-step" data-step="1">
+					<div class="sim-step-num">1</div>
+					<h2>Что внутри DataMatrix-кода</h2>
+					<div class="sim-illu">
+						<img src={u('/images/flagship/step-1.jpg')} alt="Крупный DataMatrix-код с расшифровкой на GTIN, серийник, криптохвост" width="1200" height="900" loading="lazy" />
+					</div>
+					<p>
+						Код маркировки — не баркод и не QR. Это DataMatrix формата GS1, и в нём
+						зашиты три вещи. Без криптохвоста код нельзя подделать: чтобы
+						сгенерировать валидную подпись, нужен закрытый ключ «Честного знака».
+					</p>
+					<DataMatrixDissector client:visible />
+					<p class="sim-note">
+						GTIN в примере условный — не сканируйте. В реальной упаковке между
+						группами стоит невидимый разделитель GS (ASCII 29), поэтому код нельзя
+						скопировать как обычный текст.
+					</p>
+				</section>
+
+				<section class="sim-step" data-step="2">
+					<div class="sim-step-num">2</div>
+					<h2>ТС ПИоТ — программа внутри кассы, не отдельная коробка</h2>
+					<div class="sim-illu">
+						<img src={u('/images/flagship/step-2.jpg')} alt="Касса в разрезе: hardware-зона с ФН и software-зона с шестью модулями, среди которых выделен ТС ПИоТ" width="1200" height="900" loading="lazy" />
+					</div>
+					<p>
+						Главное недоразумение про ТС ПИоТ — что это «коробочка», которую надо
+						купить и подключить. На деле это программный модуль, либо встроенный в
+						кассовую программу обновлением, либо установленный отдельным сервисом
+						рядом с кассой.
+					</p>
+					<p>
+						По постановлению Правительства № 1944 от 21.11.2023 ТС ПИоТ должен быть
+						установлен на кассе с <strong>28 декабря 2025 года</strong>.
+						До <strong>1 июля 2026 года</strong> ещё можно работать по старой схеме
+						через токен X-API-KEY от ЦРПТ — но после этой даты токены отключают,
+						и без ТС ПИоТ маркированный товар продать невозможно.
+					</p>
+					<aside class="sim-placeholder">
+						<strong>Интерактив в работе:</strong> схема модулей с кликабельными
+						подсказками — закрывается компонентом <code>KkmDiagram</code> на этапе MVP.
+					</aside>
+				</section>
+
+				<section class="sim-step" data-step="3">
+					<div class="sim-step-num">3</div>
+					<h2>Запрос в «Честный знак»: 1,5 секунды или локальная база</h2>
+					<div class="sim-illu">
+						<img src={u('/images/flagship/step-3.jpg')} alt="Касса отправляет JSON-конверт в облако Честного знака по лаймовой стрелке, таймер 1.5 сек в углу" width="1200" height="900" loading="lazy" />
+					</div>
+					<p>
+						ТС ПИоТ упаковывает код маркировки, ИНН магазина, номер кассы и тип
+						операции в небольшой JSON-пакет и отправляет в «Честный знак».
+						Целевой таймаут — около 1,5 секунды. Если ответ не пришёл, ТС ПИоТ
+						не блокирует кассу: проверяет код по локальной базе и при отсутствии
+						в чёрном списке разрешает продажу.
+					</p>
+					<p>
+						Локальная база (ЛМ ЧЗ) на кассе хранит снимок чёрных списков и
+						действует <strong>72 часа</strong> с последнего обновления. Если связь
+						не восстановилась за это время, локальная проверка не проходит —
+						маркированный товар продать нельзя до восстановления связи.
+					</p>
+					<aside class="sim-placeholder">
+						<strong>Интерактив в работе:</strong> тогл «связь есть / связи нет» и
+						ползунок «сколько касса без интернета» — компонент <code>RequestAnimation</code>.
+					</aside>
+				</section>
+
+				<section class="sim-step" data-step="4">
+					<div class="sim-step-num">4</div>
+					<h2>Три варианта ответа: что говорит «Честный знак»</h2>
+					<div class="sim-illu">
+						<img src={u('/images/flagship/step-4.jpg')} alt="Три карточки ответа от Честного знака: Валиден, Выведен из оборота, Нет в системе" width="1200" height="900" loading="lazy" />
+					</div>
+					<p>
+						Ответ возможен трёх видов. <strong>«Валиден»</strong> — нормальный
+						путь, идём дальше к фискальному чеку. <strong>«Выведен из оборота»</strong> —
+						этим кодом уже расплачивались (возможно, ошибка возврата при приёмке).
+						<strong>«Нет в системе»</strong> — товар, скорее всего, в обороте нелегально.
+					</p>
+					<p>
+						По данным ЦРПТ, до 70% случаев «выведен из оборота» — операционные
+						ошибки, не подделки. Касса блокирует продажу, но штраф по ст. 15.12
+						КоАП онлайн не выписывается: он накладывается уже Роспотребнадзором
+						или Минпромторгом по результатам проверки.
+					</p>
+					<aside class="sim-placeholder">
+						<strong>Интерактив в работе:</strong> три ветки сценария с возвратом к
+						нормальному пути — компонент <code>ResponseBranch</code>.
+					</aside>
+				</section>
+
+				<section class="sim-step" data-step="5">
+					<div class="sim-step-num">5</div>
+					<h2>Фискальный чек: связка тегов 1163 + 2106 + 1265</h2>
+					<div class="sim-illu">
+						<img src={u('/images/flagship/step-5.jpg')} alt="Фискальный чек со связкой тегов 1163, 2106 и 1265 в подсвеченном блоке" width="1200" height="900" loading="lazy" />
+					</div>
+					<p>
+						Если «Честный знак» подтвердил код, касса формирует фискальный чек в
+						формате ФФД 1.2 (Приказ ФНС № ЕД-7-20/662@). В чеке появляется не
+						одиночный тег, а структурированная связка из трёх реквизитов: код
+						товара, результат проверки от ЧЗ и идентификатор того самого запроса
+						из Шага 3.
+					</p>
+					<FfdToggle client:visible />
+				</section>
+
+				<section class="sim-step" data-step="6">
+					<div class="sim-step-num">6</div>
+					<h2>ОФД и две дороги чека: в ФНС и в «Честный знак»</h2>
+					<div class="sim-illu">
+						<img src={u('/images/flagship/step-6.jpg')} alt="ОФД раздваивает чек: вверх в ФНС за секунды, вправо в Честный знак за минуты" width="1200" height="900" loading="lazy" />
+					</div>
+					<p>
+						ОФД — посредник между кассой и государством. Раньше он отдавал чек
+						только в ФНС. Теперь, если в чеке есть теги 1163 и 2106, ОФД
+						дополнительно передаёт данные в «Честный знак»: эта пачка зефира
+						выведена из оборота, ей расплатились на конкретной кассе в конкретный
+						момент. В ФНС — практически в реальном времени, в ЧЗ — в течение
+						нескольких минут.
+					</p>
+					<p>
+						Сам ТС ПИоТ после продажи в ЧЗ ничего <strong>не</strong> передаёт.
+						Его работа — проверка кода до продажи и упаковка результата в
+						фискальный документ. Передача постфактум — задача ОФД.
+					</p>
+				</section>
+
+				<section class="sim-step" data-step="7">
+					<div class="sim-step-num">7</div>
+					<h2>Замкнули цикл: код выведен из оборота</h2>
+					<div class="sim-illu">
+						<img src={u('/images/flagship/step-7.jpg')} alt="Жизненный цикл кода маркировки: пять статусов плюс ветка Заблокирован, активный — Выведен из оборота" width="1200" height="900" loading="lazy" />
+					</div>
+					<p>
+						Цикл одного кода маркировки замкнулся. Та же пачка зефира больше не
+						может быть продана легально — «Честный знак» знает, что её уже купили:
+						ему передан ИНН продавца, номер ККТ, дата-время и фискальный признак
+						чека. Если кассир попытается провести этот же код ещё раз, ЧЗ ответит
+						«выведен из оборота» — и продажа будет заблокирована.
+					</p>
+					<CmStatusToggle client:visible />
+				</section>
+
+				<section class="sim-finish">
+					<h2>Что дальше</h2>
+					<p>
+						Мы прошли весь путь чека за маркированный товар. Если хотите глубже —
+						у нас есть детальные разборы каждого этапа:
+					</p>
+					<ul>
+						<li><a href={u('/blog/2026-01-15-chto-takoe-ts-piot/')}>Что такое ТС ПИоТ — обзорная статья</a></li>
+						<li><a href={u('/category/markirovka/')}>Маркировка по категориям и срокам</a></li>
+						<li><a href={u('/kalkulyator-shtrafov/')}>Штрафы за нарушения маркировки и работы с ККТ</a></li>
+					</ul>
+				</section>
+			</article>
+		</main>
+
+		<Footer />
+
+		<script>
+			// Воронка флагмана: trackOnce при достижении каждой секции через IntersectionObserver.
+			// Импортируем clientside-only через динамический import — track.ts работает только в браузере.
+			(async () => {
+				const { trackOnce } = await import('../utils/track');
+				const steps = document.querySelectorAll('.sim-step');
+				const bar = document.getElementById('sim-progress-bar');
+				const total = steps.length;
+				let maxReached = -1;
+
+				const io = new IntersectionObserver(
+					(entries) => {
+						for (const e of entries) {
+							if (!e.isIntersecting) continue;
+							const n = parseInt(e.target.getAttribute('data-step') || '-1', 10);
+							if (n < 0) continue;
+							trackOnce(`flagship-ts-piot-step-${n}-reached`);
+							if (n > maxReached) {
+								maxReached = n;
+								if (bar) bar.style.width = `${((n + 1) / total) * 100}%`;
+							}
+							if (n === total - 1) {
+								trackOnce('flagship-ts-piot-completed');
+							}
+						}
+					},
+					{ threshold: 0.4 },
+				);
+
+				for (const s of steps) io.observe(s);
+			})();
+		</script>
+
+		<style>
+			.sim-progress {
+				position: sticky;
+				top: 0;
+				z-index: 50;
+				height: 3px;
+				background: rgba(0, 0, 0, 0.08);
+				margin-bottom: -3px;
+			}
+			.sim-progress-bar {
+				height: 100%;
+				width: 0;
+				background: var(--pink, #ff4d8f);
+				transition: width 0.35s ease;
+			}
+			.simulator {
+				max-width: 760px;
+				margin: 0 auto;
+				padding: 2rem 1rem 4rem;
+			}
+			.sim-intro {
+				margin-bottom: 3rem;
+				padding-bottom: 2rem;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+			}
+			.sim-eyebrow {
+				font-size: 0.85rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--pink, #ff4d8f);
+				margin: 0 0 0.5rem;
+			}
+			.sim-intro h1 {
+				font-size: clamp(1.6rem, 4vw, 2.4rem);
+				line-height: 1.15;
+				margin: 0 0 1rem;
+			}
+			.sim-lead {
+				font-size: 1.1rem;
+				line-height: 1.55;
+				color: #333;
+				margin: 0 0 1.25rem;
+			}
+			.sim-meta {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem 1.25rem;
+				font-size: 0.85rem;
+				color: #666;
+			}
+			.sim-step {
+				margin: 4rem 0;
+				scroll-margin-top: 2rem;
+			}
+			.sim-step-num {
+				display: inline-block;
+				width: 2.25rem;
+				height: 2.25rem;
+				line-height: 2.25rem;
+				text-align: center;
+				border-radius: 50%;
+				background: var(--dark, #1f1f1f);
+				color: #fff;
+				font-weight: 700;
+				font-size: 1rem;
+				margin-bottom: 0.75rem;
+			}
+			.sim-step h2 {
+				font-size: clamp(1.3rem, 3vw, 1.75rem);
+				line-height: 1.25;
+				margin: 0 0 1.25rem;
+			}
+			.sim-illu {
+				margin: 1.5rem -1rem 1.75rem;
+				background: var(--sand, #f4ebd9);
+				border-radius: 12px;
+				overflow: hidden;
+			}
+			.sim-illu img {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+			.sim-step p {
+				font-size: 1rem;
+				line-height: 1.65;
+				color: #222;
+				margin: 0 0 1rem;
+			}
+			.sim-note {
+				font-size: 0.9rem;
+				color: #666;
+				border-left: 3px solid rgba(0, 0, 0, 0.1);
+				padding: 0.25rem 0 0.25rem 0.85rem;
+			}
+			.sim-placeholder {
+				margin-top: 1rem;
+				padding: 1rem 1.25rem;
+				background: rgba(255, 77, 143, 0.06);
+				border-radius: 8px;
+				font-size: 0.9rem;
+				color: #555;
+			}
+			.sim-placeholder code {
+				background: rgba(0, 0, 0, 0.06);
+				padding: 0.05em 0.4em;
+				border-radius: 3px;
+				font-family: ui-monospace, monospace;
+			}
+			.sim-finish {
+				margin: 4rem 0 2rem;
+				padding: 2rem;
+				background: var(--sand, #f4ebd9);
+				border-radius: 12px;
+			}
+			.sim-finish h2 {
+				margin: 0 0 0.75rem;
+			}
+			.sim-finish ul {
+				margin: 1rem 0 0;
+				padding-left: 1.25rem;
+				line-height: 1.85;
+			}
+			@media (min-width: 768px) {
+				.sim-illu {
+					margin-left: 0;
+					margin-right: 0;
+				}
+			}
+		</style>
+	</body>
+</html>
