@@ -1,0 +1,100 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import TsPiotReadinessQuiz from '../components/interactive/TsPiotReadinessQuiz.tsx';
+import { u } from '../utils/url';
+
+const title = 'Готов ли ваш бизнес к ТС ПИоТ: тест за 2 минуты';
+const description =
+	'Шесть вопросов о ваших продажах, кассе и поставщиках. На выходе — оценка готовности к разрешительному режиму 2026 года и персональный план действий.';
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+
+		<main class="quiz-page">
+			<article>
+				<header class="quiz-hero">
+					<p class="quiz-eyebrow">Тест · 6 вопросов · 2 минуты</p>
+					<h1>{title}</h1>
+					<p class="quiz-lead">
+						С 1 июля 2026 года касса без модуля ТС ПИоТ не сможет продать
+						маркированный товар. Проверьте, что у вас закрыто, а где есть
+						пробелы. Часть вопросов мы пропустим, если они к вам не относятся —
+						например, если вы не работаете с маркированной продукцией.
+					</p>
+				</header>
+
+				<TsPiotReadinessQuiz client:load />
+
+				<section class="quiz-foot">
+					<h2>Если разбираетесь впервые</h2>
+					<p>
+						У нас есть{' '}
+						<a href={u('/kak-rabotaet-ts-piot/')}>интерактивный симулятор</a>:
+						пройдёте весь путь чека от сканирования кода маркировки до отметки
+						«Выведен из оборота» в «Честном знаке» — за 7 шагов.
+					</p>
+					<p>
+						Если нужна обзорная статья без интерактивов —{' '}
+						<a href={u('/blog/2026-01-15-chto-takoe-ts-piot/')}>«Что такое ТС ПИоТ»</a>{' '}
+						объясняет ключевые понятия и сроки.
+					</p>
+				</section>
+			</article>
+		</main>
+
+		<Footer />
+
+		<style>
+			.quiz-page {
+				max-width: 760px;
+				margin: 0 auto;
+				padding: 2rem 1rem 4rem;
+			}
+			.quiz-hero { margin-bottom: 2rem; }
+			.quiz-eyebrow {
+				font-size: 0.85rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--pink, #ff4d8f);
+				margin: 0 0 0.5rem;
+			}
+			.quiz-hero h1 {
+				font-size: clamp(1.5rem, 4vw, 2.2rem);
+				line-height: 1.15;
+				margin: 0 0 1rem;
+			}
+			.quiz-lead {
+				font-size: 1.05rem;
+				line-height: 1.55;
+				color: #333;
+				margin: 0;
+			}
+			.quiz-foot {
+				margin-top: 3rem;
+				padding: 1.5rem;
+				background: var(--sand, #f4ebd9);
+				border-radius: 12px;
+			}
+			.quiz-foot h2 {
+				margin: 0 0 0.75rem;
+				font-size: 1.2rem;
+			}
+			.quiz-foot p {
+				margin: 0 0 0.6rem;
+				line-height: 1.55;
+			}
+			.quiz-foot a {
+				color: var(--pink, #ff4d8f);
+				font-weight: 500;
+			}
+		</style>
+	</body>
+</html>

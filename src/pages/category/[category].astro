@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { CATEGORIES, SITE_TITLE } from '../../consts';
 import { u } from '../../utils/url';
+import FlagshipTeaser from '../../components/FlagshipTeaser.astro';
 
 export async function getStaticPaths() {
 	return Object.entries(CATEGORIES).map(([slug, meta]) => ({
@@ -120,6 +121,12 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 				<h1 class="page-title">{pillarTitle}</h1>
 				<p class="page-lead">{pillarSummary}</p>
 			</header>
+
+			{slug === 'ts-piot' && (
+				<div class="pillar-teaser" data-pagefind-ignore>
+					<FlagshipTeaser />
+				</div>
+			)}
 
 			{PillarContent && (
 				<section
@@ -239,6 +246,7 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 				margin: 0;
 			}
 
+			.pillar-teaser { margin: 1rem 0 2rem; }
 			.pillar-body {
 				max-width: 760px;
 				margin: 2.5rem auto;

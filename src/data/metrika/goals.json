@@ -234,6 +234,68 @@
       "id": "zakon-2026-filter-used",
       "name": "Трекер /zakon-2026/ — взаимодействие с фильтром",
       "type": "action"
+    },
+    {
+      "id": "scenario-kofeynya-started",
+      "name": "Сценарий «Кофейня за 30 дней» — начал отмечать задачи",
+      "type": "action"
+    },
+    {
+      "id": "scenario-kofeynya-task-checked",
+      "name": "Сценарий «Кофейня за 30 дней» — отметил задачу",
+      "type": "action"
+    },
+    {
+      "id": "scenario-kofeynya-25pct",
+      "name": "Сценарий «Кофейня за 30 дней» — 25% задач",
+      "type": "action"
+    },
+    {
+      "id": "scenario-kofeynya-50pct",
+      "name": "Сценарий «Кофейня за 30 дней» — 50% задач",
+      "type": "action"
+    },
+    {
+      "id": "scenario-kofeynya-75pct",
+      "name": "Сценарий «Кофейня за 30 дней» — 75% задач",
+      "type": "action"
+    },
+    {
+      "id": "scenario-kofeynya-completed",
+      "name": "Сценарий «Кофейня за 30 дней» — все задачи",
+      "type": "action"
+    },
+    {
+      "id": "scenario-kofeynya-reset",
+      "name": "Сценарий «Кофейня за 30 дней» — сбросил прогресс",
+      "type": "action"
+    },
+    {
+      "id": "quiz-ts-piot-started",
+      "name": "Квиз ТС ПИоТ — начал прохождение",
+      "type": "action"
+    },
+    {
+      "id": "quiz-ts-piot-answered",
+      "name": "Квиз ТС ПИоТ — ответил на вопрос",
+      "type": "action"
+    },
+    {
+      "id": "quiz-ts-piot-completed",
+      "name": "Квиз ТС ПИоТ — дошёл до результата",
+      "type": "action",
+      "comment": "Главная конверсионная цель квиза"
+    },
+    {
+      "id": "quiz-ts-piot-restart",
+      "name": "Квиз ТС ПИоТ — нажал «Пройти ещё раз»",
+      "type": "action"
+    },
+    {
+      "id": "flagship-teaser-clicked",
+      "name": "Тизер флагмана — клик из pillar-страницы",
+      "type": "action",
+      "comment": "Сколько людей кликают на тизер /category/ts-piot/ → /kak-rabotaet-ts-piot/"
     }
   ]
 }
