@@ -392,7 +392,10 @@ weekly прогона — ~640 квот. Подробности — `docs/wordst
 | `generate-hero-images.mjs` | Hero-изображения статей | `google/gemini-3.1-flash-image-preview` |
 | `test-pool-generation.mjs` | Тест 3 изображений из пула с выводом стоимости | `google/gemini-3.1-flash-image-preview` |
 
-**Запуск:** GitHub Actions → вкладка **Actions** → **Generate Hero Images** → **Run workflow**.
+**Запуск:**
+- **Автоматически** при публикации через `auto-publish.yml` (flip `draft: true → false`) — генерит hero для выпущенной статьи.
+- **Cron-сейфти** через `hero-backfill-daily.yml` (00:00 МСК, ≤ 10 статей/день) — догенеряет hero для статей опубликованных в обход auto-publish (batch-коммит `draft: false`).
+- **Вручную** GitHub Actions → **Generate Hero Images** → **Run workflow** (для срочной массовой генерации, ставить `limit: 0` для всех без hero).
 
 Сменить модель: переменные окружения `PREVIEW_MODEL` / `HERO_MODEL` в workflow inputs.
 

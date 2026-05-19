@@ -1,0 +1,86 @@
+name: Hero Backfill (Daily)
+
+# Safety-net: раз в сутки находит статьи без heroImage и догенерит hero
+# через Nano Banana (Google Gemini 3.1 Flash Image Preview).
+#
+# Зачем: если статья опубликована в обход auto-publish (batch-коммит
+# готового draft: false), то generate-hero-images.mjs в auto-publish.yml
+# не запускается — статья остаётся без hero. Этот workflow закрывает
+# дыру: ежедневно догенеряет до 10 hero за прогон.
+#
+# Контроль расходов: LIMIT=10 (≈ 10 × $0.0125 = $0.125/day максимум).
+# Реально работает только когда есть статьи без heroImage — в обычный
+# день no-op.
+
+on:
+  schedule:
+    # 21:00 UTC = 00:00 МСК (UTC+3). Минимальная нагрузка ночью.
+    - cron: '0 21 * * *'
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Сколько статей за прогон (default 10, 0 = все)'
+        required: false
+        default: '10'
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      LIMIT: ${{ inputs.limit || '10' }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check articles without heroImage
+        id: check
+        run: |
+          MISSING=$(node -e "
+            import { readdirSync, readFileSync } from 'fs';
+            import { join } from 'path';
+            const dir = 'src/content/blog';
+            const files = readdirSync(dir).filter(f => f.endsWith('.md') || f.endsWith('.mdx'));
+            let n = 0;
+            for (const f of files) {
+              const t = readFileSync(join(dir, f), 'utf8');
+              const fm = t.match(/^---\\n([\\s\\S]*?)\\n---/)?.[1] ?? '';
+              if (/^draft:\\s*true/m.test(fm)) continue;
+              if (!/^heroImage:\\s*[\"']?\\/images\\/hero\\//m.test(fm)) n++;
+            }
+            process.stdout.write(String(n));
+          " --input-type=module)
+          echo "missing=$MISSING" >> $GITHUB_OUTPUT
+          echo "Статей без heroImage: $MISSING"
+
+      - name: Generate hero images
+        if: steps.check.outputs.missing != '0'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: node scripts/generate-hero-images.mjs
+
+      - name: Commit and push
+        if: steps.check.outputs.missing != '0'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/images/hero/ src/content/blog/
+          git diff --staged --quiet && echo "Nothing to commit." && exit 0
+          git commit -m "feat(images): backfill heroImage (daily cron)"
+          git push origin main
+
+      - name: Summary
+        run: |
+          echo "::notice::Hero backfill done. Missing was: ${{ steps.check.outputs.missing }}"
