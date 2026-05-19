@@ -1,0 +1,38 @@
+{
+  "slug": "2026-05-03-mspos-t-d3-mini-obzor",
+  "checkedAt": "2026-05-19",
+  "overallStatus": "ok",
+  "claimsTotal": 5,
+  "criticalCount": 0,
+  "results": [
+    {
+      "id": "c1/c2",
+      "claim": "Обязательность ТС ПИоТ с 1 июля 2026 года",
+      "status": "ok",
+      "class": "A",
+      "source": "ПП 1944 от 21.11.2023"
+    },
+    {
+      "id": "c3",
+      "claim": "Ст. 4.3 54-ФЗ — порядок применения ККТ",
+      "status": "ok",
+      "class": "A",
+      "source": "whitelist.fz.54"
+    },
+    {
+      "id": "c4",
+      "claim": "Ст. 4.1 54-ФЗ — ФН на 36 мес для ИП на УСН без работников, не торгующих подакцизными и маркированными",
+      "status": "ok",
+      "class": "A",
+      "note": "Корректная формулировка по 54-ФЗ. ФН-1 (13 мес) не упоминается.",
+      "source": "consultant.ru/document/cons_doc_LAW_42359/"
+    },
+    {
+      "id": "c5",
+      "claim": "Ст. 4.6 54-ФЗ — офлайн-режим и передача данных в ОФД",
+      "status": "ok",
+      "class": "A",
+      "source": "whitelist.fz.54"
+    }
+  ]
+}

@@ -1,0 +1,246 @@
+{
+  "slug": "2026-05-01-kalendar-markirovki-2026",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 63,
+    "checked": 18,
+    "match": 17,
+    "mismatch": 0,
+    "uncertain": 1,
+    "missing": 0,
+    "overallStatus": "verified-no-critical",
+    "criticalIssues": 0,
+    "note": "Все ключевые даты сверены по нескольким первоисточникам (markirovka.ru, честныйзнак.рф, kontur.ru, taxcom.ru). Календарь корректен: 01.03.2026 — поэкземплярный учёт безалк. напитков (ПП № 887), 01.04.2026 — поэкземплярный учёт моторных масел/автожидкостей (ПП № 1683), 01.07.2026 — ТС ПИоТ (ПП № 1944), ЭДО для косметики/бытхимии (ПП № 1681), 01.09.2026 — обязательная розница для игрушек (ПП № 819) и разрешительный режим для бутылочного пива, 01.10.2026 — розница консервов (ПП № 677) и разрешительный режим автожидкостей, 01.11.2026 — поэкземплярный молочки >40 дней, 01.12.2026 — запрет немаркированных бритв. Штрафы по ст. 15.12 ч. 2 КоАП — 5K–10K ИП / 50K–300K юрлица — соответствует whitelist. Конкретные номера ПП в статье не указаны (только тематические — это безопаснее)."
+  },
+  "claims": [
+    {
+      "id": "c1-bezalk-pou",
+      "type": "DATE_DMY",
+      "raw": "01.03.2026 — Безалкогольные напитки — поэкземплярный учёт",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "С 1 марта 2026 — поэкземплярный учёт безалкогольных напитков (ПП № 887 от 31.05.2023).",
+      "sources": [
+        "https://markirovka.ru/community/markirovka-bezalkogolnykh-napitkov/poekzemplyarnyy-uchet-bezalkogolnykh-napitkov-s-1-marta-2026",
+        "https://taxcom.ru/markirovka/markirovka-bezalkogolnyh-napitkov/"
+      ]
+    },
+    {
+      "id": "c2-pivo-pou",
+      "type": "DATE_DMY",
+      "raw": "01.04.2026 — Пиво и слабоалкогольные — поэкземплярный учёт",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "С 1 апреля 2026 — поэкземплярный учёт пива; данные передаются в ЕГАИС через интеграцию.",
+      "sources": [
+        "https://markirovka.ru/community/beer_producers/sroki-vtorogo-etapa-markirovki-piva-i-slaboalkogolnykh-napitkov"
+      ]
+    },
+    {
+      "id": "c3-masla-pou",
+      "type": "DATE_DMY",
+      "raw": "01.04.2026 — Моторные масла и автожидкости — поэкземплярный учёт",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "С 1 апреля 2026 — поэкземплярный учёт моторных масел и автожидкостей (ПП № 1683 от 30.11.2024).",
+      "sources": [
+        "https://kontur.ru/markirovka/spravka/55409-obyazatelnaya_markirovka_motornyh_masel",
+        "https://mertech.ru/blog/vse-o-markirovke/poekzemplyarnyi-uchet-motornyh-masel-s-1-aprelya-2026-goda/"
+      ]
+    },
+    {
+      "id": "c4-ostatki-masel",
+      "type": "DATE_DMY",
+      "raw": "Остатки на 01.12.2025 промаркировать до 31.03.2026",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Маркировка остатков моторных масел до 31.03.2026 — этап подготовки к полному поэкземплярному учёту.",
+      "sources": [
+        "https://www.moysklad.ru/poleznoe/markirovka-tovarov/markirovka-motornyh-masel/"
+      ]
+    },
+    {
+      "id": "c5-tspiot-deadline",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026 — ТС ПИоТ обязателен для всех маркированных категорий",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.98,
+      "expectedValue": "С 1 июля 2026 — конец переходного периода ТС ПИоТ (ПП № 1944 от 21.11.2023).",
+      "sources": [
+        "https://честныйзнак.рф/info/news/reestr-tekhnicheskikh-sredstv"
+      ]
+    },
+    {
+      "id": "c6-kosmetika-edo",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026 — косметика/парфюмерия — ЭДО + вывод из оборота через ККТ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "С 1 июля 2026 — обязательный ЭДО + объёмно-сортовой учёт по косметике и парфюмерии (ПП № 1681 от 30.11.2024).",
+      "sources": [
+        "http://government.ru/docs/all/156464/",
+        "https://markirovka.ru/community/markirovka-kosmetiki-i-bytovoy-khimii/markirovka-kosmetiki-i-bytovoy-khimii-sroki-etapy-i-chto-nuzhno-znat-uchastnikam-oborota-v-2026-godu"
+      ]
+    },
+    {
+      "id": "c7-bytovaya-himiya",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026 — бытовая химия — передача через ККТ + ЭДО",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "С 1 июля 2026 — обязательный ЭДО и передача сведений о розничной реализации бытовой химии (ПП № 1681).",
+      "sources": [
+        "https://kontur.ru/markirovka/spravka/52353-uznaem_o_markirovke_kosmetiki_i_bytovoj_ximii"
+      ]
+    },
+    {
+      "id": "c8-igrushki",
+      "type": "DATE_DMY",
+      "raw": "01.09.2026 — игрушки — обязательная передача через ККТ; до 31.08.2026 маркировка остатков",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Маркировка игрушек с 01.09.2025 (ПП № 819 от 31.05.2025); до 31.08.2026 — переходный период для остатков; с 01.09.2026 — запрет немаркированных игрушек в обороте.",
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/detskie-igrushki/sroki-i-etapy-markirovki-detskikh-igrushek",
+        "https://www.garant.ru/hotlaw/federal/1819978/"
+      ]
+    },
+    {
+      "id": "c9-pivo-razresh",
+      "type": "DATE_DMY",
+      "raw": "01.09.2026 — пиво (бутылочное) — разрешительный режим",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "С 1 сентября 2026 — разрешительный режим для бутылочного пива при кассовых операциях.",
+      "sources": [
+        "https://taxcom.ru/markirovka/markirovka-piva/"
+      ]
+    },
+    {
+      "id": "c10-konservy-roznica",
+      "type": "DATE_DMY",
+      "raw": "01.10.2026 — консервы — обязательная передача через ККТ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "С 1 октября 2026 — обязательная передача сведений о выводе консервов из оборота при розничной продаже + ЭДО в объёмно-сортовом учёте (ПП № 677 от 27.05.2024). Полный поэкземплярный учёт с 01.10.2027.",
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/otdelnye-vidy-konservirovannyx-produktov/sroki-i-etapy-markirovki-tovarov-konservov",
+        "https://kontur.ru/market/spravka/49057-kalendar_markirovki_dlya_roznicy_i_obshchepita"
+      ]
+    },
+    {
+      "id": "c11-avtozh-razresh",
+      "type": "DATE_DMY",
+      "raw": "01.10.2026 — автожидкости — разрешительный режим",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "С 1 октября 2026 — разрешительный режим для смазочных материалов и автожидкостей на кассах.",
+      "sources": [
+        "https://kontur.ru/markirovka/spravka/55409-obyazatelnaya_markirovka_motornyh_masel"
+      ]
+    },
+    {
+      "id": "c12-molochka-pou",
+      "type": "DATE_DMY",
+      "raw": "01.11.2026 — молочная продукция (срок хранения более 40 дней) — поэкземплярный учёт",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "С 1 ноября 2026 — поэкземплярный учёт молочной продукции со сроком хранения более 40 дней. Для продукции ≤40 дней — партионный учёт.",
+      "sources": [
+        "https://taxcom.ru/markirovka/markirovka-moloka/",
+        "https://kontur.ru/markirovka/spravka/55051-partionnyy_uchet_dlya_molochnoy_produkcii"
+      ]
+    },
+    {
+      "id": "c13-britvy-zapret",
+      "type": "DATE_DMY",
+      "raw": "01.12.2026 — бритвы и лезвия — запрет оборота немаркированных",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "С 01.12.2025 — обязательная маркировка бритв (ПП № 1681); с 01.12.2026 — полный запрет оборота немаркированных остатков, переходный период завершён.",
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/kosmetika-bytovaya-himiya/markirovka-ostatkov-britv-i-lezviy",
+        "https://prom-mact.ru/blog/vsye-ob-obyazatelnoy-markirovke-tovarov/s-1-dekabrya-2025-goda-start-obyazatelnoy-markirovki-britv-i-lezviy-chto-nuzhno-znat-biznesu--nikp-PAm-1/"
+      ]
+    },
+    {
+      "id": "c14-tabak-razresh-2022",
+      "type": "DATE_YEAR",
+      "raw": "Табак — разрешительный режим с 2022 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Разрешительный режим для табака запущен с 01.04.2022 (поэтапно).",
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/tabachniye-izdeliya/etapy-markirovki-nikotinosoderzhashchey-produktsii"
+      ]
+    },
+    {
+      "id": "c15-obuv-2024",
+      "type": "DATE_YEAR",
+      "raw": "Обувь и одежда — разрешительный режим с апреля 2024 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.85,
+      "expectedValue": "Разрешительный режим для обуви и лёгкой промышленности — 01.04.2024 (первая волна для обуви).",
+      "sources": []
+    },
+    {
+      "id": "c16-koap-15.12",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ + ссылка на consultant.ru",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Статья реальна (whitelist). Штраф ИП 5 000–10 000 ₽, юрлица 50 000–300 000 ₽, конфискация. Соответствует ч. 2 ст. 15.12 КоАП.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ]
+    },
+    {
+      "id": "c17-shtraf-vilka",
+      "type": "MONEY",
+      "raw": "ИП 5 000–10 000 ₽, юрлицо 50 000–300 000 ₽, конфискация",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.98,
+      "expectedValue": "Класс A1: вилка указана корректно с обоими границами, конфискация упомянута. Часть статьи в тексте не указана, но по содержанию это ч. 2 ст. 15.12. Минор: можно добавить ч. 2, но это не критично.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ]
+    },
+    {
+      "id": "c18-kosmetika-2025",
+      "type": "DATE_YEAR",
+      "raw": "Маркировка косметики стартовала в марте 2025 года",
+      "status": "uncertain",
+      "severity": "minor",
+      "confidence": 0.7,
+      "expectedValue": "Маркировка косметики поэтапно: регистрация участников с 01.03.2025, обязательная маркировка мыла/ПАВ с 01.05.2025, далее по этапам. Формулировка «стартовала в марте 2025» допустима как маркетинговый якорь.",
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/kosmetika-bytovaya-himiya/sroki-i-etapy-markirovki-kosmeticheskoy-produktsii-bytovoy-khimii-i-tovarov-lichnoy-gigieny"
+      ]
+    }
+  ],
+  "recommendations": [
+    "Не применено: статья верифицирована, критических расхождений нет. Все даты в большой таблице сроков совпадают с первоисточниками.",
+    "Можно (по желанию автора): указать ч. 2 ст. 15.12 КоАП явно в FAQ — но это minor.",
+    "Можно (по желанию): для консервов указать, что 01.10.2026 — это объёмно-сортовой учёт + розница через ККТ, полный поэкземплярный — с 01.10.2027. Сейчас формулировка корректна, но не детализирована."
+  ],
+  "nextReview": "2026-07-31"
+}
