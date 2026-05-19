@@ -122,6 +122,23 @@
 - `scripts/audit/check-blog-links.mjs` — регрессионный CI-чек битых ссылок.
 - `scripts/audit/set-review-dates.mjs` — проставляет `reviewDate = pubDate + 90 дней` в статьях без него. Идемпотентен.
 
+## Гейты публикации и git-хуки
+
+Три слоя защиты от ошибок в продакшен-контенте, любой из которых
+должен независимо ловить проблему:
+
+1. **`/analyze-article <slug>`** — оценка 0–100 по 6 категориям перед
+   публикацией. Обязательный шаг в `/release-article` Шаг 1. Блокер:
+   балл < 70 / маркер фактчека старше 180 дней / `audit-npa-references`
+   или `check-blog-links` упали. См. `.claude/commands/analyze-article.md`.
+2. **Pre-commit hook** — `scripts/git-hooks/pre-commit-factcheck-guard.mjs`
+   блокирует `git commit` любой статьи с `draft: false` без маркера
+   `.claude/factchecked/<slug>`. Установка: `bash scripts/git-hooks/install.sh`.
+   Bypass: `git commit --no-verify` (только с явной причиной).
+3. **`research-specialist` gate в `/create-article` Стадия 1** — для
+   категорий с НПА writer не запустится без research-brief'а с
+   `frontmatter.sources[].verified=true`.
+
 ## Внутренние ссылки между статьями
 
 Astro 5 `glob` loader использует **полное имя файла без расширения** как

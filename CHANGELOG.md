@@ -1,5 +1,86 @@
 # Changelog
 
+## 2026-05-19 (часть 2) — Гигиена пайплайна публикации
+
+Шесть P1-задач за один присест: формализация защит, которые до этого
+работали неявно или дисциплиной.
+
+### Гейты и хуки
+
+* **#49 `/analyze-article`** — собственный аналог `/blog analyze`
+  (плагин claude-blog в облачном контейнере не выживает между сессиями).
+  Шкала 0–100 по 6 категориям: качество текста (20), SEO (20),
+  E-E-A-T+factcheck (20), контент-граф (20), техника (20), AI Citation
+  (бонус 10). `blocker: true` если балл < 70 / маркер фактчека старше
+  180 дней / `audit-npa-references --strict` или `check-blog-links` упали.
+  `/release-article` Шаг 1 теперь обязательно вызывает gate, не обходить.
+* **#57 Pre-commit hook** против `draft: false` без factcheck-маркера.
+  `scripts/git-hooks/{pre-commit-factcheck-guard.mjs, pre-commit, install.sh}`.
+  Установлен через `git config core.hooksPath` — без husky-зависимости.
+  Bypass только через `git commit --no-verify` в крайних случаях.
+
+### Batch фактчек оформлен
+
+* **#55 `/factcheck-batch`** — то, что мы фактически делали 18 раз вручную
+  через subagent dispatch при backfill'е 8→83/83, оформлено отдельным
+  скиллом. Параметры `--count <N>`, `--filter <topic>`. Группировка по
+  теме для переиспользования whitelist'а агентом. Шаблоны промптов для
+  7 тематических кластеров (markirovka, ккт, ЕГАИС, Меркурий, налоги,
+  персданные, маркетплейсы) с типовыми паттернами ошибок и реальными
+  номерами норм. Тайминг 16 статей за ~15 минут — ×6 ускорение.
+
+### Дистрибуция и мониторинг
+
+* **#19 Open Graph для Telegram.** Дефолт был `/og-default.svg` —
+  Telegram игнорирует SVG. Создан `public/og-default.png` 1200×630.
+  В `BaseHead.astro` дефолт PNG + добавлены отсутствующие мета-теги
+  `og:image:secure_url`, `og:image:type`, `og:image:alt`. Чек-лист и
+  инструкция проверки через @WebpageBot — `docs/og-telegram.md`.
+* **#45 `--window` в `/monitor-rss`.** Жёсткое 14 дней — мало для
+  опорных статей с дедлайном через 3 месяца. Аргумент
+  `--window 14d|30d|60d|90d`.
+* **#46 Отдельный поток guidelines.** До этого письма ФНС/Минфина с
+  разъяснениями попадали в `/plan-content` как новые темы, а должны —
+  на обновление существующих. Аргумент `--type news|guidelines|all`.
+  Шаг 3 классифицирует по 8 признакам. News → `/plan-content`,
+  guidelines → `src/content/wiki/maintain-queue.md`.
+  `/maintain-content` Шаг 1а читает maintain-queue как приоритетный
+  список, Шаг 1в удаляет запись после обработки.
+
+### Файлы за этот пакет
+
+```
+.claude/commands/
+  analyze-article.md       (новый)
+  factcheck-batch.md       (новый)
+  release-article.md       (gate в Шаге 1)
+  monitor-rss.md           (--window, --type, новый формат отчёта)
+  maintain-content.md      (Шаги 1а/1в — чтение maintain-queue)
+
+scripts/git-hooks/
+  pre-commit               (новый)
+  pre-commit-factcheck-guard.mjs  (новый)
+  install.sh               (новый)
+
+src/components/BaseHead.astro          (PNG default + новые OG-теги)
+src/content/wiki/maintain-queue.md     (новый)
+public/og-default.png                  (новый)
+docs/og-telegram.md                    (новый)
+```
+
+### Что теперь нельзя сделать незаметно
+
+* Закоммитить статью с `draft: false` без `/factcheck`.
+  → Pre-commit hook упадёт.
+* Опубликовать статью с битыми ссылками / незнакомыми НПА в whitelist.
+  → `/analyze-article` поставит blocker.
+* Опубликовать статью с баллом < 70 без явного решения.
+  → Тот же blocker.
+* Зашерить ссылку в Telegram без preview-картинки.
+  → PNG-дефолт работает на всех страницах.
+
+---
+
 ## 2026-05-19 — Backfill factcheck до 100% + жёсткий gate против фейковых НПА
 
 29 коммитов на ветке `claude/review-backlog-1oz82`. Подробный разбор —
