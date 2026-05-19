@@ -1,0 +1,326 @@
+{
+  "slug": "2026-02-10-kategorii-markirovki-2026",
+  "checkedAt": "2026-05-18T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 18,
+    "checked": 18,
+    "match": 7,
+    "mismatch": 9,
+    "uncertain": 0,
+    "missing": 2,
+    "overallStatus": "fixed-critical-table-errors",
+    "criticalIssues": 3,
+    "note": "Таблица категорий содержала систематические сдвиги по годам старта обязательной маркировки: БАДы/антисептики/медизделия указаны как 2024 (правильно 2023), фотоаппараты 2021 (правильно 2020), безалкогольные 2024–2025 (правильно 2023–2024), корма/ветпрепараты/икра 2025 (правильно 2024). Таблица штрафов искажала вилки и не указывала части КоАП: «до 15 000 ₽» вместо «5 000–10 000 ₽» (ИП по ч.2), «до 30 000 ₽» для ИП по производству (должно быть 5 000–10 000). Добавлен disclaimer о различии год обязательной маркировки и волн разрешительного режима — основная ошибка, на которую указал контекст пилота. Добавлен блок про электронику с 01.05.2026 (ПП 1954)."
+  },
+  "claims": [
+    {
+      "id": "c-table-tobacco",
+      "type": "DATE_YEAR",
+      "raw": "Табачная и никотинсодержащая продукция | 2019",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Сигареты с 01.03.2019; никотинсодержащая отдельным этапом с 2022.",
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/tabachniye-izdeliya/etapy-markirovki-nikotinosoderzhashchey-produktsii"
+      ]
+    },
+    {
+      "id": "c-table-photo",
+      "type": "DATE_YEAR",
+      "raw": "Фотоаппараты и лампы-вспышки | 2021",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Обязательная маркировка с 01.10.2020.",
+      "action": "rewrite-table-cell",
+      "actionDetail": "Заменено на 2020.",
+      "applied": true,
+      "sources": [
+        "https://xn--80ajghhoc2aj1c8b.xn--p1ai/business/projects/photo_cameras_and_flashbulbs/marking_dates"
+      ]
+    },
+    {
+      "id": "c-table-bad",
+      "type": "DATE_YEAR",
+      "raw": "БАДы | 2024",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "Регистрация участников с 01.09.2023, обязательная маркировка с 01.10.2023 (ПП РФ № 886 от 31.05.2023).",
+      "action": "rewrite-table-cell",
+      "actionDetail": "Заменено на 2023.",
+      "applied": true,
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/badi/sroki-i-etapy-zapuska-obyazatelnoy-markirovki-bad",
+        "https://its.1c.ru/db/content/newscomm/src/484565.htm"
+      ]
+    },
+    {
+      "id": "c-table-antiseptics",
+      "type": "DATE_YEAR",
+      "raw": "Антисептики и медизделия | 2024",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "Антисептики: 01.10.2023 (ПП РФ № 870 от 30.05.2023). Медизделия: с 01.10.2023 (обеззараживатели воздуха, ортопедическая обувь) → 2024 (расширение списка).",
+      "action": "rewrite-table-cell",
+      "actionDetail": "Разделено на две строки: «Антисептики | 2023» и «Медицинские изделия | 2023–2024».",
+      "applied": true,
+      "sources": [
+        "https://fsrar.su/news/mark/712/",
+        "https://prom-mact.ru/services/markirovka/meditsinskikh-izdeliy/"
+      ]
+    },
+    {
+      "id": "c-table-bezalk",
+      "type": "DATE_RANGE",
+      "raw": "Безалкогольные напитки в потребительской упаковке | 2024–2025",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "Регистрация с 01.09.2023, обязательная маркировка стеклянной/полимерной с 01.12.2023, второй этап с 01.03.2024, третий с 01.06.2024.",
+      "action": "rewrite-table-cell",
+      "actionDetail": "Заменено на 2023–2024.",
+      "applied": true,
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/bezalcohol-napitki/etapy-vnedreniya-markirovki-bezalkogolnykh-napitkov-i-sokov"
+      ]
+    },
+    {
+      "id": "c-table-feed",
+      "type": "DATE_YEAR",
+      "raw": "Корма для домашних животных (упаковка) | 2025",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.9,
+      "expectedValue": "Регистрация с 01.09.2024, маркировка сухих кормов с 01.10.2024, влажных с 01.03.2025. Старт — 2024.",
+      "action": "rewrite-table-cell",
+      "actionDetail": "Заменено на 2024.",
+      "applied": true,
+      "sources": [
+        "https://kontur.ru/markirovka/spravka/51912-markirovka_kormov_dlya_zhivotnyh"
+      ]
+    },
+    {
+      "id": "c-table-vetdrug",
+      "type": "DATE_YEAR",
+      "raw": "Ветеринарные препараты | 2025",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Регистрация с 01.09.2024, обязательная маркировка с 01.10.2024.",
+      "action": "rewrite-table-cell",
+      "actionDetail": "Заменено на 2024.",
+      "applied": true,
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/veterinarniye-preparaty/sroki-i-etapy-markirovki-veterinarnykh-preparatov"
+      ]
+    },
+    {
+      "id": "c-table-ikra",
+      "type": "DATE_YEAR",
+      "raw": "Икра | 2025",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.9,
+      "expectedValue": "Маркировка с 2024 года (ПП РФ № 2028 от 29.11.2023). С 01.04.2025 — этап объёмно-сортового учёта.",
+      "action": "rewrite-table-cell",
+      "actionDetail": "Заменено на 2024.",
+      "applied": true,
+      "sources": [
+        "https://mertech.ru/blog/vse-o-markirovke/kak-izmenitsya-markirovka-ikry-s-1-aprelya-2025/"
+      ]
+    },
+    {
+      "id": "c-table-oil",
+      "type": "DATE_YEAR",
+      "raw": "Растительные масла | 2025",
+      "status": "mismatch",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "Регистрация с 01.09.2024, обязательная маркировка стеклянной/полимерной с 01.10.2024, остальные виды упаковок с 01.02.2025.",
+      "action": "rewrite-table-cell",
+      "actionDetail": "Заменено на 2024–2025.",
+      "applied": true,
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/rastitelnye-masla/sroki-i-etapy-zapuska-obyazatelnoy-markirovki-pishchevykh-rastitelnykh-masel"
+      ]
+    },
+    {
+      "id": "c-table-kresla",
+      "type": "DATE_YEAR",
+      "raw": "Кресла-коляски | 2024",
+      "status": "mismatch",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "Регистрация с 01.09.2023, маркировка остатков с 01.10.2023 до 01.09.2024, передача сведений по ЭДО с 01.09.2024.",
+      "action": "rewrite-table-cell",
+      "actionDetail": "Уточнено: 2023–2024.",
+      "applied": true,
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/kresla-kolyaski/sroki-i-etapy-markirovki-kresel-kolyasok-kresla-kolyaski"
+      ]
+    },
+    {
+      "id": "c-fine-15.12-sale-ip",
+      "type": "MONEY",
+      "raw": "до 15 000 ₽ (ИП) — продажа без кода",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "Ч.2 ст. 15.12 КоАП: должностные лица/ИП 5 000–10 000 ₽ + конфискация. «До 15 000» вводит в заблуждение (нет нижней границы, верх занижен).",
+      "action": "rewrite-table-row",
+      "actionDetail": "Класс A1: переписано как «5 000–10 000 ₽ + конфискация» с указанием части (ч.2).",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ]
+    },
+    {
+      "id": "c-fine-15.12-sale-org",
+      "type": "MONEY",
+      "raw": "до 300 000 ₽ (юрлицо) — продажа",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Ч.2 ст. 15.12 КоАП: юрлица 50 000–300 000 ₽ + конфискация. Нужна вилка, не «до».",
+      "action": "rewrite-table-row",
+      "actionDetail": "Класс A1: переписано как «50 000–300 000 ₽ + конфискация».",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ]
+    },
+    {
+      "id": "c-fine-15.12-prod-ip",
+      "type": "MONEY",
+      "raw": "до 30 000 ₽ (ИП) — производство",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "Ч.1 ст. 15.12 КоАП: должностные лица/ИП 5 000–10 000 ₽ + конфискация (не 30 000).",
+      "action": "rewrite-table-row",
+      "actionDetail": "Класс A1: переписано как «5 000–10 000 ₽ + конфискация».",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ]
+    },
+    {
+      "id": "c-fine-15.12.1",
+      "type": "MONEY",
+      "raw": "ст. 15.12.1 КоАП: до 10 000 ₽ / до 100 000 ₽",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.9,
+      "expectedValue": "Должностные лица: предупреждение или 1 000–10 000 ₽; юрлица: 50 000–100 000 ₽.",
+      "action": "rewrite-table-row",
+      "actionDetail": "Переписано с вилкой и упоминанием альтернативы (предупреждение). Добавлена прямая ссылка на статью.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/3312fbb50868eeb5b0a66db39b355958c676aeac/"
+      ]
+    },
+    {
+      "id": "c-fine-15.12-alcohol-tobacco",
+      "type": "MISSING_CONTEXT",
+      "raw": "(не указано, что для алкоголя/табака — отдельные ч.3 и ч.4 ст. 15.12)",
+      "status": "missing",
+      "severity": "moderate",
+      "expectedValue": "По ч.3 и ч.4 ст. 15.12 для алкоголя и табака штрафы значительно выше: юрлица — от 300 000 ₽ до 1 млн ₽.",
+      "action": "add-disclaimer",
+      "actionDetail": "Добавлен blockquote-disclaimer после таблицы штрафов о специальных частях для алкоголя и табака.",
+      "applied": true,
+      "sources": [
+        "http://39.rospotrebnadzor.ru/content/povyshena-administrativnaya-otvetstvennost-po-chastyam-3-4-stati-1512-koap-rf-za"
+      ]
+    },
+    {
+      "id": "c-context-permission-regime",
+      "type": "MISSING_CONTEXT",
+      "raw": "(в таблице категорий не разделены год обязательной маркировки и волны разрешительного режима)",
+      "status": "missing",
+      "severity": "critical",
+      "expectedValue": "Главная путаница: годы в таблице — это начало запрета оборота немаркированного товара. Разрешительный режим (онлайн-проверка кода на кассе) — отдельный этап с волнами 01.04.2024, 01.11.2024, 01.03.2025, 01.06.2025.",
+      "action": "add-disclaimer",
+      "actionDetail": "Добавлен blockquote-disclaimer над таблицей категорий: предупреждение не путать год маркировки и волны разрешительного режима, с конкретными датами волн.",
+      "applied": true,
+      "sources": [
+        "https://kontur.ru/market/spravka/49057-kalendar_markirovki_dlya_roznicy_i_obshchepita",
+        "https://markirovka.ru/community/rezhim-proverok-nakassakh/rezhim-proverok-na-kassakh"
+      ]
+    },
+    {
+      "id": "c-section-electronics",
+      "type": "DATE_TEXT",
+      "raw": "«Электроника» в списке поэтапного расширения без даты",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Радиоэлектроника: регистрация с 01.03.2026, обязательная маркировка с 01.05.2026 (ПП РФ № 1954 от 28.11.2025).",
+      "action": "expand-bullet",
+      "actionDetail": "Расширено: указаны точные даты, ПП РФ, состав группы.",
+      "applied": true,
+      "sources": [
+        "https://kontur.ru/markirovka/spravka/53675-markirovka_radioelektronnoy_produkcii",
+        "https://www.kommersant.ru/doc/8625093"
+      ]
+    },
+    {
+      "id": "c-section-toys",
+      "type": "MISSING_CONTEXT",
+      "raw": "«Детские игрушки» без дат",
+      "status": "mismatch",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Регистрация с 01.09.2025, обязательная маркировка с 01.12.2025.",
+      "action": "expand-bullet",
+      "actionDetail": "Добавлены даты этапов.",
+      "applied": true,
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/detskie-igrushki/sroki-i-etapy-markirovki-detskikh-igrushek"
+      ]
+    },
+    {
+      "id": "c-section-cosmetics",
+      "type": "MISSING_CONTEXT",
+      "raw": "«Бытовая химия и косметика» без дат",
+      "status": "mismatch",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Регистрация с 01.03.2025, поэтапная маркировка: мыло/ПАВ с 01.05.2025, дезодоранты/для волос/бритья с 01.07.2025, остальная косметика с 01.10.2025, бритвы с 01.12.2025. С 01.07.2026 — обязательный ЭДО.",
+      "action": "expand-bullet",
+      "actionDetail": "Добавлены даты этапов.",
+      "applied": true,
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/kosmetika-bytovaya-himiya/sroki-i-etapy-markirovki-kosmeticheskoy-produktsii-bytovoy-khimii-i-tovarov-lichnoy-gigieny"
+      ]
+    },
+    {
+      "id": "c-section-stationery",
+      "type": "MISSING_CONTEXT",
+      "raw": "«Канцелярские товары» в списке обязательной маркировки",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.9,
+      "expectedValue": "По состоянию на май 2026 канцелярские товары проходят эксперимент. Обязательная маркировка не введена.",
+      "action": "rewrite-bullet",
+      "actionDetail": "Уточнено: «пока проходят эксперимент, обязательная маркировка ещё не введена».",
+      "applied": true,
+      "sources": []
+    }
+  ],
+  "recommendations": [
+    "Применено: исправлена таблица категорий — годы старта обязательной маркировки актуализированы по 9 категориям.",
+    "Применено: добавлен blockquote-disclaimer о различии года маркировки и волн разрешительного режима на кассе.",
+    "Применено: переписана таблица штрафов с точными вилками, обязательным указанием частей (ч.1, ч.2, 15.12.1), упоминанием конфискации.",
+    "Применено: добавлен disclaimer о специальных штрафах для алкоголя/табака по ч.3 и ч.4 ст. 15.12 КоАП.",
+    "Применено: блок «Поэтапное расширение» — даны конкретные даты по электронике (01.05.2026), игрушкам (01.12.2025), косметике (этапы 2025) и убрано ошибочное упоминание канцелярских товаров как обязательной маркировки.",
+    "Применено: updatedDate=2026-05-18, reviewDate=2026-09-01.",
+    "Не применено: к таблице категорий не добавлены ссылки на ПП РФ по каждой строке — для статьи-обзора это перегрузило бы таблицу. По следующему апдейту можно вынести отдельным аккордеоном."
+  ],
+  "nextReview": "2026-09-01"
+}

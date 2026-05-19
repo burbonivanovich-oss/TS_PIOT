@@ -35,7 +35,7 @@ jobs:
       - name: Extract candidate keys
         run: node scripts/wordstat/extract-keys.mjs
 
-      - name: Fetch from Wordstat API
+      - name: Fetch from Wordstat API (точечно по seo.keywords)
         env:
           WORDSTAT_OAUTH_TOKEN: ${{ secrets.WORDSTAT_OAUTH_TOKEN }}
           MAX_QUOTA: ${{ inputs.max_quota || '500' }}
@@ -44,11 +44,21 @@ jobs:
           REGION_ID: "225"
         run: node scripts/wordstat/fetch.mjs
 
+      - name: Discover trends (broad по seeds.json)
+        env:
+          WORDSTAT_OAUTH_TOKEN: ${{ secrets.WORDSTAT_OAUTH_TOKEN }}
+          REGION_ID: "225"
+          NUM_PHRASES: "2000"
+        run: node scripts/wordstat/discover.mjs
+
+      - name: Diff vs previous snapshot
+        run: node scripts/wordstat/diff-snapshots.mjs
+
       - name: Commit refresh
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data/wordstat/keys.json src/data/wordstat/snapshots/
+          git add src/data/wordstat/keys.json src/data/wordstat/snapshots/ src/data/wordstat/discoveries/
           if git diff --cached --quiet; then
             echo "wordstat: нет изменений"
             exit 0

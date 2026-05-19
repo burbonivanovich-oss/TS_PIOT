@@ -88,6 +88,27 @@
   - `firstLetter(term)` — буква для группировки
   - `alphabetOrder(a, b)` — компаратор для русско-английских букв
 
+## Аналитические данные и пайплайны
+
+Не часть продакшен-сборки сайта, но критичны для контент-операций:
+
+| Подсистема | Где | Зачем | Подробности |
+|---|---|---|---|
+| Wordstat кеш (контур A) | `src/data/wordstat/keys.json` | Частоты `seo.keywords` + content-plan | `docs/wordstat.md` |
+| Wordstat discovery (контур B) | `src/data/wordstat/discoveries/` | Trend discovery по 162 seeds, weekly diff | `docs/wordstat.md` |
+| Factcheck claims | `src/data/factcheck/claims/<slug>.json` | Извлечённые claims статьи | `docs/factcheck.md` |
+| Factcheck results | `src/data/factcheck/results/<slug>.json` | Отчёт проверки + recommendations | `docs/factcheck.md` |
+| Factcheck маркеры | `.claude/factchecked/<slug>` | «Эта статья проверена YYYY-MM-DD» | `docs/factcheck.md` |
+| Редполитика | `docs/editorial-policy.md` | Классы решений A/B/C для фактчека | — |
+
+Запуск:
+- Wordstat — еженедельный workflow `.github/workflows/wordstat-weekly.yml`.
+- Factcheck — скилл `/factcheck <slug>` вручную, на статью.
+
+Скрипты в `scripts/`:
+- `scripts/wordstat/{extract-keys,fetch,discover,diff-snapshots}.mjs`
+- `scripts/factcheck/extract-claims.mjs`
+
 ## Build pipeline
 
 ```

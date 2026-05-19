@@ -1,0 +1,150 @@
+{
+  "slug": "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+  "checkedAt": "2026-05-18T15:30:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 15,
+    "checked": 8,
+    "match": 5,
+    "mismatch": 2,
+    "uncertain": 1,
+    "missing": 1,
+    "overallStatus": "good-with-fixes-applied",
+    "criticalIssues": 1,
+    "note": "Базовые даты и НПА статьи верны (ПП РФ № 1944 от 21.11.2023, дедлайн 1.07.2026). Применены три правки: (1) лид дополнен B1-disclaimer с двумя датами 28.12.2025/01.07.2026 и упоминанием X-API-KEY; (2) ст. 15.12 КоАП доведена до A2-стандарта — указана часть (ч. 2), добавлены вилки штрафов и упоминание ч. 3 для алкоголя/табака; (3) необоснованное утверждение «до 30 дней офлайн» заменено на нейтральную формулировку (срок зависит от провайдера)."
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "21.11.2023",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "ПП РФ от 21.11.2023 № 1944 — основная норма о разрешительном режиме и ТС ПИоТ",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_462894/"
+      ]
+    },
+    {
+      "id": "c3-c7",
+      "type": "DATE_TEXT",
+      "raw": "1 июля 2026 года (×5 упоминаний)",
+      "status": "match",
+      "severity": "moderate",
+      "confidence": 0.9,
+      "expectedValue": "1.07.2026 — конец переходного периода X-API-KEY (формальное начало действия — 28.12.2025)",
+      "policyRule": "B1",
+      "action": "add-disclaimer",
+      "actionDetail": "Добавлен blockquote в лиде с обеими датами: формальное вступление 28.12.2025 (ПП № 1944) + конец X-API-KEY 1.07.2026.",
+      "applied": true,
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/obschie-voprosy-gis/tekhnicheskie-sredstva-polucheniya-informatsii-o-tovare-ts-piot",
+        "https://www.moysklad.ru/poleznoe/markirovka-tovarov/modul-ts-piot-markirovka-tovarov-na-kassah/"
+      ]
+    },
+    {
+      "id": "c13",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "ст. 15.12 ч. 2 КоАП РФ — основная норма для МСБ: должн./ИП 5–10K, юрлица 50–100K; ч. 3 — алкоголь/табак: до 1M",
+      "policyRule": "A2",
+      "action": "rewrite-bullet",
+      "actionDetail": "Указана часть (ч. 2), добавлены конкретные вилки по субъектам и ссылка на consultant.ru. Упомянута ч. 3 для алкоголя/табака.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/",
+        "https://buh.ru/articles/shtrafy-i-ugolovnaya-otvetstvennost-za-markirovku-v-2026-godu.html"
+      ]
+    },
+    {
+      "id": "c-offline-30",
+      "type": "TECH_REQ",
+      "raw": "касса работает в офлайн-режиме до 30 дней",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.7,
+      "expectedValue": "Офлайн-режим существует, но «до 30 дней» — не нормативная цифра. Срок автономной работы зависит от провайдера ТС ПИоТ и настроек ОФД, а не от единого стандарта.",
+      "policyRule": "A3",
+      "action": "rewrite-bullet",
+      "actionDetail": "Удалена голословная цифра «30 дней», заменена на нейтральную формулировку с указанием зависимости от провайдера.",
+      "applied": true,
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/obschie-voprosy-gis/tekhnicheskie-sredstva-polucheniya-informatsii-o-tovare-ts-piot"
+      ]
+    },
+    {
+      "id": "c-evotor-5650",
+      "type": "TECH_REQ",
+      "raw": "Эвотор: прошивка 5650 и выше (кроме «Эвотор 6»)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Подтверждено: 5650+ требуется для работы ТС ПИоТ на Эвотор, кроме модели Эвотор 6 (у неё нет отдельной прошивки)",
+      "sources": [
+        "https://zhiza.evotor.ru/modul-ts-piot-2026-dlya-torgovli-markirovannymi-tovarami-chto-eto-i-kak-podklyuchit/",
+        "https://evotorg.com/articles/ts-piot/ts-piot-evotor-ustanovka-nastroika"
+      ]
+    },
+    {
+      "id": "c-providers",
+      "type": "FACT",
+      "raw": "Основные провайдеры — АО «ЕСП» (ЕСМ) и ООО «Инвента»",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Подтверждено реестром «Честного знака»: два основных сертифицированных разработчика — АО ЕСП (ЕСМ, 5 000 ₽/касса/год) и ООО Инвента (10 000 ₽/касса/год)",
+      "sources": [
+        "https://ao-esp.ru/",
+        "https://sampokkm.ru/blog/module_piot_esm_markirovka_evotor_atol/"
+      ]
+    },
+    {
+      "id": "c14",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "54-ФЗ — Федеральный закон «О применении контрольно-кассовой техники». Корректно использован в контексте реестра ФНС."
+    },
+    {
+      "id": "c-evokkm-driver",
+      "type": "TECH_REQ",
+      "raw": "EvoKkmDriver 4.7.0+ для ряда моделей Атол",
+      "status": "uncertain",
+      "severity": "minor",
+      "confidence": 0.5,
+      "expectedValue": "Версия драйвера для интеграции Атол с ТС ПИоТ зависит от конкретной модели и редакции ПО. Точная минимальная версия должна сверяться по документации производителя на момент установки.",
+      "action": "keep",
+      "actionDetail": "Формулировка «4.7.0+ для ряда моделей» допустима — не утверждает универсальный минимум. Оставлено без изменений.",
+      "applied": false
+    },
+    {
+      "id": "missing-x-api-key",
+      "type": "MISSING_CONTEXT",
+      "raw": "(в исходной статье не упоминался переходный механизм X-API-KEY)",
+      "status": "missing",
+      "severity": "moderate",
+      "expectedValue": "Полная картина переходного периода: 28.12.2025 — вступление в силу ПП № 1944, до 1.07.2026 — работа по токену X-API-KEY как переходному механизму, после — только ТС ПИоТ.",
+      "action": "add-disclaimer",
+      "actionDetail": "Контекст добавлен в blockquote-disclaimer лида.",
+      "applied": true,
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/obschie-voprosy-gis/tekhnicheskie-sredstva-polucheniya-informatsii-o-tovare-ts-piot"
+      ]
+    }
+  ],
+  "recommendations": [
+    "Применено: B1-disclaimer в лиде с двумя датами и контекстом X-API-KEY.",
+    "Применено: ст. 15.12 КоАП РФ доведена до A2 — указана ч. 2, добавлены вилки по субъектам, упомянута ч. 3 для алкоголя/табака.",
+    "Применено: убрано необоснованное «до 30 дней» офлайн-режима, заменено на корректную формулировку.",
+    "Применено: updatedDate=2026-05-18, reviewDate=2026-09-01.",
+    "Перепроверить осенью 2026, когда: (а) истечёт переходный период и можно зафиксировать практику применения; (б) ожидаются поправки в КоАП с штрафом 50K по ст. 14.5."
+  ],
+  "nextReview": "2026-09-01"
+}

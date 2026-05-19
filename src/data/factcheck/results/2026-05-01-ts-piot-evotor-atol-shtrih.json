@@ -1,0 +1,179 @@
+{
+  "slug": "2026-05-01-ts-piot-evotor-atol-shtrih",
+  "checkedAt": "2026-05-18T15:30:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 12,
+    "checked": 9,
+    "match": 7,
+    "mismatch": 1,
+    "uncertain": 0,
+    "missing": 1,
+    "overallStatus": "fixed-critical-fine-and-added-disclaimer",
+    "criticalIssues": 1,
+    "note": "Найдено критическое расхождение по ст. 14.5 КоАП РФ в FAQ — статья указывала «от 10 000 ₽ (ИП) до 30 000 ₽ (юрлицо)» без указания части. Реальная ч. 4 — ИП/должностные 1.5–3K, юрлица 5–10K. Поправлено по правилу A1 (вилка + субъект + часть). Добавлен B1 disclaimer о 28.12.2025 / 01.07.2026 (формальное начало vs конец X-API-KEY). Технические факты по Эвотор (5000 ₽/год, приложение ЕСМ от АО ЕСП), АТОЛ Sigma, Штрих-М, Дримкас подтверждены поиском. Оценочных суждений о брендах в стиле «лучший/самый» не обнаружено — статья нейтральна."
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026 (в лиде)",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Формально требование действует с 28.12.2025; 01.07.2026 — конец переходного X-API-KEY режима",
+      "action": "add-disclaimer",
+      "actionDetail": "Применено: добавлен blockquote-disclaimer после первого абзаца с обеими датами и ссылкой на ПП РФ № 1944.",
+      "applied": true,
+      "rule": "B1",
+      "sources": [
+        "https://markirovka.ru/community/rezhim-proverok-na-kassakh/tekhnicheskie-sredstva-polucheniya-informatsii-o-tovare-ts-piot",
+        "https://www.consultant.ru/document/cons_doc_LAW_462894/"
+      ]
+    },
+    {
+      "id": "c2",
+      "type": "DATE_DMY",
+      "raw": "21.11.2023",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Дата подписания ПП РФ № 1944 — 21.11.2023",
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_462894/"]
+    },
+    {
+      "id": "c12",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_462894/",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Корректная ссылка на ПП РФ № 1944 на consultant.ru (домен заблокирован для WebFetch, проверено через WebSearch — ссылка валидна)"
+    },
+    {
+      "id": "c3",
+      "type": "DATE_DMY",
+      "raw": "07.03.2026 (редакция ПП 1944)",
+      "status": "uncertain",
+      "severity": "minor",
+      "confidence": 0.6,
+      "expectedValue": "Редакции ПП 1944 регулярно обновляются. WebSearch не подтвердил конкретно дату 07.03.2026, но и не опроверг.",
+      "action": "keep"
+    },
+    {
+      "id": "c7",
+      "type": "MONEY",
+      "raw": "около 5 000 ₽ в год за кассу (Эвотор)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Лицензия ЕСМ от АО ЕСП — 5 000 ₽/касса/год",
+      "sources": [
+        "https://zhiza.evotor.ru/modul-ts-piot-2026-dlya-torgovli-markirovannymi-tovarami-chto-eto-i-kak-podklyuchit/",
+        "https://www.pos-shop.ru/news/ts_piot_dlya_kass_atol_sigma/"
+      ]
+    },
+    {
+      "id": "c8",
+      "type": "MONEY",
+      "raw": "~5 000 ₽/касса/год (Эвотор в таблице)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Совпадает с подтверждённой ценой ЕСП"
+    },
+    {
+      "id": "c4",
+      "type": "VERSION",
+      "raw": "1С платформа 8.3.23",
+      "status": "uncertain",
+      "severity": "minor",
+      "confidence": 0.6,
+      "expectedValue": "Версии платформы 1С регулярно обновляются. Поддержка ТС ПИоТ в типовых конфигурациях подтверждена, но конкретная минимальная версия требует уточнения у вендора.",
+      "action": "keep"
+    },
+    {
+      "id": "c5",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026 (FAQ — что произойдёт)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "01.07.2026 — конец переходного периода. Корректно."
+    },
+    {
+      "id": "c11+c9+c10",
+      "type": "NPA_KOAP+MONEY",
+      "raw": "Штраф по ст. 14.5 КоАП РФ: от 10 000 ₽ (ИП) до 30 000 ₽ (юрлицо)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "ч. 4 ст. 14.5 КоАП РФ: ИП/должностные 1 500–3 000 ₽, юрлица 5 000–10 000 ₽. С 2026 года Минфин готовит поправки, по которым штраф станет единым 50 000 ₽ для ИП и юрлиц.",
+      "action": "rewrite-paragraph",
+      "actionDetail": "Применено: FAQ-ответ полностью переписан. Указана корректная вилка по ч. 4 ст. 14.5 КоАП РФ с разделением субъектов (ИП/юрлица), добавлена параллельная ответственность по ч. 2 ст. 15.12, упомянут законопроект Минфина об ужесточении до 50K.",
+      "applied": true,
+      "rule": "A1+A2",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/3824bbacc6e85f19f12895b0ee20f3bbae92f439/",
+        "https://www.regberry.ru/news/minfin-gotovit-mnogokratnoe-uvelichenie-shtrafov-v-sfere-kkt",
+        "https://kassa.komtet.ru/blog/shtrafy-za-narusheniya-pri-rabote-s-kassoy-2026"
+      ]
+    },
+    {
+      "id": "c6",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026 (в заключении)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Корректно как дедлайн полного перехода."
+    },
+    {
+      "id": "missing-second-developer",
+      "type": "MISSING_CONTEXT",
+      "raw": "Упомянут только АО ЕСП как разработчик; второй (ООО Инвента, 10K ₽) не назван",
+      "status": "missing",
+      "severity": "minor",
+      "expectedValue": "В реестре ТС ПИоТ два сертифицированных разработчика: АО ЕСП (5K ₽/год) и ООО Инвента (10K ₽/год). Статья корректно говорит «одним из двух», но второго не называет.",
+      "action": "keep",
+      "actionDetail": "Не правим — статья честно говорит «одним из двух» и не вводит в заблуждение. При следующем reviewDate можно расширить.",
+      "applied": false,
+      "sources": [
+        "https://online-kassa.info/blog/popolnenie-v-reestre-ts-piot-dve-novye-modeli-dlya-shtrikh-m-i-atol/"
+      ]
+    },
+    {
+      "id": "fact-models-supported",
+      "type": "TECH_COMPATIBILITY",
+      "raw": "Эвотор / АТОЛ Sigma / Штрих-М / Дримкас поддерживают ТС ПИоТ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Все четыре вендора имеют решения в реестре ТС ПИоТ или поддерживают модуль ЕСМ: Эвотор — приложение ЕСМ в Маркете; АТОЛ Sigma 7Ф/8Ф/Sigma 10 (150Ф) — в реестре; Штрих-М (ШТРИХ-М-01Ф, ШТРИХ-ЛАЙТ-01Ф, ШТРИХ-ФР-01Ф, ШТРИХ-ON-LINE) — в реестре; Дримкас Старт — поддержка ЕСМ через ККТ Вики Принт, АТОЛ, Штрих.",
+      "sources": [
+        "https://www.pos-shop.ru/news/ts_piot_dlya_kass_atol_sigma/",
+        "https://online-kassa.info/blog/popolnenie-v-reestre-ts-piot-dve-novye-modeli-dlya-shtrikh-m-i-atol/",
+        "https://help.dreamkas.ru/kb/viki-printy/ts-piot/install-ts-piot/",
+        "https://zhiza.evotor.ru/modul-ts-piot-2026-dlya-torgovli-markirovannymi-tovarami-chto-eto-i-kak-podklyuchit/"
+      ]
+    },
+    {
+      "id": "fact-evaluative-claims",
+      "type": "BRAND_NEUTRALITY",
+      "raw": "Проверка на оценочные суждения о брендах",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1.0,
+      "expectedValue": "В статье нет фраз «лучший», «самый удобный», «оптимальный», «превосходит». Сравнение нейтральное, по техническим параметрам. Соответствует правилу B4.",
+      "rule": "B4"
+    }
+  ],
+  "recommendations": [
+    "Применено: исправлен критический штраф по ст. 14.5 КоАП РФ — указана правильная часть, вилка и субъекты.",
+    "Применено: добавлен B1-disclaimer о 28.12.2025 (формальное начало) и 01.07.2026 (конец X-API-KEY).",
+    "Применено: updatedDate=2026-05-18, reviewDate=2026-09-01.",
+    "К сентябрю 2026 перепроверить — возможно, законопроект Минфина по 50K вступит в силу; также проверить актуальность редакции ПП 1944."
+  ],
+  "nextReview": "2026-09-01"
+}

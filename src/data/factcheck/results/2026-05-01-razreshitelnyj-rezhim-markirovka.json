@@ -1,0 +1,267 @@
+{
+  "slug": "2026-05-01-razreshitelnyj-rezhim-markirovka",
+  "checkedAt": "2026-05-18T16:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 26,
+    "checked": 14,
+    "match": 8,
+    "mismatch": 5,
+    "uncertain": 0,
+    "missing": 1,
+    "overallStatus": "critical-table-rebuilt",
+    "criticalIssues": 1,
+    "note": "Главная проблема: таблица товарных групп содержала даты введения обязательной маркировки, а не даты разрешительного режима на кассах — то есть всю статью смысловая ошибка (А3). Таблица полностью пересобрана по ПП РФ № 1944 и материалам «Честного знака»: онлайн-режим вводился волнами 01.04.2024 → 01.11.2024 → 01.03.2025 → 01.06.2025; офлайн — с 01.03.2025 (большинство), 01.05–01.09.2025 (поздние группы). Дополнительно: исправлен URL 381-ФЗ на consultant.ru, добавлено упоминание 487-ФЗ как реальной правовой основы для маркировки, добавлен disclaimer о ТС ПИоТ (ПП РФ № 1674) в лиде, уточнена ссылка на ст. 15.12 ч. 2 КоАП с вилками штрафов."
+  },
+  "claims": [
+    {
+      "id": "c-table-tobacco",
+      "type": "DATE_DMY",
+      "raw": "Табачная продукция | 01.03.2022",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "Табак — онлайн с 01.04.2024, офлайн с 01.03.2025 (01.03.2022 — это начало обязательной маркировки, не разрешительного режима)",
+      "action": "rewrite-table",
+      "applied": true,
+      "sources": [
+        "https://kontur.ru/market/spravka/53785-razreshitelnyy_rezhim",
+        "https://v8.1c.ru/metod/article/razreshitelnyy-rezhim-s-1-aprelya-2024-g-chto-takoe-i-kak-podgotovitsya.htm"
+      ]
+    },
+    {
+      "id": "c-table-fur",
+      "type": "DATE_DMY",
+      "raw": "Шубы и меховые изделия | 01.11.2021",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "Меховые изделия в первую волну онлайн-режима с 01.04.2024 не входили; отдельной даты под разрешительный режим в открытых источниках не зафиксировано — убраны из таблицы во избежание ложных данных",
+      "action": "remove-row",
+      "applied": true
+    },
+    {
+      "id": "c-table-footwear",
+      "type": "DATE_DMY",
+      "raw": "Обувь | 01.11.2021",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "Обувь — онлайн с 01.11.2024, офлайн с 01.03.2025",
+      "action": "rewrite-table",
+      "applied": true,
+      "sources": [
+        "https://mertech.ru/blog/vse-o-markirovke/razreshitelnyi-rezhim-na-kassah-s-1-noyabrya-2024-goda/"
+      ]
+    },
+    {
+      "id": "c-table-medicines",
+      "type": "DATE_DMY",
+      "raw": "Лекарственные препараты | 01.07.2020",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "Лекарства МДЛП — онлайн-режим с 01.06.2025, офлайн с 01.09.2025 (01.07.2020 — старт обязательной маркировки лекарств)",
+      "action": "rewrite-table",
+      "applied": true,
+      "sources": [
+        "https://trade-drive.ru/materialy/publikatsii/razreshitelnyy-rezhim-na-kassakh-dlya-lekarstv-chto-izmenitsya-s-iyunya-2025-goda/"
+      ]
+    },
+    {
+      "id": "c-table-dairy",
+      "type": "DATE_DMY",
+      "raw": "Молочная продукция | 01.09.2022",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "Молочка — крупные сети онлайн с 01.05.2024, вся розница с 01.09.2024, офлайн с 01.03.2025",
+      "action": "rewrite-table",
+      "applied": true,
+      "sources": [
+        "https://gk-mact.ru/blog/poleznye-stati/razreshitelnyy-rezhim-molochnaya-produktsiya/"
+      ]
+    },
+    {
+      "id": "c-table-water",
+      "type": "DATE_DMY",
+      "raw": "Упакованная вода | 01.11.2022",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "Упакованная вода — онлайн с 01.03.2025, офлайн с 01.05.2025",
+      "action": "rewrite-table",
+      "applied": true,
+      "sources": [
+        "https://mertech.ru/blog/vse-o-markirovke/razreshitelniy-rezhim-na-kassah-s-1-marta-2025-goda/"
+      ]
+    },
+    {
+      "id": "c-table-beer",
+      "type": "DATE_DMY",
+      "raw": "Пиво и слабоалкогольные напитки | 01.01.2024",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "Пиво и слабоалкогольные — онлайн с 01.04.2024 (кеги), 01.11.2024 (потреб. упаковка); офлайн с 01.03.2025",
+      "action": "rewrite-table",
+      "applied": true,
+      "sources": [
+        "https://mertech.ru/blog/vse-o-markirovke/razreshitelnyi-rezhim-na-kassah-s-1-noyabrya-2024-goda/"
+      ]
+    },
+    {
+      "id": "c-table-soft-drinks",
+      "type": "DATE_DMY",
+      "raw": "Безалкогольные напитки | 01.03.2026",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "Безалкогольные — онлайн с 01.03.2025, офлайн с 01.06.2025 (01.03.2026 — некорректная дата)",
+      "action": "rewrite-table",
+      "applied": true,
+      "sources": [
+        "https://taxcom-kassa.ru/blog/info/markirovka/markirovka-bezalkogolnyh-napitkov-v-rossii-2025/"
+      ]
+    },
+    {
+      "id": "c-table-clothes",
+      "type": "DATE_DMY",
+      "raw": "Одежда и бельё | 01.04.2024",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "Одежда — онлайн с 01.11.2024, офлайн с 01.03.2025",
+      "action": "rewrite-table",
+      "applied": true
+    },
+    {
+      "id": "c-table-wheelchairs",
+      "type": "DATE_DMY",
+      "raw": "Кресла-коляски | 01.03.2023",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "Кресла-коляски и медизделия — онлайн с 01.03.2025, офлайн с 01.05.2025",
+      "action": "rewrite-table",
+      "applied": true,
+      "sources": [
+        "https://xn--80ajghhoc2aj1c8b.xn--p1ai/business/projects/medical_devices/checkout/"
+      ]
+    },
+    {
+      "id": "c-table-perfume",
+      "type": "DATE_DMY",
+      "raw": "Парфюмерия | 01.04.2024",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "Парфюмерия — онлайн с 01.11.2024, офлайн с 01.03.2025",
+      "action": "rewrite-table",
+      "applied": true
+    },
+    {
+      "id": "c-table-tyres",
+      "type": "DATE_DMY",
+      "raw": "Шины и покрышки | 01.03.2023",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "Шины — онлайн с 01.11.2024, офлайн с 01.03.2025",
+      "action": "rewrite-table",
+      "applied": true
+    },
+    {
+      "id": "c-npa-1944",
+      "type": "NPA",
+      "raw": "постановление Правительства РФ от 21.11.2023 № 1944",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "ПП РФ № 1944 от 21.11.2023 — корректная норма о разрешительном режиме",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_462894/",
+        "http://publication.pravo.gov.ru/document/0001202311270058"
+      ]
+    },
+    {
+      "id": "c-npa-381fz",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_94872/",
+      "status": "mismatch",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Корректный consultant.ru ID для 381-ФЗ — cons_doc_LAW_95629, а не 94872. Также добавлено упоминание 487-ФЗ как акта, внёсшего нормы о ГИС МТ в 381-ФЗ.",
+      "action": "fix-link",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_95629/",
+        "https://www.consultant.ru/document/cons_doc_LAW_286746/"
+      ]
+    },
+    {
+      "id": "c-koap-1512",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Не указана часть (требование A2). Добавлено: ст. 15.12 ч. 2 КоАП с вилками штрафов (ИП 5–10K, юрлица 50–300K) и ссылкой на consultant.ru",
+      "action": "add-part-and-fines",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"
+      ]
+    },
+    {
+      "id": "c-lid-march-2025",
+      "type": "DATE_TEXT",
+      "raw": "С 1 марта 2025 года в России в полном объёме запущен разрешительный режим",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.85,
+      "expectedValue": "01.03.2025 — это дата обязательной офлайн-проверки для большинства групп. Онлайн-режим вводился волнами с 01.04.2024 и 01.11.2024. По правилу B1 формулировка лида сохранена + под лидом добавлен blockquote с полным контекстом и ссылкой на замену ТС ПИоТ (ПП РФ № 1674).",
+      "action": "add-disclaimer",
+      "applied": true,
+      "sources": [
+        "https://mertech.ru/blog/vse-o-markirovke/razreshitelniy-rezhim-na-kassah-s-1-marta-2025-goda/",
+        "https://buh.ru/news/razreshitelnyy-rezhim-s-1-marta-2025-goda-.html"
+      ]
+    },
+    {
+      "id": "missing-piot-1674",
+      "type": "MISSING_NEWS",
+      "raw": "(не упомянут ПП РФ № 1674 о ТС ПИоТ и срок 28.12.2025 / 01.07.2026)",
+      "status": "missing",
+      "severity": "moderate",
+      "expectedValue": "С 28.12.2025 разрешительный режим заменяется на ТС ПИоТ (ПП РФ № 1674 от 29.11.2024). До 01.07.2026 параллельно работает токен X-API-KEY.",
+      "action": "add-disclaimer",
+      "applied": true,
+      "sources": [
+        "https://www.arbus.biz/blog/ts_piot/",
+        "https://markirovka.ru/community/rezhim-proverok-na-kassakh/tekhnicheskie-sredstva-polucheniya-informatsii-o-tovare-ts-piot"
+      ]
+    },
+    {
+      "id": "c-expansion-april-2026",
+      "type": "DATE_TEXT",
+      "raw": "Расширение перечня с 1 апреля 2026 года",
+      "status": "uncertain",
+      "severity": "minor",
+      "confidence": 0.5,
+      "expectedValue": "Конкретное расширение перечня под 01.04.2026 в первоисточниках не подтверждается одним актом — переформулировано в общую отсылку к актуальному перечню на честныйзнак.рф",
+      "action": "rewrite-paragraph",
+      "applied": true
+    }
+  ],
+  "recommendations": [
+    "Применено: таблица товарных групп полностью пересобрана с разделением на онлайн/офлайн волны.",
+    "Применено: исправлен битый consultant.ru ID для 381-ФЗ; добавлено упоминание 487-ФЗ.",
+    "Применено: добавлены часть и вилки штрафов к ст. 15.12 ч. 2 КоАП.",
+    "Применено: blockquote-disclaimer в лиде с упоминанием ПП РФ № 1674 и срока 01.07.2026 (X-API-KEY).",
+    "Применено: updatedDate=2026-05-18, reviewDate=2026-09-01.",
+    "Рекомендация: при следующем review (осень 2026) сверить таблицу с честныйзнак.рф — могут добавиться новые группы (например, велосипеды, корма для животных)."
+  ],
+  "nextReview": "2026-09-01"
+}

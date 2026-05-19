@@ -168,7 +168,8 @@ print(len(body.split()), 'слов')
 
 **Действия:**
 
-Запустить `/blog factcheck src/content/blog/SLUG.md`.
+Запустить `/factcheck <slug>` (свой стек, см. `docs/factcheck.md`). Решения
+по `docs/editorial-policy.md`.
 
 **Шлюз 3:**
 ```
