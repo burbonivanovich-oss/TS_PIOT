@@ -2,6 +2,18 @@
   "slug": "2026-05-01-edo-upd-markirovka",
   "claims": [
     {
+      "id": "c12",
+      "type": "NPA_PP_NUMBERED",
+      "raw": "постановлением Правительства РФ от 21.11.2023 № 1944",
+      "groups": [
+        "21.11.2023",
+        "1944"
+      ],
+      "offset": 1146,
+      "line": 13,
+      "context": "Правовая основа:** применение ЭДО при обороте маркированных товаров закреплено [постановлением Правительства РФ от 21.11.2023 № 1944](https://www.consultant.ru/document/cons_doc_LAW_462894/) (разрешительный режим"
+    },
+    {
       "id": "c1",
       "type": "DATE_DMY",
       "raw": "21.11.2023",
@@ -15,7 +27,7 @@
       "context": "ри обороте маркированных товаров закреплено [постановлением Правительства РФ от 21.11.2023 № 1944](https://www.consultant.ru/document/cons_doc_LAW_462894/) (разрешительны"
     },
     {
-      "id": "c12",
+      "id": "c13",
       "type": "LINK",
       "raw": "https://www.consultant.ru/document/cons_doc_LAW_462894/",
       "groups": [
@@ -143,7 +155,7 @@
       "context": "лифицированной электронной подписью (УКЭП) в соответствии с [ФЗ от 06.04.2011 № 63-ФЗ «Об электронной подписи»](https://www.consultant.ru/document/cons_doc_LAW_11270"
     },
     {
-      "id": "c13",
+      "id": "c14",
       "type": "LINK",
       "raw": "https://www.consultant.ru/document/cons_doc_LAW_112701/",
       "groups": [

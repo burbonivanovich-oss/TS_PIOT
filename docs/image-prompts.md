@@ -271,8 +271,11 @@ clean editorial, sharp shadow, no readable screen content, photorealistic
 
 ## Рекомендуемые модели
 
-| Модель | API | Качество | Стоимость |
+| Модель | API | Назначение | Default |
 |---|---|---|---|
-| `black-forest-labs/flux.2-max` | OpenRouter | Лучшее | — |
+| `google/gemini-3.1-flash-image-preview` | OpenRouter | Hero + Preview, актуальная модель | ✓ |
+| `black-forest-labs/flux.2-max` | OpenRouter | Резервный вариант | — |
 
-Текущие скрипты: `scripts/generate-preview-images.mjs` и `scripts/generate-hero-images.mjs`.
+Текущая модель — **Nano Banana** (`google/gemini-3.1-flash-image-preview`).
+Переопределение через `HERO_MODEL` / `PREVIEW_MODEL` env в workflow inputs.
+Скрипты: `scripts/generate-preview-images.mjs`, `scripts/generate-hero-images.mjs`.

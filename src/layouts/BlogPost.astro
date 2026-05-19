@@ -327,7 +327,7 @@ const shareTitle = encodeURIComponent(title);
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
 										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
-										const img = post.data.previewImage ?? post.data.heroImage ?? null;
+										const img = post.data.previewImage ?? post.data.heroImage ?? `/og/${post.id}.png`;
 										return (
 											<a href={u(`/blog/${post.id}/`)} class="r-card">
 												<div class="r-card-img" style={`background:${accent}`}>
@@ -352,7 +352,7 @@ const shareTitle = encodeURIComponent(title);
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
 										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
-										const img = post.data.previewImage ?? post.data.heroImage ?? null;
+										const img = post.data.previewImage ?? post.data.heroImage ?? `/og/${post.id}.png`;
 										return (
 											<a href={u(`/blog/${post.id}/`)} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--side'}>
 												<div class="r-card-img" style={`background:${accent}`}>
@@ -377,7 +377,7 @@ const shareTitle = encodeURIComponent(title);
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
 										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
-										const img = post.data.previewImage ?? post.data.heroImage ?? null;
+										const img = post.data.previewImage ?? post.data.heroImage ?? `/og/${post.id}.png`;
 										return (
 											<a href={u(`/blog/${post.id}/`)} class={i === 2 ? 'r-card r-card--wide' : 'r-card'}>
 												<div class="r-card-img" style={`background:${accent}`}>
@@ -402,7 +402,7 @@ const shareTitle = encodeURIComponent(title);
 										const cat = post.data.categories?.[0] as keyof typeof CATEGORIES | undefined;
 										const accent = cat === 'markirovka' ? '#9E2B4F' : cat === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
 										const catLabel = cat ? CATEGORIES[cat]?.title : null;
-										const img = post.data.previewImage ?? post.data.heroImage ?? null;
+										const img = post.data.previewImage ?? post.data.heroImage ?? `/og/${post.id}.png`;
 										return (
 											<a href={u(`/blog/${post.id}/`)} class="r-card">
 												<div class="r-card-img" style={`background:${accent}`}>

@@ -8,7 +8,7 @@
 ```
 ┌─────────────────────────────┐
 │                             │
-│      previewImage (16:9)    │  ← AI-иллюстрация от FLUX
+│      previewImage (16:9)    │  ← AI-иллюстрация (Nano Banana)
 │                             │
 ├─────────────────────────────┤
 │ [Категория]                 │
@@ -47,9 +47,9 @@ previewImage: "/images/preview/2026-01-15-chto-takoe-ts-piot.jpg"
 
 ```
 src/content/blog/новая-статья.md → push → GitHub Actions
-  ├── FLUX → public/images/preview/новая-статья.jpg
+  ├── Nano Banana → public/images/preview/новая-статья.jpg
   │   └── frontmatter ← previewImage: "/images/preview/..."
-  └── FLUX (OpenRouter) → public/images/hero/новая-статья.jpg
+  └── Nano Banana (OpenRouter) → public/images/hero/новая-статья.jpg
       └── frontmatter ← heroImage: "/images/hero/..."
 ```
 
@@ -68,7 +68,7 @@ OPENROUTER_API_KEY=... node scripts/generate-preview-images.mjs
 OPENROUTER_API_KEY=... SLUG=2026-01-15-chto-takoe-ts-piot node scripts/generate-preview-images.mjs
 ```
 
-## Визуальный стиль превью (FLUX)
+## Визуальный стиль превью (Nano Banana)
 
 Все превью генерируются в едином editorial-стиле:
 
@@ -92,16 +92,18 @@ Tinkoff Journal style, 16:9 aspect ratio
 
 ## Модель для превью
 
-По умолчанию `black-forest-labs/flux-1-schnell` (бесплатно через OpenRouter).
+По умолчанию `google/gemini-3.1-flash-image-preview` (**Nano Banana**) — через OpenRouter.
 
-Чтобы сменить модель для превью — установите переменную окружения:
+Чтобы сменить модель — установите env vars:
 ```bash
-FLUX_MODEL=black-forest-labs/flux-1-1-pro OPENROUTER_API_KEY=... node scripts/generate-preview-images.mjs
+PREVIEW_MODEL=black-forest-labs/flux-1-1-pro OPENROUTER_API_KEY=... node scripts/generate-preview-images.mjs
+HERO_MODEL=black-forest-labs/flux-1-1-pro OPENROUTER_API_KEY=... node scripts/generate-hero-images.mjs
 ```
 
-В workflow модель жёстко не задана, берётся дефолт из скрипта. Если нужна
-другая модель на постоянной основе — поменяйте `process.env.FLUX_MODEL ??`
-в начале скрипта.
+В workflow `generate-hero-images.yml` / `generate-preview-images.yml`
+модель не задана жёстко — берётся дефолт из скрипта (`PREVIEW_MODEL` /
+`HERO_MODEL`). Если нужна другая модель на постоянной основе —
+поменяйте дефолт в начале соответствующего скрипта.
 
 ## CSS карточек
 
