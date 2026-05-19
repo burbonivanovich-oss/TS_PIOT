@@ -1,0 +1,105 @@
+{
+  "slug": "2026-05-25-ts-piot-bez-interneta",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 7,
+    "checked": 7,
+    "match": 5,
+    "mismatch": 2,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "fixed-critical",
+    "criticalIssues": 2,
+    "note": "Найдены и исправлены 2 критические ошибки: (1) дата '01.03.2025 ТС ПИоТ обязан' — это дата начала разрешительного режима с офлайн-проверкой через ЛМ ЧЗ, но НЕ старта ТС ПИоТ; правильная дата формального вступления — 28.12.2025, дедлайн полного перехода — 01.07.2026; (2) ссылка на ПП № 257 от 03.03.2025 — такого постановления о ТС ПИоТ нет, регулирующий документ — ПП № 1944 от 21.11.2023. Лид переписан с корректной отсылкой к ПП № 1944 и с явным разведением двух систем (разрешительный режим / ЛМ ЧЗ с 01.03.2025 vs ТС ПИоТ с 01.07.2026). Остальные claims (72 часа ЛМ ЧЗ, ст. 4.1 54-ФЗ для 30-дневной блокировки ФН, ст. 15.12 ч. 2 КоАП с вилкой 5–10K ИП / 50–300K юрлица) — корректны."
+  },
+  "claims": [
+    {
+      "id": "c-date-01-03-2025-ts-piot",
+      "type": "DATE_DMY",
+      "raw": "С 01.03.2025 ТС ПИоТ обязан проверять",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "01.03.2025 — это начало разрешительного режима с обязательной офлайн-проверкой через ЛМ ЧЗ. ТС ПИоТ как отдельный модуль формально обязателен с 28.12.2025, переходный период до 01.07.2026 (ПП РФ № 1944 от 21.11.2023)",
+      "action": "rewrite-lid",
+      "actionDetail": "Лид переписан: указана корректная дата 01.07.2026 как граница полного перехода, добавлена ссылка на ПП № 1944 и явное упоминание переходного периода. Разрешительный режим (с 01.03.2025) разведён с ТС ПИоТ.",
+      "applied": true,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_462894/",
+        "https://kontur.ru/market/news/82918-roznice_i_obshchepitu_ponadobitsya_ts_piot",
+        "https://its.1c.ru/db/content/newsclar/src/498090.htm"
+      ]
+    },
+    {
+      "id": "c-pp-257",
+      "type": "NPA",
+      "raw": "ПП № 257 от 03.03.2025",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "Постановления № 257 от 03.03.2025 о ТС ПИоТ не существует. Регулирующий документ — Постановление Правительства РФ от 21.11.2023 № 1944 (с редакциями)",
+      "action": "replace-reference",
+      "actionDetail": "Ссылка на ПП № 257 удалена, заменена на ПП № 1944 со ссылкой на consultant.ru/document/cons_doc_LAW_462894/.",
+      "applied": true,
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_462894/"]
+    },
+    {
+      "id": "c-lm-chz-72h",
+      "type": "TECH",
+      "raw": "ЛМ ЧЗ блокируется через 72 часа без синхронизации",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "72 часа — официальный таймаут Локального модуля «Честного знака»",
+      "sources": [
+        "https://markirovka.ru/community/rezhim-proverok-na-kassakh/oflayn-proverka-na-kassakh-lokalnyy-modul-chz",
+        "https://www.moysklad.ru/poleznoe/markirovka-tovarov/lokalniy-modul-chestniy-znak-oflayn-proverka-kodov/"
+      ]
+    },
+    {
+      "id": "c-fn-30-days-st-4-1",
+      "type": "NPA_REF",
+      "raw": "ст. 4.1 54-ФЗ — блокировка ФН через 30 дней",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.9,
+      "expectedValue": "Ст. 4.1 54-ФЗ — ФН блокирует формирование чеков, если в течение 30 календарных дней нет передачи в ОФД"
+    },
+    {
+      "id": "c-fine-15-12-ch2-ip",
+      "type": "MONEY",
+      "raw": "ИП — от 5 000 до 10 000 ₽ (ст. 15.12 ч. 2 КоАП)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Ст. 15.12 ч. 2 КоАП РФ для ИП — 5 000–10 000 ₽ с конфискацией",
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_34661/c8a8c13d283fa3416f79b91b3f36da068225c15b/"]
+    },
+    {
+      "id": "c-fine-15-12-ch2-ul",
+      "type": "MONEY",
+      "raw": "юрлица — от 50 000 до 300 000 ₽ (ст. 15.12 ч. 2 КоАП)",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Ст. 15.12 ч. 2 КоАП РФ для юрлиц — 50 000–300 000 ₽ с конфискацией"
+    },
+    {
+      "id": "c-koap-15-12-ch2-ref",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 ч. 2 КоАП РФ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.95,
+      "expectedValue": "Часть и статья указаны полностью — соответствие политике A2"
+    }
+  ],
+  "recommendations": [
+    "Применено: лид переписан с корректной нормативной отсылкой к ПП № 1944.",
+    "Применено: проставлен updatedDate=2026-05-19.",
+    "Перепроверить в ноябре 2026 — после полугода фактической работы ТС ПИоТ."
+  ],
+  "nextReview": "2026-11-25"
+}
