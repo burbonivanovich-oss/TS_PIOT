@@ -2,6 +2,7 @@
 title: "Маркировка для импортёров: GTIN, ЭДО и таможня"
 description: "Как импортёру получить GTIN, нанести коды маркировки до ввоза и передать данные через ЭДО. Пошаговый порядок для МСБ."
 pubDate: "2026-05-17"
+heroImage: "/images/hero/2026-05-03-markirovka-importerov.jpg"
 updatedDate: "2026-05-19"
 reviewDate: "2026-08-15"
 tags:

@@ -2,6 +2,7 @@
 title: "Самозанятый на Wildberries в 2026 году: лимит, налог и маркировка"
 description: "Может ли самозанятый продавать на Wildberries в 2026 году, какой налог платить, что разрешено продавать и что делать при превышении лимита 2,4 млн рублей."
 pubDate: "2026-05-21"
+heroImage: "/images/hero/2026-05-21-samozanyatyj-na-wildberries.jpg"
 updatedDate: "2026-05-19"
 reviewDate: "2026-08-19"
 tags:

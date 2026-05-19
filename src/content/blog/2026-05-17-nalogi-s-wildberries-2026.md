@@ -2,6 +2,7 @@
 title: "Налоги с продаж на Wildberries в 2026 году: УСН, НДС и отчётность"
 description: "Какой налог платит продавец на Wildberries в 2026 году: УСН 6% или 15%, НДС при превышении лимита, как учесть комиссию маркетплейса и что сдавать в налоговую."
 pubDate: "2026-05-17"
+heroImage: "/images/hero/2026-05-17-nalogi-s-wildberries-2026.jpg"
 updatedDate: "2026-05-19"
 reviewDate: "2026-08-15"
 tags:

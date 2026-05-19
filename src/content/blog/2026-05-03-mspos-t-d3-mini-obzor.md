@@ -2,6 +2,7 @@
 title: "MSPOS T D3 Mini: характеристики и сценарии использования"
 description: "Обзор смарт-терминала MSPOS T D3 Mini: технические характеристики, поддержка маркировки, сравнение с MSPOS F20, сценарии применения."
 pubDate: "2026-05-20"
+heroImage: "/images/hero/2026-05-03-mspos-t-d3-mini-obzor.jpg"
 reviewDate: "2026-08-18"
 tags:
   - mspos
