@@ -1,0 +1,97 @@
+{
+  "slug": "2026-05-21-samozanyatyj-na-wildberries",
+  "checkedAt": "2026-05-19T00:00:00.000Z",
+  "checkedBy": "claude-opus-4-7+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 27,
+    "checked": 10,
+    "match": 9,
+    "mismatch": 1,
+    "uncertain": 0,
+    "overallStatus": "verified-after-fixes",
+    "criticalIssues": 1,
+    "note": "Критическая ошибка исправлена: ставка НПД на Wildberries указывалась как 4% на основании 'действия от имени продавца', но фактический плательщик (источник выплаты) — Wildberries как юридическое лицо. По ст. 10 ФЗ 422-ФЗ ставка 6% применяется при расчётах с ИП/юрлицами, поэтому корректная ставка по выплатам от WB самозанятому — 6%, независимо от того, кто конечный покупатель (так разъясняют Контур.Бухгалтерия, sellermate, datamp). Остальное проверено: 422-ФЗ от 27.11.2018, лимит 2,4 млн ₽ (ст. 4 422-ФЗ), запрет перепродажи (пп. 2 п. 2 ст. 4), категории обязательной маркировки (одежда, обувь, духи) подтверждены ПП РФ № 1956/1899/2469, маркировка мягких игрушек с 01.09.2026 — ПП РФ № 819 от 31.05.2025 (whitelist подтверждает)."
+  },
+  "claims": [
+    {
+      "id": "rate-4",
+      "type": "PERCENT",
+      "raw": "4% — покупатели-физлица",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "На WB источник выплаты — юрлицо (маркетплейс), поэтому по ст. 10 422-ФЗ применяется 6%. Конечный покупатель неважен — важен плательщик самозанятому.",
+      "action": "rewrite",
+      "fixed": true,
+      "sources": [
+        "https://www.b-kontur.ru/enquiry/37614-nalog_samozanyatogo_na_wildberries",
+        "https://www.consultant.ru/document/cons_doc_LAW_311977/"
+      ]
+    },
+    {
+      "id": "fz-422",
+      "type": "NPA_FZ",
+      "raw": "ФЗ от 27.11.2018 № 422-ФЗ",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Действующий закон о НПД, эксперимент продлён до 31.12.2028"
+    },
+    {
+      "id": "limit-2-4mln",
+      "type": "MONEY",
+      "raw": "2,4 млн ₽ в год",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Лимит дохода самозанятого — п. 8 ч. 2 ст. 4 422-ФЗ"
+    },
+    {
+      "id": "rate-6",
+      "type": "PERCENT",
+      "raw": "6% — юрлицам",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "ст. 10 422-ФЗ: 6% по доходам от ИП и юрлиц"
+    },
+    {
+      "id": "ban-resale",
+      "type": "NORM",
+      "raw": "перепродажа чужих товаров запрещена",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "пп. 2 ч. 2 ст. 4 422-ФЗ — самозанятым нельзя перепродавать товары, кроме личного имущества"
+    },
+    {
+      "id": "kod-50kop",
+      "type": "MONEY",
+      "raw": "50 копеек без НДС за код",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Тариф ЦРПТ — 50 коп. без НДС за код Data Matrix"
+    },
+    {
+      "id": "toys-2026-09",
+      "type": "DATE_TEXT",
+      "raw": "Игрушки мягкие — с 01.09.2026",
+      "status": "match",
+      "confidence": 0.95,
+      "expectedValue": "ПП РФ № 819 от 31.05.2025 — маркировка игрушек поэтапно с 01.09.2026"
+    },
+    {
+      "id": "no-kassa",
+      "type": "NORM",
+      "raw": "Онлайн-касса по 54-ФЗ не требуется",
+      "status": "match",
+      "confidence": 0.99,
+      "expectedValue": "Самозанятые освобождены от ККТ (ч. 2.2 ст. 2 54-ФЗ); чек формируется в 'Мой налог'"
+    },
+    {
+      "id": "ndfl-13",
+      "type": "PERCENT",
+      "raw": "облагаются НДФЛ 13%",
+      "status": "match",
+      "confidence": 0.9,
+      "expectedValue": "При утрате статуса НПД доходы облагаются НДФЛ; ИП — обязан выбрать режим в течение 20 дней"
+    }
+  ]
+}
