@@ -382,7 +382,7 @@ weekly прогона — ~640 квот. Подробности — `docs/wordst
 
 **Не предлагать пользователю прописывать ключ вручную.** Стандартный способ запуска — Actions.
 
-### Генерация изображений (OpenRouter + FLUX)
+### Генерация изображений (OpenRouter + Nano Banana)
 
 Единственный провайдер — **OpenRouter**. Together.ai не используется.
 
@@ -420,7 +420,7 @@ Gemini больше не нужен.
 | Скрипт | Назначение |
 |---|---|
 | `generate-og-backgrounds-local.mjs` | Процедурные SVG-фоны без API-ключей |
-| `generate-og-backgrounds-openrouter.mjs` | AI-фоны через OpenRouter (FLUX) |
+| `generate-og-backgrounds-openrouter.mjs` | AI-фоны через OpenRouter (Nano Banana, можно переопределить FLUX и др.) |
 | `wordstat/extract-keys.mjs` | Собирает кандидатов из блога + контент-плана |
 | `wordstat/fetch.mjs` | Точечно тянет /v1/dynamics + /v1/topRequests (контур A) |
 | `wordstat/discover.mjs` | Trend discovery: /v1/topRequests на 162 широких seed-а (контур B) |
