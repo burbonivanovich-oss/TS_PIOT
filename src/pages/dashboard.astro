@@ -1,0 +1,386 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { u } from '../utils/url';
+import analytics from '../data/analytics/articles.json';
+
+const title = 'Дашборд статей · внутренний';
+const description = 'Сводная таблица статей: позиции GSC, трафик Метрики, фактчек, дата публикации.';
+
+const { generatedAt, source, totals, articles } = analytics as any;
+
+function fmtDate(s: string | null): string {
+	if (!s) return '—';
+	try {
+		return new Date(s).toLocaleString('ru-RU', {
+			day: '2-digit', month: '2-digit', year: 'numeric',
+			hour: '2-digit', minute: '2-digit',
+		});
+	} catch { return s; }
+}
+function fmtNum(n: number | null | undefined): string {
+	if (n == null) return '—';
+	return new Intl.NumberFormat('ru-RU').format(Math.round(n));
+}
+
+// Сегменты по «свежести» — за последние 30/90/более дней
+const now = new Date();
+const SEGMENTS: Record<string, number> = { fresh: 0, recent: 0, stale: 0, undated: 0 };
+for (const a of articles) {
+	if (!a.pubDate) { SEGMENTS.undated++; continue; }
+	const days = (now.getTime() - new Date(a.pubDate).getTime()) / 86400000;
+	if (days <= 30) SEGMENTS.fresh++;
+	else if (days <= 90) SEGMENTS.recent++;
+	else SEGMENTS.stale++;
+}
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={title} description={description} />
+		<meta name="robots" content="noindex, nofollow" />
+	</head>
+	<body>
+		<Header />
+
+		<main class="dash">
+			<header class="dash-hero">
+				<p class="dash-eyebrow">Внутренний дашборд · noindex</p>
+				<h1>Дашборд статей</h1>
+				{generatedAt ? (
+					<p class="dash-lead">
+						Последнее обновление: <strong>{fmtDate(generatedAt)}</strong>.
+						Источники: GSC {fmtDate(source.gsc)}, Метрика {fmtDate(source.metrika)}.
+						Окно — {source.days || '—'} дней.
+					</p>
+				) : (
+					<p class="dash-lead empty">
+						Данные пока не загружены. Запустите workflow{' '}
+						<code>Analytics — Refresh Data</code> для первичного сбора.
+						Подробности — <code>docs/analytics.md</code>.
+					</p>
+				)}
+			</header>
+
+			<section class="dash-totals">
+				<div class="dash-stat">
+					<div class="dash-stat-val">{fmtNum(totals.articles)}</div>
+					<div class="dash-stat-label">всего статей</div>
+				</div>
+				<div class="dash-stat">
+					<div class="dash-stat-val">{fmtNum(totals.totalClicks)}</div>
+					<div class="dash-stat-label">кликов GSC</div>
+				</div>
+				<div class="dash-stat">
+					<div class="dash-stat-val">{fmtNum(totals.totalImpressions)}</div>
+					<div class="dash-stat-label">показов GSC</div>
+				</div>
+				<div class="dash-stat">
+					<div class="dash-stat-val">{fmtNum(totals.totalPageviews)}</div>
+					<div class="dash-stat-label">просмотров Метрики</div>
+				</div>
+				<div class="dash-stat">
+					<div class="dash-stat-val">{fmtNum(totals.withGsc)}</div>
+					<div class="dash-stat-label">статей с трафиком GSC</div>
+				</div>
+				<div class="dash-stat">
+					<div class="dash-stat-val">{fmtNum(totals.withMetrika)}</div>
+					<div class="dash-stat-label">статей с трафиком Метрики</div>
+				</div>
+			</section>
+
+			<section class="dash-segments">
+				<div class="dash-seg fresh">≤ 30 дней: <strong>{SEGMENTS.fresh}</strong></div>
+				<div class="dash-seg recent">31–90 дней: <strong>{SEGMENTS.recent}</strong></div>
+				<div class="dash-seg stale">&gt; 90 дней: <strong>{SEGMENTS.stale}</strong></div>
+				{SEGMENTS.undated > 0 && <div class="dash-seg undated">без даты: <strong>{SEGMENTS.undated}</strong></div>}
+			</section>
+
+			<div class="dash-controls">
+				<input type="search" id="dash-q" class="dash-search" placeholder="Поиск по заголовку или slug…" />
+				<select id="dash-cat" class="dash-cat">
+					<option value="">Все категории</option>
+					<option value="ts-piot">ТС ПИоТ</option>
+					<option value="markirovka">Маркировка</option>
+					<option value="zakonodatelstvo">Законодательство</option>
+					<option value="kkt">ККТ</option>
+					<option value="egais">ЕГАИС</option>
+				</select>
+				<label class="dash-only-traffic">
+					<input type="checkbox" id="dash-only-traffic" />
+					Только с трафиком
+				</label>
+			</div>
+
+			<div class="dash-table-wrap">
+				<table class="dash-table">
+					<thead>
+						<tr>
+							<th data-sort="title">Статья</th>
+							<th data-sort="category" class="num">Раздел</th>
+							<th data-sort="pubDate" class="num">Дата</th>
+							<th data-sort="gscClicks" class="num">Клики</th>
+							<th data-sort="gscImpr" class="num">Показы</th>
+							<th data-sort="gscPos" class="num">Поз.</th>
+							<th data-sort="pageviews" class="num">Просм.</th>
+							<th data-sort="users" class="num">Польз.</th>
+							<th data-sort="fc" class="num">Фактчек</th>
+						</tr>
+					</thead>
+					<tbody>
+						{articles.map((a: any) => (
+							<tr
+								data-row
+								data-title={(a.title || '').toLowerCase()}
+								data-slug={a.slug.toLowerCase()}
+								data-category={a.category || ''}
+								data-has-traffic={(a.metrika?.pageviews || a.gsc?.clicks) ? '1' : '0'}
+								data-gsc-clicks={a.gsc?.clicks ?? -1}
+								data-gsc-impr={a.gsc?.impressions ?? -1}
+								data-gsc-pos={a.gsc?.position ?? 999}
+								data-pageviews={a.metrika?.pageviews ?? -1}
+								data-users={a.metrika?.users ?? -1}
+								data-pub={a.pubDate || ''}
+								data-fc={a.factchecked ? 1 : 0}
+							>
+								<td class="title-cell">
+									<a href={u(a.url)} target="_blank" rel="noopener">{a.title}</a>
+									<span class="slug">{a.slug}</span>
+								</td>
+								<td class="num cat">{a.category || '—'}</td>
+								<td class="num">{a.pubDate ? a.pubDate.slice(0, 10) : '—'}</td>
+								<td class="num">{a.gsc ? fmtNum(a.gsc.clicks) : '—'}</td>
+								<td class="num">{a.gsc ? fmtNum(a.gsc.impressions) : '—'}</td>
+								<td class="num">{a.gsc?.position != null ? a.gsc.position.toFixed(1) : '—'}</td>
+								<td class="num">{a.metrika ? fmtNum(a.metrika.pageviews) : '—'}</td>
+								<td class="num">{a.metrika ? fmtNum(a.metrika.users) : '—'}</td>
+								<td class="num fc">{a.factchecked ? '✓' : '·'}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</main>
+
+		<Footer />
+
+		<script>
+			const tbody = document.querySelector('.dash-table tbody') as HTMLTableSectionElement | null;
+			const rows = Array.from(document.querySelectorAll<HTMLTableRowElement>('[data-row]'));
+			const q = document.querySelector<HTMLInputElement>('#dash-q');
+			const cat = document.querySelector<HTMLSelectElement>('#dash-cat');
+			const onlyTraffic = document.querySelector<HTMLInputElement>('#dash-only-traffic');
+
+			function applyFilters() {
+				const term = (q?.value || '').toLowerCase().trim();
+				const c = cat?.value || '';
+				const ot = onlyTraffic?.checked;
+				for (const row of rows) {
+					const matchTerm = !term ||
+						row.dataset.title!.includes(term) ||
+						row.dataset.slug!.includes(term);
+					const matchCat = !c || row.dataset.category === c;
+					const matchTraffic = !ot || row.dataset.hasTraffic === '1';
+					row.style.display = (matchTerm && matchCat && matchTraffic) ? '' : 'none';
+				}
+			}
+			q?.addEventListener('input', applyFilters);
+			cat?.addEventListener('change', applyFilters);
+			onlyTraffic?.addEventListener('change', applyFilters);
+
+			let sortKey: string | null = null;
+			let sortDir: 1 | -1 = -1;
+			const SORT_FIELDS: Record<string, { attr: string; asString?: boolean }> = {
+				title:     { attr: 'data-title', asString: true },
+				category:  { attr: 'data-category', asString: true },
+				pubDate:   { attr: 'data-pub', asString: true },
+				gscClicks: { attr: 'data-gsc-clicks' },
+				gscImpr:   { attr: 'data-gsc-impr' },
+				gscPos:    { attr: 'data-gsc-pos' },
+				pageviews: { attr: 'data-pageviews' },
+				users:     { attr: 'data-users' },
+				fc:        { attr: 'data-fc' },
+			};
+			document.querySelectorAll<HTMLTableCellElement>('th[data-sort]').forEach(th => {
+				th.style.cursor = 'pointer';
+				th.addEventListener('click', () => {
+					const key = th.dataset.sort!;
+					if (sortKey === key) sortDir = (sortDir === 1 ? -1 : 1);
+					else { sortKey = key; sortDir = key === 'gscPos' ? 1 : -1; }
+					const cfg = SORT_FIELDS[key];
+					const sorted = rows.slice().sort((a, b) => {
+						const va = a.getAttribute(cfg.attr) || '';
+						const vb = b.getAttribute(cfg.attr) || '';
+						if (cfg.asString) return va < vb ? -sortDir : va > vb ? sortDir : 0;
+						return (parseFloat(va) - parseFloat(vb)) * sortDir;
+					});
+					if (tbody) {
+						for (const r of sorted) tbody.appendChild(r);
+					}
+					document.querySelectorAll<HTMLTableCellElement>('th[data-sort]').forEach(other => {
+						other.dataset.sortActive = other === th ? (sortDir === 1 ? 'asc' : 'desc') : '';
+					});
+				});
+			});
+		</script>
+
+		<style>
+			.dash {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 2rem 1rem 4rem;
+			}
+			.dash-hero { margin-bottom: 1.5rem; }
+			.dash-eyebrow {
+				font-size: 0.8rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--pink, #ff4d8f);
+				margin: 0 0 0.4rem;
+			}
+			.dash-hero h1 { margin: 0 0 0.75rem; font-size: 1.8rem; }
+			.dash-lead { margin: 0; color: #555; line-height: 1.55; }
+			.dash-lead.empty {
+				padding: 0.85rem 1rem;
+				background: rgba(255, 199, 0, 0.12);
+				border-left: 3px solid #ffb300;
+				border-radius: 6px;
+			}
+			.dash-lead code {
+				background: rgba(0, 0, 0, 0.06);
+				padding: 0.05em 0.4em;
+				border-radius: 3px;
+			}
+
+			.dash-totals {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+				gap: 0.75rem;
+				margin: 1.5rem 0;
+			}
+			.dash-stat {
+				padding: 0.85rem 1rem;
+				background: var(--sand, #f4ebd9);
+				border-radius: 8px;
+			}
+			.dash-stat-val {
+				font-family: ui-monospace, monospace;
+				font-size: 1.4rem;
+				font-weight: 700;
+				color: var(--dark, #1f1f1f);
+			}
+			.dash-stat-label {
+				font-size: 0.8rem;
+				color: #555;
+				margin-top: 0.25rem;
+			}
+
+			.dash-segments {
+				display: flex;
+				gap: 0.5rem;
+				flex-wrap: wrap;
+				margin: 1rem 0 1.5rem;
+				font-size: 0.85rem;
+			}
+			.dash-seg {
+				padding: 0.3em 0.8em;
+				border-radius: 999px;
+				background: rgba(0, 0, 0, 0.06);
+				color: #444;
+			}
+			.dash-seg.fresh  { background: rgba(200, 255, 107, 0.3); }
+			.dash-seg.stale  { background: rgba(255, 77, 143, 0.12); color: #9E2B4F; }
+
+			.dash-controls {
+				display: flex;
+				gap: 0.6rem;
+				margin-bottom: 1rem;
+				flex-wrap: wrap;
+				align-items: center;
+			}
+			.dash-search {
+				flex: 1 1 280px;
+				padding: 0.55em 0.85em;
+				border: 1px solid rgba(0, 0, 0, 0.15);
+				border-radius: 6px;
+				font: inherit;
+			}
+			.dash-cat {
+				padding: 0.55em 0.85em;
+				border: 1px solid rgba(0, 0, 0, 0.15);
+				border-radius: 6px;
+				background: #fff;
+				font: inherit;
+			}
+			.dash-only-traffic {
+				display: inline-flex;
+				gap: 0.4rem;
+				align-items: center;
+				font-size: 0.9rem;
+				color: #555;
+				cursor: pointer;
+			}
+
+			.dash-table-wrap {
+				overflow-x: auto;
+				border-radius: 8px;
+				border: 1px solid rgba(0, 0, 0, 0.08);
+			}
+			.dash-table {
+				width: 100%;
+				border-collapse: collapse;
+				font-size: 0.88rem;
+			}
+			.dash-table th {
+				position: sticky;
+				top: 0;
+				background: var(--dark, #1f1f1f);
+				color: #fff;
+				text-align: left;
+				padding: 0.65rem 0.8rem;
+				font-weight: 600;
+				font-size: 0.78rem;
+				text-transform: uppercase;
+				letter-spacing: 0.04em;
+				white-space: nowrap;
+			}
+			.dash-table th.num { text-align: right; }
+			.dash-table th[data-sort-active='asc']::after  { content: ' ↑'; opacity: 0.7; }
+			.dash-table th[data-sort-active='desc']::after { content: ' ↓'; opacity: 0.7; }
+			.dash-table td {
+				padding: 0.55rem 0.8rem;
+				border-top: 1px solid rgba(0, 0, 0, 0.05);
+				vertical-align: top;
+			}
+			.dash-table tr:hover td { background: rgba(0, 0, 0, 0.02); }
+			.dash-table td.num {
+				text-align: right;
+				font-family: ui-monospace, monospace;
+				font-variant-numeric: tabular-nums;
+				white-space: nowrap;
+			}
+			.title-cell { min-width: 220px; }
+			.title-cell a {
+				color: var(--dark, #1f1f1f);
+				font-weight: 500;
+				text-decoration: none;
+			}
+			.title-cell a:hover { color: var(--pink, #ff4d8f); }
+			.title-cell .slug {
+				display: block;
+				font-family: ui-monospace, monospace;
+				font-size: 0.7rem;
+				color: #999;
+				margin-top: 0.15rem;
+			}
+			.dash-table td.cat { color: #666; font-size: 0.8rem; }
+			.dash-table td.fc  { color: #1A5C3A; }
+
+			@media (max-width: 720px) {
+				.dash-totals { grid-template-columns: repeat(2, 1fr); }
+			}
+		</style>
+	</body>
+</html>

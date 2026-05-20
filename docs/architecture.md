@@ -89,6 +89,7 @@
 | `src/components/interactive/RoiIpVsOoo.tsx` | ROI-калькулятор: ИП vs ООО на УСН 6% с учётом взносов, ФОТ, НДФЛ с зарплаты и дивидендов, НДС-2026. Используется в `/scenario/perekhod-ip-na-ooo-za-60-dney/` |
 | `src/components/interactive/EdoChainPuzzle.tsx` | Drag-and-drop пазл цепочки ЭДО при маркировке (7 карточек). HTML5 drag + кнопки ↑↓ для accessibility. Используется в `/test-tsepochka-edo/` |
 | `src/components/FlagshipTeaser.astro` | CSS-анимированный тизер цепочки касса → ОФД → ФНС/ЧЗ. Встроен в `/category/ts-piot/` как вход на флагман-симулятор |
+| `src/pages/dashboard.astro` | Внутренний дашборд `/dashboard/` (noindex). Таблица всех статей с трафиком GSC/Метрики, маркером фактчека, фильтрами и сортировкой. Данные из `src/data/analytics/articles.json` |
 
 ## Утилиты
 
