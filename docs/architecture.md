@@ -86,6 +86,8 @@
 | `src/components/interactive/MarkingFineSlider.tsx` | Слайдер штрафа за маркировку (ст. 15.12 ч. 4 КоАП) в статье `shtraf-za-markirovku`. Штраф + конфискация партии |
 | `src/components/interactive/ScenarioChecklist.tsx` | Универсальный чек-бокс-симулятор для сценарных гайдов. Прогресс, фазы, localStorage. Используется в `/scenario/kofeynya-za-30-dney/` |
 | `src/components/interactive/TsPiotReadinessQuiz.tsx` | Квиз `/test-ts-piot/` с ветвящейся логикой (6 вопросов, скип нерелевантных), персональные рекомендации по приоритетам |
+| `src/components/interactive/RoiIpVsOoo.tsx` | ROI-калькулятор: ИП vs ООО на УСН 6% с учётом взносов, ФОТ, НДФЛ с зарплаты и дивидендов, НДС-2026. Используется в `/scenario/perekhod-ip-na-ooo-za-60-dney/` |
+| `src/components/interactive/EdoChainPuzzle.tsx` | Drag-and-drop пазл цепочки ЭДО при маркировке (7 карточек). HTML5 drag + кнопки ↑↓ для accessibility. Используется в `/test-tsepochka-edo/` |
 | `src/components/FlagshipTeaser.astro` | CSS-анимированный тизер цепочки касса → ОФД → ФНС/ЧЗ. Встроен в `/category/ts-piot/` как вход на флагман-симулятор |
 
 ## Утилиты

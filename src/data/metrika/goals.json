@@ -296,6 +296,72 @@
       "name": "Тизер флагмана — клик из pillar-страницы",
       "type": "action",
       "comment": "Сколько людей кликают на тизер /category/ts-piot/ → /kak-rabotaet-ts-piot/"
+    },
+    {
+      "id": "scenario-ip-ooo-started",
+      "name": "Сценарий «ИП → ООО за 60 дней» — начал отмечать задачи",
+      "type": "action"
+    },
+    {
+      "id": "scenario-ip-ooo-task-checked",
+      "name": "Сценарий «ИП → ООО за 60 дней» — отметил задачу",
+      "type": "action"
+    },
+    {
+      "id": "scenario-ip-ooo-25pct",
+      "name": "Сценарий «ИП → ООО за 60 дней» — 25%",
+      "type": "action"
+    },
+    {
+      "id": "scenario-ip-ooo-50pct",
+      "name": "Сценарий «ИП → ООО за 60 дней» — 50%",
+      "type": "action"
+    },
+    {
+      "id": "scenario-ip-ooo-75pct",
+      "name": "Сценарий «ИП → ООО за 60 дней» — 75%",
+      "type": "action"
+    },
+    {
+      "id": "scenario-ip-ooo-completed",
+      "name": "Сценарий «ИП → ООО за 60 дней» — все задачи",
+      "type": "action"
+    },
+    {
+      "id": "scenario-ip-ooo-reset",
+      "name": "Сценарий «ИП → ООО за 60 дней» — сбросил прогресс",
+      "type": "action"
+    },
+    {
+      "id": "roi-ip-ooo-used",
+      "name": "ROI-калькулятор ИП vs ООО — выполнен расчёт",
+      "type": "action"
+    },
+    {
+      "id": "edo-puzzle-started",
+      "name": "Пазл «Цепочка ЭДО» — начал прохождение",
+      "type": "action"
+    },
+    {
+      "id": "edo-puzzle-step-moved",
+      "name": "Пазл «Цепочка ЭДО» — переместил карточку",
+      "type": "action"
+    },
+    {
+      "id": "edo-puzzle-check-failed",
+      "name": "Пазл «Цепочка ЭДО» — проверка не пройдена",
+      "type": "action"
+    },
+    {
+      "id": "edo-puzzle-solved",
+      "name": "Пазл «Цепочка ЭДО» — собрал правильно",
+      "type": "action",
+      "comment": "Главная конверсионная цель пазла"
+    },
+    {
+      "id": "edo-puzzle-reset",
+      "name": "Пазл «Цепочка ЭДО» — перемешал заново",
+      "type": "action"
     }
   ]
 }
