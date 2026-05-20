@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Picture from '../components/Picture.astro';
 import DataMatrixDissector from '../components/interactive/DataMatrixDissector.tsx';
 import FfdToggle from '../components/interactive/FfdToggle.tsx';
 import CmStatusToggle from '../components/interactive/CmStatusToggle.tsx';
@@ -48,7 +49,7 @@ const description =
 					<div class="sim-step-num">0</div>
 					<h2>Пролог. 3 секунды до фискального чека</h2>
 					<div class="sim-illu">
-						<img src={u('/images/flagship/step-0.jpg')} alt="Касса с пачкой зефира на ленте, надпись «3 секунды»" width="1200" height="675" loading="lazy" />
+						<Picture src={u('/images/flagship/step-0.jpg')} alt="Касса с пачкой зефира на ленте, надпись «3 секунды»" width={1200} height={675} />
 					</div>
 					<p>
 						Покупатель кладёт пачку зефира на ленту. На упаковке — DataMatrix-код
@@ -62,7 +63,7 @@ const description =
 					<div class="sim-step-num">1</div>
 					<h2>Что внутри DataMatrix-кода</h2>
 					<div class="sim-illu">
-						<img src={u('/images/flagship/step-1.jpg')} alt="Крупный DataMatrix-код с расшифровкой на GTIN, серийник, криптохвост" width="1200" height="900" loading="lazy" />
+						<Picture src={u('/images/flagship/step-1.jpg')} alt="Крупный DataMatrix-код с расшифровкой на GTIN, серийник, криптохвост" width={1200} height={900} />
 					</div>
 					<p>
 						Код маркировки — не баркод и не QR. Это DataMatrix формата GS1, и в нём
@@ -81,7 +82,7 @@ const description =
 					<div class="sim-step-num">2</div>
 					<h2>ТС ПИоТ — программа внутри кассы, не отдельная коробка</h2>
 					<div class="sim-illu">
-						<img src={u('/images/flagship/step-2.jpg')} alt="Касса в разрезе: hardware-зона с ФН и software-зона с шестью модулями, среди которых выделен ТС ПИоТ" width="1200" height="900" loading="lazy" />
+						<Picture src={u('/images/flagship/step-2.jpg')} alt="Касса в разрезе: hardware-зона с ФН и software-зона с шестью модулями, среди которых выделен ТС ПИоТ" width={1200} height={900} />
 					</div>
 					<p>
 						Главное недоразумение про ТС ПИоТ — что это «коробочка», которую надо
@@ -103,7 +104,7 @@ const description =
 					<div class="sim-step-num">3</div>
 					<h2>Запрос в «Честный знак»: 1,5 секунды или локальная база</h2>
 					<div class="sim-illu">
-						<img src={u('/images/flagship/step-3.jpg')} alt="Касса отправляет JSON-конверт в облако Честного знака по лаймовой стрелке, таймер 1.5 сек в углу" width="1200" height="900" loading="lazy" />
+						<Picture src={u('/images/flagship/step-3.jpg')} alt="Касса отправляет JSON-конверт в облако Честного знака по лаймовой стрелке, таймер 1.5 сек в углу" width={1200} height={900} />
 					</div>
 					<p>
 						ТС ПИоТ упаковывает код маркировки, ИНН магазина, номер кассы и тип
@@ -125,7 +126,7 @@ const description =
 					<div class="sim-step-num">4</div>
 					<h2>Три варианта ответа: что говорит «Честный знак»</h2>
 					<div class="sim-illu">
-						<img src={u('/images/flagship/step-4.jpg')} alt="Три карточки ответа от Честного знака: Валиден, Выведен из оборота, Нет в системе" width="1200" height="900" loading="lazy" />
+						<Picture src={u('/images/flagship/step-4.jpg')} alt="Три карточки ответа от Честного знака: Валиден, Выведен из оборота, Нет в системе" width={1200} height={900} />
 					</div>
 					<p>
 						Ответ возможен трёх видов. <strong>«Валиден»</strong> — нормальный
@@ -146,7 +147,7 @@ const description =
 					<div class="sim-step-num">5</div>
 					<h2>Фискальный чек: связка тегов 1163 + 2106 + 1265</h2>
 					<div class="sim-illu">
-						<img src={u('/images/flagship/step-5.jpg')} alt="Фискальный чек со связкой тегов 1163, 2106 и 1265 в подсвеченном блоке" width="1200" height="900" loading="lazy" />
+						<Picture src={u('/images/flagship/step-5.jpg')} alt="Фискальный чек со связкой тегов 1163, 2106 и 1265 в подсвеченном блоке" width={1200} height={900} />
 					</div>
 					<p>
 						Если «Честный знак» подтвердил код, касса формирует фискальный чек в
@@ -162,7 +163,7 @@ const description =
 					<div class="sim-step-num">6</div>
 					<h2>ОФД и две дороги чека: в ФНС и в «Честный знак»</h2>
 					<div class="sim-illu">
-						<img src={u('/images/flagship/step-6.jpg')} alt="ОФД раздваивает чек: вверх в ФНС за секунды, вправо в Честный знак за минуты" width="1200" height="900" loading="lazy" />
+						<Picture src={u('/images/flagship/step-6.jpg')} alt="ОФД раздваивает чек: вверх в ФНС за секунды, вправо в Честный знак за минуты" width={1200} height={900} />
 					</div>
 					<p>
 						ОФД — посредник между кассой и государством. Раньше он отдавал чек
@@ -183,7 +184,7 @@ const description =
 					<div class="sim-step-num">7</div>
 					<h2>Замкнули цикл: код выведен из оборота</h2>
 					<div class="sim-illu">
-						<img src={u('/images/flagship/step-7.jpg')} alt="Жизненный цикл кода маркировки: пять статусов плюс ветка Заблокирован, активный — Выведен из оборота" width="1200" height="900" loading="lazy" />
+						<Picture src={u('/images/flagship/step-7.jpg')} alt="Жизненный цикл кода маркировки: пять статусов плюс ветка Заблокирован, активный — Выведен из оборота" width={1200} height={900} />
 					</div>
 					<p>
 						Цикл одного кода маркировки замкнулся. Та же пачка зефира больше не

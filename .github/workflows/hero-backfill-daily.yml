@@ -71,6 +71,10 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/generate-hero-images.mjs
 
+      - name: Optimize images to WebP
+        if: steps.check.outputs.missing != '0'
+        run: DIRS=hero node scripts/optimize-images.mjs
+
       - name: Commit and push
         if: steps.check.outputs.missing != '0'
         run: |

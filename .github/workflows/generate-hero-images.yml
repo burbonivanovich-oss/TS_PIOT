@@ -42,6 +42,10 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/generate-hero-images.mjs
 
+      - name: Optimize images to WebP
+        if: always()
+        run: node scripts/optimize-images.mjs
+
       - name: Commit hero images
         run: |
           git config user.name  "github-actions[bot]"

@@ -122,7 +122,17 @@ export default function BlogFilter({ posts, categories, allTags, pageSize = 12 }
 								>
 									<div className="bf-card-img" style={{ '--accent': accentColor } as React.CSSProperties}>
 										{img
-											? <img src={u(img)} alt={post.title} loading={isFeatured ? 'eager' : 'lazy'} />
+											? (() => {
+												const src = u(img);
+												const webp = /\.(jpe?g|png)$/i.test(src) ? src.replace(/\.(jpe?g|png)$/i, '.webp') : null;
+												const imgEl = <img src={src} alt={post.title} loading={isFeatured ? 'eager' : 'lazy'} />;
+												return webp ? (
+													<picture>
+														<source srcSet={webp} type="image/webp" />
+														{imgEl}
+													</picture>
+												) : imgEl;
+											})()
 											: <span className="bf-card-placeholder" style={{ background: accentColor }}></span>
 										}
 									</div>

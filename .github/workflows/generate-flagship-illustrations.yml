@@ -44,6 +44,10 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/generate-flagship-illustrations.mjs
 
+      - name: Optimize images to WebP
+        if: always()
+        run: DIRS=flagship node scripts/optimize-images.mjs
+
       - name: Commit illustrations
         if: always()
         run: |

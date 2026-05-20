@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Picture from '../components/Picture.astro';
 import Quiz from '../components/Quiz';
 import PopupBanner from '../components/PopupBanner';
 import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
@@ -109,7 +110,7 @@ const CAT_COLOR: Record<string, string> = {
 							return (
 								<a href={u(`/blog/${post.id}/`)} class={`post-card${i === 0 ? ' post-card--featured' : ''}`}>
 									<div class="post-card-img" style={`--accent:${accentColor}`}>
-										<img src={u(img)} alt={post.data.title} loading={i === 0 ? 'eager' : 'lazy'} />
+										<Picture src={u(img)} alt={post.data.title} loading={i === 0 ? "eager" : "lazy"} />
 									</div>
 									<div class="post-card-body">
 										<span class="post-card-cat" style={`background:${accentColor};color:#fff`}>{catTitle}</span>
