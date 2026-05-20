@@ -1,0 +1,56 @@
+---
+// Обёртка над <img>, которая автоматически добавляет <source srcset>
+// с WebP-версией, если рядом с jpg/jpeg/png лежит .webp. Файлы
+// .webp генерируются скриптом scripts/optimize-images.mjs.
+//
+// Если src указывает на SVG, .webp или внешний URL — рендерим как
+// обычный <img>, без обёртки.
+interface Props {
+	src: string;
+	alt: string;
+	width?: number;
+	height?: number;
+	loading?: 'lazy' | 'eager';
+	class?: string;
+	decoding?: 'async' | 'sync' | 'auto';
+}
+
+const {
+	src,
+	alt,
+	width,
+	height,
+	loading = 'lazy',
+	class: className,
+	decoding = 'async',
+} = Astro.props;
+
+const isExternal = /^https?:\/\//.test(src);
+const isOptimizable = !isExternal && /\.(jpe?g|png)$/i.test(src);
+const webpSrc = isOptimizable ? src.replace(/\.(jpe?g|png)$/i, '.webp') : null;
+---
+
+{webpSrc ? (
+	<picture>
+		<source srcset={webpSrc} type="image/webp" />
+		<img
+			src={src}
+			alt={alt}
+			width={width}
+			height={height}
+			loading={loading}
+			decoding={decoding}
+			class={className}
+		/>
+	</picture>
+) : (
+	<img
+		src={src}
+		alt={alt}
+		width={width}
+		height={height}
+		loading={loading}
+		decoding={decoding}
+		class={className}
+	/>
+)}

@@ -1,0 +1,70 @@
+name: Analytics — Refresh Data
+
+# Тянет GSC + Метрика → merge в src/data/analytics/articles.json,
+# который читает дашборд /dashboard/ при сборке сайта.
+# Cron: понедельник 06:00 МСК (03:00 UTC) — обновление перед началом
+# рабочей недели.
+
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'Окно в днях (по умолчанию 28)'
+        required: false
+        default: '28'
+      skip_gsc:
+        description: 'Пропустить GSC (1 = да). Полезно, если GSC ключи ещё не настроены'
+        required: false
+        default: '0'
+  schedule:
+    - cron: '0 3 * * 1'
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      DAYS: ${{ inputs.days || '28' }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: ${{ github.ref }} }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+
+      - name: Fetch GSC
+        if: ${{ inputs.skip_gsc != '1' }}
+        env:
+          GSC_CLIENT_ID:     ${{ secrets.GSC_CLIENT_ID }}
+          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
+          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
+          GSC_SITE_URL:      ${{ secrets.GSC_SITE_URL }}
+        run: node scripts/analytics/fetch-gsc.mjs
+        continue-on-error: true
+
+      - name: Fetch Metrika traffic
+        env:
+          METRIKA_OAUTH_TOKEN: ${{ secrets.METRIKA_OAUTH_TOKEN }}
+        run: node scripts/analytics/fetch-metrika-traffic.mjs
+        continue-on-error: true
+
+      - name: Fetch Webmaster
+        env:
+          WEBMASTER_OAUTH_TOKEN: ${{ secrets.WEBMASTER_OAUTH_TOKEN }}
+          WEBMASTER_HOST: ${{ secrets.WEBMASTER_HOST }}
+        run: node scripts/analytics/fetch-webmaster.mjs
+        continue-on-error: true
+
+      - name: Merge into articles.json
+        run: node scripts/analytics/merge.mjs
+
+      - name: Commit data
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/analytics/
+          git diff --staged --quiet || git commit -m "data(analytics): обновление трафика и позиций"
+          git push origin HEAD

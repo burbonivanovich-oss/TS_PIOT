@@ -3,8 +3,10 @@ import { getCollection, getEntry, render } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
+import Picture from '../../components/Picture.astro';
 import { CATEGORIES, SITE_TITLE } from '../../consts';
 import { u } from '../../utils/url';
+import FlagshipTeaser from '../../components/FlagshipTeaser.astro';
 
 export async function getStaticPaths() {
 	return Object.entries(CATEGORIES).map(([slug, meta]) => ({
@@ -121,6 +123,12 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 				<p class="page-lead">{pillarSummary}</p>
 			</header>
 
+			{slug === 'ts-piot' && (
+				<div class="pillar-teaser" data-pagefind-ignore>
+					<FlagshipTeaser />
+				</div>
+			)}
+
 			{PillarContent && (
 				<section
 					class="pillar-body prose"
@@ -146,7 +154,7 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 						return (
 							<a href={u(`/blog/${post.id}/`)} class="post-card post-card--featured">
 								<div class="post-card-img" style={`--accent:${accentColor}`}>
-									<img src={u(img)} alt={post.data.title} loading="eager" />
+									<Picture src={u(img)} alt={post.data.title} loading="eager" />
 								</div>
 								<div class="post-card-body">
 									<span class="post-card-cat" style={`background:${accentColor};color:#fff`}>{meta.title}</span>
@@ -168,7 +176,7 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 								return (
 									<a href={u(`/blog/${post.id}/`)} class="post-card">
 										<div class="post-card-img" style={`--accent:${accentColor}`}>
-											<img src={u(img)} alt={post.data.title} loading="lazy" />
+											<Picture src={u(img)} alt={post.data.title} loading="lazy" />
 										</div>
 										<div class="post-card-body">
 											<span class="post-card-cat" style={`background:${accentColor};color:#fff`}>{meta.title}</span>
@@ -239,6 +247,7 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 				margin: 0;
 			}
 
+			.pillar-teaser { margin: 1rem 0 2rem; }
 			.pillar-body {
 				max-width: 760px;
 				margin: 2.5rem auto;

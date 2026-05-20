@@ -4,6 +4,7 @@ import type { MarkdownHeading } from 'astro';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import Picture from '../components/Picture.astro';
 import Header from '../components/Header.astro';
 import {
 	CATEGORIES,
@@ -186,7 +187,7 @@ const shareTitle = encodeURIComponent(title);
 						</span>
 					)}
 					{heroImage ? (
-						<img
+						<Picture
 							src={u(heroImage)}
 							alt={title}
 							loading="eager"
@@ -333,7 +334,7 @@ const shareTitle = encodeURIComponent(title);
 										return (
 											<a href={u(`/blog/${post.id}/`)} class="r-card">
 												<div class="r-card-img" style={`background:${accent}`}>
-													{img && <img src={u(img)} alt="" loading="lazy" />}
+													{img && <Picture src={u(img)} alt="" loading="lazy" />}
 												</div>
 												<div class="r-card-body">
 													{catLabel && <span class="r-card-pill" style={`background:${accent};color:#fff`}>{catLabel}</span>}
@@ -358,7 +359,7 @@ const shareTitle = encodeURIComponent(title);
 										return (
 											<a href={u(`/blog/${post.id}/`)} class={i === 0 ? 'r-card r-card--main' : 'r-card r-card--side'}>
 												<div class="r-card-img" style={`background:${accent}`}>
-													{img && <img src={u(img)} alt="" loading="lazy" />}
+													{img && <Picture src={u(img)} alt="" loading="lazy" />}
 												</div>
 												<div class="r-card-body">
 													{catLabel && <span class="r-card-pill" style={`background:${accent};color:#fff`}>{catLabel}</span>}
@@ -383,7 +384,7 @@ const shareTitle = encodeURIComponent(title);
 										return (
 											<a href={u(`/blog/${post.id}/`)} class={i === 2 ? 'r-card r-card--wide' : 'r-card'}>
 												<div class="r-card-img" style={`background:${accent}`}>
-													{img && <img src={u(img)} alt="" loading="lazy" />}
+													{img && <Picture src={u(img)} alt="" loading="lazy" />}
 												</div>
 												<div class="r-card-body">
 													{catLabel && <span class="r-card-pill" style={`background:${accent};color:#fff`}>{catLabel}</span>}
@@ -408,7 +409,7 @@ const shareTitle = encodeURIComponent(title);
 										return (
 											<a href={u(`/blog/${post.id}/`)} class="r-card">
 												<div class="r-card-img" style={`background:${accent}`}>
-													{img && <img src={u(img)} alt="" loading="lazy" />}
+													{img && <Picture src={u(img)} alt="" loading="lazy" />}
 												</div>
 												<div class="r-card-body">
 													{catLabel && <span class="r-card-pill" style={`background:${accent};color:#fff`}>{catLabel}</span>}

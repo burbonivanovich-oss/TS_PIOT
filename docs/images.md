@@ -4,6 +4,26 @@
 и **hero** (большое фото в шапке статьи). Генерация — через OpenRouter API
 (модель Gemini), запуск — через GitHub Actions.
 
+## WebP-оптимизация
+
+Все `.jpg`/`.png` в `public/images/{hero,flagship,preview}/` автоматически
+конвертируются в `.webp` рядом скриптом `scripts/optimize-images.mjs`. Размер
+падает на 60–95% (зависит от исходного качества), визуальное качество
+остаётся индистинктивным.
+
+На сайте — `<Picture>` (`src/components/Picture.astro`) и обёртка `<picture>` в
+`BlogFilter.tsx`: рендерят `<source srcset=*.webp>` + `<img src=*.jpg>` fallback.
+Браузеры (95%+ рынка) забирают WebP, старые движки — оригинал. SEO и шаринг
+работают как раньше — `og:image` через Satori PNG.
+
+Запуск оптимизатора:
+- В каждом workflow генерации (hero/flagship/backfill) — шаг
+  «Optimize images to WebP» сразу после генерации, до коммита.
+- Локально: `node scripts/optimize-images.mjs` (`FORCE=1` для перезаписи,
+  `QUALITY=82` чтобы поменять качество, `DIRS=hero,flagship` для подмножества).
+
+После прогона на 108 файлах: **67.7 МБ → 13.4 МБ (−80%)**.
+
 ---
 
 ## Превью-пул

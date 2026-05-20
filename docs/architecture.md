@@ -75,7 +75,21 @@
 | `src/components/Quiz.tsx` | Ветвящийся квиз для подбора продуктов (ОФД/Эльба/Бухгалтерия/Диадок/Экстерн) — 3–4 вопроса с условным шагом для ИП+Бухгалтерия, открывается из hero на главной |
 | `src/components/PopupBanner.tsx` | Всплывающий баннер подписки. Появляется через 60 с после загрузки, закрывается крестиком/оверлеем/CTA. Флаг закрытия — `localStorage.popup_dismissed_v1`. Подключается с `client:load` на `/` |
 | `src/components/interactive/` | Интерактивные блоки для встраивания в статьи и лонгриды (F26 из roadmap'а контент-форматов). Цели в Метрике отправляются через `src/utils/track.ts`. |
-| `src/components/interactive/DataMatrixDissector.tsx` | Первый компонент из Спринта A — Шаг 1 флагмана-симулятора. Разбор кода маркировки DataMatrix на части (GTIN / серийник / GS-разделитель / криптохвост) с интерактивной подсветкой |
+| `src/components/interactive/DataMatrixDissector.tsx` | Шаг 1 флагмана-симулятора. Разбор кода маркировки DataMatrix на части (GTIN / серийник / GS-разделитель / криптохвост) с интерактивной подсветкой |
+| `src/components/interactive/KkmDiagram.tsx` | Шаг 2 флагмана. Касса в разрезе на Hardware (ФН) и Software (6 модулей) зоны, клик по модулю → деталь |
+| `src/components/interactive/RequestAnimation.tsx` | Шаг 3 флагмана. Тогл «связь есть/нет» + ползунок «часов без интернета» с порогами 2 ч / 72 ч / >72 ч |
+| `src/components/interactive/ResponseBranch.tsx` | Шаг 4 флагмана. Три ветки ответа от ЧЗ (Валиден / Выведен / Нет в системе) с возвратом к основному пути |
+| `src/components/interactive/FfdToggle.tsx` | Шаг 5 флагмана. Тогл «до/после 01.07.2026» → теги 1162 vs связка 1163 + 2106 + 1265 (ФФД 1.2) |
+| `src/components/interactive/CmStatusToggle.tsx` | Шаг 7 флагмана. Жизненный цикл кода маркировки в ГИС МТ (5 статусов + ветка Заблокирован) |
+| `src/components/interactive/ZakonTimeline.tsx` | Трекер изменений 2026 года. Range-фильтр по месяцам + фильтр по 6 категориям. Используется в `/zakon-2026/` |
+| `src/components/interactive/UsnNdsCalc.tsx` | Калькулятор УСН + НДС-2026 в статье `nalogi-msb-2026`. Слайдер оборота 1–500 млн ₽, тогл режима УСН, маржа |
+| `src/components/interactive/MarkingFineSlider.tsx` | Слайдер штрафа за маркировку (ст. 15.12 ч. 4 КоАП) в статье `shtraf-za-markirovku`. Штраф + конфискация партии |
+| `src/components/interactive/ScenarioChecklist.tsx` | Универсальный чек-бокс-симулятор для сценарных гайдов. Прогресс, фазы, localStorage. Используется в `/scenario/kofeynya-za-30-dney/` |
+| `src/components/interactive/TsPiotReadinessQuiz.tsx` | Квиз `/test-ts-piot/` с ветвящейся логикой (6 вопросов, скип нерелевантных), персональные рекомендации по приоритетам |
+| `src/components/interactive/RoiIpVsOoo.tsx` | ROI-калькулятор: ИП vs ООО на УСН 6% с учётом взносов, ФОТ, НДФЛ с зарплаты и дивидендов, НДС-2026. Используется в `/scenario/perekhod-ip-na-ooo-za-60-dney/` |
+| `src/components/interactive/EdoChainPuzzle.tsx` | Drag-and-drop пазл цепочки ЭДО при маркировке (7 карточек). HTML5 drag + кнопки ↑↓ для accessibility. Используется в `/test-tsepochka-edo/` |
+| `src/components/FlagshipTeaser.astro` | CSS-анимированный тизер цепочки касса → ОФД → ФНС/ЧЗ. Встроен в `/category/ts-piot/` как вход на флагман-симулятор |
+| `src/pages/dashboard.astro` | Внутренний дашборд `/dashboard/` (noindex). Таблица всех статей с трафиком GSC/Метрики, маркером фактчека, фильтрами и сортировкой. Данные из `src/data/analytics/articles.json` |
 
 ## Утилиты
 
