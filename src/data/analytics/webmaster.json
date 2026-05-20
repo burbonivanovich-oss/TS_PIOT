@@ -1,0 +1,10 @@
+{
+  "$comment": "Stub-файл. Будет переписан scripts/analytics/fetch-webmaster.mjs через workflow analytics-refresh.yml. Дашборд /dashboard/ читает этот файл при сборке.",
+  "fetchedAt": null,
+  "days": null,
+  "host": null,
+  "hostId": null,
+  "summary": {},
+  "totals": { "queries": 0, "totalShows": 0, "totalClicks": 0 },
+  "queries": []
+}

@@ -50,6 +50,13 @@ jobs:
         run: node scripts/analytics/fetch-metrika-traffic.mjs
         continue-on-error: true
 
+      - name: Fetch Webmaster
+        env:
+          WEBMASTER_OAUTH_TOKEN: ${{ secrets.WEBMASTER_OAUTH_TOKEN }}
+          WEBMASTER_HOST: ${{ secrets.WEBMASTER_HOST }}
+        run: node scripts/analytics/fetch-webmaster.mjs
+        continue-on-error: true
+
       - name: Merge into articles.json
         run: node scripts/analytics/merge.mjs
 

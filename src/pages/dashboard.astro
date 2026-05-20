@@ -4,11 +4,14 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { u } from '../utils/url';
 import analytics from '../data/analytics/articles.json';
+import webmaster from '../data/analytics/webmaster.json';
 
 const title = 'Дашборд статей · внутренний';
 const description = 'Сводная таблица статей: позиции GSC, трафик Метрики, фактчек, дата публикации.';
 
 const { generatedAt, source, totals, articles } = analytics as any;
+const wm = webmaster as any;
+const topQueries = (wm?.queries || []).slice(0, 50);
 
 function fmtDate(s: string | null): string {
 	if (!s) return '—';
@@ -162,6 +165,48 @@ for (const a of articles) {
 					</tbody>
 				</table>
 			</div>
+
+			{wm?.fetchedAt && (
+				<section class="dash-wm">
+					<header class="dash-wm-head">
+						<h2>Яндекс.Вебмастер · топ-50 запросов</h2>
+						<div class="dash-wm-meta">
+							{wm.summary?.sqi != null && <span>SQI: <strong>{fmtNum(wm.summary.sqi)}</strong></span>}
+							{wm.summary?.iks != null && <span>ИКС: <strong>{fmtNum(wm.summary.iks)}</strong></span>}
+							<span>Запросов всего: <strong>{fmtNum(wm.totals.queries)}</strong></span>
+							<span>Показов: <strong>{fmtNum(wm.totals.totalShows)}</strong></span>
+							<span>Кликов: <strong>{fmtNum(wm.totals.totalClicks)}</strong></span>
+							<span class="dash-wm-date">обновлено {fmtDate(wm.fetchedAt)}</span>
+						</div>
+					</header>
+					<div class="dash-table-wrap">
+						<table class="dash-table">
+							<thead>
+								<tr>
+									<th>Запрос</th>
+									<th class="num">Показы</th>
+									<th class="num">Клики</th>
+									<th class="num">CTR</th>
+									<th class="num">Поз. показа</th>
+									<th class="num">Поз. клика</th>
+								</tr>
+							</thead>
+							<tbody>
+								{topQueries.map((q: any) => (
+									<tr>
+										<td>{q.query}</td>
+										<td class="num">{fmtNum(q.shows)}</td>
+										<td class="num">{fmtNum(q.clicks)}</td>
+										<td class="num">{q.avgCtr != null ? q.avgCtr.toFixed(1) + '%' : '—'}</td>
+										<td class="num">{q.avgShowPosition != null ? q.avgShowPosition.toFixed(1) : '—'}</td>
+										<td class="num">{q.avgClickPosition != null ? q.avgClickPosition.toFixed(1) : '—'}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+				</section>
+			)}
 		</main>
 
 		<Footer />
@@ -378,6 +423,31 @@ for (const a of articles) {
 			.dash-table td.cat { color: #666; font-size: 0.8rem; }
 			.dash-table td.fc  { color: #1A5C3A; }
 
+			.dash-wm {
+				margin-top: 3rem;
+			}
+			.dash-wm-head {
+				margin-bottom: 1rem;
+			}
+			.dash-wm-head h2 {
+				margin: 0 0 0.4rem;
+				font-size: 1.3rem;
+			}
+			.dash-wm-meta {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem 1.25rem;
+				font-size: 0.85rem;
+				color: #555;
+			}
+			.dash-wm-meta strong {
+				color: var(--dark, #1f1f1f);
+				font-family: ui-monospace, monospace;
+			}
+			.dash-wm-date {
+				color: #999;
+				margin-left: auto;
+			}
 			@media (max-width: 720px) {
 				.dash-totals { grid-template-columns: repeat(2, 1fr); }
 			}
