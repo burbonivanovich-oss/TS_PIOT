@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import TsPiotReadinessQuiz from '../components/interactive/TsPiotReadinessQuiz.tsx';
+import CpaCallout from '../components/CpaCallout.astro';
 import { u } from '../utils/url';
 
 const title = 'Готов ли ваш бизнес к ТС ПИоТ: тест за 2 минуты';
@@ -32,6 +33,8 @@ const description =
 				</header>
 
 				<TsPiotReadinessQuiz client:load />
+
+				<CpaCallout id="kontur-market" />
 
 				<section class="quiz-foot">
 					<h2>Если разбираетесь впервые</h2>

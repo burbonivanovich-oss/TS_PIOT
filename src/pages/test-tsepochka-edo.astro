@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import EdoChainPuzzle from '../components/interactive/EdoChainPuzzle.tsx';
+import CpaCallout from '../components/CpaCallout.astro';
 import { u } from '../utils/url';
 
 const title = 'Цепочка ЭДО при маркировке: соберите по шагам';
@@ -31,6 +32,8 @@ const description =
 				</header>
 
 				<EdoChainPuzzle client:load />
+
+				<CpaCallout id="kontur-diadoc" />
 
 				<section class="puzzle-foot">
 					<h2>Если хотите глубже</h2>
