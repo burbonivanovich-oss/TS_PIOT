@@ -93,6 +93,46 @@ const CAT_COLOR: Record<string, string> = {
 				</div>
 			</section>
 
+			<!-- Tools / interactive blocks -->
+			<section class="tools-strip">
+				<div class="section-label">
+					Инструменты
+					<a href={u("/instrumenty/")} class="see-all">СМ. ВСЕ →</a>
+				</div>
+				<div class="tools-strip-grid">
+					<a href={u('/kak-rabotaet-ts-piot/')} class="t-card t-flag">
+						<span class="t-eyebrow">Симулятор · 7 шагов</span>
+						<span class="t-title">Как живёт чек в ТС ПИоТ</span>
+						<span class="t-cta">Пройти пошагово →</span>
+					</a>
+					<a href={u('/test-ts-piot/')} class="t-card t-test">
+						<span class="t-eyebrow">Тест · 2 минуты</span>
+						<span class="t-title">Готов ли бизнес к ТС ПИоТ</span>
+						<span class="t-cta">Пройти тест →</span>
+					</a>
+					<a href={u('/scenario/kofeynya-za-30-dney/')} class="t-card t-sc1">
+						<span class="t-eyebrow">Сценарий · 30 дней</span>
+						<span class="t-title">Открываю кофейню</span>
+						<span class="t-cta">Открыть план →</span>
+					</a>
+					<a href={u('/scenario/perekhod-ip-na-ooo-za-60-dney/')} class="t-card t-sc2">
+						<span class="t-eyebrow">Сценарий + ROI</span>
+						<span class="t-title">ИП → ООО за 60 дней</span>
+						<span class="t-cta">Открыть план →</span>
+					</a>
+					<a href={u('/zakon-2026/')} class="t-card t-zak">
+						<span class="t-eyebrow">Трекер · 10 норм</span>
+						<span class="t-title">Законы 2026 для МСБ</span>
+						<span class="t-cta">Открыть трекер →</span>
+					</a>
+					<a href={u('/test-tsepochka-edo/')} class="t-card t-edo">
+						<span class="t-eyebrow">Тренажёр · 7 шагов</span>
+						<span class="t-title">Цепочка ЭДО при маркировке</span>
+						<span class="t-cta">Собрать пазл →</span>
+					</a>
+				</div>
+			</section>
+
 			<!-- Latest posts -->
 			{latest.length > 0 && (
 				<section class="latest">
@@ -217,6 +257,60 @@ const CAT_COLOR: Record<string, string> = {
 
 			/* ── Category tiles ── */
 			.categories { margin-bottom: 56px; }
+
+			/* ── Инструменты на главной ── */
+			.tools-strip { margin-bottom: 56px; }
+			.tools-strip-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 8px;
+			}
+			.t-card {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				gap: 12px;
+				padding: 20px;
+				min-height: 160px;
+				background: #EDE8DF;
+				border: 1px solid rgba(0,0,0,.12);
+				text-decoration: none;
+				color: #111;
+				transition: opacity .15s, transform .15s;
+			}
+			.t-card:hover { transform: translateY(-2px); }
+			.t-card.t-flag { background: #FF4D8F; color: #fff; border-color: transparent; grid-column: span 2; }
+			.t-card.t-test { background: #AFCC00; }
+			.t-card.t-sc1  { background: #1E4A7A; color: #fff; border-color: transparent; }
+			.t-card.t-sc2  { background: #fff; }
+			.t-card.t-zak  { background: #111; color: #fff; border-color: transparent; }
+			.t-card.t-edo  { background: #9E2B4F; color: #fff; border-color: transparent; }
+			.t-eyebrow {
+				font-size: .65rem;
+				font-weight: 700;
+				letter-spacing: .12em;
+				text-transform: uppercase;
+				opacity: .7;
+			}
+			.t-title {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 1.5rem;
+				line-height: 1.05;
+				letter-spacing: .03em;
+				text-transform: uppercase;
+			}
+			.t-card.t-flag .t-title { font-size: 1.8rem; }
+			.t-cta {
+				font-size: .75rem;
+				font-weight: 600;
+				letter-spacing: .08em;
+				text-transform: uppercase;
+				opacity: .85;
+			}
+			@media (max-width: 720px) {
+				.tools-strip-grid { grid-template-columns: 1fr; }
+				.t-card.t-flag { grid-column: auto; }
+			}
 			.cat-tiles {
 				display: grid;
 				grid-template-columns: repeat(4, minmax(0, 1fr));

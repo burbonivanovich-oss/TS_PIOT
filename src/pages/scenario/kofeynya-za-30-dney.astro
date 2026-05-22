@@ -3,6 +3,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import ScenarioChecklist, { type ScenarioPhase } from '../../components/interactive/ScenarioChecklist.tsx';
+import CpaCallout from '../../components/CpaCallout.astro';
 import { u } from '../../utils/url';
 
 const title = 'Открываю кофейню за 30 дней: пошаговый план';
@@ -245,6 +246,9 @@ const phases: ScenarioPhase[] = [
 					phases={phases}
 					client:load
 				/>
+
+				<CpaCallout id="kontur-elba" />
+				<CpaCallout id="kontur-ofd" />
 
 				<section class="scenario-foot">
 					<h2>Что почитать параллельно</h2>

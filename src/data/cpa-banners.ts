@@ -26,8 +26,8 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		title: 'Зарегистрируйтесь в системе маркировки бесплатно',
 		description:
 			'Личный кабинет участника оборота — обязательный первый шаг перед подключением ТС ПИоТ и работой с маркированными товарами.',
-		cta: 'Перейти →',
-		ctaHref: '/',
+		cta: 'Как зарегистрироваться →',
+		ctaHref: '/blog/2026-05-31-chestny-znak-registraciya/',
 		visual: { abbrev: 'ЧЗ', bg: '#111' },
 	},
 	'default-ts-piot': {
@@ -66,8 +66,8 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		title: 'Выберите провайдера ТС ПИоТ',
 		description:
 			'Подключение занимает от 1 до 5 рабочих дней при совместимой кассе. До 1 июля 2026 осталось немного времени.',
-		cta: 'Выбрать провайдера →',
-		ctaHref: '/',
+		cta: 'Сравнить провайдеров →',
+		ctaHref: '/blog/2026-05-30-ts-piot-provajdery-sravnenie/',
 		visual: { abbrev: 'ТС', bg: '#9E2B4F' },
 	},
 	'online-buh': {
@@ -76,8 +76,8 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		title: 'Онлайн-бухгалтерия справится с ЕНС, налогами и отчётностью',
 		description:
 			'Сервис сам рассчитывает налоги, формирует уведомления по ЕНС и напоминает о сроках. Подходит для ИП и ООО на УСН.',
-		cta: 'Подобрать сервис →',
-		ctaHref: '/',
+		cta: 'Сравнить сервисы →',
+		ctaHref: '/blog/2026-05-03-sravnenie-onlayn-buhov/',
 		visual: { abbrev: 'БУХ', bg: '#1E4A7A' },
 	},
 	'edo-operator': {
@@ -86,8 +86,8 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		title: 'Подключите ЭДО — без него приёмка маркированных товаров невозможна',
 		description:
 			'УПД с кодами маркировки принимается только через аккредитованного ЭДО-оператора. До дедлайна осталось немного времени.',
-		cta: 'Подключить ЭДО →',
-		ctaHref: '/',
+		cta: 'Как подключить →',
+		ctaHref: '/blog/2026-05-01-edo-upd-markirovka/',
 		visual: { abbrev: 'ЭДО', bg: '#1E4A7A' },
 	},
 

@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Picture from '../components/Picture.astro';
+import CpaCallout from '../components/CpaCallout.astro';
 import DataMatrixDissector from '../components/interactive/DataMatrixDissector.tsx';
 import FfdToggle from '../components/interactive/FfdToggle.tsx';
 import CmStatusToggle from '../components/interactive/CmStatusToggle.tsx';
@@ -195,6 +196,9 @@ const description =
 					</p>
 					<CmStatusToggle client:visible />
 				</section>
+
+				<CpaCallout id="kontur-ofd" />
+				<CpaCallout id="ts-piot-provider" />
 
 				<section class="sim-finish">
 					<h2>Что дальше</h2>

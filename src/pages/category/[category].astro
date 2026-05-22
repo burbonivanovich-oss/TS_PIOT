@@ -7,6 +7,8 @@ import Picture from '../../components/Picture.astro';
 import { CATEGORIES, SITE_TITLE } from '../../consts';
 import { u } from '../../utils/url';
 import FlagshipTeaser from '../../components/FlagshipTeaser.astro';
+import CpaCallout from '../../components/CpaCallout.astro';
+import { CATEGORY_DEFAULT_CPA, CATEGORY_DEFAULT_CPA2 } from '../../data/cpa-banners';
 
 export async function getStaticPaths() {
 	return Object.entries(CATEGORIES).map(([slug, meta]) => ({
@@ -42,6 +44,9 @@ const CAT_COLOR: Record<string, string> = {
 	'egais':           '#1A5C3A',
 };
 const accentColor = CAT_COLOR[slug] ?? '#111';
+
+const cpaId = CATEGORY_DEFAULT_CPA[slug];
+const cpaId2 = CATEGORY_DEFAULT_CPA2[slug];
 
 function fmtDate(d: Date): string {
 	return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
@@ -167,6 +172,9 @@ if (faqJsonLd) jsonLd.push(faqJsonLd);
 							</a>
 						);
 					})()}
+
+					{cpaId && <CpaCallout id={cpaId} class="cat-cpa" />}
+					{cpaId2 && <CpaCallout id={cpaId2} class="cat-cpa" />}
 
 					{/* Grid — remaining posts */}
 					{posts.length > 1 && (

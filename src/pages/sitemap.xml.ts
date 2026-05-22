@@ -26,7 +26,11 @@ function entry(
 }
 
 export const GET: APIRoute = async () => {
-	const posts = await getCollection('blog', ({ data }) => !data.draft && !data.seo?.noindex);
+	const now = new Date();
+	const posts = await getCollection(
+		'blog',
+		({ data }) => !data.draft && !data.seo?.noindex && data.pubDate <= now,
+	);
 
 	// Paginated blog pages (page 1 = /blog/, page 2+ = /blog/2/ etc.)
 	const totalBlogPages = Math.ceil(posts.length / BLOG_PAGE_SIZE);
