@@ -6,7 +6,11 @@ import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 import { collectTags, pluralPosts } from '../../utils/tags';
 
-const posts = await getCollection('blog', ({ data }) => !data.draft);
+const now = new Date();
+const posts = await getCollection(
+	'blog',
+	({ data }) => !data.draft && data.pubDate <= now,
+);
 const tags = collectTags(posts);
 const sorted = Object.entries(tags).sort(
 	(a, b) =>

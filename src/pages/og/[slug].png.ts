@@ -28,7 +28,11 @@ const fontLatExtRegular = fs.readFileSync(path.join(fontsDir, 'inter-latin-ext-r
 const fontLatExtBold = fs.readFileSync(path.join(fontsDir, 'inter-latin-ext-bold.woff'));
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog', ({ data }) => !data.draft);
+	const now = new Date();
+	const posts = await getCollection(
+		'blog',
+		({ data }) => !data.draft && data.pubDate <= now,
+	);
 	return posts.map((post) => ({
 		params: { slug: post.id },
 		props: { post },

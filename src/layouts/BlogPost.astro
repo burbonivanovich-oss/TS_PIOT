@@ -41,7 +41,11 @@ const {
 	wordCount,
 } = Astro.props;
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const now = new Date();
+const allPosts = await getCollection(
+	'blog',
+	({ data }) => !data.draft && data.pubDate <= now,
+);
 const sorted = allPosts.sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );

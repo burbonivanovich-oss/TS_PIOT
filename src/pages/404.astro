@@ -9,7 +9,11 @@ const title = 'Страница не найдена';
 const description =
 	'Такой страницы на «Этикетке» нет. Возможно, материал переехал — посмотрите ключевые материалы или перейдите в нужный раздел.';
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const now = new Date();
+const allPosts = await getCollection(
+	'blog',
+	({ data }) => !data.draft && data.pubDate <= now,
+);
 const bySlug = new Map(allPosts.map((p) => [p.id, p]));
 const popular = POPULAR_POSTS.map((slug) => bySlug.get(slug)).filter(
 	(p): p is NonNullable<typeof p> => Boolean(p),
