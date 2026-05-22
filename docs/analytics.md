@@ -221,7 +221,47 @@ Actions → **IndexNow — отправка URL в Яндекс** → Run workfl
   - **422** — URL не принадлежит хосту
   - **429** — превышен лимит
 
-### Смена ключа
+## Google Indexing API
+
+**Только для Google.** Формально API для JobPosting и
+BroadcastEvent, на практике принимает любые URL — но это **серая
+зона**. Google теоретически может ограничить.
+
+Работает в том же workflow `Индексация — Яндекс (IndexNow) + Google`
+(`.github/workflows/index-notify.yml`), просто отдельным шагом
+после IndexNow. Если `GOOGLE_INDEXING_KEY` не задан —
+шаг тихо пропускается, IndexNow всё равно работает.
+
+### Что где
+
+| Файл | Назначение |
+|---|---|
+| `scripts/google-index.mjs` | JWT → access_token → POST `/v3/urlNotifications:publish` по одному URL |
+| `.github/workflows/index-notify.yml` (шаг «Google Indexing API») | Авто после деплоя + ручной |
+
+### Лимиты
+
+- **200 запросов/сутки** дефолтно
+- **600/сутки** для verified domains (запросить
+  через [форму квоты](https://support.google.com/webmasters/contact/i_quota))
+- LIMIT=180 в workflow — запас от 200, чтобы при ALL=1 не упереться
+- 429 Too Many → скрипт останавливается, не повторяет
+
+### Первоначальная настройка
+
+См. `docs/SECRETS.md` раздел `GOOGLE_INDEXING_KEY`. Главное:
+service account email **должен быть Owner в Search Console**.
+
+### Что мониторить
+
+GSC → **Indexing → Pages → All known pages** — через 1-7 дней
+после первого прогона должны появиться обращения от Indexing API
+(в логах сервера). Прямого UI «успешно проиндексировано через API»
+у Google нет — смотрим по динамике статуса страниц.
+
+---
+
+### Смена ключа IndexNow
 
 Ключ публичный (по дизайну протокола — Яндекс проверяет файл по
 URL `https://etiketka-media.ru/<KEY>.txt`). Если хочется новый:

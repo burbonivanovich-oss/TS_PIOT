@@ -1,0 +1,74 @@
+name: Индексация — Яндекс (IndexNow) + Google
+
+# Уведомляет Яндекс через IndexNow и Google через Indexing API
+# о новых/обновлённых страницах. Запускается после успешного
+# деплоя — сайт уже актуален, поисковики смогут переиндексировать.
+#
+# Скрипты:
+# - scripts/indexnow.mjs        — bulk POST в IndexNow (Яндекс/Bing)
+# - scripts/google-index.mjs    — JWT + Indexing API (Google, серая зона)
+#
+# Если у Google нет ключа (GOOGLE_INDEXING_KEY не задан) — этот шаг
+# пропускается, IndexNow всё равно отрабатывает.
+
+on:
+  # Автоматически после успешного деплоя:
+  workflow_run:
+    workflows: ['Deploy to GitHub Pages']
+    types: [completed]
+
+  # Ручной запуск с параметрами:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'За сколько последних дней отправлять (по pubDate/updatedDate)'
+        required: false
+        default: '2'
+      all:
+        description: 'ALL=1 — отправить ВСЕ опубликованные URL (массовый бутстрап)'
+        required: false
+        default: '0'
+      urls:
+        description: 'Список URL через запятую (переопределяет режим по датам)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'DRY_RUN=1 — план без отправки'
+        required: false
+        default: '0'
+      skip_google:
+        description: 'Пропустить Google Indexing API (1 = да)'
+        required: false
+        default: '0'
+
+jobs:
+  notify:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+
+      - name: IndexNow → Яндекс
+        env:
+          DAYS:    ${{ inputs.days || '2' }}
+          ALL:     ${{ inputs.all || '0' }}
+          URLS:    ${{ inputs.urls || '' }}
+          DRY_RUN: ${{ inputs.dry_run || '0' }}
+        run: node scripts/indexnow.mjs
+        continue-on-error: true
+
+      - name: Google Indexing API
+        if: ${{ inputs.skip_google != '1' }}
+        env:
+          GOOGLE_INDEXING_KEY: ${{ secrets.GOOGLE_INDEXING_KEY }}
+          DAYS:    ${{ inputs.days || '2' }}
+          ALL:     ${{ inputs.all || '0' }}
+          URLS:    ${{ inputs.urls || '' }}
+          DRY_RUN: ${{ inputs.dry_run || '0' }}
+          LIMIT:   '180'   # держим запас от дефолтной квоты 200/сутки
+        run: node scripts/google-index.mjs
+        continue-on-error: true
