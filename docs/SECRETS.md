@@ -259,6 +259,64 @@ GEMINI_API_KEY вообще.
 `continue-on-error: true` в workflow. Если 403/404 на большинстве
 URL'ов — отключаем шаг (skip_google=1 в dispatch).
 
+### ⚠ Обходной путь: GSC отказался принять service-account email
+
+Известная проблема: при попытке добавить
+`...@*.iam.gserviceaccount.com` в **GSC → Settings → Users and
+permissions → Add user** консоль выдаёт «Не удалось добавить
+пользователя, так как не найден адрес электронной почты». UI
+официально поддерживает service-account email, но в реальности
+часто отказывает.
+
+**Решение — использовать OAuth2 refresh_token вместо service account.**
+Скрипт `google-index.mjs` поддерживает оба варианта. Не нужен
+`GOOGLE_INDEXING_KEY` — нужно расширить scope существующих
+`GSC_*` секретов (уже настроенных для fetch-gsc).
+
+**Шаги (10 минут):**
+
+1. **Google Cloud Console** → APIs & Services → Library → найти
+   **Indexing API** → Enable.
+2. **APIs & Services → OAuth consent screen** → раздел **Scopes**
+   → Add or Remove Scopes → добавить
+   `https://www.googleapis.com/auth/indexing` → Save.
+3. **Переполучить refresh_token** с обновлённым scope. В браузере
+   под аккаунтом-владельцем property открыть:
+
+   ```
+   https://accounts.google.com/o/oauth2/v2/auth?
+     client_id=ВАШ_GSC_CLIENT_ID&
+     redirect_uri=urn:ietf:wg:oauth:2.0:oob&
+     response_type=code&
+     scope=https://www.googleapis.com/auth/webmasters.readonly%20https://www.googleapis.com/auth/indexing&
+     access_type=offline&
+     prompt=consent
+   ```
+
+   (в одну строку, без пробелов в URL). Получить `code`,
+   обменять на refresh_token:
+
+   ```bash
+   curl -X POST https://oauth2.googleapis.com/token \
+     -d "code=4/0AX..." \
+     -d "client_id=ВАШ_GSC_CLIENT_ID" \
+     -d "client_secret=ВАШ_GSC_CLIENT_SECRET" \
+     -d "redirect_uri=urn:ietf:wg:oauth:2.0:oob" \
+     -d "grant_type=authorization_code"
+   ```
+
+4. **Обновить секрет** `GSC_REFRESH_TOKEN` в GitHub значением из
+   ответа (поле `refresh_token`).
+5. Этот же refresh_token продолжит работать и для fetch-gsc.mjs
+   (старый scope `webmasters.readonly` сохранён).
+6. **Удалить или не добавлять** секрет `GOOGLE_INDEXING_KEY` —
+   скрипт автоматически переключится на OAuth-путь.
+
+После этого `google-index.mjs` будет использовать ваш обычный
+Google-аккаунт (он уже Owner property в GSC, доказали через
+DNS/HTML при первичной настройке) — никаких UI-плясок с
+service account.
+
 ---
 
 ## JINA_API_KEY и OPENAI_API_KEY

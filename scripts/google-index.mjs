@@ -11,15 +11,39 @@
 // до 600 — нужно подтвердить домен в GSC и попросить увеличение
 // (форма https://support.google.com/webmasters/contact/i_quota).
 //
-// Окружение:
-//   GOOGLE_INDEXING_KEY — JSON service account credentials. Можно
-//     как сырой JSON, можно base64. Должен иметь scope/role
-//     "Owner of property" в Google Search Console.
+// Окружение (один из двух способов аутентификации):
+//
+// Способ A — Service Account (рекомендуется официально, но GSC UI
+// часто отказывает добавлять service-account email как Owner):
+//   GOOGLE_INDEXING_KEY — JSON service account credentials (raw или
+//     base64). Email service-account должен быть Owner property в GSC.
+//
+// Способ B — OAuth2 refresh_token (обходной путь, если GSC UI
+// отказался принять service-account email):
+//   GSC_CLIENT_ID, GSC_CLIENT_SECRET, GSC_REFRESH_TOKEN — те же
+//     креды, что для fetch-gsc, но refresh_token должен быть
+//     получен с дополнительным scope:
+//     https://www.googleapis.com/auth/indexing
+//   Refresh_token переполучается тем же URL'ом implicit-flow:
+//     https://accounts.google.com/o/oauth2/v2/auth?
+//       client_id=...&
+//       redirect_uri=urn:ietf:wg:oauth:2.0:oob&
+//       response_type=code&
+//       scope=https://www.googleapis.com/auth/webmasters.readonly%20https://www.googleapis.com/auth/indexing&
+//       access_type=offline&prompt=consent
+//   После — code обменивается на refresh_token (curl-команда — в docs/analytics.md).
+//
+// Скрипт автоматически выбирает: сначала service account,
+// если ключа нет — пробует refresh_token.
+//
+// Лимиты по дефолту: 200 запросов/сутки на проект.
+//
+// Дополнительные ENV:
 //   DAYS=2       — окно по pubDate/updatedDate (по умолчанию)
 //   URLS=...     — список через запятую, переопределяет режим
 //   ALL=1        — все опубликованные + ключевые маршруты
 //   DRY_RUN=1    — план без запросов
-//   LIMIT=200    — максимум запросов за прогон (дефолтная квота)
+//   LIMIT=200    — максимум запросов за прогон
 //
 // Запуск:
 //   node scripts/google-index.mjs
@@ -43,9 +67,18 @@ const URLS_OVERRIDE = (process.env.URLS || '')
   .split(',').map(s => s.trim()).filter(Boolean);
 
 const RAW_KEY = process.env.GOOGLE_INDEXING_KEY || '';
+const OAUTH_CLIENT_ID = process.env.GSC_CLIENT_ID || '';
+const OAUTH_CLIENT_SECRET = process.env.GSC_CLIENT_SECRET || '';
+const OAUTH_REFRESH_TOKEN = process.env.GSC_REFRESH_TOKEN || '';
 
-if (!RAW_KEY && !DRY_RUN) {
-  console.error('GOOGLE_INDEXING_KEY не задан. Гайд: docs/SECRETS.md (Google Indexing API)');
+const HAS_SA = !!RAW_KEY;
+const HAS_OAUTH = !!(OAUTH_CLIENT_ID && OAUTH_CLIENT_SECRET && OAUTH_REFRESH_TOKEN);
+
+if (!HAS_SA && !HAS_OAUTH && !DRY_RUN) {
+  console.error('Нужен один из вариантов:');
+  console.error('  A) GOOGLE_INDEXING_KEY (service account JSON или base64)');
+  console.error('  B) GSC_CLIENT_ID + GSC_CLIENT_SECRET + GSC_REFRESH_TOKEN (refresh_token с scope indexing)');
+  console.error('Гайд: docs/SECRETS.md → раздел GOOGLE_INDEXING_KEY');
   process.exit(1);
 }
 
@@ -67,7 +100,7 @@ function b64url(input) {
     .replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
 }
 
-async function getAccessToken(creds) {
+async function getAccessTokenFromServiceAccount(creds) {
   const now = Math.floor(Date.now() / 1000);
   const header = b64url(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
   const payload = b64url(JSON.stringify({
@@ -92,8 +125,30 @@ async function getAccessToken(creds) {
     }),
   });
   const text = await res.text();
-  if (!res.ok) throw new Error(`OAuth ${res.status}: ${text.slice(0, 400)}`);
+  if (!res.ok) throw new Error(`OAuth (SA) ${res.status}: ${text.slice(0, 400)}`);
   return JSON.parse(text).access_token;
+}
+
+async function getAccessTokenFromRefreshToken() {
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: OAUTH_CLIENT_ID,
+      client_secret: OAUTH_CLIENT_SECRET,
+      refresh_token: OAUTH_REFRESH_TOKEN,
+      grant_type: 'refresh_token',
+    }),
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`OAuth (refresh) ${res.status}: ${text.slice(0, 400)}`);
+  const data = JSON.parse(text);
+  // Если scope не включает indexing — сразу предупредим
+  if (data.scope && !data.scope.includes('indexing')) {
+    console.warn(`⚠ refresh_token не содержит scope "indexing". Получили: ${data.scope}`);
+    console.warn('  Переполучите токен с расширенным scope. Гайд: docs/SECRETS.md');
+  }
+  return data.access_token;
 }
 
 // ─── Сбор URL ──────────────────────────────────────────────────────────────
@@ -186,14 +241,19 @@ if (DRY_RUN) {
   process.exit(0);
 }
 
-const creds = parseKey(RAW_KEY);
-if (!creds?.client_email || !creds?.private_key) {
-  console.error('Service-account JSON некорректен (нет client_email или private_key).');
-  process.exit(1);
+let accessToken;
+if (HAS_SA) {
+  const creds = parseKey(RAW_KEY);
+  if (!creds?.client_email || !creds?.private_key) {
+    console.error('Service-account JSON некорректен (нет client_email или private_key).');
+    process.exit(1);
+  }
+  console.log(`Auth: Service Account (${creds.client_email})\n`);
+  accessToken = await getAccessTokenFromServiceAccount(creds);
+} else {
+  console.log(`Auth: OAuth2 refresh_token (client_id=${OAUTH_CLIENT_ID.slice(0, 20)}…)\n`);
+  accessToken = await getAccessTokenFromRefreshToken();
 }
-console.log(`Service account: ${creds.client_email}\n`);
-
-const accessToken = await getAccessToken(creds);
 
 let ok = 0;
 let failed = 0;

@@ -64,7 +64,15 @@ jobs:
       - name: Google Indexing API
         if: ${{ inputs.skip_google != '1' }}
         env:
+          # Способ A — service account (если получилось добавить email в GSC):
           GOOGLE_INDEXING_KEY: ${{ secrets.GOOGLE_INDEXING_KEY }}
+          # Способ B — OAuth refresh_token (обходной путь, если GSC отказался
+          # принять service-account email). Переиспользуем тот же client_id/
+          # secret, что для fetch-gsc, но refresh_token должен быть переполучен
+          # с дополнительным scope indexing.
+          GSC_CLIENT_ID:     ${{ secrets.GSC_CLIENT_ID }}
+          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
+          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
           DAYS:    ${{ inputs.days || '2' }}
           ALL:     ${{ inputs.all || '0' }}
           URLS:    ${{ inputs.urls || '' }}
