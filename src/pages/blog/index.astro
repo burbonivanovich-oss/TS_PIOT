@@ -1,14 +1,13 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import BlogFilter from '../../components/BlogFilter';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { CATEGORIES } from '../../consts';
 import { collectTags } from '../../utils/tags';
+import { publishedPosts } from '../../utils/posts';
 
-const now = new Date();
-const posts = (await getCollection('blog', ({ data }) => !data.draft && data.pubDate <= now)).sort(
+const posts = (await publishedPosts()).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 

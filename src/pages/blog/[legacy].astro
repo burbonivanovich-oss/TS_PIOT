@@ -4,15 +4,11 @@
 // `/blog/2026-MM-DD-chto-takoe-ts-piot/`. Google проиндексировал
 // старые URL — отдаём meta-refresh редирект, чтобы перенаправить
 // и индекс, и пользователя.
-import { getCollection } from 'astro:content';
 import { SITE_URL } from '../../consts';
+import { publishedPosts } from '../../utils/posts';
 
 export async function getStaticPaths() {
-	const now = new Date();
-	const posts = await getCollection(
-		'blog',
-		({ data }) => !data.draft && data.pubDate <= now,
-	);
+	const posts = await publishedPosts();
 
 	// Для каждой статьи с slug вида YYYY-MM-DD-<short> создаём alias
 	// со <short>. Если несколько статей дают один alias (коллизия) —

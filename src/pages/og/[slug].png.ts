@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
-import { type CollectionEntry, getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { publishedPosts } from '../../utils/posts';
 import satori from 'satori';
 import { html } from 'satori-html';
 import { CATEGORIES, SITE_TITLE } from '../../consts';
@@ -28,11 +29,7 @@ const fontLatExtRegular = fs.readFileSync(path.join(fontsDir, 'inter-latin-ext-r
 const fontLatExtBold = fs.readFileSync(path.join(fontsDir, 'inter-latin-ext-bold.woff'));
 
 export async function getStaticPaths() {
-	const now = new Date();
-	const posts = await getCollection(
-		'blog',
-		({ data }) => !data.draft && data.pubDate <= now,
-	);
+	const posts = await publishedPosts();
 	return posts.map((post) => ({
 		params: { slug: post.id },
 		props: { post },

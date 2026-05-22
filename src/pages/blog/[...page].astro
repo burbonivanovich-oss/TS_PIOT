@@ -1,5 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import BlogFilter from '../../components/BlogFilter';
 import Footer from '../../components/Footer.astro';
@@ -7,12 +6,12 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { CATEGORIES } from '../../consts';
 import { collectTags } from '../../utils/tags';
+import { publishedPosts } from '../../utils/posts';
 
 const PAGE_SIZE = 12;
 
 export async function getStaticPaths({ paginate }: { paginate: Function }) {
-	const now = new Date();
-	const posts = (await getCollection('blog', ({ data }) => !data.draft && data.pubDate <= now)).sort(
+	const posts = (await publishedPosts()).sort(
 		(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 	);
 	return paginate(posts, { pageSize: 12 });
@@ -22,8 +21,7 @@ const { page } = Astro.props;
 const isFirstPage = page.currentPage === 1;
 
 // All posts passed to BlogFilter for client-side filtering
-const now = new Date();
-const allPosts = (await getCollection('blog', ({ data }) => !data.draft && data.pubDate <= now)).sort(
+const allPosts = (await publishedPosts()).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 

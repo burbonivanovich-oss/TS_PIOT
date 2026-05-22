@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
 import { CATEGORIES, SITE_URL } from '../consts';
 import { collectTags } from '../utils/tags';
+import { publishedPosts } from '../utils/posts';
 
 const BLOG_PAGE_SIZE = 12;
 
@@ -26,11 +26,7 @@ function entry(
 }
 
 export const GET: APIRoute = async () => {
-	const now = new Date();
-	const posts = await getCollection(
-		'blog',
-		({ data }) => !data.draft && !data.seo?.noindex && data.pubDate <= now,
-	);
+	const posts = await publishedPosts((p) => !p.data.seo?.noindex);
 
 	// Paginated blog pages (page 1 = /blog/, page 2+ = /blog/2/ etc.)
 	const totalBlogPages = Math.ceil(posts.length / BLOG_PAGE_SIZE);
