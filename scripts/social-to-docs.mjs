@@ -1,0 +1,332 @@
+#!/usr/bin/env node
+// Выгружает социальные черновики из src/content/wiki/social/ в
+// Google Drive как Google Docs. Один Doc на одну статью с
+// секциями Telegram / VK / Дзен / Email. Идемпотентно: если Doc
+// с тем же именем уже есть в указанной папке — обновляется,
+// иначе создаётся.
+//
+// Использует Drive API v3:
+// - POST /upload/drive/v3/files?uploadType=multipart — создание
+//   с конвертацией HTML → Google Doc (mimeType=application/vnd.google-apps.document)
+// - PATCH /upload/drive/v3/files/{id}?uploadType=media — апдейт контента
+// - GET  /drive/v3/files?q=... — поиск существующих
+//
+// Аутентификация (один из двух способов):
+//
+// A) Service Account (рекомендуется — отдельная «учётка для бота»):
+//   GOOGLE_DOCS_KEY = JSON или base64 service account credentials.
+//   Email service account нужно поделиться доступом «Редактор» с
+//   папкой в Google Drive.
+//
+// B) OAuth2 refresh_token (через те же GSC_* секреты с расширенным
+//    scope `https://www.googleapis.com/auth/drive.file`):
+//   GSC_CLIENT_ID + GSC_CLIENT_SECRET + GSC_REFRESH_TOKEN.
+//
+// Окружение:
+//   GOOGLE_DOCS_FOLDER_ID — обязателен, ID папки в Drive.
+//     Берётся из URL папки: drive.google.com/drive/folders/<ID>
+//   SLUG=<slug>           — конкретная статья (без префикса даты или с ним)
+//   ALL=1                 — все файлы с status: ready (рекомендованный режим)
+//   DRY_RUN=1             — план без запросов
+
+import { readdirSync, readFileSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createSign } from 'node:crypto';
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const SOCIAL_DIR = join(ROOT, 'src', 'content', 'wiki', 'social');
+
+const FOLDER_ID = process.env.GOOGLE_DOCS_FOLDER_ID || '';
+const RAW_KEY = process.env.GOOGLE_DOCS_KEY || '';
+const OAUTH_CLIENT_ID = process.env.GSC_CLIENT_ID || '';
+const OAUTH_CLIENT_SECRET = process.env.GSC_CLIENT_SECRET || '';
+const OAUTH_REFRESH_TOKEN = process.env.GSC_REFRESH_TOKEN || '';
+
+const DRY_RUN = process.env.DRY_RUN === '1';
+const ALL = process.env.ALL === '1';
+const SLUG_FILTER = (process.env.SLUG || '').trim();
+
+const HAS_SA = !!RAW_KEY;
+const HAS_OAUTH = !!(OAUTH_CLIENT_ID && OAUTH_CLIENT_SECRET && OAUTH_REFRESH_TOKEN);
+
+if (!FOLDER_ID && !DRY_RUN) {
+  console.error('GOOGLE_DOCS_FOLDER_ID не задан. ID папки берётся из URL drive.google.com/drive/folders/<ID>');
+  process.exit(1);
+}
+if (!HAS_SA && !HAS_OAUTH && !DRY_RUN) {
+  console.error('Нужно одно из: GOOGLE_DOCS_KEY (service account) или GSC_CLIENT_ID/SECRET/REFRESH_TOKEN со scope drive.file');
+  process.exit(1);
+}
+
+// ─── Аутентификация ──────────────────────────────────────────────────────────
+function b64url(input) {
+  return Buffer.from(input).toString('base64')
+    .replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
+}
+
+function parseKey(raw) {
+  const trimmed = raw.trim();
+  if (trimmed.startsWith('{')) return JSON.parse(trimmed);
+  return JSON.parse(Buffer.from(trimmed, 'base64').toString('utf8'));
+}
+
+async function getAccessTokenSA(creds) {
+  const now = Math.floor(Date.now() / 1000);
+  const header = b64url(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
+  const payload = b64url(JSON.stringify({
+    iss: creds.client_email,
+    scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/documents',
+    aud: 'https://oauth2.googleapis.com/token',
+    iat: now,
+    exp: now + 3600,
+  }));
+  const unsigned = `${header}.${payload}`;
+  const signature = createSign('RSA-SHA256').update(unsigned).sign(creds.private_key);
+  const sig = signature.toString('base64')
+    .replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
+  const jwt = `${unsigned}.${sig}`;
+
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+      assertion: jwt,
+    }),
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`OAuth (SA) ${res.status}: ${text.slice(0, 400)}`);
+  return JSON.parse(text).access_token;
+}
+
+async function getAccessTokenOAuth() {
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: OAUTH_CLIENT_ID,
+      client_secret: OAUTH_CLIENT_SECRET,
+      refresh_token: OAUTH_REFRESH_TOKEN,
+      grant_type: 'refresh_token',
+    }),
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`OAuth (refresh) ${res.status}: ${text.slice(0, 400)}`);
+  const data = JSON.parse(text);
+  if (data.scope && !data.scope.includes('drive')) {
+    console.warn(`⚠ refresh_token не содержит scope "drive". Получили: ${data.scope}`);
+    console.warn('  Переполучите токен со scope https://www.googleapis.com/auth/drive.file');
+  }
+  return data.access_token;
+}
+
+// ─── Markdown → HTML (упрощённо, для соцпостов хватает) ──────────────────────
+function mdToHtml(md) {
+  const lines = md.split('\n');
+  const out = [];
+  let inPara = false;
+
+  function flushPara() {
+    if (inPara) {
+      out.push('</p>');
+      inPara = false;
+    }
+  }
+
+  function inline(s) {
+    return s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  }
+
+  for (const line of lines) {
+    if (/^---\s*$/.test(line)) {
+      flushPara();
+      out.push('<hr/>');
+      continue;
+    }
+    const h2 = line.match(/^##\s+(.+)$/);
+    if (h2) {
+      flushPara();
+      out.push(`<h2>${inline(h2[1])}</h2>`);
+      continue;
+    }
+    const h3 = line.match(/^###\s+(.+)$/);
+    if (h3) {
+      flushPara();
+      out.push(`<h3>${inline(h3[1])}</h3>`);
+      continue;
+    }
+    if (line.trim() === '') {
+      flushPara();
+      continue;
+    }
+    if (!inPara) {
+      out.push('<p>');
+      inPara = true;
+    } else {
+      out.push('<br/>');
+    }
+    out.push(inline(line));
+  }
+  flushPara();
+  return out.join('\n');
+}
+
+// ─── Парсер frontmatter ──────────────────────────────────────────────────────
+function parseFM(content) {
+  const m = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!m) return { fm: {}, body: content };
+  const fm = {};
+  for (const line of m[1].split('\n')) {
+    const kv = line.match(/^(\w+):\s*"?([^"]+)"?$/);
+    if (kv) fm[kv[1]] = kv[2].trim();
+  }
+  return { fm, body: m[2] };
+}
+
+// ─── Drive API ───────────────────────────────────────────────────────────────
+async function findExisting(token, name) {
+  const q = `name='${name}' and '${FOLDER_ID}' in parents and trashed=false`;
+  const url = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&fields=files(id,name,webViewLink)`;
+  const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`Drive list ${res.status}: ${text.slice(0, 400)}`);
+  const data = JSON.parse(text);
+  return data.files?.[0] ?? null;
+}
+
+async function createDoc(token, name, html) {
+  const boundary = '---boundary-etiketka-' + Date.now();
+  const meta = {
+    name,
+    parents: [FOLDER_ID],
+    mimeType: 'application/vnd.google-apps.document',
+  };
+  const body =
+    `--${boundary}\r\n` +
+    `Content-Type: application/json; charset=utf-8\r\n\r\n` +
+    JSON.stringify(meta) + '\r\n' +
+    `--${boundary}\r\n` +
+    `Content-Type: text/html; charset=utf-8\r\n\r\n` +
+    html + '\r\n' +
+    `--${boundary}--`;
+
+  const res = await fetch(
+    'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,webViewLink',
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': `multipart/related; boundary=${boundary}`,
+      },
+      body,
+    },
+  );
+  const text = await res.text();
+  if (!res.ok) throw new Error(`Drive create ${res.status}: ${text.slice(0, 400)}`);
+  return JSON.parse(text);
+}
+
+async function updateDoc(token, fileId, html) {
+  const res = await fetch(
+    `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media&fields=id,webViewLink`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'text/html; charset=utf-8',
+      },
+      body: html,
+    },
+  );
+  const text = await res.text();
+  if (!res.ok) throw new Error(`Drive update ${res.status}: ${text.slice(0, 400)}`);
+  return JSON.parse(text);
+}
+
+// ─── Сбор файлов ─────────────────────────────────────────────────────────────
+function collectFiles() {
+  const files = readdirSync(SOCIAL_DIR).filter(f => /\.(md|mdx)$/.test(f));
+  const out = [];
+  for (const f of files) {
+    const fullPath = join(SOCIAL_DIR, f);
+    const content = readFileSync(fullPath, 'utf8');
+    const { fm, body } = parseFM(content);
+    const slug = f.replace(/\.(md|mdx)$/, '');
+
+    if (SLUG_FILTER) {
+      if (slug !== SLUG_FILTER && !slug.includes(SLUG_FILTER)) continue;
+    } else if (!ALL) {
+      // Без ALL и без SLUG — только status: ready
+      if (fm.status !== 'ready') continue;
+    }
+    out.push({ slug, fm, body });
+  }
+  return out;
+}
+
+// ─── Main ────────────────────────────────────────────────────────────────────
+const files = collectFiles();
+
+console.log(`Social → Google Docs`);
+console.log(`Папка Drive: ${FOLDER_ID || '(не задано)'}`);
+console.log(`Auth: ${HAS_SA ? 'Service Account' : HAS_OAUTH ? 'OAuth refresh_token' : '—'}`);
+console.log(`Режим: ${SLUG_FILTER ? `slug=${SLUG_FILTER}` : ALL ? 'ALL (без фильтра по status)' : 'только status: ready'}`);
+console.log(`Файлов: ${files.length}\n`);
+
+if (files.length === 0) {
+  console.log('Нет файлов под условие — выход.');
+  process.exit(0);
+}
+
+if (DRY_RUN) {
+  for (const f of files.slice(0, 20)) {
+    console.log(`  - ${f.slug} (status: ${f.fm.status || '—'})`);
+  }
+  if (files.length > 20) console.log(`  ... и ещё ${files.length - 20}`);
+  console.log('\nDRY_RUN — выход без запросов.');
+  process.exit(0);
+}
+
+let token;
+if (HAS_SA) {
+  token = await getAccessTokenSA(parseKey(RAW_KEY));
+} else {
+  token = await getAccessTokenOAuth();
+}
+
+let created = 0;
+let updated = 0;
+let failed = 0;
+
+for (const { slug, fm, body } of files) {
+  const docName = fm.title ? `${slug} — ${fm.title}` : slug;
+  const html = `<h1>${(fm.title || slug).replace(/</g, '&lt;')}</h1>\n` +
+    (fm.articleUrl ? `<p><a href="https://etiketka-media.ru${fm.articleUrl}">Статья на сайте</a></p>\n` : '') +
+    mdToHtml(body);
+
+  try {
+    const existing = await findExisting(token, docName);
+    if (existing) {
+      const r = await updateDoc(token, existing.id, html);
+      console.log(`UPD ${slug} → ${r.webViewLink || existing.webViewLink}`);
+      updated++;
+    } else {
+      const r = await createDoc(token, docName, html);
+      console.log(`NEW ${slug} → ${r.webViewLink}`);
+      created++;
+    }
+  } catch (err) {
+    console.error(`FAIL ${slug}: ${err.message}`);
+    failed++;
+  }
+}
+
+console.log(`\nГотово. Создано: ${created}, обновлено: ${updated}, ошибок: ${failed}.`);
+if (failed > 0 && created + updated === 0) process.exit(1);
