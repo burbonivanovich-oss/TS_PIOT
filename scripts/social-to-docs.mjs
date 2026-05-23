@@ -324,10 +324,27 @@ if (DRY_RUN) {
 }
 
 let token;
+let authMode;
 if (HAS_SA) {
   token = await getAccessTokenSA(parseKey(RAW_KEY));
+  authMode = 'sa';
 } else {
   token = await getAccessTokenOAuth();
+  authMode = 'oauth';
+}
+
+async function maybeFallbackToOAuth(err) {
+  // Service-account не имеет своей Drive-квоты; создание файлов
+  // упирается в storageQuotaExceeded даже на расшаренной папке.
+  // Если OAuth-креды есть — переключаемся на них автоматически.
+  if (authMode === 'sa' && HAS_OAUTH && /storageQuotaExceeded|storage quota/i.test(err.message)) {
+    console.warn('\n⚠ Service Account упёрся в storageQuotaExceeded (у SA нет своей Drive-квоты).');
+    console.warn('  Переключаюсь на OAuth refresh_token (личный аккаунт, 15 ГБ).\n');
+    token = await getAccessTokenOAuth();
+    authMode = 'oauth';
+    return true;
+  }
+  return false;
 }
 
 let created = 0;
@@ -340,7 +357,7 @@ for (const { slug, fm, body } of files) {
     (fm.articleUrl ? `<p><a href="https://etiketka-media.ru${fm.articleUrl}">Статья на сайте</a></p>\n` : '') +
     mdToHtml(body);
 
-  try {
+  async function tryUpsert() {
     const existing = await findExisting(token, docName);
     if (existing) {
       const r = await updateDoc(token, existing.id, html);
@@ -351,7 +368,21 @@ for (const { slug, fm, body } of files) {
       console.log(`NEW ${slug} → ${r.webViewLink}`);
       created++;
     }
+  }
+
+  try {
+    await tryUpsert();
   } catch (err) {
+    if (await maybeFallbackToOAuth(err)) {
+      try {
+        await tryUpsert();
+        continue;
+      } catch (err2) {
+        console.error(`FAIL ${slug}: ${err2.message}`);
+        failed++;
+        continue;
+      }
+    }
     console.error(`FAIL ${slug}: ${err.message}`);
     failed++;
   }
