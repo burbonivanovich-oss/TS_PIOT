@@ -158,7 +158,52 @@ if (existsSync(ordConfig) && existsSync(ordErids)) {
 	} catch {}
 }
 
-// ─── 7. Картинки ─────────────────────────────────────────────────────────────
+// ─── 7. CPA-баннеры ──────────────────────────────────────────────────────────
+const cpaBannersFile = join(ROOT, 'src', 'data', 'cpa-banners.ts');
+if (existsSync(cpaBannersFile)) {
+	const txt = readFileSync(cpaBannersFile, 'utf8');
+	// Грубо парсим записи: id + ctaHref внутри объекта баннера
+	const blocks = [...txt.matchAll(/'([\w-]+)':\s*\{[\s\S]*?ctaHref:\s*'([^']*)'/g)];
+	const placeholder = [];
+	const internalWithErid = [];
+	const okCount = { external: 0, internal: 0 };
+
+	// Список id, у которых в _BANNERS_RAW мы знаем что есть erid из ord-erids.json
+	let eridIds = new Set();
+	const eridsPath = join(ROOT, 'src', 'data', 'ord-erids.json');
+	if (existsSync(eridsPath)) {
+		try {
+			const e = JSON.parse(readFileSync(eridsPath, 'utf8'));
+			eridIds = new Set(Object.keys(e).filter(k => !k.startsWith('_') && !k.startsWith('$')));
+		} catch {}
+	}
+
+	for (const [, id, href] of blocks) {
+		const isPlaceholder = !href || href === '/' || href === '#' || href.trim() === '';
+		const isExternal = /^https?:\/\//.test(href);
+		const hasErid = eridIds.has(id);
+		if (isPlaceholder) {
+			placeholder.push(`${id} → "${href}"`);
+		} else if (isExternal) {
+			okCount.external++;
+		} else {
+			okCount.internal++;
+			if (hasErid) internalWithErid.push(`${id} → ${href}`);
+		}
+	}
+
+	ok('CPA: всего баннеров', `${blocks.length}`);
+	if (placeholder.length === 0) {
+		ok('CPA: placeholder-ссылок нет', `external: ${okCount.external}, internal: ${okCount.internal}`);
+	} else {
+		fail('CPA: placeholder-ссылки (ведут в никуда)', placeholder.join('; '));
+	}
+	if (internalWithErid.length > 0) {
+		warn('CPA: erid на внутренней ссылке', internalWithErid.join('; ') + ' — erid обычно для платных внешних, проверьте');
+	}
+}
+
+// ─── 8. Картинки ─────────────────────────────────────────────────────────────
 const heroDir = join(ROOT, 'public', 'images', 'hero');
 if (existsSync(heroDir)) {
 	const heroes = readdirSync(heroDir).filter(f => /\.(jpe?g|png)$/i.test(f));
