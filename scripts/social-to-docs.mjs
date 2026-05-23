@@ -352,9 +352,32 @@ let updated = 0;
 let failed = 0;
 
 for (const { slug, fm, body } of files) {
-  const docName = fm.title ? `${slug} — ${fm.title}` : slug;
+  // Имя файла в Drive: русское название статьи + дата как суффикс для
+  // уникальности (одинаковые title встречаются у обновлений). Slug
+  // в имени больше не используется — читать неудобно.
+  const dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/);
+  const datePart = dateMatch ? ` · ${dateMatch[1]}` : '';
+  const docName = fm.title ? `${fm.title}${datePart}` : slug;
+
+  // Структура для outline-навигации (View → Document outline, Ctrl+Alt+A):
+  // H1 = название статьи, H2 = чек-лист публикации + каждая платформа.
+  // Каждый ## из исходного md станет H2 и попадёт в боковую панель
+  // навигации как «вкладка». Чек-лист идёт первым блоком — это статус
+  // публикации, который удобно держать перед глазами.
+  const checklist = `<h2>Чек-лист публикации</h2>\n` +
+    `<ul>\n` +
+    `<li><input type="checkbox"/> Telegram — опубликовано</li>\n` +
+    `<li><input type="checkbox"/> VK — опубликовано</li>\n` +
+    `<li><input type="checkbox"/> Дзен — опубликовано (с CPA-врезкой и erid)</li>\n` +
+    `<li><input type="checkbox"/> Email — отправлено в рассылку</li>\n` +
+    `</ul>\n`;
+
   const html = `<h1>${(fm.title || slug).replace(/</g, '&lt;')}</h1>\n` +
-    (fm.articleUrl ? `<p><a href="https://etiketka-media.ru${fm.articleUrl}">Статья на сайте</a></p>\n` : '') +
+    `<p style="color:#666;font-size:11pt">` +
+    `Ctrl+Alt+A — открыть панель навигации по разделам.` +
+    (fm.articleUrl ? ` · <a href="https://etiketka-media.ru${fm.articleUrl}">Статья на сайте</a>` : '') +
+    `</p>\n` +
+    checklist +
     mdToHtml(body);
 
   async function tryUpsert() {
