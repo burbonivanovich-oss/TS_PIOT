@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
     inputs:
       slug:
-        description: 'Slug конкретной статьи (пусто — по статусу)'
+        description: 'Slug одной или списком через запятую (ts-piot-shtrafy,proverki-2026,...)'
         required: false
         default: ''
       all:

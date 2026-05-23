@@ -25,8 +25,10 @@
 // Окружение:
 //   GOOGLE_DOCS_FOLDER_ID — обязателен, ID папки в Drive.
 //     Берётся из URL папки: drive.google.com/drive/folders/<ID>
-//   SLUG=<slug>           — конкретная статья (без префикса даты или с ним)
-//   ALL=1                 — все файлы с status: ready (рекомендованный режим)
+//   SLUG=<slug>           — конкретная статья или список через запятую
+//                           (slug может быть с префиксом даты или без).
+//                           Пример: SLUG=ts-piot-shtrafy,proverki-2026,usn-nds
+//   ALL=1                 — все файлы (рекомендованный режим)
 //   DRY_RUN=1             — план без запросов
 
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
@@ -56,7 +58,11 @@ const OAUTH_REFRESH_TOKEN = process.env.GSC_REFRESH_TOKEN || '';
 
 const DRY_RUN = process.env.DRY_RUN === '1';
 const ALL = process.env.ALL === '1';
-const SLUG_FILTER = (process.env.SLUG || '').trim();
+const SLUG_FILTER_LIST = (process.env.SLUG || '')
+  .split(',')
+  .map(s => s.trim())
+  .filter(Boolean);
+const HAS_SLUG_FILTER = SLUG_FILTER_LIST.length > 0;
 
 const HAS_SA = !!RAW_KEY;
 const HAS_OAUTH = !!(OAUTH_CLIENT_ID && OAUTH_CLIENT_SECRET && OAUTH_REFRESH_TOKEN);
@@ -277,8 +283,13 @@ function collectFiles() {
 			// Срезаем суффикс «-social» у файлов из content/social/
 			if (suffix && slug.endsWith(suffix)) slug = slug.slice(0, -suffix.length);
 
-			if (SLUG_FILTER) {
-				if (slug !== SLUG_FILTER && !slug.includes(SLUG_FILTER)) continue;
+			if (HAS_SLUG_FILTER) {
+				// Совпадение по любому из перечисленных slug (точное или
+				// подстрока — чтобы можно было писать без префикса даты).
+				const matches = SLUG_FILTER_LIST.some(
+					s => slug === s || slug.includes(s),
+				);
+				if (!matches) continue;
 			} else if (!ALL) {
 				if (fm.status !== 'ready') continue;
 			}
@@ -306,7 +317,7 @@ const files = collectFiles();
 console.log(`Social → Google Docs`);
 console.log(`Папка Drive: ${FOLDER_ID || '(не задано)'}`);
 console.log(`Auth: ${HAS_SA ? 'Service Account' : HAS_OAUTH ? 'OAuth refresh_token' : '—'}`);
-console.log(`Режим: ${SLUG_FILTER ? `slug=${SLUG_FILTER}` : ALL ? 'ALL (без фильтра по status)' : 'только status: ready'}`);
+console.log(`Режим: ${HAS_SLUG_FILTER ? `slug=${SLUG_FILTER_LIST.join(',')}` : ALL ? 'ALL (без фильтра по status)' : 'только status: ready'}`);
 console.log(`Файлов: ${files.length}\n`);
 
 if (files.length === 0) {
