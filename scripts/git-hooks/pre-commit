@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
-# Запускает factcheck-guard. См. scripts/git-hooks/pre-commit-factcheck-guard.mjs.
+# Запускает гейты перед коммитом:
+# - factcheck-guard: маркер .claude/factchecked/<slug> для draft: false
+# - social-guard:    соцпосты в wiki/social или content/social
 # Для других проверок (lint, typecheck) — добавлять отдельные блоки ниже.
 
 set -e
 
-node "$(git rev-parse --show-toplevel)/scripts/git-hooks/pre-commit-factcheck-guard.mjs"
+ROOT="$(git rev-parse --show-toplevel)"
+node "$ROOT/scripts/git-hooks/pre-commit-factcheck-guard.mjs"
+node "$ROOT/scripts/git-hooks/pre-commit-social-guard.mjs"

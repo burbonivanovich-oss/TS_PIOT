@@ -38,6 +38,25 @@ argument-hint: "<slug>"
 
 Если файл не найден или `draft: false` — СТОП.
 
+### Шаг 1а — Social gate (блокер)
+
+Проверить наличие соцпостов для slug:
+
+```bash
+test -f src/content/wiki/social/SLUG.md \
+  || test -f src/content/social/SLUG-social.md \
+  || echo "MISSING"
+```
+
+Если соцпосты отсутствуют — **это блокер**. Не публиковать.
+Запустить агент `social-media-manager` для SLUG, сохранить в
+`src/content/wiki/social/SLUG.md` со `status: draft`, и только
+после этого продолжать со Шага 2.
+
+Это правило закрывает пробел, когда статья публиковалась без
+соцпостов и потом 23 материала оставались без покрытия для
+дистрибуции (см. `scripts/audit-social-coverage.mjs`).
+
 ---
 
 ## Шаг 2 — Перелинковка
