@@ -362,6 +362,29 @@ service-account email не нужно. Подробнее — `docs/SECRETS.md`
 **Идемпотентно:** повторный запуск находит документ с тем же
 именем в папке и обновляет содержимое, не создаёт дубль.
 
+### ⚠ Service Account даёт `storageQuotaExceeded`
+
+**Симптом:** при первом боевом запуске на всех файлах падает
+`403 The user's Drive storage quota has been exceeded`.
+
+**Причина:** Google service-account не имеет собственной квоты
+Drive. Даже если папка расшарена с ним и принадлежит вашему
+личному аккаунту с 15 ГБ — при создании файла объём учитывается
+в квоте **создателя** (= service-account = 0 ГБ).
+
+**Решение — переключиться на OAuth refresh_token (Способ B):**
+1. Удалить секрет `GOOGLE_DOCS_KEY` (или не задавать его)
+2. Добавить scope `https://www.googleapis.com/auth/drive.file`
+   в OAuth consent screen в Google Cloud
+3. Переполучить `GSC_REFRESH_TOKEN` с обновлённым scope (см.
+   раздел «Обходной путь через OAuth refresh_token» выше)
+4. Запустить workflow заново
+
+Скрипт автоматически переключается на OAuth, если SA даёт
+`storageQuotaExceeded` **и** OAuth-креды (`GSC_*`) тоже заданы.
+Если у вас только service-account — нужно либо переключиться
+на OAuth явно, либо подключить Workspace + Shared Drive.
+
 ---
 
 ## JINA_API_KEY и OPENAI_API_KEY
