@@ -29,13 +29,24 @@
 //   ALL=1                 — все файлы с status: ready (рекомендованный режим)
 //   DRY_RUN=1             — план без запросов
 
-import { readdirSync, readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createSign } from 'node:crypto';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SOCIAL_DIR = join(ROOT, 'src', 'content', 'wiki', 'social');
+
+// Два источника соцпостов с разной схемой именования:
+// 1. src/content/wiki/social/<slug>.md (37 файлов) — новый формат
+// 2. src/content/social/<slug>-social.md (22 файла) — параллельная
+//    коллекция Astro, суффикс -social. Создавалась ранее под другой
+//    скилл, но содержит полноценные посты для статей от 01.05.2026.
+//
+// Покрытие на момент написания: 59 из 83 опубликованных статей.
+const SOURCES = [
+	{ dir: join(ROOT, 'src', 'content', 'wiki', 'social'), suffix: '' },
+	{ dir: join(ROOT, 'src', 'content', 'social'),         suffix: '-social' },
+];
 
 const FOLDER_ID = process.env.GOOGLE_DOCS_FOLDER_ID || '';
 const RAW_KEY = process.env.GOOGLE_DOCS_KEY || '';
@@ -252,23 +263,41 @@ async function updateDoc(token, fileId, html) {
 
 // ─── Сбор файлов ─────────────────────────────────────────────────────────────
 function collectFiles() {
-  const files = readdirSync(SOCIAL_DIR).filter(f => /\.(md|mdx)$/.test(f));
-  const out = [];
-  for (const f of files) {
-    const fullPath = join(SOCIAL_DIR, f);
-    const content = readFileSync(fullPath, 'utf8');
-    const { fm, body } = parseFM(content);
-    const slug = f.replace(/\.(md|mdx)$/, '');
+	const out = [];
+	const seenSlugs = new Set();
 
-    if (SLUG_FILTER) {
-      if (slug !== SLUG_FILTER && !slug.includes(SLUG_FILTER)) continue;
-    } else if (!ALL) {
-      // Без ALL и без SLUG — только status: ready
-      if (fm.status !== 'ready') continue;
-    }
-    out.push({ slug, fm, body });
-  }
-  return out;
+	for (const { dir, suffix } of SOURCES) {
+		if (!existsSync(dir)) continue;
+		const files = readdirSync(dir).filter(f => /\.(md|mdx)$/.test(f));
+		for (const f of files) {
+			const fullPath = join(dir, f);
+			const content = readFileSync(fullPath, 'utf8');
+			const { fm, body } = parseFM(content);
+			let slug = f.replace(/\.(md|mdx)$/, '');
+			// Срезаем суффикс «-social» у файлов из content/social/
+			if (suffix && slug.endsWith(suffix)) slug = slug.slice(0, -suffix.length);
+
+			if (SLUG_FILTER) {
+				if (slug !== SLUG_FILTER && !slug.includes(SLUG_FILTER)) continue;
+			} else if (!ALL) {
+				if (fm.status !== 'ready') continue;
+			}
+
+			// Анти-коллизия: если slug уже встречался — берём более свежий по mtime
+			if (seenSlugs.has(slug)) {
+				const existingIdx = out.findIndex(x => x.slug === slug);
+				const existingMtime = statSync(out[existingIdx].fullPath).mtimeMs;
+				const currentMtime = statSync(fullPath).mtimeMs;
+				if (currentMtime > existingMtime) {
+					out[existingIdx] = { slug, fm, body, fullPath };
+				}
+				continue;
+			}
+			seenSlugs.add(slug);
+			out.push({ slug, fm, body, fullPath });
+		}
+	}
+	return out;
 }
 
 // ─── Main ────────────────────────────────────────────────────────────────────
