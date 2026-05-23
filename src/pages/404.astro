@@ -1,6 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
+import { publishedPosts } from '../utils/posts';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { CATEGORIES, POPULAR_POSTS } from '../consts';
@@ -9,7 +9,7 @@ const title = 'Страница не найдена';
 const description =
 	'Такой страницы на «Этикетке» нет. Возможно, материал переехал — посмотрите ключевые материалы или перейдите в нужный раздел.';
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const allPosts = await publishedPosts();
 const bySlug = new Map(allPosts.map((p) => [p.id, p]));
 const popular = POPULAR_POSTS.map((slug) => bySlug.get(slug)).filter(
 	(p): p is NonNullable<typeof p> => Boolean(p),

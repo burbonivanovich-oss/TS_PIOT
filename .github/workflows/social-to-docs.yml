@@ -1,0 +1,57 @@
+name: Социальные посты → Google Docs
+
+# Выгружает черновики из src/content/wiki/social/ в Google Drive
+# как Google Docs. Один Doc на статью, идемпотентно: повторный
+# запуск обновляет существующий документ, не создаёт дубль.
+#
+# Скрипт: scripts/social-to-docs.mjs
+# Документация: docs/SECRETS.md → GOOGLE_DOCS_KEY
+
+on:
+  # Автоматически при изменении соц-черновиков в main:
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/wiki/social/**'
+      - 'src/content/social/**'
+
+  # Ручной запуск с фильтрами:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Slug конкретной статьи (пусто — по статусу)'
+        required: false
+        default: ''
+      all:
+        description: 'ALL=1 — выгрузить все, игнорируя status: ready'
+        required: false
+        default: '0'
+      dry_run:
+        description: 'DRY_RUN=1 — план без запросов'
+        required: false
+        default: '0'
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+
+      - name: Upload to Google Docs
+        env:
+          # Способ A — Service Account JSON (рекомендуется):
+          GOOGLE_DOCS_KEY:       ${{ secrets.GOOGLE_DOCS_KEY }}
+          GOOGLE_DOCS_FOLDER_ID: ${{ secrets.GOOGLE_DOCS_FOLDER_ID }}
+          # Способ B — OAuth refresh_token (если SA создавать не хочется,
+          # тот же GSC-токен со scope drive.file):
+          GSC_CLIENT_ID:     ${{ secrets.GSC_CLIENT_ID }}
+          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
+          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
+          SLUG:    ${{ inputs.slug || '' }}
+          ALL:     ${{ inputs.all || '0' }}
+          DRY_RUN: ${{ inputs.dry_run || '0' }}
+        run: node scripts/social-to-docs.mjs

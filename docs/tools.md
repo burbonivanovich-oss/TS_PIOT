@@ -190,6 +190,8 @@ Satori поддерживает `backgroundImage: url(data:image/png;base64,...)
 | `analytics/fetch-webmaster.mjs` | Яндекс.Вебмастер API → SQI + топ запросов |
 | `analytics/merge.mjs` | GSC + Метрика + Вебмастер + frontmatter → `articles.json` для `/dashboard/` |
 | `ord-register.mjs`, `ord-bootstrap.mjs`, `ord-status.mjs` | ОРД Яндекса (рекламные креативы) |
+| `social-to-docs.mjs` | Выгружает соц-черновики из `src/content/wiki/social/` в Google Docs. Идемпотентно: повторный запуск обновляет документ |
+| `indexnow.mjs`, `google-index.mjs` | Уведомление поисковиков (Яндекс / Google) о новых страницах после деплоя |
 
 Запуск: `node scripts/<имя>.mjs`. Большинство скриптов запускается
 через GitHub Actions, не локально — ключи в Secrets. Локально —

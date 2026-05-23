@@ -1,5 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -8,9 +7,9 @@ import Quiz from '../components/Quiz';
 import PopupBanner from '../components/PopupBanner';
 import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { u } from '../utils/url';
+import { publishedPosts } from '../utils/posts';
 
-const now = new Date();
-const posts = (await getCollection('blog', ({ data }) => !data.draft && data.pubDate <= now)).sort(
+const posts = (await publishedPosts()).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
