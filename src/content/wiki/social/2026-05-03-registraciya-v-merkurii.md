@@ -14,7 +14,7 @@ createdDate: "2026-05-03"
 
 Частая ошибка: указать только юридический адрес, не внося фактические торговые точки. Тогда при попытке погасить ВСД по фактическому адресу система выдаст ошибку.
 
-этикетка.рф/blog/registraciya-v-merkurii/
+etiketka-media.ru/blog/registraciya-v-merkurii/
 
 ---
 
@@ -90,7 +90,7 @@ createdDate: "2026-05-03"
 Подключить Контур.Маркет: kontur.ru/market/kkt
 Реклама. АО «ПФ „СКБ Контур“», ИНН 6663003127. erid: HuNbC4MfXEEAXiQhHRaXLkvNxqSftLNsmFxTm6nMgynW13oUBJ
 
-Полная нормативная база и пошаговая инструкция — на этикетка.рф/blog/registraciya-v-merkurii/
+Полная нормативная база и пошаговая инструкция — на etiketka-media.ru/blog/registraciya-v-merkurii/
 
 #меркурий #всд #россельхознадзор #малыйбизнес #ветеринария
 
