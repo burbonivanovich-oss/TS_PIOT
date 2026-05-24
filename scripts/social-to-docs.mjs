@@ -327,11 +327,15 @@ async function upsertArticle(token, { slug, fm, body }) {
 	const defaultTabId = doc1.tabs?.[0]?.tabProperties?.tabId;
 	if (!defaultTabId) throw new Error(`У ${docId} нет tabId дефолтной вкладки`);
 
-	// Структурные операции: переименование + создание вкладок
+	// Структурные операции: переименование + создание вкладок.
+	// Согласно discovery doc Docs API v1:
+	//   UpdateDocumentTabPropertiesRequest = { tabProperties: TabProperties, fields }
+	//   AddDocumentTabRequest              = { tabProperties: TabProperties }
+	//   AddDocumentTabResponse             = { tabProperties: TabProperties }
+	// tabId — поле TabProperties.
 	const structReqs = [{
 		updateDocumentTabProperties: {
-			tabId: defaultTabId,
-			tabProperties: { title: 'Чек-лист публикации' },
+			tabProperties: { tabId: defaultTabId, title: 'Чек-лист публикации' },
 			fields: 'title',
 		},
 	}];
@@ -340,14 +344,17 @@ async function upsertArticle(token, { slug, fm, body }) {
 			addDocumentTab: { tabProperties: { title: name } },
 		});
 	}
-	await batchUpdate(token, docId, structReqs);
+	const structResp = await batchUpdate(token, docId, structReqs);
 
-	// Перечитываем документ — собираем tabId по title
-	const doc2 = await getDocument(token, docId, true);
-	const tabIdByTitle = {};
-	for (const t of doc2.tabs || []) {
-		const title = t.tabProperties?.title;
-		if (title) tabIdByTitle[title] = t.tabProperties.tabId;
+	// Собираем tabId по title. Дефолтный — уже знаем; новые — из replies.
+	const tabIdByTitle = { 'Чек-лист публикации': defaultTabId };
+	const replies = structResp.replies || [];
+	for (let i = 0; i < platforms.length; i++) {
+		// replies[0] — ответ на rename (пустой), replies[1+i] — addDocumentTab
+		const r = replies[1 + i];
+		const newTabId = r?.addDocumentTab?.tabProperties?.tabId;
+		if (!newTabId) throw new Error(`Не получили tabId для вкладки ${platforms[i]}: ${JSON.stringify(r)}`);
+		tabIdByTitle[platforms[i]] = newTabId;
 	}
 
 	// Контент по вкладкам
