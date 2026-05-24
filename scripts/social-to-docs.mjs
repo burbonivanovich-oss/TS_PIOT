@@ -327,11 +327,12 @@ async function upsertArticle(token, { slug, fm, body }) {
 	const defaultTabId = doc1.tabs?.[0]?.tabProperties?.tabId;
 	if (!defaultTabId) throw new Error(`У ${docId} нет tabId дефолтной вкладки`);
 
-	// Структурные операции: переименование + создание вкладок
+	// Структурные операции: переименование + создание вкладок.
+	// tabId находится ВНУТРИ tabProperties (паттерн Sheets/Slides API),
+	// поле fields указывает что обновляем относительно tabProperties.
 	const structReqs = [{
 		updateDocumentTabProperties: {
-			tabId: defaultTabId,
-			tabProperties: { title: 'Чек-лист публикации' },
+			tabProperties: { tabId: defaultTabId, title: 'Чек-лист публикации' },
 			fields: 'title',
 		},
 	}];
