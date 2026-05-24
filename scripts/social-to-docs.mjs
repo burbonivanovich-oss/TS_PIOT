@@ -1,25 +1,26 @@
 #!/usr/bin/env node
 // Выгружает социальные черновики в Google Drive как многотабовые
-// Google Docs. Один Doc на одну статью. Структура вкладок:
-//   1. Чек-лист публикации (интерактивные чекбоксы)
+// Google Docs. Один Doc на одну статью. Вкладки:
+//   1. Чек-лист публикации (интерактивный, с чекбоксами)
 //   2. Telegram
 //   3. VK
 //   4. Дзен
 //   5. Email
 //
-// Каждая платформа — отдельная вкладка (Tab) Google Docs. Чек-лист —
-// настоящий interactive checklist через CreateParagraphBullets с
-// BULLET_CHECKBOX preset.
+// Используются недокументированные на главной странице, но рабочие
+// request-типы Docs API v1:
+//   - addDocumentTab            (создаёт вкладку)
+//   - updateDocumentTabProperties (переименование, иконка)
+//   - deleteTab                  (удаление)
 //
-// Идемпотентно: если Doc с тем же именем уже есть в папке —
-// удаляется и пересоздаётся (чтобы пересобрать вкладки чисто).
+// Идемпотентно: если Doc с тем же именем уже есть в папке — удаляется
+// и пересоздаётся, чтобы вкладки пересобирались чисто.
 //
 // API:
 // - Drive  POST /v3/files                 — создание пустого Doc
 // - Drive  GET  /v3/files?q=...           — поиск существующих
 // - Drive  DELETE /v3/files/{id}          — удаление перед пересборкой
-// - Docs   GET  /v1/documents/{id}        — получение tabId
-// - Docs   POST /v1/documents/{id}:batchUpdate — заполнение вкладок
+// - Docs   POST /v1/documents/{id}:batchUpdate — заполнение содержимым
 //
 // Аутентификация — Service Account (GOOGLE_DOCS_KEY) или OAuth
 // refresh_token (GSC_CLIENT_ID/SECRET/REFRESH_TOKEN).
@@ -221,160 +222,7 @@ async function batchUpdate(token, docId, requests) {
 	return JSON.parse(text);
 }
 
-// ─── Markdown → Docs requests ────────────────────────────────────────────────
-// Преобразует markdown в массив { text, isHeading, isBullet } сегментов
-// для последовательной вставки. Поддерживает: ### заголовки, **bold**,
-// [text](url), маркеры "—" в начале строки = bullet.
-function mdToSegments(md) {
-	const segments = [];
-	const lines = md.split('\n');
-	for (const line of lines) {
-		const trimmed = line.trim();
-		if (trimmed === '---' || trimmed === '') {
-			segments.push({ type: 'blank' });
-			continue;
-		}
-		const h3 = trimmed.match(/^###\s+(.+)$/);
-		if (h3) {
-			segments.push({ type: 'heading', text: h3[1] });
-			continue;
-		}
-		// Маркер "—" в начале — буллет
-		const bullet = trimmed.match(/^—\s+(.+)$/);
-		if (bullet) {
-			segments.push({ type: 'bullet', text: bullet[1] });
-			continue;
-		}
-		segments.push({ type: 'para', text: trimmed });
-	}
-	return segments;
-}
-
-// Сегменты → массив текстовых блоков (для вставки одним InsertText + стилей)
-function segmentsToInserts(segments) {
-	// Возвращаем: { text, styles: [{startOffset, endOffset, kind}], ... }
-	const out = [];
-	let text = '';
-	const styles = [];
-	let bulletStart = -1;
-
-	function flush() {
-		if (text) out.push({ text, styles: styles.slice() });
-		text = '';
-		styles.length = 0;
-		bulletStart = -1;
-	}
-
-	for (const seg of segments) {
-		if (seg.type === 'blank') {
-			text += '\n';
-			continue;
-		}
-		const start = text.length;
-		const line = seg.text + '\n';
-		text += line;
-		const end = text.length;
-		if (seg.type === 'heading') {
-			styles.push({ kind: 'heading', start, end });
-		} else if (seg.type === 'bullet') {
-			styles.push({ kind: 'bullet', start, end });
-		}
-	}
-	flush();
-	return out;
-}
-
-// Сборка batchUpdate-запросов для вставки контента в указанную вкладку
-function buildContentRequests(tabId, md) {
-	const segments = mdToSegments(md);
-	if (segments.length === 0) return [];
-
-	// Собираем единый текст с метаданными для последующего стилирования
-	let text = '';
-	const headingRanges = [];
-	const bulletRanges = [];
-	const boldRanges = [];
-	const linkRanges = [];
-
-	for (const seg of segments) {
-		if (seg.type === 'blank') {
-			text += '\n';
-			continue;
-		}
-		const start = text.length;
-		// Inline markdown: **bold**, [text](url) — извлекаем и сохраняем диапазоны
-		const inline = processInline(seg.text);
-		const segStart = text.length;
-		text += inline.text;
-		for (const b of inline.bold) {
-			boldRanges.push({ start: segStart + b.start, end: segStart + b.end });
-		}
-		for (const l of inline.links) {
-			linkRanges.push({ start: segStart + l.start, end: segStart + l.end, url: l.url });
-		}
-		text += '\n';
-		const end = text.length; // включает \n
-		if (seg.type === 'heading') headingRanges.push({ start, end });
-		else if (seg.type === 'bullet') bulletRanges.push({ start, end });
-	}
-
-	if (!text.trim()) return [];
-
-	const requests = [];
-	// Вставка текста в начало body вкладки (index 1)
-	requests.push({
-		insertText: {
-			location: { tabId, index: 1 },
-			text,
-		},
-	});
-
-	// Заголовки → HEADING_2
-	for (const r of headingRanges) {
-		requests.push({
-			updateParagraphStyle: {
-				range: { tabId, startIndex: 1 + r.start, endIndex: 1 + r.end },
-				paragraphStyle: { namedStyleType: 'HEADING_2' },
-				fields: 'namedStyleType',
-			},
-		});
-	}
-
-	// Bullets — обычные маркированные списки (для буллетов "—" из соцпостов)
-	for (const r of bulletRanges) {
-		requests.push({
-			createParagraphBullets: {
-				range: { tabId, startIndex: 1 + r.start, endIndex: 1 + r.end },
-				bulletPreset: 'BULLET_DISC_CIRCLE_SQUARE',
-			},
-		});
-	}
-
-	// Bold
-	for (const r of boldRanges) {
-		requests.push({
-			updateTextStyle: {
-				range: { tabId, startIndex: 1 + r.start, endIndex: 1 + r.end },
-				textStyle: { bold: true },
-				fields: 'bold',
-			},
-		});
-	}
-
-	// Links
-	for (const l of linkRanges) {
-		requests.push({
-			updateTextStyle: {
-				range: { tabId, startIndex: 1 + l.start, endIndex: 1 + l.end },
-				textStyle: { link: { url: l.url } },
-				fields: 'link',
-			},
-		});
-	}
-
-	return requests;
-}
-
+// ─── Markdown → текст + диапазоны стилей ─────────────────────────────────────
 // Inline: **bold** и [text](url). Возвращает чистый текст + диапазоны
 function processInline(line) {
 	let text = '';
@@ -448,105 +296,204 @@ function collectFiles() {
 }
 
 // ─── Основной upsert одной статьи ────────────────────────────────────────────
+//
+// Поток:
+//   1. Если Doc с таким именем уже есть — удаляем (чистая пересборка).
+//   2. Drive: создаём пустой Doc.
+//   3. Docs GET с includeTabsContent=true → получаем tabId дефолтной вкладки.
+//   4. Docs batchUpdate №1:
+//        - updateDocumentTabProperties: переименовать дефолтную вкладку в «Чек-лист публикации».
+//        - addDocumentTab × N: создать вкладки Telegram, VK, Дзен, Email.
+//   5. Docs GET ещё раз — собрать tabId всех вкладок (через title).
+//   6. Docs batchUpdate №2: вставить контент в каждую вкладку,
+//      используя location.tabId.
 async function upsertArticle(token, { slug, fm, body }) {
 	const dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/);
 	const datePart = dateMatch ? ` · ${dateMatch[1]}` : '';
 	const docName = fm.title ? `${fm.title}${datePart}` : slug;
 
-	// Удаляем старую версию, если есть — чтобы пересобрать вкладки чисто
 	const existing = await findExisting(token, docName);
-	if (existing) {
-		await deleteDoc(token, existing.id);
-	}
+	if (existing) await deleteDoc(token, existing.id);
 
-	// Создаём пустой Doc
 	const created = await createEmptyDoc(token, docName);
 	const docId = created.id;
 
-	// Получаем tabId дефолтной вкладки
-	const doc = await getDocument(token, docId);
-	const defaultTabId = doc.tabs?.[0]?.tabProperties?.tabId;
-	if (!defaultTabId) throw new Error(`У документа ${docId} не получили tabId дефолтной вкладки`);
-
-	// Шапка с ссылкой на статью — в первый абзац дефолтной вкладки
 	const articleUrl = fm.articleUrl ? `https://etiketka-media.ru${fm.articleUrl}` : '';
+	const sections = splitPlatforms(body);
+	const platforms = ['Telegram', 'VK', 'Дзен', 'Email'].filter(p => sections[p]?.trim());
 
-	// ── Дефолтная вкладка → переименовываем в «Чек-лист публикации» ──────────
-	// + вставляем интерактивный чек-лист
+	// Получаем tabId дефолтной вкладки
+	const doc1 = await getDocument(token, docId, true);
+	const defaultTabId = doc1.tabs?.[0]?.tabProperties?.tabId;
+	if (!defaultTabId) throw new Error(`У ${docId} нет tabId дефолтной вкладки`);
+
+	// Структурные операции: переименование + создание вкладок
+	const structReqs = [{
+		updateDocumentTabProperties: {
+			tabId: defaultTabId,
+			tabProperties: { title: 'Чек-лист публикации' },
+			fields: 'title',
+		},
+	}];
+	for (const name of platforms) {
+		structReqs.push({
+			addDocumentTab: { tabProperties: { title: name } },
+		});
+	}
+	await batchUpdate(token, docId, structReqs);
+
+	// Перечитываем документ — собираем tabId по title
+	const doc2 = await getDocument(token, docId, true);
+	const tabIdByTitle = {};
+	for (const t of doc2.tabs || []) {
+		const title = t.tabProperties?.title;
+		if (title) tabIdByTitle[title] = t.tabProperties.tabId;
+	}
+
+	// Контент по вкладкам
+	const contentReqs = [];
+	contentReqs.push(...buildChecklistRequests(tabIdByTitle['Чек-лист публикации'], fm.title || slug, articleUrl));
+	for (const name of platforms) {
+		const tabId = tabIdByTitle[name];
+		if (!tabId) throw new Error(`Не нашли tabId для вкладки ${name}`);
+		contentReqs.push(...buildPlatformRequests(tabId, sections[name]));
+	}
+	if (contentReqs.length > 0) {
+		await batchUpdate(token, docId, contentReqs);
+	}
+	return created;
+}
+
+// Чек-лист публикации: TITLE + ссылка + HEADING_1 + чекбоксы.
+function buildChecklistRequests(tabId, articleTitle, articleUrl) {
+	const requests = [];
+	let text = articleTitle + '\n';
+	const titleEnd = text.length;
+	let linkRange = null;
+	if (articleUrl) {
+		const before = 'Статья на сайте: ';
+		const linkStart = text.length + before.length;
+		text += before + articleUrl + '\n\n';
+		linkRange = { start: linkStart, end: linkStart + articleUrl.length, url: articleUrl };
+	}
 	const checklistItems = [
 		'Telegram — опубликовано',
 		'VK — опубликовано',
 		'Дзен — опубликовано (с CPA-врезкой и erid)',
 		'Email — отправлено в рассылку',
 	];
-	const checklistText = checklistItems.map(s => s + '\n').join('');
-	const articleLineText = articleUrl ? `Статья на сайте: ${articleUrl}\n\n` : '';
+	const checklistStart = text.length;
+	for (const item of checklistItems) text += item + '\n';
+	const checklistEnd = text.length;
 
-	const renameReqs = [{
-		updateTabProperties: {
-			tabId: defaultTabId,
-			tabProperties: { title: 'Чек-лист публикации' },
-			fields: 'title',
+	requests.push({ insertText: { location: { tabId, index: 1 }, text } });
+	requests.push({
+		updateParagraphStyle: {
+			range: { tabId, startIndex: 1, endIndex: 1 + titleEnd },
+			paragraphStyle: { namedStyleType: 'TITLE' },
+			fields: 'namedStyleType',
 		},
-	}];
-	await batchUpdate(token, docId, renameReqs);
-
-	const checklistReqs = [];
-	let cursor = 1;
-	if (articleLineText) {
-		checklistReqs.push({
-			insertText: { location: { tabId: defaultTabId, index: cursor }, text: articleLineText },
-		});
-		// Ссылка как hyperlink на article URL внутри строки
-		const linkStart = cursor + 'Статья на сайте: '.length;
-		const linkEnd = linkStart + articleUrl.length;
-		checklistReqs.push({
+	});
+	if (linkRange) {
+		requests.push({
 			updateTextStyle: {
-				range: { tabId: defaultTabId, startIndex: linkStart, endIndex: linkEnd },
-				textStyle: { link: { url: articleUrl } },
+				range: { tabId, startIndex: 1 + linkRange.start, endIndex: 1 + linkRange.end },
+				textStyle: { link: { url: linkRange.url } },
 				fields: 'link',
 			},
 		});
-		cursor += articleLineText.length;
 	}
-	checklistReqs.push({
-		insertText: { location: { tabId: defaultTabId, index: cursor }, text: checklistText },
-	});
-	const checklistStart = cursor;
-	const checklistEnd = cursor + checklistText.length;
-	checklistReqs.push({
+	requests.push({
 		createParagraphBullets: {
-			range: { tabId: defaultTabId, startIndex: checklistStart, endIndex: checklistEnd },
+			range: { tabId, startIndex: 1 + checklistStart, endIndex: 1 + checklistEnd },
 			bulletPreset: 'BULLET_CHECKBOX',
 		},
 	});
-	await batchUpdate(token, docId, checklistReqs);
+	return requests;
+}
 
-	// ── Платформенные вкладки ────────────────────────────────────────────────
-	const sections = splitPlatforms(body);
-	const platforms = ['Telegram', 'VK', 'Дзен', 'Email'];
-
-	for (const name of platforms) {
-		const md = sections[name] || '';
-		if (!md.trim()) continue;
-
-		// Создаём вкладку
-		const createResp = await batchUpdate(token, docId, [{
-			createTab: {
-				tabProperties: { title: name },
+// Контент одной платформенной вкладки: текст + стили из md (### → HEADING_2,
+// **bold**, [text](url), буллеты «—»).
+function buildPlatformRequests(tabId, md) {
+	const inline = parseMdInline(md);
+	if (!inline.text) return [];
+	const requests = [];
+	requests.push({ insertText: { location: { tabId, index: 1 }, text: inline.text } });
+	for (const h of inline.headings) {
+		requests.push({
+			updateParagraphStyle: {
+				range: { tabId, startIndex: 1 + h.start, endIndex: 1 + h.end },
+				paragraphStyle: { namedStyleType: 'HEADING_2' },
+				fields: 'namedStyleType',
 			},
-		}]);
-		const newTabId = createResp.replies?.[0]?.createTab?.tabProperties?.tabId;
-		if (!newTabId) throw new Error(`Не получили tabId для вкладки ${name}`);
-
-		// Заполняем
-		const contentReqs = buildContentRequests(newTabId, md);
-		if (contentReqs.length > 0) {
-			await batchUpdate(token, docId, contentReqs);
-		}
+		});
 	}
+	for (const r of inline.bullets) {
+		requests.push({
+			createParagraphBullets: {
+				range: { tabId, startIndex: 1 + r.start, endIndex: 1 + r.end },
+				bulletPreset: 'BULLET_DISC_CIRCLE_SQUARE',
+			},
+		});
+	}
+	for (const r of inline.bold) {
+		requests.push({
+			updateTextStyle: {
+				range: { tabId, startIndex: 1 + r.start, endIndex: 1 + r.end },
+				textStyle: { bold: true },
+				fields: 'bold',
+			},
+		});
+	}
+	for (const l of inline.links) {
+		requests.push({
+			updateTextStyle: {
+				range: { tabId, startIndex: 1 + l.start, endIndex: 1 + l.end },
+				textStyle: { link: { url: l.url } },
+				fields: 'link',
+			},
+		});
+	}
+	return requests;
+}
 
-	return created;
+// Парсер md-блока: возвращает плоский текст + диапазоны для headings/bullets/bold/links
+function parseMdInline(md) {
+	let text = '';
+	const headings = [];
+	const bullets = [];
+	const bold = [];
+	const links = [];
+
+	const lines = md.split('\n');
+	for (const line of lines) {
+		const trimmed = line.trim();
+		if (trimmed === '---' || trimmed === '') {
+			text += '\n';
+			continue;
+		}
+		const h3 = trimmed.match(/^###\s+(.+)$/);
+		if (h3) {
+			const start = text.length;
+			text += h3[1] + '\n';
+			headings.push({ start, end: text.length });
+			continue;
+		}
+		const bul = trimmed.match(/^—\s+(.+)$/);
+		if (bul) {
+			const start = text.length;
+			text += bul[1] + '\n';
+			bullets.push({ start, end: text.length });
+			continue;
+		}
+		// Обычный абзац — обрабатываем inline **bold** и [text](url)
+		const start = text.length;
+		const inline = processInline(trimmed);
+		text += inline.text + '\n';
+		for (const r of inline.bold) bold.push({ start: start + r.start, end: start + r.end });
+		for (const l of inline.links) links.push({ start: start + l.start, end: start + l.end, url: l.url });
+	}
+	return { text: text.replace(/\n+$/, ''), headings, bullets, bold, links };
 }
 
 // ─── Main ────────────────────────────────────────────────────────────────────
