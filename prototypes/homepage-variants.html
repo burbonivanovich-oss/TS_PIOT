@@ -391,6 +391,191 @@
 		border-bottom: 2px solid transparent;
 	}
 	.v3-cats-footer a:hover { border-color: var(--pink); }
+
+	/* ─── ВАРИАНТ 4: Контент-first ─── */
+	.v4-featured {
+		display: grid;
+		grid-template-columns: 7fr 5fr;
+		gap: 0;
+		margin-bottom: 48px;
+		text-decoration: none;
+		color: var(--dark);
+		background: #fff;
+		border: 1px solid var(--border);
+	}
+	.v4-featured-img {
+		background: linear-gradient(135deg, #FF4D8F 0%, #9E2B4F 50%, #1E4A7A 100%);
+		min-height: 360px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: rgba(255,255,255,0.25);
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 14rem;
+		line-height: 1;
+	}
+	.v4-featured-body {
+		padding: 40px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	.v4-featured-cat {
+		display: inline-block;
+		background: var(--pink);
+		color: #fff;
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		padding: 4px 10px;
+		width: fit-content;
+		margin-bottom: 16px;
+	}
+	.v4-featured-title {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 2.4rem;
+		letter-spacing: 0.02em;
+		line-height: 1.05;
+		margin: 0 0 16px;
+	}
+	.v4-featured-desc {
+		font-size: 1rem;
+		color: var(--muted);
+		line-height: 1.55;
+		margin: 0 0 24px;
+	}
+	.v4-featured-meta {
+		font-size: 0.75rem;
+		color: var(--muted);
+		display: flex;
+		gap: 16px;
+	}
+
+	.v4-feed-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 16px;
+		margin-bottom: 48px;
+	}
+	.v4-feed-grid .post-card {
+		background: #fff;
+	}
+
+	/* Большая карточка слева, две поменьше справа — для подсветки топ-3 */
+	.v4-mixed {
+		display: grid;
+		grid-template-columns: 7fr 5fr;
+		gap: 16px;
+		margin-bottom: 48px;
+	}
+	.v4-mixed-main {
+		background: #fff;
+		border: 1px solid var(--border);
+		display: flex;
+		flex-direction: column;
+		text-decoration: none;
+		color: var(--dark);
+	}
+	.v4-mixed-main .post-img {
+		height: 260px;
+	}
+	.v4-mixed-main .post-body {
+		padding: 24px;
+	}
+	.v4-mixed-main .post-title {
+		font-size: 1.4rem;
+		line-height: 1.25;
+	}
+	.v4-mixed-side {
+		display: grid;
+		grid-template-rows: 1fr 1fr;
+		gap: 16px;
+	}
+	.v4-mixed-side .post-card {
+		display: grid;
+		grid-template-columns: 140px 1fr;
+		gap: 0;
+	}
+	.v4-mixed-side .post-img {
+		height: 100%;
+		min-height: 140px;
+	}
+	.v4-mixed-side .post-body {
+		padding: 16px;
+	}
+
+	/* Тонкая полоса с разделами */
+	.v4-cats-strip {
+		display: flex;
+		gap: 0;
+		margin-bottom: 48px;
+		border-top: 1px solid var(--border);
+		border-bottom: 1px solid var(--border);
+	}
+	.v4-cat-tab {
+		flex: 1;
+		padding: 16px 12px;
+		text-align: center;
+		text-decoration: none;
+		color: var(--dark);
+		border-right: 1px solid var(--border);
+		transition: background 0.15s;
+	}
+	.v4-cat-tab:last-child { border-right: none; }
+	.v4-cat-tab:hover { background: var(--sand); }
+	.v4-cat-tab-name {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		margin-bottom: 2px;
+	}
+	.v4-cat-tab-count {
+		font-size: 0.7rem;
+		color: var(--muted);
+	}
+	.v4-cat-tab-marker {
+		display: inline-block;
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		margin-right: 6px;
+		vertical-align: middle;
+	}
+
+	/* Компактная горизонтальная полоса инструментов в самом низу */
+	.v4-tools-strip {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 8px;
+	}
+	.v4-tool-mini {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 16px;
+		text-decoration: none;
+		color: var(--dark);
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		min-height: 90px;
+		justify-content: space-between;
+		transition: border-color 0.15s;
+	}
+	.v4-tool-mini:hover { border-color: var(--dark); }
+	.v4-tool-mini-eyebrow {
+		font-size: 0.62rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--pink);
+	}
+	.v4-tool-mini-name {
+		font-size: 0.9rem;
+		font-weight: 600;
+		line-height: 1.25;
+	}
 </style>
 </head>
 <body>
@@ -711,6 +896,172 @@
 			<a href="#">ЕГАИС (12)</a>
 			<a href="#">Все инструменты</a>
 		</div>
+	</div>
+</section>
+
+
+<!-- ═══════════════ ВАРИАНТ 4 ═══════════════ -->
+<section class="variant">
+	<div class="variant-label">Вариант 4</div>
+	<h2 class="variant-title">Контент-first</h2>
+	<p class="variant-note">
+		Контент сверху, навигация снизу. Сразу после Hero —
+		featured статья (большая карточка), потом смешанная сетка из топ-3
+		свежих, потом ещё 6 в равной сетке. Разделы — тонкая полоса-табы.
+		Инструменты — компактная горизонтальная полоса в самом низу как футер-виджет.
+		Этим логика «B2B-портал, контент главное» — то что делают BBC, Bloomberg, Tinkoff Journal.
+	</p>
+
+	<div class="hero">
+		<span class="hero-eyebrow">Медиа для бизнеса</span>
+		<h1>РАЗБИРАЕМ ТРЕБОВАНИЯ, КОТОРЫЕ ДОГОНЯЮТ БИЗНЕС</h1>
+		<p>ТС ПИоТ для онлайн-касс, маркировка «Честный знак», налоги, ЭДО и трудовое законодательство — понятно и без паники.</p>
+		<a href="#" class="btn">Все статьи</a>
+	</div>
+
+	<!-- Featured: большая карточка свежий флагман -->
+	<a href="#" class="v4-featured">
+		<div class="v4-featured-img">ТС</div>
+		<div class="v4-featured-body">
+			<div>
+				<div class="v4-featured-cat">Законодательство · Pillar</div>
+				<h3 class="v4-featured-title">140-ФЗ: переход на ЭПД с 01.09.2026 для МСБ</h3>
+				<p class="v4-featured-desc">Что меняет 140-ФЗ от 07.06.2025: обязательный переход на электронные перевозочные документы с 01.09.2026, штрафы по ст. 11.14.3 КоАП, подключение к ГИС ЭПД для ИП и юрлиц.</p>
+			</div>
+			<div class="v4-featured-meta">
+				<span>25 мая · 12 мин</span>
+				<span>Реклама · Диадок: Логистика</span>
+			</div>
+		</div>
+	</a>
+
+	<!-- Mixed: одна большая + 2 поменьше — топ-3 свежих -->
+	<div class="section-label">Свежее <a href="#" class="see-all">См. все →</a></div>
+	<div class="v4-mixed">
+		<a href="#" class="v4-mixed-main">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ТС ПИоТ</div>
+				<div class="post-title">ТС ПИоТ без интернета: как работает касса при потере связи</div>
+				<div class="post-date">25 мая · 7 мин</div>
+			</div>
+		</a>
+		<div class="v4-mixed-side">
+			<a href="#" class="post-card">
+				<div class="post-img"></div>
+				<div class="post-body">
+					<div class="post-cat">Маркировка</div>
+					<div class="post-title">Автомобильные жидкости: разрешительный режим с 1 октября 2026</div>
+					<div class="post-date">24 мая</div>
+				</div>
+			</a>
+			<a href="#" class="post-card">
+				<div class="post-img"></div>
+				<div class="post-body">
+					<div class="post-cat">Законодательство</div>
+					<div class="post-title">Закон о маркетплейсах 289-ФЗ: что изменится</div>
+					<div class="post-date">24 мая</div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<!-- Тонкая полоса с разделами в виде табов -->
+	<div class="v4-cats-strip">
+		<a href="#" class="v4-cat-tab">
+			<div class="v4-cat-tab-name"><span class="v4-cat-tab-marker" style="background:var(--pink)"></span>ТС ПИоТ</div>
+			<div class="v4-cat-tab-count">9 материалов</div>
+		</a>
+		<a href="#" class="v4-cat-tab">
+			<div class="v4-cat-tab-name"><span class="v4-cat-tab-marker" style="background:var(--lime)"></span>Маркировка</div>
+			<div class="v4-cat-tab-count">21 материал</div>
+		</a>
+		<a href="#" class="v4-cat-tab">
+			<div class="v4-cat-tab-name"><span class="v4-cat-tab-marker" style="background:var(--navy)"></span>Законодательство</div>
+			<div class="v4-cat-tab-count">25 материалов</div>
+		</a>
+		<a href="#" class="v4-cat-tab">
+			<div class="v4-cat-tab-name"><span class="v4-cat-tab-marker" style="background:var(--purple)"></span>Кассы</div>
+			<div class="v4-cat-tab-count">16 материалов</div>
+		</a>
+		<a href="#" class="v4-cat-tab">
+			<div class="v4-cat-tab-name"><span class="v4-cat-tab-marker" style="background:var(--green)"></span>ЕГАИС</div>
+			<div class="v4-cat-tab-count">12 материалов</div>
+		</a>
+	</div>
+
+	<!-- Лента — ещё статей -->
+	<div class="section-label">Все материалы за неделю <a href="#" class="see-all">См. все →</a></div>
+	<div class="v4-feed-grid">
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ТС ПИоТ</div>
+				<div class="post-title">ТС ПИоТ vs ОФД: что подключать в 2026</div>
+				<div class="post-date">23 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ТС ПИоТ</div>
+				<div class="post-title">ТС ПИоТ и 1С: как интегрировать модуль</div>
+				<div class="post-date">22 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ЕГАИС</div>
+				<div class="post-title">Учёт разливного пива в баре с 2026</div>
+				<div class="post-date">22 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">Кассы</div>
+				<div class="post-title">Виды ККТ 2026: автономные кассы, смарт-терминалы</div>
+				<div class="post-date">21 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ЕГАИС</div>
+				<div class="post-title">Подключение УТМ ЕГАИС с нуля</div>
+				<div class="post-date">21 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">Законодательство</div>
+				<div class="post-title">Страховые взносы МСП в 2026: пониженный тариф 15%</div>
+				<div class="post-date">20 мая</div>
+			</div>
+		</a>
+	</div>
+
+	<!-- Инструменты — компактная полоса в самом низу -->
+	<div class="section-label">Инструменты и калькуляторы <a href="#" class="see-all">Все →</a></div>
+	<div class="v4-tools-strip">
+		<a href="#" class="v4-tool-mini">
+			<div class="v4-tool-mini-eyebrow">Симулятор · 7 шагов</div>
+			<div class="v4-tool-mini-name">Как живёт чек в ТС ПИоТ →</div>
+		</a>
+		<a href="#" class="v4-tool-mini">
+			<div class="v4-tool-mini-eyebrow">Тест · 2 минуты</div>
+			<div class="v4-tool-mini-name">Готов ли бизнес к ТС ПИоТ →</div>
+		</a>
+		<a href="#" class="v4-tool-mini">
+			<div class="v4-tool-mini-eyebrow">Калькулятор</div>
+			<div class="v4-tool-mini-name">Расчёт штрафов КоАП →</div>
+		</a>
+		<a href="#" class="v4-tool-mini">
+			<div class="v4-tool-mini-eyebrow">Календарь</div>
+			<div class="v4-tool-mini-name">Сроки маркировки 2026 →</div>
+		</a>
 	</div>
 </section>
 
