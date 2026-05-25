@@ -3,10 +3,137 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
+import { u } from '../utils/url';
 
 const title = 'О проекте';
 const description =
 	'Этикетка — медиа для предпринимателей. Простым языком разбираем требования ТС ПИоТ, маркировки «Честный знак» и изменения в законодательстве.';
+
+interface SectionCard {
+	href: string;
+	eyebrow: string;
+	title: string;
+	description: string;
+	color: string;
+	icon: string;
+}
+
+const categories: SectionCard[] = [
+	{
+		href: '/category/ts-piot/',
+		eyebrow: 'Раздел',
+		title: 'ТС ПИоТ',
+		description:
+			'Программный модуль для онлайн-кассы — обязателен с 01.07.2026. Что подключать, как настроить, какие штрафы за отсутствие.',
+		color: '#9E2B4F',
+		icon: 'ТС',
+	},
+	{
+		href: '/category/markirovka/',
+		eyebrow: 'Раздел',
+		title: 'Маркировка',
+		description:
+			'«Честный знак» — категории товаров, сроки введения, разрешительный режим, поэкземплярный учёт, типичные ошибки.',
+		color: '#1E4A7A',
+		icon: 'МК',
+	},
+	{
+		href: '/category/zakonodatelstvo/',
+		eyebrow: 'Раздел',
+		title: 'Законодательство',
+		description:
+			'Налоги и ЕНС/ЕНП, ЭДО и КЭДО, проверки бизнеса, маркетплейсы, трудовое право, лимиты УСН и патент.',
+		color: '#AFCC00',
+		icon: 'ЗАК',
+	},
+	{
+		href: '/category/kkt/',
+		eyebrow: 'Раздел',
+		title: 'Кассы',
+		description:
+			'Онлайн-кассы по 54-ФЗ: регистрация в ФНС, ОФД, фискальные накопители, обзоры моделей АТОЛ/Эвотор/МСПОС.',
+		color: '#1E4A7A',
+		icon: 'ККТ',
+	},
+];
+
+const tools: SectionCard[] = [
+	{
+		href: '/kak-rabotaet-ts-piot/',
+		eyebrow: 'Флагман · 7 шагов',
+		title: 'Как живёт чек в ТС ПИоТ',
+		description:
+			'Интерактивный лонгрид: от сканирования DataMatrix до отметки «выведен из оборота». Шесть симуляторов, восемь иллюстраций.',
+		color: '#FF4D8F',
+		icon: 'ФЛАГ',
+	},
+	{
+		href: '/instrumenty/',
+		eyebrow: 'Каталог',
+		title: 'Инструменты',
+		description:
+			'Все интерактивы, тесты, тренажёры и сценарии в одном месте: квиз готовности к ТС ПИоТ, цепочка ЭДО, разбор по 30/60 дням.',
+		color: '#9E2B4F',
+		icon: 'ИНС',
+	},
+	{
+		href: '/kalkulyator-shtrafov/',
+		eyebrow: 'Калькулятор',
+		title: 'Расчёт штрафов',
+		description:
+			'Подставьте параметры — получите диапазон штрафа по актуальной редакции КоАП. Сценарии: ТС ПИоТ, маркировка, ККТ, ЭДО.',
+		color: '#AFCC00',
+		icon: 'КШ',
+	},
+	{
+		href: '/kalendar-markirovki/',
+		eyebrow: 'Календарь',
+		title: 'Сроки маркировки',
+		description:
+			'Все обязательные даты по категориям «Честного знака» на одной шкале: регистрация, передача данных, разрешительный режим.',
+		color: '#1E4A7A',
+		icon: 'КАЛ',
+	},
+];
+
+const services: SectionCard[] = [
+	{
+		href: '/zakon-2026/',
+		eyebrow: 'Трекер',
+		title: 'Закон 2026',
+		description:
+			'Хроника главных регуляторных изменений 2025–2026: что уже вступило, что вступит, кого касается, сроки и санкции.',
+		color: '#9E2B4F',
+		icon: '2026',
+	},
+	{
+		href: '/slovar/',
+		eyebrow: 'Словарь',
+		title: 'Термины простым языком',
+		description:
+			'ФФД, УТМ, ГИС МТ, ЕНС, ОФД — без юридического жаргона, с примерами из практики и ссылками на статьи.',
+		color: '#1E4A7A',
+		icon: 'СЛВ',
+	},
+	{
+		href: '/blog/',
+		eyebrow: 'Архив',
+		title: 'Все материалы',
+		description:
+			'Лента из 80+ разборов, гайдов и пояснений. Фильтр по тегам, поиск по содержимому, RSS-лента для подписки.',
+		color: '#AFCC00',
+		icon: 'БЛГ',
+	},
+	{
+		href: '/search/',
+		eyebrow: 'Поиск',
+		title: 'Найти по сайту',
+		description:
+			'Полнотекстовый поиск по статьям, словарю и инструментам через Pagefind. Работает офлайн, без серверных запросов.',
+		color: '#1E4A7A',
+		icon: 'ПСК',
+	},
+];
 ---
 
 <!doctype html>
@@ -39,24 +166,91 @@ const description =
 						проверки, трудовое право, лимиты УСН и патент.
 					</li>
 					<li>
-						<strong>Чек-листы и шаблоны.</strong> Готовые документы и пошаговые инструкции,
-						которые можно скачать и использовать в работе.
+						<strong>Интерактивы, калькуляторы и тренажёры.</strong> Не только тексты —
+						симуляторы пути чека, квизы готовности, расчёт штрафов и сроков.
 					</li>
 				</ul>
+
+				<h2>Тематические разделы</h2>
+				<p class="section-intro">
+					Четыре кластера материалов — выбирайте тот, который ближе к вашей задаче.
+				</p>
+				<div class="card-grid">
+					{categories.map((c) => (
+						<a class="nav-card" href={u(c.href)}>
+							<div class="card-icon" style={`background:${c.color}`}>
+								<span>{c.icon}</span>
+							</div>
+							<div class="card-body">
+								<p class="card-eyebrow">{c.eyebrow}</p>
+								<h3 class="card-title">{c.title}</h3>
+								<p class="card-desc">{c.description}</p>
+								<span class="card-cta">Открыть →</span>
+							</div>
+						</a>
+					))}
+				</div>
+
+				<h2>Интерактивы и калькуляторы</h2>
+				<p class="section-intro">
+					Прикладные инструменты, которые помогают принять решение быстрее, чем чтение
+					нормативки.
+				</p>
+				<div class="card-grid">
+					{tools.map((c) => (
+						<a class="nav-card" href={u(c.href)}>
+							<div class="card-icon" style={`background:${c.color}`}>
+								<span>{c.icon}</span>
+							</div>
+							<div class="card-body">
+								<p class="card-eyebrow">{c.eyebrow}</p>
+								<h3 class="card-title">{c.title}</h3>
+								<p class="card-desc">{c.description}</p>
+								<span class="card-cta">Открыть →</span>
+							</div>
+						</a>
+					))}
+				</div>
+
+				<h2>Справочные сервисы</h2>
+				<p class="section-intro">Если ищете конкретный термин или хотите листать архив.</p>
+				<div class="card-grid">
+					{services.map((c) => (
+						<a class="nav-card" href={u(c.href)}>
+							<div class="card-icon" style={`background:${c.color}`}>
+								<span>{c.icon}</span>
+							</div>
+							<div class="card-body">
+								<p class="card-eyebrow">{c.eyebrow}</p>
+								<h3 class="card-title">{c.title}</h3>
+								<p class="card-desc">{c.description}</p>
+								<span class="card-cta">Открыть →</span>
+							</div>
+						</a>
+					))}
+				</div>
 
 				<h2>Принципы редакции</h2>
 				<ol>
 					<li>
 						<strong>Источники.</strong> Ссылаемся на официальные нормативные акты, разъяснения
-						ведомств и публикации профильных регуляторов.
+						ведомств и публикации профильных регуляторов. Каждая цифра штрафа — со ссылкой
+						на конкретную статью КоАП или НК.
 					</li>
 					<li>
-						<strong>Актуальность.</strong> Мы помечаем дату публикации и обновляем материалы при
-						изменении требований.
+						<strong>Актуальность.</strong> Дата публикации указана у каждого материала,
+						устаревшие нормы — обновляем. Раз в квартал проходим по архиву и сверяемся
+						с действующей редакцией.
 					</li>
 					<li>
-						<strong>Без воды.</strong> Конкретные действия, сроки, формы документов и сценарии,
-						что делать, если что-то пошло не так.
+						<strong>Без воды.</strong> Конкретные действия, сроки, формы документов и
+						сценарии «что делать, если что-то пошло не так» — вместо длинных вступлений
+						и общих рассуждений.
+					</li>
+					<li>
+						<strong>Прозрачность рекламы.</strong> Партнёрские размещения помечаем erid
+						(38-ФЗ) и явным дисклеймером «Реклама. <em>Рекламодатель</em>». Никаких
+						скрытых нативных вставок.
 					</li>
 				</ol>
 
@@ -79,13 +273,84 @@ const description =
 
 		<style>
 			.static-page {
-				max-width: 760px;
+				max-width: 880px;
 				margin: 0 auto;
-				padding: 2rem 0;
+				padding: 2rem 1rem;
 			}
 			.lead {
 				font-size: 1.15rem;
 				color: rgb(var(--gray-dark));
+			}
+			.section-intro {
+				color: var(--muted);
+				margin: -0.5rem 0 1.25rem;
+			}
+			.card-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1rem;
+				margin: 0 0 2.5rem;
+			}
+			@media (max-width: 720px) {
+				.card-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+			.nav-card {
+				display: grid;
+				grid-template-columns: 72px 1fr;
+				gap: 1rem;
+				padding: 1.1rem;
+				background: #fff;
+				border: 2px solid rgba(0, 0, 0, 0.08);
+				border-radius: 12px;
+				text-decoration: none;
+				color: #111;
+				transition: border-color 0.15s ease, transform 0.15s ease;
+			}
+			.nav-card:hover {
+				border-color: #111;
+				transform: translateY(-2px);
+			}
+			.card-icon {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 8px;
+				color: #fff;
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 1.2rem;
+				letter-spacing: 0.04em;
+				height: 100%;
+				min-height: 72px;
+			}
+			.card-body {
+				min-width: 0;
+			}
+			.card-eyebrow {
+				margin: 0 0 0.3rem;
+				font-size: 0.7rem;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: #888;
+			}
+			.card-title {
+				margin: 0 0 0.45rem;
+				font-size: 1.1rem;
+				line-height: 1.25;
+				color: #111;
+			}
+			.card-desc {
+				margin: 0 0 0.6rem;
+				font-size: 0.9rem;
+				line-height: 1.45;
+				color: #444;
+			}
+			.card-cta {
+				font-size: 0.85rem;
+				font-weight: 600;
+				color: var(--pink);
 			}
 		</style>
 	</body>
