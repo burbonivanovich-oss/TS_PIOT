@@ -294,12 +294,7 @@
 		font-size: 0.78rem;
 		transition: background 0.15s, border-color 0.15s;
 	}
-	.feed-filter:hover { border-color: var(--dark); }
-	.feed-filter.is-active {
-		background: var(--dark);
-		color: #fff;
-		border-color: var(--dark);
-	}
+	.feed-filter:hover { border-color: var(--dark); background: var(--sand); }
 	.feed-filter-dot {
 		width: 6px;
 		height: 6px;
@@ -308,6 +303,132 @@
 	.feed-filter-count {
 		font-size: 0.7rem;
 		opacity: 0.6;
+	}
+
+	/* Countdown block — большой контрастный разрыв */
+	.countdown {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		gap: 32px;
+		background: var(--dark);
+		color: #fff;
+		padding: 32px 40px;
+		margin-bottom: 48px;
+	}
+	.countdown-num {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 5rem;
+		line-height: 1;
+		color: var(--lime);
+		letter-spacing: 0.02em;
+	}
+	.countdown-unit {
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		opacity: 0.5;
+		margin-top: 6px;
+	}
+	.countdown-body {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+	.countdown-eyebrow {
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--lime);
+	}
+	.countdown-title {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1.5rem;
+		letter-spacing: 0.02em;
+		line-height: 1.1;
+	}
+	.countdown-desc {
+		font-size: 0.9rem;
+		opacity: 0.7;
+		margin-top: 4px;
+	}
+	.countdown-cta {
+		display: inline-block;
+		background: var(--lime);
+		color: var(--dark);
+		padding: 12px 24px;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	/* Email-подписка — широкая форма */
+	.subscribe {
+		background: var(--pink);
+		color: #fff;
+		padding: 40px;
+		margin-bottom: 48px;
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 32px;
+		align-items: center;
+	}
+	.subscribe-body { display: flex; flex-direction: column; gap: 8px; }
+	.subscribe-eyebrow {
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		opacity: 0.7;
+	}
+	.subscribe-title {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1.8rem;
+		letter-spacing: 0.02em;
+		line-height: 1.05;
+	}
+	.subscribe-desc {
+		font-size: 0.9rem;
+		opacity: 0.85;
+		margin-top: 4px;
+		max-width: 500px;
+	}
+	.subscribe-form {
+		display: flex;
+		gap: 8px;
+		min-width: 360px;
+	}
+	.subscribe-input {
+		flex: 1;
+		padding: 12px 16px;
+		border: 1px solid rgba(255,255,255,0.3);
+		background: rgba(255,255,255,0.1);
+		color: #fff;
+		font-size: 0.9rem;
+		font-family: inherit;
+	}
+	.subscribe-input::placeholder { color: rgba(255,255,255,0.5); }
+	.subscribe-btn {
+		padding: 12px 24px;
+		background: #fff;
+		color: var(--pink);
+		border: none;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		cursor: pointer;
+	}
+	@media (max-width: 720px) {
+		.subscribe { grid-template-columns: 1fr; }
+		.subscribe-form { min-width: 0; }
+		.countdown { grid-template-columns: 1fr; text-align: center; }
+		.countdown-num { font-size: 4rem; }
 	}
 
 	/* Feed grid */
@@ -388,7 +509,21 @@
 		</div>
 	</div>
 
-	<!-- 3. Инструменты — Bento (1 big + 4 small) -->
+	<!-- 3. Countdown — большой контрастный разрыв -->
+	<div class="countdown">
+		<div>
+			<div class="countdown-num">37</div>
+			<div class="countdown-unit">дней до 01.07.2026</div>
+		</div>
+		<div class="countdown-body">
+			<div class="countdown-eyebrow">Срок · ТС ПИоТ</div>
+			<div class="countdown-title">Касса без модуля заблокирует продажу маркированного товара</div>
+			<div class="countdown-desc">Подключение, проверка совместимости, инструкция по интеграции с 1С — собрано в одном разделе.</div>
+		</div>
+		<a href="#" class="countdown-cta">Что подключить →</a>
+	</div>
+
+	<!-- 4. Инструменты — Bento (1 big + 4 small) -->
 	<div class="section-label">Инструменты и калькуляторы <a href="#" class="see-all">Все →</a></div>
 	<div class="tools-bento">
 		<a href="#" class="tool-card tool-card-big">
@@ -421,11 +556,23 @@
 		</a>
 	</div>
 
-	<!-- 4. Все материалы — заголовок с фильтр-табами категорий + сетка -->
+	<!-- 5. Email-подписка — широкая форма перед лентой -->
+	<div class="subscribe">
+		<div class="subscribe-body">
+			<div class="subscribe-eyebrow">Без спама · раз в две недели</div>
+			<div class="subscribe-title">Дайджест: изменения, штрафы, сроки</div>
+			<div class="subscribe-desc">Главные новости по ТС ПИоТ, маркировке и налогам прямо на почту. Первое письмо — шпаргалка по срокам 2026 года.</div>
+		</div>
+		<form class="subscribe-form" onsubmit="event.preventDefault()">
+			<input class="subscribe-input" type="email" placeholder="ваш email" required>
+			<button class="subscribe-btn" type="submit">Подписаться</button>
+		</form>
+	</div>
+
+	<!-- 6. Все материалы — категории как навигация по разделам -->
 	<div class="feed-header">
 		<h2 class="feed-title">Все материалы за неделю</h2>
 		<div class="feed-filters">
-			<a href="#" class="feed-filter is-active">Все <span class="feed-filter-count">83</span></a>
 			<a href="#" class="feed-filter"><span class="feed-filter-dot" style="background:var(--pink)"></span>ТС ПИоТ <span class="feed-filter-count">9</span></a>
 			<a href="#" class="feed-filter"><span class="feed-filter-dot" style="background:var(--lime)"></span>Маркировка <span class="feed-filter-count">21</span></a>
 			<a href="#" class="feed-filter"><span class="feed-filter-dot" style="background:var(--navy)"></span>Законы <span class="feed-filter-count">25</span></a>
