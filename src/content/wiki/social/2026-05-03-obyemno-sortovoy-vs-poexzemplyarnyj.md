@@ -1,7 +1,7 @@
 ---
 title: "Объёмно-сортовой и поэкземплярный учёт: разница и кому что"
 slug: "obyemno-sortovoy-vs-poexzemplyarnyj"
-articleUrl: "/blog/obyemno-sortovoy-vs-poexzemplyarnyj/"
+articleUrl: "/blog/2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj/"
 status: draft
 createdDate: "2026-05-03"
 ---
@@ -16,7 +16,7 @@ createdDate: "2026-05-03"
 
 Важно: при продаже через кассу в разрешительном режиме сканируется каждая единица в любом случае — независимо от метода учёта при приёмке.
 
-etiketka-media.ru/blog/obyemno-sortovoy-vs-poexzemplyarnyj/
+etiketka-media.ru/blog/2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj/
 
 ---
 
@@ -30,7 +30,7 @@ etiketka-media.ru/blog/obyemno-sortovoy-vs-poexzemplyarnyj/
 
 Что остаётся общим: при продаже через кассу с разрешительным режимом сканирование каждой единицы обязательно при обоих методах. Метод учёта влияет только на оформление приходного УПД — не на кассовую операцию.
 
-Кому какой метод применять и как это отражается в ЭДО: /blog/obyemno-sortovoy-vs-poexzemplyarnyj/
+Кому какой метод применять и как это отражается в ЭДО: /blog/2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj/
 
 #маркировка #честныйзнак #учёттоваров #эдо #малыйбизнес
 
@@ -112,4 +112,4 @@ erid: 2ucDCLq9ZqzX2EPXXAETGwnDJPBUrtLimUDNKBjoHt3TnBSUkyfuHvbA. Реклама. 
 
 В маркировке два метода учёта: объёмно-сортовой (количество по партии) и поэкземплярный (каждый код отдельно). Метод определён нормативно для каждой категории и влияет на оформление УПД при приёмке. Таблица и разбор — в статье.
 
-[Читать статью →](/blog/obyemno-sortovoy-vs-poexzemplyarnyj/)
+[Читать статью →](/blog/2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj/)

@@ -1,6 +1,6 @@
 # Социальные посты: Учёт алкоголя в кафе и баре — ЕГАИС без ошибок в 2026
 
-Связанная статья: `/blog/uchyot-alkogolya-v-obschepite/`
+Связанная статья: `/blog/2026-05-01-uchyot-alkogolya-v-obschepite/`
 
 ---
 

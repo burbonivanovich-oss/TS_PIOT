@@ -1,7 +1,7 @@
 ---
 title: "Регистрация в Меркурии для ИП и ООО: пошагово"
 slug: "registraciya-v-merkurii"
-articleUrl: "/blog/registraciya-v-merkurii/"
+articleUrl: "/blog/2026-05-03-registraciya-v-merkurii/"
 status: draft
 createdDate: "2026-05-03"
 ---
@@ -14,7 +14,7 @@ createdDate: "2026-05-03"
 
 Частая ошибка: указать только юридический адрес, не внося фактические торговые точки. Тогда при попытке погасить ВСД по фактическому адресу система выдаст ошибку.
 
-etiketka-media.ru/blog/registraciya-v-merkurii/
+etiketka-media.ru/blog/2026-05-03-registraciya-v-merkurii/
 
 ---
 
@@ -26,7 +26,7 @@ etiketka-media.ru/blog/registraciya-v-merkurii/
 
 После получения доступа обязательно добавьте все площадки (каждый магазин, склад, кафе — отдельно) и настройте пользователей с нужными ролями. Кассир или приёмщик нуждается в роли «Оператор» — гашение ВСД, а не полный доступ.
 
-Четыре типичные ошибки при регистрации — в статье, чтобы не повторять их: /blog/registraciya-v-merkurii/
+Четыре типичные ошибки при регистрации — в статье, чтобы не повторять их: /blog/2026-05-03-registraciya-v-merkurii/
 
 #меркурий #всд #продуктыпитания #россельхознадзор #малыйбизнес
 
@@ -90,7 +90,7 @@ etiketka-media.ru/blog/registraciya-v-merkurii/
 Подключить Контур.Маркет: kontur.ru/market/kkt
 Реклама. АО «ПФ „СКБ Контур“», ИНН 6663003127. erid: HuNbC4MfXEEAXiQhHRaXLkvNxqSftLNsmFxTm6nMgynW13oUBJ
 
-Полная нормативная база и пошаговая инструкция — на etiketka-media.ru/blog/registraciya-v-merkurii/
+Полная нормативная база и пошаговая инструкция — на etiketka-media.ru/blog/2026-05-03-registraciya-v-merkurii/
 
 #меркурий #всд #россельхознадзор #малыйбизнес #ветеринария
 
@@ -103,4 +103,4 @@ etiketka-media.ru/blog/registraciya-v-merkurii/
 
 Регистрация в ФГИС «Меркурий» обязательна для любого бизнеса, работающего с продукцией животного происхождения. Процедура бесплатна и занимает до 5 рабочих дней. Пошаговая инструкция и типичные ошибки — в статье.
 
-[Читать статью →](/blog/registraciya-v-merkurii/)
+[Читать статью →](/blog/2026-05-03-registraciya-v-merkurii/)

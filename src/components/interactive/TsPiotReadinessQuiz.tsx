@@ -87,7 +87,8 @@ interface Recommendation {
   priority: 'high' | 'medium' | 'low';
   title: string;
   detail: string;
-  link?: { href: string; label: string };
+  /** Если ad — это рекламная партнёрская ссылка с erid-дисклеймером (38-ФЗ). */
+  link?: { href: string; label: string; ad?: { advertiser: string; erid: string } };
 }
 
 const RECOMMENDATIONS: Record<string, Recommendation> = {
@@ -108,14 +109,22 @@ const RECOMMENDATIONS: Record<string, Recommendation> = {
     priority: 'high',
     title: 'Установить модуль ТС ПИоТ',
     detail: 'С 28.12.2025 он обязателен на каждой кассе с маркированным товаром. До 01.07.2026 ещё можно работать через токен ЦРПТ, после — только ТС ПИоТ.',
-    link: { href: '/kak-rabotaet-ts-piot/', label: 'Как работает ТС ПИоТ — пошагово' },
+    link: {
+      href: 'https://kontur.ru/lp/market-ts-piot?p=f74746',
+      label: 'Подключить кассу с ТС ПИоТ под ключ',
+      ad: { advertiser: 'ООО «СКБ Контур»', erid: 'S4Ssbqz46cMqoDCd2gPnYmKCCXLH7EVza63Zaa77nHuVrKWqvpwfSp' },
+    },
   },
   'tspot-deadline': {
     id: 'tspot-deadline',
     priority: 'high',
     title: 'Перейти с X-API-KEY на ТС ПИоТ до 01.07.2026',
     detail: 'После этой даты токены ЦРПТ отключаются. Без ТС ПИоТ касса заблокирует продажу маркированных товаров.',
-    link: { href: '/kak-rabotaet-ts-piot/', label: 'Что такое ТС ПИоТ' },
+    link: {
+      href: 'https://kontur.ru/lp/market-ts-piot?p=f74746',
+      label: 'Подключить кассу с ТС ПИоТ под ключ',
+      ad: { advertiser: 'ООО «СКБ Контур»', erid: 'S4Ssbqz46cMqoDCd2gPnYmKCCXLH7EVza63Zaa77nHuVrKWqvpwfSp' },
+    },
   },
   'tspot-finish': {
     id: 'tspot-finish',
@@ -279,9 +288,20 @@ export default function TsPiotReadinessQuiz() {
                   </div>
                   <p className="quiz-rec-detail">{r.detail}</p>
                   {r.link && (
-                    <a href={r.link.href} className="quiz-rec-link">
-                      {r.link.label} →
-                    </a>
+                    <>
+                      <a
+                        href={r.link.href}
+                        className="quiz-rec-link"
+                        {...(r.link.ad ? { target: '_blank', rel: 'sponsored noopener nofollow' } : {})}
+                      >
+                        {r.link.label} →
+                      </a>
+                      {r.link.ad && (
+                        <p className="quiz-rec-ad">
+                          Реклама. {r.link.ad.advertiser}. erid: {r.link.ad.erid}
+                        </p>
+                      )}
+                    </>
                   )}
                 </li>
               ))}
@@ -478,6 +498,13 @@ const quizStyles = `
     font-size: 0.9rem;
   }
   .quiz-rec-link:hover { text-decoration: underline; }
+  .quiz-rec-ad {
+    margin: 0.35rem 0 0;
+    font-size: 0.7rem;
+    color: #999;
+    line-height: 1.3;
+    word-break: break-all;
+  }
 
   .quiz-restart {
     align-self: flex-start;

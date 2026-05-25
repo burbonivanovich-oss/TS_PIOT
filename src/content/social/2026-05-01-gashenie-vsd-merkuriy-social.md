@@ -13,7 +13,7 @@
 
 Мобильное приложение «Меркурий.ГВЭ» позволяет гасить прямо на складе при приёмке.
 
-Читать: etiketka-media.ru/blog/gashenie-vsd-merkuriy/
+Читать: etiketka-media.ru/blog/2026-05-01-gashenie-vsd-merkuriy/
 
 ## ВКонтакте
 
@@ -43,7 +43,7 @@
 
 Штраф по ст. 10.8 КоАП РФ: ИП — 3 000–5 000 рублей, юрлицо — 10 000–20 000 рублей. При повторных нарушениях — приостановка деятельности предприятия.
 
-Подробнее в нашей статье: etiketka-media.ru/blog/gashenie-vsd-merkuriy/
+Подробнее в нашей статье: etiketka-media.ru/blog/2026-05-01-gashenie-vsd-merkuriy/
 
 ## Дзен
 

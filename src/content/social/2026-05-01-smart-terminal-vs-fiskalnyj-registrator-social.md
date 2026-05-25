@@ -1,6 +1,6 @@
 # Социальные посты: Смарт-терминал или фискальный регистратор
 
-Связанная статья: `/blog/smart-terminal-vs-fiskalnyj-registrator/`
+Связанная статья: `/blog/2026-05-01-smart-terminal-vs-fiskalnyj-registrator/`
 
 ---
 

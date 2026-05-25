@@ -1,7 +1,7 @@
 ---
 title: "Страховые взносы МСП в 2026: пониженный тариф 15% только для 54 ОКВЭД"
 slug: "strahovye-vznosy-msp-2026"
-articleUrl: "/blog/strahovye-vznosy-msp-2026/"
+articleUrl: "/blog/2026-05-03-strahovye-vznosy-msp-2026/"
 status: draft
 createdDate: "2026-05-03"
 ---
@@ -16,7 +16,7 @@ createdDate: "2026-05-03"
 
 В РСВ используйте код тарифа «20» для льготной части.
 
-etiketka-media.ru/blog/strahovye-vznosy-msp-2026/
+etiketka-media.ru/blog/2026-05-03-strahovye-vznosy-msp-2026/
 
 ---
 
@@ -30,7 +30,7 @@ etiketka-media.ru/blog/strahovye-vznosy-msp-2026/
 
 Если применяете льготу без оснований — ФНС доначислит недоимку и штраф 20% от суммы. Если имеете право, но не применяете — переплачиваете взносы.
 
-Как проверить свой ОКВЭД и полный перечень кодов: /blog/strahovye-vznosy-msp-2026/
+Как проверить свой ОКВЭД и полный перечень кодов: /blog/2026-05-03-strahovye-vznosy-msp-2026/
 
 #страховыевзносы #мсп #налоги #льготытариф #2026
 
@@ -86,7 +86,7 @@ etiketka-media.ru/blog/strahovye-vznosy-msp-2026/
 Подключить Экстерн: kontur.ru/extern/price
 Реклама. АО «ПФ „СКБ Контур“», ИНН 6663003127. erid: HuNbC4MfXEEAXiQhHRaXLkvNxqSftLNsmFxTm6gWz21KHiBtiU
 
-Полный текст перечня ОКВЭД, FAQ и пошаговый расчёт — на etiketka-media.ru/blog/strahovye-vznosy-msp-2026/
+Полный текст перечня ОКВЭД, FAQ и пошаговый расчёт — на etiketka-media.ru/blog/2026-05-03-strahovye-vznosy-msp-2026/
 
 #страховыевзносы #мсп #налоги #льготытариф #2026
 
@@ -99,4 +99,4 @@ etiketka-media.ru/blog/strahovye-vznosy-msp-2026/
 
 Страховые взносы по ставке 15% с выплат выше МРОТ доступны только МСП с определёнными ОКВЭД. Как проверить своё право на льготу, как правильно отразить в РСВ и какие изменения принёс новый МРОТ — в статье.
 
-[Читать статью →](/blog/strahovye-vznosy-msp-2026/)
+[Читать статью →](/blog/2026-05-03-strahovye-vznosy-msp-2026/)

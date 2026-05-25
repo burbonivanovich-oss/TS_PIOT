@@ -13,7 +13,7 @@
 
 Кассы Дримкас: часть линейки несовместима с ТС ПИоТ — замена займёт несколько недель. Откладывать нельзя.
 
-Читать: etiketka-media.ru/blog/ts-piot-podklyuchenie-instrukciya/
+Читать: etiketka-media.ru/blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/
 
 ## ВКонтакте
 
@@ -39,7 +39,7 @@
 
 Перерегистрировать кассу в ФНС после подключения ТС ПИоТ не нужно — это программный модуль, не изменение параметров ККТ.
 
-Подробнее в нашей статье: etiketka-media.ru/blog/ts-piot-podklyuchenie-instrukciya/
+Подробнее в нашей статье: etiketka-media.ru/blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/
 
 ## Дзен
 

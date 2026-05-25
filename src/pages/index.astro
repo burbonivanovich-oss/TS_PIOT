@@ -19,11 +19,23 @@ function fmtDate(d: Date): string {
 	return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
 }
 
+// Правильное склонение «материал»: 1 материал, 2-4 материала, 5-20 материалов
+function pluralMaterials(n: number): string {
+	const mod10 = n % 10;
+	const mod100 = n % 100;
+	if (mod100 >= 11 && mod100 <= 14) return `${n} материалов`;
+	if (mod10 === 1) return `${n} материал`;
+	if (mod10 >= 2 && mod10 <= 4) return `${n} материала`;
+	return `${n} материалов`;
+}
+
 const catList = [
 	{ slug: 'ts-piot',          num: '01', name: 'ТС ПИоТ',         cls: 't1', count: posts.filter(p => p.data.categories?.includes('ts-piot')).length },
 	{ slug: 'markirovka',       num: '02', name: 'Маркировка',       cls: 't2', count: posts.filter(p => p.data.categories?.includes('markirovka')).length },
 	{ slug: 'zakonodatelstvo',  num: '03', name: 'Законодательство', cls: 't3', count: posts.filter(p => p.data.categories?.includes('zakonodatelstvo')).length },
-	{ slug: 'tools',            num: '04', name: 'Инструменты',      cls: 't4', count: null },
+	{ slug: 'kkt',              num: '04', name: 'Кассы',            cls: 't5', count: posts.filter(p => p.data.categories?.includes('kkt')).length },
+	{ slug: 'egais',            num: '05', name: 'ЕГАИС',            cls: 't6', count: posts.filter(p => p.data.categories?.includes('egais')).length },
+	{ slug: 'tools',            num: '06', name: 'Инструменты',      cls: 't4', count: null },
 ];
 
 const CAT_COLOR: Record<string, string> = {
@@ -74,7 +86,7 @@ const CAT_COLOR: Record<string, string> = {
 								<div class="t-name">{cat.name}</div>
 							</div>
 							<div>
-								<div class="t-count">{cat.count} материалов</div>
+								<div class="t-count">{pluralMaterials(cat.count!)}</div>
 								<div class="t-dot"></div>
 							</div>
 						</a>
@@ -312,7 +324,7 @@ const CAT_COLOR: Record<string, string> = {
 			}
 			.cat-tiles {
 				display: grid;
-				grid-template-columns: repeat(4, minmax(0, 1fr));
+				grid-template-columns: repeat(3, minmax(0, 1fr));
 				gap: 8px;
 			}
 			.cat-tile {
@@ -328,6 +340,8 @@ const CAT_COLOR: Record<string, string> = {
 			.cat-tile.t1 { background: #EDE8DF; border: 1px solid rgba(0,0,0,.12); }
 			.cat-tile.t2 { background: #AFCC00; }
 			.cat-tile.t3 { background: #1E4A7A; }
+			.cat-tile.t5 { background: #5A3E7A; }
+			.cat-tile.t6 { background: #1A5C3A; }
 			.t-num {
 				font-size: .65rem;
 				font-weight: 700;
@@ -337,18 +351,18 @@ const CAT_COLOR: Record<string, string> = {
 				margin-bottom: 6px;
 			}
 			.t2 .t-num { color: #8aaa00; }
-			.t3 .t-num { color: rgba(255,255,255,.4); }
+			.t3 .t-num, .t5 .t-num, .t6 .t-num { color: rgba(255,255,255,.4); }
 			.t-name {
 				font-family: 'Bebas Neue', sans-serif;
-				font-size: clamp(1.1rem, 1.35vw, 1.65rem);
+				font-size: clamp(1.05rem, 1.15vw, 1.4rem);
 				letter-spacing: .04em;
 				text-transform: uppercase;
 				color: #111;
 				line-height: 1.1;
-				word-break: normal;
+				overflow-wrap: anywhere;
 				hyphens: none;
 			}
-			.t3 .t-name { color: #fff; }
+			.t3 .t-name, .t5 .t-name, .t6 .t-name { color: #fff; }
 			.t-count {
 				font-size: .65rem;
 				font-weight: 600;
@@ -357,15 +371,29 @@ const CAT_COLOR: Record<string, string> = {
 				margin-bottom: 4px;
 			}
 			.t2 .t-count { color: #666; }
-			.t3 .t-count { color: rgba(255,255,255,.4); }
+			.t3 .t-count, .t5 .t-count, .t6 .t-count { color: rgba(255,255,255,.4); }
 			.t-dot { width: 8px; height: 8px; border-radius: 50%; }
 			.t1 .t-dot { background: #9E2B4F; }
 			.t2 .t-dot { background: #111; }
 			.t3 .t-dot { background: #AFCC00; }
-			.cat-tile.t4 { background: #F6F4F0; border: 1px solid rgba(0,0,0,.12); cursor: default; }
+			.t5 .t-dot { background: #AFCC00; }
+			.t6 .t-dot { background: #AFCC00; }
+			.cat-tile.t4 { background: #9E2B4F; cursor: default; }
+			.t4 .t-num { color: rgba(255,255,255,.4); }
+			.t4 .t-name { color: #fff; }
 			.t4-links { display: flex; flex-direction: column; gap: 6px; }
-			.t4-link { font-size: .75rem; font-weight: 700; letter-spacing: .06em; color: #9E2B4F; text-decoration: none; transition: color .15s; }
-			.t4-link:hover { color: #7d2240; }
+			.t4-link {
+				font-size: .75rem;
+				font-weight: 700;
+				letter-spacing: .06em;
+				color: #fff;
+				text-decoration: none;
+				transition: opacity .15s;
+				border-bottom: 1px solid rgba(255,255,255,.3);
+				padding-bottom: 4px;
+			}
+			.t4-link:last-child { border-bottom: none; padding-bottom: 0; }
+			.t4-link:hover { opacity: .8; }
 
 			/* ── Posts grid ── */
 			.latest { margin-bottom: 0; }
