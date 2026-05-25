@@ -37,9 +37,11 @@ node scripts/health-check.mjs   # сводка состояния проекта
 ```
 .claude/
   agents/        research-specialist, content-writer, seo-optimizer, social-media-manager
-  commands/      /create-article, /release-article, /factcheck, /factcheck-batch,
-                 /analyze-article, /maintain-content, /plan-content, /find-topics,
-                 /check-ai, /new-post
+  commands/      /create-article, /release-article, /publish-article, /factcheck,
+                 /factcheck-batch, /analyze-article, /maintain-content, /plan-content,
+                 /content-calendar, /content-pipeline, /find-topics, /cluster-gaps,
+                 /research-topic, /optimize-seo, /check-ai, /update-template,
+                 /monitor-competitors, /monitor-rss, /demo-automation, /new-post
   factchecked/   маркеры пройденного факт-чека (по slug)
 
 src/
@@ -57,28 +59,44 @@ src/
   data/
     penalties.ts        сценарии для калькулятора штрафов
     cpa-banners.ts      CPA-баннеры (источник истины) + категория → дефолт
-    ord-erids.json      erid-токены Яндекс.ОРД для каждого баннера
+    ord-config.json     конфиг ОРД-креативов для регистрации
+    ord-erids.json      erid-токены Яндекс.ОРД (выход scripts/ord-register.mjs)
     markingCalendar.ts  данные календаря маркировки
     analytics/          GSC + Метрика + Вебмастер → articles.json
+    audit/              отчёты health-check и других аудит-скриптов
+    factcheck/          история фактчека
     metrika/goals.json  декларативные цели Метрики (sync через Management API)
     wordstat/           кеш Wordstat API
   layouts/BlogPost.astro     шаблон статьи + JSON-LD + Читайте также
-  pages/                     blog, category, tag, dashboard, scenario, instrumenty, zakon-2026
+  pages/                     blog, category, tag, dashboard, scenario, instrumenty,
+                             slovar, search, zakon-2026, kak-rabotaet-ts-piot (флагман),
+                             kalkulyator-shtrafov, kalendar-markirovki,
+                             og/[slug].png.ts (Satori), sitemap.xml.ts, rss.xml.js
   styles/global.css          дизайн-токены: --pink, --lime, --sand, --dark
   utils/                     url, tags, posts (publishedPosts helper), track, glossary
 
-scripts/                     health-check, social-to-docs, generate-hero-images,
-                             generate-og-backgrounds, generate-flagship-illustrations,
-                             metrika-sync-goals, wordstat-fetch, analytics-refresh, ord-register
+scripts/                     health-check, social-to-docs, audit-social-coverage,
+                             check-ai-markers, check-seo, check-stale-content,
+                             generate-hero-images, generate-og-backgrounds-* (gemini,
+                             local, openrouter), generate-preview-images,
+                             generate-flagship-illustrations, optimize-images,
+                             sharpen-heroes, compress-og-backgrounds,
+                             metrika-sync-goals (в workflow), google-index, indexnow,
+                             ord-register, ord-bootstrap, ord-status,
+                             export-dzen, release-next-draft, install-hooks.sh
+
 .github/workflows/           auto-publish, deploy-gh-pages, generate-hero-images,
-                             hero-backfill-daily, wordstat-weekly, analytics-refresh,
-                             metrika-sync-goals, index-notify, social-to-docs,
-                             ord-sync, embeddings-monthly
+                             generate-og-backgrounds, generate-preview-pool,
+                             generate-flagship-illustrations, hero-backfill-daily,
+                             wordstat-weekly, analytics-refresh, metrika-sync-goals,
+                             index-notify, social-to-docs, ord-sync, ord-bootstrap,
+                             ord-status, embeddings-monthly
 
 public/
   fonts/                     woff для Satori
   og-backgrounds/            фоны OG по категориям
   images/{hero,preview,flagship}/  картинки статей
+  CNAME                      etiketka-media.ru
 docs/                        вся техническая документация (см. таблицу ниже)
 ```
 
@@ -101,7 +119,7 @@ Pre-commit гейты:
 - **social-guard** — статья с `draft: false` должна иметь соцпосты в
   `src/content/wiki/social/<slug>.md` или `src/content/social/<slug>-social.md`.
 
-Установка хуков: `bash scripts/git-hooks/install.sh`.
+Установка хуков: `bash scripts/install-hooks.sh`.
 
 ## Автоматизация
 
@@ -110,13 +128,15 @@ Pre-commit гейты:
 | Авто-публикация | `auto-publish.yml` (cron 4×/день) | `CLAUDE.md` |
 | Деплой | `deploy-gh-pages.yml` | `docs/architecture.md` |
 | Hero-картинки | `generate-hero-images.yml`, `hero-backfill-daily.yml` | `docs/images.md` |
+| OG-фоны | `generate-og-backgrounds.yml` | `docs/images.md` |
+| Preview-пул | `generate-preview-pool.yml` | `docs/images.md` |
 | Иллюстрации флагмана | `generate-flagship-illustrations.yml` | `docs/images.md` |
 | Wordstat (тренды) | `wordstat-weekly.yml` | `docs/wordstat.md` |
 | Аналитика (GSC + Метрика + Вебмастер) | `analytics-refresh.yml` | `docs/analytics.md` |
 | Цели Метрики | `metrika-sync-goals.yml` (push на goals.json) | `docs/metrika.md` |
 | Индексация (IndexNow + Google) | `index-notify.yml` | `docs/analytics.md` |
 | Соцпосты → Google Docs | `social-to-docs.yml` | `docs/SECRETS.md` |
-| ОРД-креативы (erid) | `ord-sync.yml` | `src/content/wiki/cpa-products.md` |
+| ОРД-креативы (erid) | `ord-sync.yml`, `ord-bootstrap.yml`, `ord-status.yml` | `docs/SECRETS.md` |
 | Embeddings (similarity) | `embeddings-monthly.yml` | `docs/architecture.md` |
 
 Все секреты GitHub описаны в `docs/SECRETS.md` (как получить, как обновлять,
@@ -139,8 +159,13 @@ Pre-commit гейты:
 | `docs/metrika.md` | Цели Метрики через Management API |
 | `docs/wordstat.md` | Wordstat API, частотность ключей |
 | `docs/factcheck.md` | Pipeline проверки фактов, классы A/B/C |
+| `docs/factcheck-history.md` | История прогонов и решений по фактчеку |
 | `docs/editorial-policy.md` | Редполитика, классы решений |
 | `docs/content-formats-roadmap.md` | Roadmap интерактивных форматов |
+| `docs/article-cards.md` | Карточки статей: поля, превью, hero |
+| `docs/design-system.md` | Дизайн-токены, цвета, шрифты |
+| `docs/image-prompts.md` | Промпты для генерации картинок (Nano Banana) |
+| `docs/og-telegram.md` | OG-картинки и превью для Telegram |
 
 ## SEO
 
@@ -162,6 +187,20 @@ Pre-commit гейты:
 GitHub Pages через `deploy-gh-pages.yml`. Триггер — push в основную ветку.
 Деплой автоматический, без ручных шагов. Custom-домен `etiketka-media.ru`
 настроен в `public/CNAME` и DNS-провайдере.
+
+## Флагманские и интерактивные страницы
+
+- `/kak-rabotaet-ts-piot/` — флагман по ТС ПИоТ: 6 интерактивных
+  компонентов + AI-иллюстрации, прогрев аудитории под срок 01.07.2026.
+- `/kalkulyator-shtrafov/` — расчёт штрафа по выбранному сценарию (КоАП).
+- `/kalendar-markirovki/` — таймлайн сроков по категориям маркировки.
+- `/zakon-2026/` — трекер изменений законодательства 2025–2026.
+- `/instrumenty/` — каталог всех интерактивных инструментов сайта.
+- `/dashboard/` — внутренний дашборд (позиции, трафик, факт-чек статус).
+
+React-компоненты для встраивания в MDX — в `src/components/interactive/`
+(Sprint A: симулятор ТС ПИоТ, калькуляторы; Sprint B: ROI ИП→ООО,
+quiz готовности, кейс кофейни; Sprint C: EdoChainPuzzle, и др.).
 
 ## Реклама и ОРД
 
