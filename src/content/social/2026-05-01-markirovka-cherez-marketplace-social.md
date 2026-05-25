@@ -108,6 +108,6 @@ erid: 2ucDCLq9ZqzX2EPXXAETGwnDJPBUrtLimUDNKBjoHt3TnBSUkyfuHvbA. Реклама. 
 — Wildberries с 04.2026 валидирует коды на сборке FBS.
 — Штраф ст. 15.12 КоАП: ИП — 5 000–10 000 ₽, юрлицо — 50 000–300 000 ₽ с конфискацией. Табак, алкоголь, лекарства — до 1 000 000 ₽.
 
-Полная инструкция по отгрузке и разбор FBO/FBS — на «Регламент.Бизнес»: этикетка.рф/blog/2026-05-01-markirovka-cherez-marketplace/
+Полная инструкция по отгрузке и разбор FBO/FBS — на «Этикетка»: etiketka-media.ru/blog/2026-05-01-markirovka-cherez-marketplace/
 
 #маркетплейсы #маркировка #wildberries #ozon #честныйзнак

@@ -18,7 +18,7 @@ createdDate: "2026-05-03"
 
 Подготовка: ФФД 1.2, ТС ПИоТ (обязателен с 28.12.2025), 2D-сканер, ЭДО.
 
-этикетка.рф/blog/2026-05-03-markirovka-bezalk-napitkov-2026/
+etiketka-media.ru/blog/2026-05-03-markirovka-bezalk-napitkov-2026/
 
 ---
 
@@ -97,7 +97,7 @@ erid: 2ucDCLq9ZqzX2EPXXAETGwnDJPBUrtLimUDNKBjoHt3TnBSUkyfuHvbA. Реклама. 
 — Штраф — до 300 000 рублей юрлицу с конфискацией по ч. 2 ст. 15.12 КоАП РФ.
 — Главный риск — остановка кассы и потерянная выручка, а не сам штраф.
 
-Полный чек-лист подготовки и FAQ — на «Регламент.Бизнес»: этикетка.рф/blog/2026-05-03-markirovka-bezalk-napitkov-2026/
+Полный чек-лист подготовки и FAQ — на «Этикетка»: etiketka-media.ru/blog/2026-05-03-markirovka-bezalk-napitkov-2026/
 
 #маркировка #честныйзнак #напитки #тспиот #2026
 

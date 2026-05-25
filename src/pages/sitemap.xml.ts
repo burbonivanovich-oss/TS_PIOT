@@ -72,9 +72,9 @@ export const GET: APIRoute = async () => {
 ${all
 	.map(
 		(e) => `  <url>
-    <loc>${e.url}</loc>
+    <loc>${e.url}</loc>${e.lastmod ? `\n    <lastmod>${e.lastmod}</lastmod>` : ''}
     <changefreq>${e.changefreq}</changefreq>
-    <priority>${e.priority}</priority>${e.lastmod ? `\n    <lastmod>${e.lastmod}</lastmod>` : ''}
+    <priority>${e.priority}</priority>
   </url>`,
 	)
 	.join('\n')}

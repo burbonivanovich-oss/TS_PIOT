@@ -18,7 +18,7 @@ createdDate: "2026-05-03"
 
 Штраф за нарушения учёта пива — ст. 14.19 КоАП, до 200 000 рублей для организаций.
 
-этикетка.рф/blog/uchyot-razlivnogo-piva/
+etiketka-media.ru/blog/uchyot-razlivnogo-piva/
 
 ---
 
@@ -107,7 +107,7 @@ createdDate: "2026-05-03"
 Попробовать 14 дней: kontur.ru/market/kkt
 Реклама. АО «ПФ „СКБ Контур“», ИНН 6663003127. erid: HuNbC4MfXEEAXiQhHRaXLkvNxqSftLNsmFxTm6nMgynW13oUBJ
 
-Полная нормативная база и пошаговая инструкция — на этикетка.рф/blog/uchyot-razlivnogo-piva/
+Полная нормативная база и пошаговая инструкция — на etiketka-media.ru/blog/uchyot-razlivnogo-piva/
 
 #егаис #пиво #разливноепиво #паб #бар
 
