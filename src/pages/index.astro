@@ -33,7 +33,9 @@ const catList = [
 	{ slug: 'ts-piot',          num: '01', name: 'ТС ПИоТ',         cls: 't1', count: posts.filter(p => p.data.categories?.includes('ts-piot')).length },
 	{ slug: 'markirovka',       num: '02', name: 'Маркировка',       cls: 't2', count: posts.filter(p => p.data.categories?.includes('markirovka')).length },
 	{ slug: 'zakonodatelstvo',  num: '03', name: 'Законодательство', cls: 't3', count: posts.filter(p => p.data.categories?.includes('zakonodatelstvo')).length },
-	{ slug: 'tools',            num: '04', name: 'Инструменты',      cls: 't4', count: null },
+	{ slug: 'kkt',              num: '04', name: 'Кассы',            cls: 't5', count: posts.filter(p => p.data.categories?.includes('kkt')).length },
+	{ slug: 'egais',            num: '05', name: 'ЕГАИС',            cls: 't6', count: posts.filter(p => p.data.categories?.includes('egais')).length },
+	{ slug: 'tools',            num: '06', name: 'Инструменты',      cls: 't4', count: null },
 ];
 
 const CAT_COLOR: Record<string, string> = {
@@ -322,7 +324,7 @@ const CAT_COLOR: Record<string, string> = {
 			}
 			.cat-tiles {
 				display: grid;
-				grid-template-columns: repeat(4, minmax(0, 1fr));
+				grid-template-columns: repeat(3, minmax(0, 1fr));
 				gap: 8px;
 			}
 			.cat-tile {
@@ -338,6 +340,8 @@ const CAT_COLOR: Record<string, string> = {
 			.cat-tile.t1 { background: #EDE8DF; border: 1px solid rgba(0,0,0,.12); }
 			.cat-tile.t2 { background: #AFCC00; }
 			.cat-tile.t3 { background: #1E4A7A; }
+			.cat-tile.t5 { background: #5A3E7A; }
+			.cat-tile.t6 { background: #1A5C3A; }
 			.t-num {
 				font-size: .65rem;
 				font-weight: 700;
@@ -347,7 +351,7 @@ const CAT_COLOR: Record<string, string> = {
 				margin-bottom: 6px;
 			}
 			.t2 .t-num { color: #8aaa00; }
-			.t3 .t-num { color: rgba(255,255,255,.4); }
+			.t3 .t-num, .t5 .t-num, .t6 .t-num { color: rgba(255,255,255,.4); }
 			.t-name {
 				font-family: 'Bebas Neue', sans-serif;
 				font-size: clamp(1.05rem, 1.15vw, 1.4rem);
@@ -358,7 +362,7 @@ const CAT_COLOR: Record<string, string> = {
 				overflow-wrap: anywhere;
 				hyphens: none;
 			}
-			.t3 .t-name { color: #fff; }
+			.t3 .t-name, .t5 .t-name, .t6 .t-name { color: #fff; }
 			.t-count {
 				font-size: .65rem;
 				font-weight: 600;
@@ -367,11 +371,13 @@ const CAT_COLOR: Record<string, string> = {
 				margin-bottom: 4px;
 			}
 			.t2 .t-count { color: #666; }
-			.t3 .t-count { color: rgba(255,255,255,.4); }
+			.t3 .t-count, .t5 .t-count, .t6 .t-count { color: rgba(255,255,255,.4); }
 			.t-dot { width: 8px; height: 8px; border-radius: 50%; }
 			.t1 .t-dot { background: #9E2B4F; }
 			.t2 .t-dot { background: #111; }
 			.t3 .t-dot { background: #AFCC00; }
+			.t5 .t-dot { background: #AFCC00; }
+			.t6 .t-dot { background: #AFCC00; }
 			.cat-tile.t4 { background: #9E2B4F; cursor: default; }
 			.t4 .t-num { color: rgba(255,255,255,.4); }
 			.t4 .t-name { color: #fff; }
