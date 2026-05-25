@@ -1,4 +1,9 @@
 ---
+title: "Research: 140-ФЗ переход на ЭПД с 01.09.2026 (МСБ)"
+createdDate: 2026-05-25
+type: research
+status: draft
+tags: [logistika, etrn, epd, 140-fz]
 slug: 2026-05-25-140-fz-epd-msb
 researchedDate: 2026-05-25
 sources:
