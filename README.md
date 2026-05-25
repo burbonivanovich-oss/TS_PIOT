@@ -148,7 +148,7 @@ Pre-commit гейты:
 
 - `<title>`, `<meta description>`, OG, Twitter Cards.
 - JSON-LD `Organization`, `WebSite`, `Article`, `BreadcrumbList`.
-- Sitemap `/sitemap-index.xml` (фильтр опубликованных через `publishedPosts()`).
+- Sitemap `/sitemap.xml` (фильтр опубликованных через `publishedPosts()`).
 - RSS-лента `/rss.xml`.
 - `robots.txt` с указанием `Sitemap` и `Host`.
 - IndexNow для Яндекса + Google Indexing API после деплоя (`index-notify.yml`).
