@@ -205,77 +205,109 @@
 		color: var(--muted);
 	}
 
-	/* Tools strip */
-	.tools-strip {
+	/* Tools — Bento (1 big + 3 small) */
+	.tools-bento {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: 2fr 1fr 1fr;
+		grid-template-rows: auto auto;
 		gap: 8px;
 		margin-bottom: 48px;
 	}
-	.tool-mini {
-		background: #fff;
-		border: 1px solid var(--border);
-		padding: 16px;
+	.tool-card {
 		text-decoration: none;
-		color: var(--dark);
+		padding: 24px;
 		display: flex;
 		flex-direction: column;
-		gap: 6px;
-		min-height: 90px;
 		justify-content: space-between;
-		transition: border-color 0.15s;
+		min-height: 160px;
+		transition: opacity 0.15s;
 	}
-	.tool-mini:hover { border-color: var(--dark); }
-	.tool-mini-eyebrow {
-		font-size: 0.62rem;
+	.tool-card:hover { opacity: 0.92; }
+	.tool-card-big {
+		grid-row: 1 / span 2;
+		min-height: 328px;
+		background: var(--pink);
+		color: #fff;
+		padding: 32px;
+	}
+	.tool-card-1 { background: var(--lime); color: var(--dark); }
+	.tool-card-2 { background: var(--navy); color: #fff; }
+	.tool-card-3 { background: var(--dark); color: #fff; }
+	.tool-card-4 { background: #fff; border: 1px solid var(--border); color: var(--dark); }
+	.tool-eyebrow {
+		font-size: 0.65rem;
 		font-weight: 700;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
-		color: var(--pink);
+		opacity: 0.7;
+		margin-bottom: 8px;
 	}
-	.tool-mini-name {
-		font-size: 0.9rem;
-		font-weight: 600;
-		line-height: 1.25;
-	}
-
-	/* Cats strip — tabs */
-	.cats-strip {
-		display: flex;
-		gap: 0;
-		margin-bottom: 48px;
-		border-top: 1px solid var(--border);
-		border-bottom: 1px solid var(--border);
-	}
-	.cat-tab {
-		flex: 1;
-		padding: 16px 12px;
-		text-align: center;
-		text-decoration: none;
-		color: var(--dark);
-		border-right: 1px solid var(--border);
-		transition: background 0.15s;
-	}
-	.cat-tab:last-child { border-right: none; }
-	.cat-tab:hover { background: var(--sand); }
-	.cat-tab-name {
+	.tool-title {
 		font-family: 'Bebas Neue', sans-serif;
-		font-size: 1rem;
+		font-size: 1.4rem;
 		letter-spacing: 0.04em;
 		text-transform: uppercase;
-		margin-bottom: 2px;
+		line-height: 1.05;
 	}
-	.cat-tab-count {
-		font-size: 0.7rem;
-		color: var(--muted);
+	.tool-card-big .tool-title { font-size: 2.4rem; }
+	.tool-card-big .tool-desc {
+		font-size: 0.95rem;
+		opacity: 0.9;
+		margin-top: 16px;
 	}
-	.cat-tab-marker {
-		display: inline-block;
+	.tool-cta {
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	/* Filter-tabs внутри заголовка ленты статей */
+	.feed-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 24px;
+		flex-wrap: wrap;
+		gap: 16px;
+	}
+	.feed-title {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1.5rem;
+		letter-spacing: 0.04em;
+		margin: 0;
+	}
+	.feed-filters {
+		display: flex;
+		gap: 4px;
+		flex-wrap: wrap;
+	}
+	.feed-filter {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 6px 12px;
+		background: #fff;
+		border: 1px solid var(--border);
+		text-decoration: none;
+		color: var(--dark);
+		font-size: 0.78rem;
+		transition: background 0.15s, border-color 0.15s;
+	}
+	.feed-filter:hover { border-color: var(--dark); }
+	.feed-filter.is-active {
+		background: var(--dark);
+		color: #fff;
+		border-color: var(--dark);
+	}
+	.feed-filter-dot {
 		width: 6px;
 		height: 6px;
 		border-radius: 50%;
-		margin-right: 6px;
-		vertical-align: middle;
+	}
+	.feed-filter-count {
+		font-size: 0.7rem;
+		opacity: 0.6;
 	}
 
 	/* Feed grid */
@@ -356,53 +388,51 @@
 		</div>
 	</div>
 
-	<!-- 3. Инструменты — компактная полоса -->
+	<!-- 3. Инструменты — Bento (1 big + 4 small) -->
 	<div class="section-label">Инструменты и калькуляторы <a href="#" class="see-all">Все →</a></div>
-	<div class="tools-strip">
-		<a href="#" class="tool-mini">
-			<div class="tool-mini-eyebrow">Симулятор · 7 шагов</div>
-			<div class="tool-mini-name">Как живёт чек в ТС ПИоТ →</div>
+	<div class="tools-bento">
+		<a href="#" class="tool-card tool-card-big">
+			<div class="tool-eyebrow">Флагман · Симулятор · 7 шагов</div>
+			<div>
+				<div class="tool-title">Как живёт чек<br>в ТС ПИоТ</div>
+				<div class="tool-desc">Интерактивный лонгрид: от сканирования DataMatrix до отметки «выведен из оборота». Шесть симуляторов, восемь иллюстраций. Прохождение 8 минут.</div>
+			</div>
+			<div class="tool-cta">Пройти пошагово →</div>
 		</a>
-		<a href="#" class="tool-mini">
-			<div class="tool-mini-eyebrow">Тест · 2 минуты</div>
-			<div class="tool-mini-name">Готов ли бизнес к ТС ПИоТ →</div>
+		<a href="#" class="tool-card tool-card-1">
+			<div class="tool-eyebrow">Тест · 2 минуты</div>
+			<div class="tool-title">Готов ли бизнес к ТС ПИоТ</div>
+			<div class="tool-cta">Пройти тест →</div>
 		</a>
-		<a href="#" class="tool-mini">
-			<div class="tool-mini-eyebrow">Калькулятор</div>
-			<div class="tool-mini-name">Расчёт штрафов КоАП →</div>
+		<a href="#" class="tool-card tool-card-2">
+			<div class="tool-eyebrow">Калькулятор</div>
+			<div class="tool-title">Штрафы КоАП</div>
+			<div class="tool-cta">Открыть →</div>
 		</a>
-		<a href="#" class="tool-mini">
-			<div class="tool-mini-eyebrow">Календарь</div>
-			<div class="tool-mini-name">Сроки маркировки 2026 →</div>
+		<a href="#" class="tool-card tool-card-3">
+			<div class="tool-eyebrow">Календарь</div>
+			<div class="tool-title">Сроки маркировки 2026</div>
+			<div class="tool-cta">Открыть →</div>
 		</a>
-	</div>
-
-	<!-- 4. Категории — тонкая полоса табов -->
-	<div class="cats-strip">
-		<a href="#" class="cat-tab">
-			<div class="cat-tab-name"><span class="cat-tab-marker" style="background:var(--pink)"></span>ТС ПИоТ</div>
-			<div class="cat-tab-count">9 материалов</div>
-		</a>
-		<a href="#" class="cat-tab">
-			<div class="cat-tab-name"><span class="cat-tab-marker" style="background:var(--lime)"></span>Маркировка</div>
-			<div class="cat-tab-count">21 материал</div>
-		</a>
-		<a href="#" class="cat-tab">
-			<div class="cat-tab-name"><span class="cat-tab-marker" style="background:var(--navy)"></span>Законодательство</div>
-			<div class="cat-tab-count">25 материалов</div>
-		</a>
-		<a href="#" class="cat-tab">
-			<div class="cat-tab-name"><span class="cat-tab-marker" style="background:var(--purple)"></span>Кассы</div>
-			<div class="cat-tab-count">16 материалов</div>
-		</a>
-		<a href="#" class="cat-tab">
-			<div class="cat-tab-name"><span class="cat-tab-marker" style="background:var(--green)"></span>ЕГАИС</div>
-			<div class="cat-tab-count">12 материалов</div>
+		<a href="#" class="tool-card tool-card-4">
+			<div class="tool-eyebrow">Тренажёр · 7 шагов</div>
+			<div class="tool-title">Цепочка ЭДО при маркировке</div>
+			<div class="tool-cta">Открыть →</div>
 		</a>
 	</div>
 
-	<!-- 5. Все материалы за неделю — 6 карточек -->
-	<div class="section-label">Все материалы за неделю <a href="#" class="see-all">См. все →</a></div>
+	<!-- 4. Все материалы — заголовок с фильтр-табами категорий + сетка -->
+	<div class="feed-header">
+		<h2 class="feed-title">Все материалы за неделю</h2>
+		<div class="feed-filters">
+			<a href="#" class="feed-filter is-active">Все <span class="feed-filter-count">83</span></a>
+			<a href="#" class="feed-filter"><span class="feed-filter-dot" style="background:var(--pink)"></span>ТС ПИоТ <span class="feed-filter-count">9</span></a>
+			<a href="#" class="feed-filter"><span class="feed-filter-dot" style="background:var(--lime)"></span>Маркировка <span class="feed-filter-count">21</span></a>
+			<a href="#" class="feed-filter"><span class="feed-filter-dot" style="background:var(--navy)"></span>Законы <span class="feed-filter-count">25</span></a>
+			<a href="#" class="feed-filter"><span class="feed-filter-dot" style="background:var(--purple)"></span>Кассы <span class="feed-filter-count">16</span></a>
+			<a href="#" class="feed-filter"><span class="feed-filter-dot" style="background:var(--green)"></span>ЕГАИС <span class="feed-filter-count">12</span></a>
+		</div>
+	</div>
 	<div class="feed-grid">
 		<a href="#" class="post-card">
 			<div class="post-img"></div>
