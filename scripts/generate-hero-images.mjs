@@ -28,17 +28,41 @@ if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exi
 // ─── Суффикс стиля для всех промптов ──────────────────────────────────────────
 const STYLE_SUFFIX =
   'editorial photography, professional Russian B2B media, ' +
-  'no people faces visible, no laptop computers unless essential, ' +
   'no generic stock-photo clichés, 16:9 aspect ratio; ' +
+
   'SHARPNESS: tack-sharp focus on the primary subject, crisp clear edges, ' +
   'high-frequency detail visible on surfaces and textures, no soft-focus, no haze, no motion blur, ' +
   'no AI-generated softness, photorealistic with DSLR-grade clarity, natural commercial lighting; ' +
-  'TEXT RULES: any text visible in the image must be large, naturally legible and look intentional — ' +
-  'never render small text that appears artificially scaled up or blurry; ' +
-  'if no text fits naturally at readable size, omit it entirely; ' +
-  'device screens may show a simple receipt or POS UI but keep it minimal and sharp; ' +
-  'DEVICE ACCURACY: render hardware devices with photorealistic accuracy matching their real-world industrial design; ' +
-  'do not place brand names or model numbers on a device unless its visual form exactly matches that model';
+
+  // ── Текстовые правила (точечные, не запрещают весь кириллический текст) ──
+  'TEXT: any visible text must be either real legible Russian/English words or completely omitted — ' +
+  'NEVER render fake-glyph gibberish, distorted Cyrillic, smeared letters, or fake brand names; ' +
+  'small body text on documents, certificates, price tags or tariff sheets MUST be replaced with ' +
+  'abstract horizontal lines / grey rectangles (lorem-ipsum placeholder blocks), NOT with attempted letters; ' +
+  'large signage words on shelf labels like «ХЛЕБ», «МОЛОКО», «СЫР», «САНКЦИИ», «УЧЁТ» are forbidden — ' +
+  'real retail price tags are small and show only price digits and a barcode; ' +
+  'short labels with digits and units are OK («4 л», «1990 ₽», «5W-40»); ' +
+
+  // ── Brand-rules ──
+  'BRANDS: either show real recognizable consumer brands (Coca-Cola, Pepsi, Lipton, Nestle, Procter & Gamble) accurately, ' +
+  'OR use fully blank generic packaging with no labels at all; ' +
+  'NEVER invent half-real fake brand names that look misspelled (no «MIRATORG», «KREMLIN», «SUMI», «MSPOS» on packaging unless it is the actual subject device); ' +
+
+  // ── DataMatrix / QR ──
+  'DATAMATRIX/QR: codes must be physically realistic size — 8-15 mm in real-world scale, ' +
+  'placed subtly on packaging or stickers as actual markings would be; ' +
+  'never make a DataMatrix or QR the dominant element of the frame; ' +
+  'they must be sharp pixel-grid patterns, not blurry or oversized; ' +
+
+  // ── People ──
+  'PEOPLE: avoid close-up portraits; if a person appears, show them at medium or wide distance, in profile, from behind, or with face partially out of frame; ' +
+  'absolutely no AI-deformed anatomy (extra fingers, distorted eyes, asymmetric features); ' +
+  'better to show only hands at task than full faces; ' +
+
+  // ── Devices ──
+  'DEVICES: render hardware with photorealistic accuracy matching the real industrial design; ' +
+  'do not place a brand name or model number text on a device unless its visual form exactly matches that real product; ' +
+  'no laptop computers unless essential to the topic';
 
 // ─── Точные визуальные профили реальных устройств ─────────────────────────────
 // Используются в slug-промптах для фотореалистичного воспроизведения формы
@@ -365,8 +389,55 @@ function buildPrompt(slug, title, category) {
   return `${pick}. ${STYLE_SUFFIX}`;
 }
 
+// ─── Референс-картинки устройств (img2img подсказка) ─────────────────────────
+// Файлы кладутся в public/refs/devices/<slug>.{jpg,png,webp}. Если для slug'а
+// (или для slug-pattern) есть референс — он прикладывается к запросу как
+// image_url. Это даёт точное воспроизведение формы конкретной модели вместо
+// «AI рисует обобщённый POS-терминал».
+const REFS_DIR = path.join(ROOT, 'public/refs/devices');
+
+const DEVICE_REFS = {
+  // pattern в slug → имя файла без расширения
+  'mspos-f20':       'mspos-f20',
+  'mspos-t-d3-mini': 'mspos-t-d3-mini',
+  'mspos-t':         'mspos-t',
+  'atol-27f':        'atol-27f',
+  'atol-30f':        'atol-30f',
+};
+
+function refFor(slug) {
+  if (!fs.existsSync(REFS_DIR)) return null;
+  for (const [pattern, baseName] of Object.entries(DEVICE_REFS)) {
+    if (!slug.includes(pattern)) continue;
+    for (const ext of ['.jpg', '.jpeg', '.png', '.webp']) {
+      const full = path.join(REFS_DIR, baseName + ext);
+      if (fs.existsSync(full)) return full;
+    }
+  }
+  return null;
+}
+
+function imageToDataUrl(filePath) {
+  const buf = fs.readFileSync(filePath);
+  const ext = path.extname(filePath).toLowerCase();
+  const mime =
+    ext === '.png'  ? 'image/png'  :
+    ext === '.webp' ? 'image/webp' :
+                      'image/jpeg';
+  return `data:${mime};base64,${buf.toString('base64')}`;
+}
+
 // ─── API ──────────────────────────────────────────────────────────────────────
-async function generateImage(prompt) {
+async function generateImage(prompt, referenceImagePath = null) {
+  // Если есть референс — отправляем мультимодальный запрос (text + image).
+  // Gemini Flash Image поддерживает image input как контекст для генерации.
+  const content = referenceImagePath
+    ? [
+        { type: 'text', text: prompt + ' — Generate a photo with the device shown in the reference image: same proportions, same buttons, same screen layout, same color, same printer position. Place the device naturally in the described scene.' },
+        { type: 'image_url', image_url: { url: imageToDataUrl(referenceImagePath) } },
+      ]
+    : prompt;
+
   const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -377,7 +448,7 @@ async function generateImage(prompt) {
     },
     body: JSON.stringify({
       model: MODEL,
-      messages: [{ role: 'user', content: prompt }],
+      messages: [{ role: 'user', content }],
       modalities: ['text', 'image'],
     }),
   });
@@ -402,10 +473,10 @@ async function generateImage(prompt) {
 // ─── Основной цикл ────────────────────────────────────────────────────────────
 const targetSlug = process.env.SLUG;
 const limit      = process.env.LIMIT ? parseInt(process.env.LIMIT, 10) : 0;
-const files      = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
+const files      = fs.readdirSync(BLOG_DIR).filter(f => /\.(md|mdx)$/.test(f));
 
 let targets = files.filter(file => {
-  const slug = file.replace(/\.md$/, '');
+  const slug = file.replace(/\.(md|mdx)$/, '');
   if (targetSlug && slug !== targetSlug && !slug.startsWith(targetSlug)) return false;
   const content = fs.readFileSync(path.join(BLOG_DIR, file), 'utf8');
   if (!FORCE && /^heroImage:/m.test(content)) return false;
@@ -432,14 +503,15 @@ for (const file of targets) {
   const fm       = parseFrontmatter(content);
   if (!fm) { console.warn(`Пропуск ${file}: не распарсился frontmatter`); continue; }
 
-  const slug     = file.replace(/\.md$/, '');
+  const slug     = file.replace(/\.(md|mdx)$/, '');
   const title    = fm.title ?? slug;
   const category = (content.match(/categories:\s*\n\s*-\s*(\S+)/) || [])[1] ?? 'zakonodatelstvo';
   const prompt   = buildPrompt(slug, title, category);
+  const refPath  = refFor(slug);
 
-  process.stdout.write(`${slug}\n  → ${prompt.slice(0, 90)}...\n  `);
+  process.stdout.write(`${slug}\n  → ${prompt.slice(0, 90)}...\n${refPath ? `  ref: ${path.basename(refPath)}\n` : ''}  `);
   try {
-    const buffer   = await generateImage(prompt);
+    const buffer   = await generateImage(prompt, refPath);
     const heroPath = `/images/hero/${slug}.jpg`;
     const outPath  = path.join(HERO_DIR, `${slug}.jpg`);
     fs.writeFileSync(outPath, buffer);
