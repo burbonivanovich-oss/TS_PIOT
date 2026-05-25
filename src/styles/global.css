@@ -140,6 +140,14 @@ img {
 	height: auto;
 }
 
+/* picture-wrapper не блочный по умолчанию (display:inline) и не заполняет
+   родительский flex/grid контейнер — давал «цветные полосы» по краям hero,
+   когда родитель имеет фон. display:contents «снимает» picture из layout-дерева,
+   img напрямую участвует в родительском контейнере и сайзится на 100%. */
+picture {
+	display: contents;
+}
+
 code {
 	padding: 2px 6px;
 	background-color: var(--surface);
