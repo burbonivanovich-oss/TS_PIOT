@@ -19,6 +19,16 @@ function fmtDate(d: Date): string {
 	return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
 }
 
+// Правильное склонение «материал»: 1 материал, 2-4 материала, 5-20 материалов
+function pluralMaterials(n: number): string {
+	const mod10 = n % 10;
+	const mod100 = n % 100;
+	if (mod100 >= 11 && mod100 <= 14) return `${n} материалов`;
+	if (mod10 === 1) return `${n} материал`;
+	if (mod10 >= 2 && mod10 <= 4) return `${n} материала`;
+	return `${n} материалов`;
+}
+
 const catList = [
 	{ slug: 'ts-piot',          num: '01', name: 'ТС ПИоТ',         cls: 't1', count: posts.filter(p => p.data.categories?.includes('ts-piot')).length },
 	{ slug: 'markirovka',       num: '02', name: 'Маркировка',       cls: 't2', count: posts.filter(p => p.data.categories?.includes('markirovka')).length },
@@ -74,7 +84,7 @@ const CAT_COLOR: Record<string, string> = {
 								<div class="t-name">{cat.name}</div>
 							</div>
 							<div>
-								<div class="t-count">{cat.count} материалов</div>
+								<div class="t-count">{pluralMaterials(cat.count!)}</div>
 								<div class="t-dot"></div>
 							</div>
 						</a>
@@ -340,12 +350,12 @@ const CAT_COLOR: Record<string, string> = {
 			.t3 .t-num { color: rgba(255,255,255,.4); }
 			.t-name {
 				font-family: 'Bebas Neue', sans-serif;
-				font-size: clamp(1.1rem, 1.35vw, 1.65rem);
+				font-size: clamp(1.05rem, 1.15vw, 1.4rem);
 				letter-spacing: .04em;
 				text-transform: uppercase;
 				color: #111;
 				line-height: 1.1;
-				word-break: normal;
+				overflow-wrap: anywhere;
 				hyphens: none;
 			}
 			.t3 .t-name { color: #fff; }
@@ -362,10 +372,22 @@ const CAT_COLOR: Record<string, string> = {
 			.t1 .t-dot { background: #9E2B4F; }
 			.t2 .t-dot { background: #111; }
 			.t3 .t-dot { background: #AFCC00; }
-			.cat-tile.t4 { background: #F6F4F0; border: 1px solid rgba(0,0,0,.12); cursor: default; }
+			.cat-tile.t4 { background: #9E2B4F; cursor: default; }
+			.t4 .t-num { color: rgba(255,255,255,.4); }
+			.t4 .t-name { color: #fff; }
 			.t4-links { display: flex; flex-direction: column; gap: 6px; }
-			.t4-link { font-size: .75rem; font-weight: 700; letter-spacing: .06em; color: #9E2B4F; text-decoration: none; transition: color .15s; }
-			.t4-link:hover { color: #7d2240; }
+			.t4-link {
+				font-size: .75rem;
+				font-weight: 700;
+				letter-spacing: .06em;
+				color: #fff;
+				text-decoration: none;
+				transition: opacity .15s;
+				border-bottom: 1px solid rgba(255,255,255,.3);
+				padding-bottom: 4px;
+			}
+			.t4-link:last-child { border-bottom: none; padding-bottom: 0; }
+			.t4-link:hover { opacity: .8; }
 
 			/* ── Posts grid ── */
 			.latest { margin-bottom: 0; }
