@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Главная — 3 варианта</title>
+<style>
+	:root {
+		--pink: #9E2B4F;
+		--lime: #AFCC00;
+		--navy: #1E4A7A;
+		--purple: #5A3E7A;
+		--green: #1A5C3A;
+		--sand: #EDE8DF;
+		--dark: #111;
+		--muted: #666;
+		--border: rgba(0,0,0,.12);
+	}
+	* { box-sizing: border-box; }
+	body {
+		margin: 0;
+		font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+		background: var(--sand);
+		color: var(--dark);
+		line-height: 1.5;
+	}
+	.variant {
+		padding: 64px 32px;
+		max-width: 1200px;
+		margin: 0 auto;
+		border-bottom: 4px solid var(--dark);
+	}
+	.variant-label {
+		font-size: 0.85rem;
+		font-weight: 700;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--pink);
+		margin-bottom: 8px;
+	}
+	.variant-title {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 2rem;
+		letter-spacing: 0.02em;
+		margin: 0 0 8px;
+	}
+	.variant-note {
+		font-size: 0.9rem;
+		color: var(--muted);
+		margin-bottom: 32px;
+		max-width: 700px;
+	}
+	.hero {
+		padding: 48px 0 32px;
+		border-bottom: 1px solid var(--border);
+		margin-bottom: 32px;
+	}
+	.hero-eyebrow {
+		display: inline-block;
+		background: var(--lime);
+		color: var(--dark);
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		padding: 4px 10px;
+		margin-bottom: 24px;
+	}
+	.hero h1 {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: clamp(2rem, 4vw, 3.5rem);
+		letter-spacing: 0.01em;
+		line-height: 1.0;
+		margin: 0 0 24px;
+		max-width: 800px;
+	}
+	.hero p {
+		color: var(--muted);
+		max-width: 600px;
+		margin: 0 0 24px;
+	}
+	.btn {
+		display: inline-block;
+		background: var(--dark);
+		color: var(--lime);
+		padding: 12px 24px;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+	.section-label {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		margin-bottom: 16px;
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1.5rem;
+		letter-spacing: 0.04em;
+	}
+	.see-all {
+		font-family: 'Inter', sans-serif;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		color: var(--muted);
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+
+	/* ─── ВАРИАНТ 1: Иерархия по массе ─── */
+	.v1-nav-strip {
+		display: flex;
+		gap: 8px;
+		flex-wrap: wrap;
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 12px 16px;
+		margin-bottom: 48px;
+	}
+	.v1-pill {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 6px 14px;
+		border: 1px solid var(--border);
+		font-size: 0.85rem;
+		text-decoration: none;
+		color: var(--dark);
+		transition: background 0.15s;
+	}
+	.v1-pill:hover { background: var(--sand); }
+	.v1-pill-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+	}
+	.v1-pill-count {
+		font-size: 0.7rem;
+		color: var(--muted);
+	}
+	.v1-bento {
+		display: grid;
+		grid-template-columns: 2fr 1fr 1fr;
+		grid-template-rows: auto auto;
+		gap: 8px;
+		margin-bottom: 48px;
+	}
+	.v1-card {
+		padding: 24px;
+		min-height: 160px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		text-decoration: none;
+		color: var(--dark);
+		transition: opacity 0.15s;
+	}
+	.v1-card:hover { opacity: 0.9; }
+	.v1-card-big {
+		grid-row: 1 / span 2;
+		min-height: 328px;
+		background: var(--pink);
+		color: #fff;
+		padding: 32px;
+	}
+	.v1-card-1 { background: var(--lime); }
+	.v1-card-2 { background: var(--navy); color: #fff; }
+	.v1-card-3 { background: #fff; border: 1px solid var(--border); }
+	.v1-card-4 { background: var(--dark); color: #fff; }
+	.v1-card-eyebrow {
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		opacity: 0.7;
+	}
+	.v1-card-title {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1.4rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		line-height: 1.1;
+	}
+	.v1-card-big .v1-card-title { font-size: 2.4rem; }
+	.v1-card-cta {
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 16px;
+	}
+	.post-card {
+		background: #fff;
+		border: 1px solid var(--border);
+		text-decoration: none;
+		color: var(--dark);
+		overflow: hidden;
+	}
+	.post-img {
+		height: 140px;
+		background: linear-gradient(135deg, #ddd, #eee);
+	}
+	.post-body { padding: 16px; }
+	.post-cat {
+		font-size: 0.6rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--pink);
+	}
+	.post-title {
+		font-weight: 600;
+		margin: 8px 0;
+		font-size: 0.95rem;
+	}
+	.post-date {
+		font-size: 0.75rem;
+		color: var(--muted);
+	}
+
+	/* ─── ВАРИАНТ 2: Разные лица ─── */
+	.v2-cats {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 8px;
+		margin-bottom: 48px;
+	}
+	.v2-cat {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 24px;
+		min-height: 140px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		text-decoration: none;
+		color: var(--dark);
+		position: relative;
+	}
+	.v2-cat-icon {
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 0.8rem;
+		letter-spacing: 0.04em;
+		background: var(--sand);
+		color: var(--dark);
+		border-radius: 4px;
+	}
+	.v2-cat-dot {
+		position: absolute;
+		top: 24px;
+		right: 24px;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+	}
+	.v2-cat-name {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1.3rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		margin-top: 16px;
+	}
+	.v2-cat-count {
+		font-size: 0.75rem;
+		color: var(--muted);
+	}
+
+	.v2-tools {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 8px;
+		margin-bottom: 48px;
+	}
+	.v2-tool {
+		padding: 24px;
+		min-height: 160px;
+		text-decoration: none;
+		color: #fff;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		transition: opacity 0.15s;
+	}
+	.v2-tool:hover { opacity: 0.9; }
+	.v2-tool-1 { background: var(--pink); }
+	.v2-tool-2 { background: var(--lime); color: var(--dark); }
+	.v2-tool-3 { background: var(--navy); }
+	.v2-tool-4 { background: var(--purple); }
+	.v2-tool-5 { background: var(--dark); }
+
+	/* ─── ВАРИАНТ 3: Без раздела категорий ─── */
+	.v3-flagship {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 8px;
+		background: var(--pink);
+		min-height: 360px;
+		margin-bottom: 48px;
+		text-decoration: none;
+		color: #fff;
+	}
+	.v3-flagship-img {
+		background: linear-gradient(135deg, #FF4D8F, #9E2B4F);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 12rem;
+		color: rgba(255,255,255,0.2);
+	}
+	.v3-flagship-body {
+		padding: 40px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	.v3-flagship-eyebrow {
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		opacity: 0.7;
+	}
+	.v3-flagship-title {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 2.4rem;
+		letter-spacing: 0.02em;
+		line-height: 1.0;
+		text-transform: uppercase;
+	}
+	.v3-flagship-desc {
+		font-size: 0.95rem;
+		opacity: 0.9;
+		margin: 16px 0;
+	}
+	.v3-tools {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 8px;
+		margin-bottom: 48px;
+	}
+	.v3-tool {
+		padding: 20px;
+		min-height: 140px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		text-decoration: none;
+		transition: opacity 0.15s;
+	}
+	.v3-tool:hover { opacity: 0.9; }
+	.v3-tool-1 { background: var(--lime); color: var(--dark); }
+	.v3-tool-2 { background: var(--navy); color: #fff; }
+	.v3-tool-3 { background: #fff; border: 1px solid var(--border); color: var(--dark); }
+	.v3-tool-4 { background: var(--dark); color: #fff; }
+	.v3-tool-name {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1.2rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		line-height: 1.1;
+	}
+
+	/* footer-nav в варианте 3 — компактная навигация по разделам, как футер */
+	.v3-cats-footer {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 20px;
+		margin-bottom: 48px;
+		display: flex;
+		gap: 16px;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.v3-cats-footer a {
+		font-size: 0.85rem;
+		color: var(--dark);
+		text-decoration: none;
+		padding: 4px 8px;
+		border-bottom: 2px solid transparent;
+	}
+	.v3-cats-footer a:hover { border-color: var(--pink); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ ВАРИАНТ 1 ═══════════════ -->
+<section class="variant">
+	<div class="variant-label">Вариант 1</div>
+	<h2 class="variant-title">Иерархия по визуальной массе</h2>
+	<p class="variant-note">
+		Разделы — компактная строка-пилюли наверху (просто навигация).
+		Инструменты — асимметричный Bento с одним крупным акцентом-флагманом.
+		Последние материалы — равная сетка. Разный «вес» секций даёт ритм.
+	</p>
+
+	<div class="hero">
+		<span class="hero-eyebrow">Медиа для бизнеса</span>
+		<h1>РАЗБИРАЕМ ТРЕБОВАНИЯ, КОТОРЫЕ ДОГОНЯЮТ БИЗНЕС</h1>
+		<p>ТС ПИоТ для онлайн-касс, маркировка «Честный знак», налоги, ЭДО и трудовое законодательство — понятно и без паники.</p>
+		<a href="#" class="btn">Все статьи</a>
+	</div>
+
+	<!-- Разделы — компактная строка пилюлями -->
+	<div class="v1-nav-strip">
+		<a href="#" class="v1-pill"><span class="v1-pill-dot" style="background:var(--pink)"></span>ТС ПИоТ <span class="v1-pill-count">9</span></a>
+		<a href="#" class="v1-pill"><span class="v1-pill-dot" style="background:var(--lime)"></span>Маркировка <span class="v1-pill-count">21</span></a>
+		<a href="#" class="v1-pill"><span class="v1-pill-dot" style="background:var(--navy)"></span>Законодательство <span class="v1-pill-count">25</span></a>
+		<a href="#" class="v1-pill"><span class="v1-pill-dot" style="background:var(--purple)"></span>Кассы <span class="v1-pill-count">16</span></a>
+		<a href="#" class="v1-pill"><span class="v1-pill-dot" style="background:var(--green)"></span>ЕГАИС <span class="v1-pill-count">12</span></a>
+	</div>
+
+	<!-- Инструменты — Bento -->
+	<div class="section-label">Инструменты <a href="#" class="see-all">См. все →</a></div>
+	<div class="v1-bento">
+		<a href="#" class="v1-card v1-card-big">
+			<div class="v1-card-eyebrow">Флагман · 7 шагов</div>
+			<div>
+				<div class="v1-card-title">Как живёт чек<br>в ТС ПИоТ</div>
+				<div style="font-size:0.95rem;opacity:0.9;margin-top:16px">Интерактивный лонгрид: от сканирования DataMatrix до отметки «выведен из оборота». 6 симуляторов, 8 иллюстраций.</div>
+			</div>
+			<div class="v1-card-cta">Пройти пошагово →</div>
+		</a>
+		<a href="#" class="v1-card v1-card-1">
+			<div class="v1-card-eyebrow">Тест · 2 мин</div>
+			<div class="v1-card-title">Готов ли бизнес к ТС ПИоТ</div>
+			<div class="v1-card-cta">Пройти тест →</div>
+		</a>
+		<a href="#" class="v1-card v1-card-2">
+			<div class="v1-card-eyebrow">Сценарий · 30 дней</div>
+			<div class="v1-card-title">Открываю кофейню</div>
+			<div class="v1-card-cta">Открыть план →</div>
+		</a>
+		<a href="#" class="v1-card v1-card-3">
+			<div class="v1-card-eyebrow">Сценарий · ROI</div>
+			<div class="v1-card-title">ИП → ООО за 60 дней</div>
+			<div class="v1-card-cta">Открыть план →</div>
+		</a>
+		<a href="#" class="v1-card v1-card-4">
+			<div class="v1-card-eyebrow">Трекер · 10 норм</div>
+			<div class="v1-card-title">Законы 2026 для МСБ</div>
+			<div class="v1-card-cta">Открыть трекер →</div>
+		</a>
+	</div>
+
+	<!-- Последние материалы -->
+	<div class="section-label">Последние материалы <a href="#" class="see-all">См. все →</a></div>
+	<div class="posts-grid">
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ТС ПИоТ</div>
+				<div class="post-title">ТС ПИоТ без интернета: как работает касса при потере связи</div>
+				<div class="post-date">25 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">Маркировка</div>
+				<div class="post-title">Автомобильные жидкости: разрешительный режим с 1 октября 2026</div>
+				<div class="post-date">24 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">Законодательство</div>
+				<div class="post-title">Закон о маркетплейсах 289-ФЗ: что изменится</div>
+				<div class="post-date">24 мая</div>
+			</div>
+		</a>
+	</div>
+</section>
+
+
+<!-- ═══════════════ ВАРИАНТ 2 ═══════════════ -->
+<section class="variant">
+	<div class="variant-label">Вариант 2</div>
+	<h2 class="variant-title">Разные «лица» секций</h2>
+	<p class="variant-note">
+		Разделы — белые плитки с цветной точкой и иконкой-аббревиатурой.
+		Инструменты — наоборот насыщенные цветные плитки (тут CTA).
+		Контраст «спокойная навигация → яркое действие». Разделы не дублируют шапку визуально, потому что выглядят иначе.
+	</p>
+
+	<div class="hero">
+		<span class="hero-eyebrow">Медиа для бизнеса</span>
+		<h1>РАЗБИРАЕМ ТРЕБОВАНИЯ, КОТОРЫЕ ДОГОНЯЮТ БИЗНЕС</h1>
+		<p>ТС ПИоТ для онлайн-касс, маркировка «Честный знак», налоги, ЭДО и трудовое законодательство — понятно и без паники.</p>
+		<a href="#" class="btn">Все статьи</a>
+	</div>
+
+	<!-- Разделы — белые с цветной точкой -->
+	<div class="section-label">Разделы <a href="#" class="see-all">См. все →</a></div>
+	<div class="v2-cats">
+		<a href="#" class="v2-cat">
+			<div class="v2-cat-icon">ТС</div>
+			<span class="v2-cat-dot" style="background:var(--pink)"></span>
+			<div>
+				<div class="v2-cat-name">ТС ПИоТ</div>
+				<div class="v2-cat-count">9 материалов</div>
+			</div>
+		</a>
+		<a href="#" class="v2-cat">
+			<div class="v2-cat-icon">МК</div>
+			<span class="v2-cat-dot" style="background:var(--lime)"></span>
+			<div>
+				<div class="v2-cat-name">Маркировка</div>
+				<div class="v2-cat-count">21 материал</div>
+			</div>
+		</a>
+		<a href="#" class="v2-cat">
+			<div class="v2-cat-icon">ЗАК</div>
+			<span class="v2-cat-dot" style="background:var(--navy)"></span>
+			<div>
+				<div class="v2-cat-name">Законодательство</div>
+				<div class="v2-cat-count">25 материалов</div>
+			</div>
+		</a>
+		<a href="#" class="v2-cat">
+			<div class="v2-cat-icon">ККТ</div>
+			<span class="v2-cat-dot" style="background:var(--purple)"></span>
+			<div>
+				<div class="v2-cat-name">Кассы</div>
+				<div class="v2-cat-count">16 материалов</div>
+			</div>
+		</a>
+		<a href="#" class="v2-cat">
+			<div class="v2-cat-icon">ЕГ</div>
+			<span class="v2-cat-dot" style="background:var(--green)"></span>
+			<div>
+				<div class="v2-cat-name">ЕГАИС</div>
+				<div class="v2-cat-count">12 материалов</div>
+			</div>
+		</a>
+		<a href="#" class="v2-cat">
+			<div class="v2-cat-icon">ИНС</div>
+			<span class="v2-cat-dot" style="background:var(--dark)"></span>
+			<div>
+				<div class="v2-cat-name">Инструменты</div>
+				<div class="v2-cat-count">5 интерактивов</div>
+			</div>
+		</a>
+	</div>
+
+	<!-- Инструменты — насыщенные плитки (CTA блок) -->
+	<div class="section-label">Инструменты <a href="#" class="see-all">См. все →</a></div>
+	<div class="v2-tools">
+		<a href="#" class="v2-tool v2-tool-1">
+			<div class="v1-card-eyebrow">Флагман · 7 шагов</div>
+			<div class="v1-card-title">Как живёт чек в ТС ПИоТ</div>
+			<div class="v1-card-cta">Пройти →</div>
+		</a>
+		<a href="#" class="v2-tool v2-tool-2">
+			<div class="v1-card-eyebrow">Тест · 2 мин</div>
+			<div class="v1-card-title">Готов ли бизнес к ТС ПИоТ</div>
+			<div class="v1-card-cta">Пройти тест →</div>
+		</a>
+		<a href="#" class="v2-tool v2-tool-3">
+			<div class="v1-card-eyebrow">Сценарий · 30 дней</div>
+			<div class="v1-card-title">Открываю кофейню</div>
+			<div class="v1-card-cta">Открыть план →</div>
+		</a>
+		<a href="#" class="v2-tool v2-tool-4">
+			<div class="v1-card-eyebrow">Сценарий · ROI</div>
+			<div class="v1-card-title">ИП → ООО за 60 дней</div>
+			<div class="v1-card-cta">Открыть план →</div>
+		</a>
+		<a href="#" class="v2-tool v2-tool-5">
+			<div class="v1-card-eyebrow">Трекер · 10 норм</div>
+			<div class="v1-card-title">Законы 2026 для МСБ</div>
+			<div class="v1-card-cta">Открыть трекер →</div>
+		</a>
+	</div>
+
+	<!-- Последние материалы -->
+	<div class="section-label">Последние материалы <a href="#" class="see-all">См. все →</a></div>
+	<div class="posts-grid">
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ТС ПИоТ</div>
+				<div class="post-title">ТС ПИоТ без интернета: как работает касса при потере связи</div>
+				<div class="post-date">25 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">Маркировка</div>
+				<div class="post-title">Автомобильные жидкости: разрешительный режим с 1 октября 2026</div>
+				<div class="post-date">24 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">Законодательство</div>
+				<div class="post-title">Закон о маркетплейсах 289-ФЗ: что изменится</div>
+				<div class="post-date">24 мая</div>
+			</div>
+		</a>
+	</div>
+</section>
+
+
+<!-- ═══════════════ ВАРИАНТ 3 ═══════════════ -->
+<section class="variant">
+	<div class="variant-label">Вариант 3</div>
+	<h2 class="variant-title">Без отдельной секции «Разделы»</h2>
+	<p class="variant-note">
+		Категории убраны с главной (они есть в шапке). Вместо них —
+		крупный флагман с иллюстрацией. Дальше короткий блок инструментов.
+		В самом низу — компактная футер-навигация по разделам (для тех кто скроллил до конца). Минимум блоков, максимум фокуса.
+	</p>
+
+	<div class="hero">
+		<span class="hero-eyebrow">Медиа для бизнеса</span>
+		<h1>РАЗБИРАЕМ ТРЕБОВАНИЯ, КОТОРЫЕ ДОГОНЯЮТ БИЗНЕС</h1>
+		<p>ТС ПИоТ для онлайн-касс, маркировка «Честный знак», налоги, ЭДО и трудовое законодательство — понятно и без паники.</p>
+		<a href="#" class="btn">Все статьи</a>
+	</div>
+
+	<!-- Флагман — большая карточка с иллюстрацией -->
+	<a href="#" class="v3-flagship">
+		<div class="v3-flagship-img">ТС</div>
+		<div class="v3-flagship-body">
+			<div>
+				<div class="v3-flagship-eyebrow">Флагман · Интерактив · 7 шагов</div>
+				<div class="v3-flagship-title">Как живёт чек<br>в ТС ПИоТ</div>
+				<div class="v3-flagship-desc">Шесть симуляторов и восемь иллюстраций — от сканирования DataMatrix на кассе до отметки «выведен из оборота» в Честном знаке. Прохождение 8 минут.</div>
+			</div>
+			<div class="v1-card-cta" style="background:#fff;color:var(--pink);padding:12px 24px;display:inline-block;width:fit-content">Пройти пошагово →</div>
+		</div>
+	</a>
+
+	<!-- Инструменты -->
+	<div class="section-label">Инструменты <a href="#" class="see-all">См. все →</a></div>
+	<div class="v3-tools">
+		<a href="#" class="v3-tool v3-tool-1">
+			<div class="v1-card-eyebrow">Тест · 2 мин</div>
+			<div class="v3-tool-name">Готов ли бизнес к ТС ПИоТ</div>
+			<div class="v1-card-cta">Пройти →</div>
+		</a>
+		<a href="#" class="v3-tool v3-tool-2">
+			<div class="v1-card-eyebrow">Сценарий · 30 дней</div>
+			<div class="v3-tool-name">Открываю кофейню</div>
+			<div class="v1-card-cta">Открыть →</div>
+		</a>
+		<a href="#" class="v3-tool v3-tool-3">
+			<div class="v1-card-eyebrow">Сценарий · ROI</div>
+			<div class="v3-tool-name">ИП → ООО за 60 дней</div>
+			<div class="v1-card-cta">Открыть →</div>
+		</a>
+		<a href="#" class="v3-tool v3-tool-4">
+			<div class="v1-card-eyebrow">Трекер · 10 норм</div>
+			<div class="v3-tool-name">Законы 2026 для МСБ</div>
+			<div class="v1-card-cta">Открыть →</div>
+		</a>
+	</div>
+
+	<!-- Последние материалы -->
+	<div class="section-label">Последние материалы <a href="#" class="see-all">См. все →</a></div>
+	<div class="posts-grid">
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ТС ПИоТ</div>
+				<div class="post-title">ТС ПИоТ без интернета: как работает касса при потере связи</div>
+				<div class="post-date">25 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">Маркировка</div>
+				<div class="post-title">Автомобильные жидкости: разрешительный режим с 1 октября 2026</div>
+				<div class="post-date">24 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">Законодательство</div>
+				<div class="post-title">Закон о маркетплейсах 289-ФЗ: что изменится</div>
+				<div class="post-date">24 мая</div>
+			</div>
+		</a>
+	</div>
+
+	<!-- Футер-навигация по разделам -->
+	<div style="margin-top:48px">
+		<div class="section-label" style="font-size:1rem">Все разделы</div>
+		<div class="v3-cats-footer">
+			<a href="#">ТС ПИоТ (9)</a>
+			<a href="#">Маркировка (21)</a>
+			<a href="#">Законодательство (25)</a>
+			<a href="#">Кассы (16)</a>
+			<a href="#">ЕГАИС (12)</a>
+			<a href="#">Все инструменты</a>
+		</div>
+	</div>
+</section>
+
+</body>
+</html>
