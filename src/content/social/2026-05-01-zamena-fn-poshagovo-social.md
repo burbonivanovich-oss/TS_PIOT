@@ -14,7 +14,7 @@
 
 Нарушение порядка: штраф по ст. 14.5 КоАП РФ — до 3 000 руб. для ИП.
 
-Читать: etiketka-media.ru/blog/zamena-fn-poshagovo/
+Читать: etiketka-media.ru/blog/2026-05-01-zamena-fn-poshagovo/
 
 ## ВКонтакте
 
@@ -42,7 +42,7 @@
 
 Стоимость нового ФН-1.2 (36 месяцев): от 9 000 до 14 000 рублей. Услуги ЦТО по замене: от 1 000 до 3 000 рублей.
 
-Подробнее в нашей статье: etiketka-media.ru/blog/zamena-fn-poshagovo/
+Подробнее в нашей статье: etiketka-media.ru/blog/2026-05-01-zamena-fn-poshagovo/
 
 ## Дзен
 

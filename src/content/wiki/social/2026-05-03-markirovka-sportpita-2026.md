@@ -1,7 +1,7 @@
 ---
 title: "Спортивное питание: запрет немаркированных остатков с 1 сентября 2026"
 slug: "markirovka-sportpita-2026"
-articleUrl: "/blog/markirovka-sportpita-2026/"
+articleUrl: "/blog/2026-05-03-markirovka-sportpita-2026/"
 status: draft
 createdDate: "2026-05-03"
 ---
@@ -14,7 +14,7 @@ createdDate: "2026-05-03"
 
 Штраф за хранение немаркированных остатков — до 300 000 рублей с конфискацией товара для организаций.
 
-etiketka-media.ru/blog/markirovka-sportpita-2026/
+etiketka-media.ru/blog/2026-05-03-markirovka-sportpita-2026/
 
 ---
 
@@ -28,7 +28,7 @@ etiketka-media.ru/blog/markirovka-sportpita-2026/
 
 Смешанный ассортимент (спортпит + БАДЫ) требует особого внимания: у каждой категории свои сроки. Не откладывайте маркировку остатков на август — за лето это сделать реалистично.
 
-Подробная инструкция по шагам: /blog/markirovka-sportpita-2026/
+Подробная инструкция по шагам: /blog/2026-05-03-markirovka-sportpita-2026/
 
 #маркировка #спортивноепитание #честныйзнак #малыйбизнес #2026
 
@@ -98,4 +98,4 @@ erid: 2ucDCLq9ZqzX2EPXXAETGwnDJPBUrtLimUDNKBjoHt3TnBSUkyfuHvbA. Реклама. 
 
 До конца лета нужно: промаркировать остатки, настроить ЭДО, подготовить кассу к разрешительному режиму. Подробный план действий — в статье.
 
-[Читать статью →](/blog/markirovka-sportpita-2026/)
+[Читать статью →](/blog/2026-05-03-markirovka-sportpita-2026/)

@@ -12,13 +12,13 @@
 
 Пени при ставке ЦБ 21%: при платеже 500 000 руб. и просрочке 30 дней — около 10 500 руб.
 
-Читать: etiketka-media.ru/blog/ens-enp-uvedomleniya/
+Читать: etiketka-media.ru/blog/2026-05-01-ens-enp-uvedomleniya/
 
 ## ВКонтакте
 
 Уведомления по ЕНС: почему это важнее, чем кажется, и как не допустить ошибок
 
-Подробнее в нашей статье: etiketka-media.ru/blog/ens-enp-uvedomleniya/
+Подробнее в нашей статье: etiketka-media.ru/blog/2026-05-01-ens-enp-uvedomleniya/
 
 ## Дзен
 

@@ -1,7 +1,7 @@
 ---
 title: "Учёт разливного пива в пабе: марки, кеги, остатки"
 slug: "uchyot-razlivnogo-piva"
-articleUrl: "/blog/uchyot-razlivnogo-piva/"
+articleUrl: "/blog/2026-05-03-uchyot-razlivnogo-piva/"
 status: draft
 createdDate: "2026-05-03"
 ---
@@ -18,7 +18,7 @@ createdDate: "2026-05-03"
 
 Штраф за нарушения учёта пива — ст. 14.19 КоАП, до 200 000 рублей для организаций.
 
-etiketka-media.ru/blog/uchyot-razlivnogo-piva/
+etiketka-media.ru/blog/2026-05-03-uchyot-razlivnogo-piva/
 
 ---
 
@@ -34,7 +34,7 @@ etiketka-media.ru/blog/uchyot-razlivnogo-piva/
 
 Также с 2024–2025 годов пиво в бутылках и банках подлежит маркировке «Честным знаком» — это параллельная система, отдельная от ЕГАИС.
 
-Подробный разбор учёта кег, остатков и ответы на вопросы: /blog/uchyot-razlivnogo-piva/
+Подробный разбор учёта кег, остатков и ответы на вопросы: /blog/2026-05-03-uchyot-razlivnogo-piva/
 
 #егаис #пиво #разливноепиво #паб #бар
 
@@ -107,7 +107,7 @@ etiketka-media.ru/blog/uchyot-razlivnogo-piva/
 Попробовать 14 дней: kontur.ru/market/kkt
 Реклама. АО «ПФ „СКБ Контур“», ИНН 6663003127. erid: HuNbC4MfXEEAXiQhHRaXLkvNxqSftLNsmFxTm6nMgynW13oUBJ
 
-Полная нормативная база и пошаговая инструкция — на etiketka-media.ru/blog/uchyot-razlivnogo-piva/
+Полная нормативная база и пошаговая инструкция — на etiketka-media.ru/blog/2026-05-03-uchyot-razlivnogo-piva/
 
 #егаис #пиво #разливноепиво #паб #бар
 
@@ -120,4 +120,4 @@ etiketka-media.ru/blog/uchyot-razlivnogo-piva/
 
 Разливное пиво учитывается в ЕГАИС объёмно: принимаете партию по ТТН, списываете продажи актами по итогам смены. Как правильно организовать учёт, чтобы не расходились остатки, — в статье.
 
-[Читать статью →](/blog/uchyot-razlivnogo-piva/)
+[Читать статью →](/blog/2026-05-03-uchyot-razlivnogo-piva/)

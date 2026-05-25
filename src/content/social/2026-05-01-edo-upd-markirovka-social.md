@@ -13,13 +13,13 @@
 
 Срок подтверждения: молоко, вода, пиво, табак — 3 рабочих дня. Лекарства — 1 рабочий день.
 
-Читать: etiketka-media.ru/blog/edo-upd-markirovka/
+Читать: etiketka-media.ru/blog/2026-05-01-edo-upd-markirovka/
 
 ## ВКонтакте
 
 ЭДО и УПД при работе с маркированными товарами: почему бумажная накладная уже не работает
 
-Подробнее в нашей статье: etiketka-media.ru/blog/edo-upd-markirovka/
+Подробнее в нашей статье: etiketka-media.ru/blog/2026-05-01-edo-upd-markirovka/
 
 ## Дзен
 

@@ -1,6 +1,6 @@
 # Социальные посты: Маркировка на Wildberries и Ozon в 2026 году
 
-Связанная статья: `/blog/markirovka-cherez-marketplace/`
+Связанная статья: `/blog/2026-05-01-markirovka-cherez-marketplace/`
 
 ---
 

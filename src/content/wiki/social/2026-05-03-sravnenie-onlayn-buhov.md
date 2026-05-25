@@ -1,7 +1,7 @@
 ---
 title: "Сравнение Контур.Эльба, Моё дело, 1С:Облако, Тинькофф Бухгалтерия"
 slug: "sravnenie-onlayn-buhov"
-articleUrl: "/blog/sravnenie-onlayn-buhov/"
+articleUrl: "/blog/2026-05-03-sravnenie-onlayn-buhov/"
 status: draft
 createdDate: "2026-05-03"
 ---
@@ -16,7 +16,7 @@ createdDate: "2026-05-03"
 
 С 2025 года УСН с доходами свыше 60 млн рублей платит НДС. Полноценный учёт НДС — только 1С:Облако.
 
-etiketka-media.ru/blog/sravnenie-onlayn-buhov/
+etiketka-media.ru/blog/2026-05-03-sravnenie-onlayn-buhov/
 
 ---
 
@@ -30,7 +30,7 @@ etiketka-media.ru/blog/sravnenie-onlayn-buhov/
 
 1С:Облако — отдельная история. Если есть маркировка, ЕГАИС, НДС или планируется нанять бухгалтера — начинайте сразу с 1С, чтобы не мигрировать данные потом.
 
-Сравнение всех четырёх сервисов по функциям и цене в одной таблице: /blog/sravnenie-onlayn-buhov/
+Сравнение всех четырёх сервисов по функциям и цене в одной таблице: /blog/2026-05-03-sravnenie-onlayn-buhov/
 
 #бухгалтерия #онлайнбухгалтерия #ип #усн #малыйбизнес
 
@@ -94,7 +94,7 @@ etiketka-media.ru/blog/sravnenie-onlayn-buhov/
 
 Реклама. АО «ПФ „СКБ Контур“», ИНН 6663003127. erid: sKjnGhcf5mSphWB6w6Htr29iA5cVtGdGQS5jvU45PUfqdNY
 
-Полное сравнение с таблицей — etiketka-media.ru/blog/sravnenie-onlayn-buhov/
+Полное сравнение с таблицей — etiketka-media.ru/blog/2026-05-03-sravnenie-onlayn-buhov/
 
 #бухгалтерия #онлайнбухгалтерия #ип #усн #малыйбизнес
 
@@ -107,4 +107,4 @@ etiketka-media.ru/blog/sravnenie-onlayn-buhov/
 
 Контур.Эльба, Моё дело, 1С:Облако и Тинькофф Бухгалтерия — у каждого своя ниша. Какой подходит вашему бизнесу, зависит от налогового режима, наличия маркировки и планов роста. Сравнение с таблицей в статье.
 
-[Читать статью →](/blog/sravnenie-onlayn-buhov/)
+[Читать статью →](/blog/2026-05-03-sravnenie-onlayn-buhov/)
