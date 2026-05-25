@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Главная — финальный вариант</title>
+<style>
+	:root {
+		--pink: #9E2B4F;
+		--lime: #AFCC00;
+		--navy: #1E4A7A;
+		--purple: #5A3E7A;
+		--green: #1A5C3A;
+		--sand: #EDE8DF;
+		--dark: #111;
+		--muted: #666;
+		--border: rgba(0,0,0,.12);
+	}
+	* { box-sizing: border-box; }
+	body {
+		margin: 0;
+		font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+		background: var(--sand);
+		color: var(--dark);
+		line-height: 1.5;
+	}
+	.page {
+		padding: 32px;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	/* Hero */
+	.hero {
+		padding: 48px 0 32px;
+		border-bottom: 1px solid var(--border);
+		margin-bottom: 48px;
+	}
+	.hero-eyebrow {
+		display: inline-block;
+		background: var(--lime);
+		color: var(--dark);
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		padding: 4px 10px;
+		margin-bottom: 24px;
+	}
+	.hero h1 {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: clamp(2rem, 4vw, 3.5rem);
+		letter-spacing: 0.01em;
+		line-height: 1.0;
+		margin: 0 0 24px;
+		max-width: 800px;
+	}
+	.hero p {
+		color: var(--muted);
+		max-width: 600px;
+		margin: 0 0 24px;
+	}
+	.btn {
+		display: inline-block;
+		background: var(--dark);
+		color: var(--lime);
+		padding: 12px 24px;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	.section-label {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		margin-bottom: 16px;
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1.5rem;
+		letter-spacing: 0.04em;
+	}
+	.see-all {
+		font-family: 'Inter', sans-serif;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		color: var(--muted);
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+
+	/* Featured */
+	.featured {
+		display: grid;
+		grid-template-columns: 7fr 5fr;
+		gap: 0;
+		margin-bottom: 48px;
+		text-decoration: none;
+		color: var(--dark);
+		background: #fff;
+		border: 1px solid var(--border);
+	}
+	.featured-img {
+		background: linear-gradient(135deg, #FF4D8F 0%, #9E2B4F 50%, #1E4A7A 100%);
+		min-height: 360px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: rgba(255,255,255,0.25);
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 14rem;
+		line-height: 1;
+	}
+	.featured-body {
+		padding: 40px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	.featured-cat {
+		display: inline-block;
+		background: var(--pink);
+		color: #fff;
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		padding: 4px 10px;
+		width: fit-content;
+		margin-bottom: 16px;
+	}
+	.featured-title {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 2.4rem;
+		letter-spacing: 0.02em;
+		line-height: 1.05;
+		margin: 0 0 16px;
+	}
+	.featured-desc {
+		font-size: 1rem;
+		color: var(--muted);
+		line-height: 1.55;
+		margin: 0 0 24px;
+	}
+	.featured-meta {
+		font-size: 0.75rem;
+		color: var(--muted);
+		display: flex;
+		gap: 16px;
+	}
+
+	/* Mixed: 1 big + 2 small */
+	.mixed {
+		display: grid;
+		grid-template-columns: 7fr 5fr;
+		gap: 16px;
+		margin-bottom: 48px;
+	}
+	.mixed-main {
+		background: #fff;
+		border: 1px solid var(--border);
+		display: flex;
+		flex-direction: column;
+		text-decoration: none;
+		color: var(--dark);
+	}
+	.mixed-main .post-img { height: 260px; background: linear-gradient(135deg, #ddd, #eee); }
+	.mixed-main .post-body { padding: 24px; }
+	.mixed-main .post-title { font-size: 1.4rem; line-height: 1.25; }
+	.mixed-side {
+		display: grid;
+		grid-template-rows: 1fr 1fr;
+		gap: 16px;
+	}
+	.mixed-side .post-card {
+		display: grid;
+		grid-template-columns: 140px 1fr;
+		gap: 0;
+		background: #fff;
+		border: 1px solid var(--border);
+		text-decoration: none;
+		color: var(--dark);
+	}
+	.mixed-side .post-img {
+		min-height: 140px;
+		background: linear-gradient(135deg, #ddd, #eee);
+	}
+	.mixed-side .post-body { padding: 16px; }
+
+	.post-cat {
+		font-size: 0.6rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--pink);
+	}
+	.post-title {
+		font-weight: 600;
+		margin: 8px 0;
+		font-size: 0.95rem;
+	}
+	.post-date {
+		font-size: 0.75rem;
+		color: var(--muted);
+	}
+
+	/* Tools strip */
+	.tools-strip {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 8px;
+		margin-bottom: 48px;
+	}
+	.tool-mini {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 16px;
+		text-decoration: none;
+		color: var(--dark);
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		min-height: 90px;
+		justify-content: space-between;
+		transition: border-color 0.15s;
+	}
+	.tool-mini:hover { border-color: var(--dark); }
+	.tool-mini-eyebrow {
+		font-size: 0.62rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--pink);
+	}
+	.tool-mini-name {
+		font-size: 0.9rem;
+		font-weight: 600;
+		line-height: 1.25;
+	}
+
+	/* Cats strip — tabs */
+	.cats-strip {
+		display: flex;
+		gap: 0;
+		margin-bottom: 48px;
+		border-top: 1px solid var(--border);
+		border-bottom: 1px solid var(--border);
+	}
+	.cat-tab {
+		flex: 1;
+		padding: 16px 12px;
+		text-align: center;
+		text-decoration: none;
+		color: var(--dark);
+		border-right: 1px solid var(--border);
+		transition: background 0.15s;
+	}
+	.cat-tab:last-child { border-right: none; }
+	.cat-tab:hover { background: var(--sand); }
+	.cat-tab-name {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		margin-bottom: 2px;
+	}
+	.cat-tab-count {
+		font-size: 0.7rem;
+		color: var(--muted);
+	}
+	.cat-tab-marker {
+		display: inline-block;
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		margin-right: 6px;
+		vertical-align: middle;
+	}
+
+	/* Feed grid */
+	.feed-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 16px;
+	}
+	.post-card {
+		background: #fff;
+		border: 1px solid var(--border);
+		text-decoration: none;
+		color: var(--dark);
+		overflow: hidden;
+	}
+	.feed-grid .post-img {
+		height: 140px;
+		background: linear-gradient(135deg, #ddd, #eee);
+	}
+	.feed-grid .post-body { padding: 16px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+	<!-- Hero -->
+	<div class="hero">
+		<span class="hero-eyebrow">Медиа для бизнеса</span>
+		<h1>РАЗБИРАЕМ ТРЕБОВАНИЯ, КОТОРЫЕ ДОГОНЯЮТ БИЗНЕС</h1>
+		<p>ТС ПИоТ для онлайн-касс, маркировка «Честный знак», налоги, ЭДО и трудовое законодательство — понятно и без паники.</p>
+		<a href="#" class="btn">Все статьи</a>
+	</div>
+
+	<!-- 1. Featured pillar -->
+	<a href="#" class="featured">
+		<div class="featured-img">ТС</div>
+		<div class="featured-body">
+			<div>
+				<div class="featured-cat">Законодательство · Pillar</div>
+				<h3 class="featured-title">140-ФЗ: переход на ЭПД с 01.09.2026 для МСБ</h3>
+				<p class="featured-desc">Что меняет 140-ФЗ от 07.06.2025: обязательный переход на электронные перевозочные документы с 01.09.2026, штрафы по ст. 11.14.3 КоАП, подключение к ГИС ЭПД для ИП и юрлиц.</p>
+			</div>
+			<div class="featured-meta">
+				<span>25 мая · 12 мин</span>
+				<span>Реклама · Диадок: Логистика</span>
+			</div>
+		</div>
+	</a>
+
+	<!-- 2. Свежее: 1 большая + 2 поменьше -->
+	<div class="section-label">Свежее <a href="#" class="see-all">См. все →</a></div>
+	<div class="mixed">
+		<a href="#" class="mixed-main">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ТС ПИоТ</div>
+				<div class="post-title">ТС ПИоТ без интернета: как работает касса при потере связи</div>
+				<div class="post-date">25 мая · 7 мин</div>
+			</div>
+		</a>
+		<div class="mixed-side">
+			<a href="#" class="post-card">
+				<div class="post-img"></div>
+				<div class="post-body">
+					<div class="post-cat">Маркировка</div>
+					<div class="post-title">Автомобильные жидкости: разрешительный режим с 1 октября 2026</div>
+					<div class="post-date">24 мая</div>
+				</div>
+			</a>
+			<a href="#" class="post-card">
+				<div class="post-img"></div>
+				<div class="post-body">
+					<div class="post-cat">Законодательство</div>
+					<div class="post-title">Закон о маркетплейсах 289-ФЗ: что изменится</div>
+					<div class="post-date">24 мая</div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<!-- 3. Инструменты — компактная полоса -->
+	<div class="section-label">Инструменты и калькуляторы <a href="#" class="see-all">Все →</a></div>
+	<div class="tools-strip">
+		<a href="#" class="tool-mini">
+			<div class="tool-mini-eyebrow">Симулятор · 7 шагов</div>
+			<div class="tool-mini-name">Как живёт чек в ТС ПИоТ →</div>
+		</a>
+		<a href="#" class="tool-mini">
+			<div class="tool-mini-eyebrow">Тест · 2 минуты</div>
+			<div class="tool-mini-name">Готов ли бизнес к ТС ПИоТ →</div>
+		</a>
+		<a href="#" class="tool-mini">
+			<div class="tool-mini-eyebrow">Калькулятор</div>
+			<div class="tool-mini-name">Расчёт штрафов КоАП →</div>
+		</a>
+		<a href="#" class="tool-mini">
+			<div class="tool-mini-eyebrow">Календарь</div>
+			<div class="tool-mini-name">Сроки маркировки 2026 →</div>
+		</a>
+	</div>
+
+	<!-- 4. Категории — тонкая полоса табов -->
+	<div class="cats-strip">
+		<a href="#" class="cat-tab">
+			<div class="cat-tab-name"><span class="cat-tab-marker" style="background:var(--pink)"></span>ТС ПИоТ</div>
+			<div class="cat-tab-count">9 материалов</div>
+		</a>
+		<a href="#" class="cat-tab">
+			<div class="cat-tab-name"><span class="cat-tab-marker" style="background:var(--lime)"></span>Маркировка</div>
+			<div class="cat-tab-count">21 материал</div>
+		</a>
+		<a href="#" class="cat-tab">
+			<div class="cat-tab-name"><span class="cat-tab-marker" style="background:var(--navy)"></span>Законодательство</div>
+			<div class="cat-tab-count">25 материалов</div>
+		</a>
+		<a href="#" class="cat-tab">
+			<div class="cat-tab-name"><span class="cat-tab-marker" style="background:var(--purple)"></span>Кассы</div>
+			<div class="cat-tab-count">16 материалов</div>
+		</a>
+		<a href="#" class="cat-tab">
+			<div class="cat-tab-name"><span class="cat-tab-marker" style="background:var(--green)"></span>ЕГАИС</div>
+			<div class="cat-tab-count">12 материалов</div>
+		</a>
+	</div>
+
+	<!-- 5. Все материалы за неделю — 6 карточек -->
+	<div class="section-label">Все материалы за неделю <a href="#" class="see-all">См. все →</a></div>
+	<div class="feed-grid">
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ТС ПИоТ</div>
+				<div class="post-title">ТС ПИоТ vs ОФД: что подключать в 2026</div>
+				<div class="post-date">23 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ТС ПИоТ</div>
+				<div class="post-title">ТС ПИоТ и 1С: как интегрировать модуль</div>
+				<div class="post-date">22 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ЕГАИС</div>
+				<div class="post-title">Учёт разливного пива в баре с 2026</div>
+				<div class="post-date">22 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">Кассы</div>
+				<div class="post-title">Виды ККТ 2026: автономные кассы, смарт-терминалы</div>
+				<div class="post-date">21 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">ЕГАИС</div>
+				<div class="post-title">Подключение УТМ ЕГАИС с нуля</div>
+				<div class="post-date">21 мая</div>
+			</div>
+		</a>
+		<a href="#" class="post-card">
+			<div class="post-img"></div>
+			<div class="post-body">
+				<div class="post-cat">Законодательство</div>
+				<div class="post-title">Страховые взносы МСП в 2026: пониженный тариф 15%</div>
+				<div class="post-date">20 мая</div>
+			</div>
+		</a>
+	</div>
+</div>
+</body>
+</html>
