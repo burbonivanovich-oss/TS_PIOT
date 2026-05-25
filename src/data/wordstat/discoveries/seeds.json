@@ -183,6 +183,21 @@
     { "phrase": "транспортный налог ИП", "category": "seasonal", "cluster": "nalogi" },
     { "phrase": "сдать декларацию ИП", "category": "seasonal", "cluster": "otchetnost-edo" },
     { "phrase": "налог за 1 квартал", "category": "seasonal", "cluster": "nalogi" },
-    { "phrase": "уведомление ЕНП", "category": "seasonal", "cluster": "zakonodatelstvo" }
+    { "phrase": "уведомление ЕНП", "category": "seasonal", "cluster": "zakonodatelstvo" },
+
+    { "phrase": "ЭТрН", "category": "entity", "cluster": "logistika" },
+    { "phrase": "электронная транспортная накладная", "category": "entity", "cluster": "logistika" },
+    { "phrase": "ГИС ЭПД", "category": "system", "cluster": "logistika" },
+    { "phrase": "140-ФЗ", "category": "entity", "cluster": "logistika" },
+    { "phrase": "транспортная накладная", "category": "entity", "cluster": "logistika" },
+    { "phrase": "электронный путевой лист", "category": "entity", "cluster": "logistika" },
+    { "phrase": "договор-заявка перевозка", "category": "entity", "cluster": "logistika" },
+    { "phrase": "сопроводительная ведомость", "category": "entity", "cluster": "logistika" },
+    { "phrase": "операторы ЭПД", "category": "entity", "cluster": "logistika" },
+    { "phrase": "Диадок Логистика", "category": "system", "cluster": "logistika" },
+    { "phrase": "штраф за отсутствие ЭТрН", "category": "problem", "cluster": "logistika" },
+    { "phrase": "ЭПД для грузоперевозчика", "category": "audience", "cluster": "logistika" },
+    { "phrase": "ЭТрН с 1 сентября 2026", "category": "seasonal", "cluster": "logistika" },
+    { "phrase": "обязательная ЭТрН 2026", "category": "seasonal", "cluster": "logistika" }
   ]
 }
