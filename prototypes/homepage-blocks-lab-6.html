@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Лаборатория v6 — 20 новых типов контента (не статьи)</title>
+<style>
+	:root {
+		--pink: #9E2B4F; --lime: #AFCC00; --navy: #1E4A7A;
+		--purple: #5A3E7A; --green: #1A5C3A; --orange: #E07A1A;
+		--yellow: #FBBF24; --cyan: #06B6D4;
+		--sand: #EDE8DF; --dark: #111; --muted: #666;
+		--border: rgba(0,0,0,.12);
+	}
+	* { box-sizing: border-box; }
+	body { margin: 0; font-family: 'Inter', -apple-system, sans-serif; background: var(--sand); color: var(--dark); line-height: 1.5; }
+	.page { padding: 32px; max-width: 1200px; margin: 0 auto; }
+	a { color: inherit; text-decoration: none; }
+	.block-tag { display: inline-block; background: var(--pink); color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; margin-bottom: 8px; }
+	.idea-label { font-size: 0.78rem; font-weight: 700; color: var(--orange); margin-bottom: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
+	.block-note { font-size: 0.85rem; color: var(--muted); max-width: 720px; margin-bottom: 20px; }
+	.not-article { display: inline-block; background: var(--dark); color: var(--lime); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 8px; margin-left: 6px; vertical-align: middle; }
+	.block-divider { border: none; border-top: 1px dashed var(--border); margin: 56px 0; }
+
+	/* ═══ #1 Generator / Constructor — «соберём ваш план» ═══ */
+	.gen {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 32px;
+	}
+	.gen-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; margin-bottom: 14px; }
+	.gen-form { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+	.gen-pick { padding: 14px 16px; background: var(--sand); border: 2px solid transparent; cursor: pointer; font-size: 0.85rem; display: flex; flex-direction: column; gap: 4px; }
+	.gen-pick.is-on { border-color: var(--dark); background: #fff; }
+	.gen-pick-label { font-weight: 600; }
+	.gen-pick-sub { font-size: 0.72rem; color: var(--muted); }
+	.gen-result {
+		background: var(--lime-soft, #f0f7d0);
+		border-left: 4px solid var(--lime);
+		padding: 18px 22px;
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 16px;
+		align-items: center;
+	}
+	.gen-result-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; }
+	.gen-result-list { margin: 4px 0 0; padding-left: 18px; font-size: 0.85rem; }
+	.gen-result-cta { background: var(--dark); color: var(--lime); padding: 12px 22px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+	/* ═══ #2 Live данные ═══ */
+	.live {
+		background: var(--dark);
+		color: #fff;
+		padding: 28px;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		gap: 0;
+	}
+	.live-cell { padding: 8px 16px; border-right: 1px solid rgba(255,255,255,0.1); }
+	.live-cell:last-child { border-right: none; }
+	.live-eye { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+	.live-pulse { width: 8px; height: 8px; border-radius: 50%; background: #FF4444; animation: pulse 2s infinite; }
+	@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+	.live-val { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1.1; }
+	.live-sub { font-size: 0.78rem; opacity: 0.6; }
+	.live-foot { grid-column: 1/-1; padding-top: 14px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.72rem; opacity: 0.6; display: flex; justify-content: space-between; }
+
+	/* ═══ #3 Audit / диагностика ═══ */
+	.audit {
+		background: var(--navy);
+		color: #fff;
+		padding: 32px;
+		display: grid;
+		grid-template-columns: 1.2fr 1fr;
+		gap: 32px;
+		align-items: center;
+	}
+	.audit-eye { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); margin-bottom: 8px; }
+	.audit-h { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1.05; margin-bottom: 10px; }
+	.audit-desc { font-size: 0.92rem; opacity: 0.85; margin-bottom: 18px; }
+	.audit-cta { display: inline-block; background: var(--lime); color: var(--dark); padding: 14px 26px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+	.audit-side { background: rgba(255,255,255,0.05); padding: 18px; }
+	.audit-bar { padding: 8px 0; display: grid; grid-template-columns: 1fr auto 50px; gap: 12px; align-items: center; font-size: 0.85rem; }
+	.audit-bar-bg { height: 10px; background: rgba(255,255,255,0.1); position: relative; }
+	.audit-bar-fill { height: 100%; background: var(--lime); }
+	.audit-bar-fill.warn { background: var(--orange); }
+	.audit-bar-fill.danger { background: var(--pink); }
+	.audit-pct { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; text-align: right; }
+
+	/* ═══ #4 Database — поиск по штрафам ═══ */
+	.db {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 24px;
+	}
+	.db-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin-bottom: 12px; }
+	.db-filters { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+	.db-chip { padding: 6px 12px; background: var(--sand); border: 1px solid var(--border); font-size: 0.78rem; cursor: pointer; }
+	.db-chip.is-on { background: var(--dark); color: #fff; border-color: var(--dark); }
+	.db-input { padding: 10px 14px; border: 1px solid var(--border); font-size: 0.88rem; width: 280px; }
+	.db-table {
+		font-size: 0.85rem;
+		display: grid;
+		grid-template-columns: 2fr 1fr 1.5fr auto;
+		gap: 0;
+	}
+	.db-row { display: contents; }
+	.db-row > div { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+	.db-head > div { background: var(--sand); font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
+	.db-amount { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; color: var(--pink); }
+	.db-link { color: var(--pink); font-weight: 600; }
+
+	/* ═══ #5 Personal roadmap — на вход данные, на выход план ═══ */
+	.rmap {
+		background: linear-gradient(135deg, var(--purple) 0%, var(--navy) 100%);
+		color: #fff;
+		padding: 36px;
+	}
+	.rmap-eye { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); margin-bottom: 10px; }
+	.rmap-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; line-height: 1.05; margin-bottom: 12px; }
+	.rmap-prompt { font-size: 0.92rem; opacity: 0.85; margin-bottom: 20px; }
+	.rmap-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 8px; align-items: end; }
+	.rmap-field { display: flex; flex-direction: column; gap: 4px; }
+	.rmap-label { font-size: 0.7rem; font-weight: 600; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.06em; }
+	.rmap-select { padding: 10px 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 0.85rem; font-family: inherit; }
+	.rmap-build { background: var(--lime); color: var(--dark); padding: 11px 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; }
+
+	/* ═══ #6 Real-time monitoring — изменения в НПА ═══ */
+	.monitor {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 24px;
+	}
+	.mon-h { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+	.mon-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin: 0; }
+	.mon-status { font-size: 0.72rem; color: var(--green); font-weight: 600; }
+	.mon-row { padding: 12px 0; display: grid; grid-template-columns: 80px auto 1fr; gap: 14px; border-bottom: 1px dotted var(--border); align-items: center; }
+	.mon-row:last-child { border-bottom: none; }
+	.mon-date { font-family: 'Bebas Neue', sans-serif; color: var(--pink); font-size: 1rem; }
+	.mon-badge { padding: 3px 9px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+	.mon-badge.new { background: var(--lime); color: var(--dark); }
+	.mon-badge.upd { background: var(--orange); color: #fff; }
+	.mon-badge.kill { background: var(--pink); color: #fff; }
+	.mon-text { font-size: 0.88rem; }
+	.mon-text strong { color: var(--dark); }
+	.mon-foot { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 0.78rem; }
+	.mon-foot a { color: var(--pink); font-weight: 600; }
+
+	/* ═══ #7 Template builder — конструктор документа ═══ */
+	.tpl {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 28px;
+	}
+	.tpl-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin-bottom: 14px; }
+	.tpl-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 24px; }
+	.tpl-options { display: grid; gap: 10px; }
+	.tpl-pick { padding: 10px 14px; background: var(--sand); cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 10px; }
+	.tpl-pick.is-on { background: var(--dark); color: #fff; }
+	.tpl-check { width: 14px; height: 14px; border: 1.5px solid currentColor; }
+	.tpl-pick.is-on .tpl-check { background: var(--lime); border-color: var(--lime); }
+	.tpl-preview { background: #FAFAFA; border: 1px dashed var(--border); padding: 20px; font-family: Georgia, serif; font-size: 0.85rem; line-height: 1.55; min-height: 240px; }
+	.tpl-preview h4 { font-family: 'Bebas Neue', sans-serif; text-align: center; margin: 0 0 10px; font-size: 1.05rem; }
+	.tpl-blank { background: var(--lime); padding: 0 6px; }
+	.tpl-download { margin-top: 14px; background: var(--dark); color: var(--lime); padding: 11px 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; display: inline-block; }
+
+	/* ═══ #8 AI consultant — реальный вход вопроса ═══ */
+	.aic {
+		background: var(--dark);
+		color: #fff;
+		padding: 32px;
+		position: relative;
+	}
+	.aic-eye { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); margin-bottom: 10px; }
+	.aic-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; margin: 0 0 8px; }
+	.aic-sub { font-size: 0.9rem; opacity: 0.7; margin-bottom: 18px; }
+	.aic-bubble { background: rgba(255,255,255,0.05); border-left: 3px solid var(--lime); padding: 16px 18px; margin-bottom: 14px; }
+	.aic-q { font-size: 0.92rem; font-weight: 600; margin-bottom: 8px; }
+	.aic-a { font-size: 0.88rem; line-height: 1.55; opacity: 0.85; }
+	.aic-a a { color: var(--lime); }
+	.aic-input { display: flex; gap: 8px; }
+	.aic-field { flex: 1; padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 0.95rem; font-family: inherit; }
+	.aic-send { background: var(--lime); color: var(--dark); padding: 0 24px; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; border: none; cursor: pointer; }
+
+	/* ═══ #9 Cases database — типовые претензии ═══ */
+	.cases {
+		background: var(--sand);
+		padding: 28px;
+	}
+	.cs-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin-bottom: 4px; }
+	.cs-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; }
+	.cs-card { background: #fff; padding: 18px 20px; margin-bottom: 10px; display: grid; grid-template-columns: 60px 1fr auto; gap: 16px; align-items: start; }
+	.cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--pink); line-height: 1; }
+	.cs-claim { font-weight: 700; font-size: 0.92rem; margin-bottom: 4px; }
+	.cs-actor { font-size: 0.72rem; color: var(--muted); margin-bottom: 6px; }
+	.cs-result { font-size: 0.82rem; }
+	.cs-result.win { color: var(--green); font-weight: 600; }
+	.cs-result.lose { color: var(--pink); font-weight: 600; }
+	.cs-cta { font-size: 0.78rem; font-weight: 700; color: var(--pink); white-space: nowrap; padding-top: 8px; }
+
+	/* ═══ #10 Visual progress dashboard ═══ */
+	.dash {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 28px;
+	}
+	.dash-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin-bottom: 6px; }
+	.dash-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 18px; }
+	.dash-cols { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center; }
+	.dash-ring {
+		position: relative;
+		width: 140px;
+		height: 140px;
+	}
+	.dash-ring svg { transform: rotate(-90deg); }
+	.dash-ring-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+	.dash-ring-pct { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; line-height: 1; color: var(--pink); }
+	.dash-ring-label { font-size: 0.72rem; color: var(--muted); }
+	.dash-items { display: grid; gap: 8px; }
+	.dash-item { display: grid; grid-template-columns: 18px 1fr auto; gap: 10px; padding: 8px 12px; background: var(--sand); font-size: 0.85rem; align-items: center; }
+	.dash-mark { width: 14px; height: 14px; border: 2px solid var(--border); border-radius: 3px; }
+	.dash-mark.is-done { background: var(--lime); border-color: var(--lime); }
+	.dash-mark.is-done::before { content: '✓'; color: var(--dark); font-size: 11px; font-weight: 700; display: block; text-align: center; line-height: 10px; }
+	.dash-status { font-size: 0.72rem; color: var(--muted); }
+
+	/* ═══ #11 Comparison matrix — выбор сервиса ═══ */
+	.cmp {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 24px;
+	}
+	.cmp-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin-bottom: 4px; }
+	.cmp-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; }
+	.cmp-controls { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+	.cmp-ctrl { background: var(--sand); padding: 6px 12px; font-size: 0.78rem; cursor: pointer; }
+	.cmp-ctrl.is-on { background: var(--dark); color: #fff; }
+	.cmp-grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); border: 1px solid var(--border); }
+	.cmp-cell { padding: 10px 12px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); font-size: 0.85rem; }
+	.cmp-cell:nth-child(4n) { border-right: none; }
+	.cmp-head { background: var(--sand); font-weight: 700; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; font-size: 1rem; }
+	.cmp-best { background: var(--lime-soft, #f0f7d0); font-weight: 600; }
+	.cmp-feature { background: #FAFAFA; font-weight: 600; }
+	.cmp-cta { padding: 14px !important; text-align: center; }
+	.cmp-cta a { color: var(--pink); font-weight: 700; }
+
+	/* ═══ #12 Quiz tracker — диагноз готовности ═══ */
+	.qtrack {
+		background: var(--lime);
+		color: var(--dark);
+		padding: 32px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 32px;
+		align-items: center;
+	}
+	.qt-eye { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
+	.qt-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; line-height: 1.1; margin-bottom: 12px; }
+	.qt-desc { font-size: 0.95rem; margin-bottom: 18px; }
+	.qt-start { background: var(--dark); color: var(--lime); padding: 14px 26px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; display: inline-block; }
+	.qt-card { background: #fff; padding: 24px; border: 1px solid var(--dark); }
+	.qt-card-q { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-bottom: 14px; }
+	.qt-card-opts { display: grid; gap: 8px; }
+	.qt-opt { padding: 10px 14px; background: var(--sand); cursor: pointer; font-size: 0.88rem; }
+	.qt-opt:hover { background: var(--dark); color: var(--lime); }
+
+	/* ═══ #13 Glossary tutor — обучающий тренажёр ═══ */
+	.tutor {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 28px;
+	}
+	.tut-eye { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; }
+	.tut-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin-bottom: 12px; }
+	.tut-progress { display: flex; gap: 4px; margin-bottom: 18px; }
+	.tut-step { flex: 1; height: 6px; background: var(--sand); }
+	.tut-step.done { background: var(--lime); }
+	.tut-step.on { background: var(--pink); }
+	.tut-card { padding: 24px; background: var(--sand); margin-bottom: 14px; }
+	.tut-term { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; text-align: center; margin-bottom: 12px; }
+	.tut-q { font-size: 0.95rem; text-align: center; }
+	.tut-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+	.tut-opt { padding: 12px 14px; background: #fff; border: 1px solid var(--border); font-size: 0.85rem; cursor: pointer; }
+	.tut-opt:hover { border-color: var(--dark); }
+	.tut-foot { margin-top: 14px; font-size: 0.78rem; color: var(--muted); text-align: center; }
+
+	/* ═══ #14 Form-based recommender ═══ */
+	.rec {
+		background: var(--orange);
+		color: #fff;
+		padding: 30px;
+	}
+	.rec-eye { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; margin-bottom: 8px; }
+	.rec-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; margin-bottom: 14px; }
+	.rec-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+	.rec-pill { padding: 10px 14px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); text-align: center; cursor: pointer; font-size: 0.82rem; }
+	.rec-pill.is-on { background: #fff; color: var(--orange); border-color: #fff; font-weight: 700; }
+	.rec-output { background: rgba(255,255,255,0.1); padding: 18px; margin-top: 14px; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; }
+	.rec-out-eye { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; }
+	.rec-out-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-top: 4px; }
+	.rec-out-cta { background: #fff; color: var(--orange); padding: 12px 22px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+
+	/* ═══ #15 Risk meter — оценка персонального риска ═══ */
+	.risk {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 28px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 32px;
+		align-items: center;
+	}
+	.risk-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin-bottom: 8px; }
+	.risk-desc { font-size: 0.88rem; color: var(--muted); margin-bottom: 14px; }
+	.risk-inputs { display: grid; gap: 8px; }
+	.risk-input { padding: 8px 12px; border: 1px solid var(--border); font-size: 0.85rem; }
+	.risk-gauge { text-align: center; }
+	.risk-arc { position: relative; width: 200px; height: 110px; margin: 0 auto; overflow: hidden; }
+	.risk-arc-bg, .risk-arc-fg { position: absolute; inset: 0; border-radius: 50%/100% 100% 0 0; }
+	.risk-arc-bg { background: linear-gradient(to right, var(--lime), var(--orange), var(--pink)); }
+	.risk-arc-fg { background: var(--sand); top: 14px; left: 14px; right: 14px; bottom: 0; border-radius: 50%/100% 100% 0 0; }
+	.risk-needle { position: absolute; bottom: 0; left: 50%; width: 3px; height: 90px; background: var(--dark); transform-origin: bottom center; transform: rotate(35deg); }
+	.risk-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--pink); margin-top: 10px; }
+	.risk-sub { font-size: 0.82rem; color: var(--muted); }
+
+	/* ═══ #16 Reminder bot — настройка персональных уведомлений ═══ */
+	.bot {
+		background: #2B5278;
+		color: #fff;
+		padding: 28px;
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		gap: 20px;
+		align-items: center;
+	}
+	.bot-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--lime); color: var(--dark); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; }
+	.bot-eye { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; }
+	.bot-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin: 2px 0 6px; }
+	.bot-desc { font-size: 0.88rem; opacity: 0.85; }
+	.bot-cta { background: #29A5DC; color: #fff; padding: 14px 24px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+	.bot-cta::before { content: '🤖 '; }
+
+	/* ═══ #17 Simulator — симулятор кассы ═══ */
+	.sim {
+		background: var(--sand);
+		padding: 28px;
+	}
+	.sim-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin-bottom: 4px; }
+	.sim-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; }
+	.sim-screen {
+		background: var(--dark);
+		color: var(--lime);
+		font-family: monospace;
+		padding: 20px;
+		font-size: 0.85rem;
+		line-height: 1.5;
+		min-height: 200px;
+	}
+	.sim-line { padding: 1px 0; }
+	.sim-line.input::before { content: '> '; opacity: 0.6; }
+	.sim-line.error { color: #FF6B6B; }
+	.sim-line.success { color: var(--lime); }
+	.sim-cursor { display: inline-block; width: 8px; height: 14px; background: var(--lime); animation: blink-cursor 1s infinite; vertical-align: middle; }
+	@keyframes blink-cursor { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+	.sim-controls { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+	.sim-btn { background: #fff; border: 1px solid var(--border); padding: 8px 14px; font-size: 0.78rem; cursor: pointer; }
+	.sim-btn:hover { background: var(--lime); border-color: var(--lime); }
+
+	/* ═══ #18 Live counter / countdown ═══ */
+	.cnt {
+		background: var(--dark);
+		color: #fff;
+		padding: 32px;
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		gap: 28px;
+		align-items: center;
+	}
+	.cnt-digits { display: flex; gap: 8px; }
+	.cnt-d { background: var(--lime); color: var(--dark); padding: 12px 10px; min-width: 50px; text-align: center; }
+	.cnt-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; line-height: 1; }
+	.cnt-l { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; }
+	.cnt-eye { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); }
+	.cnt-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-top: 6px; }
+	.cnt-sub { font-size: 0.85rem; opacity: 0.7; margin-top: 4px; }
+	.cnt-cta { background: var(--lime); color: var(--dark); padding: 14px 22px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+	/* ═══ #19 Knowledge graph — связи терминов ═══ */
+	.graph {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 24px;
+	}
+	.graph-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin-bottom: 14px; }
+	.graph-svg { width: 100%; height: 260px; }
+	.graph-foot { font-size: 0.78rem; color: var(--muted); margin-top: 12px; }
+
+	/* ═══ #20 Live Q&A board — реальные вопросы аудитории ═══ */
+	.qboard {
+		background: #fff;
+		border: 1px solid var(--border);
+		padding: 24px;
+	}
+	.qb-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin-bottom: 4px; }
+	.qb-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; }
+	.qb-row { display: grid; grid-template-columns: 50px 1fr auto; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: center; }
+	.qb-row:last-child { border-bottom: none; }
+	.qb-votes { text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--pink); line-height: 1; }
+	.qb-votes-l { font-size: 0.65rem; color: var(--muted); margin-top: 4px; font-family: 'Inter', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; }
+	.qb-q { font-weight: 600; font-size: 0.92rem; margin-bottom: 4px; }
+	.qb-meta { font-size: 0.75rem; color: var(--muted); }
+	.qb-meta strong { color: var(--green); }
+	.qb-act { font-size: 0.78rem; font-weight: 700; color: var(--pink); }
+	.qb-input { margin-top: 16px; padding: 14px; background: var(--sand); display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+	.qb-input input { padding: 10px 12px; border: 1px solid var(--border); font-size: 0.88rem; font-family: inherit; }
+	.qb-input button { background: var(--dark); color: var(--lime); padding: 10px 18px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border: none; }
+
+	@media (max-width: 720px) {
+		.gen-form, .live, .audit, .rmap-inputs, .tpl-grid, .qtrack, .dash-cols, .risk, .bot, .cnt, .rec-row, .tut-opts { grid-template-columns: 1fr; }
+		.cmp-grid { font-size: 0.72rem; }
+		.db-table, .cmp-grid { display: block; }
+		.db-row > div, .cmp-cell { display: block; padding: 4px 8px; }
+	}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ─── 1 ─── -->
+<div class="block-tag">#1 Generator</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: конструктор персональной выдачи</div>
+<p class="block-note">Вместо статьи «Что нужно бизнесу» — пользователь сам собирает: тип бизнеса + город + оборот → выдаёт чек-лист действий именно для него. Контент создаётся на лету.</p>
+<div class="gen">
+	<div class="gen-h">Соберите план под свой бизнес</div>
+	<div class="gen-form">
+		<div class="gen-pick is-on"><span class="gen-pick-label">Розничный магазин</span><span class="gen-pick-sub">смешанные товары</span></div>
+		<div class="gen-pick"><span class="gen-pick-label">Кафе</span><span class="gen-pick-sub">без алкоголя</span></div>
+		<div class="gen-pick"><span class="gen-pick-label">Маркетплейс</span><span class="gen-pick-sub">Wildberries/Ozon</span></div>
+	</div>
+	<div class="gen-result">
+		<div>
+			<div class="gen-result-h">Ваш план на 2026 → 5 пунктов</div>
+			<ol class="gen-result-list">
+				<li>Подключить ТС ПИоТ до 01.07.2026 → срочно</li>
+				<li>Перейти на ФФД 1.2 если ещё нет</li>
+				<li>ЭДО с поставщиками маркированного товара</li>
+				<li>Подать сведения о торговом сборе (Москва)</li>
+				<li>Авансовый платёж УСН до 25.07</li>
+			</ol>
+		</div>
+		<a href="#" class="gen-result-cta">Подробный план →</a>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 2 ─── -->
+<div class="block-tag">#2 Live data</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: актуальные значения, обновляются автоматически</div>
+<p class="block-note">Не статья «Лимиты УСН на 2026», а live-табло. Минфин уточнил — табло обновилось. Контент = свежая цифра здесь и сейчас, а не разовый текст.</p>
+<div class="live">
+	<div class="live-cell">
+		<div class="live-eye"><span class="live-pulse"></span>Лимит УСН доходы</div>
+		<div class="live-val">450 М ₽</div>
+		<div class="live-sub">с 01.01.2026, индексируется по дефлятору</div>
+	</div>
+	<div class="live-cell">
+		<div class="live-eye"><span class="live-pulse"></span>Ставка ЦБ</div>
+		<div class="live-val">17%</div>
+		<div class="live-sub">с 25.04.2026 · влияет на пени по налогам</div>
+	</div>
+	<div class="live-cell">
+		<div class="live-eye"><span class="live-pulse"></span>Фикс. взносы ИП</div>
+		<div class="live-val">53 658 ₽</div>
+		<div class="live-sub">за 2026 год · срок до 31.12</div>
+	</div>
+	<div class="live-foot">
+		<span>Обновлено 25.05.2026 в 09:14 МСК · автоматически из источников ФНС и ЦБ</span>
+		<span><a href="#" style="color:var(--lime)">подписаться на изменения →</a></span>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 3 ─── -->
+<div class="block-tag">#3 Audit</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: диагностика бизнеса по 10 вопросам</div>
+<p class="block-note">Вместо «Прочитайте 10 статей, как готовиться к ТС ПИоТ» — пройдите аудит, получите персональный отчёт «у вас 4 из 10 пунктов готовы». Результат — ваш контент, не наш.</p>
+<div class="audit">
+	<div>
+		<div class="audit-eye">Аудит готовности · 5 минут</div>
+		<h3 class="audit-h">Проверьте свой бизнес перед 01.07.2026</h3>
+		<p class="audit-desc">10 вопросов — получите отчёт «что закрыто, что в красной зоне, что упущено». Без email, в браузере.</p>
+		<a href="#" class="audit-cta">Начать аудит →</a>
+	</div>
+	<div class="audit-side">
+		<div style="font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;opacity:0.7;margin-bottom:12px">Пример вывода (для ИП на УСН с одной кассой):</div>
+		<div class="audit-bar">
+			<span>ФФД 1.2 на кассе</span>
+			<div class="audit-bar-bg"><div class="audit-bar-fill" style="width:100%"></div></div>
+			<span class="audit-pct">100%</span>
+		</div>
+		<div class="audit-bar">
+			<span>Договор с провайдером</span>
+			<div class="audit-bar-bg"><div class="audit-bar-fill warn" style="width:60%"></div></div>
+			<span class="audit-pct">60%</span>
+		</div>
+		<div class="audit-bar">
+			<span>ТС ПИоТ установлен</span>
+			<div class="audit-bar-bg"><div class="audit-bar-fill danger" style="width:0%"></div></div>
+			<span class="audit-pct">0%</span>
+		</div>
+		<div class="audit-bar">
+			<span>ЭДО с поставщиками</span>
+			<div class="audit-bar-bg"><div class="audit-bar-fill warn" style="width:30%"></div></div>
+			<span class="audit-pct">30%</span>
+		</div>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 4 ─── -->
+<div class="block-tag">#4 Database</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: поисковая база с фильтрами</div>
+<p class="block-note">Вместо статьи «Штрафы за маркировку» — реальная база штрафов с фильтрами по статье КоАП, нарушению, сумме. Контент = ответ на конкретный запрос пользователя, не общая лекция.</p>
+<div class="db">
+	<div class="db-h">База штрафов по КоАП</div>
+	<div class="db-filters">
+		<span class="db-chip is-on">Все</span>
+		<span class="db-chip">Маркировка</span>
+		<span class="db-chip">ККТ</span>
+		<span class="db-chip">ЕГАИС</span>
+		<span class="db-chip">ЭДО</span>
+		<span class="db-chip">Только для ЮЛ</span>
+		<input class="db-input" placeholder="Поиск по тексту нарушения...">
+	</div>
+	<div class="db-table">
+		<div class="db-row db-head">
+			<div>Нарушение</div>
+			<div>Статья</div>
+			<div>Размер штрафа (ЮЛ)</div>
+			<div></div>
+		</div>
+		<div class="db-row">
+			<div>Продажа немаркированного товара</div>
+			<div>15.12 КоАП ч.2</div>
+			<div class="db-amount">50–300 К ₽ + конфискация</div>
+			<div><a href="#" class="db-link">Разбор →</a></div>
+		</div>
+		<div class="db-row">
+			<div>Касса без ТС ПИоТ после 01.07.2026</div>
+			<div>14.5 КоАП ч.4</div>
+			<div class="db-amount">75–100% от расчёта</div>
+			<div><a href="#" class="db-link">Разбор →</a></div>
+		</div>
+		<div class="db-row">
+			<div>Непередача данных в ОФД</div>
+			<div>14.5 КоАП ч.4</div>
+			<div class="db-amount">5–10 К ₽</div>
+			<div><a href="#" class="db-link">Разбор →</a></div>
+		</div>
+		<div class="db-row">
+			<div>Непостановка в реестр ГосЛог</div>
+			<div>11.14.3 КоАП ч.3</div>
+			<div class="db-amount">100–300 К ₽</div>
+			<div><a href="#" class="db-link">Разбор →</a></div>
+		</div>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 5 ─── -->
+<div class="block-tag">#5 Personal roadmap generator</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: на вход данные → на выход план действий</div>
+<p class="block-note">Не «Как открыть ИП — статья в 8 мин», а «Введи 3 параметра — получи персональный roadmap из 6 шагов с датами». Каждый план уникален.</p>
+<div class="rmap">
+	<div class="rmap-eye">Конструктор · 30 секунд</div>
+	<h3 class="rmap-h">Соберём маршрут открытия бизнеса</h3>
+	<p class="rmap-prompt">Введите вводные — получите календарь шагов с конкретными датами.</p>
+	<div class="rmap-inputs">
+		<div class="rmap-field">
+			<label class="rmap-label">Что открываете</label>
+			<select class="rmap-select"><option>ИП</option><option>ООО</option><option>Самозанятость</option></select>
+		</div>
+		<div class="rmap-field">
+			<label class="rmap-label">Вид деятельности</label>
+			<select class="rmap-select"><option>Розничный магазин</option><option>Услуги</option><option>Кафе</option><option>Маркетплейс</option></select>
+		</div>
+		<div class="rmap-field">
+			<label class="rmap-label">Хотите начать</label>
+			<select class="rmap-select"><option>В этом месяце</option><option>Через 1–3 месяца</option><option>Не знаю</option></select>
+		</div>
+		<button class="rmap-build">Собрать план</button>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 6 ─── -->
+<div class="block-tag">#6 Real-time monitor</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: реальный мониторинг изменений в НПА</div>
+<p class="block-note">Не статья «Что нового в маркировке» раз в месяц, а лента изменений в НПА с алертами. Контент рождается из факта изменения, а не от расписания редакции.</p>
+<div class="monitor">
+	<div class="mon-h">
+		<h3 class="mon-title">Мониторинг законодательства</h3>
+		<span class="mon-status">● отслеживается 42 НПА</span>
+	</div>
+	<div class="mon-row">
+		<div class="mon-date">25.05</div>
+		<span class="mon-badge new">Новое</span>
+		<div class="mon-text"><strong>Письмо ФНС № БС-4-21/...</strong> — уточнил порядок учёта НДС-расходов на УСН. <a href="#" style="color:var(--pink);font-weight:600">→ комментарий редакции</a></div>
+	</div>
+	<div class="mon-row">
+		<div class="mon-date">23.05</div>
+		<span class="mon-badge upd">Обновлено</span>
+		<div class="mon-text"><strong>ПП РФ № 1944</strong> — расширен список маркируемых категорий. <a href="#" style="color:var(--pink);font-weight:600">→ что добавили</a></div>
+	</div>
+	<div class="mon-row">
+		<div class="mon-date">19.05</div>
+		<span class="mon-badge kill">Отменено</span>
+		<div class="mon-text"><strong>Приказ Минфина № 65н</strong> — упразднена форма уведомления по неприменению ККТ. <a href="#" style="color:var(--pink);font-weight:600">→ чем заменили</a></div>
+	</div>
+	<div class="mon-foot">42 НПА в трекере · обновляется ежедневно по xml ФНС и pravo.gov.ru · <a href="#">настроить алерты →</a></div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 7 ─── -->
+<div class="block-tag">#7 Template builder</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: конструктор документа</div>
+<p class="block-note">Не «Образец договора-заявки» PDF, а конструктор — отмечаешь галочки, заполняешь поля → готовый документ с подстановкой реквизитов.</p>
+<div class="tpl">
+	<div class="tpl-h">Конструктор договора-заявки на перевозку</div>
+	<div class="tpl-grid">
+		<div class="tpl-options">
+			<div class="tpl-pick is-on"><span class="tpl-check"></span>Маркированный товар</div>
+			<div class="tpl-pick is-on"><span class="tpl-check"></span>Один водитель</div>
+			<div class="tpl-pick"><span class="tpl-check"></span>Несколько мест разгрузки</div>
+			<div class="tpl-pick"><span class="tpl-check"></span>Опасный груз</div>
+			<div class="tpl-pick is-on"><span class="tpl-check"></span>Отгрузка по ГИС ЭПД</div>
+			<div class="tpl-pick"><span class="tpl-check"></span>Международная перевозка</div>
+		</div>
+		<div class="tpl-preview">
+			<h4>Договор-заявка № <span class="tpl-blank">__</span> от <span class="tpl-blank">__.__.____</span></h4>
+			<p><strong>Грузоотправитель:</strong> <span class="tpl-blank">ООО / ИП ...</span><br>
+			<strong>Перевозчик:</strong> <span class="tpl-blank">ООО / ИП ...</span> (один водитель)<br>
+			<strong>Груз:</strong> маркированный товар, код ОКПД2 <span class="tpl-blank">__</span><br>
+			<strong>Маршрут:</strong> <span class="tpl-blank">__</span> → <span class="tpl-blank">__</span><br>
+			<strong>Документы:</strong> ЭТрН формируется в ГИС ЭПД, реквизиты по приказу ФНС № ЕД-7-26/1065@.</p>
+			<a href="#" class="tpl-download">↓ Скачать DOCX</a>
+		</div>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 8 ─── -->
+<div class="block-tag">#8 AI consultant</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: персонализированный ответ от RAG-модели</div>
+<p class="block-note">Не «Прочитайте 5 статей по теме», а «спросите своими словами — мы ответим, прицельно процитируя нужный кусок». Ответ создаётся для конкретного запроса, а не написан заранее.</p>
+<div class="aic">
+	<div class="aic-eye">Консультант на базе наших материалов</div>
+	<h3 class="aic-h">Спросите про маркировку, кассу или налоги</h3>
+	<p class="aic-sub">Ответит по 84 нашим материалам + актуальной редакции КоАП. Источники в ответе.</p>
+	<div class="aic-bubble">
+		<div class="aic-q">Q: «Открываю кофейню в Москве с продажей упакованного кофе и шоколада. Нужен ли мне ТС ПИоТ?»</div>
+		<div class="aic-a">A: Шоколад с 01.06.2026 относится к маркируемым товарам по ПП РФ № 1944. Значит, после 01.07.2026 касса в вашей кофейне обязана работать через ТС ПИоТ. Упакованный кофе пока не маркируется. <a href="#">→ Развёрнутая статья</a></div>
+	</div>
+	<div class="aic-input">
+		<input class="aic-field" placeholder="Введите свой вопрос...">
+		<button class="aic-send">Спросить</button>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 9 ─── -->
+<div class="block-tag">#9 Cases database</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: база реальных судебных кейсов</div>
+<p class="block-note">Не статья «Как защищаться от ФНС», а реальные дела: кто проиграл/выиграл, какие аргументы сработали. Контент = выборка из судебной практики, не текст редакции.</p>
+<div class="cases">
+	<div class="cs-h">База судебных кейсов · 247 решений</div>
+	<div class="cs-sub">Реальные дела между бизнесом и ФНС / Роспотребнадзором / ЦРПТ за 2024–2026</div>
+	<div class="cs-card">
+		<div class="cs-num">#247</div>
+		<div>
+			<div class="cs-claim">ФНС: продажа без маркировки на 1.2 М ₽</div>
+			<div class="cs-actor">ООО «Розница-7» vs МИФНС № 14 · АС Москвы · март 2026</div>
+			<div class="cs-result win">→ Бизнес выиграл: суд признал, что код DataMatrix отсканировался корректно, ошибка в передаче в ОФД</div>
+		</div>
+		<a href="#" class="cs-cta">Разбор →</a>
+	</div>
+	<div class="cs-card">
+		<div class="cs-num">#246</div>
+		<div>
+			<div class="cs-claim">ЦРПТ: блокировка кодов на 340 единицах товара</div>
+			<div class="cs-actor">ИП Иванов А.В. vs ЦРПТ · АС СПб · февраль 2026</div>
+			<div class="cs-result lose">← Бизнес проиграл: коды получены от неаккредитованного поставщика, штраф 180 К ₽</div>
+		</div>
+		<a href="#" class="cs-cta">Разбор →</a>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 10 ─── -->
+<div class="block-tag">#10 Personal dashboard</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: личный кабинет с прогрессом</div>
+<p class="block-note">Не «10 шагов готовности» текстом, а личный дашборд — пользователь отмечает что сделано, видит % готовности. Контент = состояние, которое менятся.</p>
+<div class="dash">
+	<div class="dash-h">Ваша готовность к 01.07.2026</div>
+	<div class="dash-sub">Сохраняется локально, без регистрации</div>
+	<div class="dash-cols">
+		<div class="dash-ring">
+			<svg width="140" height="140">
+				<circle cx="70" cy="70" r="60" stroke="#EDE8DF" stroke-width="14" fill="none"/>
+				<circle cx="70" cy="70" r="60" stroke="#9E2B4F" stroke-width="14" fill="none" stroke-dasharray="377" stroke-dashoffset="226" stroke-linecap="round"/>
+			</svg>
+			<div class="dash-ring-text">
+				<div class="dash-ring-pct">40%</div>
+				<div class="dash-ring-label">4 из 10</div>
+			</div>
+		</div>
+		<div class="dash-items">
+			<div class="dash-item"><span class="dash-mark is-done"></span><span>ФФД 1.2 на кассе</span><span class="dash-status">сделано · 15 апр</span></div>
+			<div class="dash-item"><span class="dash-mark is-done"></span><span>Договор с ОФД</span><span class="dash-status">сделано · 22 апр</span></div>
+			<div class="dash-item"><span class="dash-mark is-done"></span><span>2D-сканер на кассе</span><span class="dash-status">сделано · 30 апр</span></div>
+			<div class="dash-item"><span class="dash-mark is-done"></span><span>УКЭП директора</span><span class="dash-status">сделано · 12 мая</span></div>
+			<div class="dash-item"><span class="dash-mark"></span><span>Договор с провайдером ТС ПИоТ</span><span class="dash-status" style="color:var(--pink)">срочно</span></div>
+			<div class="dash-item"><span class="dash-mark"></span><span>Установка модуля</span><span class="dash-status">осталось 37 дней</span></div>
+			<div class="dash-item"><span class="dash-mark"></span><span>Тестовая продажа маркировки</span><span class="dash-status">после установки</span></div>
+		</div>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 11 ─── -->
+<div class="block-tag">#11 Recommender matrix</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: сравнение с фильтрами «под себя»</div>
+<p class="block-note">Не статья «Какой ОФД выбрать», а интерактивная матрица: выбираешь параметры (приоритет цены / скорости / интеграций) → подсвечивается лучший вариант под твой профиль.</p>
+<div class="cmp">
+	<div class="cmp-h">Подбор ОФД под ваш бизнес</div>
+	<div class="cmp-sub">Поднимаем нужный приоритет — таблица пересортируется и подсвечивает рекомендуемый вариант</div>
+	<div class="cmp-controls">
+		<span style="font-size:0.78rem;color:var(--muted);align-self:center">Что важнее:</span>
+		<span class="cmp-ctrl is-on">Цена</span>
+		<span class="cmp-ctrl">Скорость</span>
+		<span class="cmp-ctrl">Интеграции с 1С</span>
+		<span class="cmp-ctrl">Поддержка маркировки</span>
+	</div>
+	<div class="cmp-grid">
+		<div class="cmp-cell cmp-head"></div>
+		<div class="cmp-cell cmp-head">Платформа ОФД</div>
+		<div class="cmp-cell cmp-head">Я. ОФД</div>
+		<div class="cmp-cell cmp-head">Контур.ОФД</div>
+		<div class="cmp-cell cmp-feature">Цена в год</div>
+		<div class="cmp-cell cmp-best">3 000 ₽</div>
+		<div class="cmp-cell">3 600 ₽</div>
+		<div class="cmp-cell">3 200 ₽</div>
+		<div class="cmp-cell cmp-feature">Интеграция с 1С</div>
+		<div class="cmp-cell">Платно</div>
+		<div class="cmp-cell">Бесплатно</div>
+		<div class="cmp-cell">Бесплатно</div>
+		<div class="cmp-cell cmp-feature">Маркировка</div>
+		<div class="cmp-cell">Полная</div>
+		<div class="cmp-cell">Полная</div>
+		<div class="cmp-cell">Полная</div>
+		<div class="cmp-cell cmp-cta"></div>
+		<div class="cmp-cell cmp-cta cmp-best"><a href="#">Подключить →</a></div>
+		<div class="cmp-cell cmp-cta"><a href="#">Подключить</a></div>
+		<div class="cmp-cell cmp-cta"><a href="#">Подключить</a></div>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 12 ─── -->
+<div class="block-tag">#12 Diagnostic quiz</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: диагностический опросник с диагнозом</div>
+<p class="block-note">Не «10 ошибок при подключении ТС ПИоТ», а опросник «у вас уже есть это? а это?» → диагноз: «у вас риск штрафа 200К ₽ из-за пропуска шага 4».</p>
+<div class="qtrack">
+	<div>
+		<div class="qt-eye">Диагностика · 10 вопросов</div>
+		<h3 class="qt-h">Узнайте, какие штрафы вам грозят в 2026</h3>
+		<p class="qt-desc">Пройдите тест — получите персональный диагноз: какие нарушения возможны в вашем бизнесе и каков размер штрафа.</p>
+		<a href="#" class="qt-start">Пройти диагностику →</a>
+	</div>
+	<div class="qt-card">
+		<div class="qt-card-q">Касса формирует чек с тегом 1162 (код маркировки)?</div>
+		<div class="qt-card-opts">
+			<div class="qt-opt">✓ Да, проверял</div>
+			<div class="qt-opt">✗ Нет</div>
+			<div class="qt-opt">? Не уверен</div>
+			<div class="qt-opt">— У меня нет маркированных товаров</div>
+		</div>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 13 ─── -->
+<div class="block-tag">#13 Flashcard tutor</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: тренажёр терминов (Anki)</div>
+<p class="block-note">Не «Словарь терминов» списком, а интерактивный тренажёр. Карточка → вопрос → 4 варианта → правильный/неправильный → следующая.</p>
+<div class="tutor">
+	<div class="tut-eye">Тренажёр терминов · 25 карточек</div>
+	<div class="tut-h">Запомните 5 ключевых терминов ТС ПИоТ</div>
+	<div class="tut-progress">
+		<div class="tut-step done"></div>
+		<div class="tut-step done"></div>
+		<div class="tut-step on"></div>
+		<div class="tut-step"></div>
+		<div class="tut-step"></div>
+	</div>
+	<div class="tut-card">
+		<div class="tut-term">ФФД 1.2</div>
+		<div class="tut-q">Что это и зачем нужно для маркированных товаров?</div>
+	</div>
+	<div class="tut-opts">
+		<div class="tut-opt">Формат фискальных документов, обязателен для маркировки</div>
+		<div class="tut-opt">Финансовый федеральный документ</div>
+		<div class="tut-opt">Форма ФНС-1.2 для отчётности</div>
+		<div class="tut-opt">Технический регламент для касс</div>
+	</div>
+	<div class="tut-foot">Карточка 3 из 5 · правильных: 2 · 71% точность за неделю</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 14 ─── -->
+<div class="block-tag">#14 Recommender pills</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: подбор сервиса по 4 параметрам</div>
+<p class="block-note">Не «Подборка бухгалтерий», а live-фильтр. Тип бизнеса × оборот × сотрудники × отрасль → одна рекомендация с обоснованием.</p>
+<div class="rec">
+	<div class="rec-eye">Подбор · 4 параметра</div>
+	<h3 class="rec-h">Найдём бухгалтерию под ваш профиль</h3>
+	<div class="rec-row">
+		<div class="rec-pill is-on">ИП</div>
+		<div class="rec-pill">ООО до 10 чел</div>
+		<div class="rec-pill">ООО 10–100</div>
+		<div class="rec-pill">Холдинг</div>
+	</div>
+	<div class="rec-row">
+		<div class="rec-pill">УСН 6%</div>
+		<div class="rec-pill is-on">УСН 15%</div>
+		<div class="rec-pill">НДС</div>
+		<div class="rec-pill">Патент</div>
+	</div>
+	<div class="rec-row">
+		<div class="rec-pill is-on">Без сотрудников</div>
+		<div class="rec-pill">1–5 сотр.</div>
+		<div class="rec-pill">5–30 сотр.</div>
+		<div class="rec-pill">30+ сотр.</div>
+	</div>
+	<div class="rec-output">
+		<div>
+			<div class="rec-out-eye">Рекомендуем для вас</div>
+			<div class="rec-out-title">Контур.Эльба — оптимально для ИП УСН 15% без сотрудников</div>
+		</div>
+		<a href="#" class="rec-out-cta">Подробнее →</a>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 15 ─── -->
+<div class="block-tag">#15 Risk meter</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: визуальный спидометр персонального риска</div>
+<p class="block-note">Не статья «Какие риски у вашего бизнеса», а спидометр: вводишь параметры → стрелка показывает «зелёный / жёлтый / красный».</p>
+<div class="risk">
+	<div>
+		<div class="risk-h">Оцените риск штрафа за нарушения 2026</div>
+		<p class="risk-desc">Введите 4 параметра — получите визуальную оценку с разбивкой по статьям КоАП.</p>
+		<div class="risk-inputs">
+			<input class="risk-input" placeholder="Сколько у вас касс">
+			<input class="risk-input" placeholder="Месячный оборот, ₽">
+			<select class="risk-input"><option>Тип товаров: маркированный</option><option>Только не маркируемый</option></select>
+			<select class="risk-input"><option>Регион: Москва</option><option>Другой</option></select>
+		</div>
+	</div>
+	<div class="risk-gauge">
+		<div class="risk-arc">
+			<div class="risk-arc-bg"></div>
+			<div class="risk-arc-fg"></div>
+			<div class="risk-needle"></div>
+		</div>
+		<div class="risk-label">Средний риск</div>
+		<div class="risk-sub">~ 80–150 К ₽ при проверке</div>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 16 ─── -->
+<div class="block-tag">#16 Reminder bot</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: персональные TG-уведомления</div>
+<p class="block-note">Не статья «Календарь дедлайнов», а персональный бот — настраиваешь свои дедлайны → пишет в TG за 3/7/14 дней. Контент = напоминание именно когда нужно.</p>
+<div class="bot">
+	<div class="bot-avatar">🤖</div>
+	<div>
+		<div class="bot-eye">Telegram-бот</div>
+		<h3 class="bot-h">Персональные напоминания о дедлайнах</h3>
+		<p class="bot-desc">Настройте свои сроки — бот напомнит за 14, 7, 3 и 1 день. Срок ФН, оплата УСН, страховые взносы, отчёты ЕФС-1.</p>
+	</div>
+	<a href="#" class="bot-cta">Подключить</a>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 17 ─── -->
+<div class="block-tag">#17 Simulator</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: виртуальная касса для тренировки</div>
+<p class="block-note">Не статья «Что делает кассир при ошибке маркировки», а живая симуляция кассы. Сканируешь виртуальный код → видишь реакцию. Учит, а не объясняет.</p>
+<div class="sim">
+	<div class="sim-h">Симулятор кассового чека · ТС ПИоТ</div>
+	<div class="sim-sub">Попробуйте пробить чек с маркированным товаром. Что произойдёт при ошибочном или дублирующемся коде.</div>
+	<div class="sim-screen">
+		<div class="sim-line">Касса №1 · Кассир: Иванова А. · 25.05.2026 09:14</div>
+		<div class="sim-line">────────────────────────</div>
+		<div class="sim-line input">scan 010460543700015921...</div>
+		<div class="sim-line success">✓ Код принят: Сметана 30% · 78 ₽</div>
+		<div class="sim-line input">scan 010460543700015921...</div>
+		<div class="sim-line error">✗ Ошибка: код уже использован в чеке 15:42 (24.05)</div>
+		<div class="sim-line">→ Тег 2106 = 0 (статус «выведен из оборота»)</div>
+		<div class="sim-line input">scan _<span class="sim-cursor"></span></div>
+	</div>
+	<div class="sim-controls">
+		<button class="sim-btn">Сканировать новый код</button>
+		<button class="sim-btn">Просроченный товар</button>
+		<button class="sim-btn">Сбой связи с ЦРПТ</button>
+		<button class="sim-btn">Сбросить</button>
+	</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 18 ─── -->
+<div class="block-tag">#18 Live countdown</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: цифровой таймер до дедлайна</div>
+<p class="block-note">Не «До 1 июля 37 дней» в тексте, а живой таймер с днями/часами/минутами, который тикает в реальном времени. Контент = время, не текст.</p>
+<div class="cnt">
+	<div class="cnt-digits">
+		<div class="cnt-d"><div class="cnt-num">37</div><div class="cnt-l">Дней</div></div>
+		<div class="cnt-d"><div class="cnt-num">14</div><div class="cnt-l">Часов</div></div>
+		<div class="cnt-d"><div class="cnt-num">46</div><div class="cnt-l">Мин</div></div>
+	</div>
+	<div>
+		<div class="cnt-eye">Дедлайн ТС ПИоТ · 01.07.2026 00:00 МСК</div>
+		<h3 class="cnt-title">Касса без модуля заблокирует продажу маркированного товара</h3>
+		<div class="cnt-sub">Таймер тикает каждую секунду · добавьте дату в свой календарь</div>
+	</div>
+	<a href="#" class="cnt-cta">Подготовить кассу →</a>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 19 ─── -->
+<div class="block-tag">#19 Knowledge graph</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: визуальная карта связей терминов</div>
+<p class="block-note">Не текстовое «Что связано с ТС ПИоТ», а сетевая граф-визуализация. Главный узел в центре + связи в стороны. Контент = структура, не текст.</p>
+<div class="graph">
+	<div class="graph-h">Связи термина «ТС ПИоТ»</div>
+	<svg class="graph-svg" viewBox="0 0 800 260">
+		<line x1="400" y1="130" x2="200" y2="60" stroke="#9E2B4F" stroke-width="2"/>
+		<line x1="400" y1="130" x2="600" y2="60" stroke="#9E2B4F" stroke-width="2"/>
+		<line x1="400" y1="130" x2="200" y2="200" stroke="#9E2B4F" stroke-width="2"/>
+		<line x1="400" y1="130" x2="600" y2="200" stroke="#9E2B4F" stroke-width="2"/>
+		<line x1="400" y1="130" x2="100" y2="130" stroke="#9E2B4F" stroke-width="2"/>
+		<line x1="400" y1="130" x2="700" y2="130" stroke="#9E2B4F" stroke-width="2"/>
+		<circle cx="400" cy="130" r="55" fill="#9E2B4F"/>
+		<text x="400" y="125" text-anchor="middle" fill="#fff" font-family="Bebas Neue" font-size="18">ТС ПИоТ</text>
+		<text x="400" y="145" text-anchor="middle" fill="#fff" font-size="10" opacity="0.7">9 статей</text>
+		<circle cx="200" cy="60" r="36" fill="#fff" stroke="#9E2B4F" stroke-width="2"/>
+		<text x="200" y="58" text-anchor="middle" font-family="Bebas Neue" font-size="13">ФФД 1.2</text>
+		<text x="200" y="72" text-anchor="middle" font-size="9" fill="#666">обязателен</text>
+		<circle cx="600" cy="60" r="36" fill="#fff" stroke="#9E2B4F" stroke-width="2"/>
+		<text x="600" y="58" text-anchor="middle" font-family="Bebas Neue" font-size="13">DataMatrix</text>
+		<text x="600" y="72" text-anchor="middle" font-size="9" fill="#666">проверяет</text>
+		<circle cx="100" cy="130" r="36" fill="#fff" stroke="#9E2B4F" stroke-width="2"/>
+		<text x="100" y="128" text-anchor="middle" font-family="Bebas Neue" font-size="13">ОФД</text>
+		<text x="100" y="142" text-anchor="middle" font-size="9" fill="#666">передаёт</text>
+		<circle cx="700" cy="130" r="36" fill="#fff" stroke="#9E2B4F" stroke-width="2"/>
+		<text x="700" y="128" text-anchor="middle" font-family="Bebas Neue" font-size="13">ГИС МТ</text>
+		<text x="700" y="142" text-anchor="middle" font-size="9" fill="#666">база ЦРПТ</text>
+		<circle cx="200" cy="200" r="36" fill="#fff" stroke="#9E2B4F" stroke-width="2"/>
+		<text x="200" y="198" text-anchor="middle" font-family="Bebas Neue" font-size="13">15.12 КоАП</text>
+		<text x="200" y="212" text-anchor="middle" font-size="9" fill="#666">штрафы</text>
+		<circle cx="600" cy="200" r="36" fill="#fff" stroke="#9E2B4F" stroke-width="2"/>
+		<text x="600" y="198" text-anchor="middle" font-family="Bebas Neue" font-size="13">01.07.2026</text>
+		<text x="600" y="212" text-anchor="middle" font-size="9" fill="#666">срок</text>
+	</svg>
+	<div class="graph-foot">Кликните узел, чтобы перейти к материалам по теме · граф строится из связей наших статей</div>
+</div>
+
+<hr class="block-divider">
+
+<!-- ─── 20 ─── -->
+<div class="block-tag">#20 Live Q&A board</div><span class="not-article">не статья</span>
+<div class="idea-label">Тип: реальные вопросы аудитории с голосованием</div>
+<p class="block-note">Не FAQ от редакции, а форум-доска. Читатели задают, голосуют за чужие вопросы, редакция отвечает. Контент = живой разговор, не предзаписанные ответы.</p>
+<div class="qboard">
+	<div class="qb-h">Доска вопросов · 247 активных</div>
+	<div class="qb-sub">Задавайте вопросы редакции и голосуйте за чужие. Самые популярные — отвечаем в течение 2 дней.</div>
+	<div class="qb-row">
+		<div class="qb-votes">42<div class="qb-votes-l">голосов</div></div>
+		<div>
+			<div class="qb-q">Что делать, если касса с ФФД 1.05 — обязательно ли менять до 01.07?</div>
+			<div class="qb-meta">Иван Сергеевич · 24 мая · <strong>отвечено редакцией</strong></div>
+		</div>
+		<a href="#" class="qb-act">Открыть →</a>
+	</div>
+	<div class="qb-row">
+		<div class="qb-votes">28<div class="qb-votes-l">голосов</div></div>
+		<div>
+			<div class="qb-q">Можно ли использовать один договор-заявку на 5 разгрузок?</div>
+			<div class="qb-meta">Анна, экспедитор · 23 мая · в очереди на ответ</div>
+		</div>
+		<a href="#" class="qb-act">↑ Голос</a>
+	</div>
+	<div class="qb-row">
+		<div class="qb-votes">15<div class="qb-votes-l">голосов</div></div>
+		<div>
+			<div class="qb-q">Маркировка на ИП-перевозчика без работников: вообще ничего не подключать?</div>
+			<div class="qb-meta">Сергей П. · 22 мая · в очереди на ответ</div>
+		</div>
+		<a href="#" class="qb-act">↑ Голос</a>
+	</div>
+	<div class="qb-input">
+		<input placeholder="Задайте свой вопрос...">
+		<button>Спросить</button>
+	</div>
+</div>
+
+</div>
+</body>
+</html>
