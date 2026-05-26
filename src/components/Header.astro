@@ -7,7 +7,7 @@ import { u } from '../utils/url';
 	<div class="header-inner">
 		<div class="header-left">
 			<a href={u('/')} class="logo" aria-label={SITE_TITLE}>
-				ЭТИКЕТКА<sup>медиа</sup>
+				этикетка<span class="logo-dot">.</span>
 			</a>
 			<nav class="site-nav" id="primary-nav">
 				{NAV_LINKS.filter(l => !['/', '/slovar/', '/about/', '/search/'].includes(l.href)).map((link) => (
@@ -36,8 +36,8 @@ import { u } from '../utils/url';
 
 <style>
 	.site-header {
-		background: #EDE8DF;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		background: var(--surface, #F6F4EE);
+		border-bottom: 1px solid var(--line, #E5E1D8);
 		position: sticky;
 		top: 0;
 		z-index: 50;
@@ -45,7 +45,7 @@ import { u } from '../utils/url';
 		height: 56px;
 	}
 	.header-inner {
-		max-width: 900px;
+		max-width: 1240px;
 		margin: 0 auto;
 		height: 100%;
 		display: flex;
@@ -61,23 +61,15 @@ import { u } from '../utils/url';
 	}
 	.logo {
 		font-family: 'Bebas Neue', sans-serif;
-		font-size: 1.6rem;
+		font-size: 1.75rem;
 		letter-spacing: 0.04em;
 		color: #111;
 		text-decoration: none;
 		line-height: 1;
 		flex-shrink: 0;
+		text-transform: lowercase;
 	}
-	.logo sup {
-		font-family: 'Inter', sans-serif;
-		font-size: 0.55rem;
-		font-weight: 600;
-		color: #888;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		vertical-align: super;
-		margin-left: 4px;
-	}
+	.logo .logo-dot { color: #E8175D; }
 	.site-nav {
 		display: flex;
 		align-items: center;
