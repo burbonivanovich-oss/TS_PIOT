@@ -8,7 +8,7 @@ const today = new Date();
 	<div class="footer-inner">
 		<div class="footer-col footer-col--brand">
 			<div class="footer-logo">
-				ЭТИКЕТКА<sup>медиа</sup>
+				этикетка<span class="logo-dot">.</span>
 			</div>
 			<p class="footer-about">
 				Информационный портал для малого и среднего бизнеса. Разбираем требования
@@ -58,7 +58,7 @@ const today = new Date();
 		margin-top: 5rem;
 	}
 	.footer-inner {
-		max-width: 900px;
+		max-width: 1240px;
 		margin: 0 auto;
 		display: grid;
 		grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -66,22 +66,14 @@ const today = new Date();
 	}
 	.footer-logo {
 		font-family: 'Bebas Neue', sans-serif;
-		font-size: 1.5rem;
+		font-size: 1.9rem;
 		letter-spacing: 0.04em;
 		color: #fff;
 		line-height: 1;
 		margin-bottom: 0.85rem;
+		text-transform: lowercase;
 	}
-	.footer-logo sup {
-		font-family: 'Inter', sans-serif;
-		font-size: 0.5rem;
-		font-weight: 600;
-		color: #555;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		vertical-align: super;
-		margin-left: 4px;
-	}
+	.footer-logo .logo-dot { color: #E8175D; }
 	.footer-about {
 		font-size: 0.84rem;
 		line-height: 1.6;
@@ -115,7 +107,7 @@ const today = new Date();
 		color: #AFCC00;
 	}
 	.footer-bottom {
-		max-width: 900px;
+		max-width: 1240px;
 		margin: 2.5rem auto 0;
 		padding-top: 1.5rem;
 		border-top: 1px solid rgba(255, 255, 255, 0.07);
