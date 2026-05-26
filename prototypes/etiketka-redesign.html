@@ -173,30 +173,61 @@
   .hero-side-card .hsc-body h4{margin-bottom:4px;font-size:1rem}
   .hero-side-card .hsc-body p{margin:0;font-size:.78rem;color:var(--ink-3);line-height:1.45}
 
-  /* Categories — clean horizontal strip */
-  .catstrip{background:var(--sand);padding:36px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .catstrip-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
-  .catstrip-eyebrow{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}
-  .catstrip-eyebrow .eyebrow{color:var(--ink-3)}
-  .catstrip .cgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-  .cat-pill{padding:22px 18px;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between;min-height:130px;transition:all .15s;position:relative}
-  .cat-pill:hover{transform:translateY(-2px);border-color:var(--ink)}
-  .cat-pill .cp-num{font-family:var(--f-mono);font-size:.7rem;color:var(--mute);margin-bottom:2px}
-  .cat-pill .cp-name{font-family:var(--f-display);font-size:1.4rem;letter-spacing:.04em;text-transform:uppercase;line-height:1}
-  .cat-pill .cp-count{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-top:8px}
-  .cat-pill.k-ts{background:#111;color:#fff}
-  .cat-pill.k-ts .cp-num,.cat-pill.k-ts .cp-count{color:rgba(255,255,255,.5)}
-  .cat-pill.k-mk{background:var(--pink);color:#fff}
-  .cat-pill.k-mk .cp-num,.cat-pill.k-mk .cp-count{color:rgba(255,255,255,.55)}
-  .cat-pill.k-zk{background:var(--lime)}
-  .cat-pill.k-zk .cp-num{color:#7a8e00}
-  .cat-pill.k-zk .cp-count{color:#5a6a00}
-  .cat-pill.k-kk{background:#fff;border-color:var(--purple)}
-  .cat-pill.k-kk .cp-num{color:var(--purple)}
-  .cat-pill.k-eg{background:#fff;border-color:var(--green)}
-  .cat-pill.k-eg .cp-num{color:var(--green)}
-  .cat-pill.k-tools{background:#fff;border:2px dashed var(--ink-2);color:var(--ink-2)}
-  .cat-pill.k-tools .cp-num{color:var(--ink-2)}
+  /* Category chips for "Свежее" header filters */
+  .cat-chips{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .cat-chip{padding:7px 14px;border:1px solid var(--line);background:#fff;font-family:var(--f-body);font-size:.72rem;font-weight:600;letter-spacing:.04em;color:var(--ink-2);cursor:pointer;text-decoration:none;border-radius:2px;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+  .cat-chip:hover{border-color:var(--ink);color:var(--ink)}
+  .cat-chip .dot{width:7px;height:7px;border-radius:50%;background:var(--ink-3)}
+  .cat-chip.c-all.cur{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .cat-chip.c-ts .dot{background:#111}
+  .cat-chip.c-mk .dot{background:var(--pink)}
+  .cat-chip.c-zk .dot{background:var(--blue)}
+  .cat-chip.c-kk .dot{background:var(--purple)}
+  .cat-chip.c-eg .dot{background:var(--green)}
+
+  /* "Свежее" — featured + category list (LAB-style) */
+  .fresh-inner{display:grid;grid-template-columns:1.5fr 1fr;gap:32px;align-items:stretch}
+  .fresh-feat{display:flex;flex-direction:column;text-decoration:none;color:var(--ink)}
+  .fresh-feat .fph{aspect-ratio:16/10;background:var(--ink)}
+  .fresh-feat .ff-tag{display:flex;gap:10px;align-items:center;margin-top:18px;margin-bottom:14px}
+  .fresh-feat .ff-tag .tag{background:var(--pink);color:#fff}
+  .fresh-feat .ff-tag .ft-meta{font-family:var(--f-mono);font-size:.7rem;color:var(--mute);letter-spacing:.04em}
+  .fresh-feat h3{font-size:clamp(1.8rem,2.4vw,2.4rem);margin-bottom:14px;line-height:1.02;color:var(--ink)}
+  .fresh-feat .ff-desc{color:var(--ink-3);font-size:.95rem;line-height:1.55;margin-bottom:12px;max-width:580px}
+  .fresh-feat .ff-meta{font-family:var(--f-mono);font-size:.72rem;color:var(--mute);letter-spacing:.04em}
+  .fresh-cats{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+  .fresh-cat{display:grid;grid-template-columns:48px 1fr auto;gap:18px;padding:18px 4px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);align-items:start;transition:all .15s}
+  .fresh-cat:hover{padding-left:12px;background:var(--sand-l)}
+  .fresh-cat .fc-num{font-family:var(--f-display);font-size:1.65rem;color:var(--pink);line-height:1}
+  .fresh-cat .fc-name{display:block;font-family:var(--f-body);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:700;margin-bottom:6px}
+  .fresh-cat .fc-title{font-size:.98rem;font-weight:600;line-height:1.3;color:var(--ink)}
+  .fresh-cat .fc-meta{font-family:var(--f-mono);font-size:.7rem;color:var(--mute);letter-spacing:.04em;white-space:nowrap;align-self:start;padding-top:2px}
+  .fresh-foot{display:flex;justify-content:space-between;align-items:center;padding-top:18px;margin-top:24px;border-top:1px solid var(--line);font-size:.78rem;color:var(--ink-3)}
+  .fresh-foot a{color:var(--pink);text-decoration:none;font-weight:600;letter-spacing:.04em}
+  .fresh-foot a::after{content:" →"}
+
+  /* Category section headers (LAB3 #13) — big colored dividers */
+  .csec-stack{display:flex;flex-direction:column;gap:48px}
+  .csec{display:block}
+  .csec-header{padding:48px 40px;display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:center;color:#fff;text-decoration:none;position:relative;overflow:hidden}
+  .csec-header.k-mk{background:var(--pink)}
+  .csec-header.k-zk{background:var(--blue)}
+  .csec-header.k-kk{background:var(--purple)}
+  .csec-header.k-eg{background:var(--green)}
+  .csec-header .csh-num{font-family:var(--f-display);font-size:6rem;line-height:.85;color:rgba(255,255,255,.25);letter-spacing:0}
+  .csec-header .csh-body .csh-eyebrow{font-family:var(--f-body);font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:10px}
+  .csec-header .csh-body h3{font-size:clamp(2rem,3.5vw,3rem);margin-bottom:10px;color:#fff;letter-spacing:.02em}
+  .csec-header .csh-body p{margin:0;color:rgba(255,255,255,.8);font-size:.95rem;line-height:1.5;max-width:560px}
+  .csec-header .csh-go{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.5);padding:14px 22px;font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;transition:all .15s}
+  .csec-header:hover .csh-go{background:#fff;color:var(--ink);border-color:#fff}
+  /* Articles row under each category header */
+  .csec-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+  .csec-card{background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--ink);display:flex;flex-direction:column;overflow:hidden;transition:all .15s}
+  .csec-card:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .csec-card .ph{aspect-ratio:16/9}
+  .csec-card .csc-body{padding:18px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .csec-card .csc-title{font-family:var(--f-display);font-size:1.15rem;letter-spacing:.02em;line-height:1.08}
+  .csec-card .csc-meta{margin-top:auto;font-family:var(--f-mono);font-size:.7rem;color:var(--mute);letter-spacing:.04em}
 
   /* Series block */
   .series-inner{display:grid;grid-template-columns:2fr 3fr;gap:32px;align-items:start}
@@ -212,34 +243,6 @@
   .series-item .si-num{font-family:var(--f-display);font-size:1.6rem;color:var(--pink);line-height:1}
   .series-item .si-title{font-size:1rem;font-weight:600;line-height:1.35}
   .series-item .si-meta{font-family:var(--f-mono);font-size:.7rem;color:var(--mute);white-space:nowrap}
-
-  /* Bento */
-  .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-  .bcard{background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--ink);display:flex;flex-direction:column;overflow:hidden;transition:all .15s}
-  .bcard:hover{border-color:var(--ink);transform:translateY(-2px)}
-  .bcard .bc-img{aspect-ratio:16/9}
-  .bcard .bc-body{padding:18px;display:flex;flex-direction:column;gap:10px;flex:1}
-  .bcard .bc-title{font-family:var(--f-display);font-size:1.15rem;letter-spacing:.02em;line-height:1.08}
-  .bcard .bc-meta{margin-top:auto;font-family:var(--f-mono);font-size:.7rem;color:var(--mute);letter-spacing:.04em;display:flex;gap:8px;align-items:center}
-  .bcard .bc-meta::before{content:"·";color:var(--line)}
-  .bcard .bc-meta::before{display:none}
-
-  /* Big featured */
-  .bcard.big{grid-column:span 4;grid-row:span 2;display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:1fr}
-  .bcard.big .bc-img{aspect-ratio:auto;height:100%;min-height:380px}
-  .bcard.big .bc-body{padding:32px;justify-content:center;gap:14px}
-  .bcard.big .bc-title{font-size:2rem;line-height:.98}
-  .bcard.big .bc-desc{font-size:.92rem;color:var(--ink-3);line-height:1.55;margin-bottom:12px}
-
-  /* Medium right */
-  .bcard.med{grid-column:span 2}
-  .bcard.med .bc-img{min-height:140px}
-
-  /* Mini row */
-  .bcard.mini{grid-column:span 2}
-  .bcard.mini .bc-img{aspect-ratio:21/9;min-height:90px}
-  .bcard.mini .bc-body{padding:14px}
-  .bcard.mini .bc-title{font-size:1rem}
 
   /* Tools strip — clean */
   .tools-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
@@ -354,30 +357,30 @@
   .slov-search::before{content:"⌕";position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1.1rem;color:var(--ink-3);pointer-events:none}
   .slov-stat{font-family:var(--f-mono);font-size:.72rem;color:var(--ink-3);letter-spacing:.04em;padding-bottom:6px}
 
-  /* Sticky alphabet rail */
-  .alpha-rail{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line);padding:14px 0}
+  /* Alphabet tiles + 3-col term list (LAB2 #15) */
   body[data-page="slovar"] .topstrip{display:none}
-  .alpha-rail-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:flex;gap:2px;flex-wrap:wrap;justify-content:center}
-  .alpha-rail a{font-family:var(--f-display);font-size:1.15rem;letter-spacing:.02em;color:var(--ink);text-decoration:none;padding:6px 9px;line-height:1;transition:all .12s;min-width:32px;text-align:center;border-radius:2px}
-  .alpha-rail a:hover{background:var(--ink);color:var(--lime)}
-  .alpha-rail a.cur{background:var(--pink);color:#fff}
-  .alpha-rail a.dim{color:var(--mute);pointer-events:none}
-
   .slov-body{padding:48px 0 80px}
   .slov-body-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
-  .letter-block{margin-bottom:64px;display:grid;grid-template-columns:120px 1fr;gap:48px;align-items:start;scroll-margin-top:130px}
-  .letter-mark{position:sticky;top:130px}
-  .letter-mark .lm-big{font-family:var(--f-display);font-size:6rem;color:var(--pink);line-height:.85;letter-spacing:0}
-  .letter-mark .lm-cnt{font-family:var(--f-mono);font-size:.72rem;color:var(--ink-3);letter-spacing:.06em;margin-top:6px}
-  .term-list{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
-  .term-list li{display:grid;grid-template-columns:260px 1fr;gap:32px;padding:18px 0;border-bottom:1px solid var(--line);align-items:start}
-  .term-list li:last-child{border-bottom:0}
-  .term-list .term{font-weight:700;text-decoration:none;color:var(--ink);font-size:.98rem}
-  .term-list .term:hover{color:var(--pink)}
-  .term-list .term .term-tag{display:block;font-family:var(--f-mono);font-size:.62rem;color:var(--mute);font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
-  .term-list .desc{font-size:.92rem;color:var(--ink-2);line-height:1.55}
-  .term-list .desc .desc-link{display:block;font-size:.72rem;color:var(--pink);text-decoration:none;margin-top:6px;letter-spacing:.04em}
-  .term-list .desc .desc-link::after{content:" →"}
+
+  .alpha-tiles{display:grid;grid-template-columns:repeat(16,1fr);gap:6px;margin-bottom:32px}
+  .alpha-tile{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:var(--sand);border:1px solid var(--line);font-family:var(--f-display);font-size:1.5rem;color:var(--ink);text-decoration:none;cursor:pointer;transition:all .12s;border-radius:2px;letter-spacing:.02em;line-height:1}
+  .alpha-tile:hover{background:var(--ink);color:var(--lime);border-color:var(--ink)}
+  .alpha-tile.cur{background:var(--ink);color:var(--lime);border-color:var(--ink)}
+  .alpha-tile.empty{color:var(--mute);background:var(--sand-l);pointer-events:none;opacity:.5}
+
+  .letter-context{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--ink)}
+  .letter-context h2{font-size:1.7rem}
+  .letter-context h2 .lc-big{color:var(--pink);font-size:2.4rem;margin-right:8px}
+  .letter-context .lc-meta{font-family:var(--f-mono);font-size:.72rem;color:var(--ink-3);letter-spacing:.04em}
+
+  .term-3col{column-count:3;column-gap:40px;margin-bottom:48px}
+  .term-3col .term-item{break-inside:avoid;margin-bottom:14px;padding-bottom:14px;border-bottom:1px dashed var(--line-2)}
+  .term-3col .term-item:last-child{border-bottom:0}
+  .term-3col .term-item .t-name{font-weight:700;text-decoration:none;color:var(--pink);font-size:.95rem;display:inline}
+  .term-3col .term-item .t-name:hover{color:var(--ink)}
+  .term-3col .term-item .t-desc{display:inline;font-size:.92rem;color:var(--ink-2);line-height:1.5}
+  .term-3col .term-item .t-name::after{content:" — ";color:var(--ink-2);font-weight:400}
+  .term-3col .term-item .t-tag{display:block;font-family:var(--f-mono);font-size:.6rem;color:var(--mute);font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-top:6px}
 
   /* ═════════ СТАТЬЯ ═════════ */
   .art-hero{padding:60px 0 32px;background:#fff;border-bottom:1px solid var(--line)}
@@ -506,24 +509,27 @@
   /* Responsive */
   @media (max-width:1024px){
     .hero-inner{grid-template-columns:1fr}
-    .catstrip .cgrid{grid-template-columns:repeat(3,1fr)}
     .tools-grid{grid-template-columns:repeat(2,1fr)}
     .tool-card.t-flag,.tool-card.t-test,.tool-card.t-sc1,.tool-card.t-sc2,.tool-card.t-zak{grid-column:auto}
     .series-inner{grid-template-columns:1fr}
-    .bento{grid-template-columns:repeat(4,1fr)}
-    .bcard.big{grid-column:span 4;grid-template-columns:1fr;grid-row:auto}
-    .bcard.big .bc-img{min-height:240px}
-    .bcard.med,.bcard.mini{grid-column:span 2}
+    .fresh-inner{grid-template-columns:1fr;gap:24px}
+    .csec-row{grid-template-columns:1fr 1fr}
+    .csec-header{padding:32px 24px;gap:18px}
+    .csec-header .csh-num{font-size:4rem}
+    .alpha-tiles{grid-template-columns:repeat(12,1fr)}
+    .term-3col{column-count:2}
   }
   @media (max-width:680px){
     .siteheader-inner{gap:14px;flex-wrap:wrap}
     .nav{font-size:.7rem;gap:14px}
     .hero{padding:48px 0 32px}
-    .catstrip .cgrid{grid-template-columns:repeat(2,1fr)}
     .tools-grid{grid-template-columns:1fr}
-    .bento{grid-template-columns:1fr 1fr}
-    .bcard.big{grid-column:span 2}
-    .bcard.med,.bcard.mini{grid-column:span 1}
+    .csec-row{grid-template-columns:1fr}
+    .csec-header{grid-template-columns:1fr;text-align:left}
+    .csec-header .csh-num{font-size:3rem}
+    .alpha-tiles{grid-template-columns:repeat(8,1fr)}
+    .alpha-tile{font-size:1.2rem}
+    .term-3col{column-count:1}
     body.bm-cards .blog-grid,body.bm-image .blog-grid{grid-template-columns:1fr 1fr}
     .cta-band-inner{grid-template-columns:1fr}
     .nl-inner{grid-template-columns:1fr;padding:24px}
@@ -531,11 +537,9 @@
     .pdf-card{grid-template-columns:1fr}
     .pdf-card .cover{max-width:140px;margin:0 auto}
     .qopts{grid-template-columns:1fr}
-    .letter-block{grid-template-columns:1fr;gap:18px}
-    .letter-mark{position:static}
-    .term-list li{grid-template-columns:1fr;gap:6px}
     .footer-grid{grid-template-columns:1fr 1fr;gap:24px}
     .slov-head-inner,.blog-head-inner{grid-template-columns:1fr;gap:20px}
+    .letter-context{flex-direction:column;align-items:start;gap:6px}
   }
 </style>
 </head>
@@ -621,39 +625,77 @@
     </div>
   </section>
 
-  <!-- CATEGORIES -->
-  <section class="catstrip">
-    <div class="catstrip-inner">
-      <div class="catstrip-eyebrow">
-        <span class="eyebrow">Разделы</span>
-        <a class="see-all" href="#">Все категории</a>
-      </div>
-      <div class="cgrid">
-        <a class="cat-pill k-ts">
-          <div><div class="cp-num">01</div><div class="cp-name">ТС ПИоТ</div></div>
-          <div class="cp-count">28 материалов</div>
+  <!-- СВЕЖЕЕ: featured + категории как навигация -->
+  <section class="sec wrap">
+    <span class="marker">Свежее: LAB4 #1 + категории справа</span>
+    <div class="sec-head">
+      <h2><span class="num">01</span>Свежее</h2>
+      <nav class="cat-chips">
+        <a class="cat-chip c-all cur">Все</a>
+        <a class="cat-chip c-ts"><span class="dot"></span>ТС ПИоТ</a>
+        <a class="cat-chip c-mk"><span class="dot"></span>Маркировка</a>
+        <a class="cat-chip c-zk"><span class="dot"></span>Законы</a>
+        <a class="cat-chip c-kk"><span class="dot"></span>Кассы</a>
+        <a class="cat-chip c-eg"><span class="dot"></span>ЕГАИС</a>
+      </nav>
+    </div>
+    <div class="fresh-inner">
+      <a class="fresh-feat">
+        <div class="fph ph zk"><span class="ph-label">Pillar · 140-ФЗ ЭПД</span></div>
+        <div class="ff-tag">
+          <span class="tag mk">Pillar · Логистика</span>
+          <span class="ft-meta">25 мая · 12 мин чтения</span>
+        </div>
+        <h3>140-ФЗ: переход на ЭПД с 01.09.2026</h3>
+        <p class="ff-desc">Обязательный переход на электронные перевозочные документы, штрафы по ст. 11.14.3 КоАП, подключение к ГИС ЭПД для МСБ.</p>
+        <span class="ff-meta">Читать pillar →</span>
+      </a>
+      <nav class="fresh-cats" aria-label="Категории">
+        <a class="fresh-cat">
+          <span class="fc-num">01</span>
+          <span>
+            <span class="fc-name">ТС ПИоТ</span>
+            <span class="fc-title">Готовность к 01.07.2026, провайдеры, интеграция с 1С</span>
+          </span>
+          <span class="fc-meta">28 мат.</span>
         </a>
-        <a class="cat-pill k-mk">
-          <div><div class="cp-num">02</div><div class="cp-name">Маркировка</div></div>
-          <div class="cp-count">19 материалов</div>
+        <a class="fresh-cat">
+          <span class="fc-num">02</span>
+          <span>
+            <span class="fc-name">Маркировка «Честный знак»</span>
+            <span class="fc-title">Категории, разрешительный режим, поэкземплярный учёт</span>
+          </span>
+          <span class="fc-meta">19 мат.</span>
         </a>
-        <a class="cat-pill k-zk">
-          <div><div class="cp-num">03</div><div class="cp-name">Законы</div></div>
-          <div class="cp-count">22 материала</div>
+        <a class="fresh-cat">
+          <span class="fc-num">03</span>
+          <span>
+            <span class="fc-name">Законы для МСБ</span>
+            <span class="fc-title">УСН, ПСН, НДС, КЭДО, налоговые проверки</span>
+          </span>
+          <span class="fc-meta">22 мат.</span>
         </a>
-        <a class="cat-pill k-kk">
-          <div><div class="cp-num">04</div><div class="cp-name">Кассы</div></div>
-          <div class="cp-count">11 материалов</div>
+        <a class="fresh-cat">
+          <span class="fc-num">04</span>
+          <span>
+            <span class="fc-name">Кассы и ОФД</span>
+            <span class="fc-title">54-ФЗ, выбор онлайн-кассы, фискальный накопитель</span>
+          </span>
+          <span class="fc-meta">11 мат.</span>
         </a>
-        <a class="cat-pill k-eg">
-          <div><div class="cp-num">05</div><div class="cp-name">ЕГАИС</div></div>
-          <div class="cp-count">4 материала</div>
+        <a class="fresh-cat">
+          <span class="fc-num">05</span>
+          <span>
+            <span class="fc-name">ЕГАИС</span>
+            <span class="fc-title">Учёт алкоголя, разливное пиво, отчётность</span>
+          </span>
+          <span class="fc-meta">4 мат.</span>
         </a>
-        <a class="cat-pill k-tools">
-          <div><div class="cp-num">06</div><div class="cp-name">Инструменты</div></div>
-          <div class="cp-count">9 интерактивов</div>
-        </a>
-      </div>
+      </nav>
+    </div>
+    <div class="fresh-foot">
+      <span>Обновлено сегодня · 5 новых статей за неделю</span>
+      <a href="#">Все материалы</a>
     </div>
   </section>
 
@@ -661,7 +703,7 @@
   <section class="sec wrap">
     <span class="marker">LAB3 #4 · Series</span>
     <div class="sec-head">
-      <h2><span class="num">01</span>Серия материалов</h2>
+      <h2><span class="num">02</span>Серия материалов</h2>
       <a class="see-all" href="#">Все серии</a>
     </div>
     <div class="series-inner">
@@ -704,70 +746,167 @@
     </div>
   </section>
 
-  <!-- BENTO -->
-  <section class="sec wrap tight">
-    <span class="marker">LAB4 #1 · Bento</span>
+  <!-- CATEGORY SECTION HEADERS подряд -->
+  <section class="sec wrap">
+    <span class="marker">LAB3 #13 · Category section headers (подряд)</span>
     <div class="sec-head">
-      <h2><span class="num">02</span>Свежее</h2>
-      <a class="see-all" href="#">Все материалы</a>
+      <h2><span class="num">03</span>По категориям</h2>
+      <a class="see-all" href="#">Все категории</a>
     </div>
-    <div class="bento">
-      <a class="bcard big">
-        <div class="ph ts"><span class="ph-label">ТС ПИоТ · фото</span></div>
-        <div class="bc-body">
-          <span class="tag ts">ТС ПИоТ</span>
-          <span class="bc-title">Провайдеры ТС ПИоТ в 2026 году: сравнение ЕСМ и Инвенты</span>
-          <span class="bc-desc">Два аккредитованных оператора: цена, скорость подключения, поддержка 1С, SLA. У кого ниже TCO для кофейни на 200 чеков в день.</span>
-          <span class="bc-meta">30 мая · 8 мин · Кирилл Минин</span>
+
+    <div class="csec-stack">
+
+      <!-- ТС ПИоТ -->
+      <div class="csec">
+        <a class="csec-header" style="background:#111;color:#fff">
+          <span class="csh-num" style="color:rgba(255,255,255,.18)">01</span>
+          <div class="csh-body">
+            <div class="csh-eyebrow">Раздел · 28 материалов</div>
+            <h3>ТС ПИоТ</h3>
+            <p>Обязательное программное средство для онлайн-касс с 01.07.2026. Готовность бизнеса, выбор провайдера, подключение к 1С, работа офлайн.</p>
+          </div>
+          <span class="csh-go">Открыть →</span>
+        </a>
+        <div class="csec-row">
+          <a class="csec-card">
+            <div class="ph ts"><span class="ph-label">ТС ПИоТ · провайдеры</span></div>
+            <div class="csc-body">
+              <span class="csc-title">Провайдеры ТС ПИоТ в 2026: сравнение ЕСМ и Инвенты</span>
+              <span class="csc-meta">30 мая · 8 мин</span>
+            </div>
+          </a>
+          <a class="csec-card">
+            <div class="ph ts"><span class="ph-label">ТС ПИоТ · 1С</span></div>
+            <div class="csc-body">
+              <span class="csc-title">ТС ПИоТ в 1С:Розница и УНФ: настройка пошагово</span>
+              <span class="csc-meta">28 мая · 6 мин</span>
+            </div>
+          </a>
+          <a class="csec-card">
+            <div class="ph ts"><span class="ph-label">ТС ПИоТ · офлайн</span></div>
+            <div class="csc-body">
+              <span class="csc-title">ТС ПИоТ без интернета: касса при потере связи</span>
+              <span class="csc-meta">25 мая · 5 мин</span>
+            </div>
+          </a>
         </div>
-      </a>
-      <a class="bcard med">
-        <div class="ph mk"><span class="ph-label">Маркировка</span></div>
-        <div class="bc-body">
-          <span class="tag mk">Маркировка</span>
-          <span class="bc-title">Регистрация в «Честном знаке»: пошаговая инструкция</span>
-          <span class="bc-meta">31 мая · 7 мин</span>
+      </div>
+
+      <!-- Маркировка -->
+      <div class="csec">
+        <a class="csec-header k-mk">
+          <span class="csh-num">02</span>
+          <div class="csh-body">
+            <div class="csh-eyebrow">Раздел · 19 материалов</div>
+            <h3>Маркировка «Честный знак»</h3>
+            <p>Категории товаров, сроки введения, разрешительный режим, поэкземплярный учёт, типичные ошибки на кассе.</p>
+          </div>
+          <span class="csh-go">Открыть →</span>
+        </a>
+        <div class="csec-row">
+          <a class="csec-card">
+            <div class="ph mk"><span class="ph-label">Маркировка</span></div>
+            <div class="csc-body">
+              <span class="csc-title">Регистрация в «Честном знаке»: пошаговая инструкция</span>
+              <span class="csc-meta">31 мая · 7 мин</span>
+            </div>
+          </a>
+          <a class="csec-card">
+            <div class="ph mk"><span class="ph-label">Обувь</span></div>
+            <div class="csc-body">
+              <span class="csc-title">Обувь-2026: разрешительный режим, остатки, штрафы</span>
+              <span class="csc-meta">27 мая · 8 мин</span>
+            </div>
+          </a>
+          <a class="csec-card">
+            <div class="ph mk"><span class="ph-label">Автожидкости</span></div>
+            <div class="csc-body">
+              <span class="csc-title">Автожидкости: разрешительный режим с 01.10.2026</span>
+              <span class="csc-meta">24 мая · 5 мин</span>
+            </div>
+          </a>
         </div>
-      </a>
-      <a class="bcard med">
-        <div class="ph zk"><span class="ph-label">Законы</span></div>
-        <div class="bc-body">
-          <span class="tag zk">Законы</span>
-          <span class="bc-title">ПСН и НДС с 2026 года: пороги и риски</span>
-          <span class="bc-meta">29 мая · 9 мин</span>
+      </div>
+
+      <!-- Законы -->
+      <div class="csec">
+        <a class="csec-header k-zk">
+          <span class="csh-num">03</span>
+          <div class="csh-body">
+            <div class="csh-eyebrow">Раздел · 22 материала</div>
+            <h3>Законодательство для МСБ</h3>
+            <p>Налоги, отчётность, проверки, ЭДО, КЭДО, ЕНС, ПСН и НДС с 2026, изменения в трудовом праве для предпринимателей.</p>
+          </div>
+          <span class="csh-go">Открыть →</span>
+        </a>
+        <div class="csec-row">
+          <a class="csec-card">
+            <div class="ph zk"><span class="ph-label">ПСН + НДС</span></div>
+            <div class="csc-body">
+              <span class="csc-title">ПСН и НДС с 2026: пороги, риски, что считать</span>
+              <span class="csc-meta">29 мая · 9 мин</span>
+            </div>
+          </a>
+          <a class="csec-card">
+            <div class="ph zk"><span class="ph-label">УСН + патент</span></div>
+            <div class="csc-body">
+              <span class="csc-title">Совмещение УСН и патента: лимиты и раздельный учёт</span>
+              <span class="csc-meta">27 мая · 7 мин</span>
+            </div>
+          </a>
+          <a class="csec-card">
+            <div class="ph zk"><span class="ph-label">Маркетплейсы</span></div>
+            <div class="csc-body">
+              <span class="csc-title">Закон о маркетплейсах 289-ФЗ: что изменится</span>
+              <span class="csc-meta">24 мая · 6 мин</span>
+            </div>
+          </a>
         </div>
-      </a>
-      <a class="bcard mini">
-        <div class="ph mk"><span class="ph-label">Маркировка</span></div>
-        <div class="bc-body">
-          <span class="tag mk">Маркировка</span>
-          <span class="bc-title">Обувь-2026: разрешительный режим, остатки, штрафы</span>
-          <span class="bc-meta">27 мая · 8 мин</span>
+      </div>
+
+      <!-- Кассы -->
+      <div class="csec">
+        <a class="csec-header k-kk">
+          <span class="csh-num">04</span>
+          <div class="csh-body">
+            <div class="csh-eyebrow">Раздел · 11 материалов</div>
+            <h3>Кассы и ОФД</h3>
+            <p>54-ФЗ, выбор онлайн-кассы для разных форматов, фискальный накопитель, аккредитованные ОФД, штрафы по ст. 14.5 КоАП.</p>
+          </div>
+          <span class="csh-go">Открыть →</span>
+        </a>
+        <div class="csec-row">
+          <a class="csec-card">
+            <div class="ph kk"><span class="ph-label">Касса · ИМ</span></div>
+            <div class="csc-body">
+              <span class="csc-title">Касса для интернет-магазина в 2026 году</span>
+              <span class="csc-meta">22 мая · 6 мин</span>
+            </div>
+          </a>
+          <a class="csec-card">
+            <div class="ph kk"><span class="ph-label">Касса · ФН</span></div>
+            <div class="csc-body">
+              <span class="csc-title">Фискальный накопитель: сроки, замена, штрафы</span>
+              <span class="csc-meta">20 мая · 5 мин</span>
+            </div>
+          </a>
+          <a class="csec-card">
+            <div class="ph kk"><span class="ph-label">Касса · кофейня</span></div>
+            <div class="csc-body">
+              <span class="csc-title">Выбор кассы для кофейни и общепита-2026</span>
+              <span class="csc-meta">18 мая · 7 мин</span>
+            </div>
+          </a>
         </div>
-      </a>
-      <a class="bcard mini">
-        <div class="ph zk"><span class="ph-label">Законы</span></div>
-        <div class="bc-body">
-          <span class="tag zk">Законы</span>
-          <span class="bc-title">Совмещение УСН и патента: лимиты, раздельный учёт</span>
-          <span class="bc-meta">27 мая · 7 мин</span>
-        </div>
-      </a>
-      <a class="bcard mini">
-        <div class="ph ts"><span class="ph-label">ТС ПИоТ</span></div>
-        <div class="bc-body">
-          <span class="tag ts">ТС ПИоТ</span>
-          <span class="bc-title">ТС ПИоТ в 1С:Розница и УНФ: настройка пошагово</span>
-          <span class="bc-meta">28 мая · 6 мин</span>
-        </div>
-      </a>
+      </div>
+
     </div>
   </section>
 
   <!-- TOOLS -->
   <section class="sec wrap">
     <div class="sec-head">
-      <h2><span class="num">03</span>Инструменты</h2>
+      <h2><span class="num">04</span>Инструменты</h2>
       <a class="see-all" href="#">Все интерактивы</a>
     </div>
     <div class="tools-grid">
@@ -1042,85 +1181,110 @@
     </div>
   </section>
 
-  <nav class="alpha-rail">
-    <div class="alpha-rail-inner" id="alpha-rail">
-      <a href="#l-A" class="cur">А</a><a href="#l-B">Б</a><a href="#l-V">В</a><a href="#l-G">Г</a><a href="#l-D">Д</a><a href="#l-E">Е</a><a class="dim">Ё</a><a href="#l-ZH">Ж</a><a href="#l-Z">З</a><a href="#l-I">И</a><a href="#l-K">К</a><a href="#l-L">Л</a><a href="#l-M">М</a><a href="#l-N">Н</a><a href="#l-O">О</a><a href="#l-P">П</a><a href="#l-R">Р</a><a href="#l-S">С</a><a href="#l-T">Т</a><a href="#l-U">У</a><a href="#l-F">Ф</a><a href="#l-X">Х</a><a href="#l-C">Ц</a><a href="#l-CH">Ч</a><a href="#l-SH">Ш</a><a class="dim">Щ</a><a class="dim">Ъ</a><a class="dim">Ы</a><a class="dim">Ь</a><a href="#l-EE">Э</a><a class="dim">Ю</a><a class="dim">Я</a>
-    </div>
-  </nav>
-
   <section class="slov-body">
     <div class="slov-body-inner">
 
-      <article class="letter-block" id="l-A">
-        <div class="letter-mark">
-          <div class="lm-big">А</div>
-          <div class="lm-cnt">8 терминов</div>
-        </div>
-        <ul class="term-list">
-          <li>
-            <a class="term">Авансовый платёж<span class="term-tag">Налоги</span></a>
-            <div class="desc">Платёж в счёт будущего обязательства до окончания налогового периода. Для УСН — поквартально к 28 числу месяца, следующего за кварталом.<a class="desc-link">УСН: как платить авансы</a></div>
-          </li>
-          <li>
-            <a class="term">Агрегатор товаров<span class="term-tag">ЕИС</span></a>
-            <div class="desc">Информационный посредник, который собирает данные о товаре в одном месте: ОИС, ОФД, ЕГАИС, «Честный знак». Не путать с маркетплейсом.</div>
-          </li>
-          <li>
-            <a class="term">Акциз<span class="term-tag">Налоги</span></a>
-            <div class="desc">Косвенный налог на отдельные категории товаров: алкоголь, табак, нефтепродукты, сладкие напитки. С 2025 — расширен на сахаросодержащие напитки.</div>
-          </li>
-          <li>
-            <a class="term">Аккредитация ОФД<span class="term-tag">Кассы</span></a>
-            <div class="desc">Включение оператора фискальных данных в реестр ФНС. Без аккредитации ОФД не может принимать чеки. Проверка — на nalog.gov.ru.<a class="desc-link">Как сменить ОФД</a></div>
-          </li>
-        </ul>
-      </article>
+      <span class="marker" style="position:relative;top:auto;right:auto;display:inline-block;margin-bottom:12px">LAB2 #15 · Алфавит-плитки + 3 колонки</span>
 
-      <article class="letter-block" id="l-G">
-        <div class="letter-mark">
-          <div class="lm-big">Г</div>
-          <div class="lm-cnt">4 термина</div>
-        </div>
-        <ul class="term-list">
-          <li>
-            <a class="term">ГИС ЭПД<span class="term-tag">ЭДО</span></a>
-            <div class="desc">Государственная информационная система электронных перевозочных документов. Через неё подаётся ЭТрН, путевые листы и сопровождающие документы. Оператор — Минтранс.<a class="desc-link">Регистрация в ГИС ЭПД</a></div>
-          </li>
-          <li>
-            <a class="term">ГосЛог<span class="term-tag">ЭДО</span></a>
-            <div class="desc">Неформальное название ГИС ЭПД среди логистов. Используется в чатах операторов и техподдержке.</div>
-          </li>
-        </ul>
-      </article>
+      <nav class="alpha-tiles" id="alpha-tiles">
+        <a class="alpha-tile" data-l="А">А</a>
+        <a class="alpha-tile" data-l="Б">Б</a>
+        <a class="alpha-tile" data-l="В">В</a>
+        <a class="alpha-tile" data-l="Г">Г</a>
+        <a class="alpha-tile" data-l="Д">Д</a>
+        <a class="alpha-tile" data-l="Е">Е</a>
+        <a class="alpha-tile empty">Ё</a>
+        <a class="alpha-tile" data-l="Ж">Ж</a>
+        <a class="alpha-tile" data-l="З">З</a>
+        <a class="alpha-tile" data-l="И">И</a>
+        <a class="alpha-tile empty">Й</a>
+        <a class="alpha-tile cur" data-l="К">К</a>
+        <a class="alpha-tile" data-l="Л">Л</a>
+        <a class="alpha-tile" data-l="М">М</a>
+        <a class="alpha-tile" data-l="Н">Н</a>
+        <a class="alpha-tile" data-l="О">О</a>
+        <a class="alpha-tile" data-l="П">П</a>
+        <a class="alpha-tile" data-l="Р">Р</a>
+        <a class="alpha-tile" data-l="С">С</a>
+        <a class="alpha-tile" data-l="Т">Т</a>
+        <a class="alpha-tile" data-l="У">У</a>
+        <a class="alpha-tile" data-l="Ф">Ф</a>
+        <a class="alpha-tile" data-l="Х">Х</a>
+        <a class="alpha-tile" data-l="Ц">Ц</a>
+        <a class="alpha-tile" data-l="Ч">Ч</a>
+        <a class="alpha-tile" data-l="Ш">Ш</a>
+        <a class="alpha-tile empty">Щ</a>
+        <a class="alpha-tile empty">Ъ</a>
+        <a class="alpha-tile empty">Ы</a>
+        <a class="alpha-tile empty">Ь</a>
+        <a class="alpha-tile" data-l="Э">Э</a>
+        <a class="alpha-tile empty">Ю</a>
+        <a class="alpha-tile" data-l="Я">Я</a>
+      </nav>
 
-      <article class="letter-block" id="l-K">
-        <div class="letter-mark">
-          <div class="lm-big">К</div>
-          <div class="lm-cnt">14 терминов</div>
+      <div class="letter-context">
+        <h2><span class="lc-big">К</span>Термины на букву «К»</h2>
+        <div class="lc-meta">14 терминов · из 148</div>
+      </div>
+
+      <div class="term-3col">
+        <div class="term-item">
+          <a class="t-name">ККТ</a><span class="t-desc">контрольно-кассовая техника. Обязательна для расчётов с физлицами по 54-ФЗ. С 01.07.2026 — поддержка ТС ПИоТ.</span>
+          <span class="t-tag">Кассы</span>
         </div>
-        <ul class="term-list">
-          <li>
-            <a class="term">Касса (ККТ)<span class="term-tag">Кассы</span></a>
-            <div class="desc">Контрольно-кассовая техника. Обязательна для всех расчётов с физлицами кроме исключений по 54-ФЗ. С 01.07.2026 — обязательная поддержка ТС ПИоТ.<a class="desc-link">Касса для интернет-магазина</a></div>
-          </li>
-          <li>
-            <a class="term">КЭП<span class="term-tag">ЭДО</span></a>
-            <div class="desc">Квалифицированная электронная подпись. Нужна для регистрации в «Честном знаке», подачи отчётности и подписания ЭТрН. Выдают аккредитованные удостоверяющие центры и ФНС.</div>
-          </li>
-          <li>
-            <a class="term">КЭДО<span class="term-tag">Кадры</span></a>
-            <div class="desc">Кадровый электронный документооборот. С 2022 — добровольный, бизнес сам решает переходить ли. Заменяет бумажные трудовые договоры, приказы, ознакомления.</div>
-          </li>
-          <li>
-            <a class="term">КИЗ (контрольный знак)<span class="term-tag">Маркировка</span></a>
-            <div class="desc">Уникальный код DataMatrix, который наносится на товар. Содержит информацию о производителе, дате, партии. Считывается кассой или ТСД.</div>
-          </li>
-          <li>
-            <a class="term">КоАП<span class="term-tag">Законы</span></a>
-            <div class="desc">Кодекс об административных правонарушениях. Содержит большинство штрафов для МСБ: ст. 14.5 (кассы), ст. 15.12 (маркировка), ст. 11.14.3 (ЭПД).</div>
-          </li>
-        </ul>
-      </article>
+        <div class="term-item">
+          <a class="t-name">КоАП</a><span class="t-desc">Кодекс об административных правонарушениях. Большинство штрафов для МСБ: ст. 14.5, 15.12, 11.14.3.</span>
+          <span class="t-tag">Законы</span>
+        </div>
+        <div class="term-item">
+          <a class="t-name">КИЗ</a><span class="t-desc">контрольный идентификационный знак. Уникальный код DataMatrix, который наносится на товар при маркировке.</span>
+          <span class="t-tag">Маркировка</span>
+        </div>
+        <div class="term-item">
+          <a class="t-name">Код ТН ВЭД</a><span class="t-desc">код Товарной номенклатуры внешнеэкономической деятельности. Используется для классификации товаров.</span>
+          <span class="t-tag">Маркировка</span>
+        </div>
+        <div class="term-item">
+          <a class="t-name">КЭДО</a><span class="t-desc">кадровый электронный документооборот. Добровольный с 2022. Заменяет бумажные трудовые договоры.</span>
+          <span class="t-tag">Кадры</span>
+        </div>
+        <div class="term-item">
+          <a class="t-name">КУДиР</a><span class="t-desc">книга учёта доходов и расходов. Обязательна для ИП на ОСНО и ПСН, бессрочно — по форме приказа ФНС.</span>
+          <span class="t-tag">Налоги</span>
+        </div>
+        <div class="term-item">
+          <a class="t-name">КЭП</a><span class="t-desc">квалифицированная электронная подпись. Нужна для «Честного знака», отчётности и ЭТрН.</span>
+          <span class="t-tag">ЭДО</span>
+        </div>
+        <div class="term-item">
+          <a class="t-name">КПС</a><span class="t-desc">код причины снятия с регистрационного учёта ККТ. Указывается в заявлении о снятии в ФНС.</span>
+          <span class="t-tag">Кассы</span>
+        </div>
+        <div class="term-item">
+          <a class="t-name">Касса самообслуживания</a><span class="t-desc">ККТ без кассира, обычно в общепите. С 01.07.2026 тоже должна поддерживать ТС ПИоТ.</span>
+          <span class="t-tag">Кассы</span>
+        </div>
+        <div class="term-item">
+          <a class="t-name">Камеральная проверка</a><span class="t-desc">проверка налоговой декларации без выезда. Максимум 3 месяца. По НДС — 2 месяца, по возмещению — 3 месяца.</span>
+          <span class="t-tag">Налоги</span>
+        </div>
+        <div class="term-item">
+          <a class="t-name">КБК</a><span class="t-desc">код бюджетной классификации. Указывается в платёжке при уплате налогов. С 2023 — единый КБК ЕНП.</span>
+          <span class="t-tag">Налоги</span>
+        </div>
+        <div class="term-item">
+          <a class="t-name">Контрольная закупка</a><span class="t-desc">метод контроля Роспотребнадзора и ФНС. С 2022 — с обязательной видеофиксацией.</span>
+          <span class="t-tag">Проверки</span>
+        </div>
+        <div class="term-item">
+          <a class="t-name">Касса агента</a><span class="t-desc">ККТ платёжного агента или агрегатора. Чек выбивается на имя принципала, но через кассу агента.</span>
+          <span class="t-tag">Кассы</span>
+        </div>
+        <div class="term-item">
+          <a class="t-name">Карточка ОС</a><span class="t-desc">инвентарная карточка объекта основных средств. Хранится 5 лет после выбытия объекта.</span>
+          <span class="t-tag">Бухгалтерия</span>
+        </div>
+      </div>
 
     </div>
   </section>
@@ -1425,11 +1589,23 @@
     };
     csR.addEventListener('input',upd);upd();
   }
-  // Alpha rail current
-  document.querySelectorAll('#alpha-rail a').forEach(a=>{
+  // Alpha tiles + 3-col list (data demo only for К)
+  document.querySelectorAll('#alpha-tiles .alpha-tile').forEach(a=>{
     a.addEventListener('click',()=>{
-      document.querySelectorAll('#alpha-rail a').forEach(b=>b.classList.remove('cur'));
+      if(a.classList.contains('empty'))return;
+      document.querySelectorAll('#alpha-tiles .alpha-tile').forEach(b=>b.classList.remove('cur'));
       a.classList.add('cur');
+      const big=document.querySelector('.letter-context .lc-big');
+      const h2=document.querySelector('.letter-context h2');
+      if(big&&a.dataset.l){big.textContent=a.dataset.l;h2.innerHTML='<span class="lc-big">'+a.dataset.l+'</span>Термины на букву «'+a.dataset.l+'»'}
+    });
+  });
+  // Category chips on Свежее
+  document.querySelectorAll('.cat-chip').forEach(c=>{
+    c.addEventListener('click',e=>{
+      e.preventDefault();
+      document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('cur'));
+      c.classList.add('cur');
     });
   });
 </script>
