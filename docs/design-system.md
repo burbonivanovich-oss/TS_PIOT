@@ -385,6 +385,7 @@ import Checklist from '../../components/Checklist.astro';
 | `--line: #E5E1D8`, `--line-2: #D9D4C6` | `src/styles/global.css` | Границы карточек и пунктирные разделители — мягче, чем `rgba(0,0,0,.12)` |
 | `--f-display`, `--f-body`, `--f-mono` | `src/styles/global.css` | Удобные алиасы для шрифтов |
 | JetBrains Mono | `src/components/BaseHead.astro` | Третий шрифт — мета-информация (даты, время чтения, номера секций) |
+| `--maxw: 1440px` | `src/styles/global.css` | Единая центральная ширина (была 1240px). Использует `.wrap`, `.header-inner`, `.footer-inner`. Боковой padding шапки секций — 32px. |
 
 #### Брендинг
 
@@ -437,7 +438,7 @@ import Checklist from '../../components/Checklist.astro';
 
 | Что | Было | Стало |
 |---|---|---|
-| `max-width` шапки/футера | 900px | 1240px (под ширину main на главной) |
+| `max-width` шапки/футера | 900px | `var(--maxw)` = 1440px (центральная ширина для всего сайта) |
 | Фон Header | `#EDE8DF` (sand) | `var(--surface)` (sand-l) — тот же, что body, без шва |
 | Граница Header | `rgba(0,0,0,.1)` | `var(--line)` |
 | Высота Header | 56px | 64px |

@@ -58,7 +58,7 @@ const today = new Date();
 		margin-top: 5rem;
 	}
 	.footer-inner {
-		max-width: 1240px;
+		max-width: var(--maxw, 1440px);
 		margin: 0 auto;
 		display: grid;
 		grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -107,7 +107,7 @@ const today = new Date();
 		color: #AFCC00;
 	}
 	.footer-bottom {
-		max-width: 1240px;
+		max-width: var(--maxw, 1440px);
 		margin: 2.5rem auto 0;
 		padding-top: 1.5rem;
 		border-top: 1px solid rgba(255, 255, 255, 0.07);
