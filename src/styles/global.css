@@ -42,6 +42,7 @@
 	--f-display: 'Bebas Neue', Impact, sans-serif;
 	--f-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 	--f-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+	--maxw: 1440px;
 
 	/* Legacy compat */
 	--accent: #9E2B4F;
