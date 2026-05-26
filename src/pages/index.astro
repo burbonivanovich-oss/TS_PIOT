@@ -47,51 +47,6 @@ const tagCls: Record<string, string> = {
 	'egais': 'eg',
 };
 
-const businessFormats = [
-	{
-		num: '01', feat: true,
-		title: 'Кофейня<br>и общепит',
-		topics: ['ТС ПИоТ', 'ЕГАИС', 'Маркировка', 'УСН'],
-		hint: 'Касса, разливное пиво, чеки гостям',
-		href: u('/blog/?tag=общепит'),
-	},
-	{
-		num: '02',
-		title: 'Интернет-<br>магазин',
-		topics: ['54-ФЗ', 'СБП', 'Эквайринг'],
-		hint: 'Касса, оплата, маркировка',
-		href: u('/blog/?tag=интернет-магазин'),
-	},
-	{
-		num: '03',
-		title: 'Продавец на<br>маркетплейсе',
-		topics: ['289-ФЗ', 'Маркировка', 'Налоги'],
-		hint: 'WB, Ozon, Я.Маркет, налоги',
-		href: u('/blog/?tag=маркетплейсы'),
-	},
-	{
-		num: '04',
-		title: 'Самозанятый',
-		topics: ['НПД', 'Лимит 2,4 млн'],
-		hint: 'Лимит, чеки, регистрация',
-		href: u('/blog/?tag=самозанятые'),
-	},
-	{
-		num: '05',
-		title: 'Производство',
-		topics: ['Маркировка', 'ЭДО'],
-		hint: 'Маркировка партии, ЭТрН, ОФД',
-		href: u('/blog/?tag=производство'),
-	},
-	{
-		num: '06',
-		title: 'Опт<br>и B2B',
-		topics: ['ЭПД', '140-ФЗ', 'НДС'],
-		hint: 'Логистика, договоры, ЭДО',
-		href: u('/blog/?tag=опт'),
-	},
-];
-
 const featuredCat = featured?.data.categories?.[0] as string | undefined;
 const featuredCatCls = featuredCat ? tagCls[featuredCat] : 'zk';
 const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CATEGORIES]?.title : '';
@@ -118,7 +73,6 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 					</p>
 					<div class="hero-cta">
 						<a href={u('/blog/')} class="btn btn-primary">Все материалы →</a>
-						<a href={u('/test-ts-piot/')} class="btn btn-ghost">Тест готовности →</a>
 						<a href={u('/instrumenty/')} class="btn btn-lime">Подобрать сервис →</a>
 					</div>
 				</div>
@@ -128,7 +82,7 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 			{featured && (
 				<section class="sec wrap">
 					<div class="sec-head">
-						<h2><span class="num">01</span>Свежее</h2>
+						<h2>Свежее</h2>
 						<a class="see-all" href={u('/blog/')}>Все материалы →</a>
 					</div>
 					<div class="fresh-inner">
@@ -168,7 +122,7 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 			{feed.length > 0 && (
 				<section class="sec wrap tight">
 					<div class="sec-head">
-						<h2><span class="num">02</span>Материалы недели</h2>
+						<h2>Материалы недели</h2>
 						<a class="see-all" href={u('/blog/')}>Все материалы →</a>
 					</div>
 					<div class="feed-grid">
@@ -194,37 +148,10 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 				</section>
 			)}
 
-			<!-- ПО ФОРМАТУ БИЗНЕСА -->
-			<section class="sec wrap">
-				<div class="sec-head">
-					<h2><span class="num">03</span>По формату бизнеса</h2>
-					<a class="see-all" href={u('/blog/')}>Все подборки →</a>
-				</div>
-				<div class="biz-grid">
-					{businessFormats.map(b => (
-						<a class={`biz-card ${b.feat ? 'feat' : ''}`} href={b.href}>
-							<div class="bz-top">
-								<span class="bz-num">{b.num}</span>
-							</div>
-							<div>
-								<div class="bz-name" set:html={b.title}></div>
-								<div class="bz-tags">
-									{b.topics.map(t => <span class="bz-tag">{t}</span>)}
-								</div>
-							</div>
-							<div class="bz-foot">
-								<span>{b.hint}</span>
-								<span class="bz-go">Открыть</span>
-							</div>
-						</a>
-					))}
-				</div>
-			</section>
-
 			<!-- ИНСТРУМЕНТЫ -->
 			<section class="sec wrap">
 				<div class="sec-head">
-					<h2><span class="num">04</span>Инструменты</h2>
+					<h2>Инструменты</h2>
 					<a class="see-all" href={u('/instrumenty/')}>Все интерактивы →</a>
 				</div>
 				<div class="tools-grid">
@@ -332,14 +259,7 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 				padding-bottom: 14px;
 				border-bottom: 1px solid var(--line, #E5E1D8);
 			}
-			.sec-head h2 { display: flex; align-items: baseline; gap: 14px; font-size: clamp(1.7rem, 2.8vw, 2.4rem); }
-			.sec-head h2 .num {
-				font-family: var(--f-mono, ui-monospace, monospace);
-				font-size: .85rem;
-				color: var(--mute, #9a9a9a);
-				font-weight: 500;
-				letter-spacing: 0;
-			}
+			.sec-head h2 { font-size: clamp(1.7rem, 2.8vw, 2.4rem); }
 			.sec-head .see-all {
 				font-size: .7rem;
 				font-weight: 700;
@@ -529,76 +449,6 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 				margin-top: auto;
 			}
 
-			/* По формату бизнеса */
-			.biz-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-			.biz-card {
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
-				gap: 18px;
-				padding: 24px 26px;
-				background: #fff;
-				border: 1px solid var(--line, #E5E1D8);
-				text-decoration: none;
-				color: #111;
-				min-height: 200px;
-				transition: all .15s;
-				position: relative;
-				overflow: hidden;
-			}
-			.biz-card:hover { border-color: #111; transform: translateY(-2px); }
-			.biz-card .bz-top { display: flex; justify-content: space-between; align-items: start; gap: 14px; }
-			.biz-card .bz-num {
-				font-family: var(--f-mono, ui-monospace, monospace);
-				font-size: .72rem;
-				color: var(--mute, #9a9a9a);
-				letter-spacing: .04em;
-			}
-			.biz-card .bz-name {
-				font-family: var(--f-display, 'Bebas Neue', sans-serif);
-				font-size: 1.85rem;
-				letter-spacing: .04em;
-				text-transform: uppercase;
-				line-height: .98;
-			}
-			.biz-card .bz-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
-			.biz-card .bz-tag {
-				font-size: .62rem;
-				font-weight: 600;
-				letter-spacing: .06em;
-				text-transform: uppercase;
-				color: var(--ink-3, #666);
-				padding: 3px 8px;
-				background: var(--sand, #EDE8DF);
-				border-radius: 2px;
-			}
-			.biz-card .bz-foot {
-				display: flex;
-				justify-content: space-between;
-				align-items: end;
-				gap: 14px;
-				padding-top: 8px;
-				border-top: 1px solid var(--line, #E5E1D8);
-				font-size: .82rem;
-				color: var(--ink-3, #666);
-			}
-			.biz-card .bz-go {
-				font-size: .68rem;
-				font-weight: 700;
-				letter-spacing: .1em;
-				text-transform: uppercase;
-				color: var(--pink, #9E2B4F);
-			}
-			.biz-card .bz-go::after { content: " →"; }
-			.biz-card:hover .bz-go { color: #111; }
-			.biz-card.feat { background: #111; color: #fff; border-color: #111; grid-column: span 2; }
-			.biz-card.feat .bz-name { font-size: 2.4rem; color: #fff; }
-			.biz-card.feat .bz-num { color: rgba(255,255,255,.5); }
-			.biz-card.feat .bz-tag { background: rgba(255,255,255,.1); color: rgba(255,255,255,.75); }
-			.biz-card.feat .bz-foot { border-top-color: rgba(255,255,255,.15); color: rgba(255,255,255,.7); }
-			.biz-card.feat .bz-go { color: var(--lime, #AFCC00); }
-			.biz-card.feat:hover .bz-go { color: #fff; }
-
 			/* Инструменты */
 			.tools-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
 			.tool-card {
@@ -650,16 +500,12 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 				.cat-cards { flex-direction: row; flex-wrap: wrap; }
 				.cat-card { flex: 1 1 30%; }
 				.feed-grid { grid-template-columns: repeat(2, 1fr); }
-				.biz-grid { grid-template-columns: repeat(2, 1fr); }
-				.biz-card.feat { grid-column: span 2; }
 			}
 			@media (max-width: 680px) {
 				.hero { padding: 48px 0 32px; }
 				.tools-grid { grid-template-columns: 1fr; }
 				.cat-card { flex: 1 1 100%; }
 				.feed-grid { grid-template-columns: 1fr; }
-				.biz-grid { grid-template-columns: 1fr; }
-				.biz-card.feat { grid-column: auto; }
 				.wrap { padding: 0 16px; }
 			}
 		</style>
