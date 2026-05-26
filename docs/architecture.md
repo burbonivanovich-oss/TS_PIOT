@@ -9,13 +9,13 @@
 
 | URL | Файл | Назначение |
 |---|---|---|
-| `/` | `src/pages/index.astro` | Главная: hero, карточки рубрик, последние 6 постов |
+| `/` | `src/pages/index.astro` | Главная: hero · Свежее (pillar + 5 категорий) · Материалы недели · По формату бизнеса · Инструменты |
 | `/about/` | `src/pages/about.astro` | О проекте |
 | `/about/avtor/` | `src/pages/about/avtor.astro` | О редакции: экспертиза, принципы, контактная форма |
 | `/privacy/` | `src/pages/privacy.astro` | Политика конфиденциальности |
 | `/404` | `src/pages/404.astro` | Кастомная 404 (`noindex`) |
 | `/search/` | `src/pages/search.astro` | Pagefind UI |
-| `/slovar/` | `src/pages/slovar/index.astro` | Глоссарий с алфавитной группировкой и якорями |
+| `/slovar/` | `src/pages/slovar/index.astro` | Глоссарий: плитки А-Я + 3-колонный список терминов активной буквы. Поиск без перезагрузки |
 | `/kalkulyator-shtrafov/` | `src/pages/kalkulyator-shtrafov.astro` | Калькулятор штрафов |
 | `/kalendar-markirovki/` | `src/pages/kalendar-markirovki.astro` | Календарь маркировки |
 | `/tags/` | `src/pages/tags/index.astro` | Облако тегов |
