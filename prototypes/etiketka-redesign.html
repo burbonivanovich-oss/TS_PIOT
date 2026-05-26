@@ -127,7 +127,7 @@
   .tag.mk{background:var(--pink)}
   .tag.zk{background:var(--blue)}
   .tag.kk{background:var(--purple)}
-  .tag.eg{background:var(--green)}
+  .tag.eg{background:var(--lime);color:#111}
   .tag.adv{background:var(--lime);color:#111}
 
   /* Image stand-ins (consistent abstract gradients) */
@@ -191,7 +191,44 @@
   .cat-card.k-mk{background:var(--pink)}
   .cat-card.k-zk{background:var(--blue)}
   .cat-card.k-kk{background:var(--purple)}
-  .cat-card.k-eg{background:var(--green)}
+  .cat-card.k-eg{background:var(--lime);color:var(--ink)}
+  .cat-card.k-eg .cc-num{color:rgba(0,0,0,.2)}
+  .cat-card.k-eg .cc-eyebrow{color:rgba(0,0,0,.6)}
+  .cat-card.k-eg .cc-arr{color:rgba(0,0,0,.45)}
+  .cat-card.k-eg:hover .cc-arr{color:var(--ink)}
+
+  /* Лента материалов */
+  .feed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .fcard{background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--ink);display:flex;flex-direction:column;overflow:hidden;transition:all .15s}
+  .fcard:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .fcard .ph{aspect-ratio:16/9}
+  .fcard .fc-body{padding:18px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .fcard .fc-title{font-family:var(--f-display);font-size:1.18rem;letter-spacing:.02em;line-height:1.08}
+  .fcard .fc-meta{font-family:var(--f-mono);font-size:.7rem;color:var(--mute);letter-spacing:.04em;margin-top:auto}
+
+  /* «По формату бизнеса» — user-mode навигация */
+  .biz-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .biz-card{display:flex;flex-direction:column;justify-content:space-between;gap:18px;padding:24px 26px;background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--ink);min-height:180px;transition:all .15s;position:relative;overflow:hidden}
+  .biz-card:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .biz-card .bz-top{display:flex;justify-content:space-between;align-items:start;gap:14px}
+  .biz-card .bz-num{font-family:var(--f-mono);font-size:.72rem;color:var(--mute);letter-spacing:.04em}
+  .biz-card .bz-cnt{font-family:var(--f-mono);font-size:.7rem;color:var(--ink-3);letter-spacing:.04em}
+  .biz-card .bz-name{font-family:var(--f-display);font-size:1.85rem;letter-spacing:.04em;text-transform:uppercase;line-height:.98}
+  .biz-card .bz-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+  .biz-card .bz-tag{font-family:var(--f-body);font-size:.62rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);padding:3px 8px;background:var(--sand);border-radius:2px}
+  .biz-card .bz-foot{display:flex;justify-content:space-between;align-items:end;gap:14px;padding-top:8px;border-top:1px solid var(--line)}
+  .biz-card .bz-go{font-family:var(--f-body);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pink)}
+  .biz-card .bz-go::after{content:" →"}
+  .biz-card:hover .bz-go{color:var(--ink)}
+
+  /* Featured-вариант: одна карточка крупнее */
+  .biz-card.feat{background:var(--ink);color:#fff;border-color:var(--ink);grid-column:span 2}
+  .biz-card.feat .bz-name{font-size:2.4rem;color:#fff}
+  .biz-card.feat .bz-num,.biz-card.feat .bz-cnt{color:rgba(255,255,255,.5)}
+  .biz-card.feat .bz-tag{background:rgba(255,255,255,.1);color:rgba(255,255,255,.75)}
+  .biz-card.feat .bz-foot{border-top-color:rgba(255,255,255,.15)}
+  .biz-card.feat .bz-go{color:var(--lime)}
+  .biz-card.feat:hover .bz-go{color:#fff}
 
   /* Tools strip — clean */
   .tools-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
@@ -462,6 +499,9 @@
     .fresh-inner{grid-template-columns:1fr;gap:24px}
     .cat-cards{flex-direction:row;flex-wrap:wrap}
     .cat-card{flex:1 1 30%}
+    .feed-grid{grid-template-columns:repeat(2,1fr)}
+    .biz-grid{grid-template-columns:repeat(2,1fr)}
+    .biz-card.feat{grid-column:span 2}
     .alpha-tiles{grid-template-columns:repeat(12,1fr)}
     .term-3col{column-count:2}
   }
@@ -471,6 +511,9 @@
     .hero{padding:48px 0 32px}
     .tools-grid{grid-template-columns:1fr}
     .cat-card{flex:1 1 100%}
+    .feed-grid{grid-template-columns:1fr}
+    .biz-grid{grid-template-columns:1fr}
+    .biz-card.feat{grid-column:auto}
     .alpha-tiles{grid-template-columns:repeat(8,1fr)}
     .alpha-tile{font-size:1.2rem}
     .term-3col{column-count:1}
@@ -602,11 +645,185 @@
     </div>
   </section>
 
+  <!-- ЛЕНТА МАТЕРИАЛОВ -->
+  <section class="sec wrap tight">
+    <div class="sec-head">
+      <h2><span class="num">02</span>Материалы недели</h2>
+      <a class="see-all" href="#">Все материалы</a>
+    </div>
+    <div class="feed-grid">
+      <a class="fcard">
+        <div class="ph ts"><span class="ph-label">ТС ПИоТ · провайдеры</span></div>
+        <div class="fc-body">
+          <span class="tag ts">ТС ПИоТ</span>
+          <span class="fc-title">Провайдеры ТС ПИоТ в 2026 году: сравнение ЕСМ и Инвенты</span>
+          <span class="fc-meta">30 мая · 8 мин</span>
+        </div>
+      </a>
+      <a class="fcard">
+        <div class="ph mk"><span class="ph-label">Маркировка</span></div>
+        <div class="fc-body">
+          <span class="tag mk">Маркировка</span>
+          <span class="fc-title">Регистрация в «Честном знаке»: пошаговая инструкция</span>
+          <span class="fc-meta">31 мая · 7 мин</span>
+        </div>
+      </a>
+      <a class="fcard">
+        <div class="ph zk"><span class="ph-label">Законы · ПСН</span></div>
+        <div class="fc-body">
+          <span class="tag zk">Законы</span>
+          <span class="fc-title">ПСН и НДС с 2026 года: пороги, риски, что считать</span>
+          <span class="fc-meta">29 мая · 9 мин</span>
+        </div>
+      </a>
+      <a class="fcard">
+        <div class="ph ts"><span class="ph-label">ТС ПИоТ · 1С</span></div>
+        <div class="fc-body">
+          <span class="tag ts">ТС ПИоТ</span>
+          <span class="fc-title">ТС ПИоТ в 1С:Розница и УНФ: настройка пошагово</span>
+          <span class="fc-meta">28 мая · 6 мин</span>
+        </div>
+      </a>
+      <a class="fcard">
+        <div class="ph mk"><span class="ph-label">Маркировка · Обувь</span></div>
+        <div class="fc-body">
+          <span class="tag mk">Маркировка</span>
+          <span class="fc-title">Маркировка обуви в 2026: разрешительный режим, штрафы</span>
+          <span class="fc-meta">27 мая · 8 мин</span>
+        </div>
+      </a>
+      <a class="fcard">
+        <div class="ph kk"><span class="ph-label">Кассы · ИМ</span></div>
+        <div class="fc-body">
+          <span class="tag kk">Кассы</span>
+          <span class="fc-title">Касса для интернет-магазина в 2026 году</span>
+          <span class="fc-meta">22 мая · 6 мин</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ПО ФОРМАТУ БИЗНЕСА -->
+  <section class="sec wrap">
+    <div class="sec-head">
+      <h2><span class="num">03</span>По формату бизнеса</h2>
+      <a class="see-all" href="#">Все подборки</a>
+    </div>
+    <div class="biz-grid">
+      <a class="biz-card feat">
+        <div class="bz-top">
+          <span class="bz-num">01</span>
+          <span class="bz-cnt">14 материалов</span>
+        </div>
+        <div>
+          <div class="bz-name">Кофейня<br>и общепит</div>
+          <div class="bz-tags">
+            <span class="bz-tag">ТС ПИоТ</span>
+            <span class="bz-tag">ЕГАИС</span>
+            <span class="bz-tag">Маркировка</span>
+            <span class="bz-tag">УСН</span>
+          </div>
+        </div>
+        <div class="bz-foot">
+          <span>Касса, разливное пиво, чеки гостям</span>
+          <span class="bz-go">Открыть</span>
+        </div>
+      </a>
+      <a class="biz-card">
+        <div class="bz-top">
+          <span class="bz-num">02</span>
+          <span class="bz-cnt">9 материалов</span>
+        </div>
+        <div>
+          <div class="bz-name">Интернет-<br>магазин</div>
+          <div class="bz-tags">
+            <span class="bz-tag">54-ФЗ</span>
+            <span class="bz-tag">СБП</span>
+            <span class="bz-tag">Эквайринг</span>
+          </div>
+        </div>
+        <div class="bz-foot">
+          <span>Касса, оплата, маркировка</span>
+          <span class="bz-go">Открыть</span>
+        </div>
+      </a>
+      <a class="biz-card">
+        <div class="bz-top">
+          <span class="bz-num">03</span>
+          <span class="bz-cnt">11 материалов</span>
+        </div>
+        <div>
+          <div class="bz-name">Продавец на<br>маркетплейсе</div>
+          <div class="bz-tags">
+            <span class="bz-tag">289-ФЗ</span>
+            <span class="bz-tag">Маркировка</span>
+            <span class="bz-tag">Налоги</span>
+          </div>
+        </div>
+        <div class="bz-foot">
+          <span>WB, Ozon, Я.Маркет, налоги</span>
+          <span class="bz-go">Открыть</span>
+        </div>
+      </a>
+      <a class="biz-card">
+        <div class="bz-top">
+          <span class="bz-num">04</span>
+          <span class="bz-cnt">7 материалов</span>
+        </div>
+        <div>
+          <div class="bz-name">Самозанятый</div>
+          <div class="bz-tags">
+            <span class="bz-tag">НПД</span>
+            <span class="bz-tag">Лимит 2,4 млн</span>
+          </div>
+        </div>
+        <div class="bz-foot">
+          <span>Лимит, чеки, регистрация</span>
+          <span class="bz-go">Открыть</span>
+        </div>
+      </a>
+      <a class="biz-card">
+        <div class="bz-top">
+          <span class="bz-num">05</span>
+          <span class="bz-cnt">6 материалов</span>
+        </div>
+        <div>
+          <div class="bz-name">Производство</div>
+          <div class="bz-tags">
+            <span class="bz-tag">Маркировка</span>
+            <span class="bz-tag">ЭДО</span>
+          </div>
+        </div>
+        <div class="bz-foot">
+          <span>Маркировка партии, ЭТрН, ОФД</span>
+          <span class="bz-go">Открыть</span>
+        </div>
+      </a>
+      <a class="biz-card">
+        <div class="bz-top">
+          <span class="bz-num">06</span>
+          <span class="bz-cnt">8 материалов</span>
+        </div>
+        <div>
+          <div class="bz-name">Опт<br>и B2B</div>
+          <div class="bz-tags">
+            <span class="bz-tag">ЭПД</span>
+            <span class="bz-tag">140-ФЗ</span>
+            <span class="bz-tag">НДС</span>
+          </div>
+        </div>
+        <div class="bz-foot">
+          <span>Логистика, договоры, ЭДО</span>
+          <span class="bz-go">Открыть</span>
+        </div>
+      </a>
+    </div>
+  </section>
 
   <!-- TOOLS -->
   <section class="sec wrap">
     <div class="sec-head">
-      <h2><span class="num">02</span>Инструменты</h2>
+      <h2><span class="num">04</span>Инструменты</h2>
       <a class="see-all" href="#">Все интерактивы</a>
     </div>
     <div class="tools-grid">
