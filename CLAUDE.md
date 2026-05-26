@@ -38,6 +38,7 @@
 | `docs/factcheck.md` | Pipeline проверки фактов, классы A/B/C |
 | `docs/editorial-policy.md` | Редполитика, классы решений |
 | `docs/content-formats-roadmap.md` | Roadmap интерактивных форматов |
+| `docs/blocks-roadmap.md` | Roadmap блоков сайта: текущие + отобранные из лабораторных прототипов |
 
 ## Структура файлов
 
