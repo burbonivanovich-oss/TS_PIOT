@@ -98,7 +98,7 @@ CSS-переменные шрифтов (для удобства):
 ## Главная (`src/pages/index.astro`)
 
 Редизайн мая 2026. Структура четырёх секций под единой сеткой
-`max-width: var(--maxw)` = 1680px, padding `0 32px`.
+`max-width: var(--maxw)` = 1400px, padding `0 32px`.
 
 | Секция | Что внутри |
 |---|---|
@@ -388,7 +388,7 @@ import Checklist from '../../components/Checklist.astro';
 | `--line: #E5E1D8`, `--line-2: #D9D4C6` | `src/styles/global.css` | Границы карточек и пунктирные разделители — мягче, чем `rgba(0,0,0,.12)` |
 | `--f-display`, `--f-body`, `--f-mono` | `src/styles/global.css` | Удобные алиасы для шрифтов |
 | JetBrains Mono | `src/components/BaseHead.astro` | Третий шрифт — мета-информация (даты, время чтения, номера секций) |
-| `--maxw: 1680px` | `src/styles/global.css` | Единая центральная ширина. Использует `.wrap`, `.header-inner`, `.footer-inner`. Боковой padding шапки секций — 32px. Расширяли поэтапно: было 900px (legacy header) → 1280px (main) → 1440px → 1680px (для широких мониторов). |
+| `--maxw: 1400px` | `src/styles/global.css` | Единая центральная ширина. Использует `.wrap`, `.header-inner`, `.footer-inner`. Боковой padding шапки секций — 32px. Расширяли поэтапно: было 900px (legacy header) → 1280px (main) → 1440px → 1400px (для широких мониторов). |
 
 #### Брендинг
 
@@ -445,7 +445,7 @@ import Checklist from '../../components/Checklist.astro';
 
 | Что | Было | Стало |
 |---|---|---|
-| `max-width` шапки/футера | 900px | `var(--maxw)` = 1680px (центральная ширина для всего сайта) |
+| `max-width` шапки/футера | 900px | `var(--maxw)` = 1400px (центральная ширина для всего сайта) |
 | Фон Header | `#EDE8DF` (sand) | `var(--surface)` (sand-l) — тот же, что body, без шва |
 | Граница Header | `rgba(0,0,0,.1)` | `var(--line)` |
 | Высота Header | 56px | 64px |
