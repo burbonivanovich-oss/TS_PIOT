@@ -1,0 +1,148 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { u } from '../../utils/url';
+import { COMPARISONS } from '../../data/comparisons';
+
+const title = 'Сравнения сервисов Контура';
+const description =
+	'Сравните сервисы Контура по задачам: касса и ОФД, ЭДО и кадры. Честные таблицы — что закрывает каждый продукт, чтобы выбрать без лишних подключений.';
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+
+		<main class="cmp-index">
+			<header class="cmp-hero">
+				<p class="cmp-eyebrow">Сравнения</p>
+				<h1>Сравните сервисы Контура</h1>
+				<p class="cmp-lead">
+					Похожие по названию сервисы закрывают разные задачи. В таблицах ниже
+					видно, что делает каждый продукт, чтобы вы подключили нужное и не
+					платили за лишнее.
+				</p>
+			</header>
+
+			<div class="cmp-grid">
+				{COMPARISONS.map(table => (
+					<a href={u(`/sravneniya/${table.slug}/`)} class="cmp-card">
+						<p class="cmp-card-eyebrow">{table.eyebrow}</p>
+						<h2>{table.title}</h2>
+						<p class="cmp-card-lead">{table.lead}</p>
+						<span class="cmp-card-cta">Сравнить →</span>
+					</a>
+				))}
+			</div>
+
+			<aside class="cmp-note">
+				<p>
+					Уже выбрали? Откройте
+					<a href={u('/produkty/')}>каталог сервисов</a> и оставьте заявку.
+					Материалы по темам — в <a href={u('/blog/')}>статьях</a>.
+				</p>
+			</aside>
+		</main>
+
+		<Footer />
+
+		<style>
+			.cmp-index {
+				max-width: 1080px;
+				margin: 0 auto;
+				padding: 2.5rem 1rem 4rem;
+			}
+			.cmp-hero { margin-bottom: 2.5rem; max-width: 760px; }
+			.cmp-eyebrow {
+				font-size: 0.8rem;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: var(--pink, #ff4d8f);
+				margin: 0 0 0.5rem;
+				font-weight: 700;
+			}
+			.cmp-hero h1 {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: clamp(2rem, 5vw, 3.2rem);
+				line-height: 0.95;
+				margin: 0 0 1rem;
+				text-transform: uppercase;
+				letter-spacing: 0.02em;
+				color: #111;
+			}
+			.cmp-lead {
+				margin: 0;
+				font-size: 1.05rem;
+				color: #555;
+				line-height: 1.55;
+			}
+
+			.cmp-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1rem;
+			}
+			.cmp-card {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+				padding: 1.5rem;
+				background: #fff;
+				border: 2px solid rgba(0, 0, 0, 0.08);
+				border-radius: 12px;
+				text-decoration: none;
+				color: #111;
+				transition: border-color 0.15s ease, transform 0.15s ease;
+			}
+			.cmp-card:hover { border-color: #111; transform: translateY(-2px); }
+			.cmp-card-eyebrow {
+				font-size: 0.75rem;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				color: var(--pink, #ff4d8f);
+				margin: 0;
+			}
+			.cmp-card h2 {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 1.6rem;
+				letter-spacing: 0.02em;
+				text-transform: uppercase;
+				margin: 0;
+				color: #111;
+			}
+			.cmp-card-lead {
+				margin: 0;
+				font-size: 0.92rem;
+				line-height: 1.5;
+				color: #555;
+			}
+			.cmp-card-cta {
+				margin-top: 0.25rem;
+				font-weight: 600;
+				color: var(--pink, #ff4d8f);
+				font-size: 0.9rem;
+			}
+
+			.cmp-note {
+				margin-top: 2rem;
+				padding: 1.25rem 1.5rem;
+				background: var(--sand, #f4ebd9);
+				border-radius: 12px;
+				font-size: 0.95rem;
+				line-height: 1.55;
+				color: #444;
+			}
+			.cmp-note a { color: var(--pink, #ff4d8f); font-weight: 600; }
+
+			@media (max-width: 720px) {
+				.cmp-grid { grid-template-columns: 1fr; }
+			}
+		</style>
+	</body>
+</html>

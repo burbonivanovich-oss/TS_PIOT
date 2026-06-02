@@ -1,0 +1,102 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import ServicePicker from '../../components/interactive/ServicePicker.tsx';
+import { u } from '../../utils/url';
+
+const title = 'Подбор сервиса Контура под бизнес';
+const description =
+	'Ответьте на 3 вопроса о вашей задаче — касса, бухгалтерия, ЭДО, кадры, проверка контрагентов или счёт — и получите подходящий сервис Контура за минуту.';
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+
+		<main class="podbor">
+			<header class="podbor-hero">
+				<p class="podbor-eyebrow">Подбор · 3 вопроса · 1 минута</p>
+				<h1>Подберите сервис Контура под свою задачу</h1>
+				<p class="podbor-lead">
+					Ответьте на пару вопросов о приоритетной задаче — кассе и
+					маркировке, бухгалтерии, документах с контрагентами, кадрах,
+					проверке контрагентов или расчётном счёте. Покажем сервис, который
+					закроет задачу, и откроем страницу с условиями.
+				</p>
+			</header>
+
+			<ServicePicker client:load />
+
+			<section class="podbor-foot">
+				<h2>Если хотите осмотреться сами</h2>
+				<p>
+					Откройте всю <a href={u('/produkty/')}>витрину сервисов</a> —
+					карточки сгруппированы по задачам бизнеса. Чтобы взвесить близкие
+					варианты бок о бок, загляните в <a href={u('/sravneniya/')}>сравнения</a>.
+				</p>
+			</section>
+		</main>
+
+		<Footer />
+
+		<style>
+			.podbor {
+				max-width: 760px;
+				margin: 0 auto;
+				padding: 2.5rem 1rem 4rem;
+			}
+			.podbor-hero { margin-bottom: 2.5rem; }
+			.podbor-eyebrow {
+				font-size: 0.8rem;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: var(--pink, #ff4d8f);
+				margin: 0 0 0.5rem;
+				font-weight: 700;
+			}
+			.podbor-hero h1 {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: clamp(2rem, 5vw, 3.2rem);
+				line-height: 0.95;
+				margin: 0 0 1rem;
+				text-transform: uppercase;
+				letter-spacing: 0.02em;
+				color: #111;
+			}
+			.podbor-lead {
+				font-size: 1.05rem;
+				line-height: 1.55;
+				color: #555;
+				margin: 0;
+			}
+			.podbor-foot {
+				margin-top: 3rem;
+				padding: 1.5rem;
+				background: var(--sand, #f4ebd9);
+				border-radius: 12px;
+			}
+			.podbor-foot h2 {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 1.4rem;
+				letter-spacing: 0.02em;
+				text-transform: uppercase;
+				margin: 0 0 0.75rem;
+				color: #111;
+			}
+			.podbor-foot p {
+				margin: 0;
+				line-height: 1.55;
+				color: #444;
+			}
+			.podbor-foot a {
+				color: var(--pink, #ff4d8f);
+				font-weight: 600;
+			}
+		</style>
+	</body>
+</html>

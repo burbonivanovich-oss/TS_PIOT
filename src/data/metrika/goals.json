@@ -362,6 +362,47 @@
       "id": "edo-puzzle-reset",
       "name": "Пазл «Цепочка ЭДО» — перемешал заново",
       "type": "action"
+    },
+    {
+      "id": "podbor-started",
+      "name": "Подбор сервиса — начал прохождение",
+      "type": "action",
+      "comment": "Воронка витрины Контура: вход в квиз /podbor/"
+    },
+    {
+      "id": "podbor-result",
+      "name": "Подбор сервиса — показан результат",
+      "type": "action"
+    },
+    {
+      "id": "podbor-cta-click",
+      "name": "Подбор сервиса — клик на рекомендованный продукт",
+      "type": "action",
+      "comment": "Параметр product = slug продукта"
+    },
+    {
+      "id": "sravnenie-cta-click",
+      "name": "Сравнение — клик «Оставить заявку»",
+      "type": "action",
+      "comment": "Параметры product, table"
+    },
+    {
+      "id": "bundle-cta-click",
+      "name": "Бандл сценария — клик «Оставить заявку»",
+      "type": "action",
+      "comment": "Параметры product, scenario"
+    },
+    {
+      "id": "lead-form-view",
+      "name": "Лид-форма витрины — показ блока",
+      "type": "action",
+      "comment": "Параметр product = bannerId. Фиксирует доходимость до формы"
+    },
+    {
+      "id": "lead-form-click",
+      "name": "Лид-форма витрины — клик «Оставить заявку»",
+      "type": "action",
+      "comment": "Главная конверсионная цель витрины. Параметр product = bannerId"
     }
   ]
 }

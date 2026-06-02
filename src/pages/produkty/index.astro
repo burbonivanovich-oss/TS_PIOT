@@ -36,6 +36,14 @@ const groups = CATALOG_GROUPS.map(group => ({
 					контрагентов. Выберите продукт под свою задачу — заявку обработает
 					Контур, договор вы заключаете с ним напрямую.
 				</p>
+				<div class="catalog-actions">
+					<a class="catalog-btn catalog-btn-primary" href={u('/podbor/')}>
+						Подобрать сервис за 3 вопроса →
+					</a>
+					<a class="catalog-btn" href={u('/sravneniya/')}>
+						Сравнить варианты
+					</a>
+				</div>
 				<div class="catalog-nav">
 					{groups.map(group => (
 						<a href={`#${group.id}`}>{group.title}</a>
@@ -128,6 +136,27 @@ const groups = CATALOG_GROUPS.map(group => ({
 				transition: border-color 0.15s ease, background 0.15s ease;
 			}
 			.catalog-nav a:hover { border-color: #111; background: #111; color: #fff; }
+
+			.catalog-actions {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin-bottom: 1.5rem;
+			}
+			.catalog-btn {
+				display: inline-block;
+				font-size: 0.85rem;
+				font-weight: 700;
+				letter-spacing: 0.04em;
+				text-decoration: none;
+				color: #111;
+				padding: 0.7em 1.2em;
+				border: 2px solid #111;
+				transition: background 0.15s ease, color 0.15s ease;
+			}
+			.catalog-btn:hover { background: #111; color: #fff; }
+			.catalog-btn-primary { background: #111; color: var(--lime, #afcc00); }
+			.catalog-btn-primary:hover { background: #9E2B4F; color: #fff; }
 
 			.catalog-group { margin-bottom: 2.75rem; scroll-margin-top: 1.5rem; }
 			.group-head { margin-bottom: 1.25rem; }

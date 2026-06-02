@@ -5,25 +5,40 @@
 заявки (лиды), без онлайн-оплаты. Онлайн-оплата вынесена в задел
 (раздел «Отложено»).
 
-Статус: фаза 1 (заявки) — базовый каркас витрины реализован.
+Статус: фаза 1 (заявки) — воронка витрины собрана (подбор → каталог →
+сравнение → бандл → лид-форма), вся аналитика на заявки заведена.
+Осталось только то, что блокировано внешними вводными.
 
 **Что уже в коде:**
 - `src/data/cpa-banners.ts` — `CATALOG_GROUPS` (4 раздела), `PRODUCT_CATALOG`
   (11 живых продуктов с erid) + 6 draft-офферов без erid (не показываются).
 - `src/components/KonturLeadForm.astro` — лид-блок с триггерами доверия;
-  сейчас CTA-механизм через `CpaCallout`, слот `widget` под официальный
-  виджет заявки Контура.
-- `src/pages/produkty/index.astro` — индекс витрины по разделам.
+  CTA-механизм через `CpaCallout`, слот `widget` под официальный виджет
+  заявки Контура. Трекинг показа и клика (`lead-form-view`,
+  `lead-form-click`, параметр `product`).
+- `src/pages/produkty/index.astro` — индекс витрины по разделам, кнопки
+  входа в `/podbor/` и `/sravneniya/`.
 - `src/pages/produkty/[slug].astro` — страница продукта (что внутри, кому,
   лид-блок, перелинковка в категории и соседние продукты).
+- `src/pages/podbor/` + `src/components/interactive/ServicePicker.tsx` —
+  квиз-подбор сервиса (LAB1 #2): 3 шага, дорожка прогресса, результат →
+  `/produkty/<slug>/`. Трекинг `podbor-started/result/cta-click`.
+- `src/pages/sravneniya/` + `src/data/comparisons.ts` — sticky-таблицы
+  сравнения (LAB1 #12, F-27): `kassy-i-ofd`, `edo-i-kadry`. CTA →
+  страница продукта, трекинг `sravnenie-cta-click`.
+- `src/components/ProductBundle.astro` — бандл «набор под задачу»
+  (раздел 10.3), встроен в `/scenario/kofeynya-za-30-dney` и
+  `/scenario/perekhod-ip-na-ooo-za-60-dney`. Трекинг `bundle-cta-click`.
+- `src/data/metrika/goals.json` — 7 целей воронки витрины (раздел 6).
 - `NAV_LINKS` — пункт «Сервисы» → `/produkty/`.
 
-**Что осталось в фазе 1:**
+**Что осталось в фазе 1 (блокировано внешними вводными):**
 - Получить HTML официального виджета заявки Контура и вставить в слот
-  `widget` `KonturLeadForm` (тогда заявка оформляется inline).
-- Зарегистрировать в ОРД 6 draft-офферов (erid) и добавить в `PRODUCT_CATALOG`.
-- Бандлы под сценарии (раздел 10.3) — отдельный компонент, ещё не сделан.
-- Цели Метрики на отправку заявки (раздел 6).
+  `widget` `KonturLeadForm` (тогда заявка оформляется inline). До этого —
+  fallback на `CpaCallout` (уход по ссылке с тегом).
+- Зарегистрировать в ОРД 6 draft-офферов (erid) и добавить в `PRODUCT_CATALOG`
+  (ЭП/УЦ, Меркурий, Зарплата, НДС+, Призма, Документы).
+- Синхронизировать новые цели со счётчиком: `scripts/metrika/sync-goals.mjs`.
 
 ---
 

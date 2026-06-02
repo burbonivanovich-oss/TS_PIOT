@@ -29,7 +29,7 @@ const trust = [
 const hasWidget = Astro.slots.has('widget');
 ---
 
-<section class="lead" data-pagefind-ignore>
+<section class="lead" data-pagefind-ignore data-lead-form data-product={id}>
 	<h2 class="lead-heading">{heading}</h2>
 
 	{hasWidget ? (
@@ -46,6 +46,35 @@ const hasWidget = Astro.slots.has('widget');
 		))}
 	</ul>
 </section>
+
+<script>
+	// Трекинг воронки витрины: показ лид-формы и клик по CTA.
+	// Цели заведены в src/data/metrika/goals.json (lead-form-view, lead-form-click).
+	const COUNTER = 109130279;
+	const reach = (target: string, params: Record<string, unknown>) => {
+		const ym = (window as unknown as { ym?: (...a: unknown[]) => void }).ym;
+		if (ym) ym(COUNTER, 'reachGoal', target, params);
+	};
+	document.querySelectorAll<HTMLElement>('[data-lead-form]').forEach(form => {
+		const product = form.dataset.product;
+		// Показ блока — один раз, когда форма попала во вьюпорт.
+		const io = new IntersectionObserver((entries, obs) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					reach('lead-form-view', { product });
+					obs.disconnect();
+				}
+			});
+		}, { threshold: 0.4 });
+		io.observe(form);
+		// Клик по CTA (кнопка из CpaCallout или ссылка внутри виджета).
+		form.querySelectorAll('a').forEach(link => {
+			link.addEventListener('click', () => {
+				reach('lead-form-click', { product });
+			});
+		});
+	});
+</script>
 
 <style>
 	.lead {

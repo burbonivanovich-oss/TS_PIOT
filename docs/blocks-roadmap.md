@@ -402,8 +402,8 @@
 | LAB4 #1 Bento | Главная H4 | **P0** | M | Latest posts |
 | LAB6 #18 Countdown | Главная (sup-header) | **P0** | S | — |
 | LAB3 #4 Series | Главная | **P0** | M | — |
-| LAB1 #2 Quiz подбора | Hero + /podbor/ | **P0** | L | — |
-| LAB1 #12 Comparison | /sravneniya/ | **P0** | L | — |
+| ~~LAB1 #2 Quiz подбора~~ | /podbor/ | ✅ внедрён | L | — |
+| ~~LAB1 #12 Comparison~~ | /sravneniya/ | ✅ внедрён | L | — |
 | LAB2 #16 Wizard preview | все квизы | **P1** | S | UX квизов |
 | LAB2 #15 Glossary плитки | /slovar/ | **P1** | M | алфавит |
 | LAB1 #5 Long-read spotlight | Главная H4 (условно) | **P1** | M | featured-карточка |
