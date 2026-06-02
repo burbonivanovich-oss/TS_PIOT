@@ -223,7 +223,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'КЭП для руководителя и сотрудников: работа с Честным знаком, ЭДО, госпорталами и торговыми площадками. Выпуск в день обращения.',
 		cta: 'Получить подпись →',
-		ctaHref: 'https://kontur.ru/ca', // TODO: партнёрская ссылка с тегом
+		ctaHref: 'https://kontur.ru/ca?p=f74746',
 		visual: { abbrev: 'ЭП', bg: '#1A3A6C' },
 	},
 	'kontur-merkuriy': {
@@ -233,7 +233,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'Гашение и оформление ВСД в системе «Меркурий» (ВетИС): мясо, молоко, рыба, яйца. Без установки ПО, прямо в браузере.',
 		cta: 'Подключить Меркурий →',
-		ctaHref: 'https://kontur.ru/merkuriy', // TODO: партнёрская ссылка с тегом
+		ctaHref: 'https://kontur.ru/merkuriy?p=f74746',
 		visual: { abbrev: 'ВСД', bg: '#2D6A4F' },
 	},
 	'kontur-zarplata': {
@@ -243,7 +243,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'Считает НДФЛ, страховые взносы и больничные по актуальным правилам. Формирует отчётность в СФР и ФНС. Для компаний с наёмными сотрудниками.',
 		cta: 'Попробовать →',
-		ctaHref: 'https://kontur.ru/zarplata', // TODO: партнёрская ссылка с тегом
+		ctaHref: 'https://kontur.ru/zarplata?p=f74746',
 		visual: { abbrev: 'ЗП', bg: '#1E4A7A' },
 	},
 	'kontur-nds': {
@@ -253,7 +253,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'Находит расхождения в книгах покупок и продаж, снижает риск требований от ФНС. Сверка по всем контрагентам в одном окне.',
 		cta: 'Проверить НДС →',
-		ctaHref: 'https://kontur.ru/ndsplus', // TODO: партнёрская ссылка с тегом
+		ctaHref: 'https://kontur.ru/ndsplus?p=f74746',
 		visual: { abbrev: 'НДС', bg: '#1A3A6C' },
 	},
 	'kontur-prizma': {
@@ -263,7 +263,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'Оценка риска по антиотмывочному законодательству, скоринг контрагентов и операций. Снижает риск блокировки счёта банком.',
 		cta: 'Подробнее →',
-		ctaHref: 'https://kontur.ru/prizma', // TODO: партнёрская ссылка с тегом
+		ctaHref: 'https://kontur.ru/prizma?p=f74746',
 		visual: { abbrev: '115', bg: '#9E2B4F' },
 	},
 	'kontur-dokumenty': {
@@ -273,7 +273,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'Лёгкий вход в ЭДО без интеграций: счета, акты, договоры с контрагентами. Для тех, кому Диадок пока избыточен.',
 		cta: 'Начать →',
-		ctaHref: 'https://kontur.ru/documents', // TODO: партнёрская ссылка с тегом
+		ctaHref: 'https://kontur.ru/documents?p=f74746',
 		visual: { abbrev: 'ДОК', bg: '#007A6E' },
 	},
 
@@ -577,4 +577,96 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 		],
 		clusters: ['zakonodatelstvo'],
 	},
+	{
+		slug: 'kontur-podpis',
+		bannerId: 'kontur-podpis',
+		group: 'kassa-markirovka',
+		audience:
+			'Руководители и сотрудники, которым нужна КЭП для кассы, ЭДО, госпорталов и торговых площадок.',
+		bullets: [
+			'КЭП для работы с «Честным знаком» и ЭДО',
+			'Доступ к госпорталам и торговым площадкам',
+			'Выпуск в день обращения',
+			'Подписи для руководителя и сотрудников',
+		],
+		clusters: ['ts-piot', 'markirovka', 'zakonodatelstvo'],
+	},
+	{
+		slug: 'kontur-merkuriy',
+		bannerId: 'kontur-merkuriy',
+		group: 'kassa-markirovka',
+		audience:
+			'Производители и продавцы продуктов животного происхождения: мясо, молоко, рыба, яйца.',
+		bullets: [
+			'Оформление и гашение ВСД в системе «Меркурий» (ВетИС)',
+			'Работа в браузере без установки ПО',
+			'Учёт партий и остатков',
+			'Связка с маркировкой «Честного знака»',
+		],
+		clusters: ['markirovka'],
+	},
+	{
+		slug: 'kontur-zarplata',
+		bannerId: 'kontur-zarplata',
+		group: 'buhgalteriya',
+		audience: 'Компании и ИП с наёмными сотрудниками.',
+		bullets: [
+			'Расчёт зарплаты, отпускных и больничных',
+			'НДФЛ и страховые взносы по актуальным правилам',
+			'Отчётность в СФР и ФНС',
+			'Кадровый учёт сотрудников',
+		],
+		clusters: ['zakonodatelstvo'],
+	},
+	{
+		slug: 'kontur-nds',
+		bannerId: 'kontur-nds',
+		group: 'buhgalteriya',
+		audience: 'Плательщики НДС, которые хотят пройти декларацию без требований ФНС.',
+		bullets: [
+			'Сверка книг покупок и продаж с контрагентами',
+			'Поиск расхождений до сдачи декларации',
+			'Снижение риска требований от ФНС',
+			'Проверка по всем контрагентам в одном окне',
+		],
+		clusters: ['zakonodatelstvo'],
+	},
+	{
+		slug: 'kontur-prizma',
+		bannerId: 'kontur-prizma',
+		group: 'proverki-dengi',
+		audience: 'Бизнес, который проверяет клиентов и операции по 115-ФЗ.',
+		bullets: [
+			'Оценка риска по антиотмывочному закону',
+			'Скоринг контрагентов и операций',
+			'Снижение риска блокировки счёта банком',
+			'Готовые отчёты для службы внутреннего контроля',
+		],
+		clusters: ['zakonodatelstvo'],
+	},
+	{
+		slug: 'kontur-dokumenty',
+		bannerId: 'kontur-dokumenty',
+		group: 'dokumenty-kadry',
+		audience: 'Малый бизнес, которому нужен простой вход в ЭДО без интеграций.',
+		bullets: [
+			'Обмен счетами, актами и договорами',
+			'Без интеграции с учётными системами',
+			'Лёгкий старт для тех, кому Диадок избыточен',
+			'Юридически значимые документы с контрагентами',
+		],
+		clusters: ['zakonodatelstvo'],
+	},
 ];
+
+/**
+ * Продукты витрины, готовые к показу. Гейт по 38-ФЗ: только офферы с
+ * erid (из ord-erids.json). Страницы /produkty/ и карточки витрины
+ * строятся по этому списку — оффер без erid не создаёт страницу и не
+ * показывает партнёрскую ссылку. Как только CI зарегистрирует креатив
+ * в ОРД и erid появится в ord-erids.json, продукт включается в витрину
+ * автоматически на следующей сборке.
+ */
+export const STOREFRONT_PRODUCTS: ProductCatalogEntry[] = PRODUCT_CATALOG.filter(
+	p => !!CPA_BANNERS[p.bannerId]?.erid
+);

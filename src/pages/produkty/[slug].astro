@@ -7,12 +7,12 @@ import { u } from '../../utils/url';
 import { CATEGORIES } from '../../consts';
 import {
 	CATALOG_GROUPS,
-	PRODUCT_CATALOG,
+	STOREFRONT_PRODUCTS,
 	CPA_BANNERS,
 } from '../../data/cpa-banners';
 
 export function getStaticPaths() {
-	return PRODUCT_CATALOG.map(product => ({
+	return STOREFRONT_PRODUCTS.map(product => ({
 		params: { slug: product.slug },
 		props: { product },
 	}));
@@ -28,7 +28,7 @@ const clusters = product.clusters
 	.filter(c => c.meta);
 
 // Другие продукты того же раздела — для перелинковки.
-const siblings = PRODUCT_CATALOG.filter(
+const siblings = STOREFRONT_PRODUCTS.filter(
 	p => p.group === product.group && p.slug !== product.slug
 ).map(p => ({ ...p, banner: CPA_BANNERS[p.bannerId] }));
 
