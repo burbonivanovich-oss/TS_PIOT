@@ -3,6 +3,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { u } from '../../utils/url';
+import { CATEGORIES } from '../../consts';
 import { CATALOG_GROUPS, STOREFRONT_PRODUCTS, CPA_BANNERS } from '../../data/cpa-banners';
 
 const title = 'Сервисы Контура для бизнеса';
@@ -38,11 +39,16 @@ const products = STOREFRONT_PRODUCTS
 		return {
 			slug: p.slug,
 			name: banner.eyebrow.replace(/^Реклама\s*·\s*/u, '').trim(),
-			benefit: p.bullets[0],
+			description: banner.description,
+			bullets: p.bullets.slice(0, 3),
 			audience: p.audience,
 			badge: BADGES[p.bannerId],
 			group: p.group,
 			groupTitle: group?.title ?? '',
+			tags: p.clusters
+				.map(c => CATEGORIES[c as keyof typeof CATEGORIES]?.title)
+				.filter(Boolean)
+				.slice(0, 3),
 			visual: banner.visual,
 		};
 	})
@@ -103,17 +109,37 @@ const trust = [
 			<section class="market-grid" data-grid>
 				{products.map(p => (
 					<article class="pcard" data-group={p.group} data-name={p.name}>
-						<a class="pcard-top" href={u(`/produkty/${p.slug}/`)} style={`background:${p.visual.bg}`}>
-							<span class="pcard-abbr">{p.visual.abbrev}</span>
-							{p.badge && <span class="pcard-badge">{p.badge}</span>}
-						</a>
-						<div class="pcard-body">
-							<span class="pcard-group">{p.groupTitle}</span>
-							<h3 class="pcard-name"><a href={u(`/produkty/${p.slug}/`)}>{p.name}</a></h3>
-							<p class="pcard-benefit">{p.benefit}</p>
+						<div class="pcard-head">
+							<a class="pcard-logo" href={u(`/produkty/${p.slug}/`)} style={`background:${p.visual.bg}`}>
+								<span>{p.visual.abbrev}</span>
+							</a>
+							<div class="pcard-head-text">
+								<span class="pcard-group">{p.groupTitle}</span>
+								<h3 class="pcard-name"><a href={u(`/produkty/${p.slug}/`)}>{p.name}</a></h3>
+							</div>
 						</div>
+
+						{(p.badge || p.tags.length > 0) && (
+							<div class="pcard-tags">
+								{p.badge && <span class="pcard-badge">{p.badge}</span>}
+								{p.tags.map(t => <span class="pcard-tag">{t}</span>)}
+							</div>
+						)}
+
+						<p class="pcard-desc">{p.description}</p>
+
+						<div class="pcard-includes">
+							<span class="pcard-includes-label">Что входит</span>
+							<ul>
+								{p.bullets.map(b => <li>{b}</li>)}
+							</ul>
+						</div>
+
+						<p class="pcard-audience"><span>Кому:</span> {p.audience}</p>
+
 						<div class="pcard-foot">
 							<a class="pcard-cta" href={u(`/produkty/${p.slug}/`)}>Оставить заявку →</a>
+							<a class="pcard-more" href={u(`/produkty/${p.slug}/`)}>Подробнее</a>
 						</div>
 					</article>
 				))}
@@ -284,16 +310,17 @@ const trust = [
 			/* Grid */
 			.market-grid {
 				display: grid;
-				grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+				grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
 				gap: 1rem;
 			}
 			.pcard {
 				display: flex;
 				flex-direction: column;
+				gap: 0.7rem;
+				padding: 1.1rem 1.15rem 1.15rem;
 				background: #fff;
 				border: 1.5px solid rgba(0, 0, 0, 0.1);
 				border-radius: 14px;
-				overflow: hidden;
 				transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 			}
 			.pcard:hover {
@@ -302,52 +329,100 @@ const trust = [
 				box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
 			}
 			.pcard[hidden] { display: none; }
-			.pcard-top {
-				position: relative;
+
+			.pcard-head {
+				display: grid;
+				grid-template-columns: 52px 1fr;
+				gap: 0.75rem;
+				align-items: center;
+			}
+			.pcard-logo {
+				width: 52px;
+				height: 52px;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				height: 104px;
+				border-radius: 10px;
 				color: #fff;
 				text-decoration: none;
-			}
-			.pcard-abbr {
 				font-family: 'Bebas Neue', sans-serif;
-				font-size: 2.1rem;
-				letter-spacing: 0.05em;
+				font-size: 1.4rem;
+				letter-spacing: 0.04em;
 			}
-			.pcard-badge {
-				position: absolute;
-				top: 10px;
-				left: 10px;
-				font-size: 0.66rem;
-				font-weight: 800;
-				letter-spacing: 0.02em;
-				text-transform: uppercase;
-				color: #111;
-				background: var(--lime, #afcc00);
-				padding: 0.32em 0.6em;
-				border-radius: 6px;
-			}
-			.pcard-body { padding: 0.9rem 1rem 0.4rem; flex: 1; }
+			.pcard-head-text { min-width: 0; }
 			.pcard-group {
-				font-size: 0.66rem;
+				font-size: 0.64rem;
 				font-weight: 700;
 				text-transform: uppercase;
 				letter-spacing: 0.06em;
 				color: #aaa;
 			}
-			.pcard-name {
-				font-size: 1.02rem;
-				line-height: 1.25;
-				margin: 0.25rem 0 0.45rem;
-			}
+			.pcard-name { font-size: 1.08rem; line-height: 1.2; margin: 0.15rem 0 0; }
 			.pcard-name a { color: #111; text-decoration: none; }
 			.pcard-name a:hover { color: var(--pink, #ff4d8f); }
-			.pcard-benefit { margin: 0; font-size: 0.85rem; line-height: 1.45; color: #666; }
-			.pcard-foot { padding: 0.4rem 1rem 1rem; }
+			.pcard-badge {
+				font-size: 0.64rem;
+				font-weight: 800;
+				letter-spacing: 0.02em;
+				text-transform: uppercase;
+				color: #111;
+				background: var(--lime, #afcc00);
+				padding: 0.32em 0.55em;
+				border-radius: 6px;
+				white-space: nowrap;
+			}
+
+			.pcard-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+			.pcard-tag {
+				font-size: 0.66rem;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.04em;
+				color: #555;
+				background: var(--sand, #f4ebd9);
+				padding: 0.28em 0.55em;
+				border-radius: 5px;
+			}
+
+			.pcard-desc { margin: 0; font-size: 0.86rem; line-height: 1.5; color: #444; }
+
+			.pcard-includes { border-top: 1px solid rgba(0, 0, 0, 0.07); padding-top: 0.6rem; }
+			.pcard-includes-label {
+				font-size: 0.64rem;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.06em;
+				color: #999;
+			}
+			.pcard-includes ul { margin: 0.4rem 0 0; padding: 0; list-style: none; }
+			.pcard-includes li {
+				font-size: 0.82rem;
+				line-height: 1.45;
+				color: #333;
+				padding-left: 1.15rem;
+				position: relative;
+				margin-bottom: 0.15rem;
+			}
+			.pcard-includes li::before {
+				content: '✓';
+				position: absolute;
+				left: 0;
+				color: var(--lime, #afcc00);
+				font-weight: 700;
+			}
+
+			.pcard-audience { margin: 0; font-size: 0.78rem; line-height: 1.45; color: #777; }
+			.pcard-audience span { font-weight: 700; color: #555; }
+
+			.pcard-foot {
+				margin-top: auto;
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				padding-top: 0.5rem;
+			}
 			.pcard-cta {
-				display: block;
+				flex: 1;
 				text-align: center;
 				background: #111;
 				color: var(--lime, #afcc00);
@@ -356,18 +431,26 @@ const trust = [
 				letter-spacing: 0.04em;
 				text-transform: uppercase;
 				text-decoration: none;
-				padding: 0.7em 1em;
+				padding: 0.75em 1em;
 				border-radius: 8px;
 				transition: background 0.15s ease, color 0.15s ease;
 			}
 			.pcard-cta:hover { background: #9E2B4F; color: #fff; }
+			.pcard-more {
+				font-size: 0.8rem;
+				font-weight: 600;
+				color: #111;
+				text-decoration: none;
+				white-space: nowrap;
+				border-bottom: 1.5px solid var(--pink, #ff4d8f);
+				padding-bottom: 1px;
+			}
+			.pcard-more:hover { color: var(--pink, #ff4d8f); }
 
 			.market-empty { text-align: center; color: #888; padding: 3rem 0; }
 
 			@media (max-width: 640px) {
-				.market-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
-				.pcard-top { height: 84px; }
-				.pcard-abbr { font-size: 1.6rem; }
+				.market-grid { grid-template-columns: 1fr; gap: 0.85rem; }
 				.market-toolbar { position: static; }
 			}
 		</style>
