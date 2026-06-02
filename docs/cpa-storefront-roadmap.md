@@ -16,8 +16,10 @@
   CTA-механизм через `CpaCallout`, слот `widget` под официальный виджет
   заявки Контура. Трекинг показа и клика (`lead-form-view`,
   `lead-form-click`, параметр `product`).
-- `src/pages/produkty/index.astro` — индекс витрины по разделам, кнопки
-  входа в `/podbor/` и `/sravneniya/`.
+- `src/pages/produkty/index.astro` — витрина в формате маркетплейса:
+  плотная товарная сетка карточек, бейджи выгоды, кнопка «Оставить заявку»
+  на каждой карточке, клиентские фильтры по разделам + сортировка, строка
+  доверия, кнопки входа в `/podbor/` и `/sravneniya/`.
 - `src/pages/produkty/[slug].astro` — страница продукта (что внутри, кому,
   лид-блок, перелинковка в категории и соседние продукты).
 - `src/pages/podbor/` + `src/components/interactive/ServicePicker.tsx` —

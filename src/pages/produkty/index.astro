@@ -7,16 +7,52 @@ import { CATALOG_GROUPS, STOREFRONT_PRODUCTS, CPA_BANNERS } from '../../data/cpa
 
 const title = 'Сервисы Контура для бизнеса';
 const description =
-	'Каталог сервисов Контура под задачи МСБ: касса и ТС ПИоТ, маркировка, бухгалтерия и отчётность, ЭДО, проверка контрагентов. Подберите решение и оставьте заявку.';
+	'Витрина сервисов Контура под задачи МСБ: касса и ТС ПИоТ, маркировка, бухгалтерия и отчётность, ЭДО, проверка контрагентов. Выберите сервис и оставьте заявку.';
 
-// Карточки, сгруппированные по разделам витрины.
-const groups = CATALOG_GROUPS.map(group => ({
-	...group,
-	products: STOREFRONT_PRODUCTS.filter(p => p.group === group.id).map(p => ({
-		...p,
-		banner: CPA_BANNERS[p.bannerId],
-	})),
-})).filter(group => group.products.length > 0);
+// Короткие бейджи выгоды — честные, из реальных офферов (title/буллеты).
+const BADGES: Record<string, string> = {
+	'kontur-market': '14 дней бесплатно',
+	'kontur-ofd': '−15% онлайн',
+	'kontur-markirovka': '−20% под ключ',
+	'kontur-elba': '30 дней бесплатно',
+	'kontur-extern': '−15% онлайн',
+	'kontur-diadoc': 'входящие 0 ₽',
+	'diadoc-kedo': 'до 5 800 ₽/чел',
+	'kontur-mchd': 'МЧД за 5 минут',
+	'diadoc-logistika': 'переход по 140-ФЗ',
+	'kontur-focus': '−7% онлайн',
+	'bank-elba': 'счёт 0 ₽',
+	'kontur-podpis': 'выпуск за день',
+	'kontur-merkuriy': 'без установки ПО',
+	'kontur-zarplata': 'расчёт без ошибок',
+	'kontur-nds': 'сверка с ФНС',
+	'kontur-prizma': '115-ФЗ',
+	'kontur-dokumenty': 'простой старт',
+};
+
+const order = CATALOG_GROUPS.map(g => g.id);
+const products = STOREFRONT_PRODUCTS
+	.map(p => {
+		const banner = CPA_BANNERS[p.bannerId];
+		const group = CATALOG_GROUPS.find(g => g.id === p.group);
+		return {
+			slug: p.slug,
+			name: banner.eyebrow.replace(/^Реклама\s*·\s*/u, '').trim(),
+			benefit: p.bullets[0],
+			audience: p.audience,
+			badge: BADGES[p.bannerId],
+			group: p.group,
+			groupTitle: group?.title ?? '',
+			visual: banner.visual,
+		};
+	})
+	.sort((a, b) => order.indexOf(a.group) - order.indexOf(b.group));
+
+const trust = [
+	'Сервисами пользуются более 2 млн компаний',
+	'Аккредитованный оператор ОФД и ЭДО',
+	'Договор и оплата — напрямую с Контуром',
+];
 ---
 
 <!doctype html>
@@ -27,77 +63,126 @@ const groups = CATALOG_GROUPS.map(group => ({
 	<body>
 		<Header />
 
-		<main class="catalog">
-			<header class="catalog-hero">
-				<p class="catalog-eyebrow">Сервисы для бизнеса</p>
-				<h1>Подберите сервис Контура под задачу</h1>
-				<p class="catalog-lead">
-					Касса с ТС ПИоТ, маркировка, бухгалтерия, ЭДО и проверка
-					контрагентов. Выберите продукт под свою задачу — заявку обработает
-					Контур, договор вы заключаете с ним напрямую.
+		<main class="market">
+			<header class="market-hero">
+				<p class="market-eyebrow">Сервисы для бизнеса</p>
+				<h1>Магазин сервисов Контура</h1>
+				<p class="market-lead">
+					Касса с ТС ПИоТ, маркировка, бухгалтерия, ЭДО и проверка контрагентов.
+					Выберите сервис под задачу и оставьте заявку — Контур перезвонит и
+					подберёт тариф.
 				</p>
-				<div class="catalog-actions">
-					<a class="catalog-btn catalog-btn-primary" href={u('/podbor/')}>
-						Подобрать сервис за 3 вопроса →
-					</a>
-					<a class="catalog-btn" href={u('/sravneniya/')}>
-						Сравнить варианты
-					</a>
+				<div class="market-actions">
+					<a class="mbtn mbtn-primary" href={u('/podbor/')}>Подобрать за 3 вопроса →</a>
+					<a class="mbtn" href={u('/sravneniya/')}>Сравнить варианты</a>
 				</div>
-				<div class="catalog-nav">
-					{groups.map(group => (
-						<a href={`#${group.id}`}>{group.title}</a>
-					))}
-				</div>
+				<ul class="market-trust">
+					{trust.map(t => <li>{t}</li>)}
+				</ul>
 			</header>
 
-			{groups.map(group => (
-				<section class="catalog-group" id={group.id}>
-					<div class="group-head">
-						<h2>{group.title}</h2>
-						<p>{group.description}</p>
-					</div>
-					<div class="group-grid">
-						{group.products.map(product => (
-							<a href={u(`/produkty/${product.slug}/`)} class="product-card">
-								<div
-									class="product-visual"
-									style={`background:${product.banner.visual.bg}`}
-								>
-									<span>{product.banner.visual.abbrev}</span>
-								</div>
-								<div class="product-body">
-									<h3>{product.banner.title}</h3>
-									<p class="product-audience">{product.audience}</p>
-									<span class="product-cta">Подробнее →</span>
-								</div>
-							</a>
-						))}
-					</div>
-				</section>
-			))}
+			<div class="market-toolbar">
+				<div class="market-filters" role="tablist" aria-label="Разделы">
+					<button class="chip is-active" data-filter="all">Все сервисы</button>
+					{CATALOG_GROUPS.map(g => (
+						<button class="chip" data-filter={g.id}>{g.title}</button>
+					))}
+				</div>
+				<div class="market-sort">
+					<span class="market-count" data-count>{products.length} сервисов</span>
+					<label class="sort-label">
+						Сортировка
+						<select data-sort>
+							<option value="group">по разделам</option>
+							<option value="az">по названию А–Я</option>
+						</select>
+					</label>
+				</div>
+			</div>
 
-			<aside class="catalog-note">
-				<p>
-					Не знаете, что выбрать? Начните с
-					<a href={u('/instrumenty/')}>интерактивных тестов и сценариев</a> —
-					например, проверьте готовность к ТС ПИоТ или соберите набор сервисов
-					под открытие точки. Все материалы по темам — в
-					<a href={u('/blog/')}>статьях</a>.
-				</p>
-			</aside>
+			<section class="market-grid" data-grid>
+				{products.map(p => (
+					<article class="pcard" data-group={p.group} data-name={p.name}>
+						<a class="pcard-top" href={u(`/produkty/${p.slug}/`)} style={`background:${p.visual.bg}`}>
+							<span class="pcard-abbr">{p.visual.abbrev}</span>
+							{p.badge && <span class="pcard-badge">{p.badge}</span>}
+						</a>
+						<div class="pcard-body">
+							<span class="pcard-group">{p.groupTitle}</span>
+							<h3 class="pcard-name"><a href={u(`/produkty/${p.slug}/`)}>{p.name}</a></h3>
+							<p class="pcard-benefit">{p.benefit}</p>
+						</div>
+						<div class="pcard-foot">
+							<a class="pcard-cta" href={u(`/produkty/${p.slug}/`)}>Оставить заявку →</a>
+						</div>
+					</article>
+				))}
+			</section>
+
+			<p class="market-empty" data-empty hidden>В этом разделе пока нет сервисов.</p>
 		</main>
 
 		<Footer />
 
+		<script>
+			const grid = document.querySelector('[data-grid]');
+			const cards = Array.from(document.querySelectorAll('.pcard'));
+			const chips = Array.from(document.querySelectorAll('.chip'));
+			const countEl = document.querySelector('[data-count]');
+			const emptyEl = document.querySelector('[data-empty]');
+			const sortEl = document.querySelector('[data-sort]');
+			const original = cards.slice();
+			let filter = 'all';
+
+			const plural = (n: number) => {
+				const a = n % 10, b = n % 100;
+				if (a === 1 && b !== 11) return 'сервис';
+				if (a >= 2 && a <= 4 && (b < 10 || b >= 20)) return 'сервиса';
+				return 'сервисов';
+			};
+
+			function apply() {
+				let visible = 0;
+				cards.forEach(card => {
+					const ok = filter === 'all' || card.getAttribute('data-group') === filter;
+					(card as HTMLElement).hidden = !ok;
+					if (ok) visible++;
+				});
+				if (countEl) countEl.textContent = `${visible} ${plural(visible)}`;
+				if (emptyEl) (emptyEl as HTMLElement).hidden = visible !== 0;
+			}
+
+			chips.forEach(chip => {
+				chip.addEventListener('click', () => {
+					chips.forEach(c => c.classList.remove('is-active'));
+					chip.classList.add('is-active');
+					filter = chip.getAttribute('data-filter') || 'all';
+					apply();
+				});
+			});
+
+			sortEl?.addEventListener('change', () => {
+				const mode = (sortEl as HTMLSelectElement).value;
+				const sorted = original.slice();
+				if (mode === 'az') {
+					sorted.sort((a, b) =>
+						(a.getAttribute('data-name') || '').localeCompare(b.getAttribute('data-name') || '', 'ru')
+					);
+				}
+				sorted.forEach(card => grid?.appendChild(card));
+			});
+		</script>
+
 		<style>
-			.catalog {
-				max-width: 1080px;
+			.market {
+				max-width: 1180px;
 				margin: 0 auto;
 				padding: 2.5rem 1rem 4rem;
 			}
-			.catalog-hero { margin-bottom: 2.5rem; max-width: 760px; }
-			.catalog-eyebrow {
+
+			/* Hero */
+			.market-hero { max-width: 780px; margin-bottom: 2rem; }
+			.market-eyebrow {
 				font-size: 0.8rem;
 				text-transform: uppercase;
 				letter-spacing: 0.1em;
@@ -105,129 +190,185 @@ const groups = CATALOG_GROUPS.map(group => ({
 				margin: 0 0 0.5rem;
 				font-weight: 700;
 			}
-			.catalog-hero h1 {
+			.market-hero h1 {
 				font-family: 'Bebas Neue', sans-serif;
-				font-size: clamp(2rem, 5vw, 3.2rem);
+				font-size: clamp(2.1rem, 5vw, 3.4rem);
 				line-height: 0.95;
-				margin: 0 0 1rem;
+				margin: 0 0 0.9rem;
 				text-transform: uppercase;
 				letter-spacing: 0.02em;
 				color: #111;
 			}
-			.catalog-lead {
-				margin: 0 0 1.25rem;
-				font-size: 1.05rem;
-				color: #555;
-				line-height: 1.55;
-			}
-			.catalog-nav {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.5rem;
-			}
-			.catalog-nav a {
-				font-size: 0.82rem;
-				font-weight: 600;
-				text-decoration: none;
-				color: #111;
-				padding: 0.4em 0.9em;
-				border: 1.5px solid rgba(0, 0, 0, 0.15);
-				border-radius: 999px;
-				transition: border-color 0.15s ease, background 0.15s ease;
-			}
-			.catalog-nav a:hover { border-color: #111; background: #111; color: #fff; }
-
-			.catalog-actions {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.75rem;
-				margin-bottom: 1.5rem;
-			}
-			.catalog-btn {
+			.market-lead { margin: 0 0 1.25rem; font-size: 1.05rem; color: #555; line-height: 1.55; }
+			.market-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.25rem; }
+			.mbtn {
 				display: inline-block;
 				font-size: 0.85rem;
 				font-weight: 700;
-				letter-spacing: 0.04em;
+				letter-spacing: 0.03em;
 				text-decoration: none;
 				color: #111;
 				padding: 0.7em 1.2em;
 				border: 2px solid #111;
 				transition: background 0.15s ease, color 0.15s ease;
 			}
-			.catalog-btn:hover { background: #111; color: #fff; }
-			.catalog-btn-primary { background: #111; color: var(--lime, #afcc00); }
-			.catalog-btn-primary:hover { background: #9E2B4F; color: #fff; }
-
-			.catalog-group { margin-bottom: 2.75rem; scroll-margin-top: 1.5rem; }
-			.group-head { margin-bottom: 1.25rem; }
-			.group-head h2 {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 1.8rem;
-				letter-spacing: 0.02em;
-				text-transform: uppercase;
-				margin: 0 0 0.35rem;
-				color: #111;
+			.mbtn:hover { background: #111; color: #fff; }
+			.mbtn-primary { background: #111; color: var(--lime, #afcc00); }
+			.mbtn-primary:hover { background: #9E2B4F; color: #fff; }
+			.market-trust {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.4rem 1.4rem;
 			}
-			.group-head p { margin: 0; color: #666; font-size: 0.95rem; line-height: 1.5; }
+			.market-trust li {
+				font-size: 0.82rem;
+				color: #555;
+				padding-left: 1.2rem;
+				position: relative;
+			}
+			.market-trust li::before {
+				content: '✓';
+				position: absolute;
+				left: 0;
+				color: var(--lime, #afcc00);
+				font-weight: 700;
+			}
 
-			.group-grid {
+			/* Toolbar */
+			.market-toolbar {
+				position: sticky;
+				top: 0;
+				z-index: 5;
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: space-between;
+				gap: 0.75rem 1rem;
+				padding: 0.85rem 0;
+				margin-bottom: 1.25rem;
+				background: rgba(255, 255, 255, 0.92);
+				backdrop-filter: blur(6px);
+				border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+			}
+			.market-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+			.chip {
+				font-size: 0.8rem;
+				font-weight: 600;
+				color: #333;
+				background: #fff;
+				border: 1.5px solid rgba(0, 0, 0, 0.15);
+				border-radius: 999px;
+				padding: 0.45em 0.95em;
+				cursor: pointer;
+				transition: all 0.15s ease;
+			}
+			.chip:hover { border-color: #111; }
+			.chip.is-active { background: #111; color: #fff; border-color: #111; }
+			.market-sort { display: flex; align-items: center; gap: 1rem; }
+			.market-count { font-size: 0.82rem; color: #888; font-weight: 600; white-space: nowrap; }
+			.sort-label { font-size: 0.78rem; color: #888; display: flex; align-items: center; gap: 0.4rem; }
+			.sort-label select {
+				font-size: 0.8rem;
+				font-weight: 600;
+				color: #111;
+				border: 1.5px solid rgba(0, 0, 0, 0.15);
+				border-radius: 8px;
+				padding: 0.35em 0.5em;
+				background: #fff;
+				cursor: pointer;
+			}
+
+			/* Grid */
+			.market-grid {
 				display: grid;
-				grid-template-columns: repeat(2, 1fr);
+				grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
 				gap: 1rem;
 			}
-			.product-card {
-				display: grid;
-				grid-template-columns: 88px 1fr;
-				gap: 1.25rem;
-				padding: 1.25rem;
+			.pcard {
+				display: flex;
+				flex-direction: column;
 				background: #fff;
-				border: 2px solid rgba(0, 0, 0, 0.08);
-				border-radius: 12px;
-				text-decoration: none;
-				color: #111;
-				transition: border-color 0.15s ease, transform 0.15s ease;
+				border: 1.5px solid rgba(0, 0, 0, 0.1);
+				border-radius: 14px;
+				overflow: hidden;
+				transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 			}
-			.product-card:hover { border-color: #111; transform: translateY(-2px); }
-			.product-visual {
+			.pcard:hover {
+				border-color: #111;
+				transform: translateY(-3px);
+				box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+			}
+			.pcard[hidden] { display: none; }
+			.pcard-top {
+				position: relative;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				border-radius: 8px;
+				height: 104px;
 				color: #fff;
+				text-decoration: none;
+			}
+			.pcard-abbr {
 				font-family: 'Bebas Neue', sans-serif;
-				font-size: 1.4rem;
-				letter-spacing: 0.04em;
+				font-size: 2.1rem;
+				letter-spacing: 0.05em;
 			}
-			.product-body { min-width: 0; }
-			.product-body h3 {
-				margin: 0 0 0.4rem;
-				font-size: 1.05rem;
-				line-height: 1.3;
+			.pcard-badge {
+				position: absolute;
+				top: 10px;
+				left: 10px;
+				font-size: 0.66rem;
+				font-weight: 800;
+				letter-spacing: 0.02em;
+				text-transform: uppercase;
 				color: #111;
+				background: var(--lime, #afcc00);
+				padding: 0.32em 0.6em;
+				border-radius: 6px;
 			}
-			.product-audience {
-				margin: 0 0 0.75rem;
-				font-size: 0.88rem;
-				line-height: 1.45;
-				color: #555;
+			.pcard-body { padding: 0.9rem 1rem 0.4rem; flex: 1; }
+			.pcard-group {
+				font-size: 0.66rem;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.06em;
+				color: #aaa;
 			}
-			.product-cta { font-weight: 600; color: var(--pink, #ff4d8f); font-size: 0.88rem; }
+			.pcard-name {
+				font-size: 1.02rem;
+				line-height: 1.25;
+				margin: 0.25rem 0 0.45rem;
+			}
+			.pcard-name a { color: #111; text-decoration: none; }
+			.pcard-name a:hover { color: var(--pink, #ff4d8f); }
+			.pcard-benefit { margin: 0; font-size: 0.85rem; line-height: 1.45; color: #666; }
+			.pcard-foot { padding: 0.4rem 1rem 1rem; }
+			.pcard-cta {
+				display: block;
+				text-align: center;
+				background: #111;
+				color: var(--lime, #afcc00);
+				font-size: 0.78rem;
+				font-weight: 700;
+				letter-spacing: 0.04em;
+				text-transform: uppercase;
+				text-decoration: none;
+				padding: 0.7em 1em;
+				border-radius: 8px;
+				transition: background 0.15s ease, color 0.15s ease;
+			}
+			.pcard-cta:hover { background: #9E2B4F; color: #fff; }
 
-			.catalog-note {
-				margin-top: 1rem;
-				padding: 1.25rem 1.5rem;
-				background: var(--sand, #f4ebd9);
-				border-radius: 12px;
-				font-size: 0.95rem;
-				line-height: 1.55;
-				color: #444;
-			}
-			.catalog-note a { color: var(--pink, #ff4d8f); font-weight: 600; }
+			.market-empty { text-align: center; color: #888; padding: 3rem 0; }
 
-			@media (max-width: 720px) {
-				.group-grid { grid-template-columns: 1fr; }
-				.product-card { grid-template-columns: 64px 1fr; gap: 1rem; }
-				.product-visual { font-size: 1.1rem; }
+			@media (max-width: 640px) {
+				.market-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
+				.pcard-top { height: 84px; }
+				.pcard-abbr { font-size: 1.6rem; }
+				.market-toolbar { position: static; }
 			}
 		</style>
 	</body>
