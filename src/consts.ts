@@ -17,6 +17,7 @@ export const NAV_LINKS = [
 	{ href: '/category/egais/', label: 'ЕГАИС' },
 	{ href: '/category/zakonodatelstvo/', label: 'Законодательство' },
 	{ href: '/instrumenty/', label: 'Инструменты' },
+	{ href: '/produkty/', label: 'Сервисы' },
 	{ href: '/slovar/', label: 'Словарь' },
 	{ href: '/about/', label: 'О проекте' },
 	{ href: '/search/', label: 'Поиск' },
