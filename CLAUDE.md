@@ -39,6 +39,7 @@
 | `docs/editorial-policy.md` | Редполитика, классы решений |
 | `docs/content-formats-roadmap.md` | Roadmap интерактивных форматов |
 | `docs/blocks-roadmap.md` | Roadmap блоков сайта: текущие + отобранные из лабораторных прототипов |
+| `docs/cpa-storefront-roadmap.md` | Roadmap витрины продуктов Контура: лид-формы с тегом, раздел `/produkty/`, бандлы, фаза заявок |
 
 ## Структура файлов
 
