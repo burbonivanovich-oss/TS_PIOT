@@ -1,0 +1,70 @@
+---
+// Блок «Недавно смотрели» (localStorage). На странице товара передайте
+// текущий товар через `record` — он запишется в историю и исключится из
+// списка. На витрине — без record, просто показываем историю.
+interface RecentItem { slug: string; name: string; img?: string; price: number | null; priceLabel: string; cat?: string }
+interface Props { record?: RecentItem }
+const { record } = Astro.props;
+---
+
+<section class="recent" data-recent hidden data-record={record ? JSON.stringify(record) : undefined}>
+	<h2>Недавно смотрели</h2>
+	<div class="recent-grid" data-recent-grid></div>
+</section>
+
+<script>
+	const KEY = 'kontur-recent';
+	const sec = document.querySelector<HTMLElement>('[data-recent]');
+	if (sec) {
+		type R = { slug: string; name: string; img?: string; priceLabel: string };
+		let list: R[] = [];
+		try { list = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch {}
+
+		const rec = sec.dataset.record;
+		if (rec) {
+			try {
+				const cur = JSON.parse(rec) as R;
+				list = [cur, ...list.filter(i => i.slug !== cur.slug)].slice(0, 12);
+				localStorage.setItem(KEY, JSON.stringify(list));
+			} catch {}
+		}
+
+		// Текущий товар не показываем в его же блоке.
+		const curSlug = rec ? (JSON.parse(rec) as R).slug : null;
+		const show = list.filter(i => i.slug !== curSlug).slice(0, 6);
+		const grid = sec.querySelector('[data-recent-grid]') as HTMLElement;
+		if (show.length) {
+			grid.innerHTML = show.map(i => `
+				<a class="recent-card" href="/produkty/tovar/${i.slug}/">
+					<div class="recent-img">${i.img ? `<img src="${i.img}" alt="${i.name}" loading="lazy">` : `<span class="recent-fb">${(i.name || '').slice(0, 2).toUpperCase()}</span>`}</div>
+					<div class="recent-name">${i.name}</div>
+					<div class="recent-price">${i.priceLabel}</div>
+				</a>`).join('');
+			sec.hidden = false;
+			grid.querySelectorAll('img').forEach(img => img.addEventListener('error', () => {
+				const w = img.parentElement!;
+				if (!w.querySelector('.recent-fb')) {
+					const fb = document.createElement('span');
+					fb.className = 'recent-fb';
+					fb.textContent = (img.alt || '').slice(0, 2).toUpperCase();
+					w.appendChild(fb);
+				}
+				img.style.display = 'none';
+			}));
+		}
+	}
+</script>
+
+<style>
+	.recent { max-width: 1180px; margin: 2.5rem auto 0; padding: 0 1rem; }
+	.recent[hidden] { display: none; }
+	.recent h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; text-transform: uppercase; letter-spacing: 0.02em; color: #11141a; margin: 0 0 1rem; }
+	.recent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 1rem; }
+	:global(.recent-card) { display: block; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 0.8rem; text-decoration: none; transition: box-shadow 0.15s ease, transform 0.15s ease; }
+	:global(.recent-card:hover) { box-shadow: 0 10px 24px rgba(0,0,0,0.1); transform: translateY(-2px); }
+	:global(.recent-img) { height: 110px; background: #f4f5f7; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.6rem; padding: 0.6rem; }
+	:global(.recent-img img) { max-width: 100%; max-height: 100%; object-fit: contain; }
+	:global(.recent-fb) { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: #b6bcc8; }
+	:global(.recent-name) { font-size: 0.84rem; line-height: 1.3; color: #11141a; margin-bottom: 0.3rem; }
+	:global(.recent-price) { font-size: 0.92rem; font-weight: 800; color: #11141a; }
+</style>

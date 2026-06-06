@@ -5,6 +5,7 @@ import Header from '../../../components/Header.astro';
 import { u } from '../../../utils/url';
 import { SHOP_SECTIONS, PRICE_DATE, type ShopItem, type ShopSection } from '../../../data/shop-catalog';
 import { longDescription, characteristics } from '../../../data/shop-specs';
+import RecentViewed from '../../../components/RecentViewed.astro';
 
 export function getStaticPaths() {
 	const seen = new Set<string>();
@@ -205,6 +206,9 @@ const description = item.desc?.slice(0, 160) || item.name;
 							<a class="pdp-buy" href={u('/podbor/')}>Оставить заявку</a>
 						)}
 						<a class="pdp-consult" href={u('/podbor/')}>Получить консультацию</a>
+						{item.price != null && (
+							<button class="pdp-quick" data-quick data-id={item.id} data-name={item.name}>Купить в 1 клик</button>
+						)}
 					</div>
 
 					<ul class="pdp-adv">
@@ -259,6 +263,8 @@ const description = item.desc?.slice(0, 160) || item.name;
 					</div>
 				</section>
 			)}
+
+			<RecentViewed record={{ slug: item.slug!, name: item.name, img: item.img, price: item.price, priceLabel: item.priceLabel, cat: item.cat }} />
 
 			<p class="pdp-back"><a href={u('/produkty/')}>← Вернуться в магазин</a></p>
 		</main>
@@ -470,6 +476,7 @@ const description = item.desc?.slice(0, 160) || item.name;
 			.pdp-buy.kit:hover { background: #00b085; }
 			.pdp-consult { flex: 1; min-width: 200px; text-align: center; text-decoration: none; border: 1.5px solid rgba(0,0,0,0.2); color: #11141a; font-size: 0.9rem; font-weight: 700; padding: 1em 1.6em; border-radius: 10px; transition: all 0.15s ease; }
 			.pdp-consult:hover { border-color: #11141a; }
+			.pdp-quick { flex-basis: 100%; text-align: center; border: none; cursor: pointer; background: none; color: var(--pink, #ff4d8f); font-size: 0.85rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; padding: 0.2em; }
 
 			.pdp-adv { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
 			.pdp-adv li { font-size: 0.85rem; color: #333; display: flex; gap: 0.55rem; align-items: baseline; }

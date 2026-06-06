@@ -4,6 +4,7 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { u } from '../../utils/url';
 import { SHOP_SECTIONS } from '../../data/shop-catalog';
+import RecentViewed from '../../components/RecentViewed.astro';
 
 const title = 'Магазин Контура — кассы, ФН, ОФД, ЭДО и сервисы';
 const description =
@@ -179,6 +180,9 @@ const advantages = [
 													!detail && <a class="b-detail" href={u('/podbor/')}>Оставить заявку</a>
 												)}
 											</div>
+											{it.price != null && (
+												<button class="card-quick" data-quick data-id={it.id} data-name={it.name}>Купить в 1 клик</button>
+											)}
 										</div>
 									</div>
 								</article>
@@ -204,6 +208,7 @@ const advantages = [
 					</div>
 				</div>
 			</section>
+			<RecentViewed />
 		</main>
 
 		<Footer />
@@ -452,6 +457,7 @@ const advantages = [
 				white-space: nowrap; border-bottom: 1.5px solid var(--pink, #ff4d8f); padding-bottom: 1px;
 			}
 			.b-detail:hover { color: var(--pink, #ff4d8f); }
+			.card-quick { display: block; width: 100%; margin-top: 0.5rem; background: none; border: none; cursor: pointer; color: var(--pink, #ff4d8f); font-size: 0.76rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; padding: 0; text-align: center; }
 
 			/* CTA band */
 			.shop-cta { background: #11141a; color: #fff; }

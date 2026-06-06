@@ -1,0 +1,98 @@
+---
+// Глобальное окно «Купить в 1 клик» — мини-заявка на один товар.
+// Подключается в Footer, открывается кнопками [data-quick] на карточках
+// и страницах товаров. Оплаты/отправки нет (статика, CPA): заявка —
+// имитация, менеджер Контура связывается. Цель Метрики: quick-order.
+---
+
+<div class="qo-overlay" data-qo-overlay hidden>
+	<div class="qo" role="dialog" aria-label="Купить в 1 клик" aria-modal="true">
+		<button class="qo-close" data-qo-close aria-label="Закрыть">✕</button>
+		<div class="qo-form" data-qo-form>
+			<div class="qo-h">Купить в 1 клик</div>
+			<p class="qo-prod" data-qo-prod></p>
+			<label class="qo-field">
+				Телефон
+				<input type="tel" data-qo-phone placeholder="+7 ___ ___-__-__" autocomplete="tel" />
+			</label>
+			<label class="qo-field">
+				Имя <span>(необязательно)</span>
+				<input type="text" data-qo-name placeholder="Как к вам обращаться" autocomplete="name" />
+			</label>
+			<button class="qo-submit" data-qo-submit>Отправить заявку</button>
+			<p class="qo-err" data-qo-err hidden>Укажите телефон для связи.</p>
+			<p class="qo-note">Нажимая кнопку, вы оставляете заявку. Оплата и договор — на стороне Контура, менеджер перезвонит и подтвердит состав.</p>
+		</div>
+		<div class="qo-done" data-qo-done hidden>
+			<div class="qo-done-ic">✓</div>
+			<strong>Заявка отправлена</strong>
+			<p>Менеджер Контура перезвонит, подтвердит наличие и оформит заказ с регистрацией в ФНС.</p>
+			<button class="qo-done-btn" data-qo-close>Готово</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	const overlay = document.querySelector<HTMLElement>('[data-qo-overlay]');
+	if (overlay) {
+		const prodEl = overlay.querySelector('[data-qo-prod]') as HTMLElement;
+		const phoneEl = overlay.querySelector('[data-qo-phone]') as HTMLInputElement;
+		const nameEl = overlay.querySelector('[data-qo-name]') as HTMLInputElement;
+		const errEl = overlay.querySelector('[data-qo-err]') as HTMLElement;
+		const formEl = overlay.querySelector('[data-qo-form]') as HTMLElement;
+		const doneEl = overlay.querySelector('[data-qo-done]') as HTMLElement;
+		let current = '';
+
+		const open = (id: string, name: string) => {
+			current = id;
+			prodEl.textContent = name;
+			errEl.hidden = true;
+			formEl.hidden = false;
+			doneEl.hidden = true;
+			phoneEl.value = '';
+			nameEl.value = '';
+			overlay.hidden = false;
+			document.body.style.overflow = 'hidden';
+			setTimeout(() => phoneEl.focus(), 50);
+		};
+		const close = () => { overlay.hidden = true; document.body.style.overflow = ''; };
+
+		document.addEventListener('click', e => {
+			const t = e.target as HTMLElement;
+			const q = t.closest('[data-quick]') as HTMLElement | null;
+			if (q) { e.preventDefault(); open(q.dataset.id!, q.dataset.name!); return; }
+			if (t.closest('[data-qo-close]') || t === overlay) { close(); return; }
+			if (t.closest('[data-qo-submit]')) {
+				const digits = (phoneEl.value.match(/\d/g) || []).length;
+				if (digits < 10) { errEl.hidden = false; phoneEl.focus(); return; }
+				const ym = (window as any).ym;
+				if (ym) ym(109130279, 'reachGoal', 'quick-order', { product: current });
+				formEl.hidden = true;
+				doneEl.hidden = false;
+			}
+		});
+		document.addEventListener('keydown', e => { if (e.key === 'Escape' && !overlay.hidden) close(); });
+	}
+</script>
+
+<style>
+	.qo-overlay { position: fixed; inset: 0; z-index: 80; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; padding: 1rem; }
+	.qo-overlay[hidden] { display: none; }
+	.qo { position: relative; background: #fff; width: 100%; max-width: 400px; border-radius: 16px; padding: 1.6rem; box-shadow: 0 24px 60px rgba(0,0,0,0.25); }
+	.qo-close { position: absolute; top: 12px; right: 14px; border: none; background: none; font-size: 1.1rem; color: #999; cursor: pointer; }
+	.qo-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; text-transform: uppercase; letter-spacing: 0.02em; color: #11141a; margin-bottom: 0.3rem; }
+	.qo-prod { font-size: 0.9rem; color: #555; margin: 0 0 1rem; }
+	.qo-field { display: block; font-size: 0.78rem; color: #888; font-weight: 600; margin-bottom: 0.8rem; }
+	.qo-field span { font-weight: 400; color: #aaa; }
+	.qo-field input { display: block; width: 100%; margin-top: 0.3rem; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 9px; padding: 0.7em 0.9em; font-size: 0.95rem; outline: none; box-sizing: border-box; }
+	.qo-field input:focus { border-color: #11141a; }
+	.qo-submit { width: 100%; border: none; cursor: pointer; background: #00C896; color: #fff; font-size: 0.9rem; font-weight: 700; padding: 0.9em 1em; border-radius: 9px; transition: background 0.15s ease; }
+	.qo-submit:hover { background: #00b085; }
+	.qo-err { color: #c00; font-size: 0.8rem; margin: 0.6rem 0 0; }
+	.qo-note { font-size: 0.72rem; color: #999; line-height: 1.45; margin: 0.9rem 0 0; }
+	.qo-done { text-align: center; padding: 1rem 0.5rem; }
+	.qo-done-ic { width: 54px; height: 54px; border-radius: 999px; background: var(--lime, #afcc00); color: #11141a; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1rem; }
+	.qo-done strong { font-size: 1.25rem; display: block; margin-bottom: 0.5rem; }
+	.qo-done p { color: #666; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.2rem; }
+	.qo-done-btn { border: none; cursor: pointer; background: #11141a; color: #fff; font-size: 0.82rem; font-weight: 700; padding: 0.7em 1.6em; border-radius: 8px; }
+</style>
