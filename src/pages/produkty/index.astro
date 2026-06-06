@@ -68,10 +68,21 @@ const advantages = [
 		<Header />
 
 		<script type="application/ld+json" set:html={JSON.stringify(itemListLd)} />
+		<script type="application/ld+json" set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'BreadcrumbList',
+			itemListElement: [
+				{ '@type': 'ListItem', position: 1, name: 'Главная', item: new URL('/', SITE).href },
+				{ '@type': 'ListItem', position: 2, name: 'Магазин', item: new URL('/produkty/', SITE).href },
+			],
+		})} />
 
 		<main class="shop">
 			<section class="shop-hero">
 				<div class="shop-hero-in">
+					<nav class="shop-crumbs" aria-label="Хлебные крошки">
+						<a href={u('/')}>Главная</a><span>/</span><span>Магазин</span>
+					</nav>
 					<p class="shop-eyebrow">Магазин для бизнеса</p>
 					<h1>Кассы, ФН, ОФД, ЭДО и сервисы Контура</h1>
 					<p class="shop-lead">
@@ -182,6 +193,9 @@ const advantages = [
 											</div>
 											{it.price != null && (
 												<button class="card-quick" data-quick data-id={it.id} data-name={it.name}>Купить в 1 клик</button>
+											)}
+											{it.slug && it.price != null && (
+												<button class="card-compare" data-compare data-id={it.id} data-slug={it.slug} data-name={it.name} aria-pressed="false"><span data-compare-label>Сравнить</span></button>
 											)}
 										</div>
 									</div>
@@ -318,6 +332,9 @@ const advantages = [
 			/* Hero */
 			.shop-hero { background: #11141a; color: #fff; }
 			.shop-hero-in { max-width: 1180px; margin: 0 auto; padding: 2.6rem 1rem 2rem; }
+			.shop-crumbs { font-size: 0.78rem; color: #9aa1b1; margin-bottom: 1rem; display: flex; gap: 0.4rem; }
+			.shop-crumbs a { color: #9aa1b1; text-decoration: none; }
+			.shop-crumbs a:hover { color: #fff; }
 			.shop-eyebrow {
 				font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em;
 				color: var(--lime, #afcc00); font-weight: 700; margin: 0 0 0.5rem;
@@ -458,6 +475,9 @@ const advantages = [
 			}
 			.b-detail:hover { color: var(--pink, #ff4d8f); }
 			.card-quick { display: block; width: 100%; margin-top: 0.5rem; background: none; border: none; cursor: pointer; color: var(--pink, #ff4d8f); font-size: 0.76rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; padding: 0; text-align: center; }
+			.card-compare { display: block; width: 100%; margin-top: 0.35rem; background: none; border: 1px solid rgba(0,0,0,0.15); cursor: pointer; color: #555; font-size: 0.74rem; font-weight: 600; border-radius: 7px; padding: 0.4em; text-align: center; transition: all 0.12s ease; }
+			.card-compare:hover { border-color: #11141a; color: #11141a; }
+			.card-compare.is-active { background: #11141a; color: #fff; border-color: #11141a; }
 
 			/* CTA band */
 			.shop-cta { background: #11141a; color: #fff; }

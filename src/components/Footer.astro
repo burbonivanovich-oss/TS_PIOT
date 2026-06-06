@@ -3,11 +3,13 @@ import { SITE_TITLE, NAV_LINKS } from '../consts';
 import { u } from '../utils/url';
 import CartDrawer from './CartDrawer.astro';
 import QuickOrder from './QuickOrder.astro';
+import CompareBar from './CompareBar.astro';
 const today = new Date();
 ---
 
 <CartDrawer />
 <QuickOrder />
+<CompareBar />
 
 <footer class="site-footer">
 	<div class="footer-inner">

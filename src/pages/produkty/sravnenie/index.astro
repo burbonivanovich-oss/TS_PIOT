@@ -1,0 +1,150 @@
+---
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import Header from '../../../components/Header.astro';
+import { u } from '../../../utils/url';
+import { SHOP_SECTIONS } from '../../../data/shop-catalog';
+import { characteristics } from '../../../data/shop-specs';
+
+const title = 'Сравнение товаров — Магазин Контура';
+const description = 'Сравните выбранные кассы, фискальные накопители и оборудование по характеристикам и цене.';
+
+// Индекс товаров для клиентского сравнения (id → данные + характеристики).
+const SHOP_INDEX: Record<string, unknown> = {};
+for (const sec of SHOP_SECTIONS) {
+	for (const it of sec.items) {
+		if (!it.slug || it.price == null) continue;
+		SHOP_INDEX[it.id] = {
+			id: it.id,
+			slug: it.slug,
+			name: it.name,
+			img: it.img ?? null,
+			priceLabel: it.priceLabel,
+			price: it.price,
+			specs: characteristics(it, sec),
+		};
+	}
+}
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+
+		<script type="application/json" data-shop-index set:html={JSON.stringify(SHOP_INDEX)} />
+
+		<main class="cmp">
+			<nav class="crumbs" aria-label="Хлебные крошки">
+				<a href={u('/produkty/')}>Магазин</a><span>/</span><span>Сравнение</span>
+			</nav>
+			<h1>Сравнение товаров</h1>
+
+			<div class="cmp-empty" data-cmp-empty hidden>
+				<p>Вы пока не добавили товары к сравнению.</p>
+				<a class="cmp-empty-btn" href={u('/produkty/')}>Перейти в каталог →</a>
+			</div>
+
+			<div class="cmp-scroll" data-cmp-table hidden></div>
+		</main>
+
+		<Footer />
+
+		<script>
+			const idx = JSON.parse(document.querySelector('[data-shop-index]')?.textContent || '{}');
+			const KEY = 'kontur-compare';
+			const root = document.querySelector('.cmp') as HTMLElement;
+			const emptyEl = document.querySelector('[data-cmp-empty]') as HTMLElement;
+			const tableEl = document.querySelector('[data-cmp-table]') as HTMLElement;
+			const base = (location.pathname.match(/^(.*)\/produkty\//)?.[1]) || '';
+			const esc = (s: string) => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+
+			function read(): { id: string }[] {
+				try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; }
+			}
+
+			function render() {
+				const list = read().map(i => idx[i.id]).filter(Boolean);
+				if (!list.length) {
+					emptyEl.hidden = false;
+					tableEl.hidden = true;
+					return;
+				}
+				emptyEl.hidden = true;
+				tableEl.hidden = false;
+
+				// Порядок строк-характеристик: объединяем метки в порядке появления.
+				const labels: string[] = [];
+				list.forEach((p: any) => p.specs.forEach((row: [string, string]) => {
+					if (!labels.includes(row[0])) labels.push(row[0]);
+				}));
+
+				const head = `<tr><th class="cmp-corner"></th>${list.map((p: any) => `
+					<th class="cmp-prod">
+						<button class="cmp-remove" data-cmp-remove="${p.id}" aria-label="Убрать">✕</button>
+						<a class="cmp-prod-img" href="${base}/produkty/tovar/${p.slug}/">${p.img ? `<img src="${esc(p.img)}" alt="${esc(p.name)}">` : `<span class="cmp-fb">${esc(p.name.slice(0,2).toUpperCase())}</span>`}</a>
+						<a class="cmp-prod-name" href="${base}/produkty/tovar/${p.slug}/">${esc(p.name)}</a>
+						<div class="cmp-prod-price">${esc(p.priceLabel)}</div>
+						<div class="cmp-prod-act">
+							<button class="cmp-buy" data-add data-id="${p.id}" data-name="${esc(p.name)}" data-price="${p.price}">В корзину</button>
+							<button class="cmp-1click" data-quick data-id="${p.id}" data-name="${esc(p.name)}">Купить в 1 клик</button>
+						</div>
+					</th>`).join('')}</tr>`;
+
+				const rows = labels.map(label => {
+					const cells = list.map((p: any) => {
+						const found = p.specs.find((r: [string, string]) => r[0] === label);
+						return `<td>${found ? esc(found[1]) : '—'}</td>`;
+					}).join('');
+					return `<tr><th>${esc(label)}</th>${cells}</tr>`;
+				}).join('');
+
+				tableEl.innerHTML = `<table class="cmp-table"><thead>${head}</thead><tbody>${rows}</tbody></table>`;
+			}
+
+			document.addEventListener('click', e => {
+				const r = (e.target as HTMLElement).closest('[data-cmp-remove]') as HTMLElement | null;
+				if (r) {
+					const list = read().filter(i => i.id !== r.dataset.cmpRemove);
+					localStorage.setItem(KEY, JSON.stringify(list));
+					window.dispatchEvent(new Event('kontur-compare-changed'));
+					render();
+				}
+			});
+			window.addEventListener('kontur-compare-changed', render);
+			render();
+		</script>
+
+		<style>
+			.cmp { max-width: 1180px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+			.crumbs { font-size: 0.8rem; color: #888; margin-bottom: 1rem; display: flex; gap: 0.4rem; }
+			.crumbs a { color: #888; text-decoration: none; }
+			.crumbs a:hover { color: #111; }
+			.cmp h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3rem); text-transform: uppercase; letter-spacing: 0.02em; margin: 0 0 1.5rem; color: #11141a; }
+			.cmp-empty { text-align: center; padding: 3rem 0; color: #888; }
+			.cmp-empty-btn { display: inline-block; margin-top: 1rem; background: #11141a; color: var(--lime, #afcc00); text-decoration: none; font-weight: 700; padding: 0.8em 1.6em; border-radius: 9px; }
+			.cmp-scroll { overflow-x: auto; }
+			.cmp-table { border-collapse: collapse; min-width: 100%; }
+			.cmp-table th, .cmp-table td { border: 1px solid rgba(0,0,0,0.08); padding: 0.8rem; text-align: left; vertical-align: top; font-size: 0.86rem; }
+			.cmp-table tbody th { background: #f7f7f9; color: #555; font-weight: 600; width: 200px; position: sticky; left: 0; }
+			.cmp-table tbody td { color: #11141a; min-width: 200px; }
+			.cmp-corner { background: #fff; position: sticky; left: 0; z-index: 1; }
+			.cmp-prod { min-width: 220px; vertical-align: top; position: relative; }
+			.cmp-remove { position: absolute; top: 6px; right: 6px; border: none; background: none; cursor: pointer; color: #bbb; font-size: 0.9rem; }
+			.cmp-remove:hover { color: #c00; }
+			.cmp-prod-img { display: flex; align-items: center; justify-content: center; height: 110px; background: #f4f5f7; border-radius: 8px; margin-bottom: 0.6rem; padding: 0.5rem; }
+			.cmp-prod-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+			.cmp-fb { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: #b6bcc8; }
+			.cmp-prod-name { display: block; color: #11141a; text-decoration: none; font-weight: 600; line-height: 1.3; margin-bottom: 0.4rem; }
+			.cmp-prod-name:hover { color: var(--pink, #ff4d8f); }
+			.cmp-prod-price { font-size: 1.05rem; font-weight: 800; color: #11141a; margin-bottom: 0.6rem; }
+			.cmp-prod-act { display: flex; flex-direction: column; gap: 0.4rem; }
+			.cmp-buy { border: none; cursor: pointer; background: #11141a; color: #fff; font-size: 0.78rem; font-weight: 700; padding: 0.6em; border-radius: 7px; }
+			.cmp-buy:hover { background: #000; }
+			.cmp-1click { border: none; cursor: pointer; background: none; color: var(--pink, #ff4d8f); font-size: 0.76rem; font-weight: 700; text-decoration: underline; padding: 0; }
+		</style>
+	</body>
+</html>

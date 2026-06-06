@@ -209,6 +209,9 @@ const description = item.desc?.slice(0, 160) || item.name;
 						{item.price != null && (
 							<button class="pdp-quick" data-quick data-id={item.id} data-name={item.name}>Купить в 1 клик</button>
 						)}
+						{item.price != null && item.slug && (
+							<button class="pdp-quick" data-compare data-id={item.id} data-slug={item.slug} data-name={item.name} aria-pressed="false"><span data-compare-label>Сравнить</span></button>
+						)}
 					</div>
 
 					<ul class="pdp-adv">

@@ -1,0 +1,78 @@
+---
+// Глобальная панель сравнения товаров. Подключается в Footer.
+// Набор для сравнения хранится в localStorage (kontur-compare).
+// Кнопки [data-compare] на карточках и страницах товаров добавляют/
+// убирают товар; панель ведёт на /produkty/sravnenie/.
+import { u } from '../utils/url';
+---
+
+<div class="cmpbar" data-cmpbar hidden>
+	<div class="cmpbar-in">
+		<span class="cmpbar-label">К сравнению: <strong data-cmp-count>0</strong></span>
+		<a class="cmpbar-go" href={u('/produkty/sravnenie/')}>Сравнить →</a>
+		<button class="cmpbar-clear" data-cmp-clear>Очистить</button>
+	</div>
+</div>
+
+<script>
+	type C = { id: string; slug: string; name: string };
+	const KEY = 'kontur-compare';
+	const bar = document.querySelector<HTMLElement>('[data-cmpbar]');
+	const read = (): C[] => { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; } };
+	const write = (l: C[]) => localStorage.setItem(KEY, JSON.stringify(l));
+
+	function refresh() {
+		const list = read();
+		const ids = new Set(list.map(i => i.id));
+		if (bar) {
+			bar.hidden = list.length === 0;
+			const c = bar.querySelector('[data-cmp-count]');
+			if (c) c.textContent = String(list.length);
+		}
+		document.querySelectorAll<HTMLElement>('[data-compare]').forEach(btn => {
+			const on = ids.has(btn.dataset.id!);
+			btn.classList.toggle('is-active', on);
+			btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+			const lbl = btn.querySelector('[data-compare-label]');
+			if (lbl) lbl.textContent = on ? 'В сравнении' : 'Сравнить';
+		});
+	}
+
+	document.addEventListener('click', e => {
+		const t = e.target as HTMLElement;
+		const btn = t.closest('[data-compare]') as HTMLElement | null;
+		if (btn) {
+			e.preventDefault();
+			const list = read();
+			const id = btn.dataset.id!;
+			const idx = list.findIndex(i => i.id === id);
+			if (idx >= 0) list.splice(idx, 1);
+			else list.push({ id, slug: btn.dataset.slug!, name: btn.dataset.name! });
+			write(list);
+			refresh();
+			window.dispatchEvent(new Event('kontur-compare-changed'));
+			return;
+		}
+		if (t.closest('[data-cmp-clear]')) {
+			write([]);
+			refresh();
+			window.dispatchEvent(new Event('kontur-compare-changed'));
+		}
+	});
+
+	window.addEventListener('storage', refresh);
+	window.addEventListener('kontur-compare-changed', refresh);
+	refresh();
+</script>
+
+<style>
+	.cmpbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 65; background: #11141a; color: #fff; box-shadow: 0 -8px 24px rgba(0,0,0,0.2); }
+	.cmpbar[hidden] { display: none; }
+	.cmpbar-in { max-width: 1180px; margin: 0 auto; padding: 0.7rem 1rem; display: flex; align-items: center; gap: 1rem; }
+	.cmpbar-label { font-size: 0.9rem; }
+	.cmpbar-label strong { color: var(--lime, #afcc00); }
+	.cmpbar-go { margin-left: auto; background: var(--lime, #afcc00); color: #11141a; text-decoration: none; font-size: 0.85rem; font-weight: 700; padding: 0.6em 1.2em; border-radius: 8px; }
+	.cmpbar-go:hover { background: #fff; }
+	.cmpbar-clear { background: none; border: none; color: #c4c9d4; cursor: pointer; font-size: 0.82rem; text-decoration: underline; }
+	.cmpbar-clear:hover { color: #fff; }
+</style>
