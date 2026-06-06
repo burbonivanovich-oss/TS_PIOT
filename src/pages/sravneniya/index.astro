@@ -8,6 +8,16 @@ import { COMPARISONS } from '../../data/comparisons';
 const title = 'Сравнения сервисов Контура';
 const description =
 	'Сравните сервисы Контура по задачам: касса и ОФД, ЭДО и кадры. Честные таблицы — что закрывает каждый продукт, чтобы выбрать без лишних подключений.';
+const SITE = Astro.site ?? new URL('https://etiketka-media.ru');
+const breadcrumbLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Главная', item: new URL('/', SITE).href },
+		{ '@type': 'ListItem', position: 2, name: 'Магазин', item: new URL('/produkty/', SITE).href },
+		{ '@type': 'ListItem', position: 3, name: 'Сравнения' },
+	],
+};
 ---
 
 <!doctype html>
@@ -17,9 +27,13 @@ const description =
 	</head>
 	<body>
 		<Header />
+		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
 
 		<main class="cmp-index">
 			<header class="cmp-hero">
+				<nav class="crumbs" aria-label="Хлебные крошки">
+					<a href={u('/produkty/')}>Магазин</a><span>/</span><span>Сравнения</span>
+				</nav>
 				<p class="cmp-eyebrow">Сравнения</p>
 				<h1>Сравните сервисы Контура</h1>
 				<p class="cmp-lead">
@@ -58,6 +72,9 @@ const description =
 				padding: 2.5rem 1rem 4rem;
 			}
 			.cmp-hero { margin-bottom: 2.5rem; max-width: 760px; }
+			.crumbs { font-size: 0.8rem; color: #888; margin-bottom: 1rem; display: flex; gap: 0.4rem; }
+			.crumbs a { color: #888; text-decoration: none; }
+			.crumbs a:hover { color: #111; }
 			.cmp-eyebrow {
 				font-size: 0.8rem;
 				text-transform: uppercase;

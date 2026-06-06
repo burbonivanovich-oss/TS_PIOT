@@ -29,6 +29,11 @@ import { u } from '../utils/url';
 			const c = bar.querySelector('[data-cmp-count]');
 			if (c) c.textContent = String(list.length);
 		}
+		// Бейдж сравнения в шапке.
+		const hc = document.querySelector<HTMLElement>('[data-header-compare]');
+		const hcc = document.querySelector<HTMLElement>('[data-header-compare-count]');
+		if (hc) hc.hidden = list.length === 0;
+		if (hcc) hcc.textContent = String(list.length);
 		document.querySelectorAll<HTMLElement>('[data-compare]').forEach(btn => {
 			const on = ids.has(btn.dataset.id!);
 			btn.classList.toggle('is-active', on);

@@ -27,6 +27,12 @@ import { u } from '../utils/url';
 			</svg>
 			<span class="header-cart-count" data-header-cart-count>0</span>
 		</a>
+		<a href={`${u('/produkty/')}sravnenie/`} class="header-compare" data-header-compare hidden aria-label="Сравнение">
+			<svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+				<path d="M5 17V7M12 17V4M19 17v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+			</svg>
+			<span class="header-compare-count" data-header-compare-count>0</span>
+		</a>
 		<button class="nav-toggle" aria-label="Открыть меню" aria-controls="primary-nav" aria-expanded="false">
 			<span></span><span></span><span></span>
 		</button>
@@ -144,6 +150,21 @@ import { u } from '../utils/url';
 		min-width: 1.2em;
 		text-align: center;
 	}
+	.header-compare {
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+		color: #111;
+		text-decoration: none;
+		border: 1.5px solid rgba(0,0,0,0.18);
+		padding: 5px 10px;
+		border-radius: 999px;
+		flex-shrink: 0;
+		transition: border-color 0.15s;
+	}
+	.header-compare[hidden] { display: none; }
+	.header-compare:hover { border-color: #111; }
+	.header-compare-count { font-size: 0.78rem; font-weight: 800; min-width: 1em; text-align: center; }
 	.nav-toggle {
 		display: none;
 		background: none;
