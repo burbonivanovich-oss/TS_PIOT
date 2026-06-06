@@ -273,8 +273,9 @@ const advantages = [
 
 			render();
 
-			// Открыть корзину при переходе со страницы товара (/produkty/#cart).
+			// Открыть корзину при переходе со страницы товара / значка в шапке (/produkty/#cart).
 			if (location.hash === '#cart') openCart();
+			window.addEventListener('hashchange', () => { if (location.hash === '#cart') openCart(); });
 
 			// Фолбэк для фото товаров (если изображение с kontur.ru не загрузилось).
 			document.querySelectorAll<HTMLImageElement>('.card-img img').forEach(img => {

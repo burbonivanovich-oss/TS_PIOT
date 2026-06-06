@@ -4,6 +4,7 @@ import Footer from '../../../components/Footer.astro';
 import Header from '../../../components/Header.astro';
 import { u } from '../../../utils/url';
 import { SHOP_SECTIONS, PRICE_DATE, type ShopItem, type ShopSection } from '../../../data/shop-catalog';
+import { longDescription, characteristics } from '../../../data/shop-specs';
 
 export function getStaticPaths() {
 	const seen = new Set<string>();
@@ -44,14 +45,27 @@ const crossSell = (isKassa
 	: section.items.filter(i => i.slug && i.slug !== item.slug)
 ).slice(0, 4);
 
-const specs: [string, string][] = [
-	['Раздел', section.title],
-	['Категория', item.cat || section.eye],
-	['Артикул', item.id],
-	['Наличие', 'В наличии на складе'],
-	['Гарантия', '12 месяцев от производителя'],
-	['Регистрация в ФНС', 'онлайн за 1 день'],
-];
+const descParas = longDescription(item, section);
+const specs = characteristics(item, section);
+
+// JSON-LD Product/Offer для SEO.
+const jsonLd = item.price != null ? {
+	'@context': 'https://schema.org',
+	'@type': 'Product',
+	name: item.name,
+	description: item.desc || item.name,
+	sku: item.id,
+	category: section.title,
+	...(item.img ? { image: [item.img] } : {}),
+	brand: { '@type': 'Brand', name: 'Контур' },
+	offers: {
+		'@type': 'Offer',
+		price: item.price,
+		priceCurrency: 'RUB',
+		availability: 'https://schema.org/InStock',
+		url: new URL(`/produkty/tovar/${item.slug}/`, Astro.site ?? 'https://etiketka-media.ru').href,
+	},
+} : null;
 
 const advantages = [
 	['🚚', 'Доставка по Москве — 48 часов, по России от 3 рабочих дней'],
@@ -71,6 +85,8 @@ const description = item.desc?.slice(0, 160) || item.name;
 	</head>
 	<body>
 		<Header />
+
+		{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
 		<main class="pdp">
 			<nav class="crumbs" aria-label="Хлебные крошки">
@@ -191,12 +207,7 @@ const description = item.desc?.slice(0, 160) || item.name;
 					<button class="tab" data-tab="delivery">Доставка и оплата</button>
 				</div>
 				<div class="tabpane is-active" data-pane="desc">
-					<p>{item.desc}</p>
-					{isKassa && (
-						<p>Касса работает по 54-ФЗ: передаёт чеки в ФНС через ОФД, поддерживает
-						маркировку «Честный знак» и ЕГАИС. Соберите комплект с фискальным
-						накопителем и ОФД выше — Контур зарегистрирует кассу в налоговой за 1 день.</p>
-					)}
+					{descParas.map(t => <p>{t}</p>)}
 				</div>
 				<div class="tabpane" data-pane="specs" hidden>
 					<table class="spectable">
