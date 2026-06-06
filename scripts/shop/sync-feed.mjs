@@ -57,6 +57,7 @@ function parse(html) {
 			const cart = grab(/addToCart\(([^)]*)\)/, blk);
 			items.push({
 				id: cartId(cart) || name.slice(0, 8),
+				slug: grab(/href="\/kontur-feed\/([^"\/]+)\//, blk),
 				name,
 				desc: clean(grab(/class="pcard-desc">([^<]*)</, blk)),
 				img: grab(/<img src="([^"]*)"/, blk),
@@ -74,6 +75,7 @@ function parse(html) {
 			const cart = grab(/addToCart\(([^)]*)\)/, blk);
 			items.push({
 				id: cartId(cart) || name.slice(0, 8),
+				slug: grab(/location\.href='\/kontur-feed\/([^'\/]+)\//, blk),
 				name,
 				desc: clean(grab(/class="kcard-desc">([^<]*)</, blk)),
 				img: grab(/<img src="([^"]*)"/, blk),
@@ -104,6 +106,7 @@ import { CPA_BANNERS, STOREFRONT_PRODUCTS } from './cpa-banners';
 
 export interface ShopItem {
 \tid: string;
+\tslug?: string;
 \tname: string;
 \tdesc: string;
 \timg?: string;

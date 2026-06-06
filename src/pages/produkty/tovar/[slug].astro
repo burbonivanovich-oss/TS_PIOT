@@ -1,0 +1,230 @@
+---
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import Header from '../../../components/Header.astro';
+import { u } from '../../../utils/url';
+import { SHOP_SECTIONS, type ShopItem, type ShopSection } from '../../../data/shop-catalog';
+
+export function getStaticPaths() {
+	const seen = new Set<string>();
+	const paths: { params: { slug: string }; props: { item: ShopItem; section: ShopSection } }[] = [];
+	for (const section of SHOP_SECTIONS) {
+		for (const item of section.items) {
+			if (!item.slug || seen.has(item.slug)) continue;
+			seen.add(item.slug);
+			paths.push({ params: { slug: item.slug }, props: { item, section } });
+		}
+	}
+	return paths;
+}
+
+interface Props { item: ShopItem; section: ShopSection }
+const { item, section } = Astro.props;
+
+const related = section.items.filter(i => i.slug && i.slug !== item.slug).slice(0, 4);
+
+const advantages = [
+	'Доставка по РФ — в Москву за 48 часов',
+	'Гарантия производителя',
+	'Регистрация в ФНС онлайн за 1 день',
+	'Рассрочка 0% до 12 месяцев',
+];
+
+const title = `${item.name} — купить в Контуре`;
+const description = item.desc?.slice(0, 160) || item.name;
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+
+		<main class="pdp">
+			<nav class="crumbs" aria-label="Хлебные крошки">
+				<a href={u('/produkty/')}>Магазин</a>
+				<span>/</span>
+				<a href={`${u('/produkty/')}#sec-${section.id}`}>{section.title}</a>
+				<span>/</span>
+				<span>{item.name}</span>
+			</nav>
+
+			<div class="pdp-top">
+				<div class="pdp-img">
+					{item.badge && <span class="pdp-sale">{item.badge}</span>}
+					{item.img ? (
+						<img src={item.img} alt={item.name} />
+					) : (
+						<span class="pdp-tile" style={`background:${item.visual?.bg ?? '#111'}`}>{item.visual?.abbrev}</span>
+					)}
+				</div>
+
+				<div class="pdp-info">
+					<div class="pdp-cat" style={`color:${section.color}`}>{item.cat || section.eye}</div>
+					<h1>{item.name}</h1>
+
+					<div class="pdp-price">
+						{item.oldLabel && <span class="pdp-old">{item.oldLabel}</span>}
+						<span class="pdp-now">{item.priceLabel}</span>
+					</div>
+
+					{item.price != null ? (
+						<button
+							class={item.kit ? 'pdp-buy kit' : 'pdp-buy'}
+							data-add
+							data-id={item.id}
+							data-name={item.name}
+							data-price={item.price}
+							data-shop={u('/produkty/')}
+						>{item.kit ? 'Купить комплект' : 'В корзину'}</button>
+					) : (
+						<a class="pdp-buy" href={u('/podbor/')}>Оставить заявку</a>
+					)}
+
+					<p class="pdp-desc">{item.desc}</p>
+
+					<ul class="pdp-adv">
+						{advantages.map(a => <li>{a}</li>)}
+					</ul>
+
+					<p class="pdp-note">
+						Оплата и договор — на стороне Контура. После заявки менеджер свяжется,
+						подтвердит состав и оформит регистрацию в ФНС.
+					</p>
+				</div>
+			</div>
+
+			{related.length > 0 && (
+				<section class="pdp-rel">
+					<h2>Из этого же раздела</h2>
+					<div class="rel-grid">
+						{related.map(r => (
+							<a class="rel-card" href={u(`/produkty/tovar/${r.slug}/`)}>
+								<div class="rel-img">
+									{r.img ? <img src={r.img} alt={r.name} loading="lazy" />
+										: <span class="rel-tile" style={`background:${r.visual?.bg ?? '#111'}`}>{r.visual?.abbrev}</span>}
+								</div>
+								<div class="rel-name">{r.name}</div>
+								<div class="rel-price">{r.priceLabel}</div>
+							</a>
+						))}
+					</div>
+				</section>
+			)}
+
+			<p class="pdp-back"><a href={u('/produkty/')}>← Вернуться в магазин</a></p>
+		</main>
+
+		<Footer />
+
+		<script>
+			const KEY = 'kontur-shop-cart';
+			const btn = document.querySelector<HTMLElement>('[data-add]');
+			btn?.addEventListener('click', () => {
+				let cart: Record<string, { name: string; price: number; qty: number }> = {};
+				try { cart = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch {}
+				const id = btn.dataset.id!;
+				cart[id] = cart[id]
+					? { ...cart[id], qty: cart[id].qty + 1 }
+					: { name: btn.dataset.name!, price: Number(btn.dataset.price), qty: 1 };
+				localStorage.setItem(KEY, JSON.stringify(cart));
+				const ym = (window as any).ym;
+				if (ym) ym(109130279, 'reachGoal', 'cart-add', { product: id });
+				location.href = btn.dataset.shop + '#cart';
+			});
+
+			document.querySelectorAll<HTMLImageElement>('.pdp-img img, .rel-img img').forEach(img => {
+				const fail = () => {
+					const wrap = img.parentElement;
+					if (wrap && !wrap.querySelector('.imgfb')) {
+						const fb = document.createElement('span');
+						fb.className = 'imgfb';
+						fb.textContent = (img.alt || 'Контур').slice(0, 2).toUpperCase();
+						wrap.appendChild(fb);
+					}
+					img.style.display = 'none';
+				};
+				if (img.complete && img.naturalWidth === 0) fail();
+				else img.addEventListener('error', fail);
+			});
+		</script>
+
+		<style>
+			.pdp { max-width: 1080px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+			.crumbs { font-size: 0.8rem; color: #888; margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+			.crumbs a { color: #888; text-decoration: none; }
+			.crumbs a:hover { color: #111; }
+
+			.pdp-top { display: grid; grid-template-columns: minmax(0, 460px) 1fr; gap: 2.5rem; align-items: start; }
+			.pdp-img {
+				position: relative; background: #f4f5f7; border-radius: 16px; aspect-ratio: 1;
+				display: flex; align-items: center; justify-content: center; padding: 2rem;
+			}
+			.pdp-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+			.pdp-tile {
+				width: 140px; height: 140px; border-radius: 20px; display: flex; align-items: center;
+				justify-content: center; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem;
+			}
+			.imgfb { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #b6bcc8; }
+			.pdp-sale {
+				position: absolute; top: 14px; left: 14px; font-size: 0.72rem; font-weight: 800;
+				text-transform: uppercase; color: #fff; background: #E5392F; padding: 0.35em 0.7em; border-radius: 7px;
+			}
+
+			.pdp-cat { font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
+			.pdp-info h1 {
+				font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.02;
+				text-transform: uppercase; letter-spacing: 0.01em; margin: 0.3rem 0 1rem; color: #11141a;
+			}
+			.pdp-price { display: flex; align-items: baseline; gap: 0.7rem; margin-bottom: 1.2rem; }
+			.pdp-old { font-size: 1.05rem; color: #aaa; text-decoration: line-through; }
+			.pdp-now { font-size: 1.9rem; font-weight: 800; color: #11141a; }
+			.pdp-buy {
+				display: inline-block; border: none; cursor: pointer; text-decoration: none; text-align: center;
+				background: #11141a; color: #fff; font-size: 0.92rem; font-weight: 700; letter-spacing: 0.02em;
+				padding: 0.9em 2.4em; border-radius: 10px; transition: background 0.15s ease;
+			}
+			.pdp-buy:hover { background: #000; }
+			.pdp-buy.kit { background: #00C896; }
+			.pdp-buy.kit:hover { background: #00b085; }
+			.pdp-desc { margin: 1.5rem 0 1.2rem; font-size: 0.98rem; line-height: 1.6; color: #444; }
+			.pdp-adv { list-style: none; margin: 0 0 1.4rem; padding: 0; display: grid; gap: 0.5rem; }
+			.pdp-adv li { font-size: 0.88rem; color: #333; padding-left: 1.4rem; position: relative; }
+			.pdp-adv li::before { content: '✓'; position: absolute; left: 0; color: var(--lime, #afcc00); font-weight: 700; }
+			.pdp-note { font-size: 0.8rem; color: #888; line-height: 1.5; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 1rem; }
+
+			.pdp-rel { margin-top: 3.5rem; }
+			.pdp-rel h2 {
+				font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; text-transform: uppercase;
+				letter-spacing: 0.02em; margin: 0 0 1rem; color: #11141a;
+			}
+			.rel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
+			.rel-card {
+				display: block; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px;
+				padding: 0.8rem; text-decoration: none; transition: box-shadow 0.15s ease, transform 0.15s ease;
+			}
+			.rel-card:hover { box-shadow: 0 10px 24px rgba(0,0,0,0.1); transform: translateY(-2px); }
+			.rel-img {
+				height: 120px; background: #f4f5f7; border-radius: 8px; display: flex; align-items: center;
+				justify-content: center; margin-bottom: 0.6rem; padding: 0.6rem;
+			}
+			.rel-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+			.rel-tile {
+				width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center;
+				justify-content: center; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem;
+			}
+			.rel-name { font-size: 0.85rem; line-height: 1.3; color: #11141a; margin-bottom: 0.3rem; }
+			.rel-price { font-size: 0.95rem; font-weight: 800; color: #11141a; }
+
+			.pdp-back { margin-top: 2.5rem; }
+			.pdp-back a { color: #11141a; font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--pink, #ff4d8f); }
+
+			@media (max-width: 720px) {
+				.pdp-top { grid-template-columns: 1fr; gap: 1.5rem; }
+				.pdp-img { max-width: 360px; }
+			}
+		</style>
+	</body>
+</html>

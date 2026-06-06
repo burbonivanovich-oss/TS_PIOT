@@ -81,7 +81,9 @@ const advantages = [
 							<h2>{s.title}</h2>
 						</div>
 						<div class="grid">
-							{s.items.map(it => (
+							{s.items.map(it => {
+								const detail = it.href ?? (it.slug ? `/produkty/tovar/${it.slug}/` : null);
+								return (
 								<article class="card">
 									<div class="card-img">
 										{it.badge && <span class="card-sale">{it.badge}</span>}
@@ -93,8 +95,8 @@ const advantages = [
 									</div>
 									<div class="card-body">
 										{it.cat && <div class="card-cat">{it.cat}</div>}
-										{it.href ? (
-											<a class="card-name" href={u(it.href)}>{it.name}</a>
+										{detail ? (
+											<a class="card-name" href={u(detail)}>{it.name}</a>
 										) : (
 											<div class="card-name">{it.name}</div>
 										)}
@@ -105,7 +107,7 @@ const advantages = [
 												<span class="now">{it.priceLabel}</span>
 											</div>
 											<div class="card-btns">
-												{it.href && <a class="b-detail" href={u(it.href)}>Подробнее</a>}
+												{detail && <a class="b-detail" href={u(detail)}>Подробнее</a>}
 												{it.price != null ? (
 													<button
 														class={it.kit ? 'b-kit' : 'b-cart'}
@@ -115,13 +117,14 @@ const advantages = [
 														data-price={it.price}
 													>{it.kit ? 'Купить комплект' : 'В корзину'}</button>
 												) : (
-													!it.href && <a class="b-detail" href={u('/podbor/')}>Оставить заявку</a>
+													!detail && <a class="b-detail" href={u('/podbor/')}>Оставить заявку</a>
 												)}
 											</div>
 										</div>
 									</div>
 								</article>
-							))}
+								);
+							})}
 						</div>
 					</section>
 				))}
@@ -269,6 +272,9 @@ const advantages = [
 			});
 
 			render();
+
+			// Открыть корзину при переходе со страницы товара (/produkty/#cart).
+			if (location.hash === '#cart') openCart();
 
 			// Фолбэк для фото товаров (если изображение с kontur.ru не загрузилось).
 			document.querySelectorAll<HTMLImageElement>('.card-img img').forEach(img => {
