@@ -43,7 +43,9 @@
 		const doneEl = overlay.querySelector('[data-qo-done]') as HTMLElement;
 		let current = '';
 
+		let lastFocus: HTMLElement | null = null;
 		const open = (id: string, name: string) => {
+			lastFocus = document.activeElement as HTMLElement;
 			current = id;
 			prodEl.textContent = name;
 			errEl.hidden = true;
@@ -55,7 +57,7 @@
 			document.body.style.overflow = 'hidden';
 			setTimeout(() => phoneEl.focus(), 50);
 		};
-		const close = () => { overlay.hidden = true; document.body.style.overflow = ''; };
+		const close = () => { overlay.hidden = true; document.body.style.overflow = ''; lastFocus?.focus?.(); };
 
 		document.addEventListener('click', e => {
 			const t = e.target as HTMLElement;

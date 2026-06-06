@@ -71,7 +71,6 @@ export const GET: APIRoute = async () => {
 	// Магазин: витрина, воронка, страницы товаров и сервисов, сравнения.
 	const shopEntries: SitemapEntry[] = [
 		entry('/produkty/', '0.9', 'daily'),
-		entry('/produkty/sravnenie/', '0.4', 'weekly'),
 		entry('/podbor/', '0.6', 'monthly'),
 		entry('/sravneniya/', '0.6', 'monthly'),
 	];

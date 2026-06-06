@@ -74,12 +74,14 @@
 			($('[data-cart-total]') as HTMLElement).textContent = fmt(total);
 		}
 
-		const openCart = () => { overlay.hidden = false; document.body.style.overflow = 'hidden'; };
+		let lastFocus: HTMLElement | null = null;
+		const openCart = () => { lastFocus = document.activeElement as HTMLElement; overlay.hidden = false; document.body.style.overflow = 'hidden'; (overlay.querySelector('[data-cart-close]') as HTMLElement)?.focus(); };
 		const closeCart = () => {
 			overlay.hidden = true;
 			document.body.style.overflow = '';
 			($('[data-cart-done]') as HTMLElement).hidden = true;
 			render();
+			lastFocus?.focus?.();
 		};
 
 		function add(id: string, name: string, price: number) {
