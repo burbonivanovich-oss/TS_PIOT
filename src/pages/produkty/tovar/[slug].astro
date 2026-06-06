@@ -74,6 +74,17 @@ const advantages = [
 	['💳', 'Рассрочка 0% до 12 месяцев'],
 ];
 
+const SITE = Astro.site ?? new URL('https://etiketka-media.ru');
+const breadcrumbLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Магазин', item: new URL('/produkty/', SITE).href },
+		{ '@type': 'ListItem', position: 2, name: section.title, item: new URL(`/produkty/#sec-${section.id}`, SITE).href },
+		{ '@type': 'ListItem', position: 3, name: item.name },
+	],
+};
+
 const title = `${item.name} — купить в Контуре`;
 const description = item.desc?.slice(0, 160) || item.name;
 ---
@@ -87,6 +98,7 @@ const description = item.desc?.slice(0, 160) || item.name;
 		<Header />
 
 		{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
 
 		<main class="pdp">
 			<nav class="crumbs" aria-label="Хлебные крошки">

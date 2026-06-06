@@ -20,6 +20,27 @@ const TAB_LABELS: Record<string, string> = {
 	'servisy': 'Сервисы',
 };
 
+const SITE = Astro.site ?? new URL('https://etiketka-media.ru');
+const allItems = SHOP_SECTIONS.flatMap(s => s.items);
+const itemListLd = {
+	'@context': 'https://schema.org',
+	'@type': 'ItemList',
+	name: 'Каталог Контура',
+	itemListElement: allItems
+		.filter(it => it.slug && it.price != null)
+		.map((it, i) => ({
+			'@type': 'ListItem',
+			position: i + 1,
+			item: {
+				'@type': 'Product',
+				name: it.name,
+				url: new URL(`/produkty/tovar/${it.slug}/`, SITE).href,
+				...(it.img ? { image: it.img } : {}),
+				offers: { '@type': 'Offer', price: it.price, priceCurrency: 'RUB', availability: 'https://schema.org/InStock' },
+			},
+		})),
+};
+
 const advantages = [
 	{ ic: '🚚', t: 'Доставка по РФ', s: 'в Москву за 48 часов' },
 	{ ic: '🛡️', t: 'Гарантия', s: 'от производителя' },
@@ -36,6 +57,8 @@ const advantages = [
 	</head>
 	<body>
 		<Header />
+
+		<script type="application/ld+json" set:html={JSON.stringify(itemListLd)} />
 
 		<main class="shop">
 			<section class="shop-hero">
@@ -73,6 +96,28 @@ const advantages = [
 				</div>
 			</div>
 
+			<div class="shop-filters">
+				<div class="shop-filters-in">
+					<input class="sf-search" type="search" data-search-input placeholder="Поиск по каталогу: касса, сканер, ОФД…" aria-label="Поиск по каталогу" />
+					<label class="sf-field">Цена, ₽
+						<span class="sf-range">
+							<input type="number" data-price-min placeholder="от" min="0" aria-label="Цена от" />
+							<input type="number" data-price-max placeholder="до" min="0" aria-label="Цена до" />
+						</span>
+					</label>
+					<label class="sf-field">Сортировка
+						<select data-sort>
+							<option value="default">по разделам</option>
+							<option value="price-asc">сначала дешёвые</option>
+							<option value="price-desc">сначала дорогие</option>
+							<option value="name">по названию</option>
+						</select>
+					</label>
+					<button class="sf-reset" data-reset hidden>Сбросить</button>
+				</div>
+				<div class="sf-empty" data-empty hidden>Ничего не найдено. Измените запрос или сбросьте фильтры.</div>
+			</div>
+
 			<div class="shop-body">
 				{SHOP_SECTIONS.map(s => (
 					<section class="sec" id={`sec-${s.id}`}>
@@ -84,7 +129,7 @@ const advantages = [
 							{s.items.map(it => {
 								const detail = it.href ?? (it.slug ? `/produkty/tovar/${it.slug}/` : null);
 								return (
-								<article class="card">
+								<article class="card" data-name={it.name} data-price={it.price ?? ''} data-search={`${it.name} ${it.desc} ${it.cat ?? ''}`.toLowerCase()}>
 									<div class="card-img">
 										{it.badge && <span class="card-sale">{it.badge}</span>}
 										{it.img ? (
@@ -292,6 +337,74 @@ const advantages = [
 				if (img.complete && img.naturalWidth === 0) fail();
 				else img.addEventListener('error', fail);
 			});
+
+			// Поиск, сортировка и фильтр по цене.
+			(() => {
+				const searchEl = document.querySelector<HTMLInputElement>('[data-search-input]');
+				const minEl = document.querySelector<HTMLInputElement>('[data-price-min]');
+				const maxEl = document.querySelector<HTMLInputElement>('[data-price-max]');
+				const sortEl = document.querySelector<HTMLSelectElement>('[data-sort]');
+				const resetEl = document.querySelector<HTMLElement>('[data-reset]');
+				const emptyEl = document.querySelector<HTMLElement>('[data-empty]');
+				const sections = Array.from(document.querySelectorAll<HTMLElement>('.shop-body .sec'));
+				if (!sections.length) return;
+				const original = new Map<HTMLElement, HTMLElement[]>();
+				sections.forEach(sec => {
+					const grid = sec.querySelector('.grid') as HTMLElement;
+					original.set(sec, Array.from(grid.querySelectorAll<HTMLElement>('.card')));
+				});
+
+				function apply() {
+					const q = (searchEl?.value || '').trim().toLowerCase();
+					const min = minEl?.value ? Number(minEl.value) : null;
+					const max = maxEl?.value ? Number(maxEl.value) : null;
+					const sort = sortEl?.value || 'default';
+					const active = !!q || min != null || max != null || sort !== 'default';
+					if (resetEl) resetEl.hidden = !active;
+
+					let totalVisible = 0;
+					sections.forEach(sec => {
+						const grid = sec.querySelector('.grid') as HTMLElement;
+						let cards = original.get(sec)!.slice();
+						if (sort === 'price-asc' || sort === 'price-desc') {
+							cards.sort((a, b) => {
+								const pa = Number(a.dataset.price) || Infinity;
+								const pb = Number(b.dataset.price) || Infinity;
+								return sort === 'price-asc' ? pa - pb : pb - pa;
+							});
+						} else if (sort === 'name') {
+							cards.sort((a, b) => (a.dataset.name || '').localeCompare(b.dataset.name || '', 'ru'));
+						}
+						cards.forEach(c => grid.appendChild(c));
+
+						let shown = 0;
+						cards.forEach(card => {
+							const text = card.dataset.search || '';
+							const price = card.dataset.price ? Number(card.dataset.price) : null;
+							let ok = !q || text.includes(q);
+							if (ok && min != null && (price == null || price < min)) ok = false;
+							if (ok && max != null && (price == null || price > max)) ok = false;
+							card.hidden = !ok;
+							if (ok) shown++;
+						});
+						sec.hidden = shown === 0;
+						totalVisible += shown;
+					});
+					if (emptyEl) emptyEl.hidden = totalVisible > 0;
+				}
+
+				searchEl?.addEventListener('input', apply);
+				minEl?.addEventListener('input', apply);
+				maxEl?.addEventListener('input', apply);
+				sortEl?.addEventListener('change', apply);
+				resetEl?.addEventListener('click', () => {
+					if (searchEl) searchEl.value = '';
+					if (minEl) minEl.value = '';
+					if (maxEl) maxEl.value = '';
+					if (sortEl) sortEl.value = 'default';
+					apply();
+				});
+			})();
 		</script>
 
 		<style>
@@ -339,8 +452,36 @@ const advantages = [
 			.adv-s { color: #9aa1b1; font-size: 0.75rem; }
 
 			/* Body */
-			.shop-body { max-width: 1180px; margin: 0 auto; padding: 2rem 1rem 1rem; }
+			/* Панель фильтров */
+			.shop-filters { max-width: 1180px; margin: 1.5rem auto 0; padding: 0 1rem; }
+			.shop-filters-in {
+				display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem;
+				background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 0.7rem 0.9rem;
+			}
+			.sf-search {
+				flex: 1; min-width: 220px; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 9px;
+				padding: 0.6em 0.9em; font-size: 0.9rem; outline: none;
+			}
+			.sf-search:focus { border-color: #11141a; }
+			.sf-field { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: #888; font-weight: 600; }
+			.sf-range { display: inline-flex; gap: 0.3rem; }
+			.sf-range input {
+				width: 78px; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 8px; padding: 0.5em 0.6em; font-size: 0.85rem; outline: none;
+			}
+			.sf-field select {
+				border: 1.5px solid rgba(0,0,0,0.15); border-radius: 8px; padding: 0.5em 0.6em; font-size: 0.85rem;
+				font-weight: 600; color: #11141a; background: #fff; cursor: pointer;
+			}
+			.sf-reset {
+				border: none; background: none; cursor: pointer; color: var(--pink, #ff4d8f);
+				font-size: 0.82rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;
+			}
+			.sf-empty { text-align: center; color: #888; padding: 2rem 0; }
+
+			.shop-body { max-width: 1180px; margin: 0 auto; padding: 1.5rem 1rem 1rem; }
 			.sec { margin-bottom: 2.6rem; scroll-margin-top: 1rem; }
+			.sec[hidden] { display: none; }
+			.card[hidden] { display: none; }
 			.sec-hd { margin-bottom: 1rem; }
 			.sec-eye { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; }
 			.sec-hd h2 {

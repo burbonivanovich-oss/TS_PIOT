@@ -1,0 +1,44 @@
+name: Shop Feed Sync — обновление цен каталога
+
+# Раз в неделю перегенерирует src/data/shop-catalog.ts из эталонного
+# фида (товары, цены, фото) и коммитит изменения. Скрипт:
+# scripts/shop/sync-feed.mjs. Требует доступ в сеть к домену фида.
+
+on:
+  schedule:
+    - cron: '0 4 * * 1' # понедельник, 04:00 UTC
+  workflow_dispatch:
+    inputs:
+      feed_url:
+        description: 'URL фида (по умолчанию из скрипта)'
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Перегенерировать каталог из фида
+        env:
+          FEED_URL: ${{ github.event.inputs.feed_url }}
+        run: node scripts/shop/sync-feed.mjs
+
+      - name: Закоммитить изменения каталога (если есть)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/shop-catalog.ts
+          if git diff --cached --quiet; then
+            echo "Каталог не изменился — коммит не нужен"
+          else
+            git commit -m "chore(shop): обновлены цены каталога из фида [skip ci]"
+            git push
+          fi
