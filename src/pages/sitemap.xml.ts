@@ -2,6 +2,9 @@ import type { APIRoute } from 'astro';
 import { CATEGORIES, SITE_URL } from '../consts';
 import { collectTags } from '../utils/tags';
 import { publishedPosts } from '../utils/posts';
+import { SHOP_SECTIONS } from '../data/shop-catalog';
+import { STOREFRONT_PRODUCTS } from '../data/cpa-banners';
+import { COMPARISONS } from '../data/comparisons';
 
 const BLOG_PAGE_SIZE = 12;
 
@@ -65,7 +68,34 @@ export const GET: APIRoute = async () => {
 		),
 	);
 
-	const all = [...staticEntries, ...blogPageEntries, ...categoryEntries, ...tagEntries, ...postEntries];
+	// Магазин: витрина, воронка, страницы товаров и сервисов, сравнения.
+	const shopEntries: SitemapEntry[] = [
+		entry('/produkty/', '0.9', 'daily'),
+		entry('/podbor/', '0.6', 'monthly'),
+		entry('/sravneniya/', '0.6', 'monthly'),
+	];
+	const shopProductEntries: SitemapEntry[] = SHOP_SECTIONS
+		.flatMap((s) => s.items)
+		.filter((i) => i.slug)
+		.map((i) => entry(`/produkty/tovar/${i.slug}/`, '0.7', 'weekly'));
+	const serviceEntries: SitemapEntry[] = STOREFRONT_PRODUCTS.map((p) =>
+		entry(`/produkty/${p.slug}/`, '0.6', 'weekly'),
+	);
+	const comparisonEntries: SitemapEntry[] = COMPARISONS.map((c) =>
+		entry(`/sravneniya/${c.slug}/`, '0.5', 'monthly'),
+	);
+
+	const all = [
+		...staticEntries,
+		...shopEntries,
+		...shopProductEntries,
+		...serviceEntries,
+		...comparisonEntries,
+		...blogPageEntries,
+		...categoryEntries,
+		...tagEntries,
+		...postEntries,
+	];
 
 	const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

@@ -137,19 +137,19 @@ const description = item.desc?.slice(0, 160) || item.name;
 
 							<div class="config-step">
 								<div class="config-step-h">1. Ваша отрасль</div>
-								<div class="chips" data-info-group>
-									<button class="chip is-active">Розница</button>
-									<button class="chip">Общепит</button>
-									<button class="chip">Услуги</button>
+								<div class="chips" data-info-group="otrasl">
+									<button class="chip is-active" data-val="roznica">Розница</button>
+									<button class="chip" data-val="obshchepit">Общепит</button>
+									<button class="chip" data-val="uslugi">Услуги</button>
 								</div>
 							</div>
 
 							<div class="config-step">
 								<div class="config-step-h">2. Контур.Маркет — тариф</div>
-								<div class="chips" data-info-group>
-									<button class="chip">Базовый</button>
-									<button class="chip is-active">Оптимальный</button>
-									<button class="chip">Премиум</button>
+								<div class="chips" data-info-group="tarif">
+									<button class="chip" data-val="bazovy">Базовый</button>
+									<button class="chip is-active" data-val="optimalny">Оптимальный</button>
+									<button class="chip" data-val="premium">Премиум</button>
 								</div>
 							</div>
 
@@ -191,6 +191,7 @@ const description = item.desc?.slice(0, 160) || item.name;
 								<div class="config-breakdown" data-breakdown></div>
 							</details>
 							<p class="config-note">Цена ПО зависит от региона. Точную стоимость менеджер подтвердит после заявки.</p>
+							<button type="button" class="config-share" data-share>Скопировать ссылку на комплект</button>
 						</div>
 					)}
 
@@ -277,11 +278,12 @@ const description = item.desc?.slice(0, 160) || item.name;
 				cart[id] = cart[id] ? { ...cart[id], qty: cart[id].qty + 1 } : { name, price, qty: 1 };
 			};
 
-			// Информационные чипы (отрасль, тариф) — просто переключатель.
+			// Информационные чипы (отрасль, тариф) — переключатель + запись в URL.
 			document.querySelectorAll('[data-info-group]').forEach(g => {
 				g.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
 					g.querySelectorAll('.chip').forEach(x => x.classList.remove('is-active'));
 					c.classList.add('is-active');
+					syncUrl();
 				}));
 			});
 
@@ -290,6 +292,41 @@ const description = item.desc?.slice(0, 160) || item.name;
 			function sel(name: string) {
 				const el = cfg?.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`);
 				return el ? { id: el.value, name: el.dataset.name!, price: Number(el.dataset.price) } : null;
+			}
+			function chipVal(group: string) {
+				const el = cfg?.querySelector<HTMLElement>(`[data-info-group="${group}"] .chip.is-active`);
+				return el?.dataset.val || '';
+			}
+			// Запись/чтение комплектации в URL — ссылкой можно поделиться.
+			function syncUrl() {
+				if (!cfg) return;
+				const params = new URLSearchParams();
+				const fn = sel('fn'), ofd = sel('ofd');
+				if (fn) params.set('fn', fn.id);
+				if (ofd) params.set('ofd', ofd.id);
+				const ot = chipVal('otrasl'), ta = chipVal('tarif');
+				if (ot) params.set('otrasl', ot);
+				if (ta) params.set('tarif', ta);
+				const qs = params.toString();
+				history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+			}
+			function applyUrl() {
+				if (!cfg) return;
+				const p = new URLSearchParams(location.search);
+				const check = (name: string, val: string | null) => {
+					if (!val) return;
+					const el = cfg!.querySelector<HTMLInputElement>(`input[name="${name}"][value="${val}"]`);
+					if (el) el.checked = true;
+				};
+				check('fn', p.get('fn'));
+				check('ofd', p.get('ofd'));
+				const setChip = (group: string, val: string | null) => {
+					if (!val) return;
+					const chips = cfg!.querySelectorAll<HTMLElement>(`[data-info-group="${group}"] .chip`);
+					chips.forEach(c => c.classList.toggle('is-active', c.dataset.val === val));
+				};
+				setChip('otrasl', p.get('otrasl'));
+				setChip('tarif', p.get('tarif'));
 			}
 			function recalc() {
 				if (!cfg) return;
@@ -310,8 +347,23 @@ const description = item.desc?.slice(0, 160) || item.name;
 					o.classList.toggle('is-sel', i.checked);
 				});
 			}
-			cfg?.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', recalc));
+			cfg?.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', () => { recalc(); syncUrl(); }));
+			applyUrl();
 			recalc();
+
+			// Поделиться комплектом — копирование ссылки.
+			const shareBtn = document.querySelector<HTMLButtonElement>('[data-share]');
+			shareBtn?.addEventListener('click', async () => {
+				syncUrl();
+				try {
+					await navigator.clipboard.writeText(location.href);
+					const t = shareBtn.textContent;
+					shareBtn.textContent = 'Ссылка скопирована ✓';
+					setTimeout(() => { shareBtn.textContent = t; }, 1800);
+				} catch {
+					shareBtn.textContent = location.href;
+				}
+			});
 
 			// Купить.
 			const buy = document.querySelector<HTMLElement>('[data-buy]');
@@ -409,6 +461,7 @@ const description = item.desc?.slice(0, 160) || item.name;
 			.config-breakdown { margin-top: 0.7rem; display: grid; gap: 0.35rem; }
 			.config-breakdown div { display: flex; justify-content: space-between; font-size: 0.82rem; color: #555; }
 			.config-note { font-size: 0.74rem; color: #999; margin: 0.7rem 0 0; }
+			.config-share { margin-top: 0.6rem; background: none; border: none; cursor: pointer; color: var(--pink, #ff4d8f); font-size: 0.8rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; padding: 0; }
 
 			.pdp-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 1.3rem; }
 			.pdp-buy { flex: 1; min-width: 200px; border: none; cursor: pointer; text-decoration: none; text-align: center; background: #11141a; color: #fff; font-size: 0.92rem; font-weight: 700; padding: 1em 1.6em; border-radius: 10px; transition: background 0.15s ease; }
