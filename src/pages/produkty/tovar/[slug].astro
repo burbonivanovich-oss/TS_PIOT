@@ -93,7 +93,7 @@ const description = item.desc?.slice(0, 160) || item.name;
 <!doctype html>
 <html lang="ru">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} image={item.img ?? undefined} />
 	</head>
 	<body>
 		<Header />
