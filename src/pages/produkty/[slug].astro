@@ -34,6 +34,17 @@ const siblings = STOREFRONT_PRODUCTS.filter(
 
 const title = `${banner.title.split('—')[0].trim()} — сервис Контура`;
 const description = banner.description;
+const SITE = Astro.site ?? new URL('https://etiketka-media.ru');
+const crumbName = banner.eyebrow.replace(/^Реклама\s*·\s*/u, '').trim();
+const breadcrumbLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Магазин', item: new URL('/produkty/', SITE).href },
+		...(group ? [{ '@type': 'ListItem', position: 2, name: group.title, item: new URL(`/produkty/#sec-${group.id}`, SITE).href }] : []),
+		{ '@type': 'ListItem', position: group ? 3 : 2, name: crumbName },
+	],
+};
 ---
 
 <!doctype html>
@@ -43,6 +54,7 @@ const description = banner.description;
 	</head>
 	<body>
 		<Header />
+		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
 
 		<main class="product">
 			<nav class="crumbs" aria-label="Хлебные крошки">

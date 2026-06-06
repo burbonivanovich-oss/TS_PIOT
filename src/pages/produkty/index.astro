@@ -50,6 +50,25 @@ const itemListLd = {
 		})),
 };
 
+// FAQ — честные ответы о процессе покупки (согласованы с условиями на сайте).
+const faq: [string, string][] = [
+	['Сколько идёт доставка?', 'По Москве — 48 часов, по России — от 3 рабочих дней транспортной компанией. Самовывоз со склада — бесплатно.'],
+	['Кто регистрирует кассу в ФНС?', 'Контур помогает с настройкой и регистрацией кассы в налоговой онлайн — обычно за 1 день.'],
+	['Как происходит оплата?', 'Оплата и договор — на стороне Контура. После заявки менеджер подтверждает состав и выставляет счёт. Доступна рассрочка 0% до 12 месяцев.'],
+	['Нужны ли фискальный накопитель и ОФД?', 'Да, для работы кассы по 54-ФЗ нужны фискальный накопитель и договор с ОФД. Соберите комплект «касса под ключ» на странице товара.'],
+	['Какая гарантия на оборудование?', 'На оборудование действует гарантия производителя — 12 месяцев.'],
+	['Подойдёт ли касса для маркировки и алкоголя?', 'Кассы с Контур.Маркет работают с обязательной маркировкой «Честный знак» и продажей алкоголя через ЕГАИС.'],
+];
+const faqLd = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faq.map(([q, a]) => ({
+		'@type': 'Question',
+		name: q,
+		acceptedAnswer: { '@type': 'Answer', text: a },
+	})),
+};
+
 const advantages = [
 	{ ic: '🚚', t: 'Доставка по РФ', s: 'в Москву за 48 часов' },
 	{ ic: '🛡️', t: 'Гарантия', s: 'от производителя' },
@@ -76,6 +95,7 @@ const advantages = [
 				{ '@type': 'ListItem', position: 2, name: 'Магазин', item: new URL('/produkty/', SITE).href },
 			],
 		})} />
+		<script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
 
 		<main class="shop">
 			<section class="shop-hero">
@@ -206,6 +226,18 @@ const advantages = [
 					</section>
 				))}
 			</div>
+
+			<section class="shop-faq">
+				<h2>Частые вопросы</h2>
+				<div class="faq-list">
+					{faq.map(([q, a]) => (
+						<details class="faq-item">
+							<summary>{q}</summary>
+							<p>{a}</p>
+						</details>
+					))}
+				</div>
+			</section>
 
 			<section class="shop-cta">
 				<div class="shop-cta-in">
@@ -493,6 +525,15 @@ const advantages = [
 			.shop-cta-shapes { display: flex; gap: 0.6rem; }
 			.shop-cta-shapes span { width: 56px; height: 84px; border-radius: 12px; }
 
+			.shop-faq { max-width: 820px; margin: 1rem auto 0; padding: 0 1rem; }
+			.shop-faq h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; text-transform: uppercase; letter-spacing: 0.02em; margin: 0 0 1rem; color: #11141a; }
+			.faq-list { display: grid; gap: 0.6rem; }
+			.faq-item { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; padding: 0.9rem 1.1rem; }
+			.faq-item summary { cursor: pointer; font-weight: 700; font-size: 0.95rem; color: #11141a; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+			.faq-item summary::-webkit-details-marker { display: none; }
+			.faq-item summary::after { content: '+'; color: #FF6B35; font-weight: 700; }
+			.faq-item[open] summary::after { content: '\2212'; }
+			.faq-item p { margin: 0.7rem 0 0; font-size: 0.9rem; line-height: 1.55; color: #555; }
 			@media (max-width: 640px) {
 				.grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.7rem; }
 				.card-img { height: 130px; }
