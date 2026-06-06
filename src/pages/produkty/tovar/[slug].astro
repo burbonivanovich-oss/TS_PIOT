@@ -325,7 +325,8 @@ const description = item.desc?.slice(0, 160) || item.name;
 				}
 				localStorage.setItem(KEY, JSON.stringify(cart));
 				ymGoal('cart-add', { product: buy.dataset.id });
-				location.href = buy.dataset.shop + '#cart';
+				window.dispatchEvent(new Event('kontur-cart-changed'));
+				window.dispatchEvent(new Event('kontur-cart-open'));
 			});
 
 			// Табы.

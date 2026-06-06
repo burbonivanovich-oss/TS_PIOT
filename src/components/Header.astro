@@ -19,7 +19,7 @@ import { u } from '../utils/url';
 		<div class="header-right">
 			<a href={u('/search/')} class="search-link">+ Поиск</a>
 		</div>
-		<a href={`${u('/produkty/')}#cart`} class="header-cart" data-header-cart hidden aria-label="Корзина">
+		<a href={`${u('/produkty/')}#cart`} class="header-cart" data-header-cart data-cart-open hidden aria-label="Корзина">
 			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
 				<path d="M3 5H5L7 15H18L21 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				<circle cx="9" cy="20" r="1.6" fill="currentColor"/>
@@ -40,23 +40,7 @@ import { u } from '../utils/url';
 		const open = nav?.classList.toggle('is-open');
 		toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
 	});
-
-	// Счётчик корзины магазина (общий для всех страниц).
-	const cartLink = document.querySelector<HTMLElement>('[data-header-cart]');
-	const cartCount = document.querySelector<HTMLElement>('[data-header-cart-count]');
-	function refreshCart() {
-		if (!cartLink || !cartCount) return;
-		let n = 0;
-		try {
-			const c = JSON.parse(localStorage.getItem('kontur-shop-cart') || '{}');
-			n = Object.values(c).reduce((s: number, l: any) => s + (l?.qty || 0), 0);
-		} catch {}
-		cartCount.textContent = String(n);
-		cartLink.hidden = n === 0;
-	}
-	refreshCart();
-	window.addEventListener('storage', refreshCart);
-	window.addEventListener('pageshow', refreshCart);
+	// Бейдж корзины обновляет глобальный CartDrawer (src/components/CartDrawer.astro).
 </script>
 
 <style>

@@ -22,6 +22,14 @@ const TAB_LABELS: Record<string, string> = {
 
 const SITE = Astro.site ?? new URL('https://etiketka-media.ru');
 const allItems = SHOP_SECTIONS.flatMap(s => s.items);
+
+// Бренды — извлекаем из названий товаров (для фильтра).
+const BRANDS = ['Атол', 'MSPOS', 'PayTor', 'EdPOS', 'аQsi', 'Mindeo', 'NEO', 'Эвотор'];
+const brandOf = (name: string): string => {
+	const n = name.toLowerCase();
+	return BRANDS.find(b => n.includes(b.toLowerCase())) ?? '';
+};
+const usedBrands = [...new Set(allItems.map(i => brandOf(i.name)).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ru'));
 const itemListLd = {
 	'@context': 'https://schema.org',
 	'@type': 'ItemList',
@@ -115,6 +123,12 @@ const advantages = [
 					</label>
 					<button class="sf-reset" data-reset hidden>Сбросить</button>
 				</div>
+				{usedBrands.length > 0 && (
+					<div class="sf-brands" data-brands>
+						<button class="bchip is-active" data-brand-filter="">Все бренды</button>
+						{usedBrands.map(br => <button class="bchip" data-brand-filter={br}>{br}</button>)}
+					</div>
+				)}
 				<div class="sf-empty" data-empty hidden>Ничего не найдено. Измените запрос или сбросьте фильтры.</div>
 			</div>
 
@@ -129,7 +143,7 @@ const advantages = [
 							{s.items.map(it => {
 								const detail = it.href ?? (it.slug ? `/produkty/tovar/${it.slug}/` : null);
 								return (
-								<article class="card" data-name={it.name} data-price={it.price ?? ''} data-search={`${it.name} ${it.desc} ${it.cat ?? ''}`.toLowerCase()}>
+								<article class="card" data-name={it.name} data-price={it.price ?? ''} data-brand={brandOf(it.name)} data-search={`${it.name} ${it.desc} ${it.cat ?? ''}`.toLowerCase()}>
 									<div class="card-img">
 										{it.badge && <span class="card-sale">{it.badge}</span>}
 										{it.img ? (
@@ -192,135 +206,11 @@ const advantages = [
 			</section>
 		</main>
 
-		<!-- Корзина -->
-		<button class="cart-fab" data-cart-open hidden>
-			Корзина <span class="cart-count" data-cart-count>0</span>
-		</button>
-		<div class="cart-overlay" data-cart-overlay hidden>
-			<aside class="cart" role="dialog" aria-label="Корзина">
-				<header class="cart-hd">
-					<strong>Корзина</strong>
-					<button class="cart-close" data-cart-close aria-label="Закрыть">✕</button>
-				</header>
-				<div class="cart-done" data-cart-done hidden>
-					<div class="cart-done-ic">✓</div>
-					<strong>Заявка оформлена</strong>
-					<p>Менеджер Контура свяжется с вами, подтвердит состав и оформит регистрацию в ФНС. Оплата и договор — на стороне Контура.</p>
-					<button class="b-cart" data-cart-close>Понятно</button>
-				</div>
-				<div class="cart-items" data-cart-items></div>
-				<div class="cart-empty" data-cart-empty>Пока пусто. Добавьте товар из каталога.</div>
-				<footer class="cart-ft" data-cart-ft hidden>
-					<div class="cart-total">Итого <strong data-cart-total>0 ₽</strong></div>
-					<button class="b-kit cart-checkout" data-cart-checkout>Оформить заявку</button>
-					<p class="cart-note">Оплата и договор — на стороне Контура. Менеджер свяжется и подтвердит состав.</p>
-				</footer>
-			</aside>
-		</div>
-
 		<Footer />
 
 		<script>
-			type CartLine = { name: string; price: number; qty: number };
-			const KEY = 'kontur-shop-cart';
-			const $ = (s: string) => document.querySelector(s);
-			const counter = 109130279;
-			const ym = (t: string, p?: Record<string, unknown>) =>
-				(window as any).ym && (window as any).ym(counter, 'reachGoal', t, p);
-
-			const read = (): Record<string, CartLine> => {
-				try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch { return {}; }
-			};
-			const write = (c: Record<string, CartLine>) => localStorage.setItem(KEY, JSON.stringify(c));
-			const fmt = (n: number) => n.toLocaleString('ru-RU') + ' ₽';
-
-			function render() {
-				const cart = read();
-				const ids = Object.keys(cart);
-				const count = ids.reduce((s, id) => s + cart[id].qty, 0);
-				const total = ids.reduce((s, id) => s + cart[id].qty * cart[id].price, 0);
-				const doneShown = !($('[data-cart-done]') as HTMLElement).hidden;
-
-				($('[data-cart-open]') as HTMLElement).hidden = count === 0;
-				($('[data-cart-count]') as HTMLElement).textContent = String(count);
-
-				const box = $('[data-cart-items]') as HTMLElement;
-				($('[data-cart-empty]') as HTMLElement).hidden = ids.length > 0 || doneShown;
-				($('[data-cart-ft]') as HTMLElement).hidden = ids.length === 0 || doneShown;
-				box.hidden = doneShown;
-				box.innerHTML = ids.map(id => `
-					<div class="cline">
-						<div class="cline-n"><span class="cline-name">${cart[id].name}</span><span class="cline-pr">${fmt(cart[id].price)}</span></div>
-						<div class="cline-q">
-							<button data-dec="${id}">−</button>
-							<span>${cart[id].qty}</span>
-							<button data-inc="${id}">+</button>
-							<button class="cline-x" data-del="${id}">✕</button>
-						</div>
-					</div>`).join('');
-				($('[data-cart-total]') as HTMLElement).textContent = fmt(total);
-			}
-
-			function add(id: string, name: string, price: number) {
-				($('[data-cart-done]') as HTMLElement).hidden = true;
-				const cart = read();
-				cart[id] = cart[id] ? { ...cart[id], qty: cart[id].qty + 1 } : { name, price, qty: 1 };
-				write(cart);
-				render();
-				openCart();
-				ym('cart-add', { product: id });
-			}
-			const openCart = () => {
-				($('[data-cart-overlay]') as HTMLElement).hidden = false;
-				document.body.style.overflow = 'hidden';
-			};
-			const closeCart = () => {
-				($('[data-cart-overlay]') as HTMLElement).hidden = true;
-				document.body.style.overflow = '';
-				($('[data-cart-done]') as HTMLElement).hidden = true;
-				render();
-			};
-
-			document.addEventListener('click', e => {
-				const t = e.target as HTMLElement;
-				const addBtn = t.closest('[data-add]') as HTMLElement | null;
-				if (addBtn) {
-					add(addBtn.dataset.id!, addBtn.dataset.name!, Number(addBtn.dataset.price));
-					return;
-				}
-				if (t.closest('[data-cart-open]')) return openCart();
-				if (t.closest('[data-cart-close]') || t.matches('[data-cart-overlay]')) return closeCart();
-				const inc = t.closest('[data-inc]') as HTMLElement | null;
-				const dec = t.closest('[data-dec]') as HTMLElement | null;
-				const del = t.closest('[data-del]') as HTMLElement | null;
-				if (inc || dec || del) {
-					const cart = read();
-					const id = (inc || dec || del)!.dataset.inc || (dec?.dataset.dec) || (del?.dataset.del)!;
-					if (inc && cart[id]) cart[id].qty++;
-					if (dec && cart[id]) cart[id].qty = Math.max(1, cart[id].qty - 1);
-					if (del) delete cart[id];
-					write(cart); render();
-					return;
-				}
-				if (t.closest('[data-cart-checkout]')) {
-					const cart = read();
-					const total = Object.keys(cart).reduce((s, id) => s + cart[id].qty * cart[id].price, 0);
-					ym('cart-checkout', { total });
-					localStorage.removeItem(KEY);
-					($('[data-cart-done]') as HTMLElement).hidden = false;
-					render();
-				}
-			});
-
-			document.addEventListener('keydown', e => {
-				if (e.key === 'Escape' && !($('[data-cart-overlay]') as HTMLElement).hidden) closeCart();
-			});
-
-			render();
-
-			// Открыть корзину при переходе со страницы товара / значка в шапке (/produkty/#cart).
-			if (location.hash === '#cart') openCart();
-			window.addEventListener('hashchange', () => { if (location.hash === '#cart') openCart(); });
+			// Корзина — в глобальном компоненте src/components/CartDrawer.astro.
+			// Здесь только фолбэк фото и фильтры каталога.
 
 			// Фолбэк для фото товаров (если изображение с kontur.ru не загрузилось).
 			document.querySelectorAll<HTMLImageElement>('.card-img img').forEach(img => {
@@ -346,6 +236,8 @@ const advantages = [
 				const sortEl = document.querySelector<HTMLSelectElement>('[data-sort]');
 				const resetEl = document.querySelector<HTMLElement>('[data-reset]');
 				const emptyEl = document.querySelector<HTMLElement>('[data-empty]');
+				const brandBtns = Array.from(document.querySelectorAll<HTMLElement>('[data-brand-filter]'));
+				let brand = '';
 				const sections = Array.from(document.querySelectorAll<HTMLElement>('.shop-body .sec'));
 				if (!sections.length) return;
 				const original = new Map<HTMLElement, HTMLElement[]>();
@@ -359,7 +251,7 @@ const advantages = [
 					const min = minEl?.value ? Number(minEl.value) : null;
 					const max = maxEl?.value ? Number(maxEl.value) : null;
 					const sort = sortEl?.value || 'default';
-					const active = !!q || min != null || max != null || sort !== 'default';
+					const active = !!q || min != null || max != null || sort !== 'default' || brand !== '';
 					if (resetEl) resetEl.hidden = !active;
 
 					let totalVisible = 0;
@@ -382,6 +274,7 @@ const advantages = [
 							const text = card.dataset.search || '';
 							const price = card.dataset.price ? Number(card.dataset.price) : null;
 							let ok = !q || text.includes(q);
+							if (ok && brand && card.dataset.brand !== brand) ok = false;
 							if (ok && min != null && (price == null || price < min)) ok = false;
 							if (ok && max != null && (price == null || price > max)) ok = false;
 							card.hidden = !ok;
@@ -397,11 +290,18 @@ const advantages = [
 				minEl?.addEventListener('input', apply);
 				maxEl?.addEventListener('input', apply);
 				sortEl?.addEventListener('change', apply);
+				brandBtns.forEach(btn => btn.addEventListener('click', () => {
+					brand = btn.dataset.brandFilter || '';
+					brandBtns.forEach(b => b.classList.toggle('is-active', b === btn));
+					apply();
+				}));
 				resetEl?.addEventListener('click', () => {
 					if (searchEl) searchEl.value = '';
 					if (minEl) minEl.value = '';
 					if (maxEl) maxEl.value = '';
 					if (sortEl) sortEl.value = 'default';
+					brand = '';
+					brandBtns.forEach(b => b.classList.toggle('is-active', b.dataset.brandFilter === ''));
 					apply();
 				});
 			})();
@@ -476,6 +376,14 @@ const advantages = [
 				border: none; background: none; cursor: pointer; color: var(--pink, #ff4d8f);
 				font-size: 0.82rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;
 			}
+			.sf-brands { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+			.bchip {
+				font-size: 0.76rem; font-weight: 600; color: #555; background: #fff;
+				border: 1.5px solid rgba(0,0,0,0.15); border-radius: 999px; padding: 0.35em 0.8em; cursor: pointer;
+				transition: all 0.12s ease;
+			}
+			.bchip:hover { border-color: #11141a; }
+			.bchip.is-active { background: #11141a; color: #fff; border-color: #11141a; }
 			.sf-empty { text-align: center; color: #888; padding: 2rem 0; }
 
 			.shop-body { max-width: 1180px; margin: 0 auto; padding: 1.5rem 1rem 1rem; }
@@ -558,53 +466,6 @@ const advantages = [
 			.shop-cta p { margin: 0 0 1.1rem; color: #c4c9d4; }
 			.shop-cta-shapes { display: flex; gap: 0.6rem; }
 			.shop-cta-shapes span { width: 56px; height: 84px; border-radius: 12px; }
-
-			/* Cart */
-			.cart-fab {
-				position: fixed; right: 18px; bottom: 18px; z-index: 60; border: none; cursor: pointer;
-				background: #11141a; color: #fff; font-size: 0.85rem; font-weight: 700;
-				padding: 0.9em 1.3em; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-				display: flex; align-items: center; gap: 0.5rem;
-			}
-			.cart-count {
-				background: var(--lime, #afcc00); color: #11141a; border-radius: 999px;
-				min-width: 1.4em; height: 1.4em; display: inline-flex; align-items: center;
-				justify-content: center; font-size: 0.78rem; padding: 0 0.4em;
-			}
-			.cart-fab[hidden] { display: none; }
-			.cart-overlay { position: fixed; inset: 0; z-index: 70; background: rgba(0,0,0,0.45); display: flex; justify-content: flex-end; }
-			.cart-overlay[hidden] { display: none; }
-			.cart {
-				width: min(400px, 100%); background: #fff; height: 100%; display: flex; flex-direction: column;
-				padding: 1.2rem; overflow-y: auto;
-			}
-			.cart-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-			.cart-hd strong { font-size: 1.2rem; }
-			.cart-close { border: none; background: none; font-size: 1.1rem; cursor: pointer; color: #999; }
-			.cart-empty { color: #888; font-size: 0.9rem; padding: 1.5rem 0; }
-			.cline { border-bottom: 1px solid rgba(0,0,0,0.08); padding: 0.7rem 0; }
-			.cline-n { display: flex; flex-direction: column; gap: 0.2rem; }
-			.cline-name { font-size: 0.85rem; line-height: 1.3; color: #11141a; font-weight: 600; }
-			.cline-pr { color: #888; font-size: 0.8rem; }
-			.cline-q { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
-			.cline-q button {
-				width: 26px; height: 26px; border: 1px solid rgba(0,0,0,0.15); background: #fff; border-radius: 6px;
-				cursor: pointer; font-size: 0.9rem;
-			}
-			.cline-x { margin-left: auto; border: none !important; color: #c00; }
-			.cart-ft { margin-top: auto; padding-top: 1rem; }
-			.cart-total { display: flex; justify-content: space-between; font-size: 1rem; margin-bottom: 0.8rem; }
-			.cart-total strong { font-size: 1.2rem; }
-			.cart-checkout { width: 100%; }
-			.cart-note { font-size: 0.72rem; color: #999; margin: 0.7rem 0 0; line-height: 1.4; }
-			.cart-done { text-align: center; padding: 2.5rem 0.5rem; }
-			.cart-done-ic {
-				width: 54px; height: 54px; border-radius: 999px; background: var(--lime, #afcc00); color: #11141a;
-				display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1rem;
-			}
-			.cart-done strong { font-size: 1.25rem; display: block; margin-bottom: 0.5rem; }
-			.cart-done p { color: #666; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.2rem; }
-			.cart-done .b-cart { display: inline-block; padding: 0.7em 1.5em; }
 
 			@media (max-width: 640px) {
 				.grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.7rem; }

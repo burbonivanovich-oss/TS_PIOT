@@ -1,0 +1,167 @@
+---
+// Глобальная корзина магазина. Подключается в Footer, поэтому доступна
+// на любой странице: значок корзины в шапке открывает этот оверлей.
+// Состояние — в localStorage (ключ kontur-shop-cart). Оплаты нет:
+// оформление завершается заявкой (имитация), договор и оплата — Контур.
+---
+
+<div class="cart-overlay" data-cart-overlay hidden>
+	<aside class="cart" role="dialog" aria-label="Корзина" aria-modal="true">
+		<header class="cart-hd">
+			<strong>Корзина</strong>
+			<button class="cart-close" data-cart-close aria-label="Закрыть">✕</button>
+		</header>
+		<div class="cart-done" data-cart-done hidden>
+			<div class="cart-done-ic">✓</div>
+			<strong>Заявка оформлена</strong>
+			<p>Менеджер Контура свяжется с вами, подтвердит состав и оформит регистрацию в ФНС. Оплата и договор — на стороне Контура.</p>
+			<button class="cart-done-btn" data-cart-close>Понятно</button>
+		</div>
+		<div class="cart-items" data-cart-items></div>
+		<div class="cart-empty" data-cart-empty>Пока пусто. Добавьте товар из каталога.</div>
+		<footer class="cart-ft" data-cart-ft hidden>
+			<div class="cart-total">Итого <strong data-cart-total>0 ₽</strong></div>
+			<button class="cart-checkout" data-cart-checkout>Оформить заявку</button>
+			<p class="cart-note">Оплата и договор — на стороне Контура. Менеджер свяжется и подтвердит состав.</p>
+		</footer>
+	</aside>
+</div>
+
+<script>
+	type Line = { name: string; price: number; qty: number };
+	const KEY = 'kontur-shop-cart';
+	const COUNTER = 109130279;
+	const $ = <T extends Element>(s: string) => document.querySelector<T>(s);
+	const fmt = (n: number) => n.toLocaleString('ru-RU') + ' ₽';
+	const ym = (t: string, p?: Record<string, unknown>) =>
+		(window as any).ym && (window as any).ym(COUNTER, 'reachGoal', t, p);
+
+	const read = (): Record<string, Line> => {
+		try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch { return {}; }
+	};
+	const write = (c: Record<string, Line>) => localStorage.setItem(KEY, JSON.stringify(c));
+
+	const overlay = $('[data-cart-overlay]') as HTMLElement | null;
+	if (overlay) {
+		function render() {
+			const cart = read();
+			const ids = Object.keys(cart);
+			const count = ids.reduce((s, id) => s + cart[id].qty, 0);
+			const total = ids.reduce((s, id) => s + cart[id].qty * cart[id].price, 0);
+			const done = $('[data-cart-done]') as HTMLElement;
+			const doneShown = !done.hidden;
+
+			// Бейдж в шапке.
+			const hc = $('[data-header-cart]') as HTMLElement | null;
+			const hcc = $('[data-header-cart-count]') as HTMLElement | null;
+			if (hc) hc.hidden = count === 0;
+			if (hcc) hcc.textContent = String(count);
+
+			const box = $('[data-cart-items]') as HTMLElement;
+			($('[data-cart-empty]') as HTMLElement).hidden = ids.length > 0 || doneShown;
+			($('[data-cart-ft]') as HTMLElement).hidden = ids.length === 0 || doneShown;
+			box.hidden = doneShown;
+			box.innerHTML = ids.map(id => `
+				<div class="cline">
+					<div class="cline-n"><span class="cline-name">${cart[id].name}</span><span class="cline-pr">${fmt(cart[id].price)}</span></div>
+					<div class="cline-q">
+						<button data-dec="${id}" aria-label="Меньше">−</button>
+						<span>${cart[id].qty}</span>
+						<button data-inc="${id}" aria-label="Больше">+</button>
+						<button class="cline-x" data-del="${id}" aria-label="Удалить">✕</button>
+					</div>
+				</div>`).join('');
+			($('[data-cart-total]') as HTMLElement).textContent = fmt(total);
+		}
+
+		const openCart = () => { overlay.hidden = false; document.body.style.overflow = 'hidden'; };
+		const closeCart = () => {
+			overlay.hidden = true;
+			document.body.style.overflow = '';
+			($('[data-cart-done]') as HTMLElement).hidden = true;
+			render();
+		};
+
+		function add(id: string, name: string, price: number) {
+			($('[data-cart-done]') as HTMLElement).hidden = true;
+			const cart = read();
+			cart[id] = cart[id] ? { ...cart[id], qty: cart[id].qty + 1 } : { name, price, qty: 1 };
+			write(cart);
+			render();
+			openCart();
+			ym('cart-add', { product: id });
+		}
+
+		document.addEventListener('click', e => {
+			const t = e.target as HTMLElement;
+			const addBtn = t.closest('[data-add]') as HTMLElement | null;
+			if (addBtn) {
+				add(addBtn.dataset.id!, addBtn.dataset.name!, Number(addBtn.dataset.price));
+				return;
+			}
+			if (t.closest('[data-cart-open]')) { e.preventDefault(); openCart(); return; }
+			if (t.closest('[data-cart-close]') || t === overlay) { closeCart(); return; }
+			const inc = t.closest('[data-inc]') as HTMLElement | null;
+			const dec = t.closest('[data-dec]') as HTMLElement | null;
+			const del = t.closest('[data-del]') as HTMLElement | null;
+			if (inc || dec || del) {
+				const cart = read();
+				const id = (inc?.dataset.inc || dec?.dataset.dec || del?.dataset.del)!;
+				if (inc && cart[id]) cart[id].qty++;
+				if (dec && cart[id]) cart[id].qty = Math.max(1, cart[id].qty - 1);
+				if (del) delete cart[id];
+				write(cart); render();
+				return;
+			}
+			if (t.closest('[data-cart-checkout]')) {
+				const cart = read();
+				const total = Object.keys(cart).reduce((s, id) => s + cart[id].qty * cart[id].price, 0);
+				ym('cart-checkout', { total });
+				localStorage.removeItem(KEY);
+				($('[data-cart-done]') as HTMLElement).hidden = false;
+				render();
+			}
+		});
+
+		document.addEventListener('keydown', e => {
+			if (e.key === 'Escape' && !overlay.hidden) closeCart();
+		});
+		window.addEventListener('storage', render);
+		window.addEventListener('kontur-cart-changed', render);
+		window.addEventListener('kontur-cart-open', openCart);
+
+		render();
+		if (location.hash === '#cart') openCart();
+		window.addEventListener('hashchange', () => { if (location.hash === '#cart') openCart(); });
+	}
+</script>
+
+<style>
+	.cart-overlay { position: fixed; inset: 0; z-index: 70; background: rgba(0,0,0,0.45); display: flex; justify-content: flex-end; }
+	.cart-overlay[hidden] { display: none; }
+	.cart { width: min(400px, 100%); background: #fff; height: 100%; display: flex; flex-direction: column; padding: 1.2rem; overflow-y: auto; }
+	.cart-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+	.cart-hd strong { font-size: 1.2rem; }
+	.cart-close { border: none; background: none; font-size: 1.1rem; cursor: pointer; color: #999; }
+	.cart-empty { color: #888; font-size: 0.9rem; padding: 1.5rem 0; }
+	/* Строки корзины рендерятся через JS (innerHTML) — стили должны быть глобальными,
+	   иначе Astro-скоуп к ним не применится. */
+	:global(.cline) { border-bottom: 1px solid rgba(0,0,0,0.08); padding: 0.7rem 0; }
+	:global(.cline-n) { display: flex; flex-direction: column; gap: 0.2rem; }
+	:global(.cline-name) { font-size: 0.85rem; line-height: 1.3; color: #11141a; font-weight: 600; }
+	:global(.cline-pr) { color: #888; font-size: 0.8rem; }
+	:global(.cline-q) { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+	:global(.cline-q button) { width: 26px; height: 26px; border: 1px solid rgba(0,0,0,0.15); background: #fff; border-radius: 6px; cursor: pointer; font-size: 0.9rem; }
+	:global(.cline-x) { margin-left: auto; border: none !important; color: #c00; }
+	.cart-ft { margin-top: auto; padding-top: 1rem; }
+	.cart-total { display: flex; justify-content: space-between; font-size: 1rem; margin-bottom: 0.8rem; }
+	.cart-total strong { font-size: 1.2rem; }
+	.cart-checkout { width: 100%; border: none; cursor: pointer; background: #00C896; color: #fff; font-size: 0.85rem; font-weight: 700; padding: 0.9em 1em; border-radius: 8px; transition: background 0.15s ease; }
+	.cart-checkout:hover { background: #00b085; }
+	.cart-note { font-size: 0.72rem; color: #999; margin: 0.7rem 0 0; line-height: 1.4; }
+	.cart-done { text-align: center; padding: 2.5rem 0.5rem; }
+	.cart-done-ic { width: 54px; height: 54px; border-radius: 999px; background: var(--lime, #afcc00); color: #11141a; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1rem; }
+	.cart-done strong { font-size: 1.25rem; display: block; margin-bottom: 0.5rem; }
+	.cart-done p { color: #666; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.2rem; }
+	.cart-done-btn { display: inline-block; border: none; cursor: pointer; background: #11141a; color: #fff; font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 8px; }
+</style>
