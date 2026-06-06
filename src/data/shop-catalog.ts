@@ -31,6 +31,8 @@ export interface ShopSection {
 	items: ShopItem[];
 }
 
+export const PRICE_DATE = '2026-06-06';
+
 const REF_SECTIONS: ShopSection[] = [
   {
     "id": "kasses",

@@ -3,7 +3,7 @@ import BaseHead from '../../../components/BaseHead.astro';
 import Footer from '../../../components/Footer.astro';
 import Header from '../../../components/Header.astro';
 import { u } from '../../../utils/url';
-import { SHOP_SECTIONS, type ShopItem, type ShopSection } from '../../../data/shop-catalog';
+import { SHOP_SECTIONS, PRICE_DATE, type ShopItem, type ShopSection } from '../../../data/shop-catalog';
 
 export function getStaticPaths() {
 	const seen = new Set<string>();
@@ -21,13 +21,43 @@ export function getStaticPaths() {
 interface Props { item: ShopItem; section: ShopSection }
 const { item, section } = Astro.props;
 
-const related = section.items.filter(i => i.slug && i.slug !== item.slug).slice(0, 4);
+const isKassa = section.id === 'kasses';
+const months = (name: string) => Number(name.match(/(\d+)\s*мес/)?.[1] ?? 0);
+
+// Реальные опции комплектации из каталога (цены из фида).
+const fnOptions = (SHOP_SECTIONS.find(s => s.id === 'fn-ofd')?.items ?? [])
+	.filter(i => i.price != null)
+	.map(i => ({ id: i.id, name: i.name, price: i.price as number, label: `${months(i.name)} мес` }))
+	.sort((a, b) => a.price - b.price);
+const ofdOptions = (SHOP_SECTIONS.find(s => s.id === 'ofd')?.items ?? [])
+	.filter(i => /^Оператор фискальных данных/.test(i.name) && i.price != null)
+	.map(i => ({ id: i.id, name: i.name, price: i.price as number, label: `${months(i.name)} мес` }))
+	.sort((a, b) => a.price - b.price);
+
+const fnDefault = fnOptions.length ? fnOptions[fnOptions.length - 1].id : '';
+const ofdDefault = (ofdOptions.find(o => months(o.name) === 15) ?? ofdOptions[0])?.id ?? '';
+
+// «С этим покупают»: для кассы — кросс-селл (ФН, ОФД, периферия), иначе свой раздел.
+const crossSell = (isKassa
+	? ['fn-ofd', 'ofd', 'periphery'].flatMap(id =>
+			(SHOP_SECTIONS.find(s => s.id === id)?.items.filter(i => i.slug) ?? []).slice(0, 2))
+	: section.items.filter(i => i.slug && i.slug !== item.slug)
+).slice(0, 4);
+
+const specs: [string, string][] = [
+	['Раздел', section.title],
+	['Категория', item.cat || section.eye],
+	['Артикул', item.id],
+	['Наличие', 'В наличии на складе'],
+	['Гарантия', '12 месяцев от производителя'],
+	['Регистрация в ФНС', 'онлайн за 1 день'],
+];
 
 const advantages = [
-	'Доставка по РФ — в Москву за 48 часов',
-	'Гарантия производителя',
-	'Регистрация в ФНС онлайн за 1 день',
-	'Рассрочка 0% до 12 месяцев',
+	['🚚', 'Доставка по Москве — 48 часов, по России от 3 рабочих дней'],
+	['🛡️', 'Гарантия производителя'],
+	['⚡', 'Регистрируем кассу в ФНС за 1 день'],
+	['💳', 'Рассрочка 0% до 12 месяцев'],
 ];
 
 const title = `${item.name} — купить в Контуре`;
@@ -44,68 +74,160 @@ const description = item.desc?.slice(0, 160) || item.name;
 
 		<main class="pdp">
 			<nav class="crumbs" aria-label="Хлебные крошки">
-				<a href={u('/produkty/')}>Магазин</a>
-				<span>/</span>
-				<a href={`${u('/produkty/')}#sec-${section.id}`}>{section.title}</a>
-				<span>/</span>
+				<a href={u('/produkty/')}>Магазин</a><span>/</span>
+				<a href={`${u('/produkty/')}#sec-${section.id}`}>{section.title}</a><span>/</span>
 				<span>{item.name}</span>
 			</nav>
 
 			<div class="pdp-top">
-				<div class="pdp-img">
-					{item.badge && <span class="pdp-sale">{item.badge}</span>}
-					{item.img ? (
-						<img src={item.img} alt={item.name} />
-					) : (
-						<span class="pdp-tile" style={`background:${item.visual?.bg ?? '#111'}`}>{item.visual?.abbrev}</span>
-					)}
+				<div class="pdp-gallery">
+					<div class="pdp-img">
+						{item.badge && <span class="pdp-sale">{item.badge}</span>}
+						{item.img ? <img src={item.img} alt={item.name} />
+							: <span class="pdp-tile" style={`background:${item.visual?.bg ?? '#111'}`}>{item.visual?.abbrev}</span>}
+					</div>
 				</div>
 
 				<div class="pdp-info">
 					<div class="pdp-cat" style={`color:${section.color}`}>{item.cat || section.eye}</div>
 					<h1>{item.name}</h1>
+					<p class="pdp-short">{item.desc}</p>
 
-					<div class="pdp-price">
-						{item.oldLabel && <span class="pdp-old">{item.oldLabel}</span>}
-						<span class="pdp-now">{item.priceLabel}</span>
+					<div class="pdp-pricebox">
+						<div class="pdp-price">
+							{item.oldLabel && <span class="pdp-old">{item.oldLabel}</span>}
+							<span class="pdp-now">{item.priceLabel}</span>
+						</div>
+						{isKassa && <div class="pdp-price-note">Цена кассы без комплектации</div>}
+						<div class="pdp-stock"><span class="dot"></span> В наличии, доставка 48 часов</div>
+						<div class="pdp-updated">Цена обновлена: {PRICE_DATE}</div>
 					</div>
 
-					{item.price != null ? (
-						<button
-							class={item.kit ? 'pdp-buy kit' : 'pdp-buy'}
-							data-add
-							data-id={item.id}
-							data-name={item.name}
-							data-price={item.price}
-							data-shop={u('/produkty/')}
-						>{item.kit ? 'Купить комплект' : 'В корзину'}</button>
-					) : (
-						<a class="pdp-buy" href={u('/podbor/')}>Оставить заявку</a>
+					{isKassa && item.price != null && (
+						<div class="config" data-config data-base={item.price} data-base-id={item.id} data-base-name={item.name}>
+							<div class="config-h">Скомплектуйте кассу</div>
+
+							<div class="config-step">
+								<div class="config-step-h">1. Ваша отрасль</div>
+								<div class="chips" data-info-group>
+									<button class="chip is-active">Розница</button>
+									<button class="chip">Общепит</button>
+									<button class="chip">Услуги</button>
+								</div>
+							</div>
+
+							<div class="config-step">
+								<div class="config-step-h">2. Контур.Маркет — тариф</div>
+								<div class="chips" data-info-group>
+									<button class="chip">Базовый</button>
+									<button class="chip is-active">Оптимальный</button>
+									<button class="chip">Премиум</button>
+								</div>
+							</div>
+
+							{fnOptions.length > 0 && (
+								<div class="config-step">
+									<div class="config-step-h">3. Фискальный накопитель</div>
+									<div class="opts">
+										{fnOptions.map(o => (
+											<label class={`opt ${o.id === fnDefault ? 'is-sel' : ''}`}>
+												<input type="radio" name="fn" value={o.id} data-price={o.price} data-name={o.name} checked={o.id === fnDefault} />
+												<span class="opt-l">{o.label}</span>
+												<span class="opt-p">{o.price.toLocaleString('ru-RU')} ₽</span>
+											</label>
+										))}
+									</div>
+								</div>
+							)}
+
+							{ofdOptions.length > 0 && (
+								<div class="config-step">
+									<div class="config-step-h">4. Контур.ОФД</div>
+									<div class="opts">
+										{ofdOptions.map(o => (
+											<label class={`opt ${o.id === ofdDefault ? 'is-sel' : ''}`}>
+												<input type="radio" name="ofd" value={o.id} data-price={o.price} data-name={o.name} checked={o.id === ofdDefault} />
+												<span class="opt-l">{o.label}</span>
+												<span class="opt-p">{o.price.toLocaleString('ru-RU')} ₽</span>
+											</label>
+										))}
+									</div>
+								</div>
+							)}
+
+							<details class="config-total">
+								<summary>
+									<span>Итого касса под ключ</span>
+									<strong data-total>—</strong>
+								</summary>
+								<div class="config-breakdown" data-breakdown></div>
+							</details>
+							<p class="config-note">Цена ПО зависит от региона. Точную стоимость менеджер подтвердит после заявки.</p>
+						</div>
 					)}
 
-					<p class="pdp-desc">{item.desc}</p>
+					<div class="pdp-actions">
+						{item.price != null ? (
+							<button class={item.kit ? 'pdp-buy kit' : 'pdp-buy'} data-buy
+								data-id={item.id} data-name={item.name} data-price={item.price} data-shop={u('/produkty/')}>
+								{item.kit ? 'Купить комплект' : 'В корзину'}
+							</button>
+						) : (
+							<a class="pdp-buy" href={u('/podbor/')}>Оставить заявку</a>
+						)}
+						<a class="pdp-consult" href={u('/podbor/')}>Получить консультацию</a>
+					</div>
 
 					<ul class="pdp-adv">
-						{advantages.map(a => <li>{a}</li>)}
+						{advantages.map(([ic, t]) => <li><span>{ic}</span> {t}</li>)}
 					</ul>
-
-					<p class="pdp-note">
-						Оплата и договор — на стороне Контура. После заявки менеджер свяжется,
-						подтвердит состав и оформит регистрацию в ФНС.
-					</p>
 				</div>
 			</div>
 
-			{related.length > 0 && (
+			<div class="pdp-tabs">
+				<div class="tabbar" role="tablist">
+					<button class="tab is-active" data-tab="desc">Описание</button>
+					<button class="tab" data-tab="specs">Характеристики</button>
+					<button class="tab" data-tab="delivery">Доставка и оплата</button>
+				</div>
+				<div class="tabpane is-active" data-pane="desc">
+					<p>{item.desc}</p>
+					{isKassa && (
+						<p>Касса работает по 54-ФЗ: передаёт чеки в ФНС через ОФД, поддерживает
+						маркировку «Честный знак» и ЕГАИС. Соберите комплект с фискальным
+						накопителем и ОФД выше — Контур зарегистрирует кассу в налоговой за 1 день.</p>
+					)}
+				</div>
+				<div class="tabpane" data-pane="specs" hidden>
+					<table class="spectable">
+						<tbody>
+							{specs.map(([k, v]) => (
+								<tr><th>{k}</th><td>{v}</td></tr>
+							))}
+						</tbody>
+					</table>
+					<p class="spec-note">Полные технические характеристики менеджер уточнит при оформлении заявки.</p>
+				</div>
+				<div class="tabpane" data-pane="delivery" hidden>
+					<p>Доставка по Москве — 48 часов, по России от 3 рабочих дней транспортной компанией.
+					Самовывоз со склада — бесплатно.</p>
+					<p>Оплата и договор — на стороне Контура: после заявки менеджер свяжется,
+					подтвердит состав, выставит счёт и оформит регистрацию кассы в ФНС.
+					Доступна рассрочка 0% до 12 месяцев.</p>
+				</div>
+			</div>
+
+			{crossSell.length > 0 && (
 				<section class="pdp-rel">
-					<h2>Из этого же раздела</h2>
+					<h2>С этим покупают</h2>
 					<div class="rel-grid">
-						{related.map(r => (
+						{crossSell.map(r => (
 							<a class="rel-card" href={u(`/produkty/tovar/${r.slug}/`)}>
 								<div class="rel-img">
 									{r.img ? <img src={r.img} alt={r.name} loading="lazy" />
 										: <span class="rel-tile" style={`background:${r.visual?.bg ?? '#111'}`}>{r.visual?.abbrev}</span>}
 								</div>
+								<div class="rel-cat">{r.cat}</div>
 								<div class="rel-name">{r.name}</div>
 								<div class="rel-price">{r.priceLabel}</div>
 							</a>
@@ -121,28 +243,88 @@ const description = item.desc?.slice(0, 160) || item.name;
 
 		<script>
 			const KEY = 'kontur-shop-cart';
-			const btn = document.querySelector<HTMLElement>('[data-add]');
-			btn?.addEventListener('click', () => {
-				let cart: Record<string, { name: string; price: number; qty: number }> = {};
-				try { cart = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch {}
-				const id = btn.dataset.id!;
-				cart[id] = cart[id]
-					? { ...cart[id], qty: cart[id].qty + 1 }
-					: { name: btn.dataset.name!, price: Number(btn.dataset.price), qty: 1 };
-				localStorage.setItem(KEY, JSON.stringify(cart));
-				const ym = (window as any).ym;
-				if (ym) ym(109130279, 'reachGoal', 'cart-add', { product: id });
-				location.href = btn.dataset.shop + '#cart';
+			const fmt = (n: number) => n.toLocaleString('ru-RU') + ' ₽';
+			const ymGoal = (t: string, p?: Record<string, unknown>) =>
+				(window as any).ym && (window as any).ym(109130279, 'reachGoal', t, p);
+			type Line = { name: string; price: number; qty: number };
+			const readCart = (): Record<string, Line> => {
+				try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch { return {}; }
+			};
+			const addLine = (cart: Record<string, Line>, id: string, name: string, price: number) => {
+				cart[id] = cart[id] ? { ...cart[id], qty: cart[id].qty + 1 } : { name, price, qty: 1 };
+			};
+
+			// Информационные чипы (отрасль, тариф) — просто переключатель.
+			document.querySelectorAll('[data-info-group]').forEach(g => {
+				g.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+					g.querySelectorAll('.chip').forEach(x => x.classList.remove('is-active'));
+					c.classList.add('is-active');
+				}));
 			});
 
+			// Конфигуратор: живой итог.
+			const cfg = document.querySelector<HTMLElement>('[data-config]');
+			function sel(name: string) {
+				const el = cfg?.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`);
+				return el ? { id: el.value, name: el.dataset.name!, price: Number(el.dataset.price) } : null;
+			}
+			function recalc() {
+				if (!cfg) return;
+				const base = Number(cfg.dataset.base);
+				const fn = sel('fn'), ofd = sel('ofd');
+				const total = base + (fn?.price ?? 0) + (ofd?.price ?? 0);
+				const totalEl = cfg.querySelector('[data-total]');
+				if (totalEl) totalEl.textContent = fmt(total);
+				const bd = cfg.querySelector('[data-breakdown]');
+				if (bd) {
+					const rows = [[cfg.dataset.baseName!, base]] as [string, number][];
+					if (fn) rows.push(['Фискальный накопитель · ' + fn.name.match(/\d+ мес/)?.[0], fn.price]);
+					if (ofd) rows.push(['Контур.ОФД · ' + ofd.name.match(/\d+ мес/)?.[0], ofd.price]);
+					bd.innerHTML = rows.map(r => `<div><span>${r[0]}</span><span>${fmt(r[1])}</span></div>`).join('');
+				}
+				cfg.querySelectorAll('.opt').forEach(o => {
+					const i = o.querySelector('input') as HTMLInputElement;
+					o.classList.toggle('is-sel', i.checked);
+				});
+			}
+			cfg?.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', recalc));
+			recalc();
+
+			// Купить.
+			const buy = document.querySelector<HTMLElement>('[data-buy]');
+			buy?.addEventListener('click', () => {
+				const cart = readCart();
+				addLine(cart, buy.dataset.id!, buy.dataset.name!, Number(buy.dataset.price));
+				if (cfg) {
+					const fn = sel('fn'), ofd = sel('ofd');
+					if (fn) addLine(cart, fn.id, fn.name, fn.price);
+					if (ofd) addLine(cart, ofd.id, ofd.name, ofd.price);
+				}
+				localStorage.setItem(KEY, JSON.stringify(cart));
+				ymGoal('cart-add', { product: buy.dataset.id });
+				location.href = buy.dataset.shop + '#cart';
+			});
+
+			// Табы.
+			document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+				document.querySelectorAll('.tab').forEach(x => x.classList.remove('is-active'));
+				t.classList.add('is-active');
+				const name = (t as HTMLElement).dataset.tab;
+				document.querySelectorAll<HTMLElement>('.tabpane').forEach(p => {
+					p.hidden = p.dataset.pane !== name;
+					p.classList.toggle('is-active', p.dataset.pane === name);
+				});
+			}));
+
+			// Фолбэк фото.
 			document.querySelectorAll<HTMLImageElement>('.pdp-img img, .rel-img img').forEach(img => {
 				const fail = () => {
-					const wrap = img.parentElement;
-					if (wrap && !wrap.querySelector('.imgfb')) {
+					const w = img.parentElement;
+					if (w && !w.querySelector('.imgfb')) {
 						const fb = document.createElement('span');
 						fb.className = 'imgfb';
 						fb.textContent = (img.alt || 'Контур').slice(0, 2).toUpperCase();
-						wrap.appendChild(fb);
+						w.appendChild(fb);
 					}
 					img.style.display = 'none';
 				};
@@ -152,78 +334,102 @@ const description = item.desc?.slice(0, 160) || item.name;
 		</script>
 
 		<style>
-			.pdp { max-width: 1080px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
-			.crumbs { font-size: 0.8rem; color: #888; margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+			.pdp { max-width: 1120px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+			.crumbs { font-size: 0.8rem; color: #888; margin-bottom: 1.4rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
 			.crumbs a { color: #888; text-decoration: none; }
 			.crumbs a:hover { color: #111; }
 
-			.pdp-top { display: grid; grid-template-columns: minmax(0, 460px) 1fr; gap: 2.5rem; align-items: start; }
+			.pdp-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 2.5rem; align-items: start; }
+			.pdp-gallery { position: sticky; top: 1rem; }
 			.pdp-img {
-				position: relative; background: #f4f5f7; border-radius: 16px; aspect-ratio: 1;
+				position: relative; background: #f4f5f7; border-radius: 16px; aspect-ratio: 4/3;
 				display: flex; align-items: center; justify-content: center; padding: 2rem;
 			}
 			.pdp-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
-			.pdp-tile {
-				width: 140px; height: 140px; border-radius: 20px; display: flex; align-items: center;
-				justify-content: center; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem;
-			}
+			.pdp-tile { width: 150px; height: 150px; border-radius: 22px; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; }
 			.imgfb { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #b6bcc8; }
-			.pdp-sale {
-				position: absolute; top: 14px; left: 14px; font-size: 0.72rem; font-weight: 800;
-				text-transform: uppercase; color: #fff; background: #E5392F; padding: 0.35em 0.7em; border-radius: 7px;
-			}
+			.pdp-sale { position: absolute; top: 14px; left: 14px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: #fff; background: #E5392F; padding: 0.35em 0.7em; border-radius: 7px; }
 
 			.pdp-cat { font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
-			.pdp-info h1 {
-				font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.02;
-				text-transform: uppercase; letter-spacing: 0.01em; margin: 0.3rem 0 1rem; color: #11141a;
-			}
-			.pdp-price { display: flex; align-items: baseline; gap: 0.7rem; margin-bottom: 1.2rem; }
-			.pdp-old { font-size: 1.05rem; color: #aaa; text-decoration: line-through; }
-			.pdp-now { font-size: 1.9rem; font-weight: 800; color: #11141a; }
-			.pdp-buy {
-				display: inline-block; border: none; cursor: pointer; text-decoration: none; text-align: center;
-				background: #11141a; color: #fff; font-size: 0.92rem; font-weight: 700; letter-spacing: 0.02em;
-				padding: 0.9em 2.4em; border-radius: 10px; transition: background 0.15s ease;
-			}
+			.pdp-info h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.7rem, 3.5vw, 2.5rem); line-height: 1.04; text-transform: uppercase; margin: 0.3rem 0 0.6rem; color: #11141a; }
+			.pdp-short { margin: 0 0 1.2rem; color: #555; font-size: 0.95rem; line-height: 1.55; }
+
+			.pdp-pricebox { margin-bottom: 1.3rem; }
+			.pdp-price { display: flex; align-items: baseline; gap: 0.7rem; }
+			.pdp-old { font-size: 1.1rem; color: #aaa; text-decoration: line-through; }
+			.pdp-now { font-size: 2rem; font-weight: 800; color: #11141a; }
+			.pdp-price-note { font-size: 0.8rem; color: #999; margin-top: 0.15rem; }
+			.pdp-stock { font-size: 0.85rem; color: #1a8a4a; margin-top: 0.5rem; display: flex; align-items: center; gap: 0.4rem; }
+			.pdp-stock .dot { width: 8px; height: 8px; border-radius: 999px; background: #1a8a4a; display: inline-block; }
+			.pdp-updated { font-size: 0.76rem; color: #aaa; margin-top: 0.3rem; }
+
+			.config { border: 1.5px solid rgba(0,0,0,0.1); border-radius: 14px; padding: 1.1rem 1.2rem; margin-bottom: 1.3rem; }
+			.config-h { font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #FF6B35; margin-bottom: 0.9rem; }
+			.config-step { margin-bottom: 0.9rem; }
+			.config-step-h { font-size: 0.85rem; font-weight: 700; color: #11141a; margin-bottom: 0.45rem; }
+			.chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+			.chip { font-size: 0.8rem; font-weight: 600; color: #333; background: #fff; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 999px; padding: 0.4em 0.9em; cursor: pointer; transition: all 0.12s ease; }
+			.chip:hover { border-color: #FF6B35; }
+			.chip.is-active { background: #FF6B35; color: #fff; border-color: #FF6B35; }
+			.opts { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+			.opt { display: inline-flex; align-items: center; gap: 0.5rem; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 10px; padding: 0.5em 0.8em; cursor: pointer; transition: all 0.12s ease; }
+			.opt input { display: none; }
+			.opt:hover { border-color: #FF6B35; }
+			.opt.is-sel { border-color: #FF6B35; background: rgba(255,107,53,0.06); }
+			.opt-l { font-size: 0.85rem; font-weight: 700; color: #11141a; }
+			.opt-p { font-size: 0.82rem; color: #666; }
+			.config-total { border-top: 1px solid rgba(0,0,0,0.1); margin-top: 0.4rem; padding-top: 0.7rem; }
+			.config-total summary { display: flex; align-items: center; justify-content: space-between; cursor: pointer; list-style: none; font-size: 0.95rem; }
+			.config-total summary::-webkit-details-marker { display: none; }
+			.config-total summary strong { font-size: 1.3rem; color: #11141a; }
+			.config-breakdown { margin-top: 0.7rem; display: grid; gap: 0.35rem; }
+			.config-breakdown div { display: flex; justify-content: space-between; font-size: 0.82rem; color: #555; }
+			.config-note { font-size: 0.74rem; color: #999; margin: 0.7rem 0 0; }
+
+			.pdp-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 1.3rem; }
+			.pdp-buy { flex: 1; min-width: 200px; border: none; cursor: pointer; text-decoration: none; text-align: center; background: #11141a; color: #fff; font-size: 0.92rem; font-weight: 700; padding: 1em 1.6em; border-radius: 10px; transition: background 0.15s ease; }
 			.pdp-buy:hover { background: #000; }
 			.pdp-buy.kit { background: #00C896; }
 			.pdp-buy.kit:hover { background: #00b085; }
-			.pdp-desc { margin: 1.5rem 0 1.2rem; font-size: 0.98rem; line-height: 1.6; color: #444; }
-			.pdp-adv { list-style: none; margin: 0 0 1.4rem; padding: 0; display: grid; gap: 0.5rem; }
-			.pdp-adv li { font-size: 0.88rem; color: #333; padding-left: 1.4rem; position: relative; }
-			.pdp-adv li::before { content: '✓'; position: absolute; left: 0; color: var(--lime, #afcc00); font-weight: 700; }
-			.pdp-note { font-size: 0.8rem; color: #888; line-height: 1.5; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 1rem; }
+			.pdp-consult { flex: 1; min-width: 200px; text-align: center; text-decoration: none; border: 1.5px solid rgba(0,0,0,0.2); color: #11141a; font-size: 0.9rem; font-weight: 700; padding: 1em 1.6em; border-radius: 10px; transition: all 0.15s ease; }
+			.pdp-consult:hover { border-color: #11141a; }
 
-			.pdp-rel { margin-top: 3.5rem; }
-			.pdp-rel h2 {
-				font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; text-transform: uppercase;
-				letter-spacing: 0.02em; margin: 0 0 1rem; color: #11141a;
-			}
-			.rel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
-			.rel-card {
-				display: block; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px;
-				padding: 0.8rem; text-decoration: none; transition: box-shadow 0.15s ease, transform 0.15s ease;
-			}
+			.pdp-adv { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+			.pdp-adv li { font-size: 0.85rem; color: #333; display: flex; gap: 0.55rem; align-items: baseline; }
+			.pdp-adv li span { font-size: 1rem; }
+
+			.pdp-tabs { margin-top: 3rem; }
+			.tabbar { display: flex; gap: 0.3rem; border-bottom: 2px solid rgba(0,0,0,0.08); margin-bottom: 1.3rem; flex-wrap: wrap; }
+			.tab { background: none; border: none; cursor: pointer; font-size: 0.92rem; font-weight: 700; color: #999; padding: 0.7em 1em; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color 0.15s ease; }
+			.tab:hover { color: #11141a; }
+			.tab.is-active { color: #11141a; border-bottom-color: #FF6B35; }
+			.tabpane { max-width: 760px; }
+			.tabpane p { font-size: 0.95rem; line-height: 1.65; color: #444; margin: 0 0 1rem; }
+			.spectable { width: 100%; max-width: 560px; border-collapse: collapse; }
+			.spectable th, .spectable td { text-align: left; padding: 0.6rem 0.8rem; font-size: 0.88rem; border-bottom: 1px solid rgba(0,0,0,0.08); }
+			.spectable th { color: #888; font-weight: 600; width: 45%; }
+			.spectable td { color: #11141a; }
+			.spec-note { font-size: 0.8rem; color: #999; margin-top: 0.8rem; }
+
+			.pdp-rel { margin-top: 3.2rem; }
+			.pdp-rel h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; text-transform: uppercase; margin: 0 0 1rem; color: #11141a; }
+			.rel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1rem; }
+			.rel-card { display: block; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 0.8rem; text-decoration: none; transition: box-shadow 0.15s ease, transform 0.15s ease; }
 			.rel-card:hover { box-shadow: 0 10px 24px rgba(0,0,0,0.1); transform: translateY(-2px); }
-			.rel-img {
-				height: 120px; background: #f4f5f7; border-radius: 8px; display: flex; align-items: center;
-				justify-content: center; margin-bottom: 0.6rem; padding: 0.6rem;
-			}
+			.rel-img { height: 120px; background: #f4f5f7; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.6rem; padding: 0.6rem; }
 			.rel-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
-			.rel-tile {
-				width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center;
-				justify-content: center; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem;
-			}
-			.rel-name { font-size: 0.85rem; line-height: 1.3; color: #11141a; margin-bottom: 0.3rem; }
+			.rel-tile { width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; }
+			.rel-cat { font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #aaa; }
+			.rel-name { font-size: 0.85rem; line-height: 1.3; color: #11141a; margin: 0.2rem 0 0.3rem; }
 			.rel-price { font-size: 0.95rem; font-weight: 800; color: #11141a; }
 
 			.pdp-back { margin-top: 2.5rem; }
 			.pdp-back a { color: #11141a; font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--pink, #ff4d8f); }
 
-			@media (max-width: 720px) {
+			@media (max-width: 760px) {
 				.pdp-top { grid-template-columns: 1fr; gap: 1.5rem; }
-				.pdp-img { max-width: 360px; }
+				.pdp-gallery { position: static; }
+				.pdp-img { max-width: 420px; }
 			}
 		</style>
 	</body>

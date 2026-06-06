@@ -129,6 +129,8 @@ export interface ShopSection {
 \titems: ShopItem[];
 }
 
+export const PRICE_DATE = '${date}';
+
 const REF_SECTIONS: ShopSection[] = ${ref};
 
 // Наши сервисы Контура, которых нет в фиде. Берём только офферы с
