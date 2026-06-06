@@ -1,8 +1,9 @@
 // Каталог-магазин /produkty/ в формате интернет-магазина.
-// REF_SECTIONS — товары, цены и фото перенесены из эталонного фида
-// (workhardmarish.github.io/kontur-feed, цены на 2026-06-06). Наши
-// сервисы Контура, которых нет в фиде, добавляются секцией «Сервисы и
-// софт Контура» из STOREFRONT_PRODUCTS (gated по erid, цена — заглушка).
+// REF_SECTIONS сгенерированы scripts/shop/sync-feed.mjs из эталонного
+// фида (https://workhardmarish.github.io/kontur-feed/, цены на 2026-06-06). Не редактировать вручную —
+// перегенерировать скриптом. Наши сервисы Контура, которых нет в фиде,
+// добавляются секцией «Сервисы и софт Контура» из STOREFRONT_PRODUCTS
+// (gated по erid, цена — заглушка).
 import { CPA_BANNERS, STOREFRONT_PRODUCTS } from './cpa-banners';
 
 export interface ShopItem {

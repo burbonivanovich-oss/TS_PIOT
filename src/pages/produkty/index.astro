@@ -9,6 +9,17 @@ const title = 'Магазин Контура — кассы, ФН, ОФД, ЭД�
 const description =
 	'Кассы и POS-терминалы, фискальные накопители, ОФД, ЭДО и сервисы Контура для бизнеса. Готовые кассовые комплекты со скидкой. Подберём и оформим заявку.';
 
+// Короткие подписи табов (eyebrow «ФН и ОФД» повторяется у двух секций).
+const TAB_LABELS: Record<string, string> = {
+	'kasses': 'Кассы',
+	'kits': 'Комплекты',
+	'fn-ofd': 'Накопители',
+	'ofd': 'ОФД',
+	'edo': 'ЭДО',
+	'periphery': 'Периферия',
+	'servisy': 'Сервисы',
+};
+
 const advantages = [
 	{ ic: '🚚', t: 'Доставка по РФ', s: 'в Москву за 48 часов' },
 	{ ic: '🛡️', t: 'Гарантия', s: 'от производителя' },
@@ -42,7 +53,7 @@ const advantages = [
 					</div>
 					<nav class="shop-tabs" aria-label="Категории">
 						{SHOP_SECTIONS.map(s => (
-							<a href={`#sec-${s.id}`}>{s.eye || s.title}</a>
+							<a href={`#sec-${s.id}`}>{TAB_LABELS[s.id] ?? s.eye ?? s.title}</a>
 						))}
 					</nav>
 				</div>
@@ -143,6 +154,12 @@ const advantages = [
 					<strong>Корзина</strong>
 					<button class="cart-close" data-cart-close aria-label="Закрыть">✕</button>
 				</header>
+				<div class="cart-done" data-cart-done hidden>
+					<div class="cart-done-ic">✓</div>
+					<strong>Заявка оформлена</strong>
+					<p>Менеджер Контура свяжется с вами, подтвердит состав и оформит регистрацию в ФНС. Оплата и договор — на стороне Контура.</p>
+					<button class="b-cart" data-cart-close>Понятно</button>
+				</div>
 				<div class="cart-items" data-cart-items></div>
 				<div class="cart-empty" data-cart-empty>Пока пусто. Добавьте товар из каталога.</div>
 				<footer class="cart-ft" data-cart-ft hidden>
@@ -174,16 +191,15 @@ const advantages = [
 				const ids = Object.keys(cart);
 				const count = ids.reduce((s, id) => s + cart[id].qty, 0);
 				const total = ids.reduce((s, id) => s + cart[id].qty * cart[id].price, 0);
+				const doneShown = !($('[data-cart-done]') as HTMLElement).hidden;
 
-				const fab = $('[data-cart-open]') as HTMLElement;
-				(fab).hidden = count === 0;
+				($('[data-cart-open]') as HTMLElement).hidden = count === 0;
 				($('[data-cart-count]') as HTMLElement).textContent = String(count);
 
 				const box = $('[data-cart-items]') as HTMLElement;
-				const empty = $('[data-cart-empty]') as HTMLElement;
-				const ft = $('[data-cart-ft]') as HTMLElement;
-				empty.hidden = ids.length > 0;
-				ft.hidden = ids.length === 0;
+				($('[data-cart-empty]') as HTMLElement).hidden = ids.length > 0 || doneShown;
+				($('[data-cart-ft]') as HTMLElement).hidden = ids.length === 0 || doneShown;
+				box.hidden = doneShown;
 				box.innerHTML = ids.map(id => `
 					<div class="cline">
 						<div class="cline-n"><span class="cline-name">${cart[id].name}</span><span class="cline-pr">${fmt(cart[id].price)}</span></div>
@@ -198,6 +214,7 @@ const advantages = [
 			}
 
 			function add(id: string, name: string, price: number) {
+				($('[data-cart-done]') as HTMLElement).hidden = true;
 				const cart = read();
 				cart[id] = cart[id] ? { ...cart[id], qty: cart[id].qty + 1 } : { name, price, qty: 1 };
 				write(cart);
@@ -205,8 +222,16 @@ const advantages = [
 				openCart();
 				ym('cart-add', { product: id });
 			}
-			const openCart = () => { ($('[data-cart-overlay]') as HTMLElement).hidden = false; };
-			const closeCart = () => { ($('[data-cart-overlay]') as HTMLElement).hidden = true; };
+			const openCart = () => {
+				($('[data-cart-overlay]') as HTMLElement).hidden = false;
+				document.body.style.overflow = 'hidden';
+			};
+			const closeCart = () => {
+				($('[data-cart-overlay]') as HTMLElement).hidden = true;
+				document.body.style.overflow = '';
+				($('[data-cart-done]') as HTMLElement).hidden = true;
+				render();
+			};
 
 			document.addEventListener('click', e => {
 				const t = e.target as HTMLElement;
@@ -233,10 +258,14 @@ const advantages = [
 					const cart = read();
 					const total = Object.keys(cart).reduce((s, id) => s + cart[id].qty * cart[id].price, 0);
 					ym('cart-checkout', { total });
-					const aside = $('.cart') as HTMLElement;
-					aside.innerHTML = '<div class="cart-done"><div class="cart-done-ic">✓</div><strong>Заявка оформлена</strong><p>Менеджер Контура свяжется с вами, подтвердит состав и оформит регистрацию в ФНС. Оплата и договор — на стороне Контура.</p><button class="b-cart" data-cart-close>Понятно</button></div>';
 					localStorage.removeItem(KEY);
+					($('[data-cart-done]') as HTMLElement).hidden = false;
+					render();
 				}
+			});
+
+			document.addEventListener('keydown', e => {
+				if (e.key === 'Escape' && !($('[data-cart-overlay]') as HTMLElement).hidden) closeCart();
 			});
 
 			render();
