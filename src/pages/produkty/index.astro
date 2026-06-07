@@ -168,7 +168,7 @@ const advantages = [
 				{SHOP_SECTIONS.map(s => (
 					<section class="sec" id={`sec-${s.id}`}>
 						<div class="sec-hd">
-							<div class="sec-eye" style={`color:${s.color}`}>{s.eye}</div>
+							<div class="sec-eye">{s.eye}</div>
 							<h2>{s.title}</h2>
 						</div>
 						<div class="grid">
@@ -247,10 +247,10 @@ const advantages = [
 						<a class="sbtn sbtn-primary" href={u('/podbor/')}>Подобрать кассу →</a>
 					</div>
 					<div class="shop-cta-shapes" aria-hidden="true">
-						<span style="background:#FF6B35"></span>
-						<span style="background:#00C896"></span>
-						<span style="background:#3D7FFF"></span>
-						<span style="background:#7B61FF"></span>
+						<span style="background:#ff4d8f"></span>
+						<span style="background:#afcc00"></span>
+						<span style="background:#9E2B4F"></span>
+						<span style="background:#f4ebd9"></span>
 					</div>
 				</div>
 			</section>
@@ -445,7 +445,7 @@ const advantages = [
 			.sec[hidden] { display: none; }
 			.card[hidden] { display: none; }
 			.sec-hd { margin-bottom: 1rem; }
-			.sec-eye { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; }
+			.sec-eye { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--pink, #ff4d8f); }
 			.sec-hd h2 {
 				font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; letter-spacing: 0.02em;
 				text-transform: uppercase; margin: 0.2rem 0 0; color: #11141a;
@@ -474,7 +474,7 @@ const advantages = [
 			}
 			.card-sale {
 				position: absolute; top: 10px; left: 10px; z-index: 1; font-size: 0.68rem; font-weight: 800;
-				text-transform: uppercase; color: #fff; background: #E5392F; padding: 0.3em 0.6em; border-radius: 6px;
+				text-transform: uppercase; color: #fff; background: #9E2B4F; padding: 0.3em 0.6em; border-radius: 6px;
 			}
 			.card-body { display: flex; flex-direction: column; flex: 1; padding: 0.85rem 0.95rem 1rem; }
 			.card-cat { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #aaa; }

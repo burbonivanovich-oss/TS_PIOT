@@ -118,7 +118,7 @@ const description = item.desc?.slice(0, 160) || item.name;
 				</div>
 
 				<div class="pdp-info">
-					<div class="pdp-cat" style={`color:${section.color}`}>{item.cat || section.eye}</div>
+					<div class="pdp-cat">{item.cat || section.eye}</div>
 					<h1>{item.name}</h1>
 					<p class="pdp-short">{item.desc}</p>
 
@@ -433,9 +433,9 @@ const description = item.desc?.slice(0, 160) || item.name;
 			.pdp-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
 			.pdp-tile { width: 150px; height: 150px; border-radius: 22px; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; }
 			.imgfb { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #b6bcc8; }
-			.pdp-sale { position: absolute; top: 14px; left: 14px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: #fff; background: #E5392F; padding: 0.35em 0.7em; border-radius: 7px; }
+			.pdp-sale { position: absolute; top: 14px; left: 14px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: #fff; background: #9E2B4F; padding: 0.35em 0.7em; border-radius: 7px; }
 
-			.pdp-cat { font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
+			.pdp-cat { font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pink, #ff4d8f); }
 			.pdp-info h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.7rem, 3.5vw, 2.5rem); line-height: 1.04; text-transform: uppercase; margin: 0.3rem 0 0.6rem; color: #11141a; }
 			.pdp-short { margin: 0 0 1.2rem; color: #555; font-size: 0.95rem; line-height: 1.55; }
 
