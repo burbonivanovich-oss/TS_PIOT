@@ -449,18 +449,18 @@ const description = item.desc?.slice(0, 160) || item.name;
 			.pdp-updated { font-size: 0.76rem; color: #aaa; margin-top: 0.3rem; }
 
 			.config { border: 1.5px solid rgba(0,0,0,0.1); border-radius: 14px; padding: 1.1rem 1.2rem; margin-bottom: 1.3rem; }
-			.config-h { font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #FF6B35; margin-bottom: 0.9rem; }
+			.config-h { font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--pink, #ff4d8f); margin-bottom: 0.9rem; }
 			.config-step { margin-bottom: 0.9rem; }
 			.config-step-h { font-size: 0.85rem; font-weight: 700; color: #11141a; margin-bottom: 0.45rem; }
 			.chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
 			.chip { font-size: 0.8rem; font-weight: 600; color: #333; background: #fff; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 999px; padding: 0.4em 0.9em; cursor: pointer; transition: all 0.12s ease; }
-			.chip:hover { border-color: #FF6B35; }
-			.chip.is-active { background: #FF6B35; color: #fff; border-color: #FF6B35; }
+			.chip:hover { border-color: #11141a; }
+			.chip.is-active { background: #11141a; color: #fff; border-color: #11141a; }
 			.opts { display: flex; flex-wrap: wrap; gap: 0.45rem; }
 			.opt { display: inline-flex; align-items: center; gap: 0.5rem; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 10px; padding: 0.5em 0.8em; cursor: pointer; transition: all 0.12s ease; }
 			.opt input { display: none; }
-			.opt:hover { border-color: #FF6B35; }
-			.opt.is-sel { border-color: #FF6B35; background: rgba(255,107,53,0.06); }
+			.opt:hover { border-color: var(--pink, #ff4d8f); }
+			.opt.is-sel { border-color: var(--pink, #ff4d8f); background: rgba(255,77,143,0.08); }
 			.opt-l { font-size: 0.85rem; font-weight: 700; color: #11141a; }
 			.opt-p { font-size: 0.82rem; color: #666; }
 			.config-total { border-top: 1px solid rgba(0,0,0,0.1); margin-top: 0.4rem; padding-top: 0.7rem; }
@@ -473,10 +473,10 @@ const description = item.desc?.slice(0, 160) || item.name;
 			.config-share { margin-top: 0.6rem; background: none; border: none; cursor: pointer; color: var(--pink, #ff4d8f); font-size: 0.8rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; padding: 0; }
 
 			.pdp-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 1.3rem; }
-			.pdp-buy { flex: 1; min-width: 200px; border: none; cursor: pointer; text-decoration: none; text-align: center; background: #11141a; color: #fff; font-size: 0.92rem; font-weight: 700; padding: 1em 1.6em; border-radius: 10px; transition: background 0.15s ease; }
-			.pdp-buy:hover { background: #000; }
-			.pdp-buy.kit { background: #00C896; }
-			.pdp-buy.kit:hover { background: #00b085; }
+			.pdp-buy { flex: 1; min-width: 200px; border: none; cursor: pointer; text-decoration: none; text-align: center; background: #11141a; color: var(--lime, #afcc00); font-size: 0.92rem; font-weight: 700; padding: 1em 1.6em; border-radius: 10px; transition: background 0.15s ease, color 0.15s ease; }
+			.pdp-buy:hover { background: #9E2B4F; color: #fff; }
+			.pdp-buy.kit { background: var(--lime, #afcc00); color: #11141a; }
+			.pdp-buy.kit:hover { background: #9E2B4F; color: #fff; }
 			.pdp-consult { flex: 1; min-width: 200px; text-align: center; text-decoration: none; border: 1.5px solid rgba(0,0,0,0.2); color: #11141a; font-size: 0.9rem; font-weight: 700; padding: 1em 1.6em; border-radius: 10px; transition: all 0.15s ease; }
 			.pdp-consult:hover { border-color: #11141a; }
 			.pdp-quick { flex-basis: 100%; text-align: center; border: none; cursor: pointer; background: none; color: var(--pink, #ff4d8f); font-size: 0.85rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; padding: 0.2em; }
@@ -489,7 +489,7 @@ const description = item.desc?.slice(0, 160) || item.name;
 			.tabbar { display: flex; gap: 0.3rem; border-bottom: 2px solid rgba(0,0,0,0.08); margin-bottom: 1.3rem; flex-wrap: wrap; }
 			.tab { background: none; border: none; cursor: pointer; font-size: 0.92rem; font-weight: 700; color: #999; padding: 0.7em 1em; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color 0.15s ease; }
 			.tab:hover { color: #11141a; }
-			.tab.is-active { color: #11141a; border-bottom-color: #FF6B35; }
+			.tab.is-active { color: #11141a; border-bottom-color: var(--pink, #ff4d8f); }
 			.tabpane { max-width: 760px; }
 			.tabpane p { font-size: 0.95rem; line-height: 1.65; color: #444; margin: 0 0 1rem; }
 			.spectable { width: 100%; max-width: 560px; border-collapse: collapse; }

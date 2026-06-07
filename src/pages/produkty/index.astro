@@ -497,10 +497,10 @@ const advantages = [
 				font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; padding: 0.72em 0.8em;
 				border-radius: 8px; transition: background 0.15s ease, color 0.15s ease;
 			}
-			.b-cart { background: #11141a; color: #fff; }
-			.b-cart:hover { background: #000; }
-			.b-kit { background: #00C896; color: #fff; }
-			.b-kit:hover { background: #00b085; }
+			.b-cart { background: #11141a; color: var(--lime, #afcc00); }
+			.b-cart:hover { background: #9E2B4F; color: #fff; }
+			.b-kit { background: var(--lime, #afcc00); color: #11141a; }
+			.b-kit:hover { background: #9E2B4F; color: #fff; }
 			.b-detail {
 				font-size: 0.78rem; font-weight: 600; color: #11141a; text-decoration: none;
 				white-space: nowrap; border-bottom: 1.5px solid var(--pink, #ff4d8f); padding-bottom: 1px;
@@ -531,7 +531,7 @@ const advantages = [
 			.faq-item { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; padding: 0.9rem 1.1rem; }
 			.faq-item summary { cursor: pointer; font-weight: 700; font-size: 0.95rem; color: #11141a; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
 			.faq-item summary::-webkit-details-marker { display: none; }
-			.faq-item summary::after { content: '+'; color: #FF6B35; font-weight: 700; }
+			.faq-item summary::after { content: '+'; color: var(--pink, #ff4d8f); font-weight: 700; }
 			.faq-item[open] summary::after { content: '\2212'; }
 			.faq-item p { margin: 0.7rem 0 0; font-size: 0.9rem; line-height: 1.55; color: #555; }
 			@media (max-width: 640px) {
