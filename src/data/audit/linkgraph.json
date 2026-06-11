@@ -1,29 +1,23 @@
 {
-  "generatedAt": "2026-05-19T05:08:27.258Z",
+  "generatedAt": "2026-06-11T10:24:16.145Z",
   "totals": {
-    "total": 83,
-    "published": 83,
+    "total": 90,
+    "published": 90,
     "drafts": 0,
-    "orphans": 0,
-    "weak": 46,
-    "deadends": 6
+    "orphans": 1,
+    "weak": 37,
+    "deadends": 4
   },
-  "orphans": [],
+  "orphans": [
+    {
+      "slug": "2026-05-25-140-fz-epd-perehod-msb",
+      "title": "140-ФЗ: переход на ЭПД с 01.09.2026 для малого и среднего бизнеса",
+      "categories": [],
+      "outboundCount": 1,
+      "suggestions": []
+    }
+  ],
   "weak": [
-    {
-      "slug": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
-      "title": "Смарт-терминал или фискальный регистратор: что выбрать для бизнеса",
-      "inbound": [
-        "2026-05-01-kak-vybrat-onlayn-kassu-2026"
-      ]
-    },
-    {
-      "slug": "2026-05-01-ts-piot-evotor-atol-shtrih",
-      "title": "ТС ПИоТ на кассах Эвотор, Атол, Штрих и Дримкас: сравнение поддержки",
-      "inbound": [
-        "2026-05-28-ts-piot-1c"
-      ]
-    },
     {
       "slug": "2026-05-03-atol-27f-obzor",
       "title": "АТОЛ 27Ф: обзор и сценарии установки",
@@ -43,13 +37,6 @@
       "title": "Онлайн-бухгалтерия для ИП на УСН: чек-лист функций",
       "inbound": [
         "2026-05-03-sravnenie-onlayn-buhov"
-      ]
-    },
-    {
-      "slug": "2026-05-03-etrn-2026",
-      "title": "ЭТрН с 1 сентября 2026: кто обязан оформлять электронную транспортную накладную",
-      "inbound": [
-        "2026-05-03-mrot-2026-rabotodatel"
       ]
     },
     {
@@ -130,13 +117,6 @@
       ]
     },
     {
-      "slug": "2026-05-03-mrot-2026-rabotodatel",
-      "title": "МРОТ 27 093 рублей: как пересчитать зарплаты, больничные и взносы",
-      "inbound": [
-        "2026-05-03-strahovye-vznosy-msp-2026"
-      ]
-    },
-    {
       "slug": "2026-05-03-mspos-f20-obzor",
       "title": "MSPOS F20: характеристики, для кого подходит",
       "inbound": [
@@ -148,20 +128,6 @@
       "title": "MSPOS T D3 Mini: характеристики и сценарии использования",
       "inbound": [
         "2026-05-03-mspos-f20-vs-d3-mini"
-      ]
-    },
-    {
-      "slug": "2026-05-03-personalnye-dannye-shtrafy-2025",
-      "title": "Персональные данные: штрафы до 500 млн рублей — что делать малому бизнесу",
-      "inbound": [
-        "2026-03-05-nalogi-msb-2026"
-      ]
-    },
-    {
-      "slug": "2026-05-03-poshtuchnyj-uchyot-alkogolya",
-      "title": "Поштучный учёт крепкого алкоголя в общепите",
-      "inbound": [
-        "2026-05-03-egais-zhurnal-roznichnoy-prodazhi"
       ]
     },
     {
@@ -190,20 +156,6 @@
       "title": "Срок действия ФН: 15 или 36 месяцев — кому какой",
       "inbound": [
         "2026-05-03-vidy-kkt"
-      ]
-    },
-    {
-      "slug": "2026-05-03-uchyot-razlivnogo-piva",
-      "title": "Учёт разливного пива в пабе: марки, кеги, остатки",
-      "inbound": [
-        "2026-05-03-poshtuchnyj-uchyot-alkogolya"
-      ]
-    },
-    {
-      "slug": "2026-05-03-vyvod-iz-oborota-cherez-kassu",
-      "title": "Вывод товаров из оборота через кассу: как настроить в 2026",
-      "inbound": [
-        "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj"
       ]
     },
     {
@@ -256,20 +208,6 @@
       ]
     },
     {
-      "slug": "2026-05-20-kak-otkryt-kafe-cheklis",
-      "title": "Как открыть кафе в 2026 году: чек-лист документов и систем",
-      "inbound": [
-        "2026-05-01-uchyot-alkogolya-v-obschepite"
-      ]
-    },
-    {
-      "slug": "2026-05-20-pervyj-sotrudnik-dokumenty",
-      "title": "Первый сотрудник в ООО и ИП: полный пакет документов",
-      "inbound": [
-        "2026-05-17-ip-ili-ooo-chto-vybrat-2026"
-      ]
-    },
-    {
       "slug": "2026-05-21-kassa-dlya-internet-magazina",
       "title": "Касса для интернет-магазина в 2026 году: нужна ли и как оформлять чеки",
       "inbound": [
@@ -281,13 +219,6 @@
       "title": "Самозанятый на Wildberries в 2026 году: лимит, налог и маркировка",
       "inbound": [
         "2026-05-17-nalogi-s-wildberries-2026"
-      ]
-    },
-    {
-      "slug": "2026-05-25-ts-piot-bez-interneta",
-      "title": "ТС ПИоТ без интернета: как работает касса при потере связи",
-      "inbound": [
-        "2026-05-30-ts-piot-provajdery-sravnenie"
       ]
     },
     {
@@ -305,13 +236,6 @@
       ]
     },
     {
-      "slug": "2026-05-28-ts-piot-1c",
-      "title": "ТС ПИоТ в 1С:Розница и УНФ: настройка пошагово",
-      "inbound": [
-        "2026-05-25-ts-piot-bez-interneta"
-      ]
-    },
-    {
       "slug": "2026-05-29-psn-nds-2026",
       "title": "ПСН и НДС в 2026 году: платит ли ИП на патенте",
       "inbound": [
@@ -319,17 +243,38 @@
       ]
     },
     {
-      "slug": "2026-05-30-ts-piot-provajdery-sravnenie",
-      "title": "Провайдеры ТС ПИоТ в 2026 году: сравнение ЕСМ и Инвенты",
+      "slug": "2026-06-09-egais-dlya-bara",
+      "title": "ЕГАИС для бара: пошаговое подключение и учёт в 2026 году",
       "inbound": [
-        "2026-05-31-chestny-znak-registraciya"
+        "2026-05-01-uchyot-alkogolya-v-obschepite"
       ]
     },
     {
-      "slug": "2026-05-31-chestny-znak-registraciya",
-      "title": "Регистрация в «Честном знаке»: пошаговая инструкция для ИП и ООО",
+      "slug": "2026-06-09-kassa-dlya-kafe-2026",
+      "title": "Касса для кафе 2026: требования, модели, ФФД 1.2",
       "inbound": [
-        "2026-05-01-shtraf-za-markirovku"
+        "2026-05-20-kak-otkryt-kafe-cheklis"
+      ]
+    },
+    {
+      "slug": "2026-06-09-kedo-vnedrenie-msb",
+      "title": "КЭДО для малого бизнеса: с чего начать внедрение",
+      "inbound": [
+        "2026-05-20-pervyj-sotrudnik-dokumenty"
+      ]
+    },
+    {
+      "slug": "2026-06-09-kto-ne-nuzhen-ts-piot",
+      "title": "Кому не нужен ТС ПИоТ: исключения и освобождения в 2026",
+      "inbound": [
+        "2026-01-15-chto-takoe-ts-piot"
+      ]
+    },
+    {
+      "slug": "2026-06-09-markirovka-tabaka-2026",
+      "title": "Маркировка табака 2026: разрешительный режим и контроль ЕМЦ",
+      "inbound": [
+        "2026-05-01-kalendar-markirovki-2026"
       ]
     }
   ],
@@ -341,14 +286,6 @@
     {
       "slug": "2026-05-19-kakoy-nalog-vybrat-ip",
       "title": "Какую систему налогообложения выбрать ИП в 2026 году"
-    },
-    {
-      "slug": "2026-05-20-kak-otkryt-kafe-cheklis",
-      "title": "Как открыть кафе в 2026 году: чек-лист документов и систем"
-    },
-    {
-      "slug": "2026-05-20-pervyj-sotrudnik-dokumenty",
-      "title": "Первый сотрудник в ООО и ИП: полный пакет документов"
     },
     {
       "slug": "2026-05-21-kassa-dlya-internet-magazina",
@@ -363,7 +300,7 @@
     {
       "slug": "2026-01-15-chto-takoe-ts-piot",
       "title": "ТС ПИоТ: что это, кому нужен и как подключить онлайн-кассу к «Честному знаку»",
-      "inboundCount": 29
+      "inboundCount": 32
     },
     {
       "slug": "2026-02-10-kategorii-markirovki-2026",
@@ -373,7 +310,7 @@
     {
       "slug": "2026-05-01-edo-upd-markirovka",
       "title": "ЭДО и УПД для маркированных товаров: как правильно оформить документы",
-      "inboundCount": 16
+      "inboundCount": 18
     },
     {
       "slug": "2026-05-01-registraciya-kkt-v-fns",
@@ -383,7 +320,7 @@
     {
       "slug": "2026-05-01-razreshitelnyj-rezhim-markirovka",
       "title": "Разрешительный режим Честного знака: как работает и кого касается",
-      "inboundCount": 11
+      "inboundCount": 13
     },
     {
       "slug": "2026-05-01-ofd-dlya-ts-piot",
@@ -398,17 +335,17 @@
     {
       "slug": "2026-03-05-nalogi-msb-2026",
       "title": "Налоги МСБ в 2026: УСН, патент, ЕНС и КЭДО — что изменилось",
+      "inboundCount": 9
+    },
+    {
+      "slug": "2026-05-01-chto-takoe-fn",
+      "title": "Фискальный накопитель: ФН-1.1М и ФН-1.2 — что выбрать в 2026",
       "inboundCount": 8
     },
     {
       "slug": "2026-05-01-usn-nds-rasschet",
       "title": "НДС на УСН в 2026: ставка 5%, 7% или 22% — как выбрать",
       "inboundCount": 8
-    },
-    {
-      "slug": "2026-05-01-chto-takoe-fn",
-      "title": "Фискальный накопитель: ФН-1.1М и ФН-1.2 — что выбрать в 2026",
-      "inboundCount": 7
     }
   ]
 }
