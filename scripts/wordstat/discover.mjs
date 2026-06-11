@@ -1,10 +1,14 @@
 #!/usr/bin/env node
-// Trend discovery: дёргает /v1/topRequests на каждый seed из seeds.json
-// и сохраняет до 2000 фраз вокруг seed-а. Сравнение с прошлой выгрузкой
-// делает diff-snapshots.mjs.
+// Trend discovery: дёргает topRequests (Yandex Cloud Search API v2) на каждый
+// seed из seeds.json и сохраняет до 2000 фраз вокруг seed-а. Сравнение с прошлой
+// выгрузкой делает diff-snapshots.mjs.
+//
+// ВАЖНО: старый api.wordstat.yandex.net/v1 отключён — используем Yandex Search
+// API (Api-Key сервисного аккаунта + folderId каталога в теле запроса).
 //
 // Окружение:
-//   WORDSTAT_OAUTH_TOKEN — OAuth-токен (обязателен, кроме DRY_RUN)
+//   YC_API_KEY           — Api-Key сервисного аккаунта (обязателен, кроме DRY_RUN)
+//   YC_FOLDER_ID         — ID каталога Yandex Cloud (обязателен, кроме DRY_RUN)
 //   DRY_RUN=1            — печатает план и выходит
 //   REGION_ID=225        — Yandex region ID (225 = Россия)
 //   NUM_PHRASES=2000     — сколько фраз возвращать на seed (максимум API)
@@ -28,10 +32,11 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const DISC_DIR = join(ROOT, "src", "data", "wordstat", "discoveries");
 const SEEDS_FILE = join(DISC_DIR, "seeds.json");
 
-const API = "https://api.wordstat.yandex.net/v1/topRequests";
-const TOKEN = process.env.WORDSTAT_OAUTH_TOKEN || "";
+const API = "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests";
+const API_KEY = process.env.YC_API_KEY || "";
+const FOLDER_ID = process.env.YC_FOLDER_ID || "";
 const DRY_RUN = process.env.DRY_RUN === "1";
-const REGION_ID = parseInt(process.env.REGION_ID || "225", 10);
+const REGION_ID = String(process.env.REGION_ID || "225");
 const NUM_PHRASES = parseInt(process.env.NUM_PHRASES || "2000", 10);
 const REQUEST_DELAY_MS = parseInt(process.env.REQUEST_DELAY_MS || "200", 10);
 const ONLY_CATEGORY = process.env.ONLY_CATEGORY || "";
@@ -60,40 +65,57 @@ async function callTopRequests(phrase, attempt = 1) {
   const res = await fetch(API, {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${TOKEN}`,
-      "Accept-Language": "ru",
-      "Content-Type": "application/json;charset=utf-8",
+      "Authorization": `Api-Key ${API_KEY}`,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      folderId: FOLDER_ID,
       phrase,
       numPhrases: NUM_PHRASES,
       regions: [REGION_ID],
+      devices: ["DEVICE_ALL"],
     }),
   });
-  if (res.status === 401 || res.status === 403) {
-    throw new Error(`auth failed (${res.status})`);
+  const txt = await res.text();
+  let data = null;
+  try {
+    data = txt ? JSON.parse(txt) : null;
+  } catch {
+    /* не-JSON — ниже как ошибка */
   }
-  if (res.status === 429 || res.status >= 500) {
-    if (attempt >= 4) throw new Error(`${res.status} after ${attempt} tries`);
-    const backoff = 1000 * 2 ** attempt;
-    console.warn(`  ↻ retry "${phrase}" after ${backoff}ms (${res.status})`);
-    await sleep(backoff);
-    return callTopRequests(phrase, attempt + 1);
+  const grpcCode = data && typeof data.code === "number" ? data.code : null;
+  if (!res.ok || grpcCode !== null) {
+    const code = grpcCode ?? res.status;
+    const msg = (data && data.message) || txt.slice(0, 200);
+    const transient = code === 13 || res.status === 429 || res.status >= 500;
+    if (transient && attempt < 4) {
+      const backoff = 1000 * 2 ** attempt;
+      console.warn(`  ↻ retry "${phrase}" after ${backoff}ms (code ${code})`);
+      await sleep(backoff);
+      return callTopRequests(phrase, attempt + 1);
+    }
+    throw new Error(`code ${code}: ${msg}`);
   }
-  if (!res.ok) {
-    const txt = await res.text();
-    throw new Error(`${res.status}: ${txt.slice(0, 200)}`);
-  }
-  const data = await res.json();
-  return Array.isArray(data?.topRequests) ? data.topRequests : [];
+  // count приходит строкой — нормализуем к числу.
+  const arr = Array.isArray(data?.results) ? data.results : [];
+  return arr.map((r) => ({
+    phrase: String(r.phrase || ""),
+    count: parseInt(r.count, 10) || 0,
+  }));
 }
 
 async function main() {
   if (!existsSync(SEEDS_FILE)) {
     throw new Error(`${SEEDS_FILE} не найден`);
   }
-  if (!DRY_RUN && !TOKEN) {
-    throw new Error("WORDSTAT_OAUTH_TOKEN не задан (или DRY_RUN=1).");
+  if (!DRY_RUN && (!API_KEY || !FOLDER_ID)) {
+    throw new Error("YC_API_KEY и YC_FOLDER_ID обязательны (или DRY_RUN=1).");
+  }
+  if (!DRY_RUN) {
+    console.log(
+      `[WORDSTAT] folder_id=${FOLDER_ID} api_key_len=${API_KEY.length} ` +
+        `api_key_tail=${API_KEY.slice(-4)}`,
+    );
   }
 
   const { seeds } = JSON.parse(readFileSync(SEEDS_FILE, "utf8"));
