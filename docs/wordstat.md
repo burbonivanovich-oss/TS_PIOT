@@ -132,15 +132,16 @@ node scripts/wordstat/extract-keys.mjs
 # Локально — посмотреть план без сетевых запросов
 DRY_RUN=1 node scripts/wordstat/fetch.mjs
 
-# Локально с реальным API (нужен токен в env)
-WORDSTAT_OAUTH_TOKEN=… node scripts/wordstat/fetch.mjs
+# Локально с реальным API (нужны ключ и каталог в env)
+YC_API_KEY=… YC_FOLDER_ID=b1ghs… node scripts/wordstat/fetch.mjs
 ```
 
 Переменные окружения для `fetch.mjs`:
 
 | Переменная | Назначение | По умолчанию |
 |---|---|---|
-| `WORDSTAT_OAUTH_TOKEN` | OAuth с `oauth.yandex.ru` | — (обязательно) |
+| `YC_API_KEY` | Api-Key сервисного аккаунта Yandex Cloud | — (обязательно) |
+| `YC_FOLDER_ID` | ID каталога Yandex Cloud (`b1ghs…`, **не** облака) | — (обязательно) |
 | `DRY_RUN` | `1` — печатает план и выходит | `0` |
 | `MAX_QUOTA` | потолок квот за прогон | `500` |
 | `TOP_REQUESTS_LIMIT` | сколько P1 ключей получают topRequests | `50` |
@@ -159,18 +160,33 @@ WORDSTAT_OAUTH_TOKEN=… node scripts/wordstat/fetch.mjs
 
 ## API
 
-Используется официальный Wordstat API (без рекламного кабинета Я.Директа):
+Wordstat больше **не отдельный сервис**. С 2026 года это набор методов внутри
+**Yandex Cloud Search API v2** (gRPC + protobuf с REST-обёрткой). Старый
+`api.wordstat.yandex.net/v1/*` с OAuth-токеном отключён (404 / битый TLS).
 
-- `POST https://api.wordstat.yandex.net/v1/dynamics` — частота **точной фразы**
-  по месяцам за 12 мес. **1 квота на ключ.**
-- `POST https://api.wordstat.yandex.net/v1/topRequests` — популярные запросы,
-  содержащие фразу + похожие. Источник для `topShows` и `topPhrase`. **1 квота
-  на ключ.** По умолчанию запрашивается для всех P1-ключей (нужен, чтобы
-  поймать реальные короткие формулировки).
+Базовый URL — `https://searchapi.api.cloud.yandex.net/v2/wordstat`, метод всегда
+`POST`, в **каждом** теле обязателен `folderId` (ID каталога, не облака):
 
-Лимиты по умолчанию для OAuth-токена:
-- 1000 запросов в сутки.
-- 10 запросов в секунду.
+- `POST /v2/wordstat/dynamics` — частота **точной фразы** по месяцам.
+  Поля: `phrase`, `period: "PERIOD_MONTHLY"`, `fromDate`/`toDate` в **RFC3339 с
+  временем и `Z`** (голая дата отклоняется), `regions: ["225"]`. Ответ —
+  `results[].{date, count, share}`, `count` строкой. **1 квота на ключ.**
+- `POST /v2/wordstat/topRequests` — популярные запросы, содержащие фразу
+  (`results`) + похожие (`associations`). Поля: `phrase`, `numPhrases` (1..2000,
+  **обязательно**), `regions`, `devices: ["DEVICE_ALL"]`. Данные за 30 дней.
+  Источник для `topShows` и `topPhrase`. **1 квота на ключ.**
+
+Авторизация и доступ:
+- Заголовок `Authorization: Api-Key <ключ>`; ключ принадлежит **сервисному
+  аккаунту** с ролью `search-api.webSearch.user` на каталоге.
+- `folderId` = ID каталога (`b1ghs…`). Если послать ID облака (`b1gl7…`) — 403
+  (gRPC code 7). Биллинг каталога должен быть привязан, иначе тоже 403/402.
+- `count` во всех ответах — **строка**, приводим к int (`parseInt`).
+- Ошибки в формате `{ code, message, details }`: 3 — InvalidArgument,
+  7 — PermissionDenied, 13 — Internal (ретраим), 16 — Unauthenticated.
+
+Сервис платный (тарификация за запрос). При росте объёмов следите за 429/503 —
+в скриптах есть ретраи с backoff на транзиентных ошибках.
 
 `MAX_QUOTA=500` × 2 квоты на ключ = до 250 ключей за прогон. Если кандидатов
 больше — оставшиеся подтянутся на следующих weekly-прогонах (FRESH_DAYS).

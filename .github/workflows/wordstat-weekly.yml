@@ -37,7 +37,8 @@ jobs:
 
       - name: Fetch from Wordstat API (точечно по seo.keywords)
         env:
-          WORDSTAT_OAUTH_TOKEN: ${{ secrets.WORDSTAT_OAUTH_TOKEN }}
+          YC_API_KEY: ${{ secrets.YC_API_KEY }}
+          YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
           MAX_QUOTA: ${{ inputs.max_quota || '500' }}
           TOP_REQUESTS_LIMIT: ${{ inputs.top_requests_limit || '1000' }}
           FRESH_DAYS: ${{ inputs.fresh_days || '7' }}
@@ -46,7 +47,8 @@ jobs:
 
       - name: Discover trends (broad по seeds.json)
         env:
-          WORDSTAT_OAUTH_TOKEN: ${{ secrets.WORDSTAT_OAUTH_TOKEN }}
+          YC_API_KEY: ${{ secrets.YC_API_KEY }}
+          YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
           REGION_ID: "225"
           NUM_PHRASES: "2000"
         run: node scripts/wordstat/discover.mjs
