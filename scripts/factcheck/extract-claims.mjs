@@ -154,9 +154,11 @@ function extractClaims(slug, md) {
 }
 
 function processOne(slug) {
-  const file = join(BLOG_DIR, `${slug}.md`);
+  let file = join(BLOG_DIR, `${slug}.md`);
   if (!existsSync(file)) {
-    throw new Error(`не найден: ${file}`);
+    const mdx = join(BLOG_DIR, `${slug}.mdx`);
+    if (existsSync(mdx)) file = mdx;
+    else throw new Error(`не найден: ${file}`);
   }
   const md = readFileSync(file, "utf8");
   const result = extractClaims(slug, md);
