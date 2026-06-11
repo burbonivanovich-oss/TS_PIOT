@@ -374,6 +374,10 @@ const SLUG_PROMPTS = {
     'A café service counter with a modern smart POS terminal, an espresso machine and a glass pastry display, a 2D scanner beside the till, warm inviting interior light, blurred seating in the background',
   '2026-06-09-egais-dlya-bara':
     'A bar counter with spirits bottles on backlit shelves, beer taps in the foreground and a POS terminal with a small UTM device connected by USB, moody warm evening light',
+
+  // ── 2026-06-11 ──
+  '2026-06-11-ts-piot-lichnyj-kabinet':
+    'A small-business owner signing in to an online service account on a laptop at a tidy retail back-office desk, a POS terminal and a 2D barcode scanner beside the laptop, a blurred login form on the screen with no readable text, soft daylight',
 };
 
 // ─── Утилиты ──────────────────────────────────────────────────────────────────
