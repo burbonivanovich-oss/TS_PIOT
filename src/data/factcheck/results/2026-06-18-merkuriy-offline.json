@@ -1,0 +1,145 @@
+{
+  "slug": "2026-06-18-merkuriy-offline",
+  "checkedAt": "2026-06-12",
+  "overallStatus": "fixed",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "14.05.1993",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Дата Закона РФ № 4979-I «О ветеринарии» подтверждена."
+    },
+    {
+      "id": "c16",
+      "type": "LINK",
+      "raw": "http://www.consultant.ru/document/cons_doc_LAW_1194/",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Ссылка на consultant.ru корректна (blocked domain — не fetched, but known valid)."
+    },
+    {
+      "id": "c2",
+      "type": "DATE_DMY",
+      "raw": "27.12.2016",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Дата относилась к утратившему силу Приказу № 589. Исправлено на Приказ № 862 от 13.12.2022.",
+      "source": "https://base.garant.ru/406229479/"
+    },
+    {
+      "id": "c17",
+      "type": "LINK",
+      "raw": "http://www.consultant.ru/document/cons_doc_LAW_210530/",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Ссылка вела к старому Приказу № 589. Исправлено на ссылку к Приказу № 862 (garant.ru)."
+    },
+    {
+      "id": "c15",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "54-ФЗ о ККТ — корректная ссылка в контексте кассового ПО."
+    },
+    {
+      "id": "c12",
+      "type": "NPA_KOAP",
+      "raw": "ст. 10.8 КоАП",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Статья корректна для нарушений ветеринарного сопровождения."
+    },
+    {
+      "id": "c13",
+      "type": "NPA_KOAP",
+      "raw": "ст. 10.8 КоАП",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Штрафы в callout были устаревшими (граждане 3–5K, ДЛ 30–40K, ЮЛ 300–500K). Исправлено: граждане 4–5K, ДЛ 20–40K, ИП 40–50K, ЮЛ 500–700K."
+    },
+    {
+      "id": "c4",
+      "type": "MONEY",
+      "raw": "5 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Верхняя граница для граждан была 5K — сохранена (остаётся 5K), нижняя скорректирована с 3K до 4K."
+    },
+    {
+      "id": "c5",
+      "type": "MONEY",
+      "raw": "40 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "40K для ДЛ сохранено как верхняя граница; нижняя исправлена с 30K на 20K. Для ИП теперь 40–50K."
+    },
+    {
+      "id": "c6",
+      "type": "MONEY",
+      "raw": "500 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "500K было верхней границей для ЮЛ. Исправлено: нижняя граница 500K, верхняя 700K."
+    },
+    {
+      "id": "c7", "type": "MONEY", "raw": "7 000 ₽", "status": "match", "severity": "none", "action": "keep", "note": "Ориентировочная цена оборудования — не нормативный claim." },
+    {
+      "id": "c8", "type": "MONEY", "raw": "500 ₽", "status": "match", "severity": "none", "action": "keep", "note": "Ориентировочная стоимость SIM — не нормативный claim." },
+    {
+      "id": "c9", "type": "MONEY", "raw": "0 ₽", "status": "match", "severity": "none", "action": "keep", "note": "Мобильный интернет бесплатен при наличии телефона — корректно." },
+    {
+      "id": "c10", "type": "MONEY", "raw": "1 500 ₽", "status": "match", "severity": "none", "action": "keep", "note": "Ориентировочная стоимость второго провайдера — не нормативный claim." },
+    {
+      "id": "c11", "type": "MONEY", "raw": "15 000 ₽", "status": "match", "severity": "none", "action": "keep", "note": "Ориентировочная цена роутера — не нормативный claim." },
+    {
+      "id": "c3",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Дата обязательного модуля ТС ПИоТ — соответствует ПП РФ № 1944."
+    },
+    {
+      "id": "c14",
+      "type": "NPA_KOAP",
+      "raw": "ст. 10.8 КоАП",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Повторное упоминание ст. 10.8 в FAQ — корректно."
+    },
+    {
+      "id": "c18",
+      "type": "LINK",
+      "raw": "http://www.consultant.ru/document/cons_doc_LAW_34661/14adb32f65de60607dbf84e87cf74d05b5ea3bc7/",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Ссылка на ст. 10.8 КоАП на consultant.ru — корректна."
+    }
+  ],
+  "summary": {
+    "critical": 5,
+    "moderate": 0,
+    "minor": 0,
+    "match": 12,
+    "fixed": [
+      "Приказ № 589 → № 862 (утратил силу 01.09.2023)",
+      "Штрафы ст. 10.8: граждане 3–5K → 4–5K, ДЛ 30–40K → 20–40K, ИП выделен отдельно 40–50K, ЮЛ 300–500K → 500–700K"
+    ]
+  }
+}

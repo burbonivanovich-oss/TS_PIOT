@@ -1,0 +1,61 @@
+{
+  "slug": "2026-06-13-kak-umenshit-nalog-usn-2026",
+  "checkedAt": "2026-06-12",
+  "overallStatus": "pass",
+  "criticalCount": 0,
+  "moderateCount": 0,
+  "minorCount": 1,
+  "checks": [
+    {
+      "claimId": "c9",
+      "type": "MONEY",
+      "claim": "57 390 ₽ — фиксированный взнос ИП в 2026 году",
+      "status": "match",
+      "severity": "ok",
+      "confidence": 0.99,
+      "source": "ст.430 НК РФ / regberry.ru",
+      "note": "Подтверждено: 57 390 ₽ актуальная сумма фиксированного взноса ИП 2026."
+    },
+    {
+      "claimId": "c1",
+      "type": "DATE_DMY",
+      "claim": "28.12.2026 — срок уплаты фиксированного взноса",
+      "status": "match",
+      "severity": "ok",
+      "confidence": 0.98,
+      "source": "ст.430 НК РФ / regberry.ru",
+      "note": "Подтверждено: срок уплаты фиксированных взносов ИП — 28 декабря текущего года."
+    },
+    {
+      "claimId": "c2",
+      "type": "DATE_DMY",
+      "claim": "01.07.2027 — срок уплаты дополнительного 1% за 2026 год",
+      "status": "match",
+      "severity": "ok",
+      "confidence": 0.98,
+      "source": "ст.430 НК РФ",
+      "note": "Подтверждено: допвзнос 1% за 2026 год платится до 1 июля 2027 года."
+    },
+    {
+      "claimId": "reduction-100pct-no-workers",
+      "type": "PERCENT",
+      "claim": "ИП без работников уменьшает налог на взносы на 100%, с работниками — не более 50%",
+      "status": "match",
+      "severity": "ok",
+      "confidence": 0.99,
+      "source": "п.3.1 ст.346.21 НК РФ",
+      "note": "Подтверждено: норма НК РФ соответствует."
+    },
+    {
+      "claimId": "verify-comment-взносы",
+      "type": "MONEY",
+      "claim": "<!-- VERIFY --> около суммы взносов в таблице",
+      "status": "incomplete-context",
+      "severity": "minor",
+      "action": "remove-verify-comment",
+      "confidence": 0.99,
+      "note": "Сумма 57 390 ₽ верна. Комментарий VERIFY может быть удалён."
+    }
+  ],
+  "summary": "Все проверяемые факты верны. Суммы взносов, сроки уплаты, пороги вычета соответствуют НК РФ и актуальным данным 2026 года. Критических ошибок нет."
+}

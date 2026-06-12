@@ -1,0 +1,99 @@
+{
+  "slug": "2026-06-17-poexzemplyarnyj-uchet",
+  "checkedAt": "2026-06-12T00:00:00.000Z",
+  "checkedBy": "claude-sonnet-4-6+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 20,
+    "checked": 12,
+    "match": 10,
+    "mismatch": 1,
+    "uncertain": 1,
+    "missingSources": 0,
+    "overallStatus": "pass-with-note",
+    "criticalIssues": 0,
+    "note": "Критических расхождений нет. 487-ФЗ от 31.12.2017 подтверждён. ПП 224 от 28.02.2019 (табак) подтверждён. Штрафы по ст. 15.12 ч. 2 КоАП для ИП (5 000–10 000 ₽) и юрлиц (50 000–300 000 ₽) верны. Дедлайн ТС ПИоТ 01.07.2026 корректен. Умеренное замечание: «пиво — с апреля 2024» — применимо к кегам, для потребительской упаковки дата июнь 2024. Сформулировано осторожно, критическим не является."
+  },
+  "claims": [
+    {
+      "id": "c17",
+      "type": "NPA_FZ",
+      "raw": "487-ФЗ от 31.12.2017",
+      "context": "Основание — [487-ФЗ от 31.12.2017]..., внёсший в законодательство понятие ГИС МТ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.98,
+      "explanation": "487-ФЗ от 31.12.2017 — базовый закон о маркировке товаров, вводящий ГИС МТ. Подтверждён через consultant.ru и специализированные агрегаторы.",
+      "sources": [
+        "https://getmark.ru/blog/o-markirovke/zakon-o-markirovke-tovarov-487-fz-ot-31-dekabrya-2017/",
+        "https://www.consultant.ru/document/cons_doc_LAW_286746/"
+      ],
+      "action": "keep"
+    },
+    {
+      "id": "c18",
+      "type": "NPA_PP_NUMBERED",
+      "raw": "ПП РФ № 224 от 28.02.2019",
+      "context": "Табак, сигареты, никотинсодержащая продукция — с 2019 года, нормативная база — ПП РФ № 224 от 28.02.2019",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "explanation": "ПП № 224 от 28.02.2019 «Об утверждении Правил маркировки табачной и никотинсодержащей продукции» — подтверждён через consultant.ru и garant.ru. Присутствует в актуальных редакциях НПА.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_319565/",
+        "https://base.garant.ru/72189916/"
+      ],
+      "action": "keep"
+    },
+    {
+      "id": "c13-beer",
+      "type": "DATE_YEAR",
+      "raw": "с апреля 2024 года (пиво в потребительской упаковке)",
+      "context": "Пиво и слабоалкогольные напитки в потребительской упаковке — с апреля 2024 года",
+      "status": "incomplete-context",
+      "severity": "moderate",
+      "confidence": 0.7,
+      "explanation": "Апрель 2024 — дата для кег (запрет продажи немаркированного пива в кегах). Для потребительской упаковки (бутылки, банки, ПЭТ) обязательная передача сведений в «Честный знак» при продаже началась с 01.06.2024. Формулировка «с апреля 2024» применима к кегам, для полной картины нужно уточнение. Не является критическим, так как и апрель, и июнь 2024 — прошедшие события, обе даты подтверждают что маркировка пива действует.",
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/pivo-pivniye-napitki/sroki-i-etapy-zapuska-obyazatelnoy-markirovki-piva-pivnykh-i-slaboalkogolnykh-napitkov",
+        "https://taxcom-kassa.ru/blog/info/markirovka/beer-labeling-2024/"
+      ],
+      "action": "keep",
+      "actionDetail": "При плановом обновлении рекомендуется уточнить: «с апреля 2024 — для кег, с июня 2024 — для потребительской упаковки». Текущая формулировка неточна, но не вводит в заблуждение критически."
+    },
+    {
+      "id": "c16+c14+c15",
+      "type": "NPA_KOAP+MONEY",
+      "raw": "ст. 15.12 КоАП РФ для ИП — 5 000–10 000 ₽, для юрлиц — 50 000–300 000 ₽",
+      "context": "нарушение правил оборота со штрафом по [ст. 15.12 КоАП РФ]: для ИП — 5 000–10 000 ₽ с конфискацией, для юрлиц — 50 000–300 000 ₽ с конфискацией",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "explanation": "Ч. 2 ст. 15.12 КоАП: должностные лица и ИП 5 000–10 000 ₽, юрлица 50 000–300 000 ₽ с конфискацией. Полностью соответствует действующей редакции.",
+      "sources": [
+        "https://pravo.ppt.ru/kodeks/koap/st-15.12",
+        "https://base.garant.ru/12125267/7b8e1cd613832736ca0a22fade07f0e6/"
+      ],
+      "action": "keep"
+    },
+    {
+      "id": "c3-c4-c5",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026 (ТС ПИоТ)",
+      "context": "С 01.07.2026 модуль ТС ПИоТ обязателен на каждой кассе",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "explanation": "Дедлайн 01.07.2026 для обязательного применения ТС ПИоТ подтверждён. Встречается во всех официальных источниках («Честный знак», ФНС, markirovka.ru).",
+      "sources": [
+        "https://markirovka.ru/knowledge/tovarnye-gruppy/obschie-voprosy-gis/tekhnicheskie-sredstva-polucheniya-informatsii-o-tovare-ts-piot"
+      ],
+      "action": "keep"
+    }
+  ],
+  "recommendations": [
+    "Критических правок не требуется.",
+    "При плановом обновлении уточнить формулировку по пиву: апрель 2024 — кеги, июнь 2024 — потребительская упаковка."
+  ],
+  "nextReview": "2026-12-17"
+}

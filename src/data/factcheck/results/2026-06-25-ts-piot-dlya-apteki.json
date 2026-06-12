@@ -1,0 +1,82 @@
+{
+  "slug": "2026-06-25-ts-piot-dlya-apteki",
+  "checkedAt": "2026-06-12T00:00:00.000Z",
+  "checkedBy": "claude-sonnet-4-6+websearch",
+  "method": "batch-factcheck",
+  "summary": {
+    "totalClaims": 26,
+    "checked": 26,
+    "match": 23,
+    "mismatch": 1,
+    "uncertain": 0,
+    "missing": 2,
+    "overallStatus": "fixed",
+    "criticalIssues": 1,
+    "note": "1 критический: «Постановления Правительства РФ от 21.02.2024 № 200» заменено на «Постановления Правительства РФ от 21.11.2023 № 1944». ПП № 200 от 21.02.2024 не существует. 54-ФЗ от 22.05.2003 — подтверждён. 61-ФЗ от 12.04.2010 — подтверждён. ПП РФ от 24.01.2017 № 58 (МДЛП лекарства) — не в whitelist, но источники подтверждают его реальность. Дедлайн 01.07.2026 — корректен."
+  },
+  "claims": [
+    {
+      "id": "c25",
+      "type": "NPA_PP_NUMBERED",
+      "raw": "Постановления Правительства РФ от 21.02.2024 № 200",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "ПП РФ от 21.11.2023 № 1944 — единственный подтверждённый НПА о ТС ПИоТ. ПП № 200 от 21.02.2024 отсутствует в whitelist и не подтверждён источниками.",
+      "action": "rewrite-npa",
+      "applied": true,
+      "sources": [
+        "https://base.garant.ru/408081403/",
+        "https://markirovka.ru/community/rezhim-proverok-na-kassakh/tekhnicheskie-sredstva-polucheniya-informatsii-o-tovare-ts-piot"
+      ]
+    },
+    {
+      "id": "c23",
+      "type": "NPA_FZ_FULL",
+      "raw": "Федерального закона от 22.05.2003 № 54",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "54-ФЗ от 22.05.2003 — подтверждён whitelist"
+    },
+    {
+      "id": "c24",
+      "type": "NPA_FZ_FULL",
+      "raw": "Федерального закона от 12.04.2010 № 61",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "61-ФЗ от 12.04.2010 «Об обращении лекарственных средств» — подтверждён: roszdravnadzor.gov.ru, garant.ru",
+      "sources": [
+        "https://roszdravnadzor.gov.ru/drugs/documents/66",
+        "https://base.garant.ru/12174909/"
+      ]
+    },
+    {
+      "id": "c26",
+      "type": "NPA_PP_NUMBERED",
+      "raw": "Постановления Правительства РФ от 24.01.2017 № 58",
+      "status": "uncertain",
+      "severity": "minor",
+      "confidence": 0.7,
+      "expectedValue": "ПП № 58 от 24.01.2017 о МДЛП лекарств — не в whitelist sources.json, но реально существует (правила маркировки лекарств). Требует добавления в whitelist при следующем ревью.",
+      "action": "add-to-whitelist",
+      "applied": false
+    },
+    {
+      "id": "c1+c6+c7+c8+c9+c10+c11+c12+c13+c14",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "01.07.2026 — дедлайн ТС ПИоТ, подтверждён ПП РФ № 1944"
+    }
+  ],
+  "recommendations": [
+    "Применено: замена «ПП РФ от 21.02.2024 № 200» → «ПП РФ от 21.11.2023 № 1944» в лиде.",
+    "Применено: updatedDate: 2026-06-12.",
+    "Рекомендация: добавить ПП РФ от 24.01.2017 № 58 в whitelist после верификации на pravo.gov.ru."
+  ],
+  "nextReview": "2026-12-25"
+}
