@@ -1,0 +1,130 @@
+name: Картинки — ручная генерация
+
+# Единый воркфлоу для ручной генерации всех типов изображений.
+# Тип выбирается через input `type`.
+#
+# hero      — hero-изображения для статей (generate-hero-images.mjs)
+# preview   — пул превью по категориям (generate-preview-images.mjs)
+# flagship  — иллюстрации шагов симулятора ТС ПИоТ (generate-flagship-illustrations.mjs)
+# og        — OG-фоны через OpenRouter или Gemini (generate-og-backgrounds-*.mjs)
+#
+# Ежедневный авто-бэкфилл hero — отдельный воркфлоу (hero-backfill-daily.yml).
+
+on:
+  workflow_dispatch:
+    inputs:
+      type:
+        description: 'Что генерировать'
+        required: true
+        type: choice
+        options:
+          - hero
+          - preview
+          - flagship
+          - og
+      force:
+        description: 'Перезаписать существующие (1 = да, 0 = пропустить готовые)'
+        required: false
+        default: '0'
+      slug:
+        description: '[hero] Slug статьи (пусто = все без hero)'
+        required: false
+        default: ''
+      limit:
+        description: '[hero] Сколько статей за прогон (0 = без ограничений, default 5)'
+        required: false
+        default: '5'
+      category:
+        description: '[preview] Категория (пусто = все 5). Варианты: ts-piot, markirovka, zakonodatelstvo, kkt, egais'
+        required: false
+        default: ''
+      steps:
+        description: '[flagship] Шаги через запятую (пусто = все 8). Пример: "0,2,5"'
+        required: false
+        default: ''
+      model:
+        description: '[og] Модель. Варианты: black-forest-labs/flux-1-schnell (бесплатно), recraft-ai/recraft-v3, google/imagen-4, openai/gpt-image-1 и др.'
+        required: false
+        default: 'black-forest-labs/flux-1-schnell'
+
+jobs:
+  generate:
+    name: Генерация — ${{ inputs.type }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      FORCE:    ${{ inputs.force }}
+      SLUG:     ${{ inputs.slug }}
+      LIMIT:    ${{ inputs.limit }}
+      CATEGORY: ${{ inputs.category }}
+      STEPS:    ${{ inputs.steps }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      # ── hero ─────────────────────────────────────────────────────────────────
+      - name: Генерация hero-изображений
+        if: inputs.type == 'hero'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: node scripts/generate-hero-images.mjs
+
+      - name: Оптимизация hero в WebP
+        if: inputs.type == 'hero'
+        run: node scripts/optimize-images.mjs
+
+      # ── preview ──────────────────────────────────────────────────────────────
+      - name: Генерация пула превью
+        if: inputs.type == 'preview'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: node scripts/generate-preview-images.mjs
+
+      # ── flagship ─────────────────────────────────────────────────────────────
+      - name: Генерация иллюстраций флагмана
+        if: inputs.type == 'flagship'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: node scripts/generate-flagship-illustrations.mjs
+
+      - name: Оптимизация флагмана в WebP
+        if: inputs.type == 'flagship'
+        run: DIRS=flagship node scripts/optimize-images.mjs
+
+      # ── og (OpenRouter) ──────────────────────────────────────────────────────
+      - name: Генерация OG-фонов (OpenRouter)
+        if: inputs.type == 'og' && !startsWith(inputs.model, 'google/')
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          sed -i "s|const MODEL = '.*'|const MODEL = '${{ inputs.model }}'|" scripts/generate-og-backgrounds-openrouter.mjs
+          node scripts/generate-og-backgrounds-openrouter.mjs
+
+      # ── og (Gemini) ──────────────────────────────────────────────────────────
+      - name: Генерация OG-фонов (Gemini)
+        if: inputs.type == 'og' && startsWith(inputs.model, 'google/')
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ inputs.model == 'google/imagen-4-fast' && 'imagen-4.0-fast-generate-001' || inputs.model == 'google/imagen-4' && 'imagen-4.0-generate-001' || inputs.model == 'google/imagen-4-ultra' && 'imagen-4.0-ultra-generate-001' || inputs.model == 'google/gemini-2.5-flash-image' && 'gemini-2.5-flash-image' || inputs.model == 'google/gemini-3.1-flash-image-preview' && 'gemini-3.1-flash-image-preview' || 'gemini-3-pro-image-preview' }}
+        run: node scripts/generate-og-backgrounds-gemini.mjs
+
+      # ── Коммит ───────────────────────────────────────────────────────────────
+      - name: Коммит результатов
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/images/hero/ public/images/preview/ public/images/flagship/ public/og-backgrounds/ src/content/blog/
+          git diff --staged --quiet || git commit -m "feat(images): генерация [${{ inputs.type }}]"
+          git push origin HEAD

@@ -1,4 +1,4 @@
-name: Analytics — Refresh Data
+name: Аналитика — обновление данных
 
 # Тянет GSC + Метрика → merge в src/data/analytics/articles.json,
 # который читает дашборд /dashboard/ при сборке сайта.

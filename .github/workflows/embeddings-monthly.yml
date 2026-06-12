@@ -1,4 +1,4 @@
-name: Embeddings Monthly Refresh
+name: Поиск — эмбеддинги (ежемесячно)
 
 on:
   schedule:

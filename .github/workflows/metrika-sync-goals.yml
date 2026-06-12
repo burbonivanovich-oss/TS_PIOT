@@ -1,4 +1,4 @@
-name: Metrika — Sync Goals
+name: Метрика — синхронизация целей
 
 # Синхронизация целей в счётчике Яндекс.Метрики со списком в
 # src/data/metrika/goals.json через Management API.
