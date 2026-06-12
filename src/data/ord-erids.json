@@ -1,6 +1,6 @@
 {
   "_comment": "Автогенерируется скриптом scripts/ord-register.mjs. Не редактировать вручную.",
-  "_generated": "2026-05-17T14:33:25.595Z",
+  "_generated": "2026-06-12T17:58:28.152Z",
   "kontur-ofd": "CQH36pWzJqVJ28pYvrdbe29aP6Sxr2Ri7Y1GLmmKozKpTJ",
   "kontur-markirovka": "2ucDCLq9ZqzX2EPXXAETGwnDJPBUrtLimUDNKBjoHt3TnBSUkyfuHvbA",
   "kontur-diadoc": "HuNbC4MfXEEAXiQhHRaXLkvNxqSftLNsmFxTm6fjeFwumbqrF2",
@@ -12,7 +12,7 @@
   "kontur-mchd": "sKjnGhcf5mSphWB6w6Htr29iA5cVtGdGQS5jvUMamBHPUYp",
   "kontur-market": "HuNbC4MfXEEAXiQhHRaXLkvNxqSftLNsmFxTm6nMgynW13oUBJ",
   "bank-elba": "3apb1QrvkebvwgCK12gk3i27xfMkhpFwHKQRUC4wi6McU",
-  "ts-piot-provider": "S4Ssbqz46cMqoDCd2gPnYmKCCXLH7EVza63Zaa77nHuVrKWqvpwfSp",
+  "ts-piot-provider": "S4Ssbqz46cMqoDCd2gPnYmKCCXLH7EVza63Zaa77nHuVrKWqvpwfSq",
   "online-buh": "CQH36pWzJqVJ28pYvrdbe29aP6SxrMjPG48aVDC63XvaLQ",
   "edo-operator": "4q7hppNAnjXu4RcGJbSUYLsLtZ16uaVoaAftNsYkPkkeC84ac"
 }
