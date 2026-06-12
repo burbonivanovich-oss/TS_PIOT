@@ -67,7 +67,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'Контур.Маркет включает кассовую программу по 54-ФЗ, модуль ТС ПИоТ для разрешительного режима и товарный учёт с маркировкой. Подключение от 1 рабочего дня.',
 		cta: 'Подключить Контур.Маркет →',
-		ctaHref: 'https://kontur.ru/market/kkt?p=f74746',
+		ctaHref: 'https://kontur.ru/lp/market-ts-piot?p=f74746',
 		visual: { abbrev: 'ТС', bg: '#9E2B4F' },
 	},
 	'online-buh': {
