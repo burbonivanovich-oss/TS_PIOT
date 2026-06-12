@@ -14,7 +14,7 @@ name: Индексация — Яндекс (IndexNow) + Google
 on:
   # Автоматически после успешного деплоя:
   workflow_run:
-    workflows: ['Deploy to GitHub Pages']
+    workflows: ['Деплой — GitHub Pages']
     types: [completed]
 
   # Ручной запуск с параметрами:

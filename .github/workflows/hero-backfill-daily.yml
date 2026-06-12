@@ -1,4 +1,4 @@
-name: Hero Backfill (Daily)
+name: Картинки — бэкфилл героев (ежедневно)
 
 # Safety-net: раз в сутки находит статьи без heroImage и догенерит hero
 # через Nano Banana (Google Gemini 3.1 Flash Image Preview).

@@ -1,4 +1,4 @@
-name: Auto Publish Article
+name: Публикация — автоматический выпуск
 
 on:
   schedule:

@@ -1,4 +1,4 @@
-name: Wordstat Weekly Refresh
+name: Wordstat — еженедельное обновление
 
 on:
   schedule:

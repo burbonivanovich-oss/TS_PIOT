@@ -1,0 +1,104 @@
+name: ОРД — управление
+
+# Единый воркфлоу для работы с Яндекс ОРД.
+# Режимы (dispatch): sync | bootstrap | status
+# Push-триггер (auto): при изменении ord-config.json / ord-erids.json → sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/ord-config.json'
+      - 'src/data/ord-erids.json'
+
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Режим'
+        required: true
+        type: choice
+        options:
+          - sync        # регистрация/обновление креативов
+          - bootstrap   # первичная настройка (орг, договор, площадка)
+          - status      # диагностика статусов ЕРИР
+      banner:
+        description: '[sync] bannerId для одиночной регистрации. Пусто = все новые'
+        required: false
+        default: ''
+      force:
+        description: '[sync] Перерегистрировать даже если erid уже есть (true = да)'
+        required: false
+        default: 'false'
+      creatives:
+        description: '[status] Печатать статус каждого креатива (true = да)'
+        required: false
+        default: 'false'
+      dry_run:
+        description: '[bootstrap/sync] Только лог, запросы не отправлять (true = да)'
+        required: false
+        default: 'false'
+
+jobs:
+  run:
+    name: ОРД (${{ github.event_name == 'push' && 'auto-sync' || inputs.mode }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # ── Auto-trigger on push → sync ──────────────────────────────────────────
+      - name: Синхронизация креативов (авто по push)
+        if: github.event_name == 'push'
+        env:
+          ORD_API_KEY:   ${{ secrets.ORD_API_KEY }}
+          SKIP_PLATFORM: '1'
+        run: node scripts/ord-register.mjs
+
+      # ── Manual: sync ─────────────────────────────────────────────────────────
+      - name: Синхронизация креативов
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'sync'
+        env:
+          ORD_API_KEY:   ${{ secrets.ORD_API_KEY }}
+          BANNER:        ${{ inputs.banner }}
+          FORCE:         ${{ inputs.force == 'true' && '1' || '' }}
+          DRY_RUN:       ${{ inputs.dry_run == 'true' && '1' || '' }}
+          SKIP_PLATFORM: '1'
+        run: node scripts/ord-register.mjs
+
+      # ── Manual: bootstrap ────────────────────────────────────────────────────
+      - name: Bootstrap (орг, договор, площадка)
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'bootstrap'
+        env:
+          ORD_API_KEY: ${{ secrets.ORD_API_KEY }}
+          DRY_RUN:     ${{ inputs.dry_run == 'true' && '1' || '' }}
+        run: node scripts/ord-bootstrap.mjs
+
+      # ── Manual: status ───────────────────────────────────────────────────────
+      - name: Диагностика статусов ЕРИР
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'status'
+        env:
+          ORD_API_KEY: ${{ secrets.ORD_API_KEY }}
+          CREATIVES:   ${{ inputs.creatives == 'true' && '1' || '' }}
+        run: node scripts/ord-status.mjs
+
+      # ── Коммит ord-erids.json после sync ─────────────────────────────────────
+      - name: Закоммитить ord-erids.json (если изменился)
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'sync')
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/ord-erids.json
+          if git diff --cached --quiet; then
+            echo "ord-erids.json не изменился — коммит не нужен"
+          else
+            git commit -m "chore(ord): обновлены erid-токены [skip ci]"
+            git push
+          fi
