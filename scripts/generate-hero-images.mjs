@@ -285,7 +285,9 @@ const SLUG_PROMPTS = {
   '2026-05-03-markirovka-bezalk-napitkov-2026':
     'Non-alcoholic beverages — sparkling water and juice bottles — on a store shelf, DataMatrix labels on caps, cool refrigerator light',
   '2026-05-03-markirovka-bakalei-2026':
-    'Dry grocery products — cereals, pasta, canned goods — on a shelf with marking stickers visible, warm grocery store lighting',
+    'Snack bags, glass sauce bottles and spice jars grouped together on a grocery shelf, small DataMatrix marking stickers on the packaging, warm grocery store lighting',
+  '2026-05-27-markirovka-obuvi-2026':
+    'Pairs of leather shoes and sneakers in open cardboard shoe boxes on a retail shelf, a small DataMatrix code sticker on each box label, shoe-store lighting, shallow depth of field',
   '2026-05-03-markirovka-konservov-2026':
     'Canned food products stacked on a metal shelf, marking labels on lids, industrial storage lighting',
   '2026-05-03-markirovka-bytovoy-himii-2026':
@@ -360,6 +362,22 @@ const SLUG_PROMPTS = {
     'Small UTM EGAIS hardware device being connected to a POS terminal with a USB cable on a bar counter',
   '2026-05-03-egais-zhurnal-roznichnoy-prodazhi':
     'Retail sales journal ledger open on a desk beside a POS terminal receipt, pen on the page, warm shop light',
+
+  // ── Партия 2026-06-09 ──
+  '2026-06-09-kto-ne-nuzhen-ts-piot':
+    'A small greengrocer market stall selling loose fruit and vegetables with a simple standalone cash register and no barcode scanner, daylight — concept of a seller exempt from code-checking, warm natural light',
+  '2026-06-09-markirovka-tabaka-2026':
+    'Sealed cigarette packs and tobacco cartons inside a locked retail display case behind the counter, excise stamps and small DataMatrix codes on the packs, cool shop lighting, shallow depth of field',
+  '2026-06-09-kedo-vnedrenie-msb':
+    'An HR specialist reviewing electronic personnel documents on a tablet at a tidy office desk, hands only and no face, a stack of paper personnel files set aside, soft daylight — concept of paper-to-digital HR workflow',
+  '2026-06-09-kassa-dlya-kafe-2026':
+    'A café service counter with a modern smart POS terminal, an espresso machine and a glass pastry display, a 2D scanner beside the till, warm inviting interior light, blurred seating in the background',
+  '2026-06-09-egais-dlya-bara':
+    'A bar counter with spirits bottles on backlit shelves, beer taps in the foreground and a POS terminal with a small UTM device connected by USB, moody warm evening light',
+
+  // ── 2026-06-11 ──
+  '2026-06-11-ts-piot-lichnyj-kabinet':
+    'A small-business owner signing in to an online service account on a laptop at a tidy retail back-office desk, a POS terminal and a 2D barcode scanner beside the laptop, a blurred login form on the screen with no readable text, soft daylight',
 };
 
 // ─── Утилиты ──────────────────────────────────────────────────────────────────
@@ -380,10 +398,74 @@ function parseFrontmatter(content) {
   return fm;
 }
 
+// ─── Предметные профили: ключ в slug → реальный предмет кадра ─────────────────
+// Страховка от «молоко на статье про обувь». Если для slug нет точного промпта,
+// кадр строится вокруг конкретного предмета статьи, а НЕ случайного фолбэка по
+// категории. Порядок важен: более узкие ключи идут выше общих.
+const SUBJECT_MAP = [
+  // Маркировка — товарные группы
+  [['obuv'],                       'pairs of leather shoes and sneakers in open cardboard shoe boxes, a small DataMatrix code sticker on each box label'],
+  [['tabak', 'sigaret', 'nikotin'],'sealed cigarette packs and tobacco cartons inside a locked retail display case behind the counter, excise stamps and small DataMatrix codes on the packs'],
+  [['vody', '-voda', 'pityevoy'],  'rows of sealed plastic drinking-water bottles on a store shelf, a small DataMatrix sticker on each label'],
+  [['-bad-', 'bady', 'biodobav'],  'dietary-supplement jars and blister packs on a clean pharmacy shelf, small DataMatrix codes on the boxes'],
+  [['snek', 'bakale', 'sous', 'speci', 'pripr'], 'snack bags, glass sauce bottles and spice jars grouped together on a grocery shelf, small DataMatrix stickers on the packaging'],
+  [['igrush'],                     'colourful boxed toys on a bright retail shelf, a compliance marking sticker on each box corner'],
+  [['kosmetik', 'parfyum'],        'cosmetics and perfume boxes lined on a white retail shelf, small DataMatrix codes on the packaging'],
+  [['bytovoy-himii', '-himii'],    'household cleaning bottles and detergent boxes on a drugstore shelf, compliance marking stickers visible'],
+  [['gigien'],                     'personal-care products — shampoo bottles and toothpaste tubes — on a pharmacy shelf with marking stickers'],
+  [['sportpit'],                   'protein-powder tubs and sports-supplement bottles on a fitness-store shelf, DataMatrix codes visible'],
+  [['avtozhidk', 'motorn', '-masl'],'motor-oil bottles and automotive-fluid canisters on an auto-parts shelf, DataMatrix labels on the containers'],
+  [['konserv'],                    'stacked canned-food tins on a metal shelf, marking labels on the lids'],
+  [['piva', '-pivo'],              'beer bottles on a retail shelf, DataMatrix stickers on the neck labels'],
+  [['moloch'],                     'dairy cartons and yogurt cups on a refrigerated shelf, DataMatrix codes on the packaging'],
+  [['lekarstv', 'apteka'],         'medicine boxes on pharmacy shelves, a DataMatrix code on each carton'],
+  // Прочие кластеры
+  [['kafe', 'obschepit', 'restoran'],'a café service counter with a smart POS terminal, coffee machine and a pastry display, warm interior light'],
+  [['-bar'],                       'a bar counter with spirits bottles on backlit shelves and a POS terminal, moody evening light'],
+  [['kedo', 'kadrov'],             'an HR specialist reviewing electronic personnel documents on a tablet at an office desk, hands only, no face'],
+];
+
+// ─── Сценические шаблоны: один предмет → разные композиции ─────────────────────
+// Выбор по хэшу slug, чтобы смежные статьи не выглядели одинаково. Намеренно
+// разнесены по ракурсу, свету, окружению и времени суток — добавляйте варианты,
+// не трогая предметы из SUBJECT_MAP.
+const SCENE_TEMPLATES = [
+  s => `Editorial retail close-up: ${s}; shallow depth of field, cool clean store lighting`,
+  s => `Overhead flat-lay on a neutral linen surface: ${s}; soft natural daylight, generous negative space`,
+  s => `Warehouse receiving area: ${s}; arranged on a wooden pallet, industrial overhead light, bokeh racks behind`,
+  s => `Checkout moment: ${s}; being scanned by a handheld 2D barcode scanner at a POS counter, warm shop light`,
+  s => `Macro product detail: ${s}; dramatic side rim lighting, deep dark background, tack-sharp focus`,
+  s => `Small Russian retail interior: ${s}; on mid-height shelves, a blurred shopper far in the background, natural daylight`,
+  s => `Low-angle hero shot looking up at ${s}; on a glossy dark surface with a single hard key light and long shadows, bold editorial`,
+  s => `Top-down on a dark slate surface: ${s}; one warm directional light from the upper left, moody high-contrast still life`,
+  s => `Golden-hour window light across a wooden counter: ${s}; long soft shadows, warm amber tones, cosy small-business mood`,
+  s => `Clean studio seamless backdrop in light beige: ${s}; soft three-quarter softbox lighting, crisp commercial product photography`,
+  s => `Behind-the-counter point of view: ${s}; a cashier's hands at the edge of frame, blurred shop interior, candid documentary feel`,
+  s => `Stockroom shelving at the back of a store: ${s}; utilitarian fluorescent light, cardboard boxes around, realistic working environment`,
+  s => `Tight overhead crop of ${s}; filling most of the frame in a grid-like arrangement, even soft daylight, modern editorial flat-lay`,
+  s => `Reflective dark glass tabletop: ${s}; with a subtle mirror reflection, cinematic side lighting, premium high-contrast look`,
+];
+
+function subjectFor(slug) {
+  for (const [keys, subject] of SUBJECT_MAP) {
+    if (keys.some(k => slug.includes(k))) return subject;
+  }
+  return null;
+}
+
 function buildPrompt(slug, title, category) {
+  // 1. Точный промпт под slug — высший приоритет.
   if (SLUG_PROMPTS[slug]) {
     return `${SLUG_PROMPTS[slug]}. ${STYLE_SUFFIX}`;
   }
+  // 2. Предметная страховка: кадр строится вокруг реального предмета статьи
+  //    в одной из вариативных сцен (а не случайно из пула категории).
+  const subject = subjectFor(slug);
+  if (subject) {
+    const scene = SCENE_TEMPLATES[slugHash(slug) % SCENE_TEMPLATES.length](subject);
+    return `${scene}. ${STYLE_SUFFIX}`;
+  }
+  // 3. Фолбэк — пул по категории.
   const pool = CAT_POOLS[category] ?? CAT_POOLS['zakonodatelstvo'];
   const pick = pool[slugHash(slug) % pool.length];
   return `${pick}. ${STYLE_SUFFIX}`;

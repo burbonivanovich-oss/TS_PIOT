@@ -1,0 +1,291 @@
+{
+  "slug": "2026-06-28-merkuriy-shtrafy",
+  "checkedAt": "2026-06-12",
+  "overallStatus": "fixed",
+  "claims": [
+    {
+      "id": "c18",
+      "type": "NPA_KOAP",
+      "raw": "ст. 10.8 КоАП",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "В лиде упомянуто 'от 300 000 ₽' для организаций — устаревшая цифра. Исправлено на 'от 500 000 ₽'."
+    },
+    {
+      "id": "c5",
+      "type": "MONEY",
+      "raw": "300 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "300 000 ₽ нижняя граница для ЮЛ по ст. 10.8 устарела. Исправлено на 500 000 ₽.",
+      "source": "https://rulaws.ru/koap/Razdel-II/Glava-10/Statya-10.8/"
+    },
+    {
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "14.05.1993",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Дата Закона РФ № 4979-I «О ветеринарии» подтверждена."
+    },
+    {
+      "id": "c31",
+      "type": "LINK",
+      "raw": "http://www.consultant.ru/document/cons_doc_LAW_1194/",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    },
+    {
+      "id": "c2",
+      "type": "DATE_DMY",
+      "raw": "27.12.2016",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Дата относилась к утратившему силу Приказу № 589. Исправлено на Приказ № 862 от 13.12.2022.",
+      "source": "https://base.garant.ru/406229479/"
+    },
+    {
+      "id": "c32",
+      "type": "LINK",
+      "raw": "http://www.consultant.ru/document/cons_doc_LAW_210530/",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Ссылка вела к старому Приказу № 589. Исправлено на ссылку к Приказу № 862."
+    },
+    {
+      "id": "c19",
+      "type": "NPA_KOAP",
+      "raw": "ст. 10.8 КоАП",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Заголовок раздела о штрафах — корректен."
+    },
+    {
+      "id": "c20",
+      "type": "NPA_KOAP",
+      "raw": "Статья 10.8 КоАП",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    },
+    {
+      "id": "c6",
+      "type": "MONEY",
+      "raw": "5 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "В таблице: граждане 3–5K → 4–5K. Нижняя граница скорректирована."
+    },
+    {
+      "id": "c7",
+      "type": "MONEY",
+      "raw": "40 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "В таблице: ДЛ 30–40K → 20–40K. Нижняя граница скорректирована."
+    },
+    {
+      "id": "c8",
+      "type": "MONEY",
+      "raw": "40 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "В таблице: ИП было 30–40K → теперь 40–50K (ИП имеет отдельную строку с правильными цифрами)."
+    },
+    {
+      "id": "c9",
+      "type": "MONEY",
+      "raw": "500 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "В таблице: ЮЛ 300–500K → 500–700K."
+    },
+    {
+      "id": "c21",
+      "type": "NPA_KOAP",
+      "raw": "ст. 10.8 КоАП",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Callout: 'от 300 000 до 500 000 ₽' исправлено на 'от 500 000 до 700 000 ₽'. ИП выделен отдельно."
+    },
+    {
+      "id": "c10",
+      "type": "MONEY",
+      "raw": "500 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Callout: верхняя граница 500K исправлена на 700K."
+    },
+    {
+      "id": "c22",
+      "type": "NPA_KOAP",
+      "raw": "ст. 10.2 КоАП",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Ст. 10.2 для перевозки животных — корректна."
+    },
+    {
+      "id": "c23",
+      "type": "NPA_KOAP",
+      "raw": "Статья 10.2 КоАП",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    },
+    {
+      "id": "c11",
+      "type": "MONEY",
+      "raw": "1 000 ₽",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Штраф граждан по ст. 10.2: 500–1000 ₽ — не изменялся."
+    },
+    {
+      "id": "c12",
+      "type": "MONEY",
+      "raw": "5 000 ₽",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Штраф ДЛ по ст. 10.2: 3–5K — корректен."
+    },
+    {
+      "id": "c13",
+      "type": "MONEY",
+      "raw": "20 000 ₽",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Штраф ЮЛ по ст. 10.2: 10–20K — корректен."
+    },
+    {
+      "id": "c28",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    },
+    {
+      "id": "c24",
+      "type": "NPA_KOAP",
+      "raw": "Ст. 14.43 КоАП",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Ст. 14.43 — нарушение технических регламентов. Штрафы ДЛ 10–20K, ЮЛ 100–300K — не изменялись в 2024–2025."
+    },
+    {
+      "id": "c25",
+      "type": "NPA_KOAP",
+      "raw": "ст. 14.43 КоАП",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    },
+    {
+      "id": "c14",
+      "type": "MONEY",
+      "raw": "20 000 ₽",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Штраф ДЛ по ст. 14.43: 10–20K — корректен."
+    },
+    {
+      "id": "c15",
+      "type": "MONEY",
+      "raw": "300 000 ₽",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Штраф ЮЛ по ст. 14.43: 100–300K — корректен."
+    },
+    {
+      "id": "c16",
+      "type": "MONEY",
+      "raw": "800 000 ₽",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "800K — суммарная оценка совокупного штрафа по двум статьям. Не нормативное число, расчётное. Сохраняем (теперь корректно: 700K + 300K = 1000K max, но 500+300=800K min — оценка верна)."
+    },
+    {
+      "id": "c3",
+      "type": "DATE_DMY",
+      "raw": "01.07.2018",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Дата перехода на обязательные эВСД с 01.07.2018 — исторически корректна."
+    },
+    {
+      "id": "c29",
+      "type": "NPA_PRIKAZ",
+      "raw": "Приказа Минсельхоза № 589",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Приказ № 589 утратил силу с 01.09.2023. Исправлено на Приказ № 862 от 13.12.2022."
+    },
+    {
+      "id": "c26",
+      "type": "NPA_KOAP",
+      "raw": "ст. 10.8 КоАП",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    },
+    {
+      "id": "c27",
+      "type": "NPA_KOAP",
+      "raw": "ст. 10.8 КоАП",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "FAQ ответ: 'ИП несут ту же ответственность, что и ДЛ: 30–40K' — неверно. Исправлено на 40–50K для ИП (отдельная строка статьи)."
+    },
+    {
+      "id": "c17",
+      "type": "MONEY",
+      "raw": "40 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "В FAQ: ИП 30–40K → 40–50K. Исправлено."
+    },
+    {
+      "id": "c4",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    }
+  ],
+  "summary": {
+    "critical": 12,
+    "moderate": 0,
+    "minor": 0,
+    "match": 19,
+    "fixed": [
+      "Штрафы ст. 10.8 в таблице, callout, лиде и FAQ: граждане 3–5K → 4–5K, ДЛ 30–40K → 20–40K, ИП 30–40K → 40–50K (отдельный субъект), ЮЛ 300–500K → 500–700K",
+      "Приказ № 589 → № 862 (2 вхождения: ссылка в тексте и в совете)"
+    ]
+  }
+}

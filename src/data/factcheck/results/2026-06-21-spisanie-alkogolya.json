@@ -1,0 +1,162 @@
+{
+  "slug": "2026-06-21-spisanie-alkogolya",
+  "checkedAt": "2026-06-12",
+  "overallStatus": "fixed",
+  "claims": [
+    {
+      "id": "c8",
+      "type": "MONEY",
+      "raw": "200 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "В лиде указано 'до 200 000 ₽' по ст. 15.13 — это некорректно. Актуальные штрафы по ст. 15.13: ДЛ 5–10K, ЮЛ 50–100K. Исправлено с указанием субъектов.",
+      "source": "https://rulaws.ru/koap/Razdel-II/Glava-15/Statya-15.13/"
+    },
+    {
+      "id": "c11",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.13 КоАП",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Статья корректна для нарушений декларирования алкоголя/ЕГАИС."
+    },
+    {
+      "id": "c16",
+      "type": "NPA_FZ_FULL",
+      "raw": "Федерального закона от 22.11.1995 № 171",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "171-ФЗ от 22.11.1995 подтверждён."
+    },
+    {
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "22.11.1995",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Дата 171-ФЗ подтверждена."
+    },
+    {
+      "id": "c13",
+      "type": "NPA_FZ",
+      "raw": "171-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    },
+    {
+      "id": "c2",
+      "type": "DATE_DMY",
+      "raw": "15.06.2020",
+      "status": "uncertain",
+      "severity": "minor",
+      "action": "keep",
+      "note": "Приказ Росалкогольрегулирования от 15.06.2020 № 148 — не проверялся по первоисточнику (requires manual verification). Оставляем до следующей проверки."
+    },
+    {
+      "id": "c3",
+      "type": "DATE_DMY",
+      "raw": "22.04.2024",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "ФЗ-108 датирован 03.04.2023 (опубликован на pravo.gov.ru), а не 22.04.2024. Исправлено. Поправки вступили в силу с 01.09.2023.",
+      "source": "http://publication.pravo.gov.ru/Document/View/0001202304030011"
+    },
+    {
+      "id": "c14",
+      "type": "NPA_FZ",
+      "raw": "171-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    },
+    {
+      "id": "c7",
+      "type": "DATE_YEAR",
+      "raw": "2024 года",
+      "status": "fixed",
+      "severity": "moderate",
+      "action": "rewrite",
+      "note": "Утверждение 'До 2024 года...' некорректно — поправки ФЗ-108 вступили в силу с 01.09.2023. Исправлено на 'До 2023 года...'."
+    },
+    {
+      "id": "c4",
+      "type": "DATE_DMY",
+      "raw": "22.04.2024",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Дата поправки ФЗ-108 ошибочна: 03.04.2023, не 22.04.2024. Дата вступления в силу — 01.09.2023. Исправлено."
+    },
+    {
+      "id": "c15",
+      "type": "NPA_FZ",
+      "raw": "171-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "action": "keep"
+    },
+    {
+      "id": "c5",
+      "type": "DATE_DMY",
+      "raw": "22.04.2024",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Третье упоминание неверной даты ФЗ-108. Исправлено везде."
+    },
+    {
+      "id": "c12",
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.13 КоАП",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Штрафы в callout исправлены: ДЛ 10–15K → 5–10K, ЮЛ 150–200K → 50–100K."
+    },
+    {
+      "id": "c9",
+      "type": "MONEY",
+      "raw": "15 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "15 000 ₽ для ДЛ по ст. 15.13 неверно. Актуально: до 10 000 ₽. Исправлено."
+    },
+    {
+      "id": "c10",
+      "type": "MONEY",
+      "raw": "200 000 ₽",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "200 000 ₽ для ЮЛ по ст. 15.13 неверно. Актуально: до 100 000 ₽. Исправлено."
+    },
+    {
+      "id": "c6",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Ссылка на будущую статью (выйдет 01.07.2026) — внутренний editorial reference, не нормативный claim."
+    }
+  ],
+  "summary": {
+    "critical": 7,
+    "moderate": 1,
+    "minor": 1,
+    "match": 7,
+    "fixed": [
+      "Ст. 15.13 штрафы в лиде: исправлено с 'до 200K' на ДЛ 5–10K / ЮЛ 50–100K",
+      "Ст. 15.13 штрафы в callout: ДЛ 10–15K → 5–10K, ЮЛ 150–200K → 50–100K",
+      "ФЗ-108 дата: 22.04.2024 → 03.04.2023, вступление в силу 01.09.2023",
+      "Формулировка 'До 2024 года' → 'До 2023 года'"
+    ]
+  }
+}

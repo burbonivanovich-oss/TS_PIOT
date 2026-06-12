@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-05-19T06:11:20.909Z",
+  "generatedAt": "2026-06-11T10:17:46.419Z",
   "totals": {
-    "files": 83,
-    "unknownFz": 34,
-    "unknownPp": 23,
-    "unknownPrikaz": 1
+    "files": 90,
+    "unknownFz": 51,
+    "unknownPp": 30,
+    "unknownPrikaz": 0
   },
   "findings": {
     "fz": [
@@ -89,14 +89,19 @@
         "raw": "487-ФЗ"
       },
       {
-        "slug": "2026-05-03-atol-30f-obzor",
-        "num": "204",
-        "raw": "204-ФЗ"
+        "slug": "2026-05-01-uchyot-alkogolya-v-obschepite",
+        "num": "509",
+        "raw": "509-ФЗ"
       },
       {
         "slug": "2026-05-03-buh-dlya-ip-usn",
         "num": "176",
         "raw": "176-ФЗ"
+      },
+      {
+        "slug": "2026-05-03-egais-zhurnal-roznichnoy-prodazhi",
+        "num": "509",
+        "raw": "509-ФЗ"
       },
       {
         "slug": "2026-05-03-etrn-2026",
@@ -124,9 +129,9 @@
         "raw": "323-ФЗ"
       },
       {
-        "slug": "2026-05-03-mspos-f20-obzor",
-        "num": "204",
-        "raw": "204-ФЗ"
+        "slug": "2026-05-03-merkuriy-i-chestnyj-znak",
+        "num": "243",
+        "raw": "243-ФЗ"
       },
       {
         "slug": "2026-05-03-personalnye-dannye-shtrafy-2025",
@@ -174,6 +179,86 @@
         "raw": "422-ФЗ"
       },
       {
+        "slug": "2026-05-21-samozanyatyj-na-wildberries",
+        "num": "422",
+        "raw": "422-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "281",
+        "raw": "281-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "140",
+        "raw": "140-ФЗ"
+      },
+      {
         "slug": "2026-05-31-chestny-znak-registraciya",
         "num": "120",
         "raw": "120-ФЗ"
@@ -219,11 +304,6 @@
         "slug": "2026-05-01-razreshitelnyj-rezhim-markirovka",
         "num": "1674",
         "raw": "ПП РФ № 1674"
-      },
-      {
-        "slug": "2026-05-01-uchyot-alkogolya-v-obschepite",
-        "num": "815",
-        "raw": "Постановлением Правительства РФ от 09.08.2012 № 815"
       },
       {
         "slug": "2026-05-03-etrn-2026",
@@ -281,6 +361,46 @@
         "raw": "Постановление Правительства РФ от 27.08.2016 № 858"
       },
       {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "2200",
+        "raw": "ПП РФ № 2200"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "931",
+        "raw": "ПП РФ № 931"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "2200",
+        "raw": "ПП РФ № 2200"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "931",
+        "raw": "ПП РФ № 931"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "281",
+        "raw": "ПП РФ № 281"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "279",
+        "raw": "ПП РФ № 279"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "173",
+        "raw": "Постановлением Правительства РФ от 20.02.2026 № 173"
+      },
+      {
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "num": "281",
+        "raw": "ПП РФ № 281"
+      },
+      {
         "slug": "2026-05-27-markirovka-obuvi-2026",
         "num": "860",
         "raw": "ПП РФ № 860"
@@ -296,12 +416,6 @@
         "raw": "ПП РФ № 1862"
       }
     ],
-    "prikaz": [
-      {
-        "slug": "2026-05-03-merkuriy-i-chestnyj-znak",
-        "num": "589",
-        "raw": "Приказ Минсельхоза № 589"
-      }
-    ]
+    "prikaz": []
   }
 }

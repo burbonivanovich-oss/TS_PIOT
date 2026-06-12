@@ -56,11 +56,14 @@ jobs:
       - name: Diff vs previous snapshot
         run: node scripts/wordstat/diff-snapshots.mjs
 
+      - name: Demand watch (спрос ↔ покрытие по кластерам)
+        run: node scripts/wordstat/demand-watch.mjs
+
       - name: Commit refresh
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data/wordstat/keys.json src/data/wordstat/snapshots/ src/data/wordstat/discoveries/
+          git add src/data/wordstat/keys.json src/data/wordstat/snapshots/ src/data/wordstat/discoveries/ src/data/wordstat/demand-watch.md
           if git diff --cached --quiet; then
             echo "wordstat: нет изменений"
             exit 0

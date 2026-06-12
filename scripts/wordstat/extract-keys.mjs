@@ -50,9 +50,11 @@ function parseFrontmatter(md) {
 }
 
 function extractSeoKeywords(fm) {
-  const seoBlock = fm.match(/^seo:\s*\n([\s\S]*?)(?=\n[a-z]+:|$)/m);
-  if (!seoBlock) return [];
-  const kwBlock = seoBlock[1].match(/keywords:\s*\n((?:\s+- .+\n?)+)/);
+  // Матчим keywords: напрямую. Двухшаговый разбор через seo:-блок ломался,
+  // когда seo — последнее поле frontmatter (нет следующего top-level ключа,
+  // и lookahead $ обрезал блок на строке «keywords:»). «keywords:» встречается
+  // во frontmatter только внутри seo, поэтому прямой матч безопасен.
+  const kwBlock = fm.match(/^\s*keywords:\s*\n((?:\s+-\s.+\n?)+)/m);
   if (!kwBlock) return [];
   return kwBlock[1]
     .split("\n")

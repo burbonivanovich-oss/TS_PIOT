@@ -1,0 +1,104 @@
+{
+  "slug": "2026-06-19-ts-piot-dlya-obschepita",
+  "checkedAt": "2026-06-12T00:00:00.000Z",
+  "checkedBy": "claude-sonnet-4-6+websearch",
+  "method": "batch-factcheck",
+  "summary": {
+    "totalClaims": 26,
+    "checked": 26,
+    "match": 21,
+    "mismatch": 3,
+    "uncertain": 0,
+    "missing": 2,
+    "overallStatus": "fixed",
+    "criticalIssues": 3,
+    "note": "3 критических: все три ссылки «ПП РФ от 21.02.2024 № 200» заменены на «ПП РФ от 21.11.2023 № 1944» — единственный НПА о ТС ПИоТ. ПП № 200 от 21.02.2024 не существует в whitelist и не подтверждён ни одним источником. Штраф ч.2 ст.14.5 (25–50% / 75–100%, не менее 10K/30K) — корректен. Дедлайн 01.07.2026 — корректен. 54-ФЗ от 22.05.2003 — подтверждён. ПП 2173 от 30.11.2022 (маркировка пива) — подтверждён."
+  },
+  "claims": [
+    {
+      "id": "c21",
+      "type": "NPA_PP_NUMBERED",
+      "raw": "ПП РФ от 21.02.2024 № 200",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "ПП РФ от 21.11.2023 № 1944 — единственный НПА о ТС ПИоТ и разрешительном режиме. ПП № 200 от 21.02.2024 отсутствует в whitelist sources.json и не подтверждён ни одним открытым источником.",
+      "action": "rewrite-npa",
+      "applied": true,
+      "sources": [
+        "https://base.garant.ru/408081403/",
+        "https://markirovka.ru/community/rezhim-proverok-na-kassakh/tekhnicheskie-sredstva-polucheniya-informatsii-o-tovare-ts-piot"
+      ]
+    },
+    {
+      "id": "c23",
+      "type": "NPA_PP_NUMBERED",
+      "raw": "ПП РФ от 21.02.2024 № 200",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "ПП РФ от 21.11.2023 № 1944 — разрешительный режим для пива (включая разлив).",
+      "action": "rewrite-npa",
+      "applied": true,
+      "sources": [
+        "https://base.garant.ru/408081403/"
+      ]
+    },
+    {
+      "id": "c24",
+      "type": "NPA_PP_NUMBERED",
+      "raw": "ПП РФ от 21.02.2024 № 200",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.98,
+      "expectedValue": "ПП РФ от 21.11.2023 № 1944.",
+      "action": "rewrite-npa",
+      "applied": true,
+      "sources": [
+        "https://base.garant.ru/408081403/"
+      ]
+    },
+    {
+      "id": "c20",
+      "type": "NPA_FZ_FULL",
+      "raw": "Федерального закона от 22.05.2003 № 54",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "54-ФЗ от 22.05.2003 — подтверждён whitelist sources.json"
+    },
+    {
+      "id": "c22",
+      "type": "NPA_PP_NUMBERED",
+      "raw": "ПП РФ от 30.11.2022 № 2173",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "ПП 2173 от 30.11.2022 — маркировка пива, подтверждён whitelist"
+    },
+    {
+      "id": "c16+c17",
+      "type": "NPA_KOAP",
+      "raw": "ч. 2 ст. 14.5 КоАП РФ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.97,
+      "expectedValue": "ч. 2 ст. 14.5 — неприменение ККТ. Указана часть — корректно (A2). Штраф ДЛ 25–50% не менее 10K; ЮЛ 75–100% не менее 30K — совпадает с текущей редакцией КоАП"
+    },
+    {
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "01.07.2026",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "01.07.2026 — дедлайн ТС ПИоТ, подтверждён ПП РФ № 1944"
+    }
+  ],
+  "recommendations": [
+    "Применено: 3 замены «ПП РФ от 21.02.2024 № 200» → «ПП РФ от 21.11.2023 № 1944».",
+    "Применено: updatedDate: 2026-06-12.",
+    "Все остальные claims (дедлайн, 54-ФЗ, ПП 2173, штраф ч.2 ст.14.5) — без изменений, подтверждены."
+  ],
+  "nextReview": "2026-12-19"
+}

@@ -1,0 +1,67 @@
+{
+  "slug": "2026-06-24-snyatie-kkt-s-ucheta",
+  "checkedAt": "2026-06-12T00:00:00.000Z",
+  "checkedBy": "claude-sonnet-4-6+websearch",
+  "method": "batch-factcheck",
+  "summary": {
+    "totalClaims": 6,
+    "checked": 6,
+    "match": 6,
+    "mismatch": 0,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "pass",
+    "criticalIssues": 0,
+    "note": "Все 6 claims подтверждены. 54-ФЗ от 22.05.2003 — корректен. КНД 1110062, Приказ ФНС ММВ-7-20/484@ от 29.05.2017 — подтверждён несколькими источниками (base.garant.ru, nalog.gov.ru). Срок 10 рабочих дней (снятие) и 1 рабочий день (подача) — корректны по ст. 4.2 54-ФЗ."
+  },
+  "claims": [
+    {
+      "id": "c6",
+      "type": "NPA_FZ_FULL",
+      "raw": "Федерального закона от 22.05.2003 № 54",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "54-ФЗ от 22.05.2003 — подтверждён whitelist"
+    },
+    {
+      "id": "c4+c5",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "Повторные упоминания 54-ФЗ — корректны"
+    },
+    {
+      "id": "c2",
+      "type": "DATE_DMY",
+      "raw": "29.05.2017",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "Приказ ФНС ММВ-7-20/484@ от 29.05.2017 — подтверждён: https://www.nalog.gov.ru/rn77/about_fts/docs/6959174/ и base.garant.ru/71741220/",
+      "sources": [
+        "https://www.nalog.gov.ru/rn77/about_fts/docs/6959174/",
+        "https://base.garant.ru/71741220/f7ee959fd36b5699076b35abf4f52c5c/"
+      ]
+    },
+    {
+      "id": "form-knd-1110062",
+      "type": "NPA_PRIKAZ",
+      "raw": "форма КНД 1110062, приказ ФНС России от 29.05.2017 № ММВ-7-20/484@",
+      "status": "match",
+      "severity": "none",
+      "confidence": 0.99,
+      "expectedValue": "КНД 1110062 — форма заявления о снятии ККТ с учёта, утверждена приказом ММВ-7-20/484@ от 29.05.2017. Подтверждено.",
+      "sources": [
+        "https://buhland.ru/zayavlenie-o-snyatii-kkt-s-ucheta-1110062/"
+      ]
+    }
+  ],
+  "recommendations": [
+    "Правки не требуются. Все НПА корректны.",
+    "Применено: updatedDate: 2026-06-12."
+  ],
+  "nextReview": "2026-12-24"
+}

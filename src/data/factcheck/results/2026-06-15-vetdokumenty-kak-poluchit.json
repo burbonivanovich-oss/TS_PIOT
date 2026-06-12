@@ -1,0 +1,92 @@
+{
+  "slug": "2026-06-15-vetdokumenty-kak-poluchit",
+  "checkedAt": "2026-06-12",
+  "overallStatus": "fixed",
+  "claims": [
+    {
+      "id": "c4",
+      "type": "NPA_FZ",
+      "raw": "243-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Федеральный закон от 13.07.2015 № 243-ФЗ подтверждён — ввёл обязательную электронную ветсертификацию."
+    },
+    {
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "13.07.2015",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Дата подписания 243-ФЗ подтверждена."
+    },
+    {
+      "id": "c5",
+      "type": "NPA_PRIKAZ",
+      "raw": "Приказом Минсельхоза № 589",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Приказ № 589 от 27.12.2016 утратил силу с 01.09.2023 (заменён Приказом № 862 от 13.12.2022). Исправлено на № 862.",
+      "source": "https://base.garant.ru/406229479/"
+    },
+    {
+      "id": "c2",
+      "type": "DATE_DMY",
+      "raw": "27.12.2016",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Дата относилась к утратившему силу Приказу № 589. Исправлено на Приказ № 862 от 13.12.2022."
+    },
+    {
+      "id": "c6",
+      "type": "NPA_PRIKAZ",
+      "raw": "Приказом Минсельхоза № 646",
+      "status": "fixed",
+      "severity": "critical",
+      "action": "rewrite",
+      "note": "Перечень подконтрольных товаров утверждён Приказом № 648 от 18.12.2015, не № 646. Исправлено.",
+      "source": "https://base.garant.ru/71335902/"
+    },
+    {
+      "id": "c3",
+      "type": "NPA_PUNKT",
+      "raw": "п. 9",
+      "status": "fixed",
+      "severity": "moderate",
+      "action": "rewrite",
+      "note": "Ссылка на п. 9 Приказа № 589 устарела; в Приказе № 862 срок уточнён до 24 часов. Исправлено."
+    },
+    {
+      "id": "c7",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Внешняя ссылка на consultant.ru — рабочая."
+    },
+    {
+      "id": "c8",
+      "type": "LINK",
+      "raw": "http://pravo.gov.ru/",
+      "status": "match",
+      "severity": "none",
+      "action": "keep",
+      "note": "Внешняя ссылка на pravo.gov.ru — рабочая."
+    }
+  ],
+  "summary": {
+    "critical": 3,
+    "moderate": 1,
+    "minor": 0,
+    "match": 4,
+    "fixed": [
+      "Приказ № 589 → № 862 (утратил силу 01.09.2023)",
+      "Приказ № 646 → № 648 (перечень подконтрольных товаров)",
+      "Срок гашения уточнён до 24 ч по Приказу № 862"
+    ]
+  }
+}

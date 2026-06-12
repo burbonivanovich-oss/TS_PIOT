@@ -198,6 +198,7 @@ Wordstat больше **не отдельный сервис**. С 2026 года
 | `/find-topics` | `discoveries/diffs/<latest>.md` + `keys.json` | Получает свежие NEW/RISING фразы за неделю, проверяет, что они не покрыты блогом, выдаёт темы в `content-plan-2026.md`. |
 | `/cluster-gaps` | `keys.json` | Ранжирование пробелов кластера по `max(shows, topShows)` и `trend`. |
 | `/maintain-content` | `keys.json` (история) | Триггер «обновить статью», если `shows` целевого ключа вырос/упал ×2 за 6 месяцев. |
+| `/demand-watch` | `demand-watch.md` + `keys.json` | Сверяет кластеры с динамикой: что обновить (рост ×2), переформулировать (`topShows ≫ shows`), написать (непокрытый спрос), объединить (падение). Отчёт обновляется weekly. |
 
 ## Цикл недели
 
@@ -207,10 +208,13 @@ Wordstat больше **не отдельный сервис**. С 2026 года
   2. fetch.mjs                  — точечно по seo.keywords (контур A)
   3. discover.mjs               — broad по 162 seeds (контур B)
   4. diff-snapshots.mjs         — сравнивает с прошлой неделей
-  5. commit                     — пушит keys.json, discoveries/<date>/, diffs/<date>.md
+  5. demand-watch.mjs           — спрос ↔ покрытие по кластерам → demand-watch.md
+  6. commit                     — пушит keys.json, discoveries/<date>/, diffs/<date>.md,
+                                  demand-watch.md
 
 Понедельник днём:
   /find-topics                  — открывает diff, предлагает новые темы
+  /demand-watch [<кластер>]     — что обновить/переформулировать/написать по свежим цифрам
   ручной просмотр               — добавить в content-plan-2026.md что годное
   /create-article               — запускает пайплайн на выбранной теме
 ```
