@@ -1,15 +1,16 @@
 ---
 // Лид-блок продукта Контура для страниц витрины /produkty/ и спецстраниц.
 //
-// Сейчас использует одобренный CTA-механизм (CpaCallout → переход на
-// лендинг Контура с тегом f74746 и маркировкой 38-ФЗ по erid). Когда из
-// кабинета партнёра будет получен HTML официального виджета заявки,
-// его HTML подставляется через слот <Fragment slot="widget"> — тогда
-// заявка оформляется inline, без ухода с сайта.
+// Логика выбора механизма (по убыванию приоритета):
+//   1. явный слот <Fragment slot="widget"> — кастомная вставка;
+//   2. у оффера есть widget-конфиг + erid → инлайн-форма заявки
+//      (KonturOrderWidget, заявка оформляется без ухода с сайта);
+//   3. иначе — CTA-переход на лендинг Контура (CpaCallout).
 //
-// Маркировка рекламы (erid) наследуется из CpaCallout: оффер без erid
-// не должен показываться (38-ФЗ).
+// Маркировка рекламы (erid) наследуется: оффер без erid не показывается (38-ФЗ).
 import CpaCallout from './CpaCallout.astro';
+import KonturOrderWidget from './KonturOrderWidget.astro';
+import { CPA_BANNERS } from '../data/cpa-banners';
 
 interface Props {
 	/** id оффера из CPA_BANNERS */
@@ -27,25 +28,32 @@ const trust = [
 ];
 
 const hasWidget = Astro.slots.has('widget');
+const banner = CPA_BANNERS[id];
+const hasOrderWidget = !!(banner?.widget && banner?.erid);
 ---
 
-<section class="lead" data-pagefind-ignore>
-	<h2 class="lead-heading">{heading}</h2>
+{hasOrderWidget && !hasWidget ? (
+	// Инлайн-форма заявки самодостаточна: свой заголовок, блок доверия, erid.
+	<KonturOrderWidget id={id} heading={heading} />
+) : (
+	<section class="lead" data-pagefind-ignore>
+		<h2 class="lead-heading">{heading}</h2>
 
-	{hasWidget ? (
-		<div class="lead-widget">
-			<slot name="widget" />
-		</div>
-	) : (
-		<CpaCallout id={id} />
-	)}
+		{hasWidget ? (
+			<div class="lead-widget">
+				<slot name="widget" />
+			</div>
+		) : (
+			<CpaCallout id={id} />
+		)}
 
-	<ul class="lead-trust">
-		{trust.map(item => (
-			<li>{item}</li>
-		))}
-	</ul>
-</section>
+		<ul class="lead-trust">
+			{trust.map(item => (
+				<li>{item}</li>
+			))}
+		</ul>
+	</section>
+)}
 
 <style>
 	.lead {
