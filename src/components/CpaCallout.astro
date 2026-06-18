@@ -40,6 +40,7 @@ const isAd = !!banner?.erid;
 			<a
 				href={banner.ctaHref}
 				class="cpa-btn"
+				data-cpa-id={banner.id}
 				target={banner.ctaHref.startsWith('http') ? '_blank' : undefined}
 				rel={isAd ? 'noopener noreferrer sponsored' : (banner.ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined)}
 			>
@@ -51,6 +52,19 @@ const isAd = !!banner?.erid;
 		)}
 	</div>
 )}
+
+<script>
+	// Трекинг кликов по любому CPA-баннеру (CpaCallout + подвальный в BlogPost).
+	// Делегированно + guard, чтобы слушатель регистрировался один раз на странице.
+	import { track } from '../utils/track';
+	if (!(window as any).__cpaTrackInit) {
+		(window as any).__cpaTrackInit = true;
+		document.addEventListener('click', (e) => {
+			const a = (e.target as HTMLElement)?.closest?.('a[data-cpa-id]') as HTMLElement | null;
+			if (a) track('cpa-click', { offer: a.dataset.cpaId });
+		});
+	}
+</script>
 
 <style>
 	.cpa-block {
