@@ -8,6 +8,7 @@ export const SITE_URL = 'https://etiketka-media.ru';
 export const SITE_AUTHOR = 'Этикетка';
 export const SITE_LOCALE = 'ru-RU';
 
+// Полный плоский список — для подвала и карты сайта.
 export const NAV_LINKS = [
 	{ href: '/', label: 'Главная' },
 	{ href: '/blog/', label: 'Статьи' },
@@ -22,6 +23,25 @@ export const NAV_LINKS = [
 	{ href: '/about/', label: 'О проекте' },
 	{ href: '/search/', label: 'Поиск' },
 ];
+
+// Сгруппированная навигация для шапки: 5 категорий свёрнуты в «Темы»,
+// «Сервисы» и «Инструменты» вынесены как самостоятельные акценты.
+export const NAV = [
+	{
+		label: 'Темы',
+		children: [
+			{ href: '/category/ts-piot/', label: 'ТС ПИоТ' },
+			{ href: '/category/markirovka/', label: 'Маркировка' },
+			{ href: '/category/kkt/', label: 'Кассы' },
+			{ href: '/category/egais/', label: 'ЕГАИС' },
+			{ href: '/category/zakonodatelstvo/', label: 'Законодательство' },
+			{ href: '/blog/', label: 'Все статьи' },
+		],
+	},
+	{ href: '/instrumenty/', label: 'Инструменты' },
+	{ href: '/produkty/', label: 'Сервисы' },
+	{ href: '/slovar/', label: 'Словарь' },
+] as const;
 
 export const SIDEBAR_BANNER = {
 	eyebrow: 'Дайджест',
@@ -55,7 +75,7 @@ export const CATEGORIES = {
 		title: 'ТС ПИоТ',
 		fullTitle: 'Техническое средство получения информации о товаре',
 		description:
-			'Программный модуль для онлайн-кассы, обеспечивающий прямую защищённую связь с системой «Честный знак». Проверяет маркировку в реальном времени и блокирует продажу нелегальных или просроченных товаров. Обязателен с 28 декабря 2025 года.',
+			'Программный модуль для онлайн-кассы, обеспечивающий прямую защищённую связь с системой «Честный знак». Проверяет маркировку в реальном времени и блокирует продажу нелегальных или просроченных товаров. Обязателен для разрешительного режима с 1 июля 2026 года.',
 	},
 	'markirovka': {
 		title: 'Маркировка',

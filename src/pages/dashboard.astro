@@ -42,8 +42,7 @@ for (const a of articles) {
 <!doctype html>
 <html lang="ru">
 	<head>
-		<BaseHead title={title} description={description} />
-		<meta name="robots" content="noindex, nofollow" />
+		<BaseHead title={title} description={description} noindex />
 	</head>
 	<body>
 		<Header />
@@ -282,7 +281,7 @@ for (const a of articles) {
 				font-size: 0.8rem;
 				text-transform: uppercase;
 				letter-spacing: 0.08em;
-				color: var(--pink, #ff4d8f);
+				color: var(--pink, #9E2B4F);
 				margin: 0 0 0.4rem;
 			}
 			.dash-hero h1 { margin: 0 0 0.75rem; font-size: 1.8rem; }
@@ -412,7 +411,7 @@ for (const a of articles) {
 				font-weight: 500;
 				text-decoration: none;
 			}
-			.title-cell a:hover { color: var(--pink, #ff4d8f); }
+			.title-cell a:hover { color: var(--pink, #9E2B4F); }
 			.title-cell .slug {
 				display: block;
 				font-family: ui-monospace, monospace;

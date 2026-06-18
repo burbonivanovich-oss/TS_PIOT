@@ -82,13 +82,10 @@ const extraJsonLd = jsonLd
 <link rel="sitemap" href={u('/sitemap.xml')} />
 <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
 <link rel="canonical" href={canonicalURL} />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
-<link rel="preload" href={u('/fonts/inter-regular.woff')} as="font" type="font/woff" crossorigin />
-<link rel="preload" href={u('/fonts/inter-bold.woff')} as="font" type="font/woff" crossorigin />
-<link rel="preload" href={u('/fonts/geologica-regular.woff')} as="font" type="font/woff" crossorigin />
-<link rel="preload" href={u('/fonts/commissioner-bold.woff')} as="font" type="font/woff" crossorigin />
+<!-- Шрифты self-hosted (woff2), без Google CDN. Preload — критичные для LCP. -->
+<link rel="preload" href={u('/fonts/inter-400-cyrillic.woff2')} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={u('/fonts/inter-400-latin.woff2')} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={u('/fonts/bebas-neue-400-latin.woff2')} as="font" type="font/woff2" crossorigin />
 
 {noindex ? (
 	<meta name="robots" content="noindex,nofollow" />

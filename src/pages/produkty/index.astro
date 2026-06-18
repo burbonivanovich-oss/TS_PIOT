@@ -71,11 +71,12 @@ const groups = CATALOG_GROUPS.map(group => ({
 
 			<aside class="catalog-note">
 				<p>
-					Не знаете, что выбрать? Начните с
-					<a href={u('/instrumenty/')}>интерактивных тестов и сценариев</a> —
-					например, проверьте готовность к ТС ПИоТ или соберите набор сервисов
-					под открытие точки. Все материалы по темам — в
-					<a href={u('/blog/')}>статьях</a>.
+					Не знаете, что выбрать? Пройдите
+					<a href={u('/podbor/')}>подбор сервиса по задаче</a> или сравните
+					варианты в разделе <a href={u('/sravneniya/')}>сравнения и выбор</a>.
+					Готовность к ТС ПИоТ и набор сервисов под открытие точки — в
+					<a href={u('/instrumenty/')}>интерактивах</a>. Все материалы по темам —
+					в <a href={u('/blog/')}>статьях</a>.
 				</p>
 			</aside>
 		</main>
@@ -93,7 +94,7 @@ const groups = CATALOG_GROUPS.map(group => ({
 				font-size: 0.8rem;
 				text-transform: uppercase;
 				letter-spacing: 0.1em;
-				color: var(--pink, #ff4d8f);
+				color: var(--pink, #9E2B4F);
 				margin: 0 0 0.5rem;
 				font-weight: 700;
 			}
@@ -182,7 +183,7 @@ const groups = CATALOG_GROUPS.map(group => ({
 				line-height: 1.45;
 				color: #555;
 			}
-			.product-cta { font-weight: 600; color: var(--pink, #ff4d8f); font-size: 0.88rem; }
+			.product-cta { font-weight: 600; color: var(--pink, #9E2B4F); font-size: 0.88rem; }
 
 			.catalog-note {
 				margin-top: 1rem;
@@ -193,7 +194,7 @@ const groups = CATALOG_GROUPS.map(group => ({
 				line-height: 1.55;
 				color: #444;
 			}
-			.catalog-note a { color: var(--pink, #ff4d8f); font-weight: 600; }
+			.catalog-note a { color: var(--pink, #9E2B4F); font-weight: 600; }
 
 			@media (max-width: 720px) {
 				.group-grid { grid-template-columns: 1fr; }
