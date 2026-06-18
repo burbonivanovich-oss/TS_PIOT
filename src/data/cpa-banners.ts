@@ -13,6 +13,21 @@ export interface CpaBanner {
 	};
 	/** erid-токен из Яндекс ОРД. Проставляется автоматически из ord-erids.json. */
 	erid?: string;
+	/**
+	 * Конфиг официального виджета заявки Контура (если у оффера он есть).
+	 * Значения уходят в глобальный _skbOrder лоадера дословно — менять нельзя,
+	 * иначе ломается партнёрская атрибуция. Рендерится через KonturOrderWidget.
+	 */
+	widget?: {
+		/** _skbOrder ProductId (напр. 'Egais', 'Ofd', 'Marking') */
+		productId: string;
+		/** _skbOrder ProductName (напр. 'market', 'ofd', 'markirovka') */
+		productName: string;
+		/** _skbOrder SupplierUid — партнёрский код, аналог тега f74746 для форм */
+		supplierUid: string;
+		/** _skbOrder Source — метка источника (можно кастомизировать под аналитику) */
+		source?: string;
+	};
 }
 
 const _erids: Record<string, string> = Object.fromEntries(
@@ -69,6 +84,12 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		cta: 'Подключить Контур.Маркет →',
 		ctaHref: 'https://kontur.ru/lp/market-ts-piot?p=f74746',
 		visual: { abbrev: 'ТС', bg: '#9E2B4F' },
+		widget: {
+			productId: 'Egais',
+			productName: 'market',
+			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
+			source: 'etiketka: ТС ПИоТ',
+		},
 	},
 	'online-buh': {
 		id: 'online-buh',
@@ -192,6 +213,12 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		cta: 'Попробовать 14 дней →',
 		ctaHref: 'https://kontur.ru/market/kkt?p=f74746',
 		visual: { abbrev: 'МРТ', bg: '#1A3A6C' },
+		widget: {
+			productId: 'Egais',
+			productName: 'market',
+			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
+			source: 'etiketka: Маркет',
+		},
 	},
 	'bank-elba': {
 		id: 'bank-elba',
