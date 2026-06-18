@@ -7,6 +7,20 @@ import PopupBanner from '../components/PopupBanner';
 import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { u } from '../utils/url';
 import { publishedPosts } from '../utils/posts';
+import { PRODUCT_CATALOG, CPA_BANNERS } from '../data/cpa-banners';
+
+// Витрина на главной: ядро продуктов под нашу тему (касса/маркировка/учёт/ЭДО).
+const featuredServiceIds = [
+	'kontur-market', 'kontur-ofd', 'kontur-markirovka',
+	'kontur-elba', 'kontur-diadoc', 'kontur-focus',
+];
+const services = featuredServiceIds
+	.map(id => {
+		const p = PRODUCT_CATALOG.find(x => x.bannerId === id);
+		const banner = CPA_BANNERS[id];
+		return p && banner ? { slug: p.slug, audience: p.audience, banner } : null;
+	})
+	.filter((x): x is NonNullable<typeof x> => x !== null);
 
 const posts = (await publishedPosts()).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -73,7 +87,7 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 					</p>
 					<div class="hero-cta">
 						<a href={u('/blog/')} class="btn btn-primary">Все материалы →</a>
-						<a href={u('/instrumenty/')} class="btn btn-lime">Подобрать сервис →</a>
+						<a href={u('/produkty/')} class="btn btn-lime">Подобрать сервис →</a>
 					</div>
 				</div>
 			</section>
@@ -144,6 +158,32 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 								</a>
 							);
 						})}
+					</div>
+				</section>
+			)}
+
+			<!-- СЕРВИСЫ ДЛЯ БИЗНЕСА (витрина) -->
+			{services.length > 0 && (
+				<section class="sec wrap">
+					<div class="sec-head">
+						<h2>Сервисы для бизнеса</h2>
+						<a class="see-all" href={u('/produkty/')}>Все сервисы →</a>
+					</div>
+					<p class="sec-sub">
+						Касса с ТС ПИоТ, маркировка, бухгалтерия, ЭДО и проверка контрагентов.
+						Заявку обрабатывает Контур, договор вы заключаете с ним напрямую.
+					</p>
+					<div class="svc-grid">
+						{services.map(s => (
+							<a class="svc-card" href={u(`/produkty/${s.slug}/`)}>
+								<span class="svc-visual" style={`background:${s.banner.visual.bg}`}>{s.banner.visual.abbrev}</span>
+								<span class="svc-body">
+									<span class="svc-title">{s.banner.title}</span>
+									<span class="svc-audience">{s.audience}</span>
+									<span class="svc-cta">Подробнее →</span>
+								</span>
+							</a>
+						))}
 					</div>
 				</section>
 			)}
@@ -449,6 +489,56 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 				margin-top: auto;
 			}
 
+			/* Сервисы для бизнеса (витрина) */
+			.sec-sub {
+				margin: -14px 0 24px;
+				font-size: .95rem;
+				line-height: 1.55;
+				color: var(--ink-3, #666);
+				max-width: 640px;
+			}
+			.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+			.svc-card {
+				display: grid;
+				grid-template-columns: 56px 1fr;
+				gap: 14px;
+				padding: 18px;
+				background: #fff;
+				border: 1px solid var(--line, #E5E1D8);
+				text-decoration: none;
+				color: #111;
+				transition: all .15s;
+			}
+			.svc-card:hover { border-color: #111; transform: translateY(-2px); }
+			.svc-visual {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				aspect-ratio: 1;
+				border-radius: 2px;
+				color: #fff;
+				font-family: var(--f-display, 'Bebas Neue', sans-serif);
+				font-size: 1.1rem;
+				letter-spacing: .04em;
+			}
+			.svc-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+			.svc-title {
+				font-family: var(--f-display, 'Bebas Neue', sans-serif);
+				font-size: 1.05rem;
+				line-height: 1.1;
+				letter-spacing: .02em;
+				text-transform: uppercase;
+			}
+			.svc-audience { font-size: .82rem; line-height: 1.4; color: var(--ink-3, #666); }
+			.svc-cta {
+				font-size: .66rem;
+				font-weight: 700;
+				letter-spacing: .12em;
+				text-transform: uppercase;
+				color: var(--pink, #9E2B4F);
+				margin-top: auto;
+			}
+
 			/* Инструменты */
 			.tools-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
 			.tool-card {
@@ -500,12 +590,14 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 				.cat-cards { flex-direction: row; flex-wrap: wrap; }
 				.cat-card { flex: 1 1 30%; }
 				.feed-grid { grid-template-columns: repeat(2, 1fr); }
+				.svc-grid { grid-template-columns: repeat(2, 1fr); }
 			}
 			@media (max-width: 680px) {
 				.hero { padding: 48px 0 32px; }
 				.tools-grid { grid-template-columns: 1fr; }
 				.cat-card { flex: 1 1 100%; }
 				.feed-grid { grid-template-columns: 1fr; }
+				.svc-grid { grid-template-columns: 1fr; }
 				.wrap { padding: 0 16px; }
 			}
 		</style>

@@ -34,12 +34,29 @@ const siblings = PRODUCT_CATALOG.filter(
 
 const title = `${banner.title.split('—')[0].trim()} — сервис Контура`;
 const description = banner.description;
+
+// BreadcrumbList для выдачи: Продукты › Раздел › Продукт.
+const crumbs = [
+	{ name: 'Продукты', url: u('/produkty/') },
+	...(group ? [{ name: group.title, url: u(`/produkty/#${group.id}`) }] : []),
+	{ name: banner.title.split('—')[0].trim(), url: u(`/produkty/${product.slug}/`) },
+];
+const breadcrumbJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: crumbs.map((c, i) => ({
+		'@type': 'ListItem',
+		position: i + 1,
+		name: c.name,
+		item: new URL(c.url, Astro.site).toString(),
+	})),
+};
 ---
 
 <!doctype html>
 <html lang="ru">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} jsonLd={breadcrumbJsonLd} />
 	</head>
 	<body>
 		<Header />
