@@ -1,0 +1,135 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { u } from '../../utils/url';
+import { publishedPosts } from '../../utils/posts';
+
+const title = 'Сравнения и выбор: кассы, ОФД, налоги, форма бизнеса';
+const description =
+	'Помогаем выбрать без рекламы: кассы и фискальные регистраторы, ОФД, режимы налогообложения, ИП или ООО. Сравнения на основе действующих требований.';
+
+const posts = await publishedPosts();
+const byId = new Map(posts.map(p => [p.id, p]));
+
+// Курируемые группы сравнений — только реальные статьи из блога.
+const sections = [
+	{
+		title: 'Кассы и оборудование',
+		intro: 'Какую онлайн-кассу взять, чем смарт-терминал отличается от фискального регистратора и нужен ли ТС ПИоТ отдельно от ОФД.',
+		slugs: [
+			'2026-05-01-kak-vybrat-onlayn-kassu-2026',
+			'2026-05-01-smart-terminal-vs-fiskalnyj-registrator',
+			'2026-05-03-atol-30f-vs-27f',
+			'2026-05-03-mspos-f20-vs-d3-mini',
+			'2026-05-26-ts-piot-vs-ofd',
+		],
+	},
+	{
+		title: 'ОФД',
+		intro: 'Как выбрать оператора фискальных данных, который поддержит разрешительный режим к 1 июля 2026.',
+		slugs: ['2026-05-03-kak-vybrat-ofd-2026'],
+	},
+	{
+		title: 'Бухгалтерия и сервисы',
+		intro: 'Сравнение онлайн-бухгалтерий для малого бизнеса по функциям и цене.',
+		slugs: ['2026-05-03-sravnenie-onlayn-buhov'],
+	},
+	{
+		title: 'Форма бизнеса и налоги',
+		intro: 'ИП или ООО, самозанятость против ИП, какой налоговый режим выбрать и можно ли совмещать УСН с патентом.',
+		slugs: [
+			'2026-05-17-ip-ili-ooo-chto-vybrat-2026',
+			'2026-05-18-npd-vs-ip-chto-vybrat',
+			'2026-05-19-kakoy-nalog-vybrat-ip',
+			'2026-05-27-sovmeschenie-usn-patent-2026',
+		],
+	},
+].map(s => ({
+	...s,
+	items: s.slugs.map(id => byId.get(id)).filter((p): p is NonNullable<typeof p> => !!p),
+})).filter(s => s.items.length > 0);
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+
+		<main class="srav">
+			<header class="sr-hero">
+				<p class="sr-eyebrow">Сравнения и выбор</p>
+				<h1>Помогаем выбрать без рекламы</h1>
+				<p class="sr-lead">
+					Разборы «что выбрать» на основе действующих требований: кассы и
+					оборудование, ОФД, налоговые режимы, форма бизнеса. Не знаете, с чего
+					начать — пройдите <a href={u('/podbor/')}>подбор сервиса</a> или
+					смотрите <a href={u('/produkty/')}>каталог сервисов</a>.
+				</p>
+			</header>
+
+			{sections.map(section => (
+				<section class="sr-section">
+					<div class="sr-head">
+						<h2>{section.title}</h2>
+						<p>{section.intro}</p>
+					</div>
+					<div class="sr-grid">
+						{section.items.map(p => (
+							<a class="sr-card" href={u(`/blog/${p.id}/`)}>
+								<span class="sr-title">{p.data.title}</span>
+								<span class="sr-desc">{p.data.description}</span>
+								<span class="sr-cta">Читать разбор →</span>
+							</a>
+						))}
+					</div>
+				</section>
+			))}
+		</main>
+
+		<Footer />
+
+		<style>
+			.srav { max-width: 920px; margin: 0 auto; padding: 2.5rem 1rem 4rem; }
+			.sr-hero { margin-bottom: 2.5rem; max-width: 720px; }
+			.sr-eyebrow {
+				font-size: .8rem; text-transform: uppercase; letter-spacing: .1em;
+				color: var(--pink, #9E2B4F); font-weight: 700; margin: 0 0 .5rem;
+			}
+			.sr-hero h1 {
+				font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3rem);
+				line-height: .95; text-transform: uppercase; letter-spacing: .02em; margin: 0 0 1rem; color: #111;
+			}
+			.sr-lead { margin: 0; font-size: 1.05rem; color: #555; line-height: 1.55; }
+			.sr-lead a { color: var(--pink, #9E2B4F); font-weight: 600; }
+
+			.sr-section { margin-bottom: 2.5rem; }
+			.sr-head { margin-bottom: 1rem; }
+			.sr-head h2 {
+				font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: .02em;
+				text-transform: uppercase; margin: 0 0 .35rem; color: #111;
+			}
+			.sr-head p { margin: 0; color: var(--ink-3, #666); font-size: .95rem; line-height: 1.5; }
+			.sr-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+			.sr-card {
+				display: flex; flex-direction: column; gap: 8px; padding: 18px;
+				background: #fff; border: 1px solid var(--line, #E5E1D8);
+				text-decoration: none; color: #111; transition: all .15s;
+			}
+			.sr-card:hover { border-color: #111; transform: translateY(-2px); }
+			.sr-title {
+				font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; line-height: 1.1;
+				letter-spacing: .02em; text-transform: uppercase;
+			}
+			.sr-desc { font-size: .88rem; line-height: 1.45; color: var(--ink-3, #666); flex: 1; }
+			.sr-cta {
+				font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+				color: var(--pink, #9E2B4F);
+			}
+			@media (max-width: 640px) { .sr-grid { grid-template-columns: 1fr; } }
+		</style>
+	</body>
+</html>
