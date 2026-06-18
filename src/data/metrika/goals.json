@@ -362,6 +362,24 @@
       "id": "edo-puzzle-reset",
       "name": "Пазл «Цепочка ЭДО» — перемешал заново",
       "type": "action"
+    },
+    {
+      "id": "cpa-click",
+      "name": "CPA — клик по партнёрскому баннеру",
+      "type": "action",
+      "comment": "Шлётся с параметром {offer: <bannerId>} — сегментируйте CTR по офферу в Метрике"
+    },
+    {
+      "id": "lead-kontur-market",
+      "name": "Заявка — Контур.Маркет (inline-виджет)",
+      "type": "action",
+      "comment": "Отправка формы заявки в KonturOrderWidget на /produkty/kontur-market/"
+    },
+    {
+      "id": "lead-ts-piot-provider",
+      "name": "Заявка — Контур.Маркет ТС ПИоТ (inline-виджет)",
+      "type": "action",
+      "comment": "Отправка формы заявки для оффера ts-piot-provider"
     }
   ]
 }

@@ -67,6 +67,20 @@ main {
 	margin: 0 auto;
 }
 
+/* Доступность: видимый фокус при навигации с клавиатуры (WCAG 2.4.7).
+   :focus-visible не показывается при клике мышью — не мешает дизайну. */
+:focus-visible {
+	outline: 2px solid var(--pink, #9E2B4F);
+	outline-offset: 2px;
+	border-radius: 1px;
+}
+/* Тёмные поверхности (кнопки, карточки категорий) — лаймовый контур. */
+.btn:focus-visible,
+.cat-card:focus-visible,
+.tool-card:focus-visible {
+	outline-color: var(--lime, #AFCC00);
+}
+
 h1,
 h2,
 h3,

@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { CATEGORIES, SITE_URL } from '../consts';
 import { collectTags } from '../utils/tags';
 import { publishedPosts } from '../utils/posts';
+import { PRODUCT_CATALOG } from '../data/cpa-banners';
 
 const BLOG_PAGE_SIZE = 12;
 
@@ -44,9 +45,23 @@ export const GET: APIRoute = async () => {
 
 	const staticEntries: SitemapEntry[] = [
 		entry('/', '1.0', 'daily'),
-		entry('/slovar/', '0.7', 'weekly'),
+		// Витрина и воронка
+		entry('/produkty/', '0.8', 'weekly'),
+		entry('/podbor/', '0.7', 'monthly'),
+		entry('/sravneniya/', '0.7', 'weekly'),
+		// Инструменты и посадочные
+		entry('/instrumenty/', '0.7', 'weekly'),
+		entry('/kak-rabotaet-ts-piot/', '0.7', 'monthly'),
+		entry('/zakon-2026/', '0.7', 'weekly'),
+		entry('/test-ts-piot/', '0.6', 'monthly'),
+		entry('/test-tsepochka-edo/', '0.6', 'monthly'),
+		entry('/scenario/kofeynya-za-30-dney/', '0.6', 'monthly'),
+		entry('/scenario/perekhod-ip-na-ooo-za-60-dney/', '0.6', 'monthly'),
 		entry('/kalkulyator-shtrafov/', '0.7', 'monthly'),
 		entry('/kalendar-markirovki/', '0.6', 'weekly'),
+		// Справочные
+		entry('/slovar/', '0.7', 'weekly'),
+		entry('/tags/', '0.4', 'weekly'),
 		entry('/about/', '0.4', 'monthly'),
 		entry('/about/avtor/', '0.4', 'monthly'),
 		entry('/privacy/', '0.2', 'yearly'),
@@ -54,6 +69,11 @@ export const GET: APIRoute = async () => {
 
 	const categoryEntries: SitemapEntry[] = Object.keys(CATEGORIES).map((slug) =>
 		entry(`/category/${slug}/`, '0.9', 'weekly'),
+	);
+
+	// Страницы продуктов витрины
+	const productEntries: SitemapEntry[] = PRODUCT_CATALOG.map((p) =>
+		entry(`/produkty/${p.slug}/`, '0.7', 'monthly'),
 	);
 
 	const postEntries: SitemapEntry[] = posts.map((post) =>
@@ -65,7 +85,7 @@ export const GET: APIRoute = async () => {
 		),
 	);
 
-	const all = [...staticEntries, ...blogPageEntries, ...categoryEntries, ...tagEntries, ...postEntries];
+	const all = [...staticEntries, ...productEntries, ...blogPageEntries, ...categoryEntries, ...tagEntries, ...postEntries];
 
 	const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

@@ -269,7 +269,13 @@ const shareTitle = encodeURIComponent(title);
 							<p class="cpa-desc">{cpaBanner.description}</p>
 						</div>
 						<div class="cpa-action">
-							<a href={cpaBanner.ctaHref} class="cpa-btn" target="_blank" rel="noopener noreferrer sponsored">
+							<a
+								href={cpaBanner.ctaHref}
+								class="cpa-btn"
+								data-cpa-id={cpaBanner.id}
+								target={cpaBanner.ctaHref.startsWith('http') ? '_blank' : undefined}
+								rel={cpaBanner.erid ? 'noopener noreferrer sponsored' : (cpaBanner.ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined)}
+							>
 								{cpaBanner.cta}
 							</a>
 						</div>
@@ -282,6 +288,12 @@ const shareTitle = encodeURIComponent(title);
 					     <CpaCallout> внутри тела статьи (см. content-writer.md).
 					     Один финальный CPA выше + один inline в середине статьи
 					     даёт лучший CTR, чем два встык в подвале. -->
+
+					<!-- Вход в воронку: внутренняя альтернатива уходу по CPA-ссылке -->
+					<a href={u('/podbor/')} class="funnel-cta" data-pagefind-ignore>
+						<span class="funnel-cta-text">Не уверены, какой сервис нужен под вашу задачу?</span>
+						<span class="funnel-cta-link">Подобрать за 2 вопроса →</span>
+					</a>
 
 					<!-- Share -->
 					<div class="art-share" data-pagefind-ignore>
@@ -425,6 +437,19 @@ const shareTitle = encodeURIComponent(title);
 		<button id="back-to-top" aria-label="Наверх" title="Наверх">↑</button>
 
 		<script>
+			import { track } from '../utils/track';
+			/* Трекинг кликов по CPA-баннеру (подвальный + inline). Guard от двойной
+			   регистрации, если на странице есть и CpaCallout. */
+			if (!(window as any).__cpaTrackInit) {
+				(window as any).__cpaTrackInit = true;
+				document.addEventListener('click', (e) => {
+					const a = (e.target as HTMLElement)?.closest?.('a[data-cpa-id]') as HTMLElement | null;
+					if (a) track('cpa-click', { offer: a.dataset.cpaId });
+				});
+			}
+		</script>
+
+		<script>
 			/* Reading progress */
 			const bar = document.getElementById('rp-bar');
 			if (bar) {
@@ -517,6 +542,20 @@ const shareTitle = encodeURIComponent(title);
 			.cpa-erid { grid-column: 1 / -1; padding: 4px 12px; background: rgba(0,0,0,.04); font-size: .62rem; color: #999; letter-spacing: .04em; border-top: 1px solid rgba(0,0,0,.07); }
 
 			/* ── Share ── */
+			.funnel-cta {
+				display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px;
+				margin: 1.5rem 0; padding: 14px 18px;
+				background: var(--sand-l, #f6f4ee);
+				border: 1px solid var(--line, #E5E1D8);
+				border-left: 3px solid var(--lime-dark, #8aaa00);
+				text-decoration: none;
+			}
+			.funnel-cta:hover { border-left-color: var(--pink, #9E2B4F); }
+			.funnel-cta-text { font-size: .92rem; color: var(--ink-2, #3a3a3a); }
+			.funnel-cta-link {
+				font-size: .8rem; font-weight: 700; letter-spacing: .04em;
+				text-transform: uppercase; color: var(--pink, #9E2B4F); white-space: nowrap;
+			}
 			.art-share { display: flex; align-items: center; gap: 8px; padding: 1.2rem 0; border-top: 1px solid rgba(0,0,0,.1); border-bottom: 1px solid rgba(0,0,0,.1); }
 			.share-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #888; margin-right: 4px; }
 			.share-btn { display: inline-block; padding: 6px 14px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; background: #111; color: #EDE8DF; transition: background .15s; }

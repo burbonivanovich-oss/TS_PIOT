@@ -390,7 +390,7 @@ export const CATEGORY_DEFAULT_CPA: Record<string, string> = {
 	'markirovka': 'kontur-markirovka',
 	'zakonodatelstvo': 'default-zakonodatelstvo',
 	'kkt': 'kontur-ofd',
-	'egais': 'default-zakonodatelstvo',
+	'egais': 'kontur-market',
 };
 
 /** Второй CPA-баннер по категории (необязательный). */
