@@ -55,24 +55,35 @@ const source = w?.source ?? 'etiketka-media.ru';
 			<p class="kow-desc">{banner.description}</p>
 		</div>
 
-		<div
-			class="kow-mount kontur-widget-scope"
-			data-kontur-widget
-			data-product-id={w.productId}
-			data-product-name={w.productName}
-			data-supplier-uid={w.supplierUid}
-			data-source={source}
-			data-goal={`lead-${id}`}
-			data-fallback={banner.ctaHref}
-		>
-			<button type="button" class="kow-trigger">{ctaText}</button>
+		<div class="kow-mount kontur-widget-scope" data-kontur-widget data-goal={`lead-${id}`}>
+			{/* Штатный сниппет заявки Контура: исполняется на месте, форма
+			    монтируется лоадером в этот контейнер. Значения _skbOrder уходят
+			    дословно — атрибуция сохранена. is:inline, чтобы Astro не трогал. */}
 			<noscript>
 				<p class="kow-nojs">
 					Для отправки заявки включите JavaScript или {' '}
 					<a href={banner.ctaHref} target="_blank" rel="noopener noreferrer sponsored">перейдите на сайт Контура</a>.
 				</p>
 			</noscript>
+
+			<script
+				is:inline
+				define:vars={{ cfg: { productId: w.productId, productName: w.productName, supplierUid: w.supplierUid, source } }}
+			>
+				window._skbOrder = window._skbOrder || [];
+				window._skbOrder.push(['ProductId', cfg.productId]);
+				window._skbOrder.push(['ProductName', cfg.productName]);
+				window._skbOrder.push(['SupplierUid', cfg.supplierUid]);
+				window._skbOrder.push(['Source', cfg.source]);
+			</script>
+			<script is:inline src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+			<script is:inline src="https://kontur.ru/widget/order/loader" defer></script>
 		</div>
+
+		<p class="kow-fallback">
+			Форма не загрузилась? {' '}
+			<a href={banner.ctaHref} target="_blank" rel="noopener noreferrer sponsored">Оставьте заявку на сайте Контура →</a>
+		</p>
 
 		<ul class="kow-trust">
 			<li>Оформление и договор — на стороне Контура</li>
@@ -86,70 +97,11 @@ const source = w?.source ?? 'etiketka-media.ru';
 <script>
 	import { track } from '../utils/track';
 
-	const JQUERY = 'https://code.jquery.com/jquery-1.11.2.min.js';
-	const LOADER = 'https://kontur.ru/widget/order/loader';
-
-	let chain: Promise<void> | null = null;
-
-	function loadScript(src: string): Promise<void> {
-		return new Promise((resolve, reject) => {
-			const s = document.createElement('script');
-			s.src = src;
-			s.onload = () => resolve();
-			s.onerror = () => reject(new Error('load failed: ' + src));
-			document.head.appendChild(s);
-		});
-	}
-
-	// jQuery грузим один раз; loader — после него.
-	function ensureLoader(): Promise<void> {
-		if (chain) return chain;
-		const jq = (window as any).jQuery ? Promise.resolve() : loadScript(JQUERY);
-		chain = jq.then(() => loadScript(LOADER));
-		return chain;
-	}
-
-	function initWidget(mount: HTMLElement) {
-		if (mount.dataset.kwInit === '1') return;
-		mount.dataset.kwInit = '1';
-
-		const w = window as any;
-		w._skbOrder = w._skbOrder || [];
-		w._skbOrder.push(['ProductId', mount.dataset.productId]);
-		w._skbOrder.push(['ProductName', mount.dataset.productName]);
-		w._skbOrder.push(['SupplierUid', mount.dataset.supplierUid]);
-		w._skbOrder.push(['Source', mount.dataset.source]);
-
-		// Цель Метрики на отправку заявки (best-effort: ловим submit делегированно).
-		const goal = mount.dataset.goal;
-		if (goal) {
-			mount.addEventListener('submit', () => track(goal), true);
-		}
-
-		const btn = mount.querySelector('.kow-trigger') as HTMLElement | null;
-		if (btn) {
-			btn.classList.add('is-loading');
-			btn.textContent = 'Загружаем форму…';
-		}
-
-		ensureLoader()
-			.then(() => {
-				// Форма Контура монтируется лоадером в DOM; убираем нашу кнопку.
-				if (btn) btn.remove();
-			})
-			.catch(() => {
-				if (btn) {
-					btn.classList.remove('is-loading');
-					const href = mount.dataset.fallback || '#';
-					btn.outerHTML =
-						`<a class="kow-trigger" href="${href}" target="_blank" rel="noopener noreferrer sponsored">Открыть форму на сайте Контура →</a>`;
-				}
-			});
-	}
-
+	// Цель Метрики на отправку заявки — ловим submit делегированно на контейнере
+	// (форму впрыскивает сторонний лоадер уже после загрузки страницы).
 	document.querySelectorAll<HTMLElement>('[data-kontur-widget]').forEach((mount) => {
-		const btn = mount.querySelector('.kow-trigger');
-		btn?.addEventListener('click', () => initWidget(mount));
+		const goal = mount.dataset.goal;
+		if (goal) mount.addEventListener('submit', () => track(goal), true);
 	});
 </script>
 
@@ -221,6 +173,15 @@ const source = w?.source ?? 'etiketka-media.ru';
 	.kow-nojs {
 		font-size: 0.9rem;
 		color: var(--ink-2, #3a3a3a);
+	}
+	.kow-fallback {
+		margin: 0.9rem 0 0;
+		font-size: 0.82rem;
+		color: var(--ink-3, #666);
+	}
+	.kow-fallback a {
+		color: var(--pink, #9e2b4f);
+		font-weight: 600;
 	}
 </style>
 
