@@ -4,7 +4,7 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import ScenarioChecklist, { type ScenarioPhase } from '../../components/interactive/ScenarioChecklist.tsx';
 import RoiIpVsOoo from '../../components/interactive/RoiIpVsOoo.tsx';
-import CpaCallout from '../../components/CpaCallout.astro';
+import ProductBundle from '../../components/ProductBundle.astro';
 import { u } from '../../utils/url';
 
 const title = 'Переход с ИП на ООО за 60 дней: пошаговый план';
@@ -272,8 +272,10 @@ const phases: ScenarioPhase[] = [
 					/>
 				</section>
 
-				<CpaCallout id="kontur-extern" />
-				<CpaCallout id="bank-elba" />
+				<ProductBundle
+					heading="Что понадобится новому ООО"
+					ids={['kontur-extern', 'bank-elba', 'kontur-diadoc', 'kontur-mchd']}
+				/>
 
 				<section class="scenario-foot">
 					<h2>Связанное</h2>
