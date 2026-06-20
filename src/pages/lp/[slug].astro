@@ -41,7 +41,9 @@ const year = new Date().getFullYear();
 					<a href="#lead" class="lp-btn lp-btn-tomobile">{lp.hero.cta} ↓</a>
 				</div>
 				<div class="lp-hero-form" id="lead">
-					<KonturOrderWidget id={lp.bannerId} heading="Оставьте заявку — Контур перезвонит" />
+					<div class="lp-form-card">
+						<KonturOrderWidget id={lp.bannerId} heading="Оставьте заявку — перезвоним за 15 минут" compact />
+					</div>
 				</div>
 			</section>
 
