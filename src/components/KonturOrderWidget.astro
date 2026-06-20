@@ -27,9 +27,11 @@ interface Props {
 	cta?: string;
 	/** внешний класс для отступов */
 	class?: string;
+	/** компактный режим: без eyebrow/описания/доверия (для hero лендинга) */
+	compact?: boolean;
 }
 
-const { id, heading, cta, class: className } = Astro.props;
+const { id, heading, cta, class: className, compact = false } = Astro.props;
 const banner = CPA_BANNERS[id];
 const w = banner?.widget;
 const erid = banner?.erid;
@@ -48,11 +50,11 @@ const source = w?.source ?? 'etiketka-media.ru';
 ---
 
 {render && (
-	<section class={`kow ${className ?? ''}`} data-pagefind-ignore>
+	<section class={`kow ${compact ? 'kow--compact' : ''} ${className ?? ''}`} data-pagefind-ignore>
 		<div class="kow-head">
-			<span class="kow-eyebrow">{banner.eyebrow}</span>
+			{!compact && <span class="kow-eyebrow">{banner.eyebrow}</span>}
 			<h3 class="kow-title">{headingText}</h3>
-			<p class="kow-desc">{banner.description}</p>
+			{!compact && <p class="kow-desc">{banner.description}</p>}
 		</div>
 
 		<div class="kow-mount kontur-widget-scope" data-kontur-widget data-goal={`lead-${id}`}>
@@ -85,10 +87,12 @@ const source = w?.source ?? 'etiketka-media.ru';
 			<a href={banner.ctaHref} target="_blank" rel="noopener noreferrer sponsored">Оставьте заявку на сайте Контура →</a>
 		</p>
 
-		<ul class="kow-trust">
-			<li>Оформление и договор — на стороне Контура</li>
-			<li>Сервисами пользуются более 2 млн компаний</li>
-		</ul>
+		{!compact && (
+			<ul class="kow-trust">
+				<li>Оформление и договор — на стороне Контура</li>
+				<li>Сервисами пользуются более 2 млн компаний</li>
+			</ul>
+		)}
 
 		<div class="kow-erid">Реклама · АО «ПФ „СКБ Контур"» · erid: {erid}</div>
 	</section>
@@ -113,6 +117,9 @@ const source = w?.source ?? 'etiketka-media.ru';
 		background: var(--sand-l, #f6f4ee);
 		padding: 1.5rem;
 	}
+	.kow--compact { padding: 1.25rem; background: #fff; }
+	.kow--compact .kow-head { margin-bottom: .75rem; }
+	.kow--compact .kow-title { font-size: 1.05rem; line-height: 1.25; }
 	.kow-head {
 		display: flex;
 		flex-direction: column;
