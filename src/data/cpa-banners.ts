@@ -123,6 +123,12 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		cta: 'Подключить ОФД →',
 		ctaHref: 'https://kontur.ru/ofd/price?p=f74746',
 		visual: { abbrev: 'ОФД', bg: '#1A3A6C' },
+		widget: {
+			productId: 'Ofd',
+			productName: 'ofd',
+			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
+			source: 'etiketka: ОФД',
+		},
 	},
 	'kontur-markirovka': {
 		id: 'kontur-markirovka',
@@ -133,6 +139,12 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		cta: 'Подробнее →',
 		ctaHref: 'https://kontur.ru/markirovka?p=f74746',
 		visual: { abbrev: 'МК', bg: '#9E2B4F' },
+		widget: {
+			productId: 'Marking',
+			productName: 'markirovka',
+			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
+			source: 'etiketka: Маркировка',
+		},
 	},
 	'kontur-diadoc': {
 		id: 'kontur-diadoc',
@@ -143,6 +155,12 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		cta: 'Подключить Диадок →',
 		ctaHref: 'https://diadoc.ru/order?p=f74746',
 		visual: { abbrev: 'ДД', bg: '#007A6E' },
+		widget: {
+			productId: 'Diadoc',
+			productName: 'diadoc',
+			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
+			source: 'etiketka: Диадок',
+		},
 	},
 	'diadoc-logistika': {
 		id: 'diadoc-logistika',
@@ -153,6 +171,12 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		cta: 'Подготовиться к переходу →',
 		ctaHref: 'https://kontur.ru/logistika?p=f74746',
 		visual: { abbrev: 'ЭТрН', bg: '#1E4A7A' },
+		widget: {
+			productId: 'Logistics',
+			productName: 'logistika',
+			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
+			source: 'etiketka: Логистика',
+		},
 	},
 	'kontur-elba': {
 		id: 'kontur-elba',
@@ -173,6 +197,12 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		cta: 'Подключить Экстерн →',
 		ctaHref: 'https://kontur.ru/extern/price?p=f74746',
 		visual: { abbrev: 'ЭКС', bg: '#1A3A6C' },
+		widget: {
+			productId: 'Kemb',
+			productName: 'extern',
+			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
+			source: 'etiketka: Экстерн',
+		},
 	},
 	'kontur-focus': {
 		id: 'kontur-focus',
@@ -183,6 +213,12 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		cta: 'Проверить контрагента →',
 		ctaHref: 'https://focus.kontur.ru/site/buy?p=f74746',
 		visual: { abbrev: 'ФОК', bg: '#2D6A4F' },
+		widget: {
+			productId: 'Focus',
+			productName: 'focus-site',
+			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
+			source: 'etiketka: Фокус',
+		},
 	},
 	'diadoc-kedo': {
 		id: 'diadoc-kedo',
@@ -193,6 +229,12 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		cta: 'Подключить КЭДО →',
 		ctaHref: 'https://kontur.ru/kedo?p=f74746',
 		visual: { abbrev: 'КДО', bg: '#007A6E' },
+		widget: {
+			productId: 'Kedo',
+			productName: 'kedo',
+			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
+			source: 'etiketka: КЭДО',
+		},
 	},
 	'kontur-mchd': {
 		id: 'kontur-mchd',
@@ -203,6 +245,12 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		cta: 'Оформить МЧД →',
 		ctaHref: 'https://kontur.ru/mchd/price?p=f74746',
 		visual: { abbrev: 'МЧД', bg: '#4A1A7A' },
+		widget: {
+			productId: 'Poa',
+			productName: 'mchd',
+			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
+			source: 'etiketka: МЧД',
+		},
 	},
 	'kontur-market': {
 		id: 'kontur-market',
@@ -229,6 +277,12 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		cta: 'Открыть счёт →',
 		ctaHref: 'https://kontur.ru/lp/bank_and_elba?p=f74746',
 		visual: { abbrev: 'БНК', bg: '#0A5C36' },
+		widget: {
+			productId: 'Bank',
+			productName: 'rko',
+			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
+			source: 'etiketka: РКО',
+		},
 	},
 
 	// ─── Контур: продукты для витрины (DRAFT — НЕ ПОКАЗЫВАТЬ) ────────────────
