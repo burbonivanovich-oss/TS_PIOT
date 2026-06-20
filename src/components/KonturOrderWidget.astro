@@ -274,4 +274,27 @@ const source = w?.source ?? 'etiketka-media.ru';
 		margin: 0 !important;
 	}
 	.skb_form_script_disabled { color: var(--pink, #9e2b4f) !important; }
+
+	/* Компактная раскладка формы заявки Контура (классы .skb-order-form*
+	   получены из живой разметки). Уменьшаем вертикальные отступы строк,
+	   паддинги полей и убираем утилитарные margin'ы — форма влезает в экран. */
+	.kontur-widget-scope .skb-order-form__group { margin: 0 !important; padding: 0 !important; }
+	.kontur-widget-scope .skb-order-form__row { margin: 0 0 8px !important; padding: 0 !important; }
+	.kontur-widget-scope .skb-order-form__label-wrap { padding-top: 7px !important; }
+	.kontur-widget-scope .skb-order-form__invite-text { margin: 0 0 6px !important; }
+	.kontur-widget-scope label { margin: 0 !important; }
+	.kontur-widget-scope input:not([type='checkbox']):not([type='radio']):not([type='hidden']),
+	.kontur-widget-scope select,
+	.kontur-widget-scope textarea {
+		padding: 0.42em 0.6em !important;
+		font-size: 0.9rem !important;
+		min-height: 0 !important;
+	}
+	/* Гасим утилитарные отступы Контура (m-t-*, m-b-*) внутри формы. */
+	.kontur-widget-scope [class*='m-t-'],
+	.kontur-widget-scope [class*='m-b-'] { margin-top: 0 !important; margin-bottom: 0 !important; }
+	/* Кнопка отправки — чуть компактнее. */
+	.kontur-widget-scope button,
+	.kontur-widget-scope input[type='submit'] { padding: 0.6em 1.3em !important; margin-top: 6px !important; }
+
 </style>
