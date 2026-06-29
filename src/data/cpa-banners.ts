@@ -304,7 +304,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'КЭП для руководителя и сотрудников: работа с Честным знаком, ЭДО, госпорталами и торговыми площадками. Выпуск в день обращения.',
 		cta: 'Получить подпись →',
-		ctaHref: 'https://kontur.ru/ca', // TODO: партнёрская ссылка с тегом
+		ctaHref: 'https://kontur.ru/ca?p=f74746',
 		visual: { abbrev: 'ЭП', bg: '#1A3A6C' },
 	},
 	'kontur-merkuriy': {
@@ -314,7 +314,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'Гашение и оформление ВСД в системе «Меркурий» (ВетИС): мясо, молоко, рыба, яйца. Без установки ПО, прямо в браузере.',
 		cta: 'Подключить Меркурий →',
-		ctaHref: 'https://kontur.ru/merkuriy', // TODO: партнёрская ссылка с тегом
+		ctaHref: 'https://kontur.ru/merkuriy?p=f74746',
 		visual: { abbrev: 'ВСД', bg: '#2D6A4F' },
 	},
 	'kontur-zarplata': {
@@ -324,7 +324,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'Считает НДФЛ, страховые взносы и больничные по актуальным правилам. Формирует отчётность в СФР и ФНС. Для компаний с наёмными сотрудниками.',
 		cta: 'Попробовать →',
-		ctaHref: 'https://kontur.ru/zarplata', // TODO: партнёрская ссылка с тегом
+		ctaHref: 'https://kontur.ru/zarplata?p=f74746',
 		visual: { abbrev: 'ЗП', bg: '#1E4A7A' },
 	},
 	'kontur-nds': {
@@ -334,7 +334,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'Находит расхождения в книгах покупок и продаж, снижает риск требований от ФНС. Сверка по всем контрагентам в одном окне.',
 		cta: 'Проверить НДС →',
-		ctaHref: 'https://kontur.ru/ndsplus', // TODO: партнёрская ссылка с тегом
+		ctaHref: 'https://kontur.ru/ndsplus?p=f74746',
 		visual: { abbrev: 'НДС', bg: '#1A3A6C' },
 	},
 	'kontur-prizma': {
@@ -344,7 +344,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'Оценка риска по антиотмывочному законодательству, скоринг контрагентов и операций. Снижает риск блокировки счёта банком.',
 		cta: 'Подробнее →',
-		ctaHref: 'https://kontur.ru/prizma', // TODO: партнёрская ссылка с тегом
+		ctaHref: 'https://kontur.ru/prizma?p=f74746',
 		visual: { abbrev: '115', bg: '#9E2B4F' },
 	},
 	'kontur-dokumenty': {
@@ -354,7 +354,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		description:
 			'Лёгкий вход в ЭДО без интеграций: счета, акты, договоры с контрагентами. Для тех, кому Диадок пока избыточен.',
 		cta: 'Начать →',
-		ctaHref: 'https://kontur.ru/documents', // TODO: партнёрская ссылка с тегом
+		ctaHref: 'https://kontur.ru/documents?p=f74746',
 		visual: { abbrev: 'ДОК', bg: '#007A6E' },
 	},
 
