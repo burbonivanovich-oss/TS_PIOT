@@ -42,6 +42,13 @@ const siblings = PRODUCT_CATALOG.filter(
 const title = `${name} — сервис Контура`;
 const description = banner.description;
 
+// Соц-доказательство цифрами — единое для всех продуктов Контура,
+// согласовано с текстами на странице (перезвон за 15 минут, подключение от 1 дня).
+const stats = [
+	{ n: '2 млн+', l: 'компаний работают с Контуром' },
+	{ n: '15 минут', l: 'перезвон специалиста после заявки' },
+	{ n: 'от 1 дня', l: 'подключение и настройка' },
+];
 // Как подключить — единый процесс для всех продуктов Контура.
 const steps = [
 	{ t: 'Оставьте заявку', d: 'Заполните форму — специалист Контура перезвонит в тот же рабочий день.' },
@@ -50,8 +57,8 @@ const steps = [
 ];
 const trust = [
 	'Оформление и договор — на стороне Контура',
-	'Сервисами Контура пользуются более 2 млн компаний',
-	'Заявку обрабатывает Контур — без посредников',
+	'Заявку обрабатывает Контур, без посредников',
+	'Помощь на всех этапах подключения',
 ];
 const faq = [
 	{ q: 'Сколько это стоит?', a: 'Тариф рассчитывает Контур под вашу задачу и объём. Оставьте заявку — специалист подберёт решение и назовёт цену, это ни к чему не обязывает.' },
@@ -99,172 +106,250 @@ const faqJsonLd = {
 		<Header />
 
 		<main class="pp">
-			<nav class="pp-crumbs" aria-label="Хлебные крошки">
-				<a href={u('/produkty/')}>Продукты</a>
-				<span>›</span>
-				{group && <a href={u(`/produkty/#${group.id}`)}>{group.title}</a>}
-			</nav>
-
-			<!-- HERO: оффер слева, заявка справа -->
+			<!-- HERO: тёмный полноширинный, оффер слева, заявка-карточка справа -->
 			<section class="pp-hero">
-				<div class="pp-hero-text">
-					{group && <span class="pp-eyebrow">{banner.eyebrow}</span>}
-					<h1>{banner.title}</h1>
-					<p class="pp-sub">{banner.description}</p>
-					<ul class="pp-hero-trust">
-						{trust.map(t => <li>{t}</li>)}
-					</ul>
-					{clusters.length > 0 && (
-						<div class="pp-tags">
-							{clusters.map(c => <a href={u(`/category/${c.id}/`)}>{c.meta.title}</a>)}
+				<div class="pp-inner pp-hero-grid">
+					<div class="pp-hero-text">
+						<nav class="pp-crumbs" aria-label="Хлебные крошки">
+							<a href={u('/produkty/')}>Продукты</a>
+							<span aria-hidden="true">›</span>
+							{group && <a href={u(`/produkty/#${group.id}`)}>{group.title}</a>}
+						</nav>
+						<span class="pp-eyebrow">{banner.eyebrow}</span>
+						<h1>{banner.title}</h1>
+						<p class="pp-sub">{banner.description}</p>
+						<ul class="pp-hero-trust">
+							{trust.map(t => <li>{t}</li>)}
+						</ul>
+						{clusters.length > 0 && (
+							<div class="pp-tags">
+								{clusters.map(c => <a href={u(`/category/${c.id}/`)}>{c.meta.title}</a>)}
+							</div>
+						)}
+						<a href="#lead" class="pp-btn pp-btn-mobile">Оставить заявку ↓</a>
+					</div>
+					<div class="pp-hero-form" id="lead">
+						{hasForm ? (
+							<KonturOrderWidget id={product.bannerId} heading="Оставьте заявку — перезвоним за 15 минут" compact />
+						) : (
+							<CpaCallout id={product.bannerId} />
+						)}
+					</div>
+				</div>
+			</section>
+
+			<!-- СОЦ-ДОКАЗАТЕЛЬСТВО -->
+			<section class="pp-stats">
+				<div class="pp-inner pp-stats-grid">
+					{stats.map(s => (
+						<div class="pp-stat">
+							<span class="pp-stat-n">{s.n}</span>
+							<span class="pp-stat-l">{s.l}</span>
 						</div>
-					)}
-					<a href="#lead" class="pp-btn pp-btn-tomobile">Оставить заявку ↓</a>
-				</div>
-				<div class="pp-hero-form" id="lead">
-					{hasForm ? (
-						<KonturOrderWidget id={product.bannerId} heading="Оставьте заявку — перезвоним за 15 минут" compact />
-					) : (
-						<CpaCallout id={product.bannerId} />
-					)}
-				</div>
-			</section>
-
-			<!-- ЧТО ВНУТРИ -->
-			<section class="pp-section">
-				<h2 class="pp-h2">Что внутри</h2>
-				<div class="pp-benefits">
-					{product.bullets.map(b => (
-						<div class="pp-benefit"><span class="pp-mark" aria-hidden="true">✓</span><span>{b}</span></div>
 					))}
 				</div>
 			</section>
 
-			<!-- КОМУ ПОДХОДИТ -->
-			<section class="pp-section">
-				<h2 class="pp-h2">Кому подходит</h2>
-				<p class="pp-text">{product.audience}</p>
-			</section>
-
-			<!-- КАК ПОДКЛЮЧИТЬ -->
-			<section class="pp-section">
-				<h2 class="pp-h2">Как подключить</h2>
-				<ol class="pp-steps">
-					{steps.map((s, i) => (
-						<li class="pp-step">
-							<span class="pp-step-num">{i + 1}</span>
-							<div><div class="pp-step-t">{s.t}</div><p>{s.d}</p></div>
-						</li>
-					))}
-				</ol>
-			</section>
-
-			<!-- ДОВЕРИЕ -->
-			<section class="pp-trustbar">
-				{trust.map(t => <span class="pp-trustbar-item">{t}</span>)}
-			</section>
-
-			<!-- FAQ -->
-			<section class="pp-section">
-				<h2 class="pp-h2">Частые вопросы</h2>
-				<div class="pp-faq">
-					{faq.map(f => (
-						<details class="pp-faq-item"><summary>{f.q}</summary><p>{f.a}</p></details>
-					))}
-				</div>
-				<div class="pp-final"><a href="#lead" class="pp-btn">Оставить заявку →</a></div>
-			</section>
-
-			{clusters.length > 0 && (
+			<div class="pp-inner pp-body">
+				<!-- ЧТО ВНУТРИ -->
 				<section class="pp-section">
-					<h2 class="pp-h2">Читайте по теме</h2>
-					<ul class="pp-links">
-						{clusters.map(c => <li><a href={u(`/category/${c.id}/`)}>{c.meta.fullTitle}</a></li>)}
-					</ul>
-				</section>
-			)}
-
-			{siblings.length > 0 && (
-				<section class="pp-section">
-					<h2 class="pp-h2">{group?.title}: другие сервисы</h2>
-					<div class="pp-siblings">
-						{siblings.map(s => (
-							<a href={u(`/produkty/${s.slug}/`)} class="pp-sibling">
-								<span class="pp-sibling-v" style={`background:${s.banner.visual.bg}`}>{s.banner.visual.abbrev}</span>
-								<span class="pp-sibling-t">{s.banner.title}</span>
-							</a>
+					<h2 class="pp-h2">Что внутри</h2>
+					<div class="pp-benefits">
+						{product.bullets.map(b => (
+							<div class="pp-benefit"><span class="pp-mark" aria-hidden="true">✓</span><span>{b}</span></div>
 						))}
 					</div>
 				</section>
-			)}
 
-			<p class="pp-back"><a href={u('/produkty/')}>← Все сервисы</a></p>
+				<!-- КОМУ ПОДХОДИТ -->
+				<section class="pp-section">
+					<div class="pp-audience">
+						<h2 class="pp-h2">Кому подходит</h2>
+						<p>{product.audience}</p>
+					</div>
+				</section>
+
+				<!-- КАК ПОДКЛЮЧИТЬ -->
+				<section class="pp-section">
+					<h2 class="pp-h2">Как подключить</h2>
+					<ol class="pp-steps">
+						{steps.map((s, i) => (
+							<li class="pp-step">
+								<span class="pp-step-num">{i + 1}</span>
+								<div class="pp-step-b"><div class="pp-step-t">{s.t}</div><p>{s.d}</p></div>
+							</li>
+						))}
+					</ol>
+				</section>
+
+				<!-- FAQ -->
+				<section class="pp-section">
+					<h2 class="pp-h2">Частые вопросы</h2>
+					<div class="pp-faq">
+						{faq.map(f => (
+							<details class="pp-faq-item"><summary>{f.q}<span class="pp-faq-i" aria-hidden="true"></span></summary><p>{f.a}</p></details>
+						))}
+					</div>
+				</section>
+			</div>
+
+			<!-- ФИНАЛЬНЫЙ CTA -->
+			<section class="pp-cta">
+				<div class="pp-inner pp-cta-in">
+					<h2>{name}: оставьте заявку</h2>
+					<p>Специалист Контура перезвонит, подберёт тариф под вашу задачу и поможет с подключением.</p>
+					<a href="#lead" class="pp-btn pp-btn-lime">Оставить заявку →</a>
+				</div>
+			</section>
+
+			<div class="pp-inner pp-body pp-body-links">
+				{clusters.length > 0 && (
+					<section class="pp-section">
+						<h2 class="pp-h2">Читайте по теме</h2>
+						<ul class="pp-links">
+							{clusters.map(c => <li><a href={u(`/category/${c.id}/`)}>{c.meta.fullTitle}</a></li>)}
+						</ul>
+					</section>
+				)}
+
+				{siblings.length > 0 && (
+					<section class="pp-section">
+						<h2 class="pp-h2">{group?.title}: другие сервисы</h2>
+						<div class="pp-siblings">
+							{siblings.map(s => (
+								<a href={u(`/produkty/${s.slug}/`)} class="pp-sibling">
+									<span class="pp-sibling-v" style={`background:${s.banner.visual.bg}`}>{s.banner.visual.abbrev}</span>
+									<span class="pp-sibling-t">{s.banner.title}</span>
+								</a>
+							))}
+						</div>
+					</section>
+				)}
+
+				<p class="pp-back"><a href={u('/produkty/')}>← Все сервисы</a></p>
+			</div>
 		</main>
 
 		<Footer />
 
 		<style>
-			.pp { max-width: 1080px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
-			.pp-crumbs { display: flex; gap: .5rem; align-items: center; font-size: .82rem; color: #888; margin-bottom: 1.25rem; }
-			.pp-crumbs a { color: var(--pink, #9E2B4F); text-decoration: none; font-weight: 600; }
+			/* Полноширинные «ленты» + центрированные внутренние обёртки.
+			   main сбрасывает глобальный mobile-padding, чтобы фоны были до краёв. */
+			.pp { padding: 0; }
+			.pp-inner { max-width: 1120px; margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
 
-			/* HERO */
-			.pp-hero { display: grid; grid-template-columns: 1fr 460px; gap: 2.5rem; align-items: start; padding: 1rem 0 2rem; }
-			.pp-eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--pink, #9E2B4F); display: block; margin-bottom: .8rem; }
-			.pp-hero-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1; letter-spacing: .02em; text-transform: uppercase; color: #111; margin: 0 0 1rem; }
-			.pp-sub { font-size: 1.05rem; line-height: 1.55; color: var(--ink-2, #3a3a3a); margin: 0 0 1.25rem; }
-			.pp-hero-trust { list-style: none; margin: 0 0 1.1rem; padding: 0; display: flex; flex-direction: column; gap: .5rem; }
-			.pp-hero-trust li { font-size: .92rem; color: var(--ink-2, #3a3a3a); padding-left: 1.4rem; position: relative; }
-			.pp-hero-trust li::before { content: '✓'; position: absolute; left: 0; color: var(--lime-dark, #8aaa00); font-weight: 700; }
-			.pp-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
-			.pp-tags a { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; text-decoration: none; color: #111; background: var(--lime, #AFCC00); padding: .3em .7em; border-radius: 4px; }
-			.pp-hero-form { align-self: start; scroll-margin-top: 70px; }
-			.pp-hero-form :global(.kow) { margin: 0; }
+			/* ─── HERO ─────────────────────────────────────────────── */
+			.pp-hero {
+				background:
+					radial-gradient(90% 130% at 88% -15%, rgba(175,204,0,.13) 0%, rgba(175,204,0,0) 48%),
+					linear-gradient(180deg, #171717 0%, #0d0d0d 100%);
+				color: #fff;
+			}
+			.pp-hero-grid {
+				display: grid;
+				grid-template-columns: 1fr 440px;
+				gap: 3rem;
+				align-items: start;
+				padding-top: 2.25rem;
+				padding-bottom: 3rem;
+			}
+			.pp-crumbs { display: flex; gap: .5rem; align-items: center; font-size: .8rem; color: rgba(255,255,255,.55); margin-bottom: 1.4rem; }
+			.pp-crumbs a { color: rgba(255,255,255,.8); text-decoration: none; font-weight: 600; }
+			.pp-crumbs a:hover { color: var(--lime, #AFCC00); }
+			.pp-eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--lime, #AFCC00); display: block; margin-bottom: .85rem; }
+			.pp-hero-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 4.6vw, 3.5rem); line-height: .98; letter-spacing: .015em; text-transform: uppercase; color: #fff; margin: 0 0 1.1rem; }
+			.pp-sub { font-size: 1.1rem; line-height: 1.55; color: rgba(255,255,255,.72); margin: 0 0 1.5rem; max-width: 34em; }
+			.pp-hero-trust { list-style: none; margin: 0 0 1.4rem; padding: 0; display: flex; flex-direction: column; gap: .55rem; }
+			.pp-hero-trust li { font-size: .95rem; color: rgba(255,255,255,.85); padding-left: 1.7rem; position: relative; }
+			.pp-hero-trust li::before { content: '✓'; position: absolute; left: 0; top: -1px; color: var(--lime, #AFCC00); font-weight: 700; font-size: 1.05rem; }
+			.pp-tags { display: flex; flex-wrap: wrap; gap: .45rem; }
+			.pp-tags a { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; text-decoration: none; color: rgba(255,255,255,.85); border: 1px solid rgba(255,255,255,.22); padding: .35em .8em; border-radius: 999px; transition: border-color .15s, color .15s; }
+			.pp-tags a:hover { border-color: var(--lime, #AFCC00); color: var(--lime, #AFCC00); }
+
+			/* Карточка формы — «выезжает» на тёмном фоне */
+			.pp-hero-form { align-self: start; scroll-margin-top: 80px; }
+			.pp-hero-form :global(.kow) {
+				margin: 0;
+				border: none;
+				border-radius: 16px;
+				background: #fff;
+				padding: 1.6rem 1.5rem;
+				box-shadow: 0 24px 60px rgba(0,0,0,.45), 0 2px 8px rgba(0,0,0,.25);
+			}
+			.pp-hero-form :global(.kow-title) { font-size: 1.15rem; }
 			.pp-hero-form :global(.cpa-block) { margin: 0; }
 
-			.pp-btn { display: inline-block; padding: 14px 26px; background: #111; color: var(--lime, #AFCC00); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; transition: background .15s, color .15s; }
-			.pp-btn:hover { background: var(--pink, #9E2B4F); color: #fff; }
-			.pp-btn-tomobile { display: none; margin-top: .25rem; }
+			/* Кнопки */
+			.pp-btn { display: inline-block; padding: 15px 30px; background: var(--lime, #AFCC00); color: #111; font-size: .82rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; text-decoration: none; border-radius: 8px; transition: transform .12s, box-shadow .15s, background .15s; }
+			.pp-btn:hover { background: #c2e000; transform: translateY(-1px); box-shadow: 0 8px 22px rgba(175,204,0,.35); }
+			.pp-btn-lime { background: var(--lime, #AFCC00); color: #111; }
+			.pp-btn-mobile { display: none; margin-top: 1.4rem; }
 
-			.pp-section { margin: 2.25rem 0; }
-			.pp-h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: .02em; text-transform: uppercase; color: #111; margin: 0 0 1.1rem; }
-			.pp-text { margin: 0; font-size: 1rem; line-height: 1.6; color: var(--ink-2, #3a3a3a); }
+			/* ─── СОЦ-ДОКАЗАТЕЛЬСТВО ───────────────────────────────── */
+			.pp-stats { background: var(--sand, #EDE8DF); border-bottom: 1px solid var(--line, #E5E1D8); }
+			.pp-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding-top: 1.6rem; padding-bottom: 1.6rem; }
+			.pp-stat { display: flex; flex-direction: column; gap: .2rem; text-align: center; }
+			.pp-stat-n { font-family: 'Bebas Neue', sans-serif; font-size: 2.3rem; line-height: 1; letter-spacing: .01em; color: var(--pink, #9E2B4F); }
+			.pp-stat-l { font-size: .88rem; color: var(--ink-2, #3a3a3a); line-height: 1.35; }
 
-			.pp-benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-			.pp-benefit { display: grid; grid-template-columns: auto 1fr; gap: 10px; background: #fff; border: 1px solid var(--line, #E5E1D8); padding: 14px 16px; font-size: .95rem; line-height: 1.45; color: #333; }
-			.pp-mark { color: var(--lime-dark, #8aaa00); font-weight: 700; }
+			/* ─── КОНТЕНТ ──────────────────────────────────────────── */
+			.pp-body { padding-top: 2.75rem; padding-bottom: 1rem; }
+			.pp-body-links { padding-top: 1rem; padding-bottom: 3rem; }
+			.pp-section { margin: 0 0 2.75rem; }
+			.pp-h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.7rem, 3vw, 2.1rem); letter-spacing: .02em; text-transform: uppercase; color: #111; margin: 0 0 1.25rem; }
 
-			.pp-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-			.pp-step { display: flex; flex-direction: column; gap: 10px; background: var(--sand-l, #f6f4ee); border: 1px solid var(--line, #E5E1D8); padding: 16px; }
-			.pp-step-num { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: #111; color: var(--lime, #AFCC00); font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; }
-			.pp-step-t { font-weight: 700; color: #111; margin-bottom: .2rem; }
-			.pp-step p { margin: 0; font-size: .9rem; line-height: 1.5; color: var(--ink-3, #666); }
+			.pp-benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+			.pp-benefit { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; background: #fff; border: 1px solid var(--line, #E5E1D8); border-left: 3px solid var(--lime, #AFCC00); border-radius: 10px; padding: 16px 18px; font-size: .98rem; line-height: 1.45; color: #2a2a2a; }
+			.pp-mark { color: var(--lime-dark, #8aaa00); font-weight: 700; font-size: 1.05rem; line-height: 1.3; }
 
-			.pp-trustbar { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; justify-content: center; padding: 1.1rem; background: var(--sand, #EDE8DF); margin: 2.25rem 0; }
-			.pp-trustbar-item { font-size: .85rem; color: var(--ink-2, #3a3a3a); padding-left: 1.2rem; position: relative; }
-			.pp-trustbar-item::before { content: '✓'; position: absolute; left: 0; color: var(--lime-dark, #8aaa00); font-weight: 700; }
+			.pp-audience { background: var(--sand-l, #F6F4EE); border: 1px solid var(--line, #E5E1D8); border-radius: 14px; padding: 1.5rem 1.75rem; }
+			.pp-audience .pp-h2 { margin-bottom: .6rem; }
+			.pp-audience p { margin: 0; font-size: 1.05rem; line-height: 1.6; color: var(--ink-2, #3a3a3a); }
 
-			.pp-faq { display: flex; flex-direction: column; gap: 8px; }
-			.pp-faq-item { background: #fff; border: 1px solid var(--line, #E5E1D8); padding: 14px 18px; }
-			.pp-faq-item summary { font-weight: 600; color: #111; cursor: pointer; font-size: .98rem; }
-			.pp-faq-item p { margin: .75rem 0 0; font-size: .92rem; line-height: 1.55; color: var(--ink-2, #3a3a3a); }
-			.pp-final { text-align: center; margin-top: 1.5rem; }
+			.pp-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+			.pp-step { display: flex; flex-direction: column; gap: 12px; background: #fff; border: 1px solid var(--line, #E5E1D8); border-radius: 12px; padding: 1.4rem 1.25rem; }
+			.pp-step-num { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; background: #111; color: var(--lime, #AFCC00); font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; border-radius: 10px; }
+			.pp-step-t { font-weight: 700; color: #111; margin-bottom: .25rem; font-size: 1.02rem; }
+			.pp-step-b p { margin: 0; font-size: .92rem; line-height: 1.5; color: var(--ink-3, #666); }
 
+			.pp-faq { display: flex; flex-direction: column; gap: 10px; }
+			.pp-faq-item { background: #fff; border: 1px solid var(--line, #E5E1D8); border-radius: 10px; padding: 2px 18px; transition: border-color .15s; }
+			.pp-faq-item[open] { border-color: var(--line-2, #D9D4C6); }
+			.pp-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-weight: 600; color: #111; cursor: pointer; font-size: 1rem; padding: 14px 0; list-style: none; }
+			.pp-faq-item summary::-webkit-details-marker { display: none; }
+			.pp-faq-i { position: relative; flex: 0 0 auto; width: 18px; height: 18px; }
+			.pp-faq-i::before, .pp-faq-i::after { content: ''; position: absolute; background: var(--pink, #9E2B4F); border-radius: 2px; }
+			.pp-faq-i::before { top: 8px; left: 0; width: 18px; height: 2px; }
+			.pp-faq-i::after { left: 8px; top: 0; width: 2px; height: 18px; transition: transform .18s ease; }
+			.pp-faq-item[open] .pp-faq-i::after { transform: rotate(90deg); opacity: 0; }
+			.pp-faq-item p { margin: 0 0 16px; font-size: .95rem; line-height: 1.6; color: var(--ink-2, #3a3a3a); }
+
+			/* ─── ФИНАЛЬНЫЙ CTA ────────────────────────────────────── */
+			.pp-cta { background: linear-gradient(180deg, #171717 0%, #0d0d0d 100%); color: #fff; }
+			.pp-cta-in { text-align: center; padding-top: 2.75rem; padding-bottom: 2.75rem; }
+			.pp-cta-in h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 3.4vw, 2.4rem); letter-spacing: .02em; text-transform: uppercase; color: #fff; margin: 0 0 .6rem; }
+			.pp-cta-in p { margin: 0 auto 1.6rem; font-size: 1.05rem; line-height: 1.55; color: rgba(255,255,255,.72); max-width: 40em; }
+
+			/* ─── ССЫЛКИ / СОСЕДИ ──────────────────────────────────── */
 			.pp-links { margin: 0; padding-left: 1.25rem; }
+			.pp-links li { margin-bottom: .4rem; }
 			.pp-links a { color: var(--pink, #9E2B4F); font-weight: 600; }
 
 			.pp-siblings { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; }
-			.pp-sibling { display: flex; align-items: center; gap: .75rem; padding: .75rem; border: 1.5px solid rgba(0,0,0,.1); border-radius: 10px; text-decoration: none; color: #111; transition: border-color .15s; }
-			.pp-sibling:hover { border-color: #111; }
-			.pp-sibling-v { flex: 0 0 auto; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 6px; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: .95rem; }
-			.pp-sibling-t { font-size: .9rem; line-height: 1.3; }
+			.pp-sibling { display: flex; align-items: center; gap: .9rem; padding: .9rem; background: #fff; border: 1px solid var(--line, #E5E1D8); border-radius: 12px; text-decoration: none; color: #111; transition: border-color .15s, transform .12s; }
+			.pp-sibling:hover { border-color: #111; transform: translateY(-2px); }
+			.pp-sibling-v { flex: 0 0 auto; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; }
+			.pp-sibling-t { font-size: .92rem; line-height: 1.3; }
 
-			.pp-back { margin-top: 2rem; }
+			.pp-back { margin-top: 1.5rem; }
 			.pp-back a { color: var(--pink, #9E2B4F); font-weight: 600; text-decoration: none; }
 
 			@media (max-width: 860px) {
-				.pp-hero { grid-template-columns: 1fr; gap: 1.5rem; }
-				.pp-btn-tomobile { display: inline-block; }
+				.pp-hero-grid { grid-template-columns: 1fr; gap: 2rem; padding-top: 1.75rem; padding-bottom: 2.25rem; }
+				.pp-btn-mobile { display: inline-block; }
+				.pp-stats-grid { grid-template-columns: 1fr; gap: 1.25rem; text-align: left; }
+				.pp-stat { flex-direction: row; align-items: baseline; gap: .75rem; text-align: left; }
+				.pp-stat-n { font-size: 1.9rem; }
 				.pp-benefits { grid-template-columns: 1fr; }
 				.pp-steps { grid-template-columns: 1fr; }
 				.pp-siblings { grid-template-columns: 1fr; }
