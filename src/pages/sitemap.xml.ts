@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { CATEGORIES, SITE_URL } from '../consts';
 import { collectTags } from '../utils/tags';
 import { publishedPosts } from '../utils/posts';
-import { PRODUCT_CATALOG } from '../data/cpa-banners';
+import { PRODUCT_CATALOG, CPA_BANNERS } from '../data/cpa-banners';
 
 const BLOG_PAGE_SIZE = 12;
 
@@ -66,10 +66,10 @@ export const GET: APIRoute = async () => {
 		entry(`/category/${slug}/`, '0.9', 'weekly'),
 	);
 
-	// Страницы продуктов витрины
-	const productEntries: SitemapEntry[] = PRODUCT_CATALOG.map((p) =>
-		entry(`/produkty/${p.slug}/`, '0.7', 'monthly'),
-	);
+	// Страницы продуктов витрины — только с erid (как и рендер страниц).
+	const productEntries: SitemapEntry[] = PRODUCT_CATALOG
+		.filter((p) => CPA_BANNERS[p.bannerId]?.erid)
+		.map((p) => entry(`/produkty/${p.slug}/`, '0.7', 'monthly'));
 
 	const postEntries: SitemapEntry[] = posts.map((post) =>
 		entry(

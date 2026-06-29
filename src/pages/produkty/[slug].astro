@@ -12,10 +12,14 @@ import {
 } from '../../data/cpa-banners';
 
 export function getStaticPaths() {
-	return PRODUCT_CATALOG.map(product => ({
-		params: { slug: product.slug },
-		props: { product },
-	}));
+	// Страницы только для офферов с erid (38-ФЗ). Продукты на регистрации
+	// в ОРД получат страницу автоматически после появления erid.
+	return PRODUCT_CATALOG
+		.filter(product => CPA_BANNERS[product.bannerId]?.erid)
+		.map(product => ({
+			params: { slug: product.slug },
+			props: { product },
+		}));
 }
 
 const { product } = Astro.props;

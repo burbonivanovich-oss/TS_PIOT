@@ -10,12 +10,16 @@ const description =
 	'Каталог сервисов Контура под задачи МСБ: касса и ТС ПИоТ, маркировка, бухгалтерия и отчётность, ЭДО, проверка контрагентов. Подберите решение и оставьте заявку.';
 
 // Карточки, сгруппированные по разделам витрины.
+// Показываем только офферы с erid (38-ФЗ): продукты на регистрации в ОРД
+// появятся автоматически, как только их креатив получит erid.
 const groups = CATALOG_GROUPS.map(group => ({
 	...group,
-	products: PRODUCT_CATALOG.filter(p => p.group === group.id).map(p => ({
-		...p,
-		banner: CPA_BANNERS[p.bannerId],
-	})),
+	products: PRODUCT_CATALOG
+		.filter(p => p.group === group.id && CPA_BANNERS[p.bannerId]?.erid)
+		.map(p => ({
+			...p,
+			banner: CPA_BANNERS[p.bannerId],
+		})),
 })).filter(group => group.products.length > 0);
 ---
 
