@@ -2,7 +2,8 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
-import KonturLeadForm from '../../components/KonturLeadForm.astro';
+import KonturOrderWidget from '../../components/KonturOrderWidget.astro';
+import CpaCallout from '../../components/CpaCallout.astro';
 import { u } from '../../utils/url';
 import { CATEGORIES } from '../../consts';
 import {
@@ -25,237 +26,248 @@ export function getStaticPaths() {
 const { product } = Astro.props;
 const banner = CPA_BANNERS[product.bannerId];
 const group = CATALOG_GROUPS.find(g => g.id === product.group);
+const name = banner.title.split('—')[0].trim();
 
-// Кластеры с человекочитаемыми названиями и ссылками на категории.
+// Инлайн-форма заявки только если у оффера есть widget-конфиг; иначе CTA-переход.
+const hasForm = !!(banner.widget && banner.erid);
+
 const clusters = product.clusters
 	.map(id => ({ id, meta: CATEGORIES[id as keyof typeof CATEGORIES] }))
 	.filter(c => c.meta);
 
-// Другие продукты того же раздела — для перелинковки.
 const siblings = PRODUCT_CATALOG.filter(
-	p => p.group === product.group && p.slug !== product.slug
+	p => p.group === product.group && p.slug !== product.slug && CPA_BANNERS[p.bannerId]?.erid
 ).map(p => ({ ...p, banner: CPA_BANNERS[p.bannerId] }));
 
-const title = `${banner.title.split('—')[0].trim()} — сервис Контура`;
+const title = `${name} — сервис Контура`;
 const description = banner.description;
 
-// BreadcrumbList для выдачи: Продукты › Раздел › Продукт.
-const crumbs = [
-	{ name: 'Продукты', url: u('/produkty/') },
-	...(group ? [{ name: group.title, url: u(`/produkty/#${group.id}`) }] : []),
-	{ name: banner.title.split('—')[0].trim(), url: u(`/produkty/${product.slug}/`) },
+// Как подключить — единый процесс для всех продуктов Контура.
+const steps = [
+	{ t: 'Оставьте заявку', d: 'Заполните форму — специалист Контура перезвонит в тот же рабочий день.' },
+	{ t: 'Подберём решение', d: 'Под вашу задачу и объём, ответим на вопросы и назовём тариф.' },
+	{ t: 'Подключим и настроим', d: 'Поможем с запуском и интеграцией — без простоя в работе.' },
 ];
+const trust = [
+	'Оформление и договор — на стороне Контура',
+	'Сервисами Контура пользуются более 2 млн компаний',
+	'Заявку обрабатывает Контур — без посредников',
+];
+const faq = [
+	{ q: 'Сколько это стоит?', a: 'Тариф рассчитывает Контур под вашу задачу и объём. Оставьте заявку — специалист подберёт решение и назовёт цену, это ни к чему не обязывает.' },
+	{ q: 'Кто оформляет договор?', a: 'Договор вы заключаете напрямую с Контуром, заявку обрабатывает Контур. «Этикетка» — информационный партнёр.' },
+	{ q: 'Как быстро подключат?', a: 'После заявки специалист Контура перезванивает в тот же рабочий день, помогает с подбором, подключением и настройкой.' },
+];
+
 const breadcrumbJsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'BreadcrumbList',
-	itemListElement: crumbs.map((c, i) => ({
-		'@type': 'ListItem',
-		position: i + 1,
-		name: c.name,
+	itemListElement: [
+		{ name: 'Продукты', url: u('/produkty/') },
+		...(group ? [{ name: group.title, url: u(`/produkty/#${group.id}`) }] : []),
+		{ name, url: u(`/produkty/${product.slug}/`) },
+	].map((c, i) => ({
+		'@type': 'ListItem', position: i + 1, name: c.name,
 		item: new URL(c.url, Astro.site).toString(),
 	})),
 };
-
-// Product-разметка: имя, описание, бренд Контур. Цены не указываем (CPA-модель,
-// тариф на стороне Контура) — Offer не добавляем, чтобы не плодить ложные данные.
 const productJsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'Product',
-	name: banner.title.split('—')[0].trim(),
+	name,
 	description: banner.description,
 	category: group?.title,
 	brand: { '@type': 'Brand', name: 'Контур' },
 	url: new URL(u(`/produkty/${product.slug}/`), Astro.site).toString(),
+};
+const faqJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faq.map(f => ({
+		'@type': 'Question', name: f.q,
+		acceptedAnswer: { '@type': 'Answer', text: f.a },
+	})),
 };
 ---
 
 <!doctype html>
 <html lang="ru">
 	<head>
-		<BaseHead title={title} description={description} jsonLd={[breadcrumbJsonLd, productJsonLd]} />
+		<BaseHead title={title} description={description} jsonLd={[breadcrumbJsonLd, productJsonLd, faqJsonLd]} />
 	</head>
 	<body>
 		<Header />
 
-		<main class="product">
-			<nav class="crumbs" aria-label="Хлебные крошки">
+		<main class="pp">
+			<nav class="pp-crumbs" aria-label="Хлебные крошки">
 				<a href={u('/produkty/')}>Продукты</a>
 				<span>›</span>
 				{group && <a href={u(`/produkty/#${group.id}`)}>{group.title}</a>}
 			</nav>
 
-			<header class="product-hero">
-				<div class="hero-visual" style={`background:${banner.visual.bg}`}>
-					<span>{banner.visual.abbrev}</span>
-				</div>
-				<div class="hero-text">
+			<!-- HERO: оффер слева, заявка справа -->
+			<section class="pp-hero">
+				<div class="pp-hero-text">
+					{group && <span class="pp-eyebrow">{banner.eyebrow}</span>}
 					<h1>{banner.title}</h1>
-					<p class="hero-lead">{banner.description}</p>
+					<p class="pp-sub">{banner.description}</p>
+					<ul class="pp-hero-trust">
+						{trust.map(t => <li>{t}</li>)}
+					</ul>
 					{clusters.length > 0 && (
-						<div class="hero-tags">
-							{clusters.map(c => (
-								<a href={u(`/category/${c.id}/`)}>{c.meta.title}</a>
-							))}
+						<div class="pp-tags">
+							{clusters.map(c => <a href={u(`/category/${c.id}/`)}>{c.meta.title}</a>)}
 						</div>
 					)}
+					<a href="#lead" class="pp-btn pp-btn-tomobile">Оставить заявку ↓</a>
 				</div>
-			</header>
-
-			<section class="product-section">
-				<h2>Что внутри</h2>
-				<ul class="bullets">
-					{product.bullets.map(b => <li>{b}</li>)}
-				</ul>
+				<div class="pp-hero-form" id="lead">
+					{hasForm ? (
+						<KonturOrderWidget id={product.bannerId} heading="Оставьте заявку — перезвоним за 15 минут" compact />
+					) : (
+						<CpaCallout id={product.bannerId} />
+					)}
+				</div>
 			</section>
 
-			<section class="product-section">
-				<h2>Кому подходит</h2>
-				<p>{product.audience}</p>
+			<!-- ЧТО ВНУТРИ -->
+			<section class="pp-section">
+				<h2 class="pp-h2">Что внутри</h2>
+				<div class="pp-benefits">
+					{product.bullets.map(b => (
+						<div class="pp-benefit"><span class="pp-mark" aria-hidden="true">✓</span><span>{b}</span></div>
+					))}
+				</div>
 			</section>
 
-			<KonturLeadForm id={product.bannerId} />
+			<!-- КОМУ ПОДХОДИТ -->
+			<section class="pp-section">
+				<h2 class="pp-h2">Кому подходит</h2>
+				<p class="pp-text">{product.audience}</p>
+			</section>
+
+			<!-- КАК ПОДКЛЮЧИТЬ -->
+			<section class="pp-section">
+				<h2 class="pp-h2">Как подключить</h2>
+				<ol class="pp-steps">
+					{steps.map((s, i) => (
+						<li class="pp-step">
+							<span class="pp-step-num">{i + 1}</span>
+							<div><div class="pp-step-t">{s.t}</div><p>{s.d}</p></div>
+						</li>
+					))}
+				</ol>
+			</section>
+
+			<!-- ДОВЕРИЕ -->
+			<section class="pp-trustbar">
+				{trust.map(t => <span class="pp-trustbar-item">{t}</span>)}
+			</section>
+
+			<!-- FAQ -->
+			<section class="pp-section">
+				<h2 class="pp-h2">Частые вопросы</h2>
+				<div class="pp-faq">
+					{faq.map(f => (
+						<details class="pp-faq-item"><summary>{f.q}</summary><p>{f.a}</p></details>
+					))}
+				</div>
+				<div class="pp-final"><a href="#lead" class="pp-btn">Оставить заявку →</a></div>
+			</section>
 
 			{clusters.length > 0 && (
-				<section class="product-section">
-					<h2>Читайте по теме</h2>
-					<ul class="links">
-						{clusters.map(c => (
-							<li>
-								<a href={u(`/category/${c.id}/`)}>{c.meta.fullTitle}</a>
-							</li>
-						))}
+				<section class="pp-section">
+					<h2 class="pp-h2">Читайте по теме</h2>
+					<ul class="pp-links">
+						{clusters.map(c => <li><a href={u(`/category/${c.id}/`)}>{c.meta.fullTitle}</a></li>)}
 					</ul>
 				</section>
 			)}
 
 			{siblings.length > 0 && (
-				<section class="product-section">
-					<h2>{group?.title}: другие сервисы</h2>
-					<div class="siblings">
+				<section class="pp-section">
+					<h2 class="pp-h2">{group?.title}: другие сервисы</h2>
+					<div class="pp-siblings">
 						{siblings.map(s => (
-							<a href={u(`/produkty/${s.slug}/`)} class="sibling">
-								<span
-									class="sibling-visual"
-									style={`background:${s.banner.visual.bg}`}
-								>{s.banner.visual.abbrev}</span>
-								<span class="sibling-title">{s.banner.title}</span>
+							<a href={u(`/produkty/${s.slug}/`)} class="pp-sibling">
+								<span class="pp-sibling-v" style={`background:${s.banner.visual.bg}`}>{s.banner.visual.abbrev}</span>
+								<span class="pp-sibling-t">{s.banner.title}</span>
 							</a>
 						))}
 					</div>
 				</section>
 			)}
 
-			<p class="back"><a href={u('/produkty/')}>← Все сервисы</a></p>
+			<p class="pp-back"><a href={u('/produkty/')}>← Все сервисы</a></p>
 		</main>
 
 		<Footer />
 
 		<style>
-			.product {
-				max-width: 820px;
-				margin: 0 auto;
-				padding: 2rem 1rem 4rem;
-			}
-			.crumbs {
-				display: flex;
-				gap: 0.5rem;
-				align-items: center;
-				font-size: 0.82rem;
-				color: #888;
-				margin-bottom: 1.5rem;
-			}
-			.crumbs a { color: var(--pink, #9E2B4F); text-decoration: none; font-weight: 600; }
+			.pp { max-width: 1080px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+			.pp-crumbs { display: flex; gap: .5rem; align-items: center; font-size: .82rem; color: #888; margin-bottom: 1.25rem; }
+			.pp-crumbs a { color: var(--pink, #9E2B4F); text-decoration: none; font-weight: 600; }
 
-			.product-hero {
-				display: grid;
-				grid-template-columns: 120px 1fr;
-				gap: 1.5rem;
-				align-items: start;
-				margin-bottom: 2.5rem;
-			}
-			.hero-visual {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				aspect-ratio: 1;
-				border-radius: 12px;
-				color: #fff;
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 2.4rem;
-				letter-spacing: 0.04em;
-			}
-			.hero-text h1 {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: clamp(1.7rem, 4vw, 2.6rem);
-				line-height: 1;
-				text-transform: uppercase;
-				letter-spacing: 0.02em;
-				margin: 0 0 0.75rem;
-				color: #111;
-			}
-			.hero-lead { margin: 0 0 1rem; font-size: 1.02rem; line-height: 1.55; color: #444; }
-			.hero-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-			.hero-tags a {
-				font-size: 0.75rem;
-				font-weight: 700;
-				text-transform: uppercase;
-				letter-spacing: 0.05em;
-				text-decoration: none;
-				color: #111;
-				background: var(--lime, #afcc00);
-				padding: 0.3em 0.7em;
-				border-radius: 4px;
-			}
+			/* HERO */
+			.pp-hero { display: grid; grid-template-columns: 1fr 460px; gap: 2.5rem; align-items: start; padding: 1rem 0 2rem; }
+			.pp-eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--pink, #9E2B4F); display: block; margin-bottom: .8rem; }
+			.pp-hero-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1; letter-spacing: .02em; text-transform: uppercase; color: #111; margin: 0 0 1rem; }
+			.pp-sub { font-size: 1.05rem; line-height: 1.55; color: var(--ink-2, #3a3a3a); margin: 0 0 1.25rem; }
+			.pp-hero-trust { list-style: none; margin: 0 0 1.1rem; padding: 0; display: flex; flex-direction: column; gap: .5rem; }
+			.pp-hero-trust li { font-size: .92rem; color: var(--ink-2, #3a3a3a); padding-left: 1.4rem; position: relative; }
+			.pp-hero-trust li::before { content: '✓'; position: absolute; left: 0; color: var(--lime-dark, #8aaa00); font-weight: 700; }
+			.pp-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+			.pp-tags a { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; text-decoration: none; color: #111; background: var(--lime, #AFCC00); padding: .3em .7em; border-radius: 4px; }
+			.pp-hero-form { align-self: start; scroll-margin-top: 70px; }
+			.pp-hero-form :global(.kow) { margin: 0; }
+			.pp-hero-form :global(.cpa-block) { margin: 0; }
 
-			.product-section { margin-bottom: 2rem; }
-			.product-section h2 {
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 1.5rem;
-				letter-spacing: 0.02em;
-				text-transform: uppercase;
-				margin: 0 0 0.75rem;
-				color: #111;
-			}
-			.product-section p { margin: 0; font-size: 1rem; line-height: 1.6; color: #444; }
-			.bullets { margin: 0; padding-left: 1.25rem; }
-			.bullets li { font-size: 1rem; line-height: 1.7; color: #333; }
-			.links { margin: 0; padding-left: 1.25rem; }
-			.links a { color: var(--pink, #9E2B4F); font-weight: 600; }
+			.pp-btn { display: inline-block; padding: 14px 26px; background: #111; color: var(--lime, #AFCC00); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; transition: background .15s, color .15s; }
+			.pp-btn:hover { background: var(--pink, #9E2B4F); color: #fff; }
+			.pp-btn-tomobile { display: none; margin-top: .25rem; }
 
-			.siblings { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-			.sibling {
-				display: flex;
-				align-items: center;
-				gap: 0.75rem;
-				padding: 0.75rem;
-				border: 1.5px solid rgba(0, 0, 0, 0.1);
-				border-radius: 10px;
-				text-decoration: none;
-				color: #111;
-				transition: border-color 0.15s ease;
-			}
-			.sibling:hover { border-color: #111; }
-			.sibling-visual {
-				flex: 0 0 auto;
-				width: 44px;
-				height: 44px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				border-radius: 6px;
-				color: #fff;
-				font-family: 'Bebas Neue', sans-serif;
-				font-size: 0.95rem;
-			}
-			.sibling-title { font-size: 0.9rem; line-height: 1.3; }
+			.pp-section { margin: 2.25rem 0; }
+			.pp-h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: .02em; text-transform: uppercase; color: #111; margin: 0 0 1.1rem; }
+			.pp-text { margin: 0; font-size: 1rem; line-height: 1.6; color: var(--ink-2, #3a3a3a); }
 
-			.back { margin-top: 2rem; }
-			.back a { color: var(--pink, #9E2B4F); font-weight: 600; text-decoration: none; }
+			.pp-benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+			.pp-benefit { display: grid; grid-template-columns: auto 1fr; gap: 10px; background: #fff; border: 1px solid var(--line, #E5E1D8); padding: 14px 16px; font-size: .95rem; line-height: 1.45; color: #333; }
+			.pp-mark { color: var(--lime-dark, #8aaa00); font-weight: 700; }
 
-			@media (max-width: 640px) {
-				.product-hero { grid-template-columns: 80px 1fr; gap: 1rem; }
-				.hero-visual { font-size: 1.6rem; }
-				.siblings { grid-template-columns: 1fr; }
+			.pp-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+			.pp-step { display: flex; flex-direction: column; gap: 10px; background: var(--sand-l, #f6f4ee); border: 1px solid var(--line, #E5E1D8); padding: 16px; }
+			.pp-step-num { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: #111; color: var(--lime, #AFCC00); font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; }
+			.pp-step-t { font-weight: 700; color: #111; margin-bottom: .2rem; }
+			.pp-step p { margin: 0; font-size: .9rem; line-height: 1.5; color: var(--ink-3, #666); }
+
+			.pp-trustbar { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; justify-content: center; padding: 1.1rem; background: var(--sand, #EDE8DF); margin: 2.25rem 0; }
+			.pp-trustbar-item { font-size: .85rem; color: var(--ink-2, #3a3a3a); padding-left: 1.2rem; position: relative; }
+			.pp-trustbar-item::before { content: '✓'; position: absolute; left: 0; color: var(--lime-dark, #8aaa00); font-weight: 700; }
+
+			.pp-faq { display: flex; flex-direction: column; gap: 8px; }
+			.pp-faq-item { background: #fff; border: 1px solid var(--line, #E5E1D8); padding: 14px 18px; }
+			.pp-faq-item summary { font-weight: 600; color: #111; cursor: pointer; font-size: .98rem; }
+			.pp-faq-item p { margin: .75rem 0 0; font-size: .92rem; line-height: 1.55; color: var(--ink-2, #3a3a3a); }
+			.pp-final { text-align: center; margin-top: 1.5rem; }
+
+			.pp-links { margin: 0; padding-left: 1.25rem; }
+			.pp-links a { color: var(--pink, #9E2B4F); font-weight: 600; }
+
+			.pp-siblings { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+			.pp-sibling { display: flex; align-items: center; gap: .75rem; padding: .75rem; border: 1.5px solid rgba(0,0,0,.1); border-radius: 10px; text-decoration: none; color: #111; transition: border-color .15s; }
+			.pp-sibling:hover { border-color: #111; }
+			.pp-sibling-v { flex: 0 0 auto; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 6px; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: .95rem; }
+			.pp-sibling-t { font-size: .9rem; line-height: 1.3; }
+
+			.pp-back { margin-top: 2rem; }
+			.pp-back a { color: var(--pink, #9E2B4F); font-weight: 600; text-decoration: none; }
+
+			@media (max-width: 860px) {
+				.pp-hero { grid-template-columns: 1fr; gap: 1.5rem; }
+				.pp-btn-tomobile { display: inline-block; }
+				.pp-benefits { grid-template-columns: 1fr; }
+				.pp-steps { grid-template-columns: 1fr; }
+				.pp-siblings { grid-template-columns: 1fr; }
 			}
 		</style>
 	</body>
