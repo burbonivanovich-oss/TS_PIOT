@@ -29,13 +29,8 @@ function entry(
 export const GET: APIRoute = async () => {
 	const posts = await publishedPosts((p) => !p.data.seo?.noindex);
 
-	// Paginated blog pages (page 1 = /blog/, page 2+ = /blog/2/ etc.)
-	const totalBlogPages = Math.ceil(posts.length / BLOG_PAGE_SIZE);
-	const blogPageEntries: SitemapEntry[] = Array.from({ length: totalBlogPages }, (_, i) => {
-		const pageNum = i + 1;
-		const path = pageNum === 1 ? '/blog/' : `/blog/${pageNum}/`;
-		return entry(path, '0.7', 'daily');
-	});
+	// Блог — одна страница (BlogFilter: клиентская фильтрация и пагинация).
+	const blogPageEntries: SitemapEntry[] = [entry('/blog/', '0.7', 'daily')];
 
 	// Tag pages
 	const tagSlugs = Object.keys(collectTags(posts));
