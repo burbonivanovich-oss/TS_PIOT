@@ -3,8 +3,8 @@ name: Метрика — синхронизация целей
 # Синхронизация целей в счётчике Яндекс.Метрики со списком в
 # src/data/metrika/goals.json через Management API.
 # Скрипт: scripts/metrika/sync-goals.mjs
-# Идемпотентно, безопасно: создаёт недостающие, обновляет имена,
-# не удаляет orphan-цели (только предупреждает).
+# Создаёт недостающие, обновляет имена. PRUNE=1 — удаляет orphan-цели
+# (которых нет в goals.json); по умолчанию они только помечаются.
 
 on:
   workflow_dispatch:
@@ -13,6 +13,10 @@ on:
         description: 'DRY_RUN (1 = только показать план, не записывать)'
         required: false
         default: '1'
+      prune:
+        description: 'PRUNE (1 = удалить цели, которых нет в goals.json — стирает их историю)'
+        required: false
+        default: '0'
   push:
     branches:
       - main
@@ -25,6 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DRY_RUN: ${{ inputs.dry_run || '0' }}
+      PRUNE: ${{ inputs.prune || '0' }}
 
     steps:
       - uses: actions/checkout@v4

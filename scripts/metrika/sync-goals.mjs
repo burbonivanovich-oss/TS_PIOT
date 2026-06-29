@@ -23,6 +23,9 @@ const GOALS_FILE = join(ROOT, 'src', 'data', 'metrika', 'goals.json');
 
 const TOKEN = process.env.METRIKA_OAUTH_TOKEN || '';
 const DRY_RUN = process.env.DRY_RUN === '1';
+// PRUNE=1 — удалять цели, которых нет в goals.json (orphan). Удаление стирает
+// историю цели в Метрике, поэтому по умолчанию выключено.
+const PRUNE = process.env.PRUNE === '1';
 
 if (!TOKEN && !DRY_RUN) {
   console.error('METRIKA_OAUTH_TOKEN не задан. Запустите с DRY_RUN=1, чтобы посмотреть план без API.');
@@ -158,7 +161,7 @@ console.log(`План:`);
 console.log(`  создать:    ${toCreate.length}`);
 console.log(`  обновить:   ${toUpdate.length}`);
 console.log(`  без правок: ${declared.length - toCreate.length - toUpdate.length}`);
-console.log(`  ORPHAN (есть на счётчике, нет в конфиге): ${orphans.length}\n`);
+console.log(`  ORPHAN (есть на счётчике, нет в конфиге): ${orphans.length}${PRUNE ? ' → УДАЛИТЬ (PRUNE=1)' : ' → оставить'}\n`);
 
 if (toCreate.length) {
   console.log('Создать:');
@@ -214,8 +217,23 @@ for (const { remote, declared } of toUpdate) {
   }
 }
 
-console.log(`\nГотово. Создано: ${created}, обновлено: ${updated}, ошибок: ${failed}.`);
-if (orphans.length) {
-  console.log(`Напоминание: ${orphans.length} ORPHAN-целей остались на счётчике. Удалите вручную в UI Метрики, если они не нужны.`);
+let deleted = 0;
+if (PRUNE && orphans.length) {
+  console.log(`\nУдаление ORPHAN-целей (PRUNE=1):`);
+  for (const o of orphans) {
+    try {
+      await api(`/counter/${counterId}/goal/${o.remoteId}`, { method: 'DELETE' });
+      console.log(`OK удалил: [${o.type}] remoteId=${o.remoteId} "${o.name}"`);
+      deleted++;
+    } catch (err) {
+      console.error(`FAIL удаление remoteId=${o.remoteId}: ${err.message}`);
+      failed++;
+    }
+  }
+}
+
+console.log(`\nГотово. Создано: ${created}, обновлено: ${updated}, удалено: ${deleted}, ошибок: ${failed}.`);
+if (orphans.length && !PRUNE) {
+  console.log(`Напоминание: ${orphans.length} ORPHAN-целей остались на счётчике. Запустите с PRUNE=1, чтобы удалить их автоматически, или удалите вручную в UI Метрики.`);
 }
 if (failed) process.exit(1);
