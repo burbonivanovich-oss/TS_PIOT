@@ -41,6 +41,7 @@ const allPostData = allPosts.map((p) => ({
 	categories: p.data.categories ?? [],
 	tags: p.data.tags ?? [],
 	previewImage: p.data.previewImage,
+	heroImage: p.data.heroImage,
 }));
 
 const allTags = Object.values(collectTags(allPosts))

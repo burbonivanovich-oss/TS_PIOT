@@ -42,7 +42,7 @@ const CAT_NAMES: Record<string, string> = {
 };
 
 function postImage(post: PostData): string | null {
-	return post.previewImage ?? post.heroImage ?? `/og/${post.slug}.png`;
+	return post.previewImage ?? post.heroImage ?? `/og/${post.id}.png`;
 }
 
 export default function BlogFilter({ posts, categories, allTags, pageSize = 12 }: Props) {
