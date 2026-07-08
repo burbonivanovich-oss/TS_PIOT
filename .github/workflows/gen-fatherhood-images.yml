@@ -30,6 +30,7 @@ jobs:
       - name: Генерация изображений
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          ONLY: '6'
         run: node scripts/gen-fatherhood-images.mjs
 
       - name: Загрузка как artifact
