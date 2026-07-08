@@ -1,0 +1,50 @@
+name: Отцовство — генерация картинок (разовая)
+
+# Разовая генерация 6 картинок для тг-канала про отцовство.
+# Не связано с контентом etiketka. Триггерится push-ем скрипта в ветку
+# (workflow_dispatch недоступен, т.к. файл не в main). Результат — PNG в
+# fatherhood-images/, коммитятся обратно в ветку.
+
+on:
+  push:
+    branches:
+      - claude/nifty-ride-ctk5s4
+    paths:
+      - 'scripts/gen-fatherhood-images.mjs'
+      - '.github/workflows/gen-fatherhood-images.yml'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Генерация изображений
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: node scripts/gen-fatherhood-images.mjs
+
+      - name: Загрузка как artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fatherhood-images
+          path: fatherhood-images/*.png
+          if-no-files-found: warn
+
+      - name: Коммит результатов в ветку
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add fatherhood-images/
+          git diff --staged --quiet || git commit -m "chore(fatherhood): сгенерированные картинки для тг-канала"
+          git push origin HEAD
