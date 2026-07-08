@@ -23,65 +23,67 @@ if (!API_KEY) { console.error('OPENROUTER_API_KEY не задан'); process.exi
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
+const DNA =
+  'A young father, late twenties to early thirties, modern and casual — wearing a hoodie, slim joggers and sneakers. ' +
+  'He carries everything himself: a child\'s bicycle held in one hand, a bulging grocery bag in the other, and a backpack with a toy sticking out. ' +
+  'On his shoulders sits his small son, delighted, holding up a juice box — the single spot of colour in the whole image. ' +
+  'No stroller anywhere. No text, no caption, no signature, no logo anywhere. ' +
+  'Square 1:1, important elements kept clear of the edges for a circular crop.';
+
 const PROMPTS = [
   {
-    name: '01-compact-full-load',
+    name: 'v2-01-base',
     prompt:
       'A black-and-white editorial cartoon in the New Yorker style, drawn with ink and grey wash and confident linework. ' +
-      'A father seen in three-quarter view, walking forward and carrying everything by himself: he pushes a folded stroller ahead of him, ' +
-      'holds a kick-scooter in his other hand, wears a backpack with a toy sticking out of it, and has a shopping bag hanging from his wrist. ' +
-      'A small boy rides on his shoulders, delighted, one arm raised. The father looks exhausted but determined, with a tired, wry half-smile — ' +
-      'not angry, not happy. The composition is compact and centred so it fits inside a circle, with the father\'s head and the boy in the upper third ' +
-      'as the focal point and all the gear clustered along the lower arc. Everything is black and white except one small spot of colour on the boy\'s helmet. ' +
-      'Square 1:1, important elements kept away from the edges for a circular crop.',
+      'A young father, late twenties to early thirties, modern and casual — wearing a hoodie, slim joggers and sneakers — walks forward in three-quarter view, ' +
+      'worn out but marching on, with a tired, wry half-smile that is not angry and not sad. He carries everything himself: a child\'s bicycle held in one hand, ' +
+      'a bulging grocery bag in the other, and a backpack with a toy sticking out. On his shoulders sits his small son, delighted, holding up a juice box — ' +
+      'the single spot of colour in the whole image. No stroller anywhere. The composition is compact and centred for a circle, with the two faces in the upper third ' +
+      'as the focal point so they stay readable when the image is shrunk very small. No text, no caption, no signature, no logo anywhere. ' +
+      'Square 1:1, important elements kept clear of the edges for a circular crop.',
   },
   {
-    name: '02-tight-crop',
+    name: 'v2-02-tight-crop',
     prompt:
-      'A black-and-white editorial cartoon in the New Yorker style, drawn with ink and grey wash. ' +
-      'Close crop on a father\'s head and shoulders with his small son riding on top, the two of them filling the whole frame. ' +
-      'The father is seen in three-quarter view, walking; his face is exhausted but determined, with a tired, wry half-smile — not angry, brows relaxed. ' +
-      'The boy on his shoulders is delighted and full of energy, one arm raised. At the very bottom edges you can just glimpse a stroller handle and the top ' +
-      'of a kick-scooter, hinting that he is carrying much more. Bold, simple shapes that stay readable when the image is shrunk very small. ' +
-      'Everything is black and white except one small spot of colour on the boy\'s helmet. ' +
-      'Square 1:1 composition, with the faces kept in the upper centre so nothing important is lost to a circular crop.',
+      'A black-and-white editorial cartoon in the New Yorker style, ink and grey wash, confident linework. ' +
+      'Close crop on a young father\'s head and shoulders — late twenties, wearing a hoodie — with his small son riding on top, the two faces filling the frame. ' +
+      'The father is worn out but marching on, tired wry half-smile, not angry, brows relaxed. The son is delighted, holding up a juice box that is the single spot of colour. ' +
+      'At the very bottom edges you can just glimpse a child\'s bicycle and a bulging grocery bag, hinting he carries much more. ' +
+      'Bold simple shapes that stay readable when the image is shrunk very small. No stroller. No text, caption, signature or logo. ' +
+      'Square 1:1, the faces kept in the upper centre, clear of the edges for a circular crop.',
   },
   {
-    name: '03-emotion-contrast',
+    name: 'v2-03-emotion-contrast',
     prompt:
       'A black-and-white editorial cartoon in the New Yorker style, ink with grey wash and loose expressive linework. ' +
-      'A father walks forward, seen in three-quarter view, with the face of a worn-out workhorse — deeply tired, a wry half-smile, brows relaxed rather than angry. ' +
-      'On his shoulders his small son is bursting with joy, laughing, both arms thrown up. The contrast between the exhausted father below and the delighted boy above ' +
-      'is the whole point of the picture. He carries only a little: a folded stroller pushed ahead of him and a kick-scooter in one hand. ' +
-      'One small spot of colour on the boy, everything else black and white. Square 1:1, both faces in the upper centre, composed to sit inside a circular crop.',
+      'A young casual father — hoodie, slim joggers, sneakers — walks forward in three-quarter view with the face of a worn-out workhorse: deeply tired, ' +
+      'a wry half-smile, brows relaxed rather than angry. On his shoulders his small son bursts with joy, laughing, holding up a juice box — the single spot of colour. ' +
+      'The contrast between the exhausted father and the delighted boy is the whole point of the picture. He carries only a little: a child\'s bicycle in one hand ' +
+      'and a bulging grocery bag in the other. No stroller. No text, caption or logo anywhere. ' +
+      'Square 1:1, both faces in the upper centre, composed to sit inside a circular crop.',
   },
   {
-    name: '04-caravan-dense',
+    name: 'v2-04-marching-motion',
+    prompt:
+      'A black-and-white editorial cartoon in the New Yorker style, ink and grey wash with confident dynamic linework. ' +
+      'A young father in a hoodie strides forward in three-quarter view, mid-step, leaning slightly into the walk as if he has been going for hours — ' +
+      'worn out but marching on, tired wry half-smile. ' + DNA.replace('Square 1:1', 'A clear sense of forward motion and momentum. Square 1:1'),
+  },
+  {
+    name: 'v2-05-loose-sketch',
+    prompt:
+      'A black-and-white editorial cartoon in the New Yorker style, drawn with loose spontaneous ink lines and generous grey wash, a lively sketchbook feel. ' +
+      'A young modern father — hoodie, slim joggers, sneakers — walks forward in three-quarter view, worn out but marching on, with a tired wry half-smile. ' +
+      DNA + ' The two faces sit in the upper third as the focal point.',
+  },
+  {
+    name: 'v2-06-caravan-dense',
     prompt:
       'A black-and-white editorial cartoon in the New Yorker style, ink and grey wash, busy but still clear. ' +
-      'A single father hauling an absurd amount all by himself: he pushes a folded stroller, holds a kick-scooter, wears a backpack with a toy poking out, ' +
-      'has a shopping bag swinging from his wrist, a balloon tied on, and a water bottle in a side pocket. A small boy is perched on his shoulders, thrilled, waving. ' +
-      'The father is tired but marching on, with a wry half-smile. Every object stays readable by its silhouette rather than turning into a messy blob. ' +
-      'The composition is compact and centred for a circle, with the boy and the father\'s head at the top. One small spot of colour on the helmet only, ' +
-      'everything else black and white. Square 1:1, important elements kept clear of the edges.',
-  },
-  {
-    name: '05-pure-bw',
-    prompt:
-      'A pure black-and-white editorial cartoon in the New Yorker style, no colour at all, drawn with ink and grey wash and economical, confident linework. ' +
-      'A father seen in three-quarter view, walking forward and carrying it all himself: a stroller pushed ahead of him, a kick-scooter in one hand, a backpack, ' +
-      'and a bag on his wrist. A small boy rides on his shoulders, delighted, one arm raised. The father is exhausted but determined, with a tired half-smile. ' +
-      'The composition is compact and fits inside a circle, with the father\'s head and the boy in the upper third. ' +
-      'Square 1:1, faces kept in the upper centre for a circular crop.',
-  },
-  {
-    name: '06-juice-accent',
-    prompt:
-      'A black-and-white editorial cartoon in the New Yorker style, drawn with ink and grey wash and thick linework. ' +
-      'A father walks in three-quarter view, carrying everything himself: a stroller pushed ahead of him, a kick-scooter in one hand, and a backpack with a toy sticking out. ' +
-      'On his shoulders sits a delighted small boy holding up a juice box — the single spot of colour in the whole image. ' +
-      'The father is worn out but marching on, with a wry half-smile. The composition is compact and centred for a circle, with the faces in the upper third ' +
-      'and the gear along the lower arc. Square 1:1, important elements kept away from the edges.',
+      'A young father in a hoodie hauling an absurd amount by himself: a child\'s bicycle in one hand, a bulging grocery bag in the other, a backpack with a toy sticking out, ' +
+      'a water bottle in a side pocket and a small balloon tied on. His small son is perched on his shoulders, thrilled, holding up a juice box — the single spot of colour. ' +
+      'The father is tired but marching on, with a wry half-smile. Every object stays readable by its silhouette rather than turning into a messy blob. No stroller. ' +
+      'No text, caption, signature or logo anywhere. Square 1:1, the boy and the father\'s head at the top, important elements kept clear of the edges for a circular crop.',
   },
 ];
 
