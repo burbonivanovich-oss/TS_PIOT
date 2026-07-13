@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /draft/
-
-Sitemap: https://etiketka-media.ru/sitemap.xml
-Host: https://etiketka-media.ru
