@@ -1,0 +1,436 @@
+{
+ "schemaVersion": 1,
+ "note": "Сиды Wordstat под Контур-фокус (Маркет/ОФД/госсистемы). Только ЦА-розница/общепит/услуги, без производителей. Активация: заменить discoveries/seeds.json или подать через SEEDS_FILE в discover.mjs + отдельный workflow.",
+ "seeds": [
+  {
+   "phrase": "ТС ПИоТ",
+   "category": "entity",
+   "cluster": "ts-piot"
+  },
+  {
+   "phrase": "онлайн-касса",
+   "category": "entity",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "контрольно-кассовая техника",
+   "category": "entity",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "смарт-терминал",
+   "category": "entity",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "фискальный регистратор",
+   "category": "entity",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "кассовая программа",
+   "category": "entity",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "фискальный накопитель",
+   "category": "entity",
+   "cluster": "ofd-fn"
+  },
+  {
+   "phrase": "ОФД оператор фискальных данных",
+   "category": "entity",
+   "cluster": "ofd-fn"
+  },
+  {
+   "phrase": "ФФД 1.2",
+   "category": "entity",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "электронная подпись для кассы",
+   "category": "entity",
+   "cluster": "ofd-fn"
+  },
+  {
+   "phrase": "маркировка Честный знак",
+   "category": "entity",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "код маркировки Data Matrix",
+   "category": "entity",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "разрешительный режим",
+   "category": "entity",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "касса для маркировки",
+   "category": "entity",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "ЕГАИС",
+   "category": "entity",
+   "cluster": "egais"
+  },
+  {
+   "phrase": "УТМ ЕГАИС",
+   "category": "entity",
+   "cluster": "egais"
+  },
+  {
+   "phrase": "акцизная марка",
+   "category": "entity",
+   "cluster": "egais"
+  },
+  {
+   "phrase": "Меркурий ВетИС",
+   "category": "entity",
+   "cluster": "merkuriy"
+  },
+  {
+   "phrase": "ветеринарный сопроводительный документ",
+   "category": "entity",
+   "cluster": "merkuriy"
+  },
+  {
+   "phrase": "эквайринг",
+   "category": "entity",
+   "cluster": "ekvairing"
+  },
+  {
+   "phrase": "оплата по СБП",
+   "category": "entity",
+   "cluster": "ekvairing"
+  },
+  {
+   "phrase": "торговый эквайринг",
+   "category": "entity",
+   "cluster": "ekvairing"
+  },
+  {
+   "phrase": "2D сканер штрихкода",
+   "category": "entity",
+   "cluster": "oborudovanie"
+  },
+  {
+   "phrase": "сканер для маркировки",
+   "category": "entity",
+   "cluster": "oborudovanie"
+  },
+  {
+   "phrase": "товароучёт для магазина",
+   "category": "entity",
+   "cluster": "roznica"
+  },
+  {
+   "phrase": "ТС ПИоТ с 1 июля 2026",
+   "category": "intent",
+   "cluster": "ts-piot"
+  },
+  {
+   "phrase": "нужна ли онлайн-касса",
+   "category": "intent",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "как выбрать онлайн-кассу",
+   "category": "intent",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "как зарегистрировать кассу в налоговой",
+   "category": "intent",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "как проверить чек на подлинность",
+   "category": "intent",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "маркировка с 2026 года",
+   "category": "intent",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "новые категории маркировки 2026",
+   "category": "intent",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "как продавать маркированный товар",
+   "category": "intent",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "как списать маркированный товар",
+   "category": "intent",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "как принять маркированный товар",
+   "category": "intent",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "как подключить ЕГАИС",
+   "category": "intent",
+   "cluster": "egais"
+  },
+  {
+   "phrase": "маркировка пива в рознице",
+   "category": "intent",
+   "cluster": "egais"
+  },
+  {
+   "phrase": "как работать в Меркурии",
+   "category": "intent",
+   "cluster": "merkuriy"
+  },
+  {
+   "phrase": "как гасить ВСД",
+   "category": "intent",
+   "cluster": "merkuriy"
+  },
+  {
+   "phrase": "как подключить эквайринг",
+   "category": "intent",
+   "cluster": "ekvairing"
+  },
+  {
+   "phrase": "как принимать оплату по СБП",
+   "category": "intent",
+   "cluster": "ekvairing"
+  },
+  {
+   "phrase": "реформа НДС и касса",
+   "category": "intent",
+   "cluster": "nalogi-kassa"
+  },
+  {
+   "phrase": "как выдавать чеки на УСН",
+   "category": "intent",
+   "cluster": "nalogi-kassa"
+  },
+  {
+   "phrase": "первая касса для ИП",
+   "category": "intent",
+   "cluster": "start"
+  },
+  {
+   "phrase": "что нужно для открытия магазина касса",
+   "category": "intent",
+   "cluster": "start"
+  },
+  {
+   "phrase": "касса для розничного магазина",
+   "category": "audience",
+   "cluster": "roznica"
+  },
+  {
+   "phrase": "оборудование для кафе",
+   "category": "audience",
+   "cluster": "horeca"
+  },
+  {
+   "phrase": "автоматизация ресторана",
+   "category": "audience",
+   "cluster": "horeca"
+  },
+  {
+   "phrase": "касса для бара",
+   "category": "audience",
+   "cluster": "egais"
+  },
+  {
+   "phrase": "касса для магазина разливного пива",
+   "category": "audience",
+   "cluster": "egais"
+  },
+  {
+   "phrase": "касса для аптеки",
+   "category": "audience",
+   "cluster": "apteka"
+  },
+  {
+   "phrase": "маркировка лекарств в аптеке",
+   "category": "audience",
+   "cluster": "apteka"
+  },
+  {
+   "phrase": "касса для автосервиса",
+   "category": "audience",
+   "cluster": "avtoservis"
+  },
+  {
+   "phrase": "заказ-наряд для автосервиса",
+   "category": "audience",
+   "cluster": "avtoservis"
+  },
+  {
+   "phrase": "маркировка для салона красоты",
+   "category": "audience",
+   "cluster": "uslugi"
+  },
+  {
+   "phrase": "касса для сферы услуг",
+   "category": "audience",
+   "cluster": "uslugi"
+  },
+  {
+   "phrase": "касса для цветочного магазина",
+   "category": "audience",
+   "cluster": "roznica"
+  },
+  {
+   "phrase": "касса для табачного магазина",
+   "category": "audience",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "касса для продуктового магазина",
+   "category": "audience",
+   "cluster": "roznica"
+  },
+  {
+   "phrase": "не проходит код маркировки на кассе",
+   "category": "problem",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "касса блокирует продажу маркированного товара",
+   "category": "problem",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "не приходит чек в ОФД",
+   "category": "problem",
+   "cluster": "ofd-fn"
+  },
+  {
+   "phrase": "касса не отправляет данные в ФНС",
+   "category": "problem",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "ошибка ЕГАИС при продаже",
+   "category": "problem",
+   "cluster": "egais"
+  },
+  {
+   "phrase": "не подключается УТМ ЕГАИС",
+   "category": "problem",
+   "cluster": "egais"
+  },
+  {
+   "phrase": "ошибка Меркурий ВСД",
+   "category": "problem",
+   "cluster": "merkuriy"
+  },
+  {
+   "phrase": "не считывается Data Matrix",
+   "category": "problem",
+   "cluster": "oborudovanie"
+  },
+  {
+   "phrase": "эквайринг не проходит оплата",
+   "category": "problem",
+   "cluster": "ekvairing"
+  },
+  {
+   "phrase": "истёк фискальный накопитель",
+   "category": "problem",
+   "cluster": "ofd-fn"
+  },
+  {
+   "phrase": "чек не найден в ФНС",
+   "category": "problem",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "разрешительный режим не пускает продажу",
+   "category": "problem",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "Контур Маркет",
+   "category": "system",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "Контур ОФД",
+   "category": "system",
+   "cluster": "ofd-fn"
+  },
+  {
+   "phrase": "Контур Эльба",
+   "category": "system",
+   "cluster": "start"
+  },
+  {
+   "phrase": "Эвотор касса",
+   "category": "system",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "АТОЛ касса",
+   "category": "system",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "Дримкас касса",
+   "category": "system",
+   "cluster": "kkt"
+  },
+  {
+   "phrase": "МойСклад товароучёт",
+   "category": "system",
+   "cluster": "roznica"
+  },
+  {
+   "phrase": "1С Розница",
+   "category": "system",
+   "cluster": "roznica"
+  },
+  {
+   "phrase": "сроки маркировки 2026",
+   "category": "seasonal",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "ТС ПИоТ дедлайн подключения",
+   "category": "seasonal",
+   "cluster": "ts-piot"
+  },
+  {
+   "phrase": "этапы разрешительного режима 2026",
+   "category": "seasonal",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "замена фискального накопителя срок",
+   "category": "seasonal",
+   "cluster": "ofd-fn"
+  },
+  {
+   "phrase": "маркировка воды сроки",
+   "category": "seasonal",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "маркировка бакалеи сроки 2026",
+   "category": "seasonal",
+   "cluster": "markirovka"
+  },
+  {
+   "phrase": "новые правила ЕГАИС 2026",
+   "category": "seasonal",
+   "cluster": "egais"
+  }
+ ]
+}
