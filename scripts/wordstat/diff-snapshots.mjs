@@ -17,20 +17,23 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const DISC_DIR = join(ROOT, "src", "data", "wordstat", "discoveries");
-const DIFFS_DIR = join(DISC_DIR, "diffs");
+// WS_NS — namespace набора тем (kontur / этикетка). Пусто = корень discoveries.
+const WS_NS = process.env.WS_NS || "";
+const BASE = WS_NS ? join(DISC_DIR, WS_NS) : DISC_DIR;
+const DIFFS_DIR = join(BASE, "diffs");
 
 const RISE_THRESHOLD = parseFloat(process.env.RISE_THRESHOLD || "2.0");
 const MIN_COUNT = parseInt(process.env.MIN_COUNT || "10", 10);
 
 function listSnapshotDirs() {
-  return readdirSync(DISC_DIR)
+  return readdirSync(BASE)
     .filter((n) => /^\d{4}-\d{2}-\d{2}$/.test(n))
-    .filter((n) => statSync(join(DISC_DIR, n)).isDirectory())
+    .filter((n) => statSync(join(BASE, n)).isDirectory())
     .sort();
 }
 
 function loadSnapshot(date) {
-  const dir = join(DISC_DIR, date);
+  const dir = join(BASE, date);
   const files = readdirSync(dir).filter((f) => f.endsWith(".json"));
   const bySeed = new Map();
   for (const f of files) {
