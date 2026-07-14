@@ -156,7 +156,7 @@ argument-hint: "[--cluster <name>] [--window 14d|30d|60d] [--type news|guideline
 Если пользователь подтверждает («да», «добавь», «сохрани»):
 
 **News → контент-план:**
-1. Дописать одобренные темы в `src/data/content-plan.json`
+1. Дописать одобренные темы в `src/data/editorial-plan.json`
    в соответствующий раздел кластера с пометкой `# [из RSS YYYY-MM-DD]`.
 2. Закоммитить: `Контент-план: темы из RSS-мониторинга DD.MM.YYYY`.
 

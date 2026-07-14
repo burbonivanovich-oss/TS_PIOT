@@ -5,7 +5,7 @@ argument-hint: <week|month|quarter>
 
 # /content-calendar — редкалендарь
 
-Берёт контент-план (`src/data/content-plan.json`) и распределяет
+Берёт контент-план (`src/data/editorial-plan.json`) и распределяет
 темы по датам публикации с учётом приоритетов и кластерной стратегии.
 
 ## Окна

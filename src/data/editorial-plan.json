@@ -1,0 +1,5 @@
+{
+ "description": "Наш собственный контент-план. Формируется ресерчем (/find-topics, /plan-content) на базе изменений НПА, Wordstat, WebSearch и — вторично — пробелов конкурентов. НЕ путать с content-plan.json (карта покрытия Контура для дедупа).",
+ "generatedBy": "research",
+ "topics": []
+}

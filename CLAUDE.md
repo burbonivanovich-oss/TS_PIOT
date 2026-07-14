@@ -63,8 +63,9 @@ src/
 ├── content.config.ts           # Схемы коллекций
 ├── data/
 │   ├── kontur-links.json       # Ссылки на статьи Контура для перелинковки (заголовок+URL)
-│   ├── content-plan.json       # Обезличенные темы редплана (источник тем)
-│   ├── competitor-gaps.json    # Темы/ключи конкурентов без метрик (тем-пробелы)
+│   ├── content-plan.json       # Карта покрытия Контура (read-only, для дедупа; НЕ источник тем)
+│   ├── editorial-plan.json     # НАШ контент-план — формируется ресерчем (find-topics/plan-content)
+│   ├── competitor-gaps.json    # Темы/ключи конкурентов без метрик (вторичный вход, 1–2/мес)
 │   ├── penalties.ts            # Сценарии для калькулятора штрафов
 │   ├── cpa-banners.ts          # CPA-баннеры (источник истины)
 │   ├── markingCalendar.ts      # Данные для календаря маркировки
@@ -84,9 +85,10 @@ src/
 
 ## Workflow создания статьи
 
-1. **Тема** — из контент-плана (`src/data/content-plan.json`)
-   или из weekly Wordstat diff через `/find-topics` (NEW/RISING фразы
-   за неделю; см. `docs/wordstat.md`).
+1. **Тема** — формируем сами через ресерч (`/find-topics`): изменения НПА,
+   weekly Wordstat diff, WebSearch, сезонность. `content-plan.json` —
+   карта покрытия для дедупа, НЕ источник тем. `competitor-gaps.json` —
+   вторичный вход (1–2 темы в месяц).
 2. **`/new-post "<тема>"`** — пайплайн с агентом research → writer →
    seo-optimizer → social-media-manager. Все четыре шага за один
    запрос.
