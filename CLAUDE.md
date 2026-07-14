@@ -62,6 +62,9 @@ src/
 │       └── social/             # социальные черновики
 ├── content.config.ts           # Схемы коллекций
 ├── data/
+│   ├── kontur-links.json       # Ссылки на статьи Контура для перелинковки (заголовок+URL)
+│   ├── content-plan.json       # Обезличенные темы редплана (источник тем)
+│   ├── competitor-gaps.json    # Темы/ключи конкурентов без метрик (тем-пробелы)
 │   ├── penalties.ts            # Сценарии для калькулятора штрафов
 │   ├── cpa-banners.ts          # CPA-баннеры (источник истины)
 │   ├── markingCalendar.ts      # Данные для календаря маркировки
@@ -81,7 +84,7 @@ src/
 
 ## Workflow создания статьи
 
-1. **Тема** — из контент-плана (`src/content/wiki/content-plan-2026.md`)
+1. **Тема** — из контент-плана (`src/data/content-plan.json`)
    или из weekly Wordstat diff через `/find-topics` (NEW/RISING фразы
    за неделю; см. `docs/wordstat.md`).
 2. **`/new-post "<тема>"`** — пайплайн с агентом research → writer →

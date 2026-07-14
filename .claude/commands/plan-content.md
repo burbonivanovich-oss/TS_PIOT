@@ -59,7 +59,7 @@ argument-hint: "[<кластер>] [week|month|quarter] [--p0-limit <N>] [--wind
 
 ## Шаг 4 — Обновление контент-плана
 
-Прочитать `src/content/wiki/content-plan-2026.md`.
+Прочитать `src/data/content-plan.json`.
 
 Добавить новые P0 и P1 темы в соответствующие кластерные разделы с пометкой
 `# [plan-content YYYY-MM-DD]`. P2 — только если пользователь подтверждает.

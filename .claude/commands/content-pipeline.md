@@ -6,7 +6,7 @@ argument-hint: <day|week|month> [тематический фокус]
 # /content-pipeline — пакетный пайплайн
 
 Запускает несколько прогонов `/new-post` подряд по темам из контент-плана
-(`src/content/wiki/content-plan-2026.md`).
+(`src/data/content-plan.json`).
 
 ## Объёмы
 
