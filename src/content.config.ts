@@ -18,7 +18,7 @@ const blog = defineCollection({
 			tags: z.array(z.string()).default([]),
 			categories: z.array(z.string()).default([]),
 			draft: z.boolean().default(false),
-			author: z.string().default('Beard Blog'),
+			author: z.string().default('Редакция «Этикетка»'),
 			readingTime: z.string().optional(),
 			lastModified: z.coerce.date().optional(),
 			seo: z.object({
