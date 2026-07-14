@@ -1,4 +1,7 @@
-name: Wordstat — еженедельное обновление
+name: Wordstat — Этикетка (старые темы)
+
+# Широкий «этикеточный» набор: keys.json (частоты) + дискавери по seeds.json
+# в корневом namespace. Наш Контур-фокус — в отдельном wordstat-kontur.yml.
 
 on:
   schedule:
@@ -51,6 +54,8 @@ jobs:
           YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
           REGION_ID: "225"
           NUM_PHRASES: "2000"
+          SEEDS_FILE: "seeds.json"
+          WS_NS: ""
         run: node scripts/wordstat/discover.mjs
 
       - name: Diff vs previous snapshot

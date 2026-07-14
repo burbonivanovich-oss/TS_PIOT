@@ -25,12 +25,17 @@ import {
   mkdirSync,
   existsSync,
 } from "node:fs";
-import { join, dirname } from "node:path";
+import { join, dirname, isAbsolute } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const DISC_DIR = join(ROOT, "src", "data", "wordstat", "discoveries");
-const SEEDS_FILE = join(DISC_DIR, "seeds.json");
+// SEEDS_FILE — имя файла в discoveries/ или абсолютный путь (по умолчанию seeds.json).
+// WS_NS — namespace для раздельных наборов тем (kontur / этикетка). Пусто = корень.
+const SEEDS_ARG = process.env.SEEDS_FILE || "seeds.json";
+const SEEDS_FILE = isAbsolute(SEEDS_ARG) ? SEEDS_ARG : join(DISC_DIR, SEEDS_ARG);
+const WS_NS = process.env.WS_NS || "";
+const OUT_BASE = WS_NS ? join(DISC_DIR, WS_NS) : DISC_DIR;
 
 const API = "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests";
 const API_KEY = process.env.YC_API_KEY || "";
@@ -124,7 +129,7 @@ async function main() {
     : seeds;
 
   const today = todayISO();
-  const outDir = join(DISC_DIR, today);
+  const outDir = join(OUT_BASE, today);
   if (!existsSync(outDir)) mkdirSync(outDir, { recursive: true });
 
   console.log(
