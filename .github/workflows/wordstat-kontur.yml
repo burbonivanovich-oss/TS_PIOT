@@ -24,8 +24,13 @@ permissions:
 jobs:
   discover:
     runs-on: ubuntu-latest
+    concurrency:
+      group: wordstat-kontur
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -56,4 +61,17 @@ jobs:
             exit 0
           fi
           git commit -m "wordstat-kontur: refresh $(date -u +%Y-%m-%d)"
-          git push origin HEAD:${{ github.ref_name }}
+          # Push с ребейзом: main мог уйти вперёд, пока шёл сбор (~30 мин).
+          # Раньше без этого push отклонялся («fetch first») и собранные
+          # данные Wordstat терялись. Данные аддитивные (файл на сид),
+          # конфликтов нет — просто накатываем свой коммит поверх свежего main.
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:${{ github.ref_name }}; then
+              echo "push ok (попытка $i)"
+              exit 0
+            fi
+            echo "push отклонён, попытка $i — ребейз на свежий ${{ github.ref_name }}"
+            git pull --rebase --autostash origin ${{ github.ref_name }} || exit 1
+            sleep 3
+          done
+          echo "push не удался после 5 попыток"; exit 1
