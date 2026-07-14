@@ -45,6 +45,9 @@ const REGION_ID = String(process.env.REGION_ID || "225");
 const NUM_PHRASES = parseInt(process.env.NUM_PHRASES || "2000", 10);
 const REQUEST_DELAY_MS = parseInt(process.env.REQUEST_DELAY_MS || "200", 10);
 const ONLY_CATEGORY = process.env.ONLY_CATEGORY || "";
+// Search API даёт 100 запросов Wordstat в час. Лимит на прогон — держимся под квотой;
+// уже собранные сиды пропускаются (existsSync), остаток добирается следующим прогоном.
+const MAX_REQUESTS = parseInt(process.env.MAX_REQUESTS || "90", 10);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -92,6 +95,12 @@ async function callTopRequests(phrase, attempt = 1) {
   if (!res.ok || grpcCode !== null) {
     const code = grpcCode ?? res.status;
     const msg = (data && data.message) || txt.slice(0, 200);
+    // Часовая квота Wordstat (100 req/час) — ретраи внутри часа бессмысленны, сигналим «стоп».
+    if (/wordstatRequestsPer|quota limit exceed/i.test(msg)) {
+      const e = new Error(`quota: ${msg}`);
+      e.quota = true;
+      throw e;
+    }
     const transient = code === 13 || res.status === 429 || res.status >= 500;
     if (transient && attempt < 4) {
       const backoff = 1000 * 2 ** attempt;
@@ -155,6 +164,13 @@ async function main() {
       skipped++;
       continue;
     }
+    if (done >= MAX_REQUESTS) {
+      console.log(
+        `discover: лимит ${MAX_REQUESTS} запросов за прогон достигнут (квота 100/час) — ` +
+          `остановка, остаток соберётся в следующий прогон.`,
+      );
+      break;
+    }
     try {
       const phrases = await callTopRequests(s.phrase);
       writeFileSync(
@@ -179,6 +195,13 @@ async function main() {
       }
       await sleep(REQUEST_DELAY_MS);
     } catch (err) {
+      if (err.quota) {
+        console.log(
+          `discover: часовая квота Wordstat исчерпана — останавливаюсь, собрано ${done}. ` +
+            `Остаток — в следующий прогон (квота обновляется раз в час).`,
+        );
+        break;
+      }
       console.error(`  ✗ "${s.phrase}": ${err.message}`);
       failed++;
     }
