@@ -37,6 +37,7 @@
 | `docs/wordstat.md` | Wordstat API, частотность ключей |
 | `docs/factcheck.md` | Pipeline проверки фактов, классы A/B/C |
 | `docs/editorial-policy.md` | Редполитика, классы решений |
+| `docs/competitor-benchmark-kontur.md` | Бенчмарк против Контура: что перенять, фактические риски, оценка стиля |
 | `docs/content-formats-roadmap.md` | Roadmap интерактивных форматов |
 | `docs/blocks-roadmap.md` | Roadmap блоков сайта: текущие + отобранные из лабораторных прототипов |
 | `docs/cpa-storefront-roadmap.md` | Roadmap витрины продуктов Контура: лид-формы с тегом, раздел `/produkty/`, бандлы, фаза заявок |
