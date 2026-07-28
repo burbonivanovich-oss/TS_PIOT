@@ -16,7 +16,7 @@ createdDate: "2026-05-03"
 
 В РСВ используйте код тарифа «20» для льготной части.
 
-etiketka-media.ru/blog/2026-05-03-strahovye-vznosy-msp-2026/
+kontur.ru/blog/2026-05-03-strahovye-vznosy-msp-2026/
 
 ---
 
@@ -86,7 +86,7 @@ etiketka-media.ru/blog/2026-05-03-strahovye-vznosy-msp-2026/
 Подключить Экстерн: kontur.ru/extern/price
 Реклама. АО «ПФ „СКБ Контур“», ИНН 6663003127. erid: HuNbC4MfXEEAXiQhHRaXLkvNxqSftLNsmFxTm6gWz21KHiBtiU
 
-Полный текст перечня ОКВЭД, FAQ и пошаговый расчёт — на etiketka-media.ru/blog/2026-05-03-strahovye-vznosy-msp-2026/
+Полный текст перечня ОКВЭД, FAQ и пошаговый расчёт — на kontur.ru/blog/2026-05-03-strahovye-vznosy-msp-2026/
 
 #страховыевзносы #мсп #налоги #льготытариф #2026
 

@@ -7,7 +7,7 @@
 //   GSC_CLIENT_ID, GSC_CLIENT_SECRET, GSC_REFRESH_TOKEN — OAuth2 credentials.
 //     Получение: docs/analytics.md, раздел «Google Search Console».
 //   GSC_SITE_URL — точное значение из консоли, например:
-//     "https://etiketka-media.ru/" (URL-prefix) или "sc-domain:etiketka-media.ru" (domain property).
+//     "https://kontur.ru/" (URL-prefix) или "sc-domain:kontur.ru" (domain property).
 //   DAYS=28 — окно по умолчанию.
 //   DRY_RUN=1 — печатает план и выходит.
 //
@@ -30,7 +30,7 @@ const DAYS = parseInt(process.env.DAYS || '28', 10);
 const DRY_RUN = process.env.DRY_RUN === '1';
 
 if (!SITE_URL) {
-  console.error('GSC_SITE_URL не задан (например "https://etiketka-media.ru/" или "sc-domain:etiketka-media.ru")');
+  console.error('GSC_SITE_URL не задан (например "https://kontur.ru/" или "sc-domain:kontur.ru")');
   process.exit(1);
 }
 

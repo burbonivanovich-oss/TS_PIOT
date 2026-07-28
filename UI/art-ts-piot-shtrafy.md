@@ -1,9 +1,9 @@
 # Штраф за работу без ТС ПИоТ в 2026: размеры, статья КоАП, как избежать — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-05-01-ts-piot-shtrafy  
+**URL:** https://kontur.ru/blog/2026-05-01-ts-piot-shtrafy  
 **Оценка:** 6/10
 
-**Скриншоты:** `/home/user/Check_uiux/samples/etiketka-art-shtrafy/`
+**Скриншоты:** `/home/user/Check_uiux/samples/kontur-art-shtrafy/`
 
 ---
 

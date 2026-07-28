@@ -1,4 +1,4 @@
-# Словарь / Глоссарий (etiketka-media.ru/slovar) — CPA-аудит
+# Словарь / Глоссарий (kontur.ru/slovar) — CPA-аудит
 
 ## Оценка: 4/10
 

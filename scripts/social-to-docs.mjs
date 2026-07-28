@@ -318,7 +318,7 @@ async function upsertArticle(token, { slug, fm, body }) {
 	const created = await createEmptyDoc(token, docName);
 	const docId = created.id;
 
-	const articleUrl = fm.articleUrl ? `https://etiketka-media.ru${fm.articleUrl}` : '';
+	const articleUrl = fm.articleUrl ? `https://kontur.ru${fm.articleUrl}` : '';
 	const sections = splitPlatforms(body);
 	const platforms = ['Telegram', 'VK', 'Дзен', 'Email'].filter(p => sections[p]?.trim());
 

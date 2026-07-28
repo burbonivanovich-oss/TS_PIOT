@@ -54,8 +54,8 @@ Actions → **Analytics — Refresh Data** → Run workflow. Параметры:
 5. Прописать секреты GitHub:
    - `WEBMASTER_OAUTH_TOKEN` — значение токена `y0_AgAAA...`
    - `WEBMASTER_HOST` — точная hostname как зарегистрирована, например
-     `etiketka-media.ru` (без `https://`, без `/`). Если не задан —
-     скрипт использует `etiketka-media.ru` по умолчанию.
+     `kontur.ru` (без `https://`, без `/`). Если не задан —
+     скрипт использует `kontur.ru` по умолчанию.
 
 В отличие от GSC, Вебмастер не отдаёт разбивку по URL в открытом API.
 Зато даёт топ-запросов с показами/кликами/позицией и SQI хоста —
@@ -126,7 +126,7 @@ Settings → Secrets and variables → Actions → New repository secret:
 | `GSC_CLIENT_ID` | из Шага 1 |
 | `GSC_CLIENT_SECRET` | из Шага 1 |
 | `GSC_REFRESH_TOKEN` | из Шага 2 |
-| `GSC_SITE_URL` | `https://etiketka-media.ru/` (URL-prefix) или `sc-domain:etiketka-media.ru` (domain property) — **точно как в консоли GSC** |
+| `GSC_SITE_URL` | `https://kontur.ru/` (URL-prefix) или `sc-domain:kontur.ru` (domain property) — **точно как в консоли GSC** |
 
 #### Шаг 4. Проверка
 
@@ -134,7 +134,7 @@ Actions → **Analytics — Refresh Data** → Run workflow с дефолтны�
 параметрами. В логах должно быть:
 
 ```
-GSC: https://etiketka-media.ru/
+GSC: https://kontur.ru/
 Окно: 2026-04-21 → 2026-05-19 (28 дней)
 Готово. Страниц с трафиком: 42, кликов: 358, показов: 12480
 ```
@@ -145,7 +145,7 @@ consent screen.
 
 ## Как читается дашборд
 
-Откройте `/dashboard/` (URL `https://etiketka-media.ru/dashboard/`).
+Откройте `/dashboard/` (URL `https://kontur.ru/dashboard/`).
 На странице `noindex` — поисковики не индексируют.
 
 **Что показывает:**
@@ -197,7 +197,7 @@ Actions → **IndexNow — отправка URL в Яндекс** → Run workfl
 |---|---|
 | `days = 7` | За последнюю неделю (по pubDate/updatedDate) |
 | `all = 1` | **Массовый бутстрап** — все опубликованные блог-статьи + ключевые маршруты (главная, категории, инструменты). Использовать **один раз** после крупных изменений или первичной настройки. |
-| `urls = https://etiketka-media.ru/foo/,...` | Точечный список |
+| `urls = https://kontur.ru/foo/,...` | Точечный список |
 | `dry_run = 1` | План без HTTP-запроса |
 
 ### Первоначальная настройка (один раз)
@@ -213,7 +213,7 @@ Actions → **IndexNow — отправка URL в Яндекс** → Run workfl
 - До 10 000 URL за один POST-запрос.
 - Несколько запросов в сутки разрешены, но злоупотреблять не надо
   (Яндекс может игнорировать).
-- Каждый URL должен принадлежать `etiketka-media.ru` — иначе 422.
+- Каждый URL должен принадлежать `kontur.ru` — иначе 422.
 - Ответы:
   - **200** — приняты, проверка ключа уже прошла
   - **202** — приняты, ключ проверяется
@@ -264,7 +264,7 @@ GSC → **Indexing → Pages → All known pages** — через 1-7 дней
 ### Смена ключа IndexNow
 
 Ключ публичный (по дизайну протокола — Яндекс проверяет файл по
-URL `https://etiketka-media.ru/<KEY>.txt`). Если хочется новый:
+URL `https://kontur.ru/<KEY>.txt`). Если хочется новый:
 
 1. Сгенерировать: `node -e "console.log(require('crypto').randomBytes(16).toString('hex'))"`
 2. Создать `public/<новый-ключ>.txt` с содержимым ключа

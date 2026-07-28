@@ -26,7 +26,7 @@ Telegram использует Open Graph для генерации превью 
 2. **Image must be ≥ 250×250 и ≤ 5 MB.** Наши Satori-PNG 1200×630
    укладываются.
 3. **HTTPS обязателен.** На локалке (`http://localhost:4321`) превью не
-   проверишь — деплоить на etiketka.media.
+   проверишь — деплоить на kontur.ru.
 4. **Кеш Telegram.** После первой проверки TG кеширует превью на ~6 часов.
    Для повторной проверки — добавить `?v=2` в URL или подождать.
 5. **og:image должен быть доступен без cookies/auth.** Проверь что
@@ -39,7 +39,7 @@ Telegram использует Open Graph для генерации превью 
 ### Через `@WebpageBot` в самом Telegram
 
 1. Открыть [@WebpageBot](https://t.me/WebpageBot) в Telegram.
-2. Прислать ему ссылку: `https://etiketka.media/blog/<slug>/`
+2. Прислать ему ссылку: `https://kontur.ru/blog/<slug>/`
 3. Бот ответит структурированно: «Title», «Description», «Image» —
    видно сразу, что подхватилось.
 
@@ -52,7 +52,7 @@ Telegram использует Open Graph для генерации превью 
 ### Через curl + facebook OG parser
 
 ```bash
-curl -s "https://etiketka.media/blog/<slug>/" | \
+curl -s "https://kontur.ru/blog/<slug>/" | \
   grep -Eo '<meta property="og:[^"]+" content="[^"]+"'
 ```
 

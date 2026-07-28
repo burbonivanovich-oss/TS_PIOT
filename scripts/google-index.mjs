@@ -57,7 +57,7 @@ import { createSign } from 'node:crypto';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const BLOG = join(ROOT, 'src', 'content', 'blog');
-const SITE = 'https://etiketka-media.ru';
+const SITE = 'https://kontur.ru';
 
 const DAYS = parseInt(process.env.DAYS || '2', 10);
 const DRY_RUN = process.env.DRY_RUN === '1';

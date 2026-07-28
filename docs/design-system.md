@@ -59,9 +59,9 @@
 
 ### Логотип
 
-`этикетка<span class="logo-dot">.</span>` — строчные Bebas Neue, точка
+`контур<span class="logo-dot">.</span>` — строчные Bebas Neue, точка
 после слова — `#E8175D` (исходный pink-логотипа). Раньше было
-«ЭТИКЕТКА медиа» (uppercase + sup). Поменяли в мае 2026 — мягче,
+«КОНТУР» (uppercase). Логотип проекта.
 плотнее, лучше работает на тёмном футере и светлом шапке.
 
 Используется в `src/components/Header.astro` и `src/components/Footer.astro`.
@@ -357,7 +357,7 @@ import Checklist from '../../components/Checklist.astro';
 - SVG-аватар с инициалами «ЭМ» (тёмный фон `#111`, лаймовый текст `#C8F500`, Bebas Neue)
 - Карточка автора: тёмный блок, имя / роль / email
 - Контактная форма: имя + email + textarea + submit
-- `action="mailto:hello@etiketka-media.ru" method="get"` — клиентская, без бэкенда
+- `action="mailto:hello@kontur.ru" method="get"` — клиентская, без бэкенда
 
 ---
 
@@ -394,7 +394,7 @@ import Checklist from '../../components/Checklist.astro';
 
 | Что | Было | Стало |
 |---|---|---|
-| Логотип | `ЭТИКЕТКА<sup>медиа</sup>` (uppercase) | `этикетка<span class="logo-dot">.</span>` (lowercase + pink-точка) |
+| Логотип | `КОНТУР` | `контур<span class="logo-dot">.</span>` (lowercase + pink-точка) |
 | Файлы | `Header.astro`, `Footer.astro` — оба обновлены |
 | Фавикон | Сине-синий градиент с буквой «Э» | Чёрный квадрат, лаймовая «э» в Bebas Neue, pink-точка справа. Три брендовых цвета на одной иконке. `public/favicon.svg` |
 

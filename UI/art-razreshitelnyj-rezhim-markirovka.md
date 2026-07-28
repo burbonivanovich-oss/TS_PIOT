@@ -1,9 +1,9 @@
 # Разрешительный режим Честного знака: как работает и кого касается — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-05-01-razreshitelnyj-rezhim-markirovka  
+**URL:** https://kontur.ru/blog/2026-05-01-razreshitelnyj-rezhim-markirovka  
 **Оценка:** 5/10
 
-**Скриншоты:** `/home/user/Check_uiux/samples/etiketka-art-razreshitelnyj/`
+**Скриншоты:** `/home/user/Check_uiux/samples/kontur-art-razreshitelnyj/`
 
 ---
 

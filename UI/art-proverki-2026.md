@@ -1,9 +1,9 @@
 # Мораторий на проверки бизнеса в 2026 году: кого не проверят — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-05-01-proverki-2026  
+**URL:** https://kontur.ru/blog/2026-05-01-proverki-2026  
 **Оценка:** 3/10
 
-**Скриншоты:** `/home/user/Check_uiux/samples/etiketka-art-proverki/`
+**Скриншоты:** `/home/user/Check_uiux/samples/kontur-art-proverki/`
 
 ---
 

@@ -20,7 +20,7 @@ createdDate: "2026-05-03"
 
 Подача только электронная, через ФСРАР с УКЭП.
 
-etiketka-media.ru/blog/2026-05-03-deklaracii-po-alkogolyu/
+kontur.ru/blog/2026-05-03-deklaracii-po-alkogolyu/
 
 ---
 
@@ -112,7 +112,7 @@ erid: HuNbC4MfXEEAXiQhHRaXLkvNxqSftLNsmFxTm6nMgynW13oUBJ. Реклама. АО �
 — Расхождения с ЕГАИС свыше 5% — повод для камеральной проверки.
 — Подача только электронная через service.fsrar.ru с УКЭП, на каждую точку отдельный файл.
 
-Полные коды видов продукции и FAQ — на «Этикетка»: etiketka-media.ru/blog/2026-05-03-deklaracii-po-alkogolyu/
+Полные коды видов продукции и FAQ — на kontur.ru/blog/2026-05-03-deklaracii-po-alkogolyu/
 
 #егаис #алкоголь #декларации #фсрар #отчетность
 

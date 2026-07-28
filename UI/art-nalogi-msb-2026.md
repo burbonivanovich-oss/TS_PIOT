@@ -1,6 +1,6 @@
 # Налоги МСБ в 2026: УСН, патент, ЕНС и КЭДО — что изменилось — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-03-05-nalogi-msb-2026
+**URL:** https://kontur.ru/blog/2026-03-05-nalogi-msb-2026
 **Оценка:** 4/10
 
 ## CPA-профиль
@@ -101,7 +101,7 @@
 
 ## Скриншоты
 
-- Desktop above fold: `/home/user/Check_uiux/samples/etiketka-art-nalogi/desktop-above-fold.png`
-- Desktop full: `/home/user/Check_uiux/samples/etiketka-art-nalogi/desktop-full.png`
-- Mobile above fold: `/home/user/Check_uiux/samples/etiketka-art-nalogi/mobile-above-fold.png`
-- Mobile full: `/home/user/Check_uiux/samples/etiketka-art-nalogi/mobile-full.png`
+- Desktop above fold: `/home/user/Check_uiux/samples/kontur-art-nalogi/desktop-above-fold.png`
+- Desktop full: `/home/user/Check_uiux/samples/kontur-art-nalogi/desktop-full.png`
+- Mobile above fold: `/home/user/Check_uiux/samples/kontur-art-nalogi/mobile-above-fold.png`
+- Mobile full: `/home/user/Check_uiux/samples/kontur-art-nalogi/mobile-full.png`

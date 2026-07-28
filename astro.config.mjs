@@ -6,7 +6,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: process.env.ASTRO_SITE ?? 'https://etiketka-media.ru',
+	site: process.env.ASTRO_SITE ?? 'https://kontur.ru',
 	base: process.env.ASTRO_BASE ?? '/',
 	trailingSlash: 'always',
 	integrations: [

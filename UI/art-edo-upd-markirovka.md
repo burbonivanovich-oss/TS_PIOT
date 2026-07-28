@@ -1,6 +1,6 @@
 # ЭДО и УПД для маркированных товаров: как правильно оформить документы — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-05-01-edo-upd-markirovka
+**URL:** https://kontur.ru/blog/2026-05-01-edo-upd-markirovka
 **Оценка:** 4/10
 
 ## CPA-профиль
@@ -97,9 +97,9 @@
 
 ## Скриншоты
 
-- Desktop above fold: `/home/user/Check_uiux/samples/etiketka-art-edo/desktop-above-fold.png`
-- Desktop full: `/home/user/Check_uiux/samples/etiketka-art-edo/desktop-full.png`
-- Mobile above fold: `/home/user/Check_uiux/samples/etiketka-art-edo/mobile-above-fold.png`
-- Mobile full: `/home/user/Check_uiux/samples/etiketka-art-edo/mobile-full.png`
+- Desktop above fold: `/home/user/Check_uiux/samples/kontur-art-edo/desktop-above-fold.png`
+- Desktop full: `/home/user/Check_uiux/samples/kontur-art-edo/desktop-full.png`
+- Mobile above fold: `/home/user/Check_uiux/samples/kontur-art-edo/mobile-above-fold.png`
+- Mobile full: `/home/user/Check_uiux/samples/kontur-art-edo/mobile-full.png`
 
 **Web Vitals:** LCP 220ms, CLS 0.0009, FCP 220ms, TTFB 23ms — отлично, не мешают конверсии.

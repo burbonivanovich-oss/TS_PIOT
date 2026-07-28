@@ -67,8 +67,8 @@ async function generate(test) {
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://etiketka.media',
-      'X-Title': 'Этикетка Медиа',
+      'HTTP-Referer': 'https://kontur.ru',
+      'X-Title': 'Контур',
     },
     body: JSON.stringify({
       model: MODEL,

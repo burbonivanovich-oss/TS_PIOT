@@ -1,6 +1,6 @@
 # Маркировка молочной продукции для малого бизнеса: что нужно делать в 2026 — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-05-01-markirovka-molochki-msb
+**URL:** https://kontur.ru/blog/2026-05-01-markirovka-molochki-msb
 **Оценка:** 5/10
 
 ## CPA-профиль
@@ -102,7 +102,7 @@
 
 ## Скриншоты
 
-- Desktop above fold: `/home/user/Check_uiux/samples/etiketka-art-molochka/desktop-above-fold.png`
-- Desktop full: `/home/user/Check_uiux/samples/etiketka-art-molochka/desktop-full.png`
-- Mobile above fold: `/home/user/Check_uiux/samples/etiketka-art-molochka/mobile-above-fold.png`
-- Mobile full: `/home/user/Check_uiux/samples/etiketka-art-molochka/mobile-full.png`
+- Desktop above fold: `/home/user/Check_uiux/samples/kontur-art-molochka/desktop-above-fold.png`
+- Desktop full: `/home/user/Check_uiux/samples/kontur-art-molochka/desktop-full.png`
+- Mobile above fold: `/home/user/Check_uiux/samples/kontur-art-molochka/mobile-above-fold.png`
+- Mobile full: `/home/user/Check_uiux/samples/kontur-art-molochka/mobile-full.png`

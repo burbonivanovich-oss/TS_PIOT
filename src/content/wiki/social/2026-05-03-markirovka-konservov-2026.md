@@ -20,7 +20,7 @@ createdDate: "2026-05-03"
 
 Штраф: до 300 000 рублей с конфискацией.
 
-etiketka-media.ru/blog/2026-05-03-markirovka-konservov-2026/
+kontur.ru/blog/2026-05-03-markirovka-konservov-2026/
 
 ---
 
@@ -97,7 +97,7 @@ etiketka-media.ru/blog/2026-05-03-markirovka-konservov-2026/
 
 ---
 
-Полная нормативная база, коды ТН ВЭД, FAQ по экспорту и маркетплейсам — на Этикетка: https://etiketka-media.ru/blog/2026-05-03-markirovka-konservov-2026/
+Полная нормативная база, коды ТН ВЭД, FAQ по экспорту и маркетплейсам — на kontur.ru/blog/kontur.ru/blog/2026-05-03-markirovka-konservov-2026/
 
 #маркировка #консервы #честныйзнак
 

@@ -52,8 +52,8 @@ https://kontur.ru/markirovka?p=f74746
 
 ---
 
-Полная пошаговая инструкция и нормативная база — в материале на сайте «Этикетка»:
-etiketka-media.ru/blog/2026-05-31-chestny-znak-registraciya/
+Полная пошаговая инструкция и нормативная база — в материале на сайте:
+kontur.ru/blog/2026-05-31-chestny-znak-registraciya/
 
 #честныйзнак #маркировка #регистрация #малыйбизнес #тспиот
 
@@ -69,7 +69,7 @@ etiketka-media.ru/blog/2026-05-31-chestny-znak-registraciya/
 — 6 шагов регистрации на markirovka.crpt.ru
 — типичные ошибки и штрафы по ст. 15.12 КоАП РФ
 
-Читать материал → etiketka-media.ru/blog/2026-05-31-chestny-znak-registraciya/
+Читать материал → kontur.ru/blog/2026-05-31-chestny-znak-registraciya/
 
 #маркировка #честныйзнак
 
@@ -88,7 +88,7 @@ etiketka-media.ru/blog/2026-05-31-chestny-znak-registraciya/
 
 После регистрации подключите ЭДО, настройте приём по УПД и ТС ПИоТ до 01.07.2026. Продажа немаркированного товара по ст. 15.12 ч. 2 КоАП РФ — штраф 5 000–10 000 ₽ для ИП и 50 000–300 000 ₽ для юрлица с конфискацией.
 
-Подробнее в нашей статье: etiketka-media.ru/blog/2026-05-31-chestny-znak-registraciya/
+Подробнее в нашей статье: kontur.ru/blog/2026-05-31-chestny-znak-registraciya/
 
 #честныйзнак #маркировка #регистрация #малыйбизнес #тспиот
 

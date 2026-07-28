@@ -31,7 +31,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const DISC_DIR = join(ROOT, "src", "data", "wordstat", "discoveries");
 // SEEDS_FILE — имя файла в discoveries/ или абсолютный путь (по умолчанию seeds.json).
-// WS_NS — namespace для раздельных наборов тем (kontur / этикетка). Пусто = корень.
+// WS_NS — namespace для раздельных наборов тем (kontur). Пусто = корень.
 const SEEDS_ARG = process.env.SEEDS_FILE || "seeds.json";
 const SEEDS_FILE = isAbsolute(SEEDS_ARG) ? SEEDS_ARG : join(DISC_DIR, SEEDS_ARG);
 const WS_NS = process.env.WS_NS || "";

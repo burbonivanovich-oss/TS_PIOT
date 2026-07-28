@@ -114,7 +114,7 @@ for (const { path, slug } of matched) {
   console.log(sep);
   console.log(`SLUG:    ${slug}`);
   console.log(`СТАТУС:  ${fm.status ?? '—'}`);
-  if (articleUrl) console.log(`URL:     этикетка.рф${articleUrl}`);
+  if (articleUrl) console.log(`URL:     ${articleUrl}`);
   console.log('');
 
   if (dzen.title) {

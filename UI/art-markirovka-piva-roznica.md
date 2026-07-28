@@ -1,6 +1,6 @@
 # Маркировка пива в рознице: пошаговая настройка в 2026 — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-05-01-markirovka-piva-roznica
+**URL:** https://kontur.ru/blog/2026-05-01-markirovka-piva-roznica
 **Оценка:** 5/10
 
 ## CPA-профиль
@@ -102,7 +102,7 @@
 
 ## Скриншоты
 
-- Desktop above fold: `/home/user/Check_uiux/samples/etiketka-art-pivo/desktop-above-fold.png`
-- Desktop full: `/home/user/Check_uiux/samples/etiketka-art-pivo/desktop-full.png`
-- Mobile above fold: `/home/user/Check_uiux/samples/etiketka-art-pivo/mobile-above-fold.png`
-- Mobile full: `/home/user/Check_uiux/samples/etiketka-art-pivo/mobile-full.png`
+- Desktop above fold: `/home/user/Check_uiux/samples/kontur-art-pivo/desktop-above-fold.png`
+- Desktop full: `/home/user/Check_uiux/samples/kontur-art-pivo/desktop-full.png`
+- Mobile above fold: `/home/user/Check_uiux/samples/kontur-art-pivo/mobile-above-fold.png`
+- Mobile full: `/home/user/Check_uiux/samples/kontur-art-pivo/mobile-full.png`

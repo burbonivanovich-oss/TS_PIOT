@@ -1,9 +1,9 @@
 # МРОТ 27 093 рублей: как пересчитать зарплаты, больничные и взносы — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-05-03-mrot-2026-rabotodatel  
+**URL:** https://kontur.ru/blog/2026-05-03-mrot-2026-rabotodatel  
 **Оценка:** 4/10
 
-**Скриншоты:** `/home/user/Check_uiux/samples/etiketka-art-mrot/`
+**Скриншоты:** `/home/user/Check_uiux/samples/kontur-art-mrot/`
 
 ---
 

@@ -1,6 +1,6 @@
 # ОФД для ТС ПИоТ 2026: что такое оператор фискальных данных и как его выбрать — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-05-01-ofd-dlya-ts-piot
+**URL:** https://kontur.ru/blog/2026-05-01-ofd-dlya-ts-piot
 **Оценка:** 5/10
 
 ## CPA-профиль
@@ -94,7 +94,7 @@
 
 ## Быстрые победы (до 1 дня)
 
-1. **Добавить href к URL в таблице ОФД.** Это 10 изменений (по одному на каждого оператора). Текущий текст: «platformaofd.ru» как строка. Нужно: `<a href="https://platformaofd.ru?utm_source=etiketka&utm_medium=article&utm_campaign=ofd">platformaofd.ru</a>`. Для партнёров — партнёрские ссылки. Это самое быстрое изменение с максимальным влиянием на конверсию.
+1. **Добавить href к URL в таблице ОФД.** Это 10 изменений (по одному на каждого оператора). Текущий текст: «platformaofd.ru» как строка. Нужно: `<a href="https://platformaofd.ru?utm_source=kontur&utm_medium=article&utm_campaign=ofd">platformaofd.ru</a>`. Для партнёров — партнёрские ссылки. Это самое быстрое изменение с максимальным влиянием на конверсию.
 
 2. **Заменить финальный баннер.** Текущий: «Зарегистрируйтесь в системе маркировки бесплатно» (честныйзнак.рф). Новый: «Подберите ОФД с поддержкой ТС ПИоТ — до 1 июля 2026 обязательно. Сравнить тарифы операторов →». Это приоритет номер один на этой странице.
 
@@ -110,9 +110,9 @@
 
 ## Скриншоты
 
-- Desktop above fold: `/home/user/Check_uiux/samples/etiketka-art-ofd/desktop-above-fold.png`
-- Desktop full: `/home/user/Check_uiux/samples/etiketka-art-ofd/desktop-full.png`
-- Mobile above fold: `/home/user/Check_uiux/samples/etiketka-art-ofd/mobile-above-fold.png`
-- Mobile full: `/home/user/Check_uiux/samples/etiketka-art-ofd/mobile-full.png`
+- Desktop above fold: `/home/user/Check_uiux/samples/kontur-art-ofd/desktop-above-fold.png`
+- Desktop full: `/home/user/Check_uiux/samples/kontur-art-ofd/desktop-full.png`
+- Mobile above fold: `/home/user/Check_uiux/samples/kontur-art-ofd/mobile-above-fold.png`
+- Mobile full: `/home/user/Check_uiux/samples/kontur-art-ofd/mobile-full.png`
 
 **Web Vitals:** LCP ~220ms, CLS ~0.001, FCP ~220ms — отлично.

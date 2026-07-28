@@ -131,11 +131,11 @@ https://oauth.yandex.ru/verification_code#access_token=y0_AgAAA...&expires_in=..
 **Использование:** `fetch-webmaster.mjs` (SQI + топ запросы).
 
 **Аккаунт:** должен быть **подтверждённым владельцем хоста**
-`etiketka-media.ru` в [webmaster.yandex.ru](https://webmaster.yandex.ru/).
+`kontur.ru` в [webmaster.yandex.ru](https://webmaster.yandex.ru/).
 
 **Опциональный секрет** `WEBMASTER_HOST`: точная hostname как
 зарегистрирована в Вебмастере. По умолчанию скрипт использует
-`etiketka-media.ru`.
+`kontur.ru`.
 
 **Гайд:** `docs/analytics.md` (раздел «Яндекс.Вебмастер»).
 
@@ -178,7 +178,7 @@ GSC API — самый сложный сетап, потому что Google т�
 - `GSC_CLIENT_ID`, `GSC_CLIENT_SECRET` — из Google Cloud OAuth client
 - `GSC_REFRESH_TOKEN` — получается одноразовым обменом authorization code
 - `GSC_SITE_URL` — точное значение из консоли (например
-  `https://etiketka-media.ru/` или `sc-domain:etiketka-media.ru`)
+  `https://kontur.ru/` или `sc-domain:kontur.ru`)
 
 **Аккаунт:** должен иметь доступ к property GSC как **«Полный
 пользователь»** или **«Владелец»**.
@@ -244,12 +244,12 @@ GEMINI_API_KEY вообще.
    тот же проект, что для GSC (или новый).
 2. **APIs & Services → Library** → найти **Indexing API** → Enable.
 3. **APIs & Services → Credentials → Create credentials → Service account**:
-   - Name: `etiketka-indexing`
+   - Name: `kontur-indexing`
    - Role: можно без roles на этом шаге
    - Create → перейти к созданному account → вкладка **Keys** →
      **Add key → Create new key → JSON** → скачивается файл.
 4. Скопировать `client_email` из JSON. Это адрес вида
-   `etiketka-indexing@project.iam.gserviceaccount.com`.
+   `kontur-indexing@project.iam.gserviceaccount.com`.
 5. [Search Console](https://search.google.com/search-console) →
    ваш property → **Settings → Users and permissions → Add user**:
    - Email: client_email из шага 4
@@ -259,7 +259,7 @@ GEMINI_API_KEY вообще.
    `GOOGLE_INDEXING_KEY` = base64 от JSON (так надёжнее) или
    сам JSON в одну строку. Скрипт распарсит оба варианта.
    ```bash
-   base64 -w0 etiketka-indexing-key.json
+   base64 -w0 kontur-indexing-key.json
    ```
 
 **Использование:** `scripts/google-index.mjs` + workflow
@@ -344,7 +344,7 @@ service account.
 
 **Получение (10 минут, один раз):**
 
-1. **Создать папку в Google Drive** — например «Этикетка —
+1. **Создать папку в Google Drive** — например «Контур —
    Соцпосты». Открыть её, скопировать ID из URL:
    `https://drive.google.com/drive/folders/<ID>`
 2. **Google Cloud Console** → APIs & Services → Library →

@@ -1,9 +1,9 @@
 # Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026 — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-05-01-ts-piot-podklyuchenie-instrukciya  
+**URL:** https://kontur.ru/blog/2026-05-01-ts-piot-podklyuchenie-instrukciya  
 **Оценка:** 6/10
 
-**Скриншоты:** `/home/user/Check_uiux/samples/etiketka-art-podklyuchenie/`
+**Скриншоты:** `/home/user/Check_uiux/samples/kontur-art-podklyuchenie/`
 
 ---
 

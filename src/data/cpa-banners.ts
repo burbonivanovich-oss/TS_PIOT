@@ -88,7 +88,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 			productId: 'Egais',
 			productName: 'market',
 			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
-			source: 'etiketka: ТС ПИоТ',
+			source: 'kontur: ТС ПИоТ',
 		},
 	},
 	'online-buh': {
@@ -127,7 +127,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 			productId: 'Ofd',
 			productName: 'ofd',
 			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
-			source: 'etiketka: ОФД',
+			source: 'kontur: ОФД',
 		},
 	},
 	'kontur-markirovka': {
@@ -143,7 +143,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 			productId: 'Marking',
 			productName: 'markirovka',
 			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
-			source: 'etiketka: Маркировка',
+			source: 'kontur: Маркировка',
 		},
 	},
 	'kontur-diadoc': {
@@ -159,7 +159,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 			productId: 'Diadoc',
 			productName: 'diadoc',
 			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
-			source: 'etiketka: Диадок',
+			source: 'kontur: Диадок',
 		},
 	},
 	'diadoc-logistika': {
@@ -175,7 +175,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 			productId: 'Logistics',
 			productName: 'logistika',
 			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
-			source: 'etiketka: Логистика',
+			source: 'kontur: Логистика',
 		},
 	},
 	'kontur-elba': {
@@ -201,7 +201,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 			productId: 'Kemb',
 			productName: 'extern',
 			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
-			source: 'etiketka: Экстерн',
+			source: 'kontur: Экстерн',
 		},
 	},
 	'kontur-focus': {
@@ -217,7 +217,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 			productId: 'Focus',
 			productName: 'focus-site',
 			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
-			source: 'etiketka: Фокус',
+			source: 'kontur: Фокус',
 		},
 	},
 	'diadoc-kedo': {
@@ -233,7 +233,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 			productId: 'Kedo',
 			productName: 'kedo',
 			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
-			source: 'etiketka: КЭДО',
+			source: 'kontur: КЭДО',
 		},
 	},
 	'kontur-mchd': {
@@ -249,7 +249,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 			productId: 'Poa',
 			productName: 'mchd',
 			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
-			source: 'etiketka: МЧД',
+			source: 'kontur: МЧД',
 		},
 	},
 	'kontur-market': {
@@ -265,7 +265,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 			productId: 'Egais',
 			productName: 'market',
 			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
-			source: 'etiketka: Маркет',
+			source: 'kontur: Маркет',
 		},
 	},
 	'bank-elba': {
@@ -281,7 +281,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 			productId: 'Bank',
 			productName: 'rko',
 			supplierUid: '0d1c45d7-c296-4b0a-bb3c-72cac0b27d60',
-			source: 'etiketka: РКО',
+			source: 'kontur: РКО',
 		},
 	},
 

@@ -1,11 +1,11 @@
 // Глобальные константы сайта.
 // Импортируйте их в любых компонентах и страницах.
 
-export const SITE_TITLE = 'Этикетка';
+export const SITE_TITLE = 'Контур';
 export const SITE_DESCRIPTION =
 	'Медиа для предпринимателей: маркировка «Честный знак», ТС ПИоТ, кассы, штрафы, изменения в законодательстве 2025–2026. Разбираем понятно — без паники.';
-export const SITE_URL = 'https://etiketka-media.ru';
-export const SITE_AUTHOR = 'Этикетка';
+export const SITE_URL = 'https://kontur.ru';
+export const SITE_AUTHOR = 'Контур';
 export const SITE_LOCALE = 'ru-RU';
 
 // Полный плоский список — для подвала и карты сайта.
@@ -52,7 +52,7 @@ export const SIDEBAR_BANNER = {
 	description:
 		'Изменения в законодательстве, новые требования к маркировке и ТС ПИоТ — коротко и по делу для вашего бизнеса.',
 	cta: 'Подписаться →',
-	ctaHref: 'https://t.me/etiketka_media',
+	ctaHref: 'https://t.me/kontur_ru',
 } as const;
 
 export const INLINE_SUBSCRIBE = {

@@ -1,6 +1,6 @@
 # Календарь маркировки 2026 — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-05-01-kalendar-markirovki-2026
+**URL:** https://kontur.ru/blog/2026-05-01-kalendar-markirovki-2026
 **Оценка:** 3/10
 
 ## CPA-профиль
@@ -102,9 +102,9 @@
 
 ## Скриншоты
 
-- Desktop above fold: `/home/user/Check_uiux/samples/etiketka-kalendar/desktop-above-fold.png`
-- Desktop full: `/home/user/Check_uiux/samples/etiketka-kalendar/desktop-full.png`
-- Mobile above fold: `/home/user/Check_uiux/samples/etiketka-kalendar/mobile-above-fold.png`
-- Mobile full: `/home/user/Check_uiux/samples/etiketka-kalendar/mobile-full.png`
+- Desktop above fold: `/home/user/Check_uiux/samples/kontur-kalendar/desktop-above-fold.png`
+- Desktop full: `/home/user/Check_uiux/samples/kontur-kalendar/desktop-full.png`
+- Mobile above fold: `/home/user/Check_uiux/samples/kontur-kalendar/mobile-above-fold.png`
+- Mobile full: `/home/user/Check_uiux/samples/kontur-kalendar/mobile-full.png`
 
 **Примечание:** Страница-инструмент с самым большим потенциалом трафика на сайте, но с нулевой CPA-монетизацией. Приоритет исправления — максимальный.

@@ -125,7 +125,7 @@ GitHub Actions автоматически запустит деплой.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 Индексация (выполнить вручную)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
-URL статьи: https://etiketka.media/blog/SLUG/
+URL статьи: https://kontur.ru/blog/SLUG/
 
 Яндекс.Вебмастер:
   webmaster.yandex.ru → Индексирование → Переобход страниц
@@ -146,7 +146,7 @@ Google Search Console:
 ✅ /release-article завершён
 
 Статья: "[title]"
-URL:    https://etiketka.media/blog/SLUG/
+URL:    https://kontur.ru/blog/SLUG/
 Дата:   YYYY-MM-DD
 
 Шаги:

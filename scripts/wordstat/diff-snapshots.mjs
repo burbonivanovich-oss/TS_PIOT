@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const DISC_DIR = join(ROOT, "src", "data", "wordstat", "discoveries");
-// WS_NS — namespace набора тем (kontur / этикетка). Пусто = корень discoveries.
+// WS_NS — namespace набора тем (kontur). Пусто = корень discoveries.
 const WS_NS = process.env.WS_NS || "";
 const BASE = WS_NS ? join(DISC_DIR, WS_NS) : DISC_DIR;
 const DIFFS_DIR = join(BASE, "diffs");

@@ -1,4 +1,4 @@
-# Калькулятор штрафов (etiketka-media.ru/kalkulyator-shtrafov) — CPA-аудит
+# Калькулятор штрафов (kontur.ru/kalkulyator-shtrafov) — CPA-аудит
 
 ## Оценка: 5/10
 

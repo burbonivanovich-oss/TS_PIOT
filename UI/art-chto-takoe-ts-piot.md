@@ -1,6 +1,6 @@
 # ТС ПИоТ: что это, кому нужен и как подключить онлайн-кассу к «Честному знаку» — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-01-15-chto-takoe-ts-piot
+**URL:** https://kontur.ru/blog/2026-01-15-chto-takoe-ts-piot
 **Оценка:** 5/10
 
 ## CPA-профиль
@@ -99,9 +99,9 @@
 
 ## Скриншоты
 
-- Desktop above fold: `/home/user/Check_uiux/samples/etiketka-art-tspiot/desktop-above-fold.png`
-- Desktop full: `/home/user/Check_uiux/samples/etiketka-art-tspiot/desktop-full.png`
-- Mobile above fold: `/home/user/Check_uiux/samples/etiketka-art-tspiot/mobile-above-fold.png`
-- Mobile full: `/home/user/Check_uiux/samples/etiketka-art-tspiot/mobile-full.png`
+- Desktop above fold: `/home/user/Check_uiux/samples/kontur-art-tspiot/desktop-above-fold.png`
+- Desktop full: `/home/user/Check_uiux/samples/kontur-art-tspiot/desktop-full.png`
+- Mobile above fold: `/home/user/Check_uiux/samples/kontur-art-tspiot/mobile-above-fold.png`
+- Mobile full: `/home/user/Check_uiux/samples/kontur-art-tspiot/mobile-full.png`
 
 **Web Vitals:** LCP 240ms, CLS 0.0009, FCP 216ms, TTFB 17ms — отлично, не мешают конверсии.

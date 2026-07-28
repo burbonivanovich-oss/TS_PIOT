@@ -12,7 +12,7 @@
 //   WEBMASTER_OAUTH_TOKEN — OAuth с oauth.yandex.ru, scope
 //     `webmaster:hostinfo` (см. docs/analytics.md).
 //   WEBMASTER_HOST — точная hostname как зарегистрирована в
-//     Вебмастере, например "etiketka-media.ru" (без https://, без
+//     Вебмастере, например "kontur.ru" (без https://, без
 //     завершающего /). Скрипт сам найдёт host_id по списку.
 //   DAYS=28 — окно по умолчанию.
 //   DRY_RUN=1 — печатает план и выходит.
@@ -26,7 +26,7 @@ const OUT_DIR = join(ROOT, 'src', 'data', 'analytics');
 const OUT_FILE = join(OUT_DIR, 'webmaster.json');
 
 const TOKEN = process.env.WEBMASTER_OAUTH_TOKEN || '';
-const HOST = (process.env.WEBMASTER_HOST || 'etiketka-media.ru').trim();
+const HOST = (process.env.WEBMASTER_HOST || 'kontur.ru').trim();
 const DAYS = parseInt(process.env.DAYS || '28', 10);
 const DRY_RUN = process.env.DRY_RUN === '1';
 
@@ -78,7 +78,7 @@ console.log(`user_id: ${userId}`);
 const hostsResp = await api(`/user/${userId}/hosts`);
 const hosts = hostsResp.hosts || [];
 const matched = hosts.find(h => {
-  // host_id для подтверждённых хостов выглядит как "https:etiketka-media.ru:443"
+  // host_id для подтверждённых хостов выглядит как "https:kontur.ru:443"
   const u = h.unicode_host_url || h.ascii_host_url || '';
   return u.includes(HOST);
 });

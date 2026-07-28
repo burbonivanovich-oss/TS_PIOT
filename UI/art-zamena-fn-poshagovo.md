@@ -1,9 +1,9 @@
 # Замена фискального накопителя: пошаговая инструкция 2026 — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-05-01-zamena-fn-poshagovo  
+**URL:** https://kontur.ru/blog/2026-05-01-zamena-fn-poshagovo  
 **Оценка:** 5/10
 
-**Скриншоты:** `/home/user/Check_uiux/samples/etiketka-art-zamena-fn/`
+**Скриншоты:** `/home/user/Check_uiux/samples/kontur-art-zamena-fn/`
 
 ---
 

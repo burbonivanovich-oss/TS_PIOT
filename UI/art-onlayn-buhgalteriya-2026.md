@@ -1,6 +1,6 @@
 # Онлайн-бухгалтерия для малого бизнеса в 2026: как выбрать сервис — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-05-01-onlayn-buhgalteriya-2026
+**URL:** https://kontur.ru/blog/2026-05-01-onlayn-buhgalteriya-2026
 **Оценка:** 5/10
 
 ## CPA-профиль
@@ -106,7 +106,7 @@
 
 ## Скриншоты
 
-- Desktop above fold: `/home/user/Check_uiux/samples/etiketka-art-buhgalteriya/desktop-above-fold.png`
-- Desktop full: `/home/user/Check_uiux/samples/etiketka-art-buhgalteriya/desktop-full.png`
-- Mobile above fold: `/home/user/Check_uiux/samples/etiketka-art-buhgalteriya/mobile-above-fold.png`
-- Mobile full: `/home/user/Check_uiux/samples/etiketka-art-buhgalteriya/mobile-full.png`
+- Desktop above fold: `/home/user/Check_uiux/samples/kontur-art-buhgalteriya/desktop-above-fold.png`
+- Desktop full: `/home/user/Check_uiux/samples/kontur-art-buhgalteriya/desktop-full.png`
+- Mobile above fold: `/home/user/Check_uiux/samples/kontur-art-buhgalteriya/mobile-above-fold.png`
+- Mobile full: `/home/user/Check_uiux/samples/kontur-art-buhgalteriya/mobile-full.png`

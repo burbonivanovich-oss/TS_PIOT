@@ -525,8 +525,8 @@ async function generateImage(prompt, referenceImagePath = null) {
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://etiketka-media.ru',
-      'X-Title': 'etiketka-media',
+      'HTTP-Referer': 'https://kontur.ru',
+      'X-Title': 'kontur',
     },
     body: JSON.stringify({
       model: MODEL,

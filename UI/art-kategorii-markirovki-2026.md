@@ -1,6 +1,6 @@
 # Маркировка «Честный знак» 2026: категории товаров и сроки — CPA-аудит
 
-**URL:** https://etiketka-media.ru/blog/2026-02-10-kategorii-markirovki-2026
+**URL:** https://kontur.ru/blog/2026-02-10-kategorii-markirovki-2026
 **Оценка:** 5/10
 
 ## CPA-профиль
@@ -97,9 +97,9 @@
 
 ## Скриншоты
 
-- Desktop above fold: `/home/user/Check_uiux/samples/etiketka-art-markirovka/desktop-above-fold.png`
-- Desktop full: `/home/user/Check_uiux/samples/etiketka-art-markirovka/desktop-full.png`
-- Mobile above fold: `/home/user/Check_uiux/samples/etiketka-art-markirovka/mobile-above-fold.png`
-- Mobile full: `/home/user/Check_uiux/samples/etiketka-art-markirovka/mobile-full.png`
+- Desktop above fold: `/home/user/Check_uiux/samples/kontur-art-markirovka/desktop-above-fold.png`
+- Desktop full: `/home/user/Check_uiux/samples/kontur-art-markirovka/desktop-full.png`
+- Mobile above fold: `/home/user/Check_uiux/samples/kontur-art-markirovka/mobile-above-fold.png`
+- Mobile full: `/home/user/Check_uiux/samples/kontur-art-markirovka/mobile-full.png`
 
 **Web Vitals:** LCP ~220ms, CLS ~0.001, FCP ~220ms — отлично, не мешают конверсии.

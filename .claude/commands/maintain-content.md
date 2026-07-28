@@ -204,8 +204,8 @@ git push
 
 ```
 Отправить на переобход (Яндекс.Вебмастер / Google Search Console):
-  https://etiketka.media/blog/SLUG-1/
-  https://etiketka.media/blog/SLUG-2/
+  https://kontur.ru/blog/SLUG-1/
+  https://kontur.ru/blog/SLUG-2/
 ```
 
 ---

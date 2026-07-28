@@ -16,7 +16,7 @@ D3 Mini: экран 10,1", встроенный NFC, Ethernet RJ-45, встро�
 
 Вывод: F20 — мобильность, D3 Mini — производительность на постоянном месте.
 
-etiketka-media.ru/blog/2026-05-03-mspos-f20-vs-d3-mini/
+kontur.ru/blog/2026-05-03-mspos-f20-vs-d3-mini/
 
 ---
 
@@ -101,7 +101,7 @@ erid: CQH36pWzJqVJ28pYvrdbe29aP6Sxr2Ri7Y1GLmmKozKpTJ. Реклама. АО «П�
 — Кафе, магазин, аптека с эквайрингом — D3 Mini.
 — F20 с обвесом ≈ 40 000 ₽, D3 Mini из коробки ≈ 35 000 ₽.
 
-Полная таблица сравнения — на «Этикетка»: etiketka-media.ru/blog/2026-05-03-mspos-f20-vs-d3-mini/
+Полная таблица сравнения — на kontur.ru/blog/2026-05-03-mspos-f20-vs-d3-mini/
 
 #онлайнкасса #ккт #mspos #смарттерминал #выборкассы
 

@@ -16,7 +16,7 @@ createdDate: "2026-05-03"
 
 Штраф по ст. 14.19 КоАП РФ: должностные лица — до 15 000 рублей, организации — до 200 000 рублей. Систематически — риск отзыва лицензии.
 
-etiketka-media.ru/blog/2026-05-03-egais-zhurnal-roznichnoy-prodazhi/
+kontur.ru/blog/2026-05-03-egais-zhurnal-roznichnoy-prodazhi/
 
 ---
 
@@ -114,7 +114,7 @@ erid: HuNbC4MfXEEAXiQhHRaXLkvNxqSftLNsmFxTm6nMgynW13oUBJ. Реклама. АО �
 — Систематические нарушения — отзыв лицензии (п. 3 ст. 20 ФЗ № 171-ФЗ).
 — Ежемесячная инвентаризация и контроль очереди УТМ — главная защитная мера.
 
-Подробная схема настройки и FAQ — на «Этикетка»: etiketka-media.ru/blog/2026-05-03-egais-zhurnal-roznichnoy-prodazhi/
+Подробная схема настройки и FAQ — на kontur.ru/blog/2026-05-03-egais-zhurnal-roznichnoy-prodazhi/
 
 #егаис #алкоголь #журналучета #фсрар #розница
 

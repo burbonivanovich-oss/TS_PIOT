@@ -54,7 +54,7 @@ async function generateImage(prompt, outputPath) {
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': 'https://reglament-biznes.ru',
-      'X-Title': 'Этикетка OG Generator',
+      'X-Title': 'Контур OG Generator',
     },
     body: JSON.stringify({
       model: MODEL,

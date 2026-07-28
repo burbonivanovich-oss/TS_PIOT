@@ -106,8 +106,7 @@ export async function GET({ props }: { props: Props }) {
 				<div style="display:flex; flex-direction:column; flex:1; padding:52px 68px;">
 
 					<div style="display:flex; align-items:baseline; gap:8px; margin-bottom:auto;">
-						<div style="display:flex; font-size:28px; font-weight:700; color:#fff; letter-spacing:3px; font-family:${headingStack};">ЭТИКЕТКА</div>
-						<div style="display:flex; font-size:13px; font-weight:600; color:rgba(255,255,255,0.4); letter-spacing:4px; text-transform:uppercase; margin-left:4px;">МЕДИА</div>
+						<div style="display:flex; font-size:28px; font-weight:700; color:#fff; letter-spacing:3px; font-family:${headingStack};">КОНТУР</div>
 					</div>
 
 					<div style="display:flex; flex-direction:column; flex:1; justify-content:center; padding:24px 0;">
@@ -116,7 +115,7 @@ export async function GET({ props }: { props: Props }) {
 					</div>
 
 					<div style="display:flex; align-items:center; gap:16px; font-size:18px; color:rgba(255,255,255,0.3); font-family:${bodyStack}; border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;">
-						<div style="display:flex;">etiketka-media.ru</div>
+						<div style="display:flex;">kontur.ru</div>
 						<div style="display:flex; width:4px; height:4px; background:rgba(255,255,255,0.2);"></div>
 						<div style="display:flex;">Для малого и среднего бизнеса</div>
 					</div>

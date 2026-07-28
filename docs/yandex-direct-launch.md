@@ -1,6 +1,6 @@
 # Запуск РК в Яндекс.Директ — готовый пакет
 
-Полный набор для старта платной кампании etiketka-media.ru.
+Полный набор для старта платной кампании kontur.ru.
 Семантика — на реальной частотности из `src/data/wordstat/keys.json` (Wordstat)
 и фактических запросов GSC. Дата: 2026-06-20.
 
@@ -200,7 +200,7 @@
 
 В каждое объявление — ссылка с UTM (для сегментации в Метрике):
 ```
-https://etiketka-media.ru/lp/ts-piot-kassa/?utm_source=yandex&utm_medium=cpc&utm_campaign={campaign_name}&utm_content={ad_id}&utm_term={keyword}
+https://kontur.ru/lp/ts-piot-kassa/?utm_source=yandex&utm_medium=cpc&utm_campaign={campaign_name}&utm_content={ad_id}&utm_term={keyword}
 ```
 - Включить в кампании **«Разметка ссылок для Метрики» (yclid)** — авто-связка
   с целями.

@@ -16,7 +16,7 @@ createdDate: "2026-05-03"
 
 С 2025 года УСН с доходами свыше 60 млн рублей платит НДС. Полноценный учёт НДС — только 1С:Облако.
 
-etiketka-media.ru/blog/2026-05-03-sravnenie-onlayn-buhov/
+kontur.ru/blog/2026-05-03-sravnenie-onlayn-buhov/
 
 ---
 
@@ -94,7 +94,7 @@ etiketka-media.ru/blog/2026-05-03-sravnenie-onlayn-buhov/
 
 Реклама. АО «ПФ „СКБ Контур“», ИНН 6663003127. erid: sKjnGhcf5mSphWB6w6Htr29iA5cVtGdGQS5jvU45PUfqdNY
 
-Полное сравнение с таблицей — etiketka-media.ru/blog/2026-05-03-sravnenie-onlayn-buhov/
+Полное сравнение с таблицей — kontur.ru/blog/2026-05-03-sravnenie-onlayn-buhov/
 
 #бухгалтерия #онлайнбухгалтерия #ип #усн #малыйбизнес
 

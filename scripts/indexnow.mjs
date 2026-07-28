@@ -26,7 +26,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const BLOG = join(ROOT, 'src', 'content', 'blog');
 
-const HOST = 'etiketka-media.ru';
+const HOST = 'kontur.ru';
 const SITE = `https://${HOST}`;
 const KEY = '1d6d18d60df70390942afa4027dca91f';
 const KEY_LOCATION = `${SITE}/${KEY}.txt`;

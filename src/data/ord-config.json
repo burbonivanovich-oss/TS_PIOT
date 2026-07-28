@@ -1,7 +1,7 @@
 {
   "_comment": "Все объекты регистрируются через API (UI-объекты в API не видны). Сначала запусти workflow ORD Bootstrap — он создаёт организации, договор и площадку. Потом ORD Sync — креативы.",
 
-  "organizationId": "etiketka-publisher",
+  "organizationId": "kontur-publisher",
   "contractId":     "kontur-contract-881-20",
 
   "bootstrap": {
@@ -16,7 +16,7 @@
         "name":   "АКЦИОНЕРНОЕ ОБЩЕСТВО \"ПРОИЗВОДСТВЕННАЯ ФИРМА \"СКБ КОНТУР\""
       },
       {
-        "id":     "etiketka-publisher",
+        "id":     "kontur-publisher",
         "type":   "fl",
         "isOrs":  false,
         "isRr":   true,
@@ -28,7 +28,7 @@
     "contract": {
       "id":                       "kontur-contract-881-20",
       "type":                     "intermediary-contract",
-      "contractorId":             "etiketka-publisher",
+      "contractorId":             "kontur-publisher",
       "clientId":                 "kontur-advertiser",
       "isRegReport":              true,
       "agentActingForPublisher":  true,
@@ -40,11 +40,11 @@
   },
 
   "platform": {
-    "platformId": "etiketka-platform",
+    "platformId": "kontur-platform",
     "isOwned":    true,
     "type":       "site",
-    "name":       "Этикетка",
-    "url":        "https://etiketka-media.ru"
+    "name":       "Контур",
+    "url":        "https://kontur.ru"
   },
 
   "defaults": {
