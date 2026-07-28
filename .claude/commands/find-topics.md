@@ -1,6 +1,6 @@
 ---
 description: Поиск потенциальных тем для статей — анализ пробелов в контент-плане и поиск новых запросов.
-argument-hint: "[кластер: ts-piot|markirovka|zakonodatelstvo|ofd-fn|merkuriy|kkt|markirovka-2026|egais|buhgalteriya|otchetnost-edo|uslugi|horeca|start|marketplace|kadry|banki|nichi|nalogi|все]"
+argument-hint: "[--kontur] [кластер: ts-piot|markirovka|zakonodatelstvo|ofd-fn|merkuriy|kkt|markirovka-2026|egais|buhgalteriya|otchetnost-edo|uslugi|horeca|start|marketplace|kadry|banki|nichi|nalogi|все]"
 ---
 
 # /find-topics — найти темы для статей
@@ -24,10 +24,13 @@ argument-hint: "[кластер: ts-piot|markirovka|zakonodatelstvo|ofd-fn|merku
 
 ### Шаг 2. Поиск новых запросов
 
-#### 2а. Wordstat weekly diff — главный источник
+#### 2а. Wordstat diff — главный источник
 
-Прочитать **последний** файл `src/data/wordstat/discoveries/diffs/YYYY-MM-DD.md`
-(выбрать самую свежую дату). Он содержит:
+Путь к диффам зависит от флага:
+- **без флага** → `src/data/wordstat/discoveries/diffs/` (эти­кеточный трек, 162 seed'а)
+- **`--kontur`** → `src/data/wordstat/discoveries/kontur/diffs/` (Kontur-трек, 206 seed'ов, ежедневные дифы)
+
+Прочитать **последний** файл в выбранном каталоге. Он содержит:
 
 - **«🆕 Самые громкие новые запросы за неделю»** — фразы, которых не было в
   прошлой выгрузке. Каждая привязана к `seed` и `cluster`.
