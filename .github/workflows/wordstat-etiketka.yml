@@ -10,8 +10,8 @@ name: Wordstat — Этикетка discovery (широкий)
 
 on:
   schedule:
-    # Каждый день в 05:30 UTC (≈08:30 МСК) — не пересекается с kontur (12:17)
-    - cron: "30 5 * * *"
+    # Каждый понедельник в 05:30 UTC (≈08:30 МСК) — не пересекается с kontur (12:17)
+    - cron: "30 5 * * 1"
   workflow_dispatch:
     inputs:
       max_requests:
