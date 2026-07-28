@@ -1,0 +1,75 @@
+name: Wordstat — Этикетка discovery (широкий)
+
+# Ежедневный discovery по расширенному seeds.json (~280 тем, все кластеры сайта).
+# Квота Wordstat: 1000 запросов/час. При 200ms задержке 280 seeds = ~56 секунд.
+# Уже собранные сегодня сиды пропускаются (existsSync), повторный запуск — без потерь.
+#
+# Разделение труда:
+#   этот воркфлоу  → discover.mjs + diff-snapshots.mjs + demand-watch.mjs
+#   wordstat-weekly → extract-keys.mjs + fetch.mjs (точечное обновление seo.keywords)
+
+on:
+  schedule:
+    # Каждый день в 05:30 UTC (≈08:30 МСК) — не пересекается с kontur (12:17)
+    - cron: "30 5 * * *"
+  workflow_dispatch:
+    inputs:
+      max_requests:
+        description: "Макс. запросов к Wordstat API за прогон (квота 1000/час)"
+        required: false
+        default: "950"
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: wordstat-etiketka
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Discover trends (broad по seeds.json)
+        env:
+          YC_API_KEY: ${{ secrets.YC_API_KEY }}
+          YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
+          REGION_ID: "225"
+          NUM_PHRASES: "2000"
+          MAX_REQUESTS: ${{ inputs.max_requests || '950' }}
+        run: node scripts/wordstat/discover.mjs
+
+      - name: Diff vs previous snapshot
+        run: node scripts/wordstat/diff-snapshots.mjs
+
+      - name: Demand watch (спрос ↔ покрытие по кластерам)
+        run: node scripts/wordstat/demand-watch.mjs
+
+      - name: Commit refresh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/wordstat/discoveries/ src/data/wordstat/demand-watch.md
+          if git diff --cached --quiet; then
+            echo "wordstat-etiketka: нет изменений"
+            exit 0
+          fi
+          git commit -m "wordstat-etiketka: discovery $(date -u +%Y-%m-%d)"
+          # Push с ребейзом: weekly-refresh мог уйти вперёд, пока шёл сбор.
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:${{ github.ref_name }}; then
+              echo "push ok (попытка $i)"
+              exit 0
+            fi
+            echo "push отклонён, попытка $i — ребейз на свежий ${{ github.ref_name }}"
+            git pull --rebase --autostash origin ${{ github.ref_name }} || exit 1
+            sleep 3
+          done
+          echo "push не удался после 5 попыток"; exit 1

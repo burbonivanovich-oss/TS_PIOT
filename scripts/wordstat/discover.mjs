@@ -45,9 +45,9 @@ const REGION_ID = String(process.env.REGION_ID || "225");
 const NUM_PHRASES = parseInt(process.env.NUM_PHRASES || "2000", 10);
 const REQUEST_DELAY_MS = parseInt(process.env.REQUEST_DELAY_MS || "200", 10);
 const ONLY_CATEGORY = process.env.ONLY_CATEGORY || "";
-// Search API даёт 100 запросов Wordstat в час. Лимит на прогон — держимся под квотой;
-// уже собранные сиды пропускаются (existsSync), остаток добирается следующим прогоном.
-const MAX_REQUESTS = parseInt(process.env.MAX_REQUESTS || "90", 10);
+// Search API даёт 1000 запросов Wordstat в час. Лимит на прогон управляется MAX_REQUESTS;
+// уже собранные сиды пропускаются (existsSync), повторный запуск — без потерь данных.
+const MAX_REQUESTS = parseInt(process.env.MAX_REQUESTS || "950", 10);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
