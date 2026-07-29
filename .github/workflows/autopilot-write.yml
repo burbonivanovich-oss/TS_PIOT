@@ -1,0 +1,82 @@
+name: Autopilot — написание статей
+
+# Запускается 4 раза в день по будням (Пн–Пт):
+#   07:00, 10:00, 13:00, 16:00 UTC = 20 статей/неделю при 100% успехе.
+# Каждый прогон: обновляет очередь → берёт одну тему → Claude пишет →
+#   QA (AI-маркеры ≤5, слов ≥800) → публикует (draft:false) → коммитит.
+#
+# Секреты (настраиваются в Settings → Secrets → Actions):
+#   ANTHROPIC_API_KEY  — обязателен
+
+on:
+  schedule:
+    - cron: "0 7,10,13,16 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "DRY_RUN=1 — показать план без генерации"
+        required: false
+        default: "0"
+      model:
+        description: "Модель Claude (по умолчанию claude-sonnet-5)"
+        required: false
+        default: "claude-sonnet-5"
+
+permissions:
+  contents: write
+
+jobs:
+  write:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    concurrency:
+      # Один прогон за раз — исключает гонку за одну тему
+      group: autopilot-write
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Claude CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Refresh queue
+        run: node scripts/autopilot/build-queue.mjs
+
+      - name: Write article
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DRY_RUN: ${{ inputs.dry_run || '0' }}
+          MODEL: ${{ inputs.model || 'claude-sonnet-5' }}
+        run: node scripts/autopilot/run.mjs
+
+      - name: Commit article + queue
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/blog/ src/data/autopilot/queue.json
+          if git diff --cached --quiet; then
+            echo "autopilot-write: нет изменений (DRY_RUN или не было pending-тем)"
+            exit 0
+          fi
+          # Составляем сообщение коммита из нового файла в blog/
+          NEW_FILE=$(git diff --cached --name-only | grep 'src/content/blog/' | head -1)
+          SLUG=${NEW_FILE##*/}
+          SLUG=${SLUG%.md}
+          git commit -m "autopilot: publish ${SLUG}"
+          # Ребейз-push: другие воркфлоу (wordstat, queue) могут уйти вперёд
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:${{ github.ref_name }}; then
+              echo "push ok (попытка $i)"
+              exit 0
+            fi
+            echo "push отклонён, попытка $i — ребейз"
+            git pull --rebase --autostash origin ${{ github.ref_name }} || exit 1
+            sleep 3
+          done
+          echo "push не удался после 5 попыток"; exit 1

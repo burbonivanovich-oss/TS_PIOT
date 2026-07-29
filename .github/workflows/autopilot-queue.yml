@@ -1,0 +1,53 @@
+name: Autopilot — обновление очереди
+
+# Каждый вторник 06:00 UTC — после понедельничного Wordstat-discovery.
+# Также доступен ручной запуск. Пересобирает queue.json из content-plan-2026.md:
+# сравнивает с реальным составом blog/, проставляет приоритеты и риски
+# каннибализации, сохраняет существующие статусы done/in_progress.
+
+on:
+  schedule:
+    - cron: "0 6 * * 2"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-queue:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: autopilot-queue
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Rebuild queue
+        run: node scripts/autopilot/build-queue.mjs
+
+      - name: Commit queue
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/autopilot/queue.json
+          if git diff --cached --quiet; then
+            echo "autopilot-queue: нет изменений"
+            exit 0
+          fi
+          git commit -m "autopilot: queue rebuild $(date -u +%Y-%m-%d)"
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:${{ github.ref_name }}; then
+              echo "push ok (попытка $i)"
+              exit 0
+            fi
+            echo "push отклонён, попытка $i — ребейз"
+            git pull --rebase --autostash origin ${{ github.ref_name }} || exit 1
+            sleep 3
+          done
+          echo "push не удался после 5 попыток"; exit 1
