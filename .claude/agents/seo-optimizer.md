@@ -60,6 +60,14 @@ description: Use after content-writer to оптимизировать готов
 - [ ] 1 ссылка на category-страницу кластера.
 - [ ] Anchor-текст содержит ключевой запрос целевой статьи.
 
+### Каннибализация (перед финализацией)
+1. Открыть `src/data/editorial-plan.json`. Сравнить `targetKeyword` новой
+   статьи с полем `targetKeyword` всех строк со `status: "done"`.
+   Если пересечение по нормализованным ключам > 50% — флаг каннибализации.
+2. Дополнительно сравнить `seo.keywords` новой статьи с `seo.keywords`
+   опубликованных статей (`src/content/blog/*.md`, `draft: false`).
+3. При флаге — предложить варианты: A (merge), B (differentiate), C (canonical).
+
 ## Кластеры сайта
 
 Пять кластеров, каждый с pillar-страницей:

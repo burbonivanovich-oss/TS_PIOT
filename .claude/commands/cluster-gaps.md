@@ -41,13 +41,16 @@ argument-hint: "[<кластер>]"
 ### Шаг 1 — Инвентаризация
 
 Прочитать:
-- frontmatter всех файлов `src/content/blog/*.md` (title, seo.keywords, categories, draft)
-- `src/content/wiki/content-plan-2026.md`
+- `src/data/editorial-plan.json` — плановые темы по кластерам (поля `slug`,
+  `targetKeyword`, `status`, `cluster`). Если файл отсутствует или
+  `_generated` старше 7 дней — запустить `node scripts/generate-editorial-plan.mjs`.
+- frontmatter всех файлов `src/content/blog/*.md` (seo.keywords, categories, draft)
 
 Построить по каждому кластеру список:
-- опубликованных тем (draft: false)
-- запланированных тем (из контент-плана)
-- ключевых запросов, которые уже охвачены
+- опубликованных тем (draft: false из блога)
+- запланированных тем (status: "planned" из editorial-plan.json)
+- ключевых запросов, которые уже охвачены (targetKeyword из editorial-plan.json
+  + seo.keywords из опубликованных статей)
 
 ### Шаг 2 — Типовые запросы аудитории
 

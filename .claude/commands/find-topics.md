@@ -16,11 +16,14 @@ argument-hint: "[кластер: ts-piot|markirovka|zakonodatelstvo|ofd-fn|merku
 
 ### Шаг 1. Аудит текущего контента
 
-1. Прочитать `src/content/wiki/content-plan-2026.md` — кластеры, слаги, статусы.
+1. Прочитать `src/data/editorial-plan.json` — машинно-читаемый список тем.
+   Поля: `slug`, `title`, `priority`, `targetKeyword`, `status` (planned/done/draft),
+   `blocker`, `cluster`. Если файл отсутствует или `_generated` старше 7 дней —
+   запустить `node scripts/generate-editorial-plan.mjs` перед продолжением.
 2. Прочитать все файлы `src/content/blog/*.md` — извлечь slug, title, categories,
    tags, pubDate. Собрать список того, что уже опубликовано (draft: false).
-3. Сопоставить с контент-планом: какие строки помечены P0/P1, но ещё не
-   опубликованы.
+3. Сопоставить с контент-планом: какие строки editorial-plan.json помечены
+   P0/P1 со `status: "planned"`, но ещё не опубликованы.
 
 ### Шаг 2. Поиск новых запросов
 
@@ -156,6 +159,18 @@ Wordstat API. Структура и поля описаны в `docs/wordstat.md
 
 Плюс отдельный блок «Рекомендую обновить» — статьи старше 6 месяцев по теме,
 у которых появились новые НПА или изменились сроки.
+
+## После добавления тем в контент-план
+
+Если пользователь подтверждает запись новых тем в
+`src/content/wiki/content-plan-2026.md`, сразу запустить:
+
+```
+node scripts/generate-editorial-plan.mjs
+```
+
+Это обновляет `src/data/editorial-plan.json`, чтобы последующие вызовы
+`/cluster-gaps` и `seo-optimizer` видели актуальный список.
 
 ## Ограничения
 
