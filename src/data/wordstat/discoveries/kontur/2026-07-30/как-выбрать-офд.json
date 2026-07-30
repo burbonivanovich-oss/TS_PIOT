@@ -1,0 +1,14 @@
+{
+  "seed": "как выбрать ОФД",
+  "slug": "как-выбрать-офд",
+  "category": "intent",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-07-30T14:30:04.700Z",
+  "count": 1,
+  "phrases": [
+    {
+      "phrase": "как выбрать офд",
+      "count": 56
+    }
+  ]
+}
