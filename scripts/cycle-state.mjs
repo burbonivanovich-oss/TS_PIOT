@@ -6,45 +6,70 @@
  * живёт здесь, в src/data/editorial-cycle.json. Агенты не редактируют
  * JSON руками, только через этот CLI: так состояние не разъезжается.
  *
- * Состояния:
- *   idle            — цикла нет, можно запускать /cycle-plan
- *   awaiting_review — план отправлен редактору в Issue, ждём реакции
- *   approved        — редактор одобрил план, можно писать батчи
- *   batch_review    — батч статей в PR, ждём реакции редактора
- *   done            — все темы цикла выпущены
+ * Рабочее место редактора — папка Google Drive (таблица + доки), см.
+ * scripts/drive-sync.mjs. Здесь хранится зеркало того, что в таблице,
+ * плюс связь тем с файлами репозитория.
+ *
+ * Состояния цикла:
+ *   idle            цикла нет, можно запускать /cycle-plan
+ *   awaiting_review план в таблице, ждём согласования редактора
+ *   running         план одобрен, статьи пишутся и вычитываются
+ *   done            все темы цикла выпущены или сняты
+ *
+ * Статусы темы (совпадают с колонкой «Статус» в таблице):
+ *   planned   в плане, ждёт очереди
+ *   writing   бот пишет прямо сейчас
+ *   review    док готов, вычитывает редактор
+ *   accepted  редактор принял, ждёт импорта в репозиторий
+ *   released  импортировано и выпущено
+ *   dropped   снято редактором
+ *
+ * Владелец темы:
+ *   bot     пишет Claude
+ *   editor  «пишем сами» — бот готовит бриф и структуру, текст пишут люди
  *
  * Использование:
  *   node scripts/cycle-state.mjs get [--json]
- *   node scripts/cycle-state.mjs init --cycle 2026-08 --issue 42 --plan plan.json
- *   node scripts/cycle-state.mjs set-state approved
- *   node scripts/cycle-state.mjs seen-comment 1234567
+ *   node scripts/cycle-state.mjs init --cycle 2026-08 --plan plan.json \
+ *        --sheet-id <id> --sheet-url <url> --folder-id <id>
+ *   node scripts/cycle-state.mjs apply-decisions --file pull.json
  *   node scripts/cycle-state.mjs can-start-batch
  *   node scripts/cycle-state.mjs next-batch [--size 3]
- *   node scripts/cycle-state.mjs add-batch --slugs a,b,c --pr 51 --branch content/batch-1
- *   node scripts/cycle-state.mjs close-batch --pr 51
- *   node scripts/cycle-state.mjs drop-topic <slug>
- *   node scripts/cycle-state.mjs add-topic --slug x --title "..." --priority P1 --cluster ts-piot --keyword "..."
- *   node scripts/cycle-state.mjs reset
+ *   node scripts/cycle-state.mjs start-batch --slugs a,b,c
+ *   node scripts/cycle-state.mjs to-review --slug a --doc-id <id> --doc-url <url>
+ *   node scripts/cycle-state.mjs accept --slug a
+ *   node scripts/cycle-state.mjs release --slug a
+ *   node scripts/cycle-state.mjs set-state running
+ *   node scripts/cycle-state.mjs reset --force
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const __dir = dirname(fileURLToPath(import.meta.url));
-const ROOT = join(__dir, '..');
-const STATE_PATH = join(ROOT, 'src/data/editorial-cycle.json');
+const STATE_PATH = join(__dir, '..', 'src/data/editorial-cycle.json');
 
-const STATES = ['idle', 'awaiting_review', 'approved', 'batch_review', 'done'];
+const STATES = ['idle', 'awaiting_review', 'running', 'done'];
+const TOPIC_STATUSES = ['planned', 'writing', 'review', 'accepted', 'released', 'dropped'];
+
+/** Внутренний статус → надпись в колонке «Статус» таблицы. */
+const RU_STATUS = {
+  planned: 'в плане',
+  writing: 'пишется',
+  review: 'на вычитке',
+  accepted: 'принято',
+  released: 'выпущено',
+  dropped: 'снято',
+};
 
 const EMPTY = {
   cycleId: null,
   state: 'idle',
-  issueNumber: null,
   createdAt: null,
   updatedAt: null,
-  editorLogins: [],
-  lastSeenCommentId: 0,
+  drive: { folderId: null, sheetId: null, sheetUrl: null, folderUrl: null },
   batchSize: 3,
+  maxInReview: 6,   // потолок очереди редактора: 2 батча по 3
   plan: [],
   batches: [],
   log: [],
@@ -53,17 +78,16 @@ const EMPTY = {
 function load() {
   if (!existsSync(STATE_PATH)) return structuredClone(EMPTY);
   try {
-    return { ...structuredClone(EMPTY), ...JSON.parse(readFileSync(STATE_PATH, 'utf8')) };
+    const raw = JSON.parse(readFileSync(STATE_PATH, 'utf8'));
+    return { ...structuredClone(EMPTY), ...raw, drive: { ...EMPTY.drive, ...(raw.drive || {}) } };
   } catch (e) {
-    die(`editorial-cycle.json повреждён: ${e.message}. Почини вручную или запусти reset.`);
+    die(`editorial-cycle.json повреждён: ${e.message}. Почини вручную или запусти reset --force.`);
   }
 }
 
 function save(s, event) {
   s.updatedAt = new Date().toISOString();
-  if (event) {
-    s.log = [...(s.log || []), { at: s.updatedAt, event }].slice(-50);
-  }
+  if (event) s.log = [...(s.log || []), { at: s.updatedAt, event }].slice(-60);
   mkdirSync(dirname(STATE_PATH), { recursive: true });
   writeFileSync(STATE_PATH, JSON.stringify(s, null, 2) + '\n');
 }
@@ -73,10 +97,22 @@ function die(msg) {
   process.exit(1);
 }
 
-function arg(name, fallback = undefined) {
+function arg(name, fallback) {
   const i = process.argv.indexOf(`--${name}`);
-  if (i === -1 || i === process.argv.length - 1) return fallback;
-  return process.argv[i + 1];
+  return i === -1 || i === process.argv.length - 1 ? fallback : process.argv[i + 1];
+}
+
+const count = (s, st) => s.plan.filter((t) => t.status === st).length;
+const byStatus = (s, st) => s.plan.filter((t) => t.status === st);
+const find = (s, slug) => s.plan.find((t) => t.slug === slug);
+
+/** Транслитерация заголовка в slug — для тем, добавленных редактором. */
+const MAP = { а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',
+  н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'c',ч:'ch',ш:'sh',щ:'sch',ъ:'',ы:'y',
+  ь:'',э:'e',ю:'yu',я:'ya' };
+function slugify(title) {
+  return title.toLowerCase().split('').map((c) => MAP[c] ?? c).join('')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60);
 }
 
 const cmd = process.argv[2];
@@ -85,70 +121,266 @@ const s = load();
 switch (cmd) {
   /* ---------------------------------------------------------------- get */
   case 'get': {
-    if (process.argv.includes('--json')) {
-      console.log(JSON.stringify(s, null, 2));
-      break;
-    }
-    const pending = s.plan.filter((t) => t.batchStatus === 'pending').length;
-    const written = s.plan.filter((t) => t.batchStatus === 'written').length;
-    const openBatch = s.batches.find((b) => b.state === 'open');
-    console.log(`Цикл:      ${s.cycleId || '—'}`);
-    console.log(`Состояние: ${s.state}`);
-    console.log(`Issue:     ${s.issueNumber ? `#${s.issueNumber}` : '—'}`);
-    console.log(`Темы:      ${s.plan.length} всего / ${pending} ждут / ${written} написано`);
-    console.log(`Батчи:     ${s.batches.length}${openBatch ? ` (открыт #${openBatch.pr})` : ''}`);
-    console.log(`Последний просмотренный комментарий: ${s.lastSeenCommentId}`);
+    if (process.argv.includes('--json')) { console.log(JSON.stringify(s, null, 2)); break; }
+    const own = s.plan.filter((t) => t.owner === 'editor' && !['released', 'dropped'].includes(t.status)).length;
+    console.log(`Цикл:       ${s.cycleId || '—'}`);
+    console.log(`Состояние:  ${s.state}`);
+    console.log(`Таблица:    ${s.drive.sheetUrl || '—'}`);
+    console.log(`Папка:      ${s.drive.folderUrl || '—'}`);
+    console.log(`Тем:        ${s.plan.length}`);
+    console.log(`  в плане    ${count(s, 'planned')}`);
+    console.log(`  пишется    ${count(s, 'writing')}`);
+    console.log(`  на вычитке ${count(s, 'review')} (потолок ${s.maxInReview})`);
+    console.log(`  принято    ${count(s, 'accepted')}`);
+    console.log(`  выпущено   ${count(s, 'released')}`);
+    console.log(`  снято      ${count(s, 'dropped')}`);
+    if (own) console.log(`Пишет редактор сам: ${own}`);
     break;
   }
 
   /* --------------------------------------------------------------- init */
   case 'init': {
-    if (s.state !== 'idle' && s.state !== 'done') {
-      die(`цикл ${s.cycleId} уже идёт (${s.state}). Сначала заверши его или запусти reset.`);
+    if (!['idle', 'done'].includes(s.state)) {
+      die(`цикл ${s.cycleId} уже идёт (${s.state}). Заверши его или запусти reset --force.`);
     }
-    const cycleId = arg('cycle') || new Date().toISOString().slice(0, 7);
-    const issue = arg('issue');
     const planPath = arg('plan');
-    if (!issue) die('нужен --issue <номер Issue с планом>');
-    if (!planPath) die('нужен --plan <путь к JSON-массиву тем>');
-    if (!existsSync(planPath)) die(`файл плана не найден: ${planPath}`);
-
-    let topics;
-    try {
-      topics = JSON.parse(readFileSync(planPath, 'utf8'));
-    } catch (e) {
-      die(`план не парсится: ${e.message}`);
-    }
-    if (!Array.isArray(topics) || topics.length === 0) die('план пуст или не массив');
-
-    for (const t of topics) {
-      if (!t.slug || !t.title) die(`у темы нет slug или title: ${JSON.stringify(t)}`);
-    }
+    if (!planPath || !existsSync(planPath)) die('нужен --plan <файл с темами>');
+    const topics = JSON.parse(readFileSync(planPath, 'utf8'));
+    if (!Array.isArray(topics) || !topics.length) die('план пуст или не массив');
 
     const next = structuredClone(EMPTY);
-    next.cycleId = cycleId;
+    next.cycleId = arg('cycle') || new Date().toISOString().slice(0, 7);
     next.state = 'awaiting_review';
-    next.issueNumber = Number(issue);
     next.createdAt = new Date().toISOString();
-    next.editorLogins = (arg('editors') || '').split(',').map((x) => x.trim()).filter(Boolean);
     next.batchSize = Number(arg('batch-size', 3));
-    next.plan = topics.map((t) => ({
-      slug: t.slug,
+    next.maxInReview = Number(arg('max-in-review', 6));
+    next.drive = {
+      sheetId: arg('sheet-id', null),
+      sheetUrl: arg('sheet-url', null),
+      folderId: arg('folder-id', null),
+      folderUrl: arg('folder-url', null),
+    };
+    next.plan = topics.map((t, i) => ({
+      slug: t.slug || slugify(t.title),
       title: t.title,
       priority: t.priority || 'P1',
       cluster: t.cluster || '',
       targetKeyword: t.targetKeyword || '',
       rationale: t.rationale || '',
-      batchStatus: 'pending',
-      batch: null,
+      row: 5 + i,           // строка в таблице
+      owner: 'bot',
+      status: 'planned',
+      docId: null,
+      docUrl: null,
+      seenComments: [],
     }));
 
-    save(next, `init cycle ${cycleId}, issue #${issue}, ${topics.length} тем`);
-    console.log(`✅ Цикл ${cycleId} создан: ${topics.length} тем, Issue #${issue}, состояние awaiting_review`);
+    save(next, `init ${next.cycleId}: ${topics.length} тем`);
+    console.log(`✅ Цикл ${next.cycleId}: ${topics.length} тем, состояние awaiting_review`);
     break;
   }
 
-  /* ---------------------------------------------------------- set-state */
+  /* --------------------------------------------- apply-decisions (из таблицы) */
+  /* Принимает вывод `drive-sync.mjs pull` и сверяет его с состоянием.        */
+  case 'apply-decisions': {
+    const file = arg('file');
+    if (!file || !existsSync(file)) die('нужен --file <вывод drive-sync pull>');
+    const pull = JSON.parse(readFileSync(file, 'utf8'));
+    const changes = { approved: false, dropped: [], toEditor: [], toBot: [], notes: [], added: [], missing: [] };
+
+    // Согласование плана целиком
+    if (/^ОДОБРЕН/i.test(pull.approval || '') && s.state === 'awaiting_review') {
+      s.state = 'running';
+      changes.approved = true;
+    }
+    if (/^отклон/i.test(pull.approval || '')) changes.rejected = true;
+
+    for (const row of pull.topics || []) {
+      // Сопоставляем по номеру строки, при расхождении — по заголовку
+      let t = s.plan.find((x) => x.row === row.row) || s.plan.find((x) => x.title === row.title);
+
+      if (!t) {
+        // Редактор дописал тему прямо в таблицу
+        const slug = slugify(row.title);
+        if (!row.title.trim() || s.plan.some((x) => x.slug === slug)) continue;
+        t = {
+          slug, title: row.title, priority: row.priority || 'P1',
+          cluster: row.cluster || '', targetKeyword: row.targetKeyword || '',
+          rationale: row.rationale || 'добавлено редактором',
+          row: row.row, owner: 'bot', status: 'planned',
+          docId: null, docUrl: null, seenComments: [],
+        };
+        s.plan.push(t);
+        changes.added.push(t.title);
+      }
+
+      // Редактор мог поправить формулировку, запрос или приоритет прямо в ячейке
+      if (row.title && row.title !== t.title) { t.title = row.title; }
+      if (row.priority && row.priority !== t.priority) { t.priority = row.priority; }
+      if (row.targetKeyword && row.targetKeyword !== t.targetKeyword) t.targetKeyword = row.targetKeyword;
+
+      const d = (row.decision || '').toLowerCase();
+      if (d === 'убрать' && t.status !== 'dropped') {
+        t.status = 'dropped';
+        changes.dropped.push(t.title);
+      } else if (d === 'пишем сами' && t.owner !== 'editor') {
+        t.owner = 'editor';
+        changes.toEditor.push(t.title);
+      } else if (d === 'одобрено' && t.owner === 'editor') {
+        t.owner = 'bot';
+        changes.toBot.push(t.title);
+      }
+
+      if (row.note && row.note !== t.lastNote) {
+        t.lastNote = row.note;
+        changes.notes.push({ slug: t.slug, title: t.title, note: row.note });
+      }
+    }
+
+    // Темы, которые есть в состоянии, но пропали из таблицы
+    for (const t of s.plan) {
+      if (['released', 'dropped'].includes(t.status)) continue;
+      if (!(pull.topics || []).some((r) => r.row === t.row || r.title === t.title)) {
+        changes.missing.push(t.title);
+      }
+    }
+
+    const live = s.plan.filter((t) => !['released', 'dropped'].includes(t.status));
+    if (s.state === 'running' && live.length === 0) s.state = 'done';
+
+    save(s, `apply-decisions: ${changes.dropped.length} снято, ${changes.toEditor.length} «пишем сами», ${changes.notes.length} правок`);
+    console.log(JSON.stringify(changes, null, 2));
+    break;
+  }
+
+  /* ---------------------------------------------------- can-start-batch */
+  /* Потолок очереди редактора. Не даём завалить его правками.            */
+  case 'can-start-batch': {
+    if (s.state === 'awaiting_review') { console.log('НЕТ — план ещё не одобрен в таблице'); process.exit(1); }
+    if (['idle', 'done'].includes(s.state)) { console.log(`НЕТ — цикл в состоянии ${s.state}`); process.exit(1); }
+
+    const inReview = count(s, 'review');
+    const pending = s.plan.filter((t) => t.status === 'planned' && t.owner === 'bot');
+
+    if (inReview >= s.maxInReview) {
+      console.log(`НЕТ — у редактора на вычитке ${inReview} статей (потолок ${s.maxInReview}). Ждём, пока примет.`);
+      process.exit(1);
+    }
+    if (!pending.length) {
+      const own = s.plan.filter((t) => t.status === 'planned' && t.owner === 'editor').length;
+      console.log(`НЕТ — botских тем в очереди нет${own ? ` (${own} пишет редактор сам)` : ''}`);
+      process.exit(1);
+    }
+    const room = s.maxInReview - inReview;
+    console.log(`ДА — ${pending.length} тем в очереди, у редактора ${inReview}/${s.maxInReview}, влезет ещё ${room}`);
+    break;
+  }
+
+  /* ---------------------------------------------------------- next-batch */
+  case 'next-batch': {
+    const room = Math.max(0, s.maxInReview - count(s, 'review'));
+    const size = Math.min(Number(arg('size', s.batchSize)), room);
+    const order = { P0: 0, P1: 1, P2: 2 };
+    const picked = s.plan
+      .filter((t) => t.status === 'planned' && t.owner === 'bot')
+      .sort((a, b) => (order[a.priority] ?? 9) - (order[b.priority] ?? 9))
+      .slice(0, size);
+    console.log(JSON.stringify(picked, null, 2));
+    break;
+  }
+
+  /* --------------------------------------------------------- start-batch */
+  case 'start-batch': {
+    const slugs = (arg('slugs') || '').split(',').map((x) => x.trim()).filter(Boolean);
+    if (!slugs.length) die('нужен --slugs a,b,c');
+
+    const bad = [];
+    for (const sl of slugs) {
+      const t = find(s, sl);
+      if (!t) bad.push(`${sl} — нет в плане`);
+      else if (t.status !== 'planned') bad.push(`${sl} — статус ${t.status}, а не planned`);
+      else if (t.owner !== 'bot') bad.push(`${sl} — пишет редактор сам`);
+    }
+    if (bad.length) die(`нельзя брать в батч:\n  ${bad.join('\n  ')}`);
+
+    const room = s.maxInReview - count(s, 'review');
+    if (slugs.length > room) die(`в батче ${slugs.length} тем, а у редактора влезет ещё ${room}`);
+
+    const n = s.batches.length + 1;
+    for (const sl of slugs) find(s, sl).status = 'writing';
+    s.batches.push({ n, slugs, startedAt: new Date().toISOString(), state: 'writing' });
+    save(s, `батч ${n} начат: ${slugs.join(', ')}`);
+    console.log(`✅ Батч ${n}: ${slugs.length} тем в работе`);
+    break;
+  }
+
+  /* ----------------------------------------------------------- to-review */
+  case 'to-review': {
+    const slug = arg('slug');
+    const t = slug && find(s, slug);
+    if (!t) die(`темы "${slug}" нет в плане`);
+    if (!['writing', 'planned'].includes(t.status)) die(`тема "${slug}" в статусе ${t.status}`);
+    t.status = 'review';
+    t.docId = arg('doc-id', t.docId);
+    t.docUrl = arg('doc-url', t.docUrl);
+    const b = s.batches.find((x) => x.slugs.includes(slug) && x.state === 'writing');
+    if (b && b.slugs.every((sl) => find(s, sl).status !== 'writing')) b.state = 'review';
+    save(s, `${slug} → на вычитке`);
+    console.log(`✅ ${slug} → на вычитке · ${t.docUrl || 'без ссылки'} · у редактора ${count(s, 'review')}/${s.maxInReview}`);
+    break;
+  }
+
+  /* ------------------------------------------------------ accept/release */
+  case 'accept':
+  case 'release': {
+    const slug = arg('slug') || process.argv[3];
+    const t = slug && find(s, slug);
+    if (!t) die(`темы "${slug}" нет в плане`);
+    const to = cmd === 'accept' ? 'accepted' : 'released';
+    if (cmd === 'accept' && t.status !== 'review') die(`тема "${slug}" в статусе ${t.status}, ожидался review`);
+    if (cmd === 'release' && !['accepted', 'review'].includes(t.status)) die(`тема "${slug}" в статусе ${t.status}`);
+    t.status = to;
+
+    for (const b of s.batches) {
+      if (b.slugs.includes(slug) && b.slugs.every((sl) => ['accepted', 'released', 'dropped'].includes(find(s, sl)?.status))) {
+        b.state = 'closed';
+        b.closedAt = new Date().toISOString();
+      }
+    }
+    const live = s.plan.filter((x) => !['released', 'dropped'].includes(x.status));
+    if (s.state === 'running' && !live.length) s.state = 'done';
+
+    save(s, `${slug} → ${RU_STATUS[to]}`);
+    console.log(`✅ ${slug} → ${RU_STATUS[to]} · у редактора ${count(s, 'review')}/${s.maxInReview} · состояние ${s.state}`);
+    break;
+  }
+
+  /* --------------------------------------------------------------- owner */
+  case 'own': {
+    const slug = arg('slug');
+    const owner = arg('owner');
+    const t = slug && find(s, slug);
+    if (!t) die(`темы "${slug}" нет в плане`);
+    if (!['bot', 'editor'].includes(owner)) die('--owner должен быть bot или editor');
+    t.owner = owner;
+    save(s, `${slug}: пишет ${owner === 'editor' ? 'редактор' : 'бот'}`);
+    console.log(`✅ ${slug} — пишет ${owner === 'editor' ? 'редактор сам' : 'бот'}`);
+    break;
+  }
+
+  /* ------------------------------------------------------ seen-comments */
+  case 'seen-comments': {
+    const slug = arg('slug');
+    const ids = (arg('ids') || '').split(',').map((x) => x.trim()).filter(Boolean);
+    const t = slug && find(s, slug);
+    if (!t) die(`темы "${slug}" нет в плане`);
+    t.seenComments = [...new Set([...(t.seenComments || []), ...ids])].slice(-200);
+    save(s, `${slug}: отмечено ${ids.length} замечаний`);
+    console.log(`✅ ${slug}: разобрано ${t.seenComments.length} замечаний всего`);
+    break;
+  }
+
+  /* ----------------------------------------------------------- set-state */
   case 'set-state': {
     const to = process.argv[3];
     if (!STATES.includes(to)) die(`неизвестное состояние "${to}". Допустимо: ${STATES.join(', ')}`);
@@ -159,157 +391,22 @@ switch (cmd) {
     break;
   }
 
-  /* ------------------------------------------------------- seen-comment */
-  case 'seen-comment': {
-    const id = Number(process.argv[3]);
-    if (!Number.isFinite(id)) die('нужен числовой id комментария');
-    if (id <= s.lastSeenCommentId) {
-      console.log(`= ${s.lastSeenCommentId} (не двигаем назад)`);
-      break;
-    }
-    s.lastSeenCommentId = id;
-    save(s, `seen comment ${id}`);
-    console.log(`✅ lastSeenCommentId = ${id}`);
-    break;
-  }
-
-  /* ---------------------------------------------------- can-start-batch */
-  /* Главный предохранитель: не даём завалить редактора правками.        */
-  case 'can-start-batch': {
-    const open = s.batches.find((b) => b.state === 'open');
-    if (s.state === 'idle' || s.state === 'done') {
-      console.log(`НЕТ — цикл в состоянии ${s.state}, писать нечего`);
-      process.exit(1);
-    }
-    if (s.state === 'awaiting_review') {
-      console.log('НЕТ — план ещё не одобрен редактором');
-      process.exit(1);
-    }
-    if (open) {
-      console.log(`НЕТ — батч ${open.n} висит на ревью (PR #${open.pr}). Сначала закрыть его.`);
-      process.exit(1);
-    }
-    const pending = s.plan.filter((t) => t.batchStatus === 'pending');
-    if (pending.length === 0) {
-      console.log('НЕТ — все темы цикла написаны');
-      process.exit(1);
-    }
-    console.log(`ДА — ${pending.length} тем ждут, открытых батчей нет`);
-    break;
-  }
-
-  /* ---------------------------------------------------------- next-batch */
-  case 'next-batch': {
-    const size = Number(arg('size', s.batchSize || 3));
-    const order = { P0: 0, P1: 1, P2: 2 };
-    const picked = s.plan
-      .filter((t) => t.batchStatus === 'pending')
-      .sort((a, b) => (order[a.priority] ?? 9) - (order[b.priority] ?? 9))
-      .slice(0, size);
-    console.log(JSON.stringify(picked, null, 2));
-    break;
-  }
-
-  /* ----------------------------------------------------------- add-batch */
-  case 'add-batch': {
-    const slugs = (arg('slugs') || '').split(',').map((x) => x.trim()).filter(Boolean);
-    const pr = arg('pr');
-    if (slugs.length === 0) die('нужен --slugs a,b,c');
-    if (!pr) die('нужен --pr <номер PR>');
-
-    const unknown = slugs.filter((sl) => !s.plan.some((t) => t.slug === sl));
-    if (unknown.length) die(`этих тем нет в плане цикла: ${unknown.join(', ')}`);
-
-    // Защита от повторной записи: в батч идут только темы со статусом pending.
-    const notPending = slugs
-      .map((sl) => s.plan.find((t) => t.slug === sl))
-      .filter((t) => t.batchStatus !== 'pending');
-    if (notPending.length) {
-      die(
-        `эти темы уже не ждут очереди: ` +
-          notPending.map((t) => `${t.slug} (${t.batchStatus}, батч ${t.batch})`).join(', ')
-      );
-    }
-
-    const n = s.batches.length + 1;
-    s.batches.push({
-      n,
-      slugs,
-      pr: Number(pr),
-      branch: arg('branch') || null,
-      state: 'open',
-      openedAt: new Date().toISOString(),
-      closedAt: null,
-    });
+  /* --------------------------------------------------------- sheet-sync */
+  /* Готовит обновления ячеек «Статус» и «Документ» для drive-sync set-cells. */
+  case 'sheet-sync': {
+    const updates = [];
     for (const t of s.plan) {
-      if (slugs.includes(t.slug)) {
-        t.batchStatus = 'in_review';
-        t.batch = n;
-      }
+      if (!t.row) continue;
+      updates.push({ range: `I${t.row}`, value: RU_STATUS[t.status] || t.status });
+      if (t.docUrl) updates.push({ range: `J${t.row}`, value: t.docUrl });
     }
-    s.state = 'batch_review';
-    save(s, `batch ${n} открыт: PR #${pr}, ${slugs.length} статей`);
-    console.log(`✅ Батч ${n}: ${slugs.length} статей, PR #${pr}, состояние batch_review`);
-    break;
-  }
-
-  /* --------------------------------------------------------- close-batch */
-  case 'close-batch': {
-    const pr = Number(arg('pr'));
-    const b = pr ? s.batches.find((x) => x.pr === pr) : s.batches.find((x) => x.state === 'open');
-    if (!b) die(pr ? `батч с PR #${pr} не найден` : 'открытых батчей нет');
-    if (b.state !== 'open') die(`батч ${b.n} уже закрыт (${b.state})`);
-
-    b.state = 'merged';
-    b.closedAt = new Date().toISOString();
-    for (const t of s.plan) {
-      if (b.slugs.includes(t.slug)) t.batchStatus = 'written';
-    }
-    const pending = s.plan.filter((t) => t.batchStatus === 'pending').length;
-    s.state = pending > 0 ? 'approved' : 'done';
-    save(s, `batch ${b.n} закрыт, осталось тем: ${pending}`);
-    console.log(`✅ Батч ${b.n} закрыт. Осталось ${pending} тем. Состояние: ${s.state}`);
-    break;
-  }
-
-  /* ---------------------------------------------------------- drop-topic */
-  case 'drop-topic': {
-    const slug = process.argv[3];
-    if (!slug) die('нужен slug');
-    const before = s.plan.length;
-    s.plan = s.plan.filter((t) => t.slug !== slug);
-    if (s.plan.length === before) die(`темы "${slug}" нет в плане`);
-    save(s, `тема снята редактором: ${slug}`);
-    console.log(`✅ Тема "${slug}" снята. Осталось ${s.plan.length}.`);
-    break;
-  }
-
-  /* ----------------------------------------------------------- add-topic */
-  case 'add-topic': {
-    const slug = arg('slug');
-    const title = arg('title');
-    if (!slug || !title) die('нужны --slug и --title');
-    if (s.plan.some((t) => t.slug === slug)) die(`тема "${slug}" уже в плане`);
-    s.plan.push({
-      slug,
-      title,
-      priority: arg('priority', 'P1'),
-      cluster: arg('cluster', ''),
-      targetKeyword: arg('keyword', ''),
-      rationale: arg('rationale', 'добавлено редактором'),
-      batchStatus: 'pending',
-      batch: null,
-    });
-    save(s, `тема добавлена редактором: ${slug}`);
-    console.log(`✅ Тема "${slug}" добавлена. Всего ${s.plan.length}.`);
+    console.log(JSON.stringify(updates));
     break;
   }
 
   /* --------------------------------------------------------------- reset */
   case 'reset': {
-    if (!process.argv.includes('--force')) {
-      die('это сотрёт текущий цикл. Повтори с --force, если уверен.');
-    }
+    if (!process.argv.includes('--force')) die('это сотрёт текущий цикл. Повтори с --force.');
     save(structuredClone(EMPTY), 'reset');
     console.log('✅ Состояние сброшено в idle');
     break;
