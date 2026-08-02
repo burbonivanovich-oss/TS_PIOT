@@ -29,6 +29,7 @@
 | **`docs/tools.md`** | Инструментарий QA (factcheck, /blog), OpenRouter, скрипты, технические особенности |
 | **`docs/editorial-cycle.md`** | Автоматический цикл с редактором-человеком: рутины A/B/C, машина состояний, рабочее место редактора в Google Drive (таблица + доки) |
 | **`docs/SECRETS.md`** | Все секреты GitHub: что есть, как получить, как обновлять |
+| **`docs/google-api-setup.md`** | Подключение Google API под цикл: Sheets API, скоупы, переполучение refresh_token, разбор ошибок |
 | `docs/architecture.md` | Маршруты, коллекции, компоненты, утилиты |
 | `docs/content-types.md` | Как добавить статью, термин, pillar, сценарий |
 | `docs/images.md` | Hero/preview/OG/WebP, Satori, шрифты |

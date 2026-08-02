@@ -22,6 +22,7 @@
  *   comments     --doc-id <id>                      нерешённые замечания
  *   reply        --doc-id <id> --comment-id <id> --text "..." [--resolve]
  *   set-cells    --sheet-id <id> --updates '[{"range":"J5","value":"на вычитке"}]'
+ *   check                                          диагностика доступа
  *
  * Аутентификация — та же, что в social-to-docs.mjs: сервисный аккаунт
  * GOOGLE_DOCS_KEY, с откатом на OAuth refresh_token при storageQuotaExceeded.
@@ -32,9 +33,10 @@
  *   GSC_CLIENT_ID / GSC_CLIENT_SECRET / GSC_REFRESH_TOKEN — запасной OAuth
  *   DRY_RUN=1              печатать план запросов и выйти
  *
- * ВАЖНО: сервисному аккаунту нужен скоуп spreadsheets, а в проекте Google
- * Cloud должен быть включён Sheets API. Drive и Docs уже включены под
- * social-to-docs.
+ * ВАЖНО: в проекте Google Cloud должен быть включён Sheets API — Drive и
+ * Docs уже включены под social-to-docs, Sheets ещё нет. Прав достаточно
+ * одного скоупа drive.file. Проверить всё разом: `check`.
+ * Инструкция по настройке — docs/google-api-setup.md
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { createSign } from 'node:crypto';
@@ -46,8 +48,19 @@ const OAUTH_SECRET = process.env.GSC_CLIENT_SECRET || '';
 const OAUTH_REFRESH = process.env.GSC_REFRESH_TOKEN || '';
 const DRY_RUN = process.env.DRY_RUN === '1';
 
+// Хватило бы одного drive.file: Sheets и Docs принимают его для файлов,
+// созданных самим приложением, а таблицу и доки создаёт бот. Это
+// non-sensitive скоуп — верификация приложения в Google не требуется.
+// Полный drive брать нельзя: он restricted и тянет верификацию.
+// spreadsheets и documents оставлены запасными на случай, если Google
+// откажет per-file доступу; они sensitive, и для Production их надо убрать.
+//
+// ВНИМАНИЕ: список действует ТОЛЬКО для сервисного аккаунта. На пути OAuth
+// права зашиты в refresh_token в момент выдачи — добавить скоуп можно
+// только переполучением токена с prompt=consent.
+// См. docs/google-api-setup.md
 const SCOPES = [
-  'https://www.googleapis.com/auth/drive',
+  'https://www.googleapis.com/auth/drive.file',
   'https://www.googleapis.com/auth/documents',
   'https://www.googleapis.com/auth/spreadsheets',
 ].join(' ');
@@ -693,6 +706,143 @@ try {
       });
       console.log(`✅ Ответ отправлен${process.argv.includes('--resolve') ? ' и замечание закрыто' : ''}`);
       break;
+    }
+
+    /* Диагностика перед первым запуском: какой путь аутентификации,
+       какие скоупы реально выданы, доступны ли API и папка. */
+    case 'check': {
+      let bad = 0;
+
+      console.log('Учётные данные');
+      console.log(`  GOOGLE_DOCS_KEY       ${RAW_KEY ? 'задан' : '—'}`);
+      console.log(`  GSC_CLIENT_ID         ${OAUTH_ID ? 'задан' : '—'}`);
+      console.log(`  GSC_REFRESH_TOKEN     ${OAUTH_REFRESH ? 'задан' : '—'}`);
+      console.log(`  GOOGLE_DOCS_FOLDER_ID ${ROOT_FOLDER || '— НЕ ЗАДАН'}`);
+      if (!ROOT_FOLDER) bad++;
+
+      const t = await auth();
+      console.log(`\nПуть аутентификации: ${AUTH_MODE === 'sa' ? 'сервисный аккаунт' : 'OAuth refresh_token'}`);
+      if (AUTH_MODE === 'sa') {
+        console.log('  ⚠ Сервисный аккаунт не имеет своей квоты Drive.');
+        console.log('    При storageQuotaExceeded будет откат на OAuth, если он настроен.');
+      }
+
+      // Какие скоупы реально в токене.
+      //
+      // drive.file (non-sensitive) закрывает всё сразу: Drive, Sheets и Docs
+      // принимают его для файлов, созданных самим приложением. Папку цикла,
+      // таблицу и доки создаёт бот, поэтому одного drive.file достаточно и
+      // верификация приложения в Google не нужна.
+      // Запасной комплект — sensitive-скоупы spreadsheets + documents.
+      const info = await fetch(`https://oauth2.googleapis.com/tokeninfo?access_token=${t}`);
+      const granted = info.ok ? ((await info.json()).scope || '').split(/\s+/) : [];
+      const has = (s) => granted.some((g) => g.endsWith(`/auth/${s}`));
+      const full = has('drive');
+      const perFile = has('drive.file') || full;
+      const sensitive = has('spreadsheets') && has('documents');
+
+      console.log('\nСкоупы в выданном токене:');
+      if (granted.length === 0) {
+        console.log('  ⚠ tokeninfo не ответил — пропускаю проверку скоупов');
+      } else {
+        console.log(`  ${perFile ? '✅' : '❌'} drive.file${full ? ' (через полный drive)' : ''}` +
+                    '   доступ к файлам, созданным ботом');
+        console.log(`  ${has('spreadsheets') ? '✅' : '·'} spreadsheets   запасной, sensitive`);
+        console.log(`  ${has('documents') ? '✅' : '·'} documents      запасной, sensitive`);
+
+        if (perFile) {
+          console.log('\n  Достаточно drive.file — Sheets и Docs принимают его для своих файлов.');
+          if (has('spreadsheets') || has('documents')) {
+            console.log('  ⚠ Есть и sensitive-скоупы. Работать будет, но ради Production\n' +
+                        '    их лучше убрать: с ними Google требует верификацию приложения.');
+          }
+        } else if (sensitive) {
+          console.log('\n  ⚠ drive.file нет, но есть spreadsheets + documents — заработает.');
+          console.log('    Минус: sensitive-скоупы требуют верификации для Production,\n' +
+                      '    а в статусе Testing токен умирает через 7 дней.');
+        } else {
+          console.log('\n  ❌ Прав не хватает. Нужен drive.file (проще всего)\n' +
+                      '     или пара spreadsheets + documents.');
+          console.log(AUTH_MODE === 'oauth'
+            ? '     На пути OAuth это чинится ТОЛЬКО переполучением refresh_token\n' +
+              '     с prompt=consent — галочка в консоли старый токен не расширяет.\n' +
+              '     См. docs/google-api-setup.md, шаг 3.'
+            : '     Проверь права сервисного аккаунта.');
+          bad++;
+        }
+      }
+
+      // Живы ли API
+      console.log('\nДоступность API:');
+      for (const [name, url] of [
+        ['Drive',  `https://www.googleapis.com/drive/v3/files?pageSize=1&fields=files(id)`],
+        ['Sheets', `https://sheets.googleapis.com/v4/spreadsheets/1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA`],
+      ]) {
+        const r = await fetch(url, { headers: { Authorization: `Bearer ${t}` } });
+        const body = await r.text();
+        if (/has not been used in project|is disabled/i.test(body)) {
+          console.log(`  ❌ ${name} API не включён в проекте Google Cloud`);
+          bad++;
+        } else if (r.status === 403 && /insufficient/i.test(body)) {
+          console.log(`  ❌ ${name}: не хватает скоупа`);
+          bad++;
+        } else if (r.status === 404 && name === 'Sheets') {
+          console.log(`  ✅ Sheets API включён (404 на несуществующую таблицу — это норма)`);
+        } else if (r.ok) {
+          console.log(`  ✅ ${name} API отвечает`);
+        } else {
+          console.log(`  ⚠ ${name}: HTTP ${r.status} — ${body.slice(0, 120)}`);
+        }
+      }
+
+      // Можно ли писать в папку.
+      //
+      // Читать саму папку бесполезно: под drive.file бот её не видит, раз её
+      // создал человек, и 404 тут норма, а не ошибка. Единственная честная
+      // проверка — создать пробный файл внутри и сразу убрать.
+      if (ROOT_FOLDER) {
+        let probe = null;
+        try {
+          probe = await withQuotaFallback(() =>
+            drive('files?fields=id', {
+              method: 'POST',
+              body: JSON.stringify({
+                name: `.kontur-probe-${Date.now()}`,
+                parents: [ROOT_FOLDER],
+                mimeType: 'application/vnd.google-apps.document',
+              }),
+            })
+          );
+          console.log('\n✅ Запись в папку работает (пробный файл создан)');
+        } catch (e) {
+          console.log(`\n❌ В папку ${ROOT_FOLDER} писать не выходит.`);
+          if (/storageQuota/i.test(e.message)) {
+            console.log('   storageQuotaExceeded: у сервисного аккаунта нет своего места в Drive.');
+            console.log('   Настрой OAuth (GSC_*) — скрипт будет откатываться на него.');
+          } else if (/404|notFound/i.test(e.message)) {
+            console.log(AUTH_MODE === 'sa'
+              ? '   Расшарь папку на client_email сервисного аккаунта с ролью Редактор.'
+              : '   Проверь GOOGLE_DOCS_FOLDER_ID и что папка принадлежит аккаунту,\n' +
+                '   под которым выдавался токен.');
+          } else {
+            console.log(`   ${e.message.slice(0, 200)}`);
+          }
+          bad++;
+        }
+        if (probe?.id) {
+          try {
+            await drive(`files/${probe.id}`, { method: 'DELETE' });
+            console.log('   Пробный файл удалён.');
+          } catch {
+            console.log(`   ⚠ Пробный файл ${probe.id} удалить не вышло — убери вручную.`);
+          }
+        }
+      }
+
+      console.log(bad === 0
+        ? '\n━━━ Всё готово, можно запускать /cycle-plan ━━━'
+        : `\n━━━ Проблем: ${bad}. См. docs/google-api-setup.md ━━━`);
+      process.exit(bad ? 1 : 0);
     }
 
     default:

@@ -24,6 +24,7 @@ Actions** репозитория. Этот документ — единый с�
 | `GOOGLE_INDEXING_KEY` | Google Cloud service account | бессрочный | Indexing API — уведомление Google о новых страницах |
 | `GOOGLE_DOCS_KEY` | Google Cloud service account | бессрочный | Drive + Docs API — выгрузка соцпостов в Google Docs |
 | `GOOGLE_DOCS_FOLDER_ID` | строка | — | ID папки Drive для соцпостов |
+| `GOOGLE_DOCS_FOLDER_ID` | строка | — | она же — корневая папка редакционного цикла |
 | `GITHUB_TOKEN` | автоматически | в каждом workflow | git push commit'ов |
 
 ## Приоритеты обновления
@@ -297,8 +298,17 @@ permissions → Add user** консоль выдаёт «Не удалось д�
 2. **APIs & Services → OAuth consent screen** → раздел **Scopes**
    → Add or Remove Scopes → добавить
    `https://www.googleapis.com/auth/indexing` → Save.
-3. **Переполучить refresh_token** с обновлённым scope. В браузере
-   под аккаунтом-владельцем property открыть:
+3. **Переполучить refresh_token** с обновлённым scope.
+
+   > ⚠ **Способ ниже устарел.** `urn:ietf:wg:oauth:2.0:oob` отключён
+   > Google: новые клиенты запрещены с 28.02.2022, запросы
+   > существующих заблокированы с 03.10.2022, поток полностью
+   > отключён 31.01.2023 — ссылка отдаёт `invalid_request`.
+   > Рабочая замена через `http://localhost` (сервер поднимать не
+   > нужно, код берётся из адресной строки) — **`docs/google-api-setup.md`,
+   > шаг 3**. Схема запроса ниже оставлена для понимания структуры.
+
+   В браузере под аккаунтом-владельцем property открыть:
 
    ```
    https://accounts.google.com/o/oauth2/v2/auth?
