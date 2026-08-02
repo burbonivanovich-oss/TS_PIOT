@@ -1,0 +1,18 @@
+{
+  "cycleId": null,
+  "state": "idle",
+  "issueNumber": null,
+  "createdAt": null,
+  "updatedAt": "2026-08-02T12:30:28.324Z",
+  "editorLogins": [],
+  "lastSeenCommentId": 0,
+  "batchSize": 3,
+  "plan": [],
+  "batches": [],
+  "log": [
+    {
+      "at": "2026-08-02T12:30:28.324Z",
+      "event": "reset"
+    }
+  ]
+}
