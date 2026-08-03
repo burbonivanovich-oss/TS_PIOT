@@ -1,11 +1,11 @@
 ---
-description: Демонстрация полного цикла подготовки статьи (research → writer → seo → social) на примере одной темы.
+description: Демонстрация полного цикла подготовки статьи (research → writer → seo → рерайт под соцканалы) на примере одной темы.
 argument-hint: [quick|full]
 ---
 
 # /demo-automation — демонстрация пайплайна
 
-Прогоняет на демо-теме все четыре агента подряд: `research-specialist`,
+Прогоняет на демо-теме четырёх агентов подряд: `research-specialist`,
 `content-writer`, `seo-optimizer`, `social-media-manager`. Используется
 как калибровка перед массовой работой.
 
@@ -21,16 +21,16 @@ argument-hint: [quick|full]
 «Маркировка пива в розничном магазине: что нужно сделать к началу сезона».
 Тема выбрана потому, что:
 
-- покрывает все три кластера сайта (ТС ПИоТ, маркировка, законодательство);
+- покрывает все три тематических кластера (ТС ПИоТ, маркировка, законодательство);
 - имеет понятный целевой запрос («маркировка пива розница»);
 - богата на источники (постановления, разъяснения ЦРПТ, кейсы).
 
 ## Что должно получиться
 
 ```
-.claude/research/YYYY-MM-DD-markirovka-piva-brief.md   # бриф
+.claude/research/YYYY-MM-DD-markirovka-piva-brief.md   # бриф (gitignore)
 src/content/blog/YYYY-MM-DD-markirovka-piva.md         # статья (draft: true)
-.claude/social/YYYY-MM-DD-markirovka-piva.md           # посты для каналов
+.claude/social/YYYY-MM-DD-markirovka-piva.md           # рерайт под каналы (gitignore)
 ```
 
 Плюс отчёт `seo-optimizer` в чате.

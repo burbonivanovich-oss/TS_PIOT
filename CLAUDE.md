@@ -36,8 +36,8 @@
 | Файл | Что внутри |
 |---|---|
 | **`docs/operations.md`** | Карта подсистем, ритуалы, что делать когда что-то горит. Запустить `health-check.mjs` — единый отчёт состояния |
-| **`docs/content-rules.md`** | Правила контента, frontmatter, SEO, стиль речи, паразиты, соцпосты |
-| **`docs/tools.md`** | Инструментарий QA (factcheck, /blog), OpenRouter, скрипты, технические особенности |
+| **`docs/content-rules.md`** | Правила контента, frontmatter, стиль речи, паразиты, запрещённые слова |
+| **`docs/tools.md`** | Инструменты QA: factcheck, check-ai, оценка статьи, скрипты |
 | **`docs/editorial-cycle.md`** | Автоматический цикл с редактором-человеком: рутины A/B/C, машина состояний, рабочее место редактора в Google Drive (таблица + доки) |
 | **`docs/SECRETS.md`** | Все секреты GitHub: что есть, как получить, как обновлять |
 | **`docs/google-api-setup.md`** | Подключение Google API под цикл: Sheets API, скоупы, переполучение refresh_token, разбор ошибок |
@@ -67,7 +67,6 @@ src/
 │   ├── pillars/                # опорные материалы кластеров
 │   ├── glossary/               # <term>.md — термины словаря
 │   └── wiki/                   # research, контент-планы, заметки
-│       └── social/             # черновики под соцканалы
 └── data/
     ├── editorial-cycle.json    # состояние цикла (только через cycle-state.mjs)
     ├── editorial-plan.json     # план тем со статусами
@@ -83,18 +82,19 @@ CPA-баннеры, — из модуля удалено вместе с Astro-�
 1. **Тема** — из контент-плана (`src/content/wiki/content-plan-2026.md`)
    или из weekly Wordstat diff через `/find-topics` (NEW/RISING фразы
    за неделю; см. `docs/wordstat.md`).
-2. **`/new-post "<тема>"`** — пайплайн с агентом research → writer →
-   seo-optimizer → social-media-manager. Все четыре шага за один
-   запрос.
+2. **`/new-post "<тема>"`** — пайплайн research → writer →
+   seo-optimizer за один запрос. Полный цикл со шлюзами —
+   `/create-article`. Рерайт под соцканалы (Telegram/VK/Дзен/Email) —
+   агент `social-media-manager`, по запросу.
 3. Статья сохраняется как `src/content/blog/YYYY-MM-DD-slug.md` с
-   `draft: true`. Соц-черновики — `src/content/wiki/social/`.
+   `draft: true`.
 4. **`/factcheck <slug>`** — извлекает даты, штрафы, ст. КоАП,
    ссылки на НПА, сверяет с первоисточниками. Решения по
    `docs/editorial-policy.md`. После проверки — маркер
    `.claude/factchecked/<slug>`. Подробности — `docs/tools.md`.
 5. **`/analyze-article <slug>`** — оценка 0–100. Блокер если < 70 /
    маркер старше 180 дней / NPA-audit упал.
-6. После успеха — `draft: false`, `status: ready` в соцпостах.
+6. После успеха черновик готов к передаче редактору.
 7. Готовый текст уходит редактору в Google Doc. Дальше — вычитка и
    приёмка человеком, см. `docs/editorial-cycle.md`.
 

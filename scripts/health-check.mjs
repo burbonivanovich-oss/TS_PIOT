@@ -36,7 +36,7 @@ function ok(name, detail = '')    { checks.push({ status: 'ok',    name, detail 
 function warn(name, detail = '')  { checks.push({ status: 'warn',  name, detail }); }
 function fail(name, detail = '')  { checks.push({ status: 'fail',  name, detail }); }
 
-// ─── 1. Контент: блог и соцпосты ─────────────────────────────────────────────
+// ─── 1. Контент: блог ─────────────────────────────────────────────
 const blogDir = join(ROOT, 'src', 'content', 'blog');
 const blogFiles = readdirSync(blogDir).filter(f => /\.(md|mdx)$/.test(f));
 const today = new Date();
@@ -59,16 +59,6 @@ if (future > 0) warn('Блог: статьи с будущим pubDate', `${futu
 if (noFactcheck > 0) warn('Блог: без маркера factchecked', `${noFactcheck}/${blogFiles.length}`);
 else ok('Блог: все статьи фактчекнуты', `${blogFiles.length}`);
 
-// Соцпосты
-const wikiSocialDir = join(ROOT, 'src', 'content', 'wiki', 'social');
-const contentSocialDir = join(ROOT, 'src', 'content', 'social');
-const wikiSocial = existsSync(wikiSocialDir) ? readdirSync(wikiSocialDir).filter(f => /\.(md|mdx)$/.test(f)).map(f => f.replace(/\.(md|mdx)$/, '')) : [];
-const contentSocial = existsSync(contentSocialDir) ? readdirSync(contentSocialDir).filter(f => /\.(md|mdx)$/.test(f)).map(f => f.replace(/\.(md|mdx)$/, '').replace(/-social$/, '')) : [];
-const covered = new Set([...wikiSocial, ...contentSocial]);
-const missingSocial = [...slugs].filter(s => !covered.has(s));
-if (missingSocial.length === 0) ok('Соцпосты: покрытие 100%', '');
-else if (missingSocial.length < blogFiles.length * 0.1) warn('Соцпосты: пропуски', `${missingSocial.length}/${blogFiles.length}`);
-else fail('Соцпосты: большие пробелы', `${missingSocial.length}/${blogFiles.length} без черновиков`);
 
 // ─── 2. Workflows ────────────────────────────────────────────────────────────
 const wfDir = join(ROOT, '.github', 'workflows');

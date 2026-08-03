@@ -244,9 +244,10 @@ screen и переполучить refresh_token. Документы будут 
 service-account email не нужно. Подробнее — `docs/SECRETS.md`
 раздел «Обходной путь через OAuth refresh_token».
 
-**Использование:** `scripts/social-to-docs.mjs` + workflow
-`social-to-docs.yml`. Push в `src/content/wiki/social/**` →
-автоматически выгружает все черновики со `status: ready`.
+**Использование:** `scripts/drive-sync.mjs` — та же аутентификация
+(сервисный аккаунт + откат на OAuth), используется мостом в Google Drive
+для редакционного цикла: таблица плана и доки статей. Подробности —
+`docs/editorial-cycle.md`, `docs/google-api-setup.md`.
 
 **Идемпотентно:** повторный запуск находит документ с тем же
 именем в папке и обновляет содержимое, не создаёт дубль.

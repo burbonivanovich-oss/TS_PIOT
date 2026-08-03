@@ -24,8 +24,9 @@
  *   set-cells    --sheet-id <id> --updates '[{"range":"J5","value":"на вычитке"}]'
  *   check                                          диагностика доступа
  *
- * Аутентификация — та же, что в social-to-docs.mjs: сервисный аккаунт
- * GOOGLE_DOCS_KEY, с откатом на OAuth refresh_token при storageQuotaExceeded.
+ * Аутентификация: сервисный аккаунт GOOGLE_DOCS_KEY, с откатом на OAuth
+ * refresh_token при storageQuotaExceeded (у сервисного аккаунта нет своей
+ * квоты Drive).
  *
  * Окружение:
  *   GOOGLE_DOCS_KEY        сервисный аккаунт (JSON или base64)
@@ -33,9 +34,8 @@
  *   GSC_CLIENT_ID / GSC_CLIENT_SECRET / GSC_REFRESH_TOKEN — запасной OAuth
  *   DRY_RUN=1              печатать план запросов и выйти
  *
- * ВАЖНО: в проекте Google Cloud должен быть включён Sheets API — Drive и
- * Docs уже включены под social-to-docs, Sheets ещё нет. Прав достаточно
- * одного скоупа drive.file. Проверить всё разом: `check`.
+ * ВАЖНО: в проекте Google Cloud должны быть включены Drive, Docs и Sheets
+ * API. Прав достаточно одного скоупа drive.file. Проверить всё разом: `check`.
  * Инструкция по настройке — docs/google-api-setup.md
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
