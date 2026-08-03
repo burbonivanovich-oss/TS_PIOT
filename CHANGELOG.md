@@ -1,56 +1,5 @@
 # Changelog
 
-## 2026-05-19 (часть 4) — План новых контент-форматов (#33)
-
-Стратегическая сессия: обсуждение #33 «Освежить кластеры» свело
-25 идей в шорт-лист и план из 3 спринтов.
-
-### Главное
-
-**F26 — интерактивные блоки в статьях как сквозной слой**, не
-отдельный формат. Вдохновение:
-[notdotteam.github.io/trust](https://notdotteam.github.io/trust),
-[molyanov.ru/blog/markov-chains](https://molyanov.ru/blog/markov-chains).
-
-Технически — Astro Islands внутри MDX: `<UsnCalc client:load />`.
-Каждый компонент 50–150 строк в `src/components/interactive/`,
-с аналитикой через Метрику-цели.
-
-### Выбранные форматы
-
-F2 (сценарные гайды), F13 (журнал изменений), F16 (квизы),
-F22 (Lottie-анимация), F26 (интерактивы — сквозной слой).
-
-### 3 спринта (~112 часов, ~2 месяца)
-
-- **Спринт A (2 недели):** `/zakon-2026/` трекер + 3 интерактива
-  в существующих статьях (фильтр-таймлайн, калькулятор НДС/УСН,
-  слайдер штрафа).
-- **Спринт B (3 недели):** 2 сценарных гайда + квиз ТС ПИоТ + 3
-  интерактива (чек-бокс-симулятор, ROI ИП vs ООО, маршрутизация
-  ответов).
-- **Спринт C (3 недели):** Lottie дата-флоу + пошаговый симулятор
-  ТС ПИоТ + drag-and-drop цепочка ЭДО.
-
-### Артефакты
-
-- `docs/content-formats-roadmap.md` — полный план, метрики,
-  открытые вопросы
-- `src/content/wiki/backlog.md` — #33 переведён `idea` → `planned`
-  с разбивкой на #65 (Спринт A), #66 (B), #67 (C)
-
-### Открытые вопросы перед Спринтом A
-
-1. Кластер для пилота (ts-piot или markirovka)
-2. `/instrumenty/` как отдельная категория?
-3. Дизайн интерактивов (наши токены или дизайнер)
-4. Аналитика интерактивов (вручную через Метрика-UI)
-5. Lottie готовая (~$30) или с нуля
-
-Решаем перед стартом Спринта A в следующей сессии.
-
----
-
 ## 2026-05-19 (часть 3) — Пакет D «Полировка»
 
 Пять задач из P2 + дополнительные фиксы.
@@ -82,14 +31,8 @@ Inventory: 2452 claims (было ~2390).
   ждём второго прогона `wordstat-weekly.yml`.
 * **#52** ревизия `seeds.json` — blocked, ждём 2–3 прогонов.
 
-### Также — задачи Pagefind/Pillar/Trends закрытые ранее в этот день
+### Также — #47 закрыт в этот день
 
-* **#14** фильтры по категории в Pagefind (data-pagefind-filter
-  на article/pillar/glossary, showFilters в search.astro).
-* **#15** pillar в индексе. **Найден баг:** тело pillar-страниц
-  вообще не рендерилось на сайте — 46 ссылок из #24 были невидимы.
-  Чинено через `<PillarContent />` в `category/[category].astro`.
-* **#17** TOC улучшен: условие `≥ 4 H2/H3` ИЛИ `wordCount ≥ 2000`.
 * **#47** `/monitor-competitors` — trend detector по агрегаторам
   с журналом в `src/content/wiki/competitor-trends.md`.
 
@@ -108,7 +51,7 @@ Inventory: 2452 claims (было ~2390).
   E-E-A-T+factcheck (20), контент-граф (20), техника (20), AI Citation
   (бонус 10). `blocker: true` если балл < 70 / маркер фактчека старше
   180 дней / `audit-npa-references --strict` или `check-blog-links` упали.
-  `/release-article` Шаг 1 теперь обязательно вызывает gate, не обходить.
+  Гейт обязателен перед передачей статьи редактору, не обходить.
 * **#57 Pre-commit hook** против `draft: false` без factcheck-маркера.
   `scripts/git-hooks/{pre-commit-factcheck-guard.mjs, pre-commit, install.sh}`.
   Установлен через `git config core.hooksPath` — без husky-зависимости.
@@ -124,13 +67,8 @@ Inventory: 2452 claims (было ~2390).
   персданные, маркетплейсы) с типовыми паттернами ошибок и реальными
   номерами норм. Тайминг 16 статей за ~15 минут — ×6 ускорение.
 
-### Дистрибуция и мониторинг
+### Мониторинг
 
-* **#19 Open Graph для Telegram.** Дефолт был `/og-default.svg` —
-  Telegram игнорирует SVG. Создан `public/og-default.png` 1200×630.
-  В `BaseHead.astro` дефолт PNG + добавлены отсутствующие мета-теги
-  `og:image:secure_url`, `og:image:type`, `og:image:alt`. Чек-лист и
-  инструкция проверки через @WebpageBot — `docs/og-telegram.md`.
 * **#45 `--window` в `/monitor-rss`.** Жёсткое 14 дней — мало для
   опорных статей с дедлайном через 3 месяца. Аргумент
   `--window 14d|30d|60d|90d`.
@@ -148,7 +86,6 @@ Inventory: 2452 claims (было ~2390).
 .claude/commands/
   analyze-article.md       (новый)
   factcheck-batch.md       (новый)
-  release-article.md       (gate в Шаге 1)
   monitor-rss.md           (--window, --type, новый формат отчёта)
   maintain-content.md      (Шаги 1а/1в — чтение maintain-queue)
 
@@ -157,10 +94,7 @@ scripts/git-hooks/
   pre-commit-factcheck-guard.mjs  (новый)
   install.sh               (новый)
 
-src/components/BaseHead.astro          (PNG default + новые OG-теги)
 src/content/wiki/maintain-queue.md     (новый)
-public/og-default.png                  (новый)
-docs/og-telegram.md                    (новый)
 ```
 
 ### Что теперь нельзя сделать незаметно
@@ -171,15 +105,13 @@ docs/og-telegram.md                    (новый)
   → `/analyze-article` поставит blocker.
 * Опубликовать статью с баллом < 70 без явного решения.
   → Тот же blocker.
-* Зашерить ссылку в Telegram без preview-картинки.
-  → PNG-дефолт работает на всех страницах.
 
 ---
 
 ## 2026-05-19 — Backfill factcheck до 100% + жёсткий gate против фейковых НПА
 
 29 коммитов на ветке `claude/review-backlog-1oz82`. Подробный разбор —
-[`docs/session-2026-05-19-postmortem.md`](./docs/session-2026-05-19-postmortem.md).
+[`docs/archive/sessions/session-2026-05-19-postmortem.md`](./docs/archive/sessions/session-2026-05-19-postmortem.md).
 
 ### Контент
 
@@ -191,8 +123,8 @@ docs/og-telegram.md                    (новый)
   См. [`docs/factcheck-history.md`](./docs/factcheck-history.md).
 * **reviewDate проставлен в 67 статьях** (pubDate + 90 дней, синхрон с
   quarterly re-factcheck).
-* **Pillar-страницы ссылаются на 46 weak-статей** (1 входящая → 2+).
-  До правок ни один pillar не содержал ссылок на блог.
+* **Опорные материалы (pillar) ссылаются на 46 weak-статей** (1 входящая → 2+).
+  До правок ни один опорный материал не содержал ссылок на блог.
 * **0 сирот** в linkgraph (61 → 0): часть закрылась после фикса битых
   ссылок (#60), остальное — точечные вставки в донорах.
 
@@ -213,8 +145,6 @@ docs/og-telegram.md                    (новый)
   до запуска `/factcheck`.
 * **`sources.json` v2** с whitelist'ом: 14 ФЗ + 11 ПП + 5 Приказов +
   1 Распоряжение + ст. КоАП/УК.
-* **Embeddings (Jina v3 multilingual) + similarity** — ежемесячный
-  workflow `.github/workflows/embeddings-monthly.yml`.
 * **`/maintain-content` Шаг 2а-bis** — трендовый анализ Wordstat
   (формула `recent3 / baseline6`, пороги ≥ 2 → «обновить», ≤ 0.5 → «архив»).
 * **`/maintain-content` Шаг 1** — re-factcheck по маркеру старше 90 дней
@@ -228,26 +158,22 @@ docs/og-telegram.md                    (новый)
 
 * **196 битых внутренних ссылок** в 59 файлах исправлены через
   `scripts/audit/fix-broken-blog-links.mjs` (формат `/blog/<slug-без-даты>/`
-  не соответствует `post.id` Astro glob loader). Регрессионный чек —
-  `scripts/audit/check-blog-links.mjs`. GitHub Issue #30.
+  не совпадал с реальным идентификатором записи блога). Регрессионный
+  чек — `scripts/audit/check-blog-links.mjs`. GitHub Issue #30.
 * **Новые скрипты:**
-  * `scripts/audit/embed-articles.mjs`
-  * `scripts/audit/similarity.mjs`
   * `scripts/audit/fix-broken-blog-links.mjs`
   * `scripts/audit/check-blog-links.mjs`
   * `scripts/audit/set-review-dates.mjs`
   * `scripts/factcheck/audit-npa-references.mjs`
-* **`docs/architecture.md`** обновлён: новые скрипты, источники данных,
-  раздел про внутренние ссылки.
 * **Новые docs:** `docs/factcheck-history.md`,
-  `docs/session-2026-05-19-postmortem.md`.
+  `docs/archive/sessions/session-2026-05-19-postmortem.md`.
 
 ### GitHub Issues
 
 * **Закрыты:** [#30](https://github.com/burbonivanovich-oss/TS_PIOT/issues/30)
   (битые ссылки), [#31](https://github.com/burbonivanovich-oss/TS_PIOT/issues/31)
   (research-specialist gate).
-* **Локальный backlog → done:** #22, #24, #41, #42, #44, #48, #54,
+* **Локальный backlog → done:** #22, #24, #41, #44, #48, #54,
   #58/#39, #59, #60, #61.
 
 ### Метрики до / после
@@ -271,3 +197,15 @@ docs/og-telegram.md                    (новый)
   неправильном контексте). См. `docs/factcheck-history.md` → «Открытые риски».
 * Pre-commit hook против `draft: false` без factcheck-маркера (#57) —
   гигиена дисциплины 100% покрытия.
+
+---
+
+## Что убрано из истории 2026-08-03
+
+При сужении проекта до модуля-помощника редактора (без сайта, сборки,
+монетизации, аналитики трафика) из этого changelog убраны записи,
+целиком описывавшие Astro-сайт: план интерактивных контент-форматов
+(флагман-симулятор, Lottie-анимации, drag-and-drop, #33), Pagefind,
+TOC, Open Graph для Telegram через `BaseHead.astro`. Позже отдельно
+убран embeddings/similarity-пайплайн (JINA/OPENAI ключи фактически не
+использовались). Полные записи — в git-истории файла.

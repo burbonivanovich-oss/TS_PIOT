@@ -11,6 +11,9 @@
   в `/maintain-content` (quarterly cycle).
 * [#42](https://github.com/burbonivanovich-oss/TS_PIOT/issues) embeddings
   через Jina v3 multilingual + `similarity.mjs`. Monthly workflow.
+  *(Отменено 2026-08-03: пайплайн фактически не использовался, убран
+  вместе с ключами JINA/OPENAI — лексическая проверка остаётся
+  единственным уровнем каннибализации.)*
 * [#44](https://github.com/burbonivanovich-oss/TS_PIOT/issues) пороги
   дублей в `/monitor-rss` — три зоны (≥ 0.9, 0.6–0.9, < 0.6).
 * [#48](https://github.com/burbonivanovich-oss/TS_PIOT/issues) автоперелинковка
@@ -105,13 +108,11 @@
 
 | Скрипт | Назначение |
 |---|---|
-| `scripts/audit/embed-articles.mjs` | Семантические embeddings (Jina v3 / OpenAI) |
-| `scripts/audit/similarity.mjs` | Cosine similarity между статьями |
 | `scripts/audit/fix-broken-blog-links.mjs` | Чинит `/blog/<slug-без-даты>/` ссылки |
 | `scripts/audit/check-blog-links.mjs` | CI-чек битых ссылок |
 | `scripts/audit/set-review-dates.mjs` | Массовая простановка `reviewDate = pubDate + 90` |
 | `scripts/factcheck/audit-npa-references.mjs` | Регрессионный аудит номеров НПА против whitelist |
-| `.github/workflows/embeddings-monthly.yml` | Ежемесячное обновление similarity |
+| ~~`scripts/audit/embed-articles.mjs`~~ / ~~`similarity.mjs`~~ / ~~`embeddings-monthly.yml`~~ | *Отменено 2026-08-03 — пайплайн не использовался фактически* |
 
 В `extract-claims.mjs` добавлены типы: NPA_UK, NPA_NK, NPA_PP_NUMBERED, NPA_PRIKAZ.
 
@@ -143,13 +144,12 @@
   числа словами, контекстные даты.
 
 ### Стратегическое
-* **Аналитика (#6–9)** — без позиций GSC/Метрика приоритизация аудита
-  идёт вслепую. С данными можно вычислять «потерянные позиции после
-  ошибок» и фокусироваться на статьях с трафиком.
-* **`/blog analyze` gate (#49)** перед `/release-article` — 6 категорий
-  оценки как блокер.
-* **Стратегия новых форматов (#33)** — после нормализации базы можно
-  думать про интерактивы, сценарные гайды, отстройку от конкурентов.
+* **`/blog analyze` gate (#49)** перед передачей статьи редактору —
+  6 категорий оценки как блокер. *(Реализовано как `/analyze-article`,
+  gate теперь стоит перед `/cycle-batch`.)*
+
+*(Пункты про аналитику трафика сайта (#6–9) и новые интерактивные
+форматы (#33) убраны 2026-08-03 — вне периметра модуля-помощника.)*
 
 ## Тайминг сессии
 
@@ -170,5 +170,4 @@ subagent dispatch.
 ссылаются на свои кластеры.
 
 Следующая фокус-сессия — закрыть P1-точечные (#57 pre-commit, семантика
-в audit-npa) и подключить аналитику (#6–9). После этого можно
-переходить к стратегическому слою — новым форматам контента (#33).
+в audit-npa).
