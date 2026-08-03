@@ -8,8 +8,6 @@ category: "zakonodatelstvo"
 relatedLinks:
   - label: "Глоссарий: УКЭП"
     url: "/slovar/#укэп"
-  - label: "Категория: Законодательство"
-    url: "/category/zakonodatelstvo/"
 ---
 
 Усиленная неквалифицированная электронная подпись — вид электронной подписи,

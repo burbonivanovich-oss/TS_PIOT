@@ -8,8 +8,6 @@ category: "markirovka"
 relatedLinks:
   - label: "Что такое Data Matrix"
     url: "/slovar/#data-matrix"
-  - label: "Категория: Маркировка"
-    url: "/category/markirovka/"
 ---
 
 Код маркировки — уникальный идентификатор товарной единицы в системе «Честный

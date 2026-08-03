@@ -38,7 +38,9 @@ function fail(name, detail = '')  { checks.push({ status: 'fail',  name, detail 
 
 // ─── 1. Контент: блог ─────────────────────────────────────────────
 const blogDir = join(ROOT, 'src', 'content', 'blog');
-const blogFiles = readdirSync(blogDir).filter(f => /\.(md|mdx)$/.test(f));
+const blogFiles = existsSync(blogDir)
+	? readdirSync(blogDir).filter(f => /\.(md|mdx)$/.test(f))
+	: [];
 const today = new Date();
 
 let drafts = 0, future = 0, noFactcheck = 0;
@@ -117,8 +119,8 @@ function analyzeContentPlan() {
 		return;
 	}
 	const planText = readFileSync(planPath, 'utf8');
-	// Строки таблиц: | slug | title | P0/P1/P2 | cpa | query | status | blocker |
-	const rowRe = /^\|\s*([a-z0-9][a-z0-9-]+)\s*\|\s*([^|]+?)\s*\|\s*(P[012])\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*(done|draft|planned|deprioritized)\s*\|\s*([^|]*?)\s*\|$/gm;
+	// Строки таблиц: | slug | title | P0/P1/P2 | query | status | blocker |
+	const rowRe = /^\|\s*([a-z0-9][a-z0-9-]+)\s*\|\s*([^|]+?)\s*\|\s*(P[012])\s*\|\s*([^|]+?)\s*\|\s*(done|draft|planned|deprioritized)\s*\|\s*([^|]*?)\s*\|$/gm;
 
 	const themes = [];
 	let m;
@@ -127,10 +129,9 @@ function analyzeContentPlan() {
 			slug: m[1],
 			title: m[2],
 			priority: m[3],
-			cpa: m[4].trim(),
-			query: m[5].trim(),
-			status: m[6],
-			blocker: m[7].trim(),
+			query: m[4].trim(),
+			status: m[5],
+			blocker: m[6].trim(),
 		});
 	}
 

@@ -8,8 +8,6 @@ category: "markirovka"
 relatedLinks:
   - label: "Глоссарий: ЦРПТ"
     url: "/slovar/#црпт"
-  - label: "Категория: Маркировка"
-    url: "/category/markirovka/"
 ---
 
 Личный кабинет системы «Честный знак» — веб-портал оператора ЦРПТ по адресу

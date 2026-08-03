@@ -28,24 +28,22 @@ for (const line of lines) {
     continue;
   }
 
-  // Строка таблицы вида | slug | title | priority | cpa | keyword | status | blocker |
-  const tableMatch = line.match(/^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*(P[012])\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*(planned|done|draft|deprioritized)\s*\|\s*([^|]*?)\s*\|/);
+  // Строка таблицы вида | slug | title | priority | keyword | status | blocker |
+  const tableMatch = line.match(/^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*(P[012])\s*\|\s*([^|]+?)\s*\|\s*(planned|done|draft|deprioritized)\s*\|\s*([^|]*?)\s*\|/);
   if (!tableMatch) continue;
 
-  const [, slug, title, priority, cpa, targetKeyword, status, blocker] = tableMatch;
+  const [, slug, title, priority, targetKeyword, status, blocker] = tableMatch;
 
   // Пропускаем заголовок таблицы
   if (slug.trim() === 'Slug' || slug.trim() === '---') continue;
 
   const cleanSlug = slug.trim();
-  const cleanCpa = cpa.trim();
   const cleanBlocker = blocker.trim() === '—' ? null : blocker.trim();
 
   items.push({
     slug: cleanSlug,
     title: title.trim(),
     priority: priority.trim(),
-    cpa: cleanCpa,
     targetKeyword: targetKeyword.trim(),
     status: status.trim(),
     blocker: cleanBlocker,

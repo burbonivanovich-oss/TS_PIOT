@@ -5,9 +5,6 @@ aliases:
   - "глобальный номер торговой единицы"
 summary: "Международный цифровой идентификатор товара в системе GS1, входящий в состав кода маркировки Data Matrix."
 category: "markirovka"
-relatedLinks:
-  - label: "Категория: Маркировка"
-    url: "/category/markirovka/"
 ---
 
 Global Trade Item Number — глобальный номер торговой единицы, разработанный

@@ -9,8 +9,6 @@ category: "markirovka"
 relatedLinks:
   - label: "Глоссарий: GTIN"
     url: "/slovar/#gtin"
-  - label: "Категория: Маркировка"
-    url: "/category/markirovka/"
 ---
 
 GS1 Russia (ЮНИСКАН/ГС1 РУС) — аккредитованное российское представительство

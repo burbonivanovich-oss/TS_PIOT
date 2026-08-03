@@ -8,8 +8,6 @@ category: "markirovka"
 relatedLinks:
   - label: "Калькулятор штрафов"
     url: "/kalkulyator-shtrafov/"
-  - label: "Категория: Маркировка"
-    url: "/category/markirovka/"
 ---
 
 ФГИС «Меркурий» — государственная информационная система Россельхознадзора для

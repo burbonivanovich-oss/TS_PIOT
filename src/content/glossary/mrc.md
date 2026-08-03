@@ -8,8 +8,6 @@ category: "zakonodatelstvo"
 relatedLinks:
   - label: "Калькулятор штрафов"
     url: "/kalkulyator-shtrafov/"
-  - label: "Категория: Законодательство"
-    url: "/category/zakonodatelstvo/"
 ---
 
 Минимальная розничная цена — установленная государством нижняя граница цены,

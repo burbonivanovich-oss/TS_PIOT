@@ -8,8 +8,6 @@ category: "markirovka"
 relatedLinks:
   - label: "Глоссарий: Честный знак"
     url: "/slovar/#честный-знак"
-  - label: "Категория: Маркировка"
-    url: "/category/markirovka/"
 ---
 
 Центр развития перспективных технологий — оператор национальной системы

@@ -8,8 +8,6 @@ category: "zakonodatelstvo"
 relatedLinks:
   - label: "Глоссарий: НДС"
     url: "/slovar/#ндс"
-  - label: "Категория: Законодательство"
-    url: "/category/zakonodatelstvo/"
 ---
 
 Общая система налогообложения применяется автоматически, если организация или

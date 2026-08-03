@@ -8,8 +8,6 @@ category: "zakonodatelstvo"
 relatedLinks:
   - label: "Глоссарий: СБП"
     url: "/slovar/#сбп"
-  - label: "Категория: Законодательство"
-    url: "/category/zakonodatelstvo/"
 ---
 
 Торговый эквайринг — услуга банка-эквайера, предоставляющая торговой точке
