@@ -102,8 +102,6 @@
 | `audit/check-blog-links.mjs` | Битые внутренние ссылки |
 | `audit/fix-broken-blog-links.mjs` | Автопочинка битых внутренних ссылок |
 | `audit/set-review-dates.mjs` | Проставление `reviewDate` в frontmatter |
-| `audit/embed-articles.mjs` | Embeddings статей (Jina v3 / OpenAI), workflow `embeddings-monthly.yml` |
-| `audit/similarity.mjs` | Cosine similarity → дубли (≥ 0.92) и близкие пары (≥ 0.80) |
 
 Запуск: `node scripts/<имя>.mjs`. Внешних зависимостей нет — только
 встроенные модули Node. Скрипты с сетевыми вызовами поддерживают

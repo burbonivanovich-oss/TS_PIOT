@@ -65,14 +65,13 @@ scripts/
   check-seo.mjs             SEO-качество текста
   check-stale-content.mjs   поиск устаревших статей
   health-check.mjs          сводка состояния модуля
-  audit/                    перелинковка, similarity, даты ревизии
+  audit/                    перелинковка, даты ревизии
   factcheck/                извлечение claims, аудит ссылок на НПА
   wordstat/                 частотность ключей
   git-hooks/                pre-commit: гейт факт-чека
 
 .github/workflows/
   wordstat-weekly, wordstat-kontur   частотность и тренды
-  embeddings-monthly                 similarity между статьями
 ```
 
 ## Жизненный цикл статьи
@@ -116,7 +115,6 @@ Pre-commit гейт: **factcheck-guard** — статья с `draft: false` об
 | Подсистема | Workflow | Документация |
 |---|---|---|
 | Wordstat: тренды и частотность | `wordstat-weekly.yml`, `wordstat-kontur.yml` | `docs/wordstat.md` |
-| Similarity между статьями | `embeddings-monthly.yml` | `docs/tools.md` |
 
 Секреты GitHub — `docs/SECRETS.md` (что есть, как получить, сроки).
 

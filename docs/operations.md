@@ -45,7 +45,6 @@ API, запись в папку цикла. Настройка — `docs/google-
 | Подсистема | Где запускается | Документация |
 |---|---|---|
 | Wordstat: точечный + discovery | `wordstat-weekly.yml`, `wordstat-kontur.yml` | `docs/wordstat.md` |
-| Similarity между статьями | `embeddings-monthly.yml`, cron 1 числа | `docs/tools.md` |
 | Редакционный цикл (план → батч → приёмка) | `/cycle-plan`, `/cycle-listen`, `/cycle-batch` | `docs/editorial-cycle.md` |
 
 ## Карта команд (slash-команды)
