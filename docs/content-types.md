@@ -21,7 +21,6 @@
    categories:
      - ts-piot   # или markirovka, zakonodatelstvo, kkt, egais
    draft: false
-   cpa: "chestny-znak"         # необязательно — id баннера из src/data/cpa-banners.ts
    seo:
      keywords:
        - целевой ключ
@@ -41,8 +40,7 @@
 Баннер выбирается так:
 
 1. Если в frontmatter есть `cpa: "<id>"` — используется этот баннер.
-2. Иначе — баннер по умолчанию для категории статьи (из `CATEGORY_DEFAULT_CPA`
-   в `src/data/cpa-banners.ts`).
+2. Иначе — баннер по умолчанию для категории статьи (из `CATEGORY_DEFAULT_CPA`).
 3. Запасной вариант — `'default-ts-piot'`.
 
 Доступные id баннеров:
@@ -54,7 +52,6 @@
 | `default-markirovka` | Проверка категорий маркировки |
 | `default-zakonodatelstvo` | Калькулятор штрафов |
 
-Чтобы добавить новый баннер — добавьте запись в `CPA_BANNERS` в `src/data/cpa-banners.ts`.
 
 ### FAQ в статье
 
@@ -195,40 +192,6 @@ faq:
 Если файла pillar нет — шаблон работает в fallback-режиме: показывает hero
 из CATEGORIES и сразу список постов.
 
-## Сценарий калькулятора штрафов
-
-Файл `src/data/penalties.ts`, массив `SCENARIOS`. Это единственный источник:
-страница `/kalkulyator-shtrafov/` рендерит form, список и FAQ из этого массива.
-
-```ts
-{
-  id: 'unique-id',
-  label: 'Что произошло (для select)',
-  short: 'Краткое описание (для блока "Все учтённые сценарии")',
-  article: 'ст. X.Y КоАП РФ',
-  calc: {
-    type: 'fixed',
-    ip:    { min: 5000, max: 15000 },
-    legal: { min: 50000, max: 300000 },
-  },
-  // или для процентного штрафа:
-  // calc: {
-  //   type: 'percent',
-  //   ip:    { minPct: 25, maxPct: 50, floor: 10000 },
-  //   legal: { minPct: 75, maxPct: 100, floor: 30000 },
-  // },
-  confiscation: true,        // показывает плашку «+ конфискация»
-  note: 'Дополнительное пояснение под результатом.',
-}
-```
-
-При обновлении сумм:
-
-1. Сверьте с действующей редакцией КоАП на pravo.gov.ru.
-2. Проверьте, не противоречите ли уже опубликованным постам:
-   `grep -nE '14\.5|15\.12' src/content/blog/`. Если расходитесь —
-   обновите соответствующие посты в одном коммите с калькулятором.
-
 ## Категория (новая)
 
 Если действительно нужна **шестая** категория (а не сателлит существующей — уже есть 5: ts-piot, markirovka, zakonodatelstvo, kkt, egais):
@@ -245,7 +208,6 @@ faq:
    (поле `category` пока не используется напрямую, но в `glossary`
    есть `category`-enum) и `glossary`.
 3. Создайте `src/content/pillars/new-slug.md` с базовым intro/keyDates/FAQ.
-4. Добавьте дефолтный CPA-баннер в `src/data/cpa-banners.ts` и в `CATEGORY_DEFAULT_CPA`.
 5. По желанию — добавьте пункт в `NAV_LINKS`.
 6. После сборки появится `/category/new-slug/`.
 

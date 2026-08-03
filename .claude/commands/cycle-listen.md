@@ -154,7 +154,7 @@ node scripts/drive-sync.mjs export-doc --doc-id <id> --out /tmp/<slug>.md
    categories, seo.keywords, `draft: true`).
 2. Сохранить в `src/content/blog/YYYY-MM-DD-<slug>.md`.
 3. Прогнать `node scripts/check-ai-markers.mjs` и
-   `node scripts/audit-npa-references.mjs --strict` — редактор мог
+   `node scripts/factcheck/audit-npa-references.mjs --strict` — редактор мог
    поправить формулировки так, что поехали ссылки на НПА.
 4. `/analyze-article <slug>` — если < 70, не блокировать выпуск (решение
    редактора выше оценки), но отметить в отчёте.

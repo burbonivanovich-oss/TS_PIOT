@@ -56,7 +56,6 @@ seo:
   keywords:
     - целевой ключ 1
     - целевой ключ 2
-cpa: 'kontur-ofd'           # опционально, id из src/data/cpa-banners.ts
 heroImage: "/images/hero/SLUG.jpg"  # опционально, иначе Satori
 ---
 ```
@@ -149,7 +148,6 @@ import CpaCallout from '../../components/CpaCallout.astro';
 в одиночку времени нет — есть готовое решение». Без рекламных эпитетов.
 
 **Дисклеймер 38-ФЗ.** Компонент сам рисует «Реклама · erid: …» под
-блоком, если у баннера есть erid в `src/data/ord-erids.json`. Вручную
 ничего не пишем.
 
 **Контроль:** в подвале статьи показывается ещё один CPA автоматически

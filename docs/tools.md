@@ -152,7 +152,7 @@ Satori поддерживает `backgroundImage: url(data:image/png;base64,...)
 2. Сохранить как `public/og-backgrounds/{ts-piot,markirovka,zakonodatelstvo}.jpg`.
 
 **Важно:** PNG ≥ 700 KB заставит Satori зависнуть. JPEG quality
-75–80 (< 20 KB). Скрипт компрессии: `node scripts/compress-og-backgrounds.mjs`.
+75–80 (< 20 KB).
 
 Подробности — `docs/images.md`.
 
@@ -174,7 +174,6 @@ Satori поддерживает `backgroundImage: url(data:image/png;base64,...)
 | `generate-og-backgrounds-gemini.mjs` | AI-фоны через Google Imagen/Gemini Image |
 | `generate-flagship-illustrations.mjs` | 8 иллюстраций для флагмана `/kak-rabotaet-ts-piot/` через OpenRouter |
 | `sharpen-heroes.mjs` | Постобработка hero: 2× upscale Lanczos3 + Unsharp mask + mozjpeg q88. Ручной запуск |
-| `compress-og-backgrounds.mjs` | PNG → JPEG 75–80 для Satori |
 | `wordstat/extract-keys.mjs` | Кандидаты из блога + контент-плана |
 | `wordstat/fetch.mjs` | /v1/dynamics + /v1/topRequests (контур A) |
 | `wordstat/discover.mjs` | Trend discovery: /v1/topRequests на 162 seed-а (контур B) |
@@ -189,9 +188,7 @@ Satori поддерживает `backgroundImage: url(data:image/png;base64,...)
 | `analytics/fetch-metrika-traffic.mjs` | Метрика Stat API → просмотры/визиты/пользователи |
 | `analytics/fetch-webmaster.mjs` | Яндекс.Вебмастер API → SQI + топ запросов |
 | `analytics/merge.mjs` | GSC + Метрика + Вебмастер + frontmatter → `articles.json` для `/dashboard/` |
-| `ord-register.mjs`, `ord-bootstrap.mjs`, `ord-status.mjs` | ОРД Яндекса (рекламные креативы) |
 | `social-to-docs.mjs` | Выгружает соц-черновики из `src/content/wiki/social/` в Google Docs. Идемпотентно: повторный запуск обновляет документ |
-| `indexnow.mjs`, `google-index.mjs` | Уведомление поисковиков (Яндекс / Google) о новых страницах после деплоя |
 
 Запуск: `node scripts/<имя>.mjs`. Большинство скриптов запускается
 через GitHub Actions, не локально — ключи в Secrets. Локально —
@@ -255,7 +252,6 @@ Satori поддерживает `backgroundImage: url(data:image/png;base64,...)
 
 ### Калькулятор штрафов
 
-Данные сценариев — `src/data/penalties.ts`. Единственный источник
 истины: страница `/kalkulyator-shtrafov/` рендерит и список, и
 форму, и FAQ из этого массива.
 

@@ -27,7 +27,6 @@ node scripts/health-check.mjs
   404 в GSC).
 - **Метрика.** Сколько целей в `goals.json`. Лимит 200, при 180+
   — предупреждение.
-- **ОРД.** У всех креативов в `ord-config.json` есть erid?
 - **Hero-картинки.** WebP-версии есть для всех JPG?
 - **Документация.** На месте ли ключевые `docs/*.md`?
 
@@ -56,7 +55,6 @@ node scripts/health-check.mjs --strict
 | Цели Метрики | `metrika-sync-goals.yml`, push на goals.json | `docs/metrika.md` |
 | Индексация (IndexNow + Google) | `index-notify.yml`, после деплоя | `docs/analytics.md` |
 | Соцпосты → Google Docs | `social-to-docs.yml`, push на social/ | `docs/SECRETS.md` GOOGLE_DOCS_KEY |
-| ОРД-креативы | `ord-sync.yml`, push на ord-config.json | `src/content/wiki/cpa-products.md` |
 | Embeddings (similarity) | `embeddings-monthly.yml`, cron 1 числа | `docs/architecture.md` |
 
 ## Карта команд (slash-skills)

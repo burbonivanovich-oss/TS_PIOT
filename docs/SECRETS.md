@@ -17,11 +17,9 @@ Actions** репозитория. Этот документ — единый с�
 | `GSC_CLIENT_SECRET` | Google Cloud | бессрочный | fetch-gsc |
 | `GSC_REFRESH_TOKEN` | Google OAuth2 | бессрочный (test apps — 7 дней без верификации, но рефрешится) | fetch-gsc |
 | `GSC_SITE_URL` | строка | — | fetch-gsc |
-| `ORD_API_KEY` | Яндекс ОРД | по договору | ord-register, ord-bootstrap, ord-status |
 | `GEMINI_API_KEY` | Google AI Studio | бессрочный | OG-backgrounds через Imagen |
 | `JINA_API_KEY` | Jina AI | бессрочный | embeddings-monthly |
 | `OPENAI_API_KEY` | OpenAI | бессрочный | embeddings-monthly (опционально) |
-| `GOOGLE_INDEXING_KEY` | Google Cloud service account | бессрочный | Indexing API — уведомление Google о новых страницах |
 | `GOOGLE_DOCS_KEY` | Google Cloud service account | бессрочный | Drive + Docs API — выгрузка соцпостов в Google Docs |
 | `GOOGLE_DOCS_FOLDER_ID` | строка | — | ID папки Drive для соцпостов |
 | `GOOGLE_DOCS_FOLDER_ID` | строка | — | она же — корневая папка редакционного цикла |
@@ -38,7 +36,6 @@ Actions** репозитория. Этот документ — единый с�
 **По мере необходимости:**
 - `OPENROUTER_API_KEY` — если баланс кончился (платит OpenRouter)
 - `GEMINI_API_KEY` — если квота Google AI Studio превышена
-- `ORD_API_KEY` — при смене договора с Яндекс ОРД
 
 ## Как добавить секрет в GitHub
 
@@ -197,23 +194,6 @@ review).
 
 ---
 
-## ORD_API_KEY
-
-**Сервис:** Яндекс ОРД — Оператор Рекламных Данных. Регистрация
-рекламных креативов (erid-токены) согласно 38-ФЗ.
-
-**Получение:** через личный кабинет в Яндексе после заключения
-договора как Рекламораспространитель.
-
-**Использование:** `ord-register.mjs`, `ord-bootstrap.mjs`,
-`ord-status.mjs` — синхронизация `src/data/ord-config.json` с ОРД.
-
-**Workflow `ord-sync.yml`** имеет автотриггер на push к
-`src/data/ord-config.json` — добавил организацию или баннер в JSON,
-запушил → erid-токен прилетел.
-
----
-
 ## GEMINI_API_KEY
 
 **Сервис:** Google AI Studio (платный API напрямую к Imagen,
@@ -227,122 +207,6 @@ Imagen 4 (через прямой Google API, минуя OpenRouter — иног
 
 **Опциональный:** все картинки можно генерить через OpenRouter без
 GEMINI_API_KEY вообще.
-
----
-
-## GOOGLE_INDEXING_KEY
-
-**Сервис:** Google Indexing API — уведомляет Google о новых
-страницах для ускоренной индексации.
-
-**Формально API для:** JobPosting и BroadcastEvent schema.
-**Фактически:** работает для любых URL, но Google может ограничить
-квоту или игнорировать. Серая зона, используем «на свой риск».
-
-**Получение (15 минут, один раз):**
-
-1. [Google Cloud Console](https://console.cloud.google.com/) →
-   тот же проект, что для GSC (или новый).
-2. **APIs & Services → Library** → найти **Indexing API** → Enable.
-3. **APIs & Services → Credentials → Create credentials → Service account**:
-   - Name: `kontur-indexing`
-   - Role: можно без roles на этом шаге
-   - Create → перейти к созданному account → вкладка **Keys** →
-     **Add key → Create new key → JSON** → скачивается файл.
-4. Скопировать `client_email` из JSON. Это адрес вида
-   `kontur-indexing@project.iam.gserviceaccount.com`.
-5. [Search Console](https://search.google.com/search-console) →
-   ваш property → **Settings → Users and permissions → Add user**:
-   - Email: client_email из шага 4
-   - Role: **Owner** (обязательно — иначе Indexing API вернёт
-     `PERMISSION_DENIED`)
-6. Содержимое JSON-файла (целиком) — в секрет:
-   `GOOGLE_INDEXING_KEY` = base64 от JSON (так надёжнее) или
-   сам JSON в одну строку. Скрипт распарсит оба варианта.
-   ```bash
-   base64 -w0 kontur-indexing-key.json
-   ```
-
-**Использование:** `scripts/google-index.mjs` + workflow
-`index-notify.yml`. Скрипт делает JWT, обменивает на access_token,
-шлёт POST по одному URL.
-
-**Лимиты:**
-- 200 запросов/сутки по умолчанию
-- 600/сутки для verified domains
-- Превышение → 429 Too Many → скрипт остановится. LIMIT=180 в
-  workflow даёт запас.
-
-**Что если Google перестанет принимать:** просто оставляем
-`continue-on-error: true` в workflow. Если 403/404 на большинстве
-URL'ов — отключаем шаг (skip_google=1 в dispatch).
-
-### ⚠ Обходной путь: GSC отказался принять service-account email
-
-Известная проблема: при попытке добавить
-`...@*.iam.gserviceaccount.com` в **GSC → Settings → Users and
-permissions → Add user** консоль выдаёт «Не удалось добавить
-пользователя, так как не найден адрес электронной почты». UI
-официально поддерживает service-account email, но в реальности
-часто отказывает.
-
-**Решение — использовать OAuth2 refresh_token вместо service account.**
-Скрипт `google-index.mjs` поддерживает оба варианта. Не нужен
-`GOOGLE_INDEXING_KEY` — нужно расширить scope существующих
-`GSC_*` секретов (уже настроенных для fetch-gsc).
-
-**Шаги (10 минут):**
-
-1. **Google Cloud Console** → APIs & Services → Library → найти
-   **Indexing API** → Enable.
-2. **APIs & Services → OAuth consent screen** → раздел **Scopes**
-   → Add or Remove Scopes → добавить
-   `https://www.googleapis.com/auth/indexing` → Save.
-3. **Переполучить refresh_token** с обновлённым scope.
-
-   > ⚠ **Способ ниже устарел.** `urn:ietf:wg:oauth:2.0:oob` отключён
-   > Google: новые клиенты запрещены с 28.02.2022, запросы
-   > существующих заблокированы с 03.10.2022, поток полностью
-   > отключён 31.01.2023 — ссылка отдаёт `invalid_request`.
-   > Рабочая замена через `http://localhost` (сервер поднимать не
-   > нужно, код берётся из адресной строки) — **`docs/google-api-setup.md`,
-   > шаг 3**. Схема запроса ниже оставлена для понимания структуры.
-
-   В браузере под аккаунтом-владельцем property открыть:
-
-   ```
-   https://accounts.google.com/o/oauth2/v2/auth?
-     client_id=ВАШ_GSC_CLIENT_ID&
-     redirect_uri=urn:ietf:wg:oauth:2.0:oob&
-     response_type=code&
-     scope=https://www.googleapis.com/auth/webmasters.readonly%20https://www.googleapis.com/auth/indexing&
-     access_type=offline&
-     prompt=consent
-   ```
-
-   (в одну строку, без пробелов в URL). Получить `code`,
-   обменять на refresh_token:
-
-   ```bash
-   curl -X POST https://oauth2.googleapis.com/token \
-     -d "code=4/0AX..." \
-     -d "client_id=ВАШ_GSC_CLIENT_ID" \
-     -d "client_secret=ВАШ_GSC_CLIENT_SECRET" \
-     -d "redirect_uri=urn:ietf:wg:oauth:2.0:oob" \
-     -d "grant_type=authorization_code"
-   ```
-
-4. **Обновить секрет** `GSC_REFRESH_TOKEN` в GitHub значением из
-   ответа (поле `refresh_token`).
-5. Этот же refresh_token продолжит работать и для fetch-gsc.mjs
-   (старый scope `webmasters.readonly` сохранён).
-6. **Удалить или не добавлять** секрет `GOOGLE_INDEXING_KEY` —
-   скрипт автоматически переключится на OAuth-путь.
-
-После этого `google-index.mjs` будет использовать ваш обычный
-Google-аккаунт (он уже Owner property в GSC, доказали через
-DNS/HTML при первичной настройке) — никаких UI-плясок с
-service account.
 
 ---
 

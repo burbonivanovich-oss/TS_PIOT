@@ -12,7 +12,6 @@
 
 ## Стек
 
-- **Astro 5** — статическая генерация, MDX, sitemap, RSS.
 - **React 19** — интерактивные компоненты на страницах (калькуляторы,
   чек-листы, симуляторы).
 - **TypeScript** — конфиги и компоненты.
@@ -57,17 +56,11 @@ src/
     social/      старая колодка соцпостов (с суффиксом -social)
   content.config.ts  схемы коллекций
   data/
-    penalties.ts        сценарии для калькулятора штрафов
-    cpa-banners.ts      CPA-баннеры (источник истины) + категория → дефолт
-    ord-config.json     конфиг ОРД-креативов для регистрации
-    ord-erids.json      erid-токены Яндекс.ОРД (выход scripts/ord-register.mjs)
-    markingCalendar.ts  данные календаря маркировки
     analytics/          GSC + Метрика + Вебмастер → articles.json
     audit/              отчёты health-check и других аудит-скриптов
     factcheck/          история фактчека
     metrika/goals.json  декларативные цели Метрики (sync через Management API)
     wordstat/           кеш Wordstat API
-  layouts/BlogPost.astro     шаблон статьи + JSON-LD + Читайте также
   pages/                     blog, category, tag, dashboard, scenario, instrumenty,
                              slovar, search, zakon-2026, kak-rabotaet-ts-piot (флагман),
                              kalkulyator-shtrafov, kalendar-markirovki,
@@ -80,17 +73,12 @@ scripts/                     health-check, social-to-docs, audit-social-coverage
                              generate-hero-images, generate-og-backgrounds-* (gemini,
                              local, openrouter), generate-preview-images,
                              generate-flagship-illustrations, optimize-images,
-                             sharpen-heroes, compress-og-backgrounds,
-                             metrika-sync-goals (в workflow), google-index, indexnow,
-                             ord-register, ord-bootstrap, ord-status,
                              export-dzen, release-next-draft, install-hooks.sh
 
 .github/workflows/           auto-publish, deploy-gh-pages, generate-hero-images,
                              generate-og-backgrounds, generate-preview-pool,
                              generate-flagship-illustrations, hero-backfill-daily,
                              wordstat-weekly, analytics-refresh, metrika-sync-goals,
-                             index-notify, social-to-docs, ord-sync, ord-bootstrap,
-                             ord-status, embeddings-monthly
 
 public/
   fonts/                     woff для Satori
@@ -136,7 +124,6 @@ Pre-commit гейты:
 | Цели Метрики | `metrika-sync-goals.yml` (push на goals.json) | `docs/metrika.md` |
 | Индексация (IndexNow + Google) | `index-notify.yml` | `docs/analytics.md` |
 | Соцпосты → Google Docs | `social-to-docs.yml` | `docs/SECRETS.md` |
-| ОРД-креативы (erid) | `ord-sync.yml`, `ord-bootstrap.yml`, `ord-status.yml` | `docs/SECRETS.md` |
 | Embeddings (similarity) | `embeddings-monthly.yml` | `docs/architecture.md` |
 
 Все секреты GitHub описаны в `docs/SECRETS.md` (как получить, как обновлять,
@@ -177,7 +164,6 @@ Pre-commit гейты:
 - RSS-лента `/rss.xml`.
 - `robots.txt` с указанием `Sitemap` и `Host`.
 - IndexNow для Яндекса + Google Indexing API после деплоя (`index-notify.yml`).
-- Verification-теги Яндекс.Вебмастера и GSC — в `src/components/BaseHead.astro`.
 
 Аналитика: дашборд `/dashboard/` показывает позиции и трафик из GSC + Метрики,
 синхронизируется `analytics-refresh.yml` раз в неделю.
@@ -207,8 +193,6 @@ quiz готовности, кейс кофейни; Sprint C: EdoChainPuzzle, и
 Все CPA-баннеры через партнёрскую программу Контура и Диадока. Каждый
 рекламный креатив должен иметь erid-токен из Яндекс ОРД (38-ФЗ).
 
-- Источник: `src/data/cpa-banners.ts`.
-- erid-токены: `src/data/ord-erids.json` (генерируется `scripts/ord-register.mjs`).
 - Соответствие категория → дефолтный CPA: `CATEGORY_DEFAULT_CPA` там же.
 - В соцпостах для Дзена обязателен CPA-блок «Что использовать» с erid.
 

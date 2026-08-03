@@ -2,23 +2,34 @@
 
 ## О проекте
 
-Информационный портал для малого и среднего бизнеса РФ. Тематика:
+**Модуль-помощник для редактора и копирайтеров.** Готовит контент по
+тематике МСБ РФ: от выбора темы до вычитанного текста. Тематика:
 
 - **ТС ПИоТ** — техническое средство получения информации о товаре,
   программный модуль для онлайн-кассы (обязателен с 01.07.2026).
 - **Маркировка «Честный знак»** — категории, сроки, штрафы.
 - **Изменения в законодательстве** — налоги, ЭДО, КЭДО, ЕНС/ЕНП, проверки.
 
-Цель — органический поисковый трафик из Яндекса и Google по
-информационным запросам МСБ.
+**Своего сайта у модуля нет.** Он ничего не публикует и не монетизирует —
+готовый текст забирает принимающий проект и решает сам, где его
+размещать. Цель модуля — снять с редакции рутину: исследование темы,
+черновик, проверка фактов, соответствие редполитике. Решения и финальный
+текст остаются за людьми.
+
+Чего в модуле **нет и не должно появляться**: сайта, страниц, сборки,
+деплоя, аналитики трафика, индексации, монетизации, лид-форм. Если
+задача подразумевает что-то из этого списка — она относится к
+принимающему проекту, а не сюда.
 
 ## Стек
 
-- **Astro 5** (статическая генерация, MDX, sitemap, RSS).
-- Контент в `src/content/blog/` (Markdown/MDX).
-- Развёртывание на **GitHub Pages** через GitHub Actions
-  (`deploy-gh-pages.yml`).
-- Все тексты только на русском (`lang="ru"`, локаль `ru-RU`).
+- Node.js-скрипты в `scripts/`, агенты и slash-команды в `.claude/`.
+- Контент в `src/content/blog/` (Markdown/MDX) — исходники текстов,
+  не страницы сайта.
+- Рабочее место редактора — **Google Drive** (таблица плана + доки
+  статей), см. `docs/editorial-cycle.md`.
+- Сборки и деплоя нет. `npm run build` в этом модуле не применяется.
+- Все тексты только на русском.
 
 ## Документация (где что искать)
 
@@ -30,55 +41,42 @@
 | **`docs/editorial-cycle.md`** | Автоматический цикл с редактором-человеком: рутины A/B/C, машина состояний, рабочее место редактора в Google Drive (таблица + доки) |
 | **`docs/SECRETS.md`** | Все секреты GitHub: что есть, как получить, как обновлять |
 | **`docs/google-api-setup.md`** | Подключение Google API под цикл: Sheets API, скоупы, переполучение refresh_token, разбор ошибок |
-| `docs/architecture.md` | Маршруты, коллекции, компоненты, утилиты |
-| `docs/content-types.md` | Как добавить статью, термин, pillar, сценарий |
-| `docs/images.md` | Hero/preview/OG/WebP, Satori, шрифты |
-| `docs/search.md` | Pagefind: индексация и кастомизация |
-| `docs/analytics.md` | GSC + Метрика + Вебмастер + дашборд `/dashboard/` |
-| `docs/metrika.md` | Цели Метрики через Management API |
+| `docs/content-types.md` | Как добавить статью, термин, pillar |
 | `docs/wordstat.md` | Wordstat API, частотность ключей |
 | `docs/factcheck.md` | Pipeline проверки фактов, классы A/B/C |
 | `docs/editorial-policy.md` | Редполитика, классы решений |
-| `docs/content-formats-roadmap.md` | Roadmap интерактивных форматов |
-| `docs/blocks-roadmap.md` | Roadmap блоков сайта: текущие + отобранные из лабораторных прототипов |
-| `docs/cpa-storefront-roadmap.md` | Roadmap витрины продуктов Контура: лид-формы с тегом, раздел `/produkty/`, бандлы, фаза заявок |
+
 
 ## Структура файлов
 
 ```
-docs/                           # Техническая документация (см. таблицу выше)
-public/
-├── fonts/                      # woff для Satori (НЕ удалять)
-├── og-backgrounds/             # фоны для OG-картинок по категориям
-└── images/{hero,preview,flagship}/  # картинки статей и флагмана
+.claude/
+├── agents/                     # research-specialist, content-writer,
+│                               #   seo-optimizer, social-media-manager
+└── commands/                   # slash-команды пайплайна и цикла
+docs/                           # Документация (см. таблицу выше)
+scripts/                        # Node.js-инструменты пайплайна
+├── cycle-state.mjs             # машина состояний редакционного цикла
+├── drive-sync.mjs              # мост в Google Drive (таблица + доки)
+├── generate-editorial-plan.mjs # контент-план → editorial-plan.json
+├── check-ai-markers.mjs        # проверка текста на AI-маркеры
+└── …                           # остальные см. docs/tools.md
 src/
-├── components/                 # Header, Footer, BaseHead, FormattedDate, Picture, ...
-│   └── interactive/            # F26 — встраиваемые в MDX интерактивные блоки
-├── consts.ts                   # SITE_TITLE, NAV_LINKS, CATEGORIES (источник истины)
 ├── content/
-│   ├── blog/                   # YYYY-MM-DD-slug.md(x) — публикуемые статьи
-│   ├── pillars/                # ts-piot.md, markirovka.md, …
+│   ├── blog/                   # YYYY-MM-DD-slug.md(x) — исходники статей
+│   ├── pillars/                # опорные материалы кластеров
 │   ├── glossary/               # <term>.md — термины словаря
-│   └── wiki/                   # research, контент-планы, заметки (без маршрутов)
-│       └── social/             # социальные черновики
-├── content.config.ts           # Схемы коллекций
-├── data/
-│   ├── penalties.ts            # Сценарии для калькулятора штрафов
-│   ├── cpa-banners.ts          # CPA-баннеры (источник истины)
-│   ├── markingCalendar.ts      # Данные для календаря маркировки
-│   ├── analytics/              # GSC + Метрика + Вебмастер → articles.json
-│   ├── metrika/goals.json      # Декларативные цели Метрики
-│   ├── ord-config.json         # Креативы для ОРД Яндекса
-│   └── wordstat/               # Кеш Wordstat API
-├── layouts/BlogPost.astro      # Шаблон статьи + JSON-LD + Читайте также
-├── pages/                      # Маршруты (blog, category, tag, dashboard, scenario, …)
-├── styles/global.css           # Дизайн-токены --pink, --lime, --sand, --dark
-└── utils/
-    ├── url.ts                  # u() — оборачивает пути в base (GitHub Pages)
-    ├── tags.ts                 # tagSlug, collectTags, pluralPosts
-    ├── track.ts                # window.ym('reachGoal') обёртка
-    └── glossary.ts             # termSlug, firstLetter, alphabetOrder
+│   └── wiki/                   # research, контент-планы, заметки
+│       └── social/             # черновики под соцканалы
+└── data/
+    ├── editorial-cycle.json    # состояние цикла (только через cycle-state.mjs)
+    ├── editorial-plan.json     # план тем со статусами
+    └── wordstat/               # кеш Wordstat API, частотность ключей
 ```
+
+Всё, что относилось к сайту — `src/pages`, `src/components`,
+`src/layouts`, `public/`, дизайн-токены, аналитика трафика, ОРД и
+CPA-баннеры, — из модуля удалено вместе с Astro-слоем.
 
 ## Workflow создания статьи
 
@@ -97,8 +95,8 @@ src/
 5. **`/analyze-article <slug>`** — оценка 0–100. Блокер если < 70 /
    маркер старше 180 дней / NPA-audit упал.
 6. После успеха — `draft: false`, `status: ready` в соцпостах.
-7. Билд `npm run build`, ручной просмотр на dev (`npm run dev`).
-8. Деплой коммитом в основную ветку (GitHub Actions → GitHub Pages).
+7. Готовый текст уходит редактору в Google Doc. Дальше — вычитка и
+   приёмка человеком, см. `docs/editorial-cycle.md`.
 
 Полные правила контента и стиля — **`docs/content-rules.md`**.
 Полная документация инструментов — **`docs/tools.md`**.
