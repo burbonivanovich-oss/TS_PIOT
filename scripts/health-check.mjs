@@ -41,23 +41,37 @@ const blogDir = join(ROOT, 'src', 'content', 'blog');
 const blogFiles = readdirSync(blogDir).filter(f => /\.(md|mdx)$/.test(f));
 const today = new Date();
 
-let drafts = 0, future = 0, noFactcheck = 0;
+let noFactcheck = 0;
 const slugs = new Set();
 for (const f of blogFiles) {
 	const content = readFileSync(join(blogDir, f), 'utf8');
 	const slug = f.replace(/\.(md|mdx)$/, '');
 	slugs.add(slug);
-	if (/^draft:\s*true/m.test(content)) drafts++;
-	const pd = content.match(/^pubDate:\s*"?(\d{4}-\d{2}-\d{2})/m);
-	if (pd && new Date(pd[1]) > today) future++;
 	if (!existsSync(join(ROOT, '.claude', 'factchecked', slug))) noFactcheck++;
 }
 ok('Блог: статей всего', `${blogFiles.length}`);
-if (drafts > 0) warn('Блог: черновики (draft: true)', `${drafts}`);
-else ok('Блог: черновиков нет', '0');
-if (future > 0) warn('Блог: статьи с будущим pubDate', `${future} (выйдут по auto-publish)`);
 if (noFactcheck > 0) warn('Блог: без маркера factchecked', `${noFactcheck}/${blogFiles.length}`);
 else ok('Блог: все статьи фактчекнуты', `${blogFiles.length}`);
+
+// Очередь автопилота. Черновики здесь — норма, а не тревога: это запас
+// публикаций. Тревога — когда запас кончился и сайт замолчал.
+let queue = null;
+try {
+	queue = JSON.parse(
+		execSync('node scripts/content/queue-status.mjs --json', { cwd: ROOT, encoding: 'utf8' }),
+	);
+} catch (e) {
+	warn('Конвейер: не удалось снять состояние', String(e.message).slice(0, 80));
+}
+if (queue) {
+	const detail = `${queue.drafts} черновиков, хватит до ${queue.coverUntil ?? '—'} (${queue.runwayDays} дн.)`;
+	if (queue.runwayDays >= 10) ok('Конвейер: запас публикаций', detail);
+	else if (queue.runwayDays >= 3) warn('Конвейер: запас на исходе', detail);
+	else fail('Конвейер: публиковать нечего', `${detail}. Запустить content-autopilot.yml`);
+
+	if (queue.blocked > 0) warn('Конвейер: черновики заблокированы шлюзом', `${queue.blocked}: ${queue.blockedSlugs.join(', ')}`);
+	if (queue.planPending < 30) warn('Контент-план: темы заканчиваются', `${queue.planPending} шт. — пора /plan-content`);
+}
 
 // Соцпосты
 const wikiSocialDir = join(ROOT, 'src', 'content', 'wiki', 'social');
