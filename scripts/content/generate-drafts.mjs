@@ -10,8 +10,9 @@
  * Env:
  *   OPENROUTER_API_KEY  — обязателен (тот же ключ, что у генераторов картинок)
  *   DRAFT_MODEL         — модель; по умолчанию первая доступная из кандидатов
- *   COUNT               — сколько статей писать; по умолчанию — по одной на
- *                         каждый оставшийся будний день месяца, не больше QUOTA
+ *   COUNT               — сколько статей писать; по умолчанию очередь добивается
+ *                         до нормы: по одной статье на каждый оставшийся будний
+ *                         день месяца, не больше QUOTA, минус уже запланированное
  *   QUOTA               — месячный потолок (по умолчанию 22)
  *   START_DATE          — с какой даты расставлять pubDate (по умолчанию завтра)
  *   CONCURRENCY         — сколько статей писать параллельно (по умолчанию 3)
@@ -66,6 +67,20 @@ function scheduleDates(count, start, taken) {
 		cursor.setUTCDate(cursor.getUTCDate() + 1);
 	}
 	return dates;
+}
+
+/** Черновики с датой публикации не раньше start — то, чем очередь уже закрыта. */
+function pendingDrafts(start) {
+	const from = start.toISOString().slice(0, 10);
+	return fs
+		.readdirSync(BLOG_DIR)
+		.filter((f) => /\.(md|mdx)$/.test(f))
+		.filter((f) => {
+			const fm = (fs.readFileSync(path.join(BLOG_DIR, f), 'utf8').match(/^---\n([\s\S]*?)\n---/) ?? [])[1] ?? '';
+			if (!/^draft:\s*true\s*$/m.test(fm)) return false;
+			const pubDate = (fm.match(/^pubDate:\s*"?(\d{4}-\d{2}-\d{2})/m) ?? [])[1];
+			return pubDate ? pubDate >= from : true;
+		}).length;
 }
 
 /** Сколько будних дней осталось до конца месяца, начиная со start. */
@@ -403,11 +418,22 @@ async function main() {
 			.filter(Boolean),
 	);
 
-	// Потолок обязателен: buildQueue({count: 0}) вернёт весь контент-план,
-	// а это сотня статей за прогон и счёт на сотни долларов.
-	const requested = Number(envValue('COUNT') ?? Math.min(QUOTA, weekdaysLeftInMonth(start)));
-	const count = Number.isFinite(requested) && requested > 0 ? Math.min(requested, HARD_CAP) : QUOTA;
+	// Прогон добивает очередь до нормы, а не подсыпает норму поверх уже
+	// запланированного: иначе ручной запуск плюс месячный cron надували бы
+	// очередь до бесконечности.
+	const scheduled = pendingDrafts(start);
+	const norm = Math.min(QUOTA, weekdaysLeftInMonth(start));
+	const requested = Number(envValue('COUNT') ?? Math.max(0, norm - scheduled));
+	const count = Number.isFinite(requested) && requested > 0 ? Math.min(requested, HARD_CAP) : 0;
 	if (requested > HARD_CAP) console.warn(`COUNT=${requested} обрезан до потолка ${HARD_CAP}.`);
+
+	if (count === 0) {
+		console.log(
+			`Очередь уже закрывает норму: ${scheduled} черновиков запланировано, норма ${norm}. Ничего не пишу.`,
+		);
+		return;
+	}
+
 	const queue = buildQueue({ count });
 	const dates = scheduleDates(queue.length, start, taken);
 
@@ -415,7 +441,7 @@ async function main() {
 	const model = DRY_RUN ? '(dry-run)' : await resolveModel(process.env.DRAFT_MODEL);
 
 	console.log(`Модель:      ${model}`);
-	console.log(`Статей:      ${queue.length} (квота ${QUOTA})`);
+	console.log(`Статей:      ${queue.length} (квота ${QUOTA}, уже запланировано ${scheduled})`);
 	console.log(`Расписание:  ${dates[0]} … ${dates[dates.length - 1]}`);
 	console.log(`Запас тем:   ${buildQueue().length} шт.\n`);
 
