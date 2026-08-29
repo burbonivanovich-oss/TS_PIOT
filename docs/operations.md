@@ -46,7 +46,8 @@ node scripts/health-check.mjs --strict
 
 | Подсистема | Где запускается | Документация |
 |---|---|---|
-| Написание статей (автопилот) | `content-autopilot.yml`, cron 1-го числа + понедельник | `docs/autopilot.md` |
+| Написание статей (автопилот) | Routine на claude.ai/code, понедельник | `docs/autopilot.md` |
+| Картинки к черновикам | `content-images-batch.yml`, push черновиков | `docs/autopilot.md` |
 | Публикация (auto-publish) | `auto-publish.yml`, cron 4× в день | `docs/autopilot.md` |
 | Деплой | `deploy-gh-pages.yml` | `docs/architecture.md` |
 | Hero-картинки | `generate-hero-images.yml`, ручной | `docs/images.md` |
@@ -109,8 +110,8 @@ SKIP_SOCIAL_GUARD=1 git commit ...
 | Соцпосты не появились в Google Docs | logs `social-to-docs.yml` | Папка расшарена с service-account? `docs/SECRETS.md` |
 | Hero-картинка не сгенерилась | logs `auto-publish.yml` или `hero-backfill-daily.yml` | OPENROUTER_API_KEY есть? Баланс не кончился? |
 | Cron перестал срабатывать | Actions → конкретный workflow → история | GitHub отключает cron при отсутствии активности 60 дней. Любой push в main возобновляет |
-| Статьи не выходят | `node scripts/content/queue-status.mjs` | Очередь черновиков пуста → запустить **Контент — автопилот**. Есть черновики, но они не выпускаются → смотреть `.claude/blocked/<slug>`: там причина отказа шлюза. `docs/autopilot.md` |
-| Автопилот упал | Actions → **Контент — автопилот** → logs | Чаще всего баланс OpenRouter или 401 по ключу. Прогон можно повторить: темы, по которым статьи не вышли, остаются в очереди |
+| Статьи не выходят | `node scripts/content/queue-status.mjs` | Очередь черновиков пуста → запустить Routine «Этикетка — черновики» на claude.ai/code. Есть черновики, но они не выпускаются → смотреть `.claude/blocked/<slug>`: там причина отказа шлюза. `docs/autopilot.md` |
+| Черновики есть, картинок нет | Actions → **Картинки — пакетный прогон** → logs | OPENROUTER_API_KEY есть? Баланс не кончился? Прогон можно запустить руками |
 
 ## Регулярные ритуалы
 

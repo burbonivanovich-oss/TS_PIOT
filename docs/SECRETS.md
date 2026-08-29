@@ -7,7 +7,7 @@ Actions** репозитория. Этот документ — единый с�
 
 | Секрет | Сервис | Срок жизни | Используется |
 |---|---|---|---|
-| `OPENROUTER_API_KEY` | OpenRouter | бессрочный | Hero, preview, flagship-illustrations, OG-фоны |
+| `OPENROUTER_API_KEY` | OpenRouter | бессрочный | **Только изображения:** hero, preview, flagship-illustrations, OG-фоны |
 | `METRIKA_OAUTH_TOKEN` | Яндекс OAuth (Метрика) | **1 год** | sync-goals, fetch-metrika-traffic |
 | `YC_API_KEY` | Yandex Cloud Search API (сервисный аккаунт) | бессрочный | wordstat-weekly |
 | `YC_FOLDER_ID` | Yandex Cloud (ID каталога) | — | wordstat-weekly |
@@ -64,12 +64,15 @@ Google Gemini, FLUX, OpenAI, Imagen, Recraft и др.
 **Когда обновлять:** ключ бессрочный. Меняем только если он
 скомпрометирован или вы создали новый.
 
+**Бюджет ключа — на картинки.** Тексты через OpenRouter не генерируем:
+статьи пишет Claude по подписке (Routine на claude.ai/code, см.
+`docs/autopilot.md`). Любой новый скрипт, которому нужна текстовая модель,
+не должен брать этот ключ.
+
 **Allowed providers.** В Settings → Privacy у ключа задан список разрешённых
 провайдеров: на 29.08.2026 — `openai`, `deepseek`, `google-ai-studio`.
-Запрос к модели вне списка возвращает `404 No allowed providers`, хотя
-модель есть в каталоге `/models`. Автопилот это переживает — перебирает
-кандидатов, — но если хотите писать статьи моделями Anthropic, провайдера
-нужно добавить на https://openrouter.ai/settings/privacy.
+Запрос к модели вне списка возвращает `404 No allowed providers`, хотя модель
+есть в каталоге `/models`.
 
 **Расход:** ~$0.04 за hero (Nano Banana 2), ~$0.04 за OG-фон.
 83 статьи hero = $3.5/мес при пересоздании всех.

@@ -67,7 +67,7 @@ if (queue) {
 	const detail = `${queue.drafts} черновиков, хватит до ${queue.coverUntil ?? '—'} (${queue.runwayDays} дн.)`;
 	if (queue.runwayDays >= 10) ok('Конвейер: запас публикаций', detail);
 	else if (queue.runwayDays >= 3) warn('Конвейер: запас на исходе', detail);
-	else fail('Конвейер: публиковать нечего', `${detail}. Запустить content-autopilot.yml`);
+	else fail('Конвейер: публиковать нечего', `${detail}. Запустить Routine «Этикетка — черновики» (claude.ai/code)`);
 
 	if (queue.blocked > 0) warn('Конвейер: черновики заблокированы шлюзом', `${queue.blocked}: ${queue.blockedSlugs.join(', ')}`);
 	if (queue.planPending < 30) warn('Контент-план: темы заканчиваются', `${queue.planPending} шт. — пора /plan-content`);
