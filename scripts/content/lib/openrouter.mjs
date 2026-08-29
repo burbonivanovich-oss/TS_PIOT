@@ -17,16 +17,28 @@ const HEADERS = () => ({
 	'X-Title': 'etiketka-media autopilot',
 });
 
-/** Кандидаты по убыванию предпочтения. Первый доступный — победил. */
+/**
+ * Кандидаты по убыванию предпочтения.
+ *
+ * Порядок учитывает, что у ключа проекта в настройках OpenRouter разрешены не
+ * все провайдеры (Privacy → Allowed providers). Наличие модели в каталоге
+ * `/models` этого не показывает — политика вылезает только на реальном запросе,
+ * поэтому кандидат проверяется пробным вызовом.
+ */
 export const WRITER_CANDIDATES = [
+	'openai/gpt-5.5',
+	'google/gemini-3.1-pro-preview',
+	'openai/gpt-5.2',
+	'google/gemini-2.5-pro',
+	'google/gemini-3.7-flash',
+	'deepseek/deepseek-v4-pro',
 	'anthropic/claude-opus-4.5',
 	'anthropic/claude-sonnet-4.5',
-	'anthropic/claude-3.7-sonnet',
-	'google/gemini-2.5-pro',
-	'openai/gpt-4.1',
 ];
 
 let modelCache = null;
+let activeModel = null;
+const deadModels = new Set();
 
 async function availableModels() {
 	if (modelCache) return modelCache;
@@ -37,21 +49,63 @@ async function availableModels() {
 	return modelCache;
 }
 
+/** Признак «эта модель нам недоступна»: снята, переименована или закрыта политикой. */
+function isModelUnavailable(status, text) {
+	if (status !== 404 && status !== 403) return false;
+	return /allowed[- ]providers|not a valid model|no endpoints|data policy/i.test(text);
+}
+
+/** Пробный вызов: единственный честный способ узнать, ответит ли модель этому ключу. */
+async function probe(model) {
+	const res = await fetch(`${API}/chat/completions`, {
+		method: 'POST',
+		headers: HEADERS(),
+		body: JSON.stringify({ model, messages: [{ role: 'user', content: 'ok' }], max_tokens: 1 }),
+	});
+	if (res.ok) return true;
+	const text = await res.text();
+	if (isModelUnavailable(res.status, text)) {
+		console.warn(`  ${model} недоступна: ${text.slice(0, 120)}`);
+		return false;
+	}
+	// 429 или 5xx — модель живая, просто занята.
+	return res.status === 429 || res.status >= 500;
+}
+
 /**
- * Разрешает модель: явный env перекрывает всё, иначе первый доступный
- * кандидат, иначе — первый кандидат «вслепую» (пусть API сам ответит ошибкой).
+ * Разрешает рабочую модель: явный env — как есть, иначе первый кандидат,
+ * который реально отвечает этому ключу.
  */
 export async function resolveModel(envValue, candidates = WRITER_CANDIDATES) {
-	if (envValue) return envValue;
-	try {
-		const models = await availableModels();
-		const hit = candidates.find((c) => models.has(c));
-		if (hit) return hit;
-	} catch (e) {
-		console.warn(`Не удалось получить список моделей (${e.message}), беру первого кандидата.`);
+	if (envValue) {
+		activeModel = envValue;
+		return envValue;
 	}
-	return candidates[0];
+
+	let catalogue = null;
+	try {
+		catalogue = await availableModels();
+	} catch (e) {
+		console.warn(`Каталог моделей недоступен (${e.message}), пробую кандидатов вслепую.`);
+	}
+
+	for (const candidate of candidates) {
+		if (deadModels.has(candidate)) continue;
+		if (catalogue && !catalogue.has(candidate)) continue;
+		if (await probe(candidate)) {
+			activeModel = candidate;
+			return candidate;
+		}
+		deadModels.add(candidate);
+	}
+
+	throw new Error(
+		`Ни одна модель из списка кандидатов не доступна ключу. Проверьте баланс и ` +
+			`настройку Allowed providers на https://openrouter.ai/settings/privacy`,
+	);
 }
+
+export const currentModel = () => activeModel;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -72,7 +126,7 @@ export async function chat({
 	if (!process.env.OPENROUTER_API_KEY) throw new Error('OPENROUTER_API_KEY не задан');
 
 	const body = {
-		model,
+		model: model && !deadModels.has(model) ? model : (activeModel ?? model),
 		messages,
 		temperature,
 		max_tokens: maxTokens,
@@ -100,6 +154,18 @@ export async function chat({
 			lastError = new Error(`API ${res.status}: ${text.slice(0, 200)}`);
 			continue;
 		}
+
+		// Модель сняли или её закрыла политика провайдеров — переезжаем на
+		// следующего кандидата, а не роняем весь прогон.
+		if (isModelUnavailable(res.status, text)) {
+			deadModels.add(body.model);
+			console.warn(`Модель ${body.model} отвалилась, ищу замену…`);
+			body.model = await resolveModel(null);
+			console.warn(`Перешёл на ${body.model}.`);
+			lastError = new Error(`API ${res.status}: ${text.slice(0, 200)}`);
+			continue;
+		}
+
 		if (!res.ok) throw new Error(`API ${res.status}: ${text.slice(0, 400)}`);
 
 		let data;

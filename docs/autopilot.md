@@ -155,9 +155,19 @@ workflow»). Черновики останутся в репозитории, н
 | `FORCE_DATE` | `release-next-draft.mjs` | — | `1` игнорирует `pubDate` |
 | `SKIP_GATE` | `release-next-draft.mjs` | — | `1` пропускает шлюз (только отладка) |
 
-Модель не зашита жёстко: `resolveModel()` берёт первую доступную из
-`WRITER_CANDIDATES` в `scripts/content/lib/openrouter.mjs`. Провайдер снял
-версию — прогон не падает.
+Модель не зашита жёстко: `resolveModel()` перебирает `WRITER_CANDIDATES` из
+`scripts/content/lib/openrouter.mjs` и берёт первую, которая **реально
+отвечает ключу** — проверка идёт пробным запросом, а не наличием модели в
+каталоге. Если модель отваливается посреди прогона (сняли версию, изменилась
+политика), `chat()` сам переезжает на следующего кандидата.
+
+> **Allowed providers.** У ключа проекта в OpenRouter
+> (Settings → Privacy → Allowed providers) разрешены не все провайдеры.
+> На 29.08.2026 это `openai`, `deepseek`, `google-ai-studio` — модели
+> Anthropic ключу недоступны и стоят в списке кандидатов последними.
+> Каталог `/models` эту политику не показывает, поэтому первый прогон
+> автопилота упал с `404 No allowed providers`. Расширить список можно на
+> https://openrouter.ai/settings/privacy.
 
 ## Деньги
 
