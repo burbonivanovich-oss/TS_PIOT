@@ -115,12 +115,16 @@ jobs:
         if: steps.plan.outputs.skip != '1' && inputs.dry_run != '1' && inputs.skip_images != '1'
         run: node scripts/optimize-images.mjs
 
+      # Шаги ниже намеренно не привязаны к успеху генерации: если прогон
+      # оборвался на середине (кончились кредиты, отвалилась модель), уже
+      # написанные статьи должны доехать до репозитория.
       - name: Сборка со страховкой
+        id: build
         if: steps.plan.outputs.skip != '1' && inputs.dry_run != '1'
         run: node scripts/content/build-guard.mjs --attempts=3
 
       - name: Коммит и пуш
-        if: steps.plan.outputs.skip != '1' && inputs.dry_run != '1'
+        if: steps.plan.outputs.skip != '1' && inputs.dry_run != '1' && steps.build.outcome == 'success'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

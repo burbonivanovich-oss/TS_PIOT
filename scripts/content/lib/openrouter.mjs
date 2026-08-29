@@ -4,9 +4,14 @@
  * Единственный внешний ключ автопилота — `OPENROUTER_API_KEY`, тот же, что
  * уже используют генераторы картинок. Новых секретов заводить не нужно.
  *
- * Модель выбирается динамически: берём первую доступную из списка кандидатов
- * (`/api/v1/models`), чтобы прогон не падал, когда провайдер снимает или
- * переименовывает конкретную версию.
+ * Две особенности OpenRouter, ради которых здесь больше кода, чем ожидаешь:
+ *
+ * 1. Наличие модели в каталоге `/models` не значит, что ключ имеет к ней
+ *    доступ: политика Allowed providers вылезает только на реальном запросе
+ *    (404 «No allowed providers»). Поэтому кандидат проверяется пробным вызовом.
+ * 2. Под каждый запрос в полёте резервируется его максимальная стоимость, и
+ *    параллельные запросы упираются в резерв раньше, чем в баланс — 402
+ *    `in_flight_budget_exhausted`. Это временный отказ, его пережидают.
  */
 const API = 'https://openrouter.ai/api/v1';
 
@@ -18,26 +23,35 @@ const HEADERS = () => ({
 });
 
 /**
- * Кандидаты по убыванию предпочтения.
- *
- * Порядок учитывает, что у ключа проекта в настройках OpenRouter разрешены не
- * все провайдеры (Privacy → Allowed providers). Наличие модели в каталоге
- * `/models` этого не показывает — политика вылезает только на реальном запросе,
- * поэтому кандидат проверяется пробным вызовом.
+ * Кандидаты для написания статей — по цене за качество, а не по «самая
+ * сильная сверху»: конвейер пишет 22 длинных текста в месяц, и разница между
+ * тиром за $3.75 и тиром за $30 за миллион токенов — это разница между
+ * $4 и $15+ в месяц. Качество держит не модель, а шлюз: статья, не прошедшая
+ * редполитику, не публикуется.
  */
 export const WRITER_CANDIDATES = [
-	'openai/gpt-5.5',
-	'google/gemini-3.1-pro-preview',
-	'openai/gpt-5.2',
-	'google/gemini-2.5-pro',
 	'google/gemini-3.7-flash',
+	'openai/gpt-5.4-mini',
+	'google/gemini-2.5-pro',
+	'google/gemini-3.1-pro-preview',
 	'deepseek/deepseek-v4-pro',
-	'anthropic/claude-opus-4.5',
+	'openai/gpt-4.1',
 	'anthropic/claude-sonnet-4.5',
 ];
 
+/**
+ * Кандидаты для вспомогательных шагов — research, фактчек, соцпосты.
+ * Здесь дорогая модель не окупается: фактуру всё равно перепроверяет
+ * онлайн-фактчек, а номера НПА — валидатор.
+ */
+export const HELPER_CANDIDATES = [
+	'google/gemini-2.5-flash',
+	'deepseek/deepseek-v4-flash',
+	'openai/gpt-4.1-mini',
+	'google/gemini-3.7-flash',
+];
+
 let modelCache = null;
-let activeModel = null;
 const deadModels = new Set();
 
 async function availableModels() {
@@ -55,6 +69,11 @@ function isModelUnavailable(status, text) {
 	return /allowed[- ]providers|not a valid model|no endpoints|data policy/i.test(text);
 }
 
+/** 402 бывает временный (резерв под запросы в полёте) и окончательный (деньги). */
+function isInFlightBudget(text) {
+	return /in_flight_budget_exhausted|in-flight requests settle/i.test(text);
+}
+
 /** Пробный вызов: единственный честный способ узнать, ответит ли модель этому ключу. */
 async function probe(model) {
 	const res = await fetch(`${API}/chat/completions`, {
@@ -68,19 +87,13 @@ async function probe(model) {
 		console.warn(`  ${model} недоступна: ${text.slice(0, 120)}`);
 		return false;
 	}
-	// 429 или 5xx — модель живая, просто занята.
-	return res.status === 429 || res.status >= 500;
+	// 402/429/5xx — модель живая, проблема не в ней.
+	return true;
 }
 
-/**
- * Разрешает рабочую модель: явный env — как есть, иначе первый кандидат,
- * который реально отвечает этому ключу.
- */
+/** Первый кандидат, который реально отвечает этому ключу. */
 export async function resolveModel(envValue, candidates = WRITER_CANDIDATES) {
-	if (envValue) {
-		activeModel = envValue;
-		return envValue;
-	}
+	if (envValue) return envValue;
 
 	let catalogue = null;
 	try {
@@ -92,20 +105,23 @@ export async function resolveModel(envValue, candidates = WRITER_CANDIDATES) {
 	for (const candidate of candidates) {
 		if (deadModels.has(candidate)) continue;
 		if (catalogue && !catalogue.has(candidate)) continue;
-		if (await probe(candidate)) {
-			activeModel = candidate;
-			return candidate;
-		}
+		if (await probe(candidate)) return candidate;
 		deadModels.add(candidate);
 	}
 
 	throw new Error(
-		`Ни одна модель из списка кандидатов не доступна ключу. Проверьте баланс и ` +
-			`настройку Allowed providers на https://openrouter.ai/settings/privacy`,
+		'Ни одна модель из списка кандидатов не доступна ключу. Проверьте баланс и ' +
+			'настройку Allowed providers на https://openrouter.ai/settings/privacy',
 	);
 }
 
-export const currentModel = () => activeModel;
+/**
+ * Тир — пара «текущая модель + запасные». Живёт весь прогон: если модель
+ * отвалится посреди работы, тир переезжает на следующего кандидата сам.
+ */
+export async function makeTier(envValue, candidates) {
+	return { model: await resolveModel(envValue, candidates), candidates };
+}
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -128,23 +144,16 @@ const spent = { requests: 0, promptTokens: 0, completionTokens: 0 };
 export const usageTotals = () => ({ ...spent });
 
 /**
- * 402 бывает двух видов. `in_flight_budget_exhausted` — временный: OpenRouter
- * резервирует максимальную стоимость каждого запроса в полёте, и параллельные
- * прогоны упираются в резерв раньше, чем в баланс. Такой ответ надо переждать.
- * Любой другой 402 — деньги кончились по-настоящему.
- */
-function isInFlightBudget(text) {
-	return /in_flight_budget_exhausted|in-flight requests settle/i.test(text);
-}
-
-/**
- * Один запрос к chat/completions с ретраями на 429/5xx.
+ * Один запрос к chat/completions.
  *
- * opts.web = true подключает веб-поиск OpenRouter — нужен фактчеку, чтобы
- * сверять номера НПА и суммы штрафов с первоисточниками.
+ * opts.tier — предпочтительный способ передать модель: при отказе модели
+ * тир сам переезжает на следующего кандидата. opts.model — простой вариант
+ * без переезда.
+ * opts.web = true подключает веб-поиск OpenRouter: нужен research и фактчеку.
  */
 export async function chat({
-	model,
+	tier = null,
+	model = null,
 	messages,
 	temperature = 0.4,
 	maxTokens = 8000,
@@ -154,7 +163,7 @@ export async function chat({
 	if (!process.env.OPENROUTER_API_KEY) throw new Error('OPENROUTER_API_KEY не задан');
 
 	const body = {
-		model: model && !deadModels.has(model) ? model : (activeModel ?? model),
+		model: tier?.model ?? model,
 		messages,
 		temperature,
 		max_tokens: maxTokens,
@@ -182,14 +191,12 @@ export async function chat({
 		if (res.status === 402) {
 			if (!isInFlightBudget(text)) {
 				throw new CreditsError(
-					`кончились кредиты OpenRouter: ${text.slice(0, 200)}. ` +
-						`Пополнить: https://openrouter.ai/settings/credits`,
+					`кончились кредиты OpenRouter. Пополнить: https://openrouter.ai/settings/credits`,
 				);
 			}
-			// Ждём, пока осядут запросы в полёте: сервер подсказывает сколько.
 			const retryAfter = Number(res.headers.get('retry-after'));
 			await sleep(Math.min(Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : 20_000, 60_000));
-			lastError = new Error(`API 402 (бюджет запросов в полёте)`);
+			lastError = new Error('API 402 (бюджет запросов в полёте)');
 			continue;
 		}
 
@@ -203,8 +210,10 @@ export async function chat({
 		if (isModelUnavailable(res.status, text)) {
 			deadModels.add(body.model);
 			console.warn(`Модель ${body.model} отвалилась, ищу замену…`);
-			body.model = await resolveModel(null);
-			console.warn(`Перешёл на ${body.model}.`);
+			const next = await resolveModel(null, tier?.candidates ?? WRITER_CANDIDATES);
+			if (tier) tier.model = next;
+			body.model = next;
+			console.warn(`Перешёл на ${next}.`);
 			lastError = new Error(`API ${res.status}: ${text.slice(0, 200)}`);
 			continue;
 		}

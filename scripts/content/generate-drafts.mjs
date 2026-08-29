@@ -9,7 +9,10 @@
  *
  * Env:
  *   OPENROUTER_API_KEY  — обязателен (тот же ключ, что у генераторов картинок)
- *   DRAFT_MODEL         — модель; по умолчанию первая доступная из кандидатов
+ *   DRAFT_MODEL         — модель для написания; по умолчанию первая доступная
+ *                         из WRITER_CANDIDATES
+ *   HELPER_MODEL        — модель для research, фактчека и соцпостов; по умолчанию
+ *                         первая доступная из HELPER_CANDIDATES (дешевле)
  *   COUNT               — сколько статей писать; по умолчанию очередь добивается
  *                         до нормы: по одной статье на каждый оставшийся будний
  *                         день месяца, не больше QUOTA, минус уже запланированное
@@ -34,8 +37,10 @@ import {
 	CreditsError,
 	credits,
 	extractMarkdown,
-	resolveModel,
+	HELPER_CANDIDATES,
+	makeTier,
 	usageTotals,
+	WRITER_CANDIDATES,
 } from './lib/openrouter.mjs';
 import {
 	factcheckPrompt,
@@ -282,14 +287,14 @@ function extendAutoNpa(npaEntries) {
 
 // ─── Пайплайн одной статьи ───────────────────────────────────────────────────
 
-async function produceArticle({ topic, dateStr, model, articles, log }) {
+async function produceArticle({ topic, dateStr, writer, helper, articles, log }) {
 	const slug = `${dateStr}-${topic.slug}`;
 	const reviewDate = new Date(`${dateStr}T00:00:00Z`);
 	reviewDate.setUTCMonth(reviewDate.getUTCMonth() + 6);
 
 	// 1. Research с веб-поиском
 	const research = await chatJson({
-		model,
+		tier: helper,
 		messages: researchPrompt(topic, npaHintsFor(topic.category)),
 		temperature: 0.2,
 		maxTokens: 8000,
@@ -302,7 +307,7 @@ async function produceArticle({ topic, dateStr, model, articles, log }) {
 	let article = extractMarkdown(
 		(
 			await chat({
-				model,
+				tier: writer,
 				messages: writePrompt({
 					topic,
 					research,
@@ -323,7 +328,7 @@ async function produceArticle({ topic, dateStr, model, articles, log }) {
 		article = extractMarkdown(
 			(
 				await chat({
-					model,
+					tier: writer,
 					messages: repairPrompt({ article, problems: validation.errors }),
 					temperature: 0.3,
 					maxTokens: 9000,
@@ -340,7 +345,7 @@ async function produceArticle({ topic, dateStr, model, articles, log }) {
 	let report = { verdict: 'skipped', claims: [], npa: [], fixes: [] };
 	if (process.env.SKIP_FACTCHECK !== '1') {
 		report = await chatJson({
-			model,
+			tier: helper,
 			messages: factcheckPrompt({ article, npaUnknown: validation.npaUnknown }),
 			temperature: 0.1,
 			maxTokens: 8000,
@@ -360,7 +365,7 @@ async function produceArticle({ topic, dateStr, model, articles, log }) {
 				...(report.fixes ?? []),
 			];
 			article = extractMarkdown(
-				(await chat({ model, messages: repairPrompt({ article, problems }), temperature: 0.2, maxTokens: 9000 })).content,
+				(await chat({ tier: writer, messages: repairPrompt({ article, problems }), temperature: 0.2, maxTokens: 9000 })).content,
 			);
 			validation = validateArticle({ raw: article, slug, topic });
 			if (validation.errors.length) throw new Error(`после фактчека не прошла шлюз: ${validation.errors.slice(0, 5).join('; ')}`);
@@ -378,7 +383,7 @@ async function produceArticle({ topic, dateStr, model, articles, log }) {
 	// 5. Соцчерновики
 	let social = null;
 	try {
-		social = extractMarkdown((await chat({ model, messages: socialPrompt({ article, topic, slug }), temperature: 0.6, maxTokens: 5000 })).content);
+		social = extractMarkdown((await chat({ tier: helper, messages: socialPrompt({ article, topic, slug }), temperature: 0.6, maxTokens: 5000 })).content);
 	} catch (e) {
 		log(`${slug}: соцпосты не сгенерировались (${e.message})`);
 	}
@@ -387,7 +392,7 @@ async function produceArticle({ topic, dateStr, model, articles, log }) {
 	fs.writeFileSync(path.join(BLOG_DIR, `${slug}.mdx`), article.endsWith('\n') ? article : article + '\n');
 	writeResearchBrief(slug, topic, research);
 	if (social) writeSocial(slug, topic, social);
-	if (process.env.SKIP_FACTCHECK !== '1') writeFactcheck(slug, model, report, validation);
+	if (process.env.SKIP_FACTCHECK !== '1') writeFactcheck(slug, helper.model, report, validation);
 
 	return { slug, words: validation.stats.words, warnings: validation.warnings.length };
 }
@@ -440,10 +445,16 @@ async function main() {
 	const queue = buildQueue({ count });
 	const dates = scheduleDates(queue.length, start, taken);
 
-	console.log(`Модель-кандидаты: разрешаю…`);
-	const model = DRY_RUN ? '(dry-run)' : await resolveModel(process.env.DRAFT_MODEL);
+	console.log('Подбираю модели…');
+	const writer = DRY_RUN
+		? { model: '(dry-run)', candidates: [] }
+		: await makeTier(envValue('DRAFT_MODEL'), WRITER_CANDIDATES);
+	const helper = DRY_RUN
+		? { model: '(dry-run)', candidates: [] }
+		: await makeTier(envValue('HELPER_MODEL'), HELPER_CANDIDATES);
 
-	console.log(`Модель:      ${model}`);
+	console.log(`Пишет:       ${writer.model}`);
+	console.log(`Помогает:    ${helper.model}`);
 	console.log(`Статей:      ${queue.length} (квота ${QUOTA}, уже запланировано ${scheduled})`);
 	console.log(`Расписание:  ${dates[0]} … ${dates[dates.length - 1]}`);
 	console.log(`Запас тем:   ${buildQueue().length} шт.\n`);
@@ -484,7 +495,7 @@ async function main() {
 		while (cursor < plan.length && !stopped) {
 			const { topic, dateStr } = plan[cursor++];
 			try {
-				const result = await produceArticle({ topic, dateStr, model, articles, log });
+				const result = await produceArticle({ topic, dateStr, writer, helper, articles, log });
 				done.push(result);
 				console.log(`✓ ${result.slug} — ${result.words} слов, замечаний ${result.warnings}`);
 			} catch (e) {
@@ -506,7 +517,7 @@ async function main() {
 	// Отчёт прогона — чтобы после автономного запуска было что читать.
 	const usage = usageTotals();
 	const report = `\n## Прогон ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC\n\n` +
-		`Модель: ${model}. Готово: ${done.length}, не вышло: ${failed.length}. ` +
+		`Модели: ${writer.model} + ${helper.model}. Готово: ${done.length}, не вышло: ${failed.length}. ` +
 		`Запросов к модели: ${usage.requests}, токенов на выходе: ${usage.completionTokens}. ` +
 		`Запас тем в плане: ${buildQueue().length}.` +
 		(stopped ? `\n\n**Прогон остановлен:** ${stopped}` : '') + `\n\n` +
@@ -525,7 +536,7 @@ async function main() {
 	console.log(`\nГотово: ${done.length}. Не вышло: ${failed.length}.`);
 	console.log(`Запросов к модели: ${usage.requests}, токенов на выходе: ${usage.completionTokens}.`);
 	if (stopped) console.error(`Прогон остановлен: ${stopped}`);
-	if (done.length === 0) process.exit(1);
+	if (done.length === 0 || stopped) process.exitCode = 1;
 }
 
 await main();
