@@ -28,7 +28,15 @@ import {
 	parseFrontmatter,
 	validateArticle,
 } from './lib/article-rules.mjs';
-import { chat, extractJson, extractMarkdown, resolveModel } from './lib/openrouter.mjs';
+import {
+	chat,
+	chatJson,
+	CreditsError,
+	credits,
+	extractMarkdown,
+	resolveModel,
+	usageTotals,
+} from './lib/openrouter.mjs';
 import {
 	factcheckPrompt,
 	repairPrompt,
@@ -280,14 +288,13 @@ async function produceArticle({ topic, dateStr, model, articles, log }) {
 	reviewDate.setUTCMonth(reviewDate.getUTCMonth() + 6);
 
 	// 1. Research с веб-поиском
-	const researchRaw = await chat({
+	const research = await chatJson({
 		model,
 		messages: researchPrompt(topic, npaHintsFor(topic.category)),
 		temperature: 0.2,
-		maxTokens: 6000,
+		maxTokens: 8000,
 		web: true,
 	});
-	const research = extractJson(researchRaw.content);
 	if (!research.facts?.length) throw new Error('research не вернул фактов');
 	log(`${slug}: фактов ${research.facts.length}`);
 
@@ -304,7 +311,7 @@ async function produceArticle({ topic, dateStr, model, articles, log }) {
 					reviewDate: reviewDate.toISOString().slice(0, 10),
 				}),
 				temperature: 0.5,
-				maxTokens: 12000,
+				maxTokens: 9000,
 			})
 		).content,
 	);
@@ -319,7 +326,7 @@ async function produceArticle({ topic, dateStr, model, articles, log }) {
 					model,
 					messages: repairPrompt({ article, problems: validation.errors }),
 					temperature: 0.3,
-					maxTokens: 12000,
+					maxTokens: 9000,
 				})
 			).content,
 		);
@@ -332,17 +339,13 @@ async function produceArticle({ topic, dateStr, model, articles, log }) {
 	// 4. Онлайн-фактчек: номера НПА и цифры сверяются с первоисточниками
 	let report = { verdict: 'skipped', claims: [], npa: [], fixes: [] };
 	if (process.env.SKIP_FACTCHECK !== '1') {
-		report = extractJson(
-			(
-				await chat({
-					model,
-					messages: factcheckPrompt({ article, npaUnknown: validation.npaUnknown }),
-					temperature: 0.1,
-					maxTokens: 6000,
-					web: true,
-				})
-			).content,
-		);
+		report = await chatJson({
+			model,
+			messages: factcheckPrompt({ article, npaUnknown: validation.npaUnknown }),
+			temperature: 0.1,
+			maxTokens: 8000,
+			web: true,
+		});
 
 		const ghostNpa = (report.npa ?? []).filter((n) => n.exists === false);
 		const criticalMismatch = (report.claims ?? []).filter(
@@ -357,7 +360,7 @@ async function produceArticle({ topic, dateStr, model, articles, log }) {
 				...(report.fixes ?? []),
 			];
 			article = extractMarkdown(
-				(await chat({ model, messages: repairPrompt({ article, problems }), temperature: 0.2, maxTokens: 12000 })).content,
+				(await chat({ model, messages: repairPrompt({ article, problems }), temperature: 0.2, maxTokens: 9000 })).content,
 			);
 			validation = validateArticle({ raw: article, slug, topic });
 			if (validation.errors.length) throw new Error(`после фактчека не прошла шлюз: ${validation.errors.slice(0, 5).join('; ')}`);
@@ -375,7 +378,7 @@ async function produceArticle({ topic, dateStr, model, articles, log }) {
 	// 5. Соцчерновики
 	let social = null;
 	try {
-		social = extractMarkdown((await chat({ model, messages: socialPrompt({ article, topic, slug }), temperature: 0.6, maxTokens: 6000 })).content);
+		social = extractMarkdown((await chat({ model, messages: socialPrompt({ article, topic, slug }), temperature: 0.6, maxTokens: 5000 })).content);
 	} catch (e) {
 		log(`${slug}: соцпосты не сгенерировались (${e.message})`);
 	}
@@ -456,21 +459,43 @@ async function main() {
 		return;
 	}
 
+	try {
+		const balance = await credits();
+		if (balance.left != null) {
+			console.log(`Баланс OpenRouter: осталось $${balance.left.toFixed(2)} из $${balance.total.toFixed(2)}\n`);
+			if (balance.left <= 0) {
+				console.error('Кредиты кончились. Пополнить: https://openrouter.ai/settings/credits');
+				process.exit(1);
+			}
+		}
+	} catch (e) {
+		console.warn(`Баланс проверить не удалось: ${e.message}\n`);
+	}
+
 	const articles = publishedArticles();
 	const done = [];
 	const failed = [];
+	let stopped = null;
 	const log = (m) => console.log(`  ${m}`);
 
 	// Небольшой пул воркеров: не упираемся в rate limit и не ждём час на sequential.
 	let cursor = 0;
 	async function worker() {
-		while (cursor < plan.length) {
+		while (cursor < plan.length && !stopped) {
 			const { topic, dateStr } = plan[cursor++];
 			try {
 				const result = await produceArticle({ topic, dateStr, model, articles, log });
 				done.push(result);
 				console.log(`✓ ${result.slug} — ${result.words} слов, замечаний ${result.warnings}`);
 			} catch (e) {
+				// Деньги кончились — дальше идти некуда: останавливаем весь прогон,
+				// чтобы не гонять оставшиеся темы в заведомо провальные попытки.
+				if (e instanceof CreditsError) {
+					stopped = e.message;
+					console.error(`✗ ${dateStr}-${topic.slug}: ${e.message}`);
+					console.error('Останавливаю прогон.');
+					return;
+				}
 				failed.push({ slug: `${dateStr}-${topic.slug}`, reason: e.message });
 				console.error(`✗ ${dateStr}-${topic.slug}: ${e.message}`);
 			}
@@ -479,9 +504,12 @@ async function main() {
 	await Promise.all(Array.from({ length: Math.min(CONCURRENCY, plan.length) }, worker));
 
 	// Отчёт прогона — чтобы после автономного запуска было что читать.
+	const usage = usageTotals();
 	const report = `\n## Прогон ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC\n\n` +
 		`Модель: ${model}. Готово: ${done.length}, не вышло: ${failed.length}. ` +
-		`Запас тем в плане: ${buildQueue().length}.\n\n` +
+		`Запросов к модели: ${usage.requests}, токенов на выходе: ${usage.completionTokens}. ` +
+		`Запас тем в плане: ${buildQueue().length}.` +
+		(stopped ? `\n\n**Прогон остановлен:** ${stopped}` : '') + `\n\n` +
 		done.map((d) => `- ✓ ${d.slug} — ${d.words} слов`).join('\n') +
 		(failed.length ? '\n' + failed.map((f) => `- ✗ ${f.slug} — ${f.reason}`).join('\n') : '') +
 		'\n';
@@ -495,6 +523,8 @@ async function main() {
 	fs.appendFileSync(REPORT_PATH, report);
 
 	console.log(`\nГотово: ${done.length}. Не вышло: ${failed.length}.`);
+	console.log(`Запросов к модели: ${usage.requests}, токенов на выходе: ${usage.completionTokens}.`);
+	if (stopped) console.error(`Прогон остановлен: ${stopped}`);
 	if (done.length === 0) process.exit(1);
 }
 

@@ -95,7 +95,10 @@ jobs:
           COUNT: ${{ steps.plan.outputs.count }}
           START_DATE: ${{ inputs.start_date }}
           DRY_RUN: ${{ inputs.dry_run }}
-          CONCURRENCY: '3'
+          # По одной статье за раз: OpenRouter резервирует максимальную
+          # стоимость каждого запроса в полёте, и параллельные прогоны
+          # упираются в этот резерв раньше, чем в баланс (402).
+          CONCURRENCY: '1'
         run: node scripts/content/generate-drafts.mjs
 
       # Картинки — одним пакетом на всю месячную норму, включая черновики.
