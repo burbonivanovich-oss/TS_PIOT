@@ -473,11 +473,16 @@ async function main() {
 	try {
 		const balance = await credits();
 		if (balance.left != null) {
-			console.log(`Баланс OpenRouter: осталось $${balance.left.toFixed(2)} из $${balance.total.toFixed(2)}\n`);
+			console.log(`Баланс OpenRouter: осталось $${balance.left.toFixed(2)} из $${balance.total.toFixed(2)}`);
 			if (balance.left <= 0) {
-				console.error('Кредиты кончились. Пополнить: https://openrouter.ai/settings/credits');
+				// ::error:: — чтобы причина была видна в сводке прогона, а не только в логе.
+				console.log(
+					'::error::Кредиты OpenRouter кончились, автопилот не может писать статьи. ' +
+						'Пополнить: https://openrouter.ai/settings/credits',
+				);
 				process.exit(1);
 			}
+			console.log('');
 		}
 	} catch (e) {
 		console.warn(`Баланс проверить не удалось: ${e.message}\n`);
