@@ -1,5 +1,12 @@
 name: Публикация — автоматический выпуск
 
+# Выпускает по одному черновику за прогон: берёт статью, у которой наступила
+# дата публикации (pubDate), прогоняет её через шлюз качества
+# (scripts/content/qa-gate.mjs) и снимает draft: true.
+#
+# Черновики пишет content-autopilot.yml. Если очередь пуста — прогон просто
+# ничего не делает; четыре запуска в день дают запас на догон отставания.
+
 on:
   schedule:
     # 4 раза в день: 07:00, 11:00, 15:00, 19:00 МСК (UTC+3)
@@ -10,9 +17,17 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'Dry run — показать следующий черновик без публикации (1 = да)'
+        description: 'Dry run — показать очередь без публикации (1 = да)'
         required: false
         default: '0'
+      force_date:
+        description: 'Игнорировать pubDate и выпустить самый ранний черновик (1 = да)'
+        required: false
+        default: '0'
+
+concurrency:
+  group: auto-publish
+  cancel-in-progress: false
 
 jobs:
   publish:
@@ -35,50 +50,85 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Pick and release next draft
+      - name: Очередь публикаций
+        run: node scripts/content/queue-status.mjs
+
+      - name: Выпуск очередного черновика
         id: release
+        env:
+          FORCE_DATE: ${{ inputs.force_date }}
         run: |
           if [ "${{ inputs.dry_run }}" = "1" ]; then
-            # Dry run: только показать следующий черновик, не менять файл
-            SLUG=$(node -e "
-              import { readdirSync, readFileSync } from 'fs';
-              import { join, basename } from 'path';
-              const dir = 'src/content/blog';
-              const files = readdirSync(dir).filter(f => f.endsWith('.md') || f.endsWith('.mdx')).sort();
-              for (const f of files) {
-                const c = readFileSync(join(dir, f), 'utf8');
-                if (/^draft:\s*true\s*$/m.test(c)) { process.stdout.write(basename(f, f.endsWith('.mdx') ? '.mdx' : '.md')); break; }
-              }
-            " --input-type=module 2>/dev/null || echo '')
-            echo "slug=$SLUG" >> $GITHUB_OUTPUT
+            echo "Dry run — ничего не публикую."
+            echo "slug=" >> $GITHUB_OUTPUT
             echo "dry_run=1" >> $GITHUB_OUTPUT
-            echo "Dry run. Next draft: $SLUG"
-          else
-            SLUG=$(node scripts/release-next-draft.mjs 2>/dev/null || echo '')
-            echo "slug=$SLUG" >> $GITHUB_OUTPUT
-            echo "dry_run=0" >> $GITHUB_OUTPUT
-            if [ -n "$SLUG" ]; then
-              echo "Released: $SLUG"
-            else
-              echo "No draft articles left."
-            fi
+            exit 0
           fi
 
-      - name: Generate hero image for released article
+          SLUG=$(node scripts/release-next-draft.mjs) || true
+          echo "slug=$SLUG" >> $GITHUB_OUTPUT
+          echo "dry_run=0" >> $GITHUB_OUTPUT
+          if [ -n "$SLUG" ]; then
+            echo "Выпущено: $SLUG"
+          else
+            echo "Публиковать нечего."
+          fi
+
+      # Страховка: обычно hero уже сгенерирован пакетом в content-autopilot.yml.
+      # Здесь картинка рисуется, только если её почему-то нет.
+      - name: Hero-картинка, если её нет
         if: steps.release.outputs.slug != '' && steps.release.outputs.dry_run == '0'
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           SLUG: ${{ steps.release.outputs.slug }}
-          FORCE: '1'
           LIMIT: '1'
         run: node scripts/generate-hero-images.mjs
 
-      - name: Commit and push
+      - name: WebP-версия
         if: steps.release.outputs.slug != '' && steps.release.outputs.dry_run == '0'
+        run: node scripts/optimize-images.mjs
+
+      - name: Коммит и пуш
+        if: steps.release.outputs.dry_run == '0'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/content/blog/ public/images/hero/
-          git diff --staged --quiet && echo "Nothing to commit." && exit 0
-          git commit -m "feat(publish): ${{ steps.release.outputs.slug }}"
-          git push origin main
+          for p in src/content/blog public/images/hero .claude/blocked; do
+            [ -e "$p" ] && git add "$p"
+          done
+          git diff --staged --quiet && echo "Нечего коммитить." && exit 0
+          if [ -n "${{ steps.release.outputs.slug }}" ]; then
+            git commit -m "feat(publish): ${{ steps.release.outputs.slug }}"
+          else
+            git commit -m "chore(publish): отчёт шлюза качества"
+          fi
+          for i in 1 2 3 4; do
+            git push origin main && break
+            echo "Пуш не прошёл, повтор через $((2 ** i))с"; sleep $((2 ** i))
+            git pull --rebase origin main || true
+          done
+
+      # Сигнал тревоги: именно молчание конвейера в июле-августе 2026 никто
+      # не заметил полтора месяца. Теперь пустая очередь роняет прогон, и
+      # GitHub присылает письмо о падении.
+      - name: Тревога, если конвейер пуст
+        if: steps.release.outputs.dry_run == '0'
+        run: |
+          DRAFTS=$(node scripts/content/queue-status.mjs --json \
+            | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>console.log(JSON.parse(s).drafts))")
+          if [ "$DRAFTS" -eq 0 ]; then
+            echo "::error::Черновиков не осталось — публиковать больше нечего. Запустите workflow «Контент — автопилот»."
+            exit 1
+          fi
+          echo "В очереди черновиков: $DRAFTS"
+
+      - name: Итог
+        if: always()
+        run: |
+          {
+            echo "## Публикация"
+            echo ''
+            echo "Выпущено: ${{ steps.release.outputs.slug || '—' }}"
+            echo ''
+            node scripts/content/queue-status.mjs || true
+          } >> $GITHUB_STEP_SUMMARY

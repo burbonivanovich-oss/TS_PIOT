@@ -16,8 +16,9 @@ node scripts/health-check.mjs
 - ✗ красный — нужно чинить
 
 Что проверяется:
-- **Контент.** Сколько статей, сколько черновиков, сколько с
-  будущим pubDate, у скольких нет factcheck-маркера.
+- **Контент.** Сколько статей, у скольких нет factcheck-маркера.
+- **Конвейер.** Запас публикаций в днях: < 3 дней — красный, сайт
+  вот-вот замолчит. Плюс черновики, заблокированные шлюзом качества.
 - **Соцпосты.** Покрытие блог-статей черновиками для Telegram/
   VK/Дзен. Если пропуски > 10% — fail.
 - **Workflows.** Все ли упомянутые в workflow скрипты реально
@@ -45,7 +46,8 @@ node scripts/health-check.mjs --strict
 
 | Подсистема | Где запускается | Документация |
 |---|---|---|
-| Публикация (auto-publish) | `auto-publish.yml`, cron 4× в день | `CLAUDE.md` Workflow |
+| Написание статей (автопилот) | `content-autopilot.yml`, cron 1-го числа + понедельник | `docs/autopilot.md` |
+| Публикация (auto-publish) | `auto-publish.yml`, cron 4× в день | `docs/autopilot.md` |
 | Деплой | `deploy-gh-pages.yml` | `docs/architecture.md` |
 | Hero-картинки | `generate-hero-images.yml`, ручной | `docs/images.md` |
 | Hero-backfill | `hero-backfill-daily.yml`, cron 00:00 МСК | `docs/images.md` |
@@ -107,6 +109,8 @@ SKIP_SOCIAL_GUARD=1 git commit ...
 | Соцпосты не появились в Google Docs | logs `social-to-docs.yml` | Папка расшарена с service-account? `docs/SECRETS.md` |
 | Hero-картинка не сгенерилась | logs `auto-publish.yml` или `hero-backfill-daily.yml` | OPENROUTER_API_KEY есть? Баланс не кончился? |
 | Cron перестал срабатывать | Actions → конкретный workflow → история | GitHub отключает cron при отсутствии активности 60 дней. Любой push в main возобновляет |
+| Статьи не выходят | `node scripts/content/queue-status.mjs` | Очередь черновиков пуста → запустить **Контент — автопилот**. Есть черновики, но они не выпускаются → смотреть `.claude/blocked/<slug>`: там причина отказа шлюза. `docs/autopilot.md` |
+| Автопилот упал | Actions → **Контент — автопилот** → logs | Чаще всего баланс OpenRouter или 401 по ключу. Прогон можно повторить: темы, по которым статьи не вышли, остаются в очереди |
 
 ## Регулярные ритуалы
 
@@ -115,4 +119,5 @@ SKIP_SOCIAL_GUARD=1 git commit ...
 | Перед мержем PR | `node scripts/health-check.mjs` |
 | Понедельник утром | Открыть `/dashboard/` — позиции и трафик за неделю |
 | Раз в месяц | Проверить срок жизни Yandex OAuth-токенов в `docs/SECRETS.md` |
+| Раз в месяц | Прочитать `src/content/wiki/autopilot-log.md` и выборочно 2–3 статьи, вышедшие автоматически |
 | Раз в квартал | Архивировать выполненные задачи из `backlog.md`, прогнать `/maintain-content` |

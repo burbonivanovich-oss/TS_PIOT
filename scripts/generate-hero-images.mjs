@@ -8,6 +8,9 @@
  *   SLUG                — slug конкретной статьи (без даты-пути)
  *   LIMIT               — не более N статей за запуск
  *   FORCE               — "1" чтобы перегенерировать статьи, у которых heroImage уже есть
+ *   INCLUDE_DRAFTS      — "1" чтобы захватить черновики (draft: true). Так автопилот
+ *                         прогоняет картинки разом на всю месячную норму статей,
+ *                         не дожидаясь выпуска каждой по отдельности
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -19,6 +22,7 @@ const BLOG_DIR  = path.join(ROOT, 'src/content/blog');
 const HERO_DIR  = path.join(ROOT, 'public/images/hero');
 const MODEL     = process.env.HERO_MODEL ?? 'google/gemini-3.1-flash-image-preview';
 const FORCE     = process.env.FORCE === '1';
+const INCLUDE_DRAFTS = process.env.INCLUDE_DRAFTS === '1';
 
 fs.mkdirSync(HERO_DIR, { recursive: true });
 
@@ -562,7 +566,7 @@ let targets = files.filter(file => {
   if (targetSlug && slug !== targetSlug && !slug.startsWith(targetSlug)) return false;
   const content = fs.readFileSync(path.join(BLOG_DIR, file), 'utf8');
   if (!FORCE && /^heroImage:/m.test(content)) return false;
-  if (!targetSlug && /^draft:\s*true/m.test(content)) return false;
+  if (!targetSlug && !INCLUDE_DRAFTS && /^draft:\s*true/m.test(content)) return false;
   return true;
 });
 
@@ -576,6 +580,7 @@ if (targets.length === 0) {
 
 console.log(`Модель: ${MODEL}`);
 console.log(`FORCE: ${FORCE ? 'да (перезапись существующих)' : 'нет'}`);
+console.log(`Черновики: ${INCLUDE_DRAFTS ? 'включены' : 'пропускаются'}`);
 if (limit > 0) console.log(`Лимит: ${limit}`);
 console.log(`Буду генерировать hero для ${targets.length} статьи(й):\n`);
 

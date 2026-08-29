@@ -129,8 +129,11 @@
 | `generate-flagship-illustrations.mjs` | 8 шагов флагмана | `google/gemini-3.1-flash-image-preview` |
 
 **Запуск:**
-- **Автоматически** при публикации через `auto-publish.yml` (flip
-  `draft: true → false`) — генерит hero для выпущенной статьи.
+- **Пакетом на месячную норму** через `content-autopilot.yml`:
+  `INCLUDE_DRAFTS=1 LIMIT=0` — картинки рисуются разом на все свежие
+  черновики, а не по одной в день публикации.
+- **Автоматически** при публикации через `auto-publish.yml` — страховка:
+  hero генерится, только если его почему-то нет.
 - **Cron-сейфти** через `hero-backfill-daily.yml` (00:00 МСК,
   ≤ 10 статей/день) — догенеряет hero для статей опубликованных
   в обход auto-publish.
@@ -165,6 +168,26 @@ Satori поддерживает `backgroundImage: url(data:image/png;base64,...)
 ---
 
 ## Вспомогательные скрипты (scripts/)
+
+### Автопилот контента (`scripts/content/`)
+
+Полное описание контура — `docs/autopilot.md`.
+
+| Скрипт | Назначение |
+|---|---|
+| `content/generate-drafts.mjs` | Главный: месячная норма черновиков. research (веб) → написание → шлюз → починка → онлайн-фактчек → соцпосты |
+| `content/qa-gate.mjs` | Шлюз перед `draft: false`: редполитика, маркер фактчека, подтверждение НПА, скор AI-маркеров |
+| `content/queue-status.mjs` | Состояние очереди: черновики, запас публикаций в днях, заблокированные, остаток тем в плане |
+| `content/build-guard.mjs` | `npm run build` со страховкой: битую свежую статью уносит в `.claude/quarantine/` и пересобирает |
+| `content/lib/content-plan.mjs` | Парсер контент-плана → приоритизированная очередь тем (CLI: `--count=N`, `--json`) |
+| `content/lib/article-rules.mjs` | Редполитика в коде: `validateArticle()`, слова-паразиты, лимиты, whitelist НПА |
+| `content/lib/openrouter.mjs` | Клиент OpenRouter: подбор доступной модели, ретраи, веб-поиск |
+| `content/lib/prompts.mjs` | Промпты research / write / repair / factcheck / social |
+| `release-next-draft.mjs` | Выпуск: черновик с наступившей `pubDate` + шлюз качества → `draft: false` |
+
+**Ключ тот же** — `OPENROUTER_API_KEY`. Новых секретов автопилот не требует.
+
+### Вспомогательные скрипты
 
 | Скрипт | Назначение |
 |---|---|
