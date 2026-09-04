@@ -171,7 +171,7 @@ CPA-монетизация встроена в контент органично
 | kontrolnye-zakupki-fns-2025 | Контрольные закупки ФНС 2025–2026: как проходят | P1 | kontur-extern | контрольная закупка ФНС | planned | — |
 | subsidii-msb-2026 | Субсидии и гранты для МСБ в 2026 | P0 | kontur-elba | субсидии малому бизнесу 2026 | planned | wordstat-2026-05 |
 | koap-shtrafy-biznes-2026 | Новые штрафы КоАП для бизнеса в 2026 | P1 | default-zakonodatelstvo | новые штрафы для бизнеса 2026 | planned | — |
-| bnpl-msb | Индикаторы риска ФНС в 2026 | P1 | kontur-focus | индикаторы риска ФНС 2026 | planned | — |
+| indikatory-riska-fns-2026 | Индикаторы риска ФНС в 2026 | P1 | kontur-focus | индикаторы риска ФНС 2026 | planned | — |
 | trudovoy-uchet-mikropredpr | Кадровый учёт у микропредприятия: упрощение | P2 | kontur-extern | кадровый учёт микропредприятие | planned | — |
 | nalogi-msb-2026 | Налоги МСБ в 2026: УСН, патент, ЕНС и КЭДО | P0 | kontur-elba | налоги МСБ 2026 | done | — |
 | usn-nds-rasschet | НДС на УСН в 2026: ставка 5%, 7% или 22% — как выбрать | P0 | kontur-elba | НДС на УСН какая ставка | done | — |
