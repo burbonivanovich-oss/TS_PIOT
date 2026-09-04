@@ -1,0 +1,189 @@
+{
+  "slug": "2026-10-29-apteka-markirovka-lekarstv",
+  "checkedDate": "2026-09-04",
+  "checkedBy": "claude-sonnet-5+websearch",
+  "method": "manual-with-websearch",
+  "claims": [
+    {
+      "ids": ["c8", "c14", "c9", "c15", "c16", "c10", "c17", "c11", "c18", "c2", "c19", "c1", "c4", "c3", "c5", "c6", "c7", "c12", "c21", "c13", "c22", "c23", "c20", "c24"],
+      "type": "DATE_*",
+      "raw": "01.10.2019 / 01.07.2020 / 14.12.2018 / 29.11.2024 / 28.12.2025 / 11.06.2021 / 01.12.2021 / 2026",
+      "status": "match",
+      "severity": "match",
+      "confidence": 0.95,
+      "explanation": "Все даты подтверждены: два этапа маркировки лекарств (01.10.2019 — 7 высокозатратных нозологий, 01.07.2020 — все препараты); ПП №1556 от 14.12.2018; ПП №1674 от 29.11.2024 с обязанностью распознавать Data Matrix с 28.12.2025; 204-ФЗ от 11.06.2021 выделил ст. 6.34 КоАП, вступила в силу 01.12.2021.",
+      "sources": [
+        "https://iitrust.ru/articles/obyazatelnaya-markirovka-lekarstv-v-2020-godu-rukovodstvo-dlya-uchastnikov-oborota",
+        "https://its.1c.ru/db/content/newsclar/src/498090.htm",
+        "https://kormed.ru/baza-znaniy/narusheniya-pravil-markirovki-lekarstv-izmeneniya-v-koap-rf/",
+        "http://publication.pravo.gov.ru/Document/View/0001201812240049"
+      ],
+      "action": "keep"
+    },
+    {
+      "ids": ["c45", "c46", "c47", "c48", "c49", "c50", "c51"],
+      "type": "NPA_FZ",
+      "raw": "61-ФЗ / 3-ФЗ / 54-ФЗ / 204-ФЗ",
+      "status": "match",
+      "severity": "match",
+      "confidence": 0.95,
+      "explanation": "Номера ФЗ верны: 61-ФЗ «Об обращении лекарственных средств» (ст. 46 — маркировка), 3-ФЗ от 08.01.1998 «О наркотических средствах и психотропных веществах», 54-ФЗ «О применении ККТ», 204-ФЗ от 11.06.2021 «О внесении изменений в КоАП РФ» (выделил ст. 6.34 из ст. 15.12).",
+      "sources": [
+        "https://base.garant.ru/12174909/",
+        "https://base.garant.ru/12107402/",
+        "https://www.garant.ru/hotlaw/federal/1467980/",
+        "https://www.alta.ru/tamdoc/21fz0204/"
+      ],
+      "action": "keep"
+    },
+    {
+      "ids": ["c52", "c53", "c54", "c55", "c56", "c57"],
+      "type": "NPA_PP_NUMBERED",
+      "raw": "Постановление Правительства РФ № 1556 от 14.12.2018",
+      "status": "match",
+      "severity": "match",
+      "confidence": 0.95,
+      "explanation": "Номер, дата и название («Об утверждении Положения о системе мониторинга движения лекарственных препаратов для медицинского применения») подтверждены на publication.pravo.gov.ru и в справочных базах. Формулировки статьи про «действующую редакцию, которая обновляется несколько раз в год» без указания конкретного срока отложенной передачи — намеренно обтекаемые, выдуманных цифр нет.",
+      "sources": [
+        "http://publication.pravo.gov.ru/Document/View/0001201812240049",
+        "https://www.consultant.ru/document/cons_doc_LAW_314167/"
+      ],
+      "action": "keep"
+    },
+    {
+      "ids": ["c58"],
+      "type": "NPA_PRIKAZ",
+      "raw": "приказе Минпромторга № 1674 от 29.11.2024",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "Постановление Правительства РФ № 1674 от 29.11.2024 (не приказ Минпромторга)",
+      "explanation": "№ 1674 от 29.11.2024 — это Постановление Правительства РФ «О внесении изменений в некоторые акты Правительства РФ по вопросам передачи информации в ГИС МТ», а не приказ Минпромторга. Whitelist проекта (sources.json.npaWhitelist.pp.1674) тоже классифицирует его как ПП. Смешение с реальным приказом Минпромторга № 2044 (тоже в whitelist, про функциональную совместимость ТС ПИоТ) вводит в заблуждение.",
+      "sources": [
+        "http://government.ru/docs/all/156474/",
+        "https://www.alta.ru/tamdoc/24ps1674/",
+        "https://ppt.ru/obzory/vstupaet-v-silu/postanovlenie-pravitelstva-rf-29-11-2024-1674"
+      ],
+      "action": "rewrite-bullet",
+      "actionDetail": "Заменить «приказе Минпромторга № 1674» на «постановлении Правительства РФ № 1674» в теле статьи и в frontmatter sources. Применено."
+    },
+    {
+      "ids": ["c32", "c33", "c34", "c35", "c36", "c37", "c38", "c39", "c40", "c41", "c42"],
+      "type": "NPA_KOAP",
+      "raw": "ст. 6.34 КоАП / ст. 15.12 КоАП",
+      "status": "match",
+      "severity": "match",
+      "confidence": 0.9,
+      "explanation": "Номера статей верны: ст. 6.34 КоАП РФ (специальный состав для лекарств, введена 204-ФЗ, действует с 01.12.2021, выделена из ст. 15.12) — подтверждено независимыми источниками (kormed.ru, kodap.ru, rulaws.ru, alta.ru).",
+      "sources": [
+        "https://rulaws.ru/koap/Razdel-II/Glava-6/Statya-6.34/",
+        "https://www.kodap.ru/razdel-2/glava-6/st-6-34-koap-rf",
+        "https://kormed.ru/baza-znaniy/narusheniya-pravil-markirovki-lekarstv-izmeneniya-v-koap-rf/"
+      ],
+      "action": "keep"
+    },
+    {
+      "ids": ["custom-ip-6.34"],
+      "type": "CONTEXT_MISMATCH",
+      "raw": "«ИП отвечает как юрлицо (примечание к ст. 6.34)» — таблица штрафов ч.1 и ч.2 ст. 6.34 КоАП",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "ИП несёт ответственность по ст. 6.34 КоАП РФ как должностное лицо — 5 000–10 000 ₽ (с конфискацией по ч. 1), а не как юрлицо (50 000–100 000 ₽)",
+      "explanation": "У ст. 6.34 КоАП РФ нет собственного примечания про ИП — подтверждено сверкой текста статьи на kodap.ru, pravo.ppt.ru, rulaws.ru (везде только должностные лица и юрлица). Общее правило — примечание к ст. 2.4 КоАП РФ: ИП несут ответственность как должностные лица, если иное прямо не установлено статьёй Особенной части. Список статей-исключений (6.16, 7.34, 12.31, 12.32, 15.27, 15.33, 16.1, 18.1, 19.5) не включает 6.34. Значит штраф для ИП по ч. 1 и ч. 2 ст. 6.34 — 5 000–10 000 ₽ (как для должностного лица), а не 50 000–100 000 ₽ (как для юрлица). Расхождение ×10 — critical по A1.",
+      "sources": [
+        "https://www.consultant.ru/law/podborki/individualnyj_predprinimatel_priravnivaetsya_k_dolzhnostnomu_licu/",
+        "https://www.kodap.ru/razdel-2/glava-6/st-6-34-koap-rf",
+        "https://rulaws.ru/koap/Razdel-II/Glava-6/Statya-6.34/",
+        "https://pravo.ppt.ru/kodeks/koap/st-6.34"
+      ],
+      "action": "rewrite-bullet",
+      "actionDetail": "В таблице штрафов заменить «отвечает как юрлицо (примечание к ст. 6.34)» и «отвечает как юрлицо» в колонке ИП на «5 000–10 000 ₽ (как должностное лицо)» для обеих частей статьи, с пояснением, что своей нормы про ИП у ст. 6.34 нет. Применено."
+    },
+    {
+      "ids": ["c43", "c44"],
+      "type": "NPA_UK",
+      "raw": "ст. 238.1 УК РФ",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.9,
+      "explanation": "Состав (оборот фальсифицированных, недоброкачественных, незарегистрированных лекарств в крупном размере) и санкция (принудительные работы или лишение свободы 3–5 лет со штрафом 500 000–2 000 000 ₽ для физлиц/ДЛ/ИП) подтверждены. Минорная неточность формулировки: штраф в тексте закона привязан именно к варианту с лишением свободы, а не к принудительным работам — исходная фраза «принудительные работы или лишение свободы ... со штрафом» могла читаться так, будто штраф относится к обоим вариантам.",
+      "sources": [
+        "https://legalacts.ru/kodeks/UK-RF/osobennaja-chast/razdel-ix/glava-25/statja-238.1/",
+        "https://www.ugolkod.ru/statya-238-1"
+      ],
+      "action": "rewrite-bullet",
+      "actionDetail": "Уточнена формулировка в таблице: «принудительные работы на срок от 3 до 5 лет либо лишение свободы на тот же срок со штрафом 500 000–2 000 000 ₽» — штраф явно привязан к варианту с лишением свободы. Применено."
+    },
+    {
+      "ids": ["c25", "c26", "c27", "c28", "c29", "c30", "c31"],
+      "type": "MONEY",
+      "raw": "5 000–10 000 ₽ / 50 000–100 000 ₽ / 500 000–2 000 000 ₽",
+      "status": "match",
+      "severity": "match",
+      "confidence": 0.9,
+      "explanation": "Суммы для должностных лиц (5–10K) и юрлиц (50–100K) по ч. 1 и ч. 2 ст. 6.34 КоАП, и штраф по ст. 238.1 УК (500K–2M) подтверждены источниками. Проблема была не в самих цифрах, а в том, какому субъекту (ИП) они приписаны в таблице — исправлено отдельной правкой (см. custom-ip-6.34).",
+      "sources": [
+        "https://www.kodap.ru/razdel-2/glava-6/st-6-34-koap-rf",
+        "https://legalacts.ru/kodeks/UK-RF/osobennaja-chast/razdel-ix/glava-25/statja-238.1/"
+      ],
+      "action": "keep"
+    },
+    {
+      "ids": ["c59", "c60", "c62", "c63", "c64", "c65", "c66", "c67", "c68"],
+      "type": "LINK",
+      "raw": "base.garant.ru (61-ФЗ) / publication.pravo.gov.ru (ПП 1556) / rulaws.ru (ст. 6.34) / rg.ru (204-ФЗ) / legalacts.ru (ст. 238.1)",
+      "status": "match",
+      "severity": "match",
+      "confidence": 0.85,
+      "explanation": "Ссылки ведут на релевантный контент: base.garant.ru/12174909/... — ст. 46 61-ФЗ; publication.pravo.gov.ru — ПП №1556; rulaws.ru — ст. 6.34 КоАП; legalacts.ru — ст. 238.1 УК. rg.ru отдал 401 при прямом WebFetch, но независимо подтверждён номер/дата/содержание 204-ФЗ через garant.ru и alta.ru.",
+      "sources": [
+        "https://base.garant.ru/12174909/363aa18e6c32ff15fa5ec3b09cbefbf6/",
+        "https://rulaws.ru/koap/Razdel-II/Glava-6/Statya-6.34/",
+        "https://legalacts.ru/kodeks/UK-RF/osobennaja-chast/razdel-ix/glava-25/statja-238.1/"
+      ],
+      "action": "keep"
+    },
+    {
+      "ids": ["c61", "c69"],
+      "type": "LINK",
+      "raw": "https://base.garant.ru/12114531/ (заявлено как 3-ФЗ)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "https://base.garant.ru/12107402/ — реальный текст 3-ФЗ «О наркотических средствах и психотропных веществах» на ГАРАНТе",
+      "explanation": "Ссылка https://base.garant.ru/12114531/ ведёт на совершенно другой документ — Постановление Правительства РФ от 29.12.1998 № 1025 «О размере взносов, уплачиваемых в Пенсионный фонд РФ и ФСС РФ», не имеющий отношения к обороту наркотических средств. Подтверждено прямым WebFetch страницы. Правильный ID документа 3-ФЗ на ГАРАНТе — 12107402.",
+      "sources": [
+        "https://base.garant.ru/12107402/",
+        "https://lspk31.gosuslugi.ru/esche/antinarko/federalnyy-zakon-ot-08011998-n-3-fz-o-narkoticheskih-sredstvah-i-psihotropnyh-veschestvah.html"
+      ],
+      "action": "add-references",
+      "actionDetail": "Заменены обе ссылки на 3-ФЗ (в теле статьи и во frontmatter sources) на https://base.garant.ru/12107402/. Применено."
+    },
+    {
+      "ids": ["custom-378n-placeholder"],
+      "type": "MISSING_CONTEXT",
+      "raw": "[НПА: нужна проверка research-specialist'ом] — плейсхолдер про порядок ПКУ наркотических/психотропных препаратов",
+      "status": "resolved",
+      "severity": "moderate",
+      "confidence": 0.85,
+      "expectedValue": "Приказ Минздрава от 17.06.2013 № 378н «Об утверждении правил регистрации операций, связанных с обращением лекарственных средств для медицинского применения, включённых в перечень ЛС, подлежащих предметно-количественному учёту...»",
+      "explanation": "Приказ №378н действует (последняя редакция от 05.04.2018, отмены не найдено), устанавливает правила ведения журналов ПКУ, включая для аптечных организаций и ИП с фармацевтической лицензией — контекст статьи совпадает. Более новый приказ №1103н (2021) регулирует именно условия хранения наркотических/психотропных ЛС, а не регистрацию операций в журнале — для формулировки статьи («правила регистрации операций») №378н точнее.",
+      "sources": [
+        "https://base.garant.ru/70438202/",
+        "https://normativ.kontur.ru/document?moduleId=1&documentId=306571",
+        "https://www.consultant.ru/document/cons_doc_LAW_150992/"
+      ],
+      "action": "add-references",
+      "actionDetail": "Плейсхолдер заменён на ссылку на приказ Минздрава от 17.06.2013 № 378н; добавлен в frontmatter sources. Применено."
+    }
+  ],
+  "summary": {
+    "critical": 4,
+    "moderate": 1,
+    "minor": 1,
+    "match": 65,
+    "totalRawClaims": 69,
+    "note": "Счётчики critical/moderate/minor/match относятся к 69 автоматически извлечённым claims (см. claims/2026-10-29-apteka-markirovka-lekarstv.json) плюс 2 находки вне регулярок (примечание об ИП по ст. 6.34, плейсхолдер про приказ №378н) — итого 71 позиция в массиве claims. Критических расхождений 4: (1) ИП ошибочно приравнен к юрлицу по ст. 6.34 КоАП (в 10 раз больше реального штрафа), (2) № 1674 назван приказом Минпромторга вместо постановления Правительства РФ, (3)-(4) битая ссылка на 3-ФЗ (base.garant.ru/12114531/ вела на постановление о взносах в ПФР 1998 года, не на закон о наркотиках) — встречается дважды. Все четыре исправлены точечно в тексте статьи."
+  }
+}
