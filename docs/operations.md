@@ -112,6 +112,9 @@ SKIP_SOCIAL_GUARD=1 git commit ...
 | Cron перестал срабатывать | Actions → конкретный workflow → история | GitHub отключает cron при отсутствии активности 60 дней. Любой push в main возобновляет |
 | Статьи не выходят | `node scripts/content/queue-status.mjs` | Очередь черновиков пуста → запустить Routine «Этикетка — черновики» на claude.ai/code. Есть черновики, но они не выпускаются → смотреть `.claude/blocked/<slug>`: там причина отказа шлюза. `docs/autopilot.md` |
 | Черновики есть, картинок нет | Actions → **Картинки — пакетный прогон** → logs | OPENROUTER_API_KEY есть? Баланс не кончился? Прогон можно запустить руками |
+| Красные прогоны «pages build and deployment» на каждый коммит бота | Actions → «pages build and deployment» → шаг «Build with Jekyll» | В Settings → Pages источник стоит «Deploy from a branch»: GitHub гоняет Jekyll по исходникам и падает на frontmatter `.astro`. Переключить Source на «GitHub Actions» — сайт деплоит только `deploy-gh-pages.yml`. Пока не переключено, ничего не ломается, но каждый пуш шлёт письмо об ошибке |
+| Workflow показывает прогоны с именем файла (`.github/workflows/x.yml`) и падает мгновенно на каждый push | Actions → этот прогон: логов нет | Файл workflow не парсится как YAML, cron никогда не сработает. Проверить локально: `node -e "require('js-yaml').load(require('fs').readFileSync('.github/workflows/x.yml','utf8'))"`. Типичная причина — `${{ }}` внутри флоу-словаря `with: { ref: ${{ github.ref }} }`; писать блочным стилем |
+| Routine отработала «успешно», а черновиков нет | claude.ai/code → сессия Routine (id в `docs/autopilot.md`) → последнее сообщение | Сессия могла остановиться на вопросе (пуш, шлюз) и ждать ответа. Прочитать хвост сессии, при необходимости запустить Routine кнопкой заново. Бот-пуши в `main` не запускают деплой — сайт обновится по cron в 08:00 МСК |
 
 ## Регулярные ритуалы
 

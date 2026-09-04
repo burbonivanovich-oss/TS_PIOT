@@ -1,0 +1,376 @@
+{
+  "slug": "2026-09-11-proverka-kontragenta-pered-sdelkoy",
+  "checkedAt": "2026-09-03T12:00:00.000Z",
+  "checkedBy": "claude-fable-5-1+webfetch+websearch",
+  "method": "manual-with-brief-and-primary-sources",
+  "summary": {
+    "totalClaims": 110,
+    "checked": 110,
+    "match": 98,
+    "mismatch": 2,
+    "uncertain": 2,
+    "skipped": 8,
+    "corrected": 10,
+    "removed": 0,
+    "missingSources": 0,
+    "overallStatus": "applied",
+    "criticalIssues": 0,
+    "note": "Все числовые claims (проценты ст. 122 НК, пени ст. 75 НК, пороги ст. 199 УК, 5 567 657,82 ₽, 1,1 млрд, сроки 30 дней / 6 месяцев / 3 месяца / 2 года / 15 дней, даты приказов и ФЗ) совпали с брифом и первоисточниками. Два расхождения класса A2: (1) автор записал ФЗ как «закон от 08.08.2001 № 129» без суффикса -ФЗ — обход whitelist; возвращена каноничная форма для 129-ФЗ, 163-ФЗ, 42-ФЗ, 79-ФЗ, 44-ФЗ и ПП РФ № 728; (2) ссылка на «ст. 104 закона о контрактной системе» вела на base.garant.ru/58079838/ — страницу про 223-ФЗ, заменена на ст. 104 44-ФЗ. Уточнён статус прежнего приказа ЕД-7-31/181@ (утратил силу приказом ФНС от 15.01.2026 № ЕД-1-31/7@ по данным nalog.gov.ru). Ст. 14.25 КоАП, названная в задании, в тексте статьи не упоминается — проверять нечего."
+  },
+  "claims": [
+    {
+      "id": "c40",
+      "type": "NPA_NK",
+      "raw": "ст. 54.1 НК РФ",
+      "context": "суды применяют его вместе со ст. 54.1 НК РФ, которую ввёл закон от 18.07.2017 № 163",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.98,
+      "expectedValue": "Ст. 54.1 НК РФ введена Федеральным законом от 18.07.2017 № 163-ФЗ, действует с 19.08.2017; п. 2 — два условия, п. 3 — подпись неуполномоченного лица и нарушения контрагента не самостоятельное основание",
+      "explanation": "Содержание п. 1–3 подтверждено дословно на rulaws.ru. Номер вводного закона подтверждён через normativ.kontur.ru (fetch-модель rulaws ошибочно назвала 225-ФЗ — отброшено как галлюцинация). Форма упоминания закона исправлена на каноничную (A2).",
+      "sources": [
+        "https://rulaws.ru/nk-rf-chast-1/Razdel-IV/Glava-8/Statya-54.1/",
+        "https://normativ.kontur.ru/document?documentId=297459&moduleId=1"
+      ],
+      "action": "rewrite-bullet",
+      "actionDetail": "«закон от 18.07.2017 № 163» → «Федеральный закон от 18.07.2017 № 163-ФЗ»"
+    },
+    {
+      "id": "c74",
+      "type": "PERCENT",
+      "raw": "20 % / 40 %",
+      "context": "Штраф за неуплату по неосторожности — п. 1 ст. 122 НК РФ, 20 %; умысел — п. 3 ст. 122 НК РФ, 40 %; освобождение — п. 4 ст. 122 при положительном сальдо ЕНС",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.99,
+      "expectedValue": "п. 1 — 20 % от неуплаченной суммы; п. 3 — 40 %; п. 4 — освобождение при непрерывном положительном сальдо ЕНС в размере, достаточном для уплаты",
+      "explanation": "Подтверждено дословно на rulaws.ru. Указаны субъекты (ИП / юрлицо) и пункты статьи — требования A1/A2 выполнены.",
+      "sources": ["https://rulaws.ru/nk-rf-chast-1/Razdel-VI/Glava-16/Statya-122/"],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c44",
+      "type": "NPA_NK",
+      "raw": "ст. 75 НК РФ",
+      "context": "Пени: ИП — 1/300 ключевой ставки; организации в 2026 году: 1/300 первые 30 дней, 1/150 с 31-го по 90-й день, затем 1/300",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Особый порядок для организаций действует с 01.01.2025 по 31.12.2026: 1/300 (дни 1–30), 1/150 (дни 31–90), 1/300 (с 91-го). Для ИП и физлиц — 1/300 всегда",
+      "explanation": "consultant.ru в blocked.domains; подтверждено через WebSearch (buh.ru, v2b.ru, base.garant.ru ст. 75) и бриф (verified: true).",
+      "sources": [
+        "https://buh.ru/news/v-2026-godu-nalogovye-organy-prodolzhat-schitat-peni-po-osobym-pravilam.html",
+        "https://www.v2b.ru/articles/raschet-peney-v-2026-godu/",
+        "https://www.consultant.ru/document/cons_doc_LAW_19671/10fdf2faa7c30851b7673ac4ca893589c88f24f7/"
+      ],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c55",
+      "type": "NPA_PUNKT",
+      "raw": "п. 5 ст. 21.1",
+      "context": "у компании 30 дней на ответ … Через 6 месяцев регистрирующий орган вправе исключить компанию по п. 5 ст. 21.1 закона от 08.08.2001 № 129, на возражения кредиторов остаётся 3 месяца",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.97,
+      "expectedValue": "пп. «б» п. 5 ст. 21.1 129-ФЗ — запись о недостоверности более шести месяцев; п. 4 ст. 21.1 — заявления не позднее трёх месяцев со дня опубликования решения; п. 6 ст. 11 — 30 дней на ответ на уведомление",
+      "explanation": "Подтверждено дословно на legalacts.ru (ст. 21.1) и через WebSearch (п. 6 ст. 11). Форма ФЗ исправлена на каноничную, добавлена ссылка на п. 4 ст. 21.1 для срока 3 месяца.",
+      "sources": [
+        "https://legalacts.ru/doc/FZ-o-gosudarstvennoj-registracii-juridicheskih-lic-i-individualnyh-predprinimatelej-ot-08_08_01/glava-vii/statja-21.1/",
+        "https://base.garant.ru/12123875/81baf971a6153f148e790c1f0cecbd56/"
+      ],
+      "action": "rewrite-bullet",
+      "actionDetail": "«п. 5 ст. 21.1 закона от 08.08.2001 № 129» → «п. 5 ст. 21.1 Федерального закона от 08.08.2001 № 129-ФЗ … (п. 4 ст. 21.1)»"
+    },
+    {
+      "id": "c6",
+      "type": "DATE_DMY",
+      "raw": "08.08.2001",
+      "context": "Выписка с подписью ФНС бесплатна по ст. 7 закона от 08.08.2001 № 129; открытые сведения ЕГРИП по ст. 6 закона о госрегистрации",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Федеральный закон от 08.08.2001 № 129-ФЗ; п. 1 ст. 7 — сведения о конкретном лице в форме электронного документа бесплатно; ст. 6 — открытость сведений, кроме паспортных данных и адреса ИП",
+      "explanation": "Название и номер закона подтверждены base.garant.ru; бесплатность электронной выписки — WebSearch (egrul.nalog.ru/about, glavkniga). Форма упоминания исправлена в трёх местах.",
+      "sources": [
+        "https://base.garant.ru/12123875/",
+        "https://egrul.nalog.ru/about.html",
+        "https://legalacts.ru/doc/FZ-o-gosudarstvennoj-registracii-juridicheskih-lic-i-individualnyh-predprinimatelej-ot-08_08_01/glava-ii/statja-7/"
+      ],
+      "action": "rewrite-bullet",
+      "actionDetail": "«ст. 7 закона от 08.08.2001 № 129» → «п. 1 ст. 7 Федерального закона от 08.08.2001 № 129-ФЗ»; «ст. 6 закона о госрегистрации от 08.08.2001 № 129» → «ст. 6 Федерального закона от 08.08.2001 № 129-ФЗ»"
+    },
+    {
+      "id": "c8",
+      "type": "DATE_DMY",
+      "raw": "05.12.2025 / 01.01.2026",
+      "context": "С 01.01.2026 по приказу ФНС от 05.12.2025 № ЕД-7-31/1041@ … прежний приказ от 24.03.2023 № ЕД-7-31/181@ утратил силу",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.97,
+      "expectedValue": "Приказ ФНС от 05.12.2025 № ЕД-7-31/1041@ (Минюст 26.12.2025 № 84805) вступает в силу 01.01.2026. Приказ ЕД-7-31/181@ утратил силу в связи с приказом ФНС от 15.01.2026 № ЕД-1-31/7@",
+      "explanation": "Оба факта подтверждены на nalog.gov.ru. Уточнено, каким документом отменён прежний приказ — бриф связывал отмену с 1041@, первоисточник называет ЕД-1-31/7@.",
+      "sources": [
+        "https://www.nalog.gov.ru/rn77/about_fts/docs/16593572/",
+        "https://www.nalog.gov.ru/rn77/about_fts/docs/13318699/"
+      ],
+      "action": "expand-bullet",
+      "actionDetail": "Добавлено «(приказ ФНС от 15.01.2026 № ЕД-1-31/7@)» и дата приказа 1041@"
+    },
+    {
+      "id": "c16",
+      "type": "DATE_DMY",
+      "raw": "10.12.2024 / 14.03.2025",
+      "context": "С 14.03.2025 адрес 5 и более юрлиц больше не основание для проверки достоверности — приказ ФНС от 10.12.2024 № ЕД-7-14/1119@",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Приказ ФНС от 10.12.2024 № ЕД-7-14/1119@, опубликован 03.03.2025, в силе с 14.03.2025; исключено второе предложение пп. 3 п. 2 приложения 1 к приказу ЕД-7-14/1268@ (адрес 5 и более юрлиц)",
+      "explanation": "Подтверждено normativ.kontur.ru и WebSearch (v2b, legicon). Fetch-модель garant выдала искажённые реквизиты — отброшено.",
+      "sources": [
+        "https://normativ.kontur.ru/document?moduleId=1&documentId=489826",
+        "https://www.garant.ru/products/ipo/prime/doc/411482059/"
+      ],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c108",
+      "type": "LINK",
+      "raw": "ст. 431.2 ГК РФ",
+      "context": "введённая законом от 08.03.2015 № 42 и действующая с 01.06.2015 … п. 1 убытки/неустойка, п. 2 отказ от договора, п. 4 независимо от вины",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.96,
+      "expectedValue": "Ст. 431.2 ГК введена Федеральным законом от 08.03.2015 № 42-ФЗ, действует с 01.06.2015; п. 4 — в предпринимательской деятельности независимо от того, было ли известно о недостоверности",
+      "explanation": "П. 1–2 дословно на zakonrf.info, п. 4 и номер закона — WebSearch (consultant, garant, suvorov.legal). Форма ФЗ исправлена.",
+      "sources": [
+        "https://www.zakonrf.info/gk/431.2/",
+        "https://base.garant.ru/10164072/ad036fe37320ae23a42d02c9c4328e1f/",
+        "https://www.consultant.ru/document/cons_doc_LAW_5142/52b8ddfd2dcdeea14164157401daf099e5e09adb/"
+      ],
+      "action": "rewrite-bullet",
+      "actionDetail": "«законом от 08.03.2015 № 42» → «Федеральным законом от 08.03.2015 № 42-ФЗ»"
+    },
+    {
+      "id": "c35",
+      "type": "MONEY",
+      "raw": "18 750 000 ₽ / 56 250 000 ₽",
+      "context": "ст. 199 УК РФ: крупный размер свыше 18 750 000 ₽, особо крупный свыше 56 250 000 ₽ за 3 финансовых года подряд (пороги подняты законом от 06.04.2024 № 79)",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.98,
+      "expectedValue": "Примечание 1 к ст. 199 УК: 18 750 000 ₽ / 56 250 000 ₽ в пределах трёх финансовых лет подряд; повышены Федеральным законом от 06.04.2024 № 79-ФЗ (с 15 млн / 45 млн)",
+      "explanation": "Суммы дословно на legalacts.ru; номер закона — WebSearch (kremlin.ru, rg.ru, normativ.kontur). Форма ФЗ исправлена.",
+      "sources": [
+        "https://legalacts.ru/kodeks/UK-RF/osobennaja-chast/razdel-viii/glava-22/statja-199/",
+        "https://normativ.kontur.ru/document?moduleId=1&documentId=468666",
+        "https://rg.ru/documents/2024/04/10/document-79-fz-izmeneniya-v-uk-i-upk-dok.html"
+      ],
+      "action": "rewrite-bullet",
+      "actionDetail": "«законом от 06.04.2024 № 79» → «Федеральным законом от 06.04.2024 № 79-ФЗ»"
+    },
+    {
+      "id": "c98",
+      "type": "LINK",
+      "raw": "https://base.garant.ru/58079838/",
+      "context": "Срок в реестре — 2 года по ст. 104 закона о контрактной системе",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.9,
+      "expectedValue": "ч. 9 ст. 104 Федерального закона от 05.04.2013 № 44-ФЗ; информация исключается из РНП по истечении двух лет",
+      "explanation": "Страница base.garant.ru/58079838/ по содержанию — обзор по 223-ФЗ, а не ст. 104 44-ФЗ. Срок 2 года верен (ч. 9 ст. 104). Ссылка заменена на ст. 104 44-ФЗ на garant, добавлен номер закона (A2: ссылка на текст НПА рядом с упоминанием).",
+      "sources": [
+        "https://base.garant.ru/70353464/f0919a1a5b9327ff53d0b0cd9f3489ec/",
+        "https://legalacts.ru/doc/44_FZ-o-kontraktnoj-sisteme/glava-5/statja-104/"
+      ],
+      "action": "add-references",
+      "actionDetail": "«[ст. 104 закона о контрактной системе](https://base.garant.ru/58079838/)» → «[ч. 9 ст. 104 Федерального закона от 05.04.2013 № 44-ФЗ](https://base.garant.ru/70353464/f0919a1a5b9327ff53d0b0cd9f3489ec/)»"
+    },
+    {
+      "id": "c12",
+      "type": "DATE_DMY",
+      "raw": "27.05.2025 / 01.09.2025",
+      "context": "с 01.09.2025 в выписках ЕГРЮЛ и ЕГРИП появились «отчётные» коды (правила утверждены Правительством РФ 27.05.2025, постановление № 728)",
+      "status": "mismatch",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "expectedValue": "Постановление Правительства РФ от 27.05.2025 № 728 «Об утверждении Правил определения кодов ОКВЭД отчётного типа…», действует с 01.09.2025",
+      "explanation": "Реквизиты и дата подтверждены (WebSearch: publication.pravo.gov.ru, normativ.kontur, v2b; новость ФНС 11.03.2026). Формулировка «постановление № 728» без слова «Правительства» перед номером обходила регекс whitelist — возвращена каноничная форма (A2).",
+      "sources": [
+        "https://normativ.kontur.ru/document?documentId=500141&moduleId=1",
+        "https://www.nalog.gov.ru/rn89/news/activities_fts/16608315/",
+        "http://government.ru/docs/all/159137/"
+      ],
+      "action": "rewrite-bullet",
+      "actionDetail": "«правила утверждены Правительством РФ 27.05.2025, постановление № 728» → «постановление Правительства РФ от 27.05.2025 № 728»"
+    },
+    {
+      "id": "c80",
+      "type": "LINK",
+      "raw": "письмо ФНС от 10.03.2021 № БВ-4-7/3060@",
+      "context": "п. 14 коммерческая осмотрительность, п. 15 обстоятельства, п. 16 стандарт зависит от сделки, п. 17–20 реконструкция, п. 18 право на убытки",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Реквизиты и содержание п. 14–18, 20 совпадают",
+      "explanation": "consultant.ru заблокирован; текст письма проверен на v2b.ru.",
+      "sources": ["https://www.v2b.ru/documents/pismo-fns-rossii-ot-10-03-2021-bv-4-7-3060/"],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c2",
+      "type": "DATE_DMY",
+      "raw": "12.10.2006",
+      "context": "п. 10 постановления Пленума ВАС РФ от 12.10.2006 № 53; п. 6 — обстоятельства, которые ничего не доказывают",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.97,
+      "expectedValue": "ПП ВАС РФ от 12.10.2006 № 53; п. 6 и п. 10 — дословно",
+      "explanation": "Подтверждено на normativ.kontur.ru.",
+      "sources": ["https://normativ.kontur.ru/document?moduleId=7&documentId=98469"],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c4",
+      "type": "DATE_DMY",
+      "raw": "14.05.2020",
+      "context": "определение ВС от 14.05.2020 № 307-ЭС19-27597 по делу «СПТБ Звёздочка»: доказывать обязана инспекция",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "Определение СКЭС ВС РФ от 14.05.2020 № 307-ЭС19-27597, дело А42-7695/2017, АО «СПТБ «Звёздочка»",
+      "explanation": "Подтверждено WebSearch (normativ.kontur, garant prime, 5aas.arbitr.ru). Fetch-модель garant выдала другое название организации — отброшено как ошибка извлечения.",
+      "sources": [
+        "https://normativ.kontur.ru/document?moduleId=7&documentId=365020",
+        "https://www.garant.ru/products/ipo/prime/doc/72565644/",
+        "https://base.garant.ru/74031872/"
+      ],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c37",
+      "type": "MONEY",
+      "raw": "5 567 657,82 ₽",
+      "context": "определение от 09.09.2021 № 302-ЭС21-5294, «Таймырская топливная компания» — «Таймырстрой», дело возвращено на новое рассмотрение",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.98,
+      "expectedValue": "5 567 657,82 руб. (НДС + пени + штраф); акты отменены, дело направлено на новое рассмотрение",
+      "explanation": "Подтверждено дословно на legalacts.ru.",
+      "sources": ["https://legalacts.ru/sud/opredelenie-sudebnoi-kollegii-po-ekonomicheskim-sporam-verkhovnogo-suda-rossiiskoi-federatsii-ot-09092021-n-302-es21-5294-po-delu-n-a33-38322019/"],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c5",
+      "type": "DATE_DMY",
+      "raw": "01.12.2025",
+      "context": "АС Московского округа, постановление от 01.12.2025 по делу № А40-300407/2024",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "Постановление АС МО от 01.12.2025 по делу А40-300407/2024 — критерии осмотрительности, нет переписки/КП/мониторинга",
+      "explanation": "consultant.ru заблокирован; подтверждено WebSearch (cons.ru, glavbukh).",
+      "sources": ["https://www.consultant.ru/legalnews/30309/", "http://www.cons.ru/informer-news/39-bukhgalter/36072-sud-nazval-kriterii-dolzhnoj-osmotritelnosti-pri-vybore-kontragentov"],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c27",
+      "type": "DATE_YEAR",
+      "raw": "1,1 млрд обращений в 2025 году",
+      "context": "«Прозрачный бизнес» … карточка из 6 реестров … в 2025 году сервис принял 1,1 млрд обращений",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.98,
+      "expectedValue": "«За 2025 год пользователи обратились к нему 1,1 млрд раз» (новость ФНС 05.01.2026); сервис содержит сведения из 6 государственных реестров",
+      "explanation": "Подтверждено на nalog.gov.ru и pb.nalog.ru.",
+      "sources": ["https://www.nalog.gov.ru/rn77/news/activities_fts/16593748/", "https://pb.nalog.ru/"],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c23",
+      "type": "DATE_DMY",
+      "raw": "01.03.2021",
+      "context": "ч. 1 ст. 6 152-ФЗ: п. 5, п. 11; п. 10 утратил силу с 01.03.2021",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.97,
+      "expectedValue": "п. 10 ч. 1 ст. 6 152-ФЗ утратил силу с 01.03.2021 (519-ФЗ от 30.12.2020); п. 5 и п. 11 действуют",
+      "explanation": "Подтверждено дословно (service.securitm.ru, текст ч. 1 ст. 6).",
+      "sources": ["https://service.securitm.ru/docs/152-fz/statia-6-punkt-1", "http://government.ru/docs/all/98196/"],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c13",
+      "type": "DATE_DMY",
+      "raw": "30.05.2007",
+      "context": "критерий 12 Концепции планирования выездных проверок (приказ ФНС от 30.05.2007 № ММ-3-06/333@)",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Приказ ФНС от 30.05.2007 № ММ-3-06/333@; критерий 12 — деятельность с высоким налоговым риском",
+      "explanation": "Реквизиты подтверждены на nalog.gov.ru; содержание критерия 12 — по брифу (verified: true).",
+      "sources": ["https://www.nalog.gov.ru/rn77/taxation/reference_work/conception_vnp/3897151/"],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c93",
+      "type": "LINK",
+      "raw": "https://fedresurs.ru/ ; https://zakupki.gov.ru/epz/dishonestsupplier/search/results.html",
+      "context": "Федресурс; реестр недобросовестных поставщиков",
+      "status": "uncertain",
+      "severity": "minor",
+      "confidence": 0.7,
+      "expectedValue": "Официальные адреса ЕФРСФДЮЛ и РНП в ЕИС",
+      "explanation": "curl из песочницы не получил ответ (код 000) — характерно для anti-bot/гео-фильтров этих порталов, а не для мёртвой ссылки. Адреса совпадают с брифом (verified: true). Проверить вручную из браузера перед публикацией.",
+      "sources": ["https://fedresurs.ru/", "https://zakupki.gov.ru/epz/dishonestsupplier/search/results.html"],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "skip-internal",
+      "type": "LINK",
+      "raw": "/blog/…, /category/…",
+      "context": "8 внутренних ссылок на блог и категорию",
+      "status": "skip",
+      "severity": "minor",
+      "confidence": 1,
+      "expectedValue": "",
+      "explanation": "Класс C1 — внутренние ссылки, валидируются при сборке.",
+      "sources": [],
+      "action": "keep",
+      "actionDetail": ""
+    }
+  ],
+  "npa": [
+    { "kind": "fz", "number": "129", "exists": true, "title": "Федеральный закон от 08.08.2001 № 129-ФЗ «О государственной регистрации юридических лиц и индивидуальных предпринимателей»", "url": "https://base.garant.ru/12123875/" },
+    { "kind": "fz", "number": "163", "exists": true, "title": "Федеральный закон от 18.07.2017 № 163-ФЗ «О внесении изменений в часть первую НК РФ» (ст. 54.1)", "url": "https://normativ.kontur.ru/document?documentId=297459&moduleId=1" },
+    { "kind": "fz", "number": "42", "exists": true, "title": "Федеральный закон от 08.03.2015 № 42-ФЗ «О внесении изменений в часть первую ГК РФ» (ст. 431.2)", "url": "https://www.consultant.ru/document/cons_doc_LAW_5142/52b8ddfd2dcdeea14164157401daf099e5e09adb/" },
+    { "kind": "fz", "number": "79", "exists": true, "title": "Федеральный закон от 06.04.2024 № 79-ФЗ «О внесении изменений в УК РФ и УПК РФ» (пороги ст. 199 УК)", "url": "https://normativ.kontur.ru/document?moduleId=1&documentId=468666" },
+    { "kind": "fz", "number": "44", "exists": true, "title": "Федеральный закон от 05.04.2013 № 44-ФЗ «О контрактной системе в сфере закупок…» (ст. 104 — РНП)", "url": "https://base.garant.ru/70353464/f0919a1a5b9327ff53d0b0cd9f3489ec/" },
+    { "kind": "fz", "number": "402", "exists": true, "title": "Федеральный закон от 06.12.2011 № 402-ФЗ «О бухгалтерском учёте» (ст. 18 — ГИР БО)", "url": "https://www.consultant.ru/document/cons_doc_LAW_122855/daa8e03f934e0977a8b9fb670c5a4c880badea09/" },
+    { "kind": "fz", "number": "152", "exists": true, "title": "Федеральный закон от 27.07.2006 № 152-ФЗ «О персональных данных» (ч. 1 ст. 6)", "url": "http://government.ru/docs/all/98196/" },
+    { "kind": "pp", "number": "728", "exists": true, "title": "Постановление Правительства РФ от 27.05.2025 № 728 «Об утверждении Правил определения кодов ОКВЭД отчётного типа…»", "url": "https://normativ.kontur.ru/document?documentId=500141&moduleId=1" },
+    { "kind": "prikaz", "number": "ЕД-7-31/1041@", "exists": true, "title": "Приказ ФНС России от 05.12.2025 № ЕД-7-31/1041@ (методика оценки ФХД, с 01.01.2026)", "url": "https://www.nalog.gov.ru/rn77/about_fts/docs/16593572/" },
+    { "kind": "prikaz", "number": "ЕД-7-31/181@", "exists": true, "title": "Приказ ФНС России от 24.03.2023 № ЕД-7-31/181@ (утратил силу)", "url": "https://www.nalog.gov.ru/rn77/about_fts/docs/13318699/" },
+    { "kind": "prikaz", "number": "ЕД-1-31/7@", "exists": true, "title": "Приказ ФНС России от 15.01.2026 № ЕД-1-31/7@ (отменил приказ ЕД-7-31/181@)", "url": "https://www.nalog.gov.ru/rn77/about_fts/docs/13318699/" },
+    { "kind": "prikaz", "number": "ЕД-7-14/1119@", "exists": true, "title": "Приказ ФНС России от 10.12.2024 № ЕД-7-14/1119@ (исключён критерий «адрес 5 и более юрлиц», с 14.03.2025)", "url": "https://normativ.kontur.ru/document?moduleId=1&documentId=489826" },
+    { "kind": "prikaz", "number": "ММ-3-06/333@", "exists": true, "title": "Приказ ФНС России от 30.05.2007 № ММ-3-06/333@ (Концепция планирования ВНП)", "url": "https://www.nalog.gov.ru/rn77/taxation/reference_work/conception_vnp/3897151/" }
+  ],
+  "recommendations": [
+    "Перед публикацией открыть fedresurs.ru и zakupki.gov.ru/epz/dishonestsupplier/… из браузера: из песочницы они не ответили (anti-bot), ссылки соответствуют брифу.",
+    "При переводе draft: false — audit-npa-references.mjs читает только sources.json.npaWhitelist: перенести 129/163/42/79/44-ФЗ и ПП 728 из auto-verified-npa.json в sources.json, иначе --strict пометит их.",
+    "Плановая перепроверка reviewDate 2027-03-11: особый порядок пеней по ст. 75 НК действует до 31.12.2026 — колонка «Юрлицо» в таблице последствий устареет с 01.01.2027."
+  ],
+  "nextReview": "2027-03-11"
+}

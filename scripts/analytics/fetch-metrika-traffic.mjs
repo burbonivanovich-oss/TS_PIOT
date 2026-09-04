@@ -48,9 +48,12 @@ if (DRY_RUN) {
 // ─── Stat API ─────────────────────────────────────────────────────────────────
 // Документация: https://yandex.ru/dev/metrika/doc/api2/api_v1/data.html
 // Группировка по ym:pv:URLPathFull даёт нам трафик по path статьи.
+// Метрики берём только из пространства ym:pv: Stat API не разрешает смешивать
+// ym:pv:* и ym:s:* с группировкой по просмотрам (ошибка 4011, прогон 04.09.2026).
+// Визиты и длительность сессии на уровне страницы недоступны — пишем null.
 const params = new URLSearchParams({
   ids: COUNTER,
-  metrics: 'ym:pv:pageviews,ym:s:visits,ym:s:users,ym:s:avgVisitDurationSeconds',
+  metrics: 'ym:pv:pageviews,ym:pv:users',
   dimensions: 'ym:pv:URLPathFull',
   date1: fmt(startDate),
   date2: fmt(today),
@@ -72,7 +75,7 @@ const data = JSON.parse(text);
 
 const byPage = {};
 let totalPv = 0;
-let totalVisits = 0;
+let totalUsers = 0;
 
 for (const row of data.data || []) {
   const path = row.dimensions?.[0]?.name;
@@ -80,15 +83,15 @@ for (const row of data.data || []) {
   // отсекаем query/hash и редкие хвосты
   const clean = path.split('?')[0].split('#')[0];
   if (!clean.startsWith('/')) continue;
-  const [pageviews, visits, users, avgDuration] = row.metrics;
+  const [pageviews, users] = row.metrics;
   byPage[clean] = {
     pageviews: Math.round(pageviews),
-    visits: Math.round(visits),
+    visits: null,
     users: Math.round(users),
-    avgDuration: Math.round(avgDuration),
+    avgDuration: null,
   };
   totalPv += pageviews;
-  totalVisits += visits;
+  totalUsers += users;
 }
 
 mkdirSync(OUT_DIR, { recursive: true });
@@ -102,7 +105,8 @@ writeFileSync(
       totals: {
         pages: Object.keys(byPage).length,
         pageviews: Math.round(totalPv),
-        visits: Math.round(totalVisits),
+        visits: null,
+        users: Math.round(totalUsers),
       },
       byPage,
     },
@@ -111,5 +115,5 @@ writeFileSync(
   ),
 );
 
-console.log(`Готово. Страниц с трафиком: ${Object.keys(byPage).length}, просмотров: ${Math.round(totalPv)}, визитов: ${Math.round(totalVisits)}`);
+console.log(`Готово. Страниц с трафиком: ${Object.keys(byPage).length}, просмотров: ${Math.round(totalPv)}, пользователей: ${Math.round(totalUsers)}`);
 console.log(`Записано в ${OUT_FILE}`);

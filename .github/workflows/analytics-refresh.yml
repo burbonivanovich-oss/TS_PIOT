@@ -29,10 +29,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with: { ref: ${{ github.ref }} }
+        with:
+          ref: ${{ github.ref }}
 
       - uses: actions/setup-node@v4
-        with: { node-version: '22' }
+        with:
+          node-version: '22'
 
       - name: Fetch GSC
         if: ${{ inputs.skip_gsc != '1' }}
@@ -40,7 +42,8 @@ jobs:
           GSC_CLIENT_ID:     ${{ secrets.GSC_CLIENT_ID }}
           GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
           GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
-          GSC_SITE_URL:      ${{ secrets.GSC_SITE_URL }}
+          # Секрет не задан → URL-prefix свойство сайта (так подтверждён google-site-verification в BaseHead.astro).
+          GSC_SITE_URL:      ${{ secrets.GSC_SITE_URL || 'https://etiketka-media.ru/' }}
         run: node scripts/analytics/fetch-gsc.mjs
         continue-on-error: true
 

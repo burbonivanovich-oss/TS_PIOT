@@ -1,5 +1,60 @@
 {
-  "fz": {},
-  "pp": {},
+  "fz": {
+    "42": {
+      "title": "О внесении изменений в часть первую ГК РФ (ввёл ст. 431.2 «Заверения об обстоятельствах», действует с 01.06.2015)",
+      "date": "2015-03-08",
+      "topic": "kontragent",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_5142/52b8ddfd2dcdeea14164157401daf099e5e09adb/",
+      "verifiedAt": "2026-09-03",
+      "verifiedIn": "2026-09-11-proverka-kontragenta-pered-sdelkoy"
+    },
+    "44": {
+      "title": "О контрактной системе в сфере закупок товаров, работ, услуг для обеспечения государственных и муниципальных нужд (ст. 104 — реестр недобросовестных поставщиков, 2 года)",
+      "date": "2013-04-05",
+      "topic": "kontragent",
+      "url": "https://base.garant.ru/70353464/f0919a1a5b9327ff53d0b0cd9f3489ec/",
+      "verifiedAt": "2026-09-03",
+      "verifiedIn": "2026-09-11-proverka-kontragenta-pered-sdelkoy"
+    },
+    "79": {
+      "title": "О внесении изменений в УК РФ и УПК РФ (пороги крупного/особо крупного размера по ст. 199 УК: 18,75 млн / 56,25 млн ₽)",
+      "date": "2024-04-06",
+      "topic": "nalogi",
+      "url": "https://normativ.kontur.ru/document?moduleId=1&documentId=468666",
+      "verifiedAt": "2026-09-03",
+      "verifiedIn": "2026-09-11-proverka-kontragenta-pered-sdelkoy"
+    },
+    "129": {
+      "title": "О государственной регистрации юридических лиц и индивидуальных предпринимателей",
+      "date": "2001-08-08",
+      "topic": "kontragent",
+      "url": "https://base.garant.ru/12123875/",
+      "verifiedAt": "2026-09-03",
+      "verifiedIn": "2026-09-11-proverka-kontragenta-pered-sdelkoy"
+    },
+    "163": {
+      "title": "О внесении изменений в часть первую НК РФ (ввёл ст. 54.1 НК РФ, действует с 19.08.2017)",
+      "date": "2017-07-18",
+      "topic": "nalogi",
+      "url": "https://normativ.kontur.ru/document?documentId=297459&moduleId=1",
+      "verifiedAt": "2026-09-03",
+      "verifiedIn": "2026-09-11-proverka-kontragenta-pered-sdelkoy"
+    }
+  },
+  "pp": {
+    "174": {
+      "title": "Об установлении дополнительного обязательного реквизита кассового чека и бланка строгой отчетности (реквизит «код товара»)",
+      "date": "2019-02-21",
+      "topic": "kkt"
+    },
+    "728": {
+      "title": "Об утверждении Правил определения кодов ОКВЭД отчётного типа и процентных долей основного и дополнительных видов деятельности (с 01.09.2025)",
+      "date": "2025-05-27",
+      "topic": "kontragent",
+      "url": "https://normativ.kontur.ru/document?documentId=500141&moduleId=1",
+      "verifiedAt": "2026-09-03",
+      "verifiedIn": "2026-09-11-proverka-kontragenta-pered-sdelkoy"
+    }
+  },
   "prikaz": {}
 }
