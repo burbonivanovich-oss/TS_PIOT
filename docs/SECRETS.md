@@ -16,7 +16,7 @@ Actions** репозитория. Этот документ — единый с�
 | `GSC_CLIENT_ID` | Google Cloud | бессрочный | fetch-gsc |
 | `GSC_CLIENT_SECRET` | Google Cloud | бессрочный | fetch-gsc |
 | `GSC_REFRESH_TOKEN` | Google OAuth2 | бессрочный (test apps — 7 дней без верификации, но рефрешится) | fetch-gsc |
-| `GSC_SITE_URL` | строка | — | fetch-gsc |
+| `GSC_SITE_URL` | строка, необязателен: по умолчанию `https://etiketka-media.ru/` | — | fetch-gsc |
 | `ORD_API_KEY` | Яндекс ОРД | по договору | ord-register, ord-bootstrap, ord-status |
 | `GEMINI_API_KEY` | Google AI Studio | бессрочный | OG-backgrounds через Imagen |
 | `JINA_API_KEY` | Jina AI | бессрочный | embeddings-monthly |
