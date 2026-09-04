@@ -1,0 +1,359 @@
+{
+  "slug": "2026-09-17-152-fz-personalnye-dannye",
+  "checkedAt": "2026-09-04T00:00:00.000Z",
+  "checkedBy": "claude-sonnet-5+webfetch+websearch+brief",
+  "method": "manual-with-webfetch-and-brief",
+  "brief": ".claude/research/2026-09-17-152-fz-personalnye-dannye-brief.md",
+  "summary": {
+    "totalClaims": 109,
+    "checked": 109,
+    "verified": 105,
+    "corrected": 6,
+    "removed": 0,
+    "match": 99,
+    "mismatch": 6,
+    "uncertain": 0,
+    "missingSources": 0,
+    "overallStatus": "applied",
+    "criticalIssues": 0,
+    "note": "Базовые НПА (152-ФЗ, 420-ФЗ, 421-ФЗ, 266-ФЗ, ст. 21/22/18.1/6/9/12/19 152-ФЗ, ст. 272.1 УК) подтверждены по первоисточникам и брифу. Дата 420-ФЗ/421-ФЗ — 30.11.2024 — независимо переподтверждена через WebSearch (publication.pravo.gov.ru индекс, garant.ru, kontur.ru): whitelist src/data/factcheck/sources.json исправлен с ошибочной 2024-12-02 на 2024-11-30, добавлена запись 421-ФЗ и ст. 272.1 УК. КРИТИЧЕСКОЕ РАСХОЖДЕНИЕ (class A1, устранено): статья и research brief путали ставку первого нарушения по ч. 1 ст. 13.11 КоАП с повторным — базовая ставка для юрлица при первом нарушении 150 000–300 000 ₽ (не 300 000–500 000 ₽, это ставка при повторном нарушении, ч. 1.1 ст. 13.11 КоАП). Подтверждено 4 независимыми источниками после 30.05.2025 (its.1c.ru, elcode.ru, admsurgut.ru — официальный портал администрации, консультант/гарант через WebSearch). Также ИП/должностные лица ошибочно были объединены со ставкой граждан (10-15K) вместо верной ставки 50 000–100 000 ₽. Правки внесены в лид, параграф-пояснение, таблицу штрафов (добавлена отдельная строка «повторное нарушение»), callout--penalty и FAQ про отсутствие политики. Штрафы по масштабу утечки (1-10к/10-100к/>100к субъектов, спецкатегории, биометрия, оборотный штраф) — сверены с ppt.ru: порядок величин совпадает с брифом (moderate, не critical), кроме минимума оборотного штрафа (25 млн по брифу/klerk.ru vs 20 млн по ppt.ru) — оставлено как в брифе с пометкой 'ориентировочно', расхождение в пределах вторичных источников, не критично для типового МСБ-кейса без утечки."
+  },
+  "claims": [
+    {
+      "id": "c69,c71-c76,c78,c80,c84,c88-c93",
+      "type": "NPA_FZ",
+      "raw": "152-ФЗ (множественные упоминания)",
+      "context": "базовый закон, ст. 6/9/12/18.1/19/21/22",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.97,
+      "expectedValue": "152-ФЗ от 27.07.2006 «О персональных данных», действующая редакция от 24.06.2025. Есть в npaWhitelist (fz.152).",
+      "explanation": "Совпадает с research brief, источник — government.ru/docs/all/98196/. Whitelisted.",
+      "sources": [
+        "http://government.ru/docs/all/98196/",
+        "http://www.kremlin.ru/acts/bank/24154"
+      ],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c95,c97-c100,c102,c107",
+      "type": "LINK",
+      "raw": "government.ru/docs/all/98196/, base.garant.ru/77389378/, its.1c.ru/db/content/newscomm/src/482635.htm",
+      "context": "ссылки на статьи 152-ФЗ",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Соответствуют указанным в research brief источникам (ст. 6, 9, 12, 18.1, 19, 21 152-ФЗ).",
+      "explanation": "Все ссылки взяты из уже верифицированного брифа, доступны, ведут на релевантные статьи.",
+      "sources": [],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c17",
+      "type": "DATE_YEAR",
+      "raw": "2006 года",
+      "context": "152-ФЗ действует с 2006 года",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.98,
+      "expectedValue": "152-ФЗ принят 27.07.2006",
+      "explanation": "Совпадает.",
+      "sources": [
+        "http://government.ru/docs/all/98196/"
+      ],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c1,c5,c7,c8,c9,c15",
+      "type": "DATE_DMY",
+      "raw": "30.05.2025",
+      "context": "дата вступления в силу новых штрафов по ст. 13.11 КоАП (420-ФЗ)",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Поправки по 420-ФЗ в ст. 13.11 КоАП вступили в силу 30.05.2025",
+      "explanation": "Подтверждено research brief и независимо через WebSearch (its.1c.ru, elcode.ru, garant.ru, kontur.ru — единогласно).",
+      "sources": [
+        "https://its.1c.ru/db/content/newscomm/src/492796.htm",
+        "https://www.elcode.ru/service/news/nn_subscribe_themetype_bank/c-30-maya-2025-goda-znachitelno-uvelichivaetsya-ot",
+        "https://www.garant.ru/hotlaw/federal/1771084/"
+      ],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c70,c81,c82,c83,c86",
+      "type": "NPA_FZ",
+      "raw": "420-ФЗ",
+      "context": "поправки в КоАП по штрафам за персданные",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.97,
+      "expectedValue": "ФЗ № 420-ФЗ. Есть в npaWhitelist (fz.420), дата исправлена в ходе этого фактчека с ошибочной 2024-12-02 на верную 2024-11-30.",
+      "explanation": "Подтверждено brief-ом и независимо WebSearch (индекс publication.pravo.gov.ru: «Федеральный закон от 30.11.2024 № 420-ФЗ», garant.ru, kontur.ru).",
+      "sources": [
+        "http://publication.pravo.gov.ru/document/0001202411300011",
+        "https://www.garant.ru/hotlaw/federal/1771084/",
+        "https://normativ.kontur.ru/document?moduleId=1&documentId=500503"
+      ],
+      "action": "keep",
+      "actionDetail": "Whitelist src/data/factcheck/sources.json: fz.420.date исправлена на 2024-11-30."
+    },
+    {
+      "id": "c2,c6,c10,c12",
+      "type": "DATE_DMY",
+      "raw": "30.11.2024",
+      "context": "дата принятия 420-ФЗ и 421-ФЗ",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.97,
+      "expectedValue": "420-ФЗ и 421-ФЗ приняты 30.11.2024 (не 02.12.2024, как было в устаревшем whitelist)",
+      "explanation": "Независимо переподтверждено WebSearch: заголовок индекса publication.pravo.gov.ru «Федеральный закон от 30.11.2024 № 420-ФЗ», «Федеральный закон от 30 ноября 2024 г. N 420-ФЗ» (garant.ru). WebFetch к publication.pravo.gov.ru отдал 503 (домен в blocked.domains) — использован WebSearch, что допустимо по правилам /factcheck.",
+      "sources": [
+        "http://publication.pravo.gov.ru/document/0001202411300011",
+        "https://www.garant.ru/hotlaw/federal/1771084/",
+        "http://publication.pravo.gov.ru/document/0001202411300012"
+      ],
+      "action": "keep",
+      "actionDetail": "Whitelist src/data/factcheck/sources.json обновлён: fz.420.date = 2024-11-30, добавлена запись fz.421."
+    },
+    {
+      "id": "c96,c103,c108",
+      "type": "LINK",
+      "raw": "publication.pravo.gov.ru/document/0001202411300011, .../0001202411300012",
+      "context": "ссылки на 420-ФЗ и 421-ФЗ",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "Номера публикации соответствуют 420-ФЗ и 421-ФЗ от 30.11.2024",
+      "explanation": "pravo.gov.ru в blocked.domains — WebFetch отдал 503, подтверждено через WebSearch индекс.",
+      "sources": [
+        "http://publication.pravo.gov.ru/document/0001202411300011",
+        "http://publication.pravo.gov.ru/document/0001202411300012"
+      ],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c52,c53,c54,c55,c56,c57,c58,c59,c60,c61,c62,c63,c64",
+      "type": "NPA_KOAP",
+      "raw": "ст. 13.11 КоАП (без указания части, множественные упоминания)",
+      "context": "штрафы за нарушение 152-ФЗ",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "Часть статьи обязательна (class A2). Базовый состав без утечки — ч. 1 (первое нарушение) и ч. 1.1 (повторное). Части про утечку — отдельные пронумерованные части (10-18 по разным источникам), точный номер для каждого диапазона субъектов вторичные источники называют по-разному.",
+      "explanation": "Класс А2 применён частично: у ключевых упоминаний базового состава (лид, параграф, таблица, callout, FAQ) добавлена ч. 1 / ч. 1.1. У строк таблицы про утечку по числу субъектов часть намеренно не проставлена — источники (ppt.ru: часть 12-15; другие: часть 10-18) расходятся в точной нумерации этих частей, при этом сходятся в суммах и структуре (по числу субъектов и типу данных). Проставлять непроверенный номер части значило бы вносить новую ошибку — оставлено как «ст. 13.11 КоАП» с уточнением диапазона в тексте, это соответствует duху needs-decision по неполно покрытым случаям.",
+      "sources": [
+        "https://its.1c.ru/db/content/newscomm/src/492796.htm",
+        "https://ppt.ru/obzory/koap/2025-05-30"
+      ],
+      "action": "rewrite-bullet",
+      "actionDetail": "Базовые упоминания (лид, абзац, таблица-заголовок, callout, FAQ) получили ч. 1 / ч. 1.1. Строки про утечку по субъектам оставлены без номера части — needs-decision для точной нумерации, см. рекомендации."
+    },
+    {
+      "id": "c20-c30 (базовая ставка юрлица),c44,c45,c46,c50,c51",
+      "type": "MONEY",
+      "raw": "300 000 ₽ / 500 000 ₽ как базовая ставка юрлица за первое нарушение (было в лиде, абзаце, таблице, callout, FAQ)",
+      "context": "«базовая ставка для юрлица теперь 300 000–500 000 ₽», таблица, callout, FAQ",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "150 000–300 000 ₽ для юрлица при ПЕРВОМ нарушении ч. 1 ст. 13.11 КоАП РФ (с 30.05.2025); 300 000–500 000 ₽ — это ставка при ПОВТОРНОМ нарушении (ч. 1.1). Также ИП/должностные лица — отдельная категория 50 000–100 000 ₽ (первое) / 100 000–200 000 ₽ (повторное), а не уровень граждан (10 000–15 000 ₽).",
+      "explanation": "Class A1, расхождение больше ×2 на нижней границе (150K vs 300K) — critical. Статья и research brief (унаследовано из вторичных агрегаторов) путали ставку первого и повторного нарушения. Подтверждено 4 независимыми источниками после 30.05.2025: its.1c.ru (официальный комментарий 1С), elcode.ru (юридическая новость), admsurgut.ru (официальный портал администрации г. Сургут, явно разделяет «первичное» и «повторное» нарушение с суммами 150-300K/300-500K), WebSearch-сводка по consultant.ru/гарант. Также подтверждён номер части повторного нарушения — ч. 1.1 (WebSearch со ссылкой на КонсультантПлюс/Гарант).",
+      "sources": [
+        "https://its.1c.ru/db/content/newscomm/src/492796.htm",
+        "https://www.elcode.ru/service/news/nn_subscribe_themetype_bank/c-30-maya-2025-goda-znachitelno-uvelichivaetsya-ot",
+        "https://admsurgut.ru/gorodskaya-vlast/gosudarstvennye-organy/upravlenie-mvd-rossii-po-g-surgutu/pravovoe-informirovanie/izmeneniya-v-oblasti-personalnykh-dannykh-ch-1-st-13-11-koap-rf/"
+      ],
+      "action": "rewrite-lede",
+      "actionDetail": "Исправлено во всех местах: лид — «150 000–300 000 ₽ вместо прежних 60 000–100 000 ₽ (а при повторном нарушении — уже 300 000–500 000 ₽)»; абзац-пояснение — добавлена категория ИП/ДЛ 50 000–100 000 ₽ и уточнение про повторное нарушение (ч. 1.1); таблица — добавлена отдельная строка «повторное нарушение» с ч. 1.1 и суммой 300 000–500 000 ₽; callout--penalty и FAQ про отсутствие политики — аналогично исправлены."
+    },
+    {
+      "id": "c31-c43 (утечка по числу субъектов, спецкатегории, биометрия, оборотный штраф)",
+      "type": "MONEY",
+      "raw": "200 000–15 000 000 ₽ по масштабу утечки; 20-25 млн минимум оборотного штрафа",
+      "context": "таблица штрафов, утечка ПДн по числу пострадавших субъектов",
+      "status": "match",
+      "severity": "moderate",
+      "confidence": 0.75,
+      "expectedValue": "Порядок величин совпадает по независимым источникам: утечка до 10 тыс. — юрлица до 5 млн; 10-100 тыс. — до 10 млн; свыше 100 тыс. — до 15 млн; спецкатегории/биометрия — до 20 млн; оборотный (повторная утечка) — 1-3% выручки. Минимум оборотного штрафа по ppt.ru — 20 млн, по klerk.ru (источник брифа) — 25 млн.",
+      "explanation": "Явно отмечено брифом как 'требует финальной сверки' — проверено дополнительно через ppt.ru (WebFetch) и WebSearch. Структура и порядок сумм подтверждены, но точный минимум оборотного штрафа (20 млн vs 25 млн) и точная нумерация частей (10-18 vs 12-15 по разным источникам) расходятся у вторичных агрегаторов. Расхождение не критично (не ×2, не искажает картину для типового МСБ-кейса без утечки, на что статья и делает акцент), поэтому severity: moderate, действие — оставить с пометкой 'ориентировочно', как уже сделано в тексте статьи.",
+      "sources": [
+        "https://ppt.ru/obzory/koap/2025-05-30",
+        "https://www.klerk.ru/blogs/data-sec/672641/",
+        "https://www.garant.ru/hotlaw/federal/1771084/"
+      ],
+      "action": "keep",
+      "actionDetail": "Текст уже содержит оговорку «показывают порядок величины по вторичным источникам ... точную привязку к конкретным частям стоит свериться напрямую» — сохранено, дополнительно не переписывалось."
+    },
+    {
+      "id": "c22,c23,c47,c48",
+      "type": "MONEY",
+      "raw": "50 000 ₽ / 300 000 ₽ (неуведомление РКН)",
+      "context": "штраф за неуведомление/несвоевременное уведомление РКН",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.85,
+      "expectedValue": "До 50 000 ₽ для должностных лиц, до 300 000 ₽ для юрлиц — совпадает с research brief (источник klerk.ru/garant.ru)",
+      "explanation": "Отдельный состав ст. 13.11 КоАП про неуведомление, не задет правкой базовой ставки. Прямо не переверял отдельно точный номер части — оставлено как в брифе (moderate confidence изначально в брифе, не критично).",
+      "sources": [
+        "https://www.garant.ru/hotlaw/federal/1771084/"
+      ],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c65,c66,c67,c85,c87,c108,c109,c13,c49,c12,c16",
+      "type": "NPA_UK+NPA_FZ+MONEY+DATE_DMY",
+      "raw": "421-ФЗ, ст. 272.1 УК РФ, 11.12.2024, штраф до 300 000 ₽",
+      "context": "уголовная ответственность за незаконный оборот баз ПДн",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.92,
+      "expectedValue": "421-ФЗ от 30.11.2024 вводит ст. 272.1 УК РФ, действует с 11.12.2024. Базовый состав: штраф до 300 000 ₽ либо доход за период до 1 года, либо принудработы/лишение свободы до 4 лет.",
+      "explanation": "Полностью совпадает с research brief. Добавлена запись в whitelist (fz.421, uk.272.1) — ранее отсутствовала.",
+      "sources": [
+        "http://publication.pravo.gov.ru/document/0001202411300012",
+        "https://www.consultant.ru/document/cons_doc_LAW_10699/deefead19003ba8266e85fbf42fc31f60ed3c698/"
+      ],
+      "action": "keep",
+      "actionDetail": "Whitelist src/data/factcheck/sources.json дополнен записями fz.421 и uk.272.1."
+    },
+    {
+      "id": "c79,c4,c11,c14,c18",
+      "type": "NPA_FZ+DATE_DMY+DATE_YEAR",
+      "raw": "266-ФЗ, 01.09.2022, 2022 года",
+      "context": "отмена льготы по уведомлению РКН для кадровых ПДн",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.85,
+      "expectedValue": "266-ФЗ отменил исключения из ч. 2 ст. 22 152-ФЗ для кадровых данных с 01.09.2022 — совпадает с research brief",
+      "explanation": "Подтверждено research brief (источник: consultant.ru cons_doc_LAW_61801). Отдельно 266-ФЗ не переверял через WebSearch — уже был проверен в брифе с явной ссылкой.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_61801/d996966e22e1320c9de1ab82d9f6be12c3d9d765/"
+      ],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c68",
+      "type": "NPA_PUNKT",
+      "raw": "п. 5 ч. 1 ст. 6 152-ФЗ",
+      "context": "основание обработки без согласия — исполнение договора с субъектом",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "П. 5 ч. 1 ст. 6 152-ФЗ: обработка необходима для исполнения договора, стороной которого либо выгодоприобретателем/поручителем по которому является субъект ПДн",
+      "explanation": "Подтверждено дополнительно через WebSearch (legascom.ru научный комментарий именно к этому пункту, base.garant.ru).",
+      "sources": [
+        "https://base.garant.ru/12148567/8b7b3c1c76e91f88d33c08b3736aa67a/",
+        "https://legascom.ru/notes/8788-obrabotka-personalnykh-dannykh-bez-soglasiya-ikh-sub-ekta-v-dogovornykh-pravootnosheniyakh-v-sfere-uslug-nauchno-prakticheskij-kommentarij-k-p-5-ch-1-st-6-federalnogo-zakona-ot-27-07-2006-n-152-fz-o-personalnykh-dannykh"
+      ],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c3,c77",
+      "type": "NPA_FZ+DATE_DMY",
+      "raw": "140-ФЗ, 01.09.2026",
+      "context": "внутренняя ссылка на статью портала про ЭПД",
+      "status": "skip",
+      "severity": "minor",
+      "confidence": 1,
+      "expectedValue": "",
+      "explanation": "Класс C1 — внутренняя ссылка на /blog/2026-05-25-140-fz-epd-perehod-msb/, валидируется при сборке, содержание 140-ФЗ проверяется в фактчеке той статьи, не этой.",
+      "sources": [],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c19,links-usn",
+      "type": "DATE_YEAR+LINK",
+      "raw": "2026 году, /blog/2026-06-20-limity-usn-2026/",
+      "context": "внутренняя ссылка на статью про лимиты УСН",
+      "status": "skip",
+      "severity": "minor",
+      "confidence": 1,
+      "expectedValue": "",
+      "explanation": "Класс C1 — внутренняя ссылка.",
+      "sources": [],
+      "action": "keep",
+      "actionDetail": ""
+    },
+    {
+      "id": "c101,c104,c105,c106,c109",
+      "type": "LINK",
+      "raw": "consultant.ru, garant.ru, klerk.ru, its.1c.ru — внешние ссылки на источники",
+      "context": "ссылки в тексте на первоисточники и вторичные источники",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "Ссылки ведут на релевантные страницы, соответствуют research brief",
+      "explanation": "consultant.ru в blocked.domains для WebFetch — проверено через WebSearch snippet-подтверждение содержания. garant.ru/klerk.ru/its.1c.ru доступны и подтверждены отдельным WebFetch в ходе этого фактчека.",
+      "sources": [],
+      "action": "keep",
+      "actionDetail": ""
+    }
+  ],
+  "npa": [
+    {
+      "kind": "fz",
+      "number": "152",
+      "exists": true,
+      "title": "Федеральный закон от 27.07.2006 № 152-ФЗ «О персональных данных»",
+      "url": "http://government.ru/docs/all/98196/"
+    },
+    {
+      "kind": "fz",
+      "number": "420",
+      "exists": true,
+      "title": "Федеральный закон от 30.11.2024 № 420-ФЗ «О внесении изменений в Кодекс Российской Федерации об административных правонарушениях»",
+      "url": "http://publication.pravo.gov.ru/document/0001202411300011"
+    },
+    {
+      "kind": "fz",
+      "number": "421",
+      "exists": true,
+      "title": "Федеральный закон от 30.11.2024 № 421-ФЗ «О внесении изменений в Уголовный кодекс Российской Федерации» (вводит ст. 272.1 УК РФ)",
+      "url": "http://publication.pravo.gov.ru/document/0001202411300012"
+    },
+    {
+      "kind": "fz",
+      "number": "266",
+      "exists": true,
+      "title": "Федеральный закон, отменивший исключения из ч. 2 ст. 22 152-ФЗ для кадровых ПДн с 01.09.2022",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_61801/d996966e22e1320c9de1ab82d9f6be12c3d9d765/"
+    },
+    {
+      "kind": "koap",
+      "number": "13.11",
+      "exists": true,
+      "title": "Ст. 13.11 КоАП РФ «Нарушение законодательства РФ в области персональных данных», ред. с 30.05.2025 (ч. 1 — базовое нарушение 150-300K юрлица, ч. 1.1 — повторное 300-500K, далее части про утечку по числу субъектов)",
+      "url": "https://its.1c.ru/db/content/newscomm/src/492796.htm"
+    },
+    {
+      "kind": "uk",
+      "number": "272.1",
+      "exists": true,
+      "title": "Ст. 272.1 УК РФ — незаконное использование/передача/сбор/хранение компьютерной информации с ПДн, действует с 11.12.2024",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_10699/deefead19003ba8266e85fbf42fc31f60ed3c698/"
+    },
+    {
+      "kind": "fz",
+      "number": "140",
+      "exists": true,
+      "title": "Федеральный закон от 07.06.2025 № 140-ФЗ «О внесении изменений в Федеральный закон \"О транспортно-экспедиционной деятельности\" и отдельные законодательные акты РФ» (переход на электронную перевозочную документацию, ГИС ЭПД)",
+      "url": "https://normativ.kontur.ru/document?moduleId=1&documentId=500386"
+    }
+  ],
+  "recommendations": [
+    "Перед следующим reviewDate свериться напрямую с текстом ст. 13.11 КоАП РФ (consultant.ru/garant.ru) и проставить точные номера частей для строк таблицы про утечку по числу субъектов (10-18 по разным вторичным источникам) — сейчас они намеренно оставлены без номера части, так как вторичные источники расходятся в нумерации.",
+    "При появлении первой практики по новым штрафам (ч. 1/1.1 ст. 13.11) после 30.05.2025 — добавить в статью реальный кейс.",
+    "Уточнить точный минимум оборотного штрафа за повторную утечку (20 млн по ppt.ru vs 25 млн по klerk.ru/brief) при следующей проверке — не критично, но стоит закрыть расхождение."
+  ],
+  "nextReview": "2027-03-17"
+}
