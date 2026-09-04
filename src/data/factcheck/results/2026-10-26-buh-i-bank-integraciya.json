@@ -1,0 +1,263 @@
+{
+  "slug": "2026-10-26-buh-i-bank-integraciya",
+  "checkedDate": "2026-09-04",
+  "claims": [
+    {
+      "id": "c16",
+      "type": "NPA_FZ",
+      "raw": "115-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "note": "Первое упоминание в лиде без даты/номера полностью — расшифровано ниже в тексте (07.08.2001 № 115-ФЗ). Класс C для самого упоминания в лиде."
+    },
+    {
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "15.05.2026",
+      "status": "match",
+      "severity": "none",
+      "note": "Подтверждено: 15.05.2026 Сбербанк перевёл 1С:ДиректБанк с Универсального платёжного шлюза на Sber API.",
+      "sources": [
+        "https://infostart.ru/journal/news/mir-1s/s-15-maya-1s-direktbank-budet-rabotat-so-sberbankom-cherez-sber-api_2686245/",
+        "https://www.buslog.ru/service/articles/bp/sberbank-menyaet-tekhnologiyu-obmena-s-1s-chto-nuzhno-sdelat-polzovatelyam-1s-direktbank/"
+      ]
+    },
+    {
+      "id": "c9",
+      "type": "DATE_YEAR",
+      "raw": "2026 года",
+      "status": "match",
+      "severity": "none",
+      "note": "Полное выведение из эксплуатации Универсального платёжного шлюза запланировано на III квартал 2026 — подтверждено теми же источниками, что и c1."
+    },
+    {
+      "id": "c10",
+      "type": "DATE_YEAR",
+      "raw": "2025 год",
+      "status": "match",
+      "severity": "none",
+      "note": "Формулировка «по опубликованным на 2025 год планам» корректна: концепция/этапы Открытых API опубликованы ЦБ 02.09.2024, актуализированы позже."
+    },
+    {
+      "id": "c11",
+      "type": "DATE_YEAR",
+      "raw": "2026 года",
+      "status": "match",
+      "severity": "none",
+      "note": "Обязательность Открытых API для крупнейших банков, брокеров и страховых — с 2026 года. Подтверждено ASN и tadviser.",
+      "sources": [
+        "https://www.asn-news.ru/news/87335",
+        "https://www.cbr.ru/press/event/?id=20968"
+      ]
+    },
+    {
+      "id": "c12",
+      "type": "DATE_YEAR",
+      "raw": "2027 года",
+      "status": "match",
+      "severity": "none",
+      "note": "Распространение на МФО, депозитарии и операторов финансовых платформ — с 2027 года. Подтверждено."
+    },
+    {
+      "id": "c24",
+      "type": "LINK",
+      "raw": "https://www.cbr.ru/fintech/api/",
+      "status": "match",
+      "severity": "none",
+      "note": "Официальная страница Банка России об Открытых API. Утверждение статьи, что это «дорожная карта, а не пронумерованный акт с фиксированной датой», а также что ЦБ уже переносил сроки — корректно (подтверждено новостями о переносе сроков внедрения Open API)."
+    },
+    {
+      "id": "c17",
+      "type": "NPA_FZ",
+      "raw": "402-ФЗ",
+      "status": "match",
+      "severity": "none"
+    },
+    {
+      "id": "c2",
+      "type": "DATE_DMY",
+      "raw": "06.12.2011",
+      "status": "match",
+      "severity": "none",
+      "note": "Дата 402-ФЗ «О бухгалтерском учёте» верна."
+    },
+    {
+      "id": "c25",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_122855/",
+      "status": "match",
+      "severity": "none",
+      "note": "Проверено через WebSearch (WebFetch на consultant.ru блокируется 403) — документ существует и соответствует 402-ФЗ."
+    },
+    {
+      "id": "c3",
+      "type": "DATE_DMY",
+      "raw": "07.11.2023",
+      "status": "match",
+      "severity": "none",
+      "note": "Приказ ФНС от 07.11.2023 № ЕА-7-3/816@ утверждает формы КУДиР (в т.ч. для УСН, ПСН, ЕСХН) и порядок заполнения, применяется с 01.01.2024."
+    },
+    {
+      "id": "c26",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/about_fts/docs/14134573/",
+      "status": "match",
+      "severity": "none",
+      "note": "URL совпадает с официальной публикацией приказа на nalog.gov.ru (подтверждено WebSearch snippet)."
+    },
+    {
+      "id": "c18",
+      "type": "NPA_FZ",
+      "raw": "115-ФЗ",
+      "status": "match",
+      "severity": "none"
+    },
+    {
+      "id": "c4",
+      "type": "DATE_DMY",
+      "raw": "07.08.2001",
+      "status": "match",
+      "severity": "none",
+      "note": "Дата 115-ФЗ «О противодействии легализации (отмыванию) доходов...» верна."
+    },
+    {
+      "id": "c19",
+      "type": "NPA_FZ",
+      "raw": "115-ФЗ",
+      "status": "match",
+      "severity": "none"
+    },
+    {
+      "id": "c27",
+      "type": "LINK",
+      "raw": "https://base.garant.ru/12123862/",
+      "status": "match",
+      "severity": "none",
+      "note": "Совпадает с официальной страницей ГАРАНТ для 115-ФЗ."
+    },
+    {
+      "id": "c5",
+      "type": "DATE_DMY",
+      "raw": "21.07.2017",
+      "status": "match",
+      "severity": "none",
+      "note": "Дата методрекомендаций ЦБ № 18-МР верна."
+    },
+    {
+      "id": "c28",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_221107/",
+      "status": "match",
+      "severity": "none",
+      "note": "Проверено через WebSearch — документ существует и соответствует 18-МР от 21.07.2017."
+    },
+    {
+      "id": "c6",
+      "type": "DATE_DMY",
+      "raw": "16.02.2018",
+      "status": "match",
+      "severity": "none",
+      "note": "Дата методрекомендаций ЦБ № 5-МР верна."
+    },
+    {
+      "id": "c29",
+      "type": "LINK",
+      "raw": "https://base.garant.ru/71881878/",
+      "status": "match",
+      "severity": "none",
+      "note": "URL совпадает с официальной страницей ГАРАНТ для 5-МР (подтверждено WebSearch snippet)."
+    },
+    {
+      "id": "c20",
+      "type": "NPA_FZ",
+      "raw": "115-ФЗ",
+      "status": "match",
+      "severity": "none"
+    },
+    {
+      "id": "c23",
+      "type": "NPA_FZ_FULL",
+      "raw": "Федерального закона от 02.12.1990 № 395",
+      "status": "match",
+      "severity": "none",
+      "note": "395-1-ФЗ «О банках и банковской деятельности», ст. 26 — банковская тайна. Дата и номер верны."
+    },
+    {
+      "id": "c7",
+      "type": "DATE_DMY",
+      "raw": "02.12.1990",
+      "status": "match",
+      "severity": "none"
+    },
+    {
+      "id": "c30",
+      "type": "LINK",
+      "raw": "https://base.garant.ru/10105800/3ac805f6d87af32d44de92b042d51285/",
+      "status": "match",
+      "severity": "none",
+      "note": "URL совпадает с официальной страницей ГАРАНТ для ст. 26 395-1-ФЗ (точное совпадение в WebSearch snippet)."
+    },
+    {
+      "id": "c21",
+      "type": "NPA_FZ",
+      "raw": "115-ФЗ",
+      "status": "match",
+      "severity": "none"
+    },
+    {
+      "id": "c8",
+      "type": "DATE_DMY",
+      "raw": "15.05.2026",
+      "status": "match",
+      "severity": "none",
+      "note": "Дубль c1 в FAQ, тот же факт."
+    },
+    {
+      "id": "c13",
+      "type": "DATE_YEAR",
+      "raw": "2026 года",
+      "status": "match",
+      "severity": "none",
+      "note": "Дубль c9 в FAQ."
+    },
+    {
+      "id": "c22",
+      "type": "NPA_FZ",
+      "raw": "1-ФЗ",
+      "status": "match",
+      "severity": "none",
+      "note": "Артефакт regex-извлечения: реальный текст — «ст. 26 395-1-ФЗ» (395-1-ФЗ), номер верный, просто парсер отрезал «395-». Не ошибка статьи."
+    },
+    {
+      "id": "c15",
+      "type": "DATE_CONTEXT",
+      "raw": "в III квартале 2026",
+      "status": "match",
+      "severity": "none"
+    },
+    {
+      "id": "c14",
+      "type": "DATE_YEAR",
+      "raw": "2026 года",
+      "status": "match",
+      "severity": "none",
+      "note": "Дубль c9 в разделе «Что делать дальше»."
+    }
+  ],
+  "additionalChecks": [
+    {
+      "topic": "115-ФЗ ст. 7 п. 10 — срок приостановления операции банком",
+      "finding": "В тексте статьи нигде не указан конкретный срок приостановки операции (ни «2 дня», ни «5 дней») — статья ограничивается общей фразой «запрашивает документы... или временно приостанавливает её проведение» без цифры. Фактически верный срок по п. 10 ст. 7 115-ФЗ — до 5 рабочих дней (подтверждено WebSearch), но так как статья не называет число, исправлять нечего — расхождения нет."
+    },
+    {
+      "topic": "Статус методрекомендаций ЦБ № 18-МР и № 5-МР",
+      "finding": "Статья явно и корректно указывает (callout-блок и абзац в разделе про 115-ФЗ), что 18-МР и 5-МР — рекомендации Банка России самим банкам, а не нормы прямого действия для бизнеса, без штрафов для клиентов. Соответствует действительности, дополнительных правок не требуется."
+    }
+  ],
+  "summary": {
+    "critical": 0,
+    "moderate": 0,
+    "minor": 0,
+    "match": 30
+  }
+}
