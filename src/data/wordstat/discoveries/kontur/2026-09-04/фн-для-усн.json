@@ -1,0 +1,26 @@
+{
+  "seed": "ФН для УСН",
+  "slug": "фн-для-усн",
+  "category": "audience",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-09-04T16:20:03.835Z",
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "фн для усн",
+      "count": 76
+    },
+    {
+      "phrase": "какой фн для усн",
+      "count": 28
+    },
+    {
+      "phrase": "фн для ип усн",
+      "count": 26
+    },
+    {
+      "phrase": "какой фн нужен при усн для ип",
+      "count": 11
+    }
+  ]
+}
