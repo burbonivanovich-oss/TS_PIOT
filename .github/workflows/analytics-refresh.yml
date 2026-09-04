@@ -63,6 +63,13 @@ jobs:
       - name: Merge into articles.json
         run: node scripts/analytics/merge.mjs
 
+      # Шаги fetch-* идут с continue-on-error, чтобы один сломанный источник
+      # не ронял остальные. Из-за этого прогон зеленел, даже когда не работал
+      # ни один источник: истёкший GSC-токен и незаведённый токен Вебмастера
+      # никто не замечал с мая. Теперь мёртвый источник красит прогон.
+      - name: Состояние источников
+        run: node scripts/analytics/report-sources.mjs
+
       - name: Commit data
         if: always()
         run: |
