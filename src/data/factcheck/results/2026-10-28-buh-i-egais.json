@@ -1,0 +1,278 @@
+{
+  "slug": "2026-10-28-buh-i-egais",
+  "checkedAt": "2026-09-04T00:00:00.000Z",
+  "checkedBy": "claude-sonnet-5+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 29,
+    "checked": 29,
+    "match": 27,
+    "mismatch": 2,
+    "uncertain": 0,
+    "missingSources": 0,
+    "overallStatus": "fixed",
+    "criticalIssues": 1,
+    "moderateIssues": 0,
+    "minorIssues": 0,
+    "note": "Единственное расхождение — дата 03.04.2023 (подписание 108-ФЗ) использовалась как дата начала обязательного порционного списания крепкого алкоголя в ЕГАИС. По классу A3 (техническое требование, точная дата обязанности) — исправлено на 1 июля 2024 (конец отсрочки Росалкогольрегулирования), с сохранением 108-ФЗ/03.04.2023 как правовой основы. Остальные 27 claims — точное совпадение с первоисточниками (171-ФЗ, 402-ФЗ, 108-ФЗ, 509-ФЗ, приказ Росалкогольрегулирования № 397 от 17.12.2020, ст. 14.16/14.17/14.19 КоАП, суммы штрафов, ссылки)."
+  },
+  "claims": [
+    {
+      "id": "c2+c5",
+      "type": "DATE_DMY",
+      "raw": "03.04.2023",
+      "context": "5 причин расхождений, п.1 и FAQ «Нужно ли отдельно списывать бутылку и порцию»: «С 03.04.2023 ... общепит обязан сканировать акцизную марку при вскрытии бутылки» / «С 03.04.2023 действует порционное списание»",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.9,
+      "expectedValue": "108-ФЗ подписан и опубликован 03.04.2023, но обязательное порционное списание крепкого алкоголя (сканирование акцизной марки при вскрытии, фиксация каждой порции в ЕГАИС) стало обязательным для всех заведений общепита только с 1 июля 2024 года — Росалкогольрегулирование дало отсрочку на донастройку касс/УТМ.",
+      "explanation": "Статья использовала дату подписания закона (03.04.2023) как дату начала действия конкретной технической обязанности. Разрыв больше года мог создать у читателя впечатление, что порционное списание требуется с апреля 2023, тогда как штрафовать за его отсутствие можно только с 1 июля 2024. Класс A3 (точность технического требования) — правим точно.",
+      "sources": [
+        "https://www.esphere.ru/blog/izmenenie-v-egais-v-2024-godu-s-1-iyulya-vvodyat-obyazatelnoe-porczionnoe-spisanie-krepkogo-alkogolya/",
+        "https://saby.ru/articles/presto/spisanie_alkogolya_v_egais_dlya_obshchepita",
+        "https://mertech.ru/blog/vse-o-egais/kak-obschepitu-prodavat-alkogol-s-1-iyulya-2024/",
+        "http://publication.pravo.gov.ru/Document/View/0001202304030011"
+      ],
+      "action": "rewrite-bullet",
+      "actionDetail": "П.1 списка причин: «Поправки 108-ФЗ от 03.04.2023 в 171-ФЗ ввели порционный учёт, но обязательным для всех он стал с 1 июля 2024 года — после отсрочки, которую Росалкогольрегулирование дало на донастройку касс. С этой даты общепит обязан сканировать акцизную марку...». FAQ: «Порционное списание ввели поправки 108-ФЗ от 03.04.2023, но обязательным для всех оно стало с 1 июля 2024 года — после отсрочки на донастройку касс...». Правки внесены в текст статьи."
+    },
+    {
+      "id": "c22",
+      "type": "NPA_FZ",
+      "raw": "108-ФЗ",
+      "context": "поправками 108-ФЗ в 171-ФЗ (порционное списание)",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Федеральный закон от 03.04.2023 № 108-ФЗ — поправки в 171-ФЗ о порционном учёте крепкого алкоголя в общепите. Номер и предмет верны, только связанная дата обязанности (см. c2+c5) была неточной.",
+      "sources": ["http://publication.pravo.gov.ru/Document/View/0001202304030011", "https://base.garant.ru/406651123/"],
+      "action": "keep"
+    },
+    {
+      "id": "c18+c20+c23",
+      "type": "NPA_FZ",
+      "raw": "171-ФЗ",
+      "context": "«обязанность... закреплена в ст. 8 171-ФЗ от 22.11.1995»; таблица; порционное списание",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Федеральный закон от 22.11.1995 № 171-ФЗ «О государственном регулировании производства и оборота этилового спирта...». Ст. 8 п.2 закрепляет обязанность оснащать оборудование техническими средствами фиксации и передачи сведений в ЕГАИС.",
+      "sources": [
+        "https://base.garant.ru/10105489/888134b28b1397ffae87a0ab1e117954/",
+        "https://www.consultant.ru/document/cons_doc_LAW_8368/fef81464538ba85455133ad888acbf98e05df0de/"
+      ],
+      "action": "keep"
+    },
+    {
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "22.11.1995",
+      "context": "171-ФЗ от 22.11.1995",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.98,
+      "expectedValue": "Дата принятия 171-ФЗ верна.",
+      "sources": ["https://base.garant.ru/10105489/"],
+      "action": "keep"
+    },
+    {
+      "id": "c25",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_8368/",
+      "context": "ссылка на 171-ФЗ",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "consultant.ru cons_doc_LAW_8368 — корректный ID документа для 171-ФЗ (подтверждено сниппетами поиска с тем же ID).",
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_8368/fef81464538ba85455133ad888acbf98e05df0de/"],
+      "action": "keep"
+    },
+    {
+      "id": "c17+c19",
+      "type": "NPA_FZ",
+      "raw": "402-ФЗ",
+      "context": "«Бухгалтерский учёт... строится на 402-ФЗ»; таблица",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Федеральный закон от 06.12.2011 № 402-ФЗ «О бухгалтерском учёте» — верно указан как основа бухучёта товара.",
+      "sources": ["whitelist sources.json: fz.402"],
+      "action": "keep"
+    },
+    {
+      "id": "c21",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "context": "«Контур.Маркет объединяет кассовую программу по 54-ФЗ»",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "54-ФЗ «О применении ККТ» — верная общая ссылка, без конкретных цифр для проверки.",
+      "sources": ["whitelist sources.json: fz.54"],
+      "action": "keep"
+    },
+    {
+      "id": "c26",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru (108-ФЗ)",
+      "context": "ссылка на 108-ФЗ",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.7,
+      "expectedValue": "Общая ссылка на consultant.ru без глубокого ID — не проверяется на конкретный документ, но домен профильный.",
+      "sources": ["https://www.alta.ru/tamdoc/23fz0108/"],
+      "action": "keep"
+    },
+    {
+      "id": "c8",
+      "type": "DATE_YEAR",
+      "raw": "2013 года",
+      "context": "«унифицированные формы с 2013 года необязательны»",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "С 01.01.2013, в связи со вступлением в силу 402-ФЗ, унифицированные формы (включая ТОРГ-16) перестали быть обязательными.",
+      "sources": ["https://pravovest-audit.ru/nashi-statii-nalogi-i-buhuchet/pervichnye-uchetnye-dokumenty-v-2013-godu-voprosy-i-otvety/"],
+      "action": "keep"
+    },
+    {
+      "id": "c3",
+      "type": "DATE_DMY",
+      "raw": "17.12.2020",
+      "context": "«приказу Росалкогольрегулирования (ныне Росалкогольтабакконтроль) № 397 от 17.12.2020»",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Приказ Росалкогольрегулирования от 17.12.2020 № 397 — «Об утверждении форм... заявок о фиксации информации в ЕГАИС», включает формы актов списания со склада и из точек продаж. Номер и дата верны и точно соответствуют описанному в статье предмету (заявка о фиксации выбытия). Не путать с соседним приказом № 396 от той же даты — тот про декларации формы 7/8, другой предмет.",
+      "sources": [
+        "https://www.garant.ru/products/ipo/prime/doc/400062864/",
+        "https://www.consultant.ru/document/cons_doc_LAW_372973/",
+        "https://rulaws.ru/acts/Prikaz-Rosalkogolregulirovaniya-ot-17.12.2020-N-397/"
+      ],
+      "action": "keep"
+    },
+    {
+      "id": "c27",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_372973/",
+      "context": "ссылка на приказ № 397",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "ID cons_doc_LAW_372973 подтверждён в поисковой выдаче как страница именно приказа № 397 от 17.12.2020.",
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_372973/"],
+      "action": "keep"
+    },
+    {
+      "id": "c4+c6+c7",
+      "type": "DATE_DMY",
+      "raw": "01.01.2026",
+      "context": "«Декларацию по форме № 7 для общепита с 01.01.2026 отменили...»; FAQ x2",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "509-ФЗ от 28.12.2025 отменил декларацию формы № 7 для общепита с 01.01.2026 (последняя подача — за 4 кв. 2025, до 20.01.2026).",
+      "sources": [
+        "https://lemma-group.ru/about/news/dlya-obshchepita-otmenili-alkogolnye-deklaratsii/",
+        "https://www.arbus.biz/blog/otmena_alkodeklaratsiy/"
+      ],
+      "action": "keep"
+    },
+    {
+      "id": "c24",
+      "type": "NPA_FZ",
+      "raw": "509-ФЗ",
+      "context": "«отменили поправками 509-ФЗ»",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Федеральный закон от 28.12.2025 № 509-ФЗ — поправки в 171-ФЗ, отмена декларации формы № 7 для общепита с 01.01.2026. Совпадает с whitelist.",
+      "sources": ["whitelist sources.json: fz.509"],
+      "action": "keep"
+    },
+    {
+      "id": "c28",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru (509-ФЗ)",
+      "context": "ссылка на 509-ФЗ",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.7,
+      "expectedValue": "Общая ссылка на профильный домен, без конкретного ID.",
+      "sources": [],
+      "action": "keep"
+    },
+    {
+      "id": "c11+c12+c13+c16",
+      "type": "NPA_KOAP",
+      "raw": "ст. 14.19 КоАП",
+      "context": "лид; блок штрафов; FAQ",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Ст. 14.19 КоАП РФ — «Нарушение государственного учёта в области производства и оборота этилового спирта, алкогольной и спиртосодержащей продукции» — верный состав для темы расхождений учёта/ЕГАИС.",
+      "sources": [
+        "https://rulaws.ru/koap/Razdel-II/Glava-14/Statya-14.19/",
+        "https://logos-pravo.ru/statya-1419-koap-rf-narushenie-ustanovlennogo-poryadka-ucheta-etilovogo-spirta-alkogolnoy-i"
+      ],
+      "action": "keep"
+    },
+    {
+      "id": "c29",
+      "type": "LINK",
+      "raw": "https://rulaws.ru/koap/Razdel-II/Glava-14/Statya-14.19/",
+      "context": "ссылка на ст. 14.19 КоАП",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "rulaws.ru — рабочий агрегатор для ст. 14.19 КоАП, URL корректный.",
+      "sources": ["https://rulaws.ru/koap/Razdel-II/Glava-14/Statya-14.19/"],
+      "action": "keep"
+    },
+    {
+      "id": "c9+c10",
+      "type": "MONEY",
+      "raw": "15 000 ₽ / 200 000 ₽",
+      "context": "«Штраф по ст. 14.19 КоАП РФ: для должностных лиц и ИП — от 10 000 до 15 000 ₽, для юридических лиц — от 150 000 до 200 000 ₽»",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Ст. 14.19 КоАП: должностные лица (и ИП по общему правилу) — 10 000–15 000 ₽, юрлица — 150 000–200 000 ₽, с конфискацией. Указана полная вилка с обоими субъектами — соответствует правилу A1 редполитики (вилка + разделение по субъектам).",
+      "sources": [
+        "https://rulaws.ru/koap/Razdel-II/Glava-14/Statya-14.19/",
+        "https://rokass.ru/blog/avtomatizatsiya-magazinov/shtrafy-za-narushenie-egais-v-2026-godu-tablitsa-riski-kak-izbezhat/"
+      ],
+      "action": "keep"
+    },
+    {
+      "id": "c14",
+      "type": "NPA_KOAP",
+      "raw": "ст. 14.16 КоАП",
+      "context": "«ст. 14.16 КоАП — за нарушение правил продажи алкоголя»",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "Ст. 14.16 КоАП РФ — «Нарушение правил продажи этилового спирта, алкогольной и спиртосодержащей продукции». Верно, конкретных сумм в статье не заявлено (общее упоминание, класс C2).",
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_34661/942d86d9d34c2b3a67505bafd202c4d9ed401a7e/"],
+      "action": "keep"
+    },
+    {
+      "id": "c15",
+      "type": "NPA_KOAP",
+      "raw": "ст. 14.17 КоАП",
+      "context": "«ст. 14.17 КоАП — за нарушение лицензионных требований»",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.85,
+      "expectedValue": "Ст. 14.17 КоАП РФ — нарушение лицензионных требований и условий производства/оборота этилового спирта, алкогольной и спиртосодержащей продукции. Тема совпадает, сумм в статье не указано.",
+      "sources": ["https://legalacts.ru/kodeks/KOAP-RF/razdel-ii/glava-14/statja-14.16/"],
+      "action": "keep"
+    }
+  ],
+  "recommendations": [
+    "Исправлено: дата обязательного порционного списания крепкого алкоголя — 1 июля 2024, а не 03.04.2023 (дата подписания 108-ФЗ). Правки внесены точечно в п.1 списка «5 причин расхождений» и в FAQ.",
+    "Остальные claims (171-ФЗ ст.8, 402-ФЗ, 509-ФЗ, приказ № 397 от 17.12.2020, ст. 14.16/14.17/14.19 КоАП со штрафами 10-15К/150-200К) подтверждены первоисточниками без расхождений.",
+    "reviewDate в frontmatter уже стоит 2027-04-28 — менять не требуется."
+  ],
+  "nextReview": "2027-04-28"
+}
