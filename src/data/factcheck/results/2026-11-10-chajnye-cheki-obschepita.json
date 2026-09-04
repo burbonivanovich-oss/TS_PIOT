@@ -1,0 +1,180 @@
+{
+  "slug": "2026-11-10-chajnye-cheki-obschepita",
+  "checkedDate": "2026-09-04",
+  "checkedAt": "2026-09-04T00:00:00.000Z",
+  "checkedBy": "claude-sonnet-5+websearch",
+  "method": "manual-with-websearch",
+  "summary": {
+    "totalClaims": 48,
+    "checked": 48,
+    "match": 48,
+    "mismatch": 0,
+    "uncertain": 0,
+    "missingSources": 0,
+    "critical": 0,
+    "moderate": 0,
+    "minor": 0,
+    "overallStatus": "clean",
+    "note": "Все 48 claims — повторы одного и того же набора фактов (дата 54-ФЗ, дата и номер 274-ФЗ/п.5.11 ст.1.2, письмо Минфина о чаевых, вилки штрафов по ч.2/ч.4/ч.6 ст.14.5 КоАП, дата ТС ПИоТ). Каждый факт сверен с первоисточником/агрегаторами через WebSearch и WebFetch (rulaws.ru — полный текст ст.14.5). Расхождений не найдено. Особое внимание: письмо ФНС № АБ-4-20/1500@ от 14.02.2025 в статье НЕ упоминается и не требуется — все её тезисы (правило чека до оплаты, исключение для агрегаторов, сервис «Мои чеки онлайн» с согласием и телефоном/e-mail) подтверждаются независимо и совпадают по содержанию с рекомендациями этого письма без прямой ссылки на него. Номера НПА про сервисный сбор/согласие потребителя в статье не выдуманы — соответствующий абзац не содержит номера НПА (общее утверждение о праве потребителя знать цену заранее, класс C2)."
+  },
+  "claims": [
+    {
+      "ids": ["c1", "c34"],
+      "type": "NPA_FZ / DATE_DMY",
+      "raw": "Федеральный закон от 22.05.2003 № 54-ФЗ",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.98,
+      "expectedValue": "Федеральный закон от 22.05.2003 № 54-ФЗ «О применении контрольно-кассовой техники при осуществлении расчётов в Российской Федерации» — действующий, номер и дата верны.",
+      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_42359/", "src/data/factcheck/sources.json (npaWhitelist.fz.54)"],
+      "action": "keep"
+    },
+    {
+      "ids": ["c45", "c35", "c41", "c42", "c43", "c44"],
+      "type": "NPA_FZ_FULL / NPA_FZ",
+      "raw": "Ст. 4.7 Федерального закона № 54-ФЗ (реквизиты чека)",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "Ст. 4.7 54-ФЗ устанавливает закрытый перечень обязательных реквизитов кассового чека. Тег 1163 «код товара» — реквизит для маркированных позиций в ФФД 1.2 (сменил тег 1162 из ФФД 1.05/1.1).",
+      "explanation": "Перечень реквизитов в справочной таблице статьи (наименование, цена, НДС, признак и способ расчёта, дата/время/смена, кассир, реквизиты пользователя ККТ, заводской номер и ФП, QR, адрес расчёта и ОФД, код маркировки тег 1163) совпадает с официальным перечнем и практикой ФФД 1.2.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_42359/7a607e9ee7058b0c3bcb22e564e88190964aee72/",
+        "https://kontur.ru/market/spravka/37986-trebovaniya_k_kassovomu_cheku",
+        "https://www.forus.ru/about/news/novyy-format-fiskalnykh-dokumentov-versii-12/",
+        "https://getmark.ru/blog/o-markirovke/nastrojka-kassi-dlya-markirovki-tegi-1162-1163-2106/"
+      ],
+      "action": "keep"
+    },
+    {
+      "ids": ["c2", "c3", "c4", "c6", "c10"],
+      "type": "DATE_DMY",
+      "raw": "01.03.2025",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "01.03.2025 — дата вступления в силу п. 5.11 ст. 1.2 54-ФЗ (правило «чек до оплаты» в общепите). На дату публикации статьи (после 01.03.2025) норма — действующая, статья корректно описывает её как уже действующую, а не будущую.",
+      "sources": [
+        "https://www.consultant.ru/legalnews/27829/",
+        "https://kontur.ru/market/spravka/55077-novye_pravila_rascheta_gostey_v_obshchepite",
+        "https://saby.ru/articles/presto/cheki_v_restoranah_i_kafe_s_1_marta_2025"
+      ],
+      "action": "keep"
+    },
+    {
+      "ids": ["c31", "c32", "c33"],
+      "type": "NPA_PUNKT",
+      "raw": "п. 5.11 ст. 1.2",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "П. 5.11 ст. 1.2 54-ФЗ — верный номер пункта и статьи, где закреплено правило очерёдности «чек до оплаты» для общепита.",
+      "sources": ["https://www.consultant.ru/legalnews/27829/", "https://kontur.ru/market/spravka/55077-novye_pravila_rascheta_gostey_v_obshchepite"],
+      "action": "keep"
+    },
+    {
+      "ids": ["c46", "c47", "c36", "c37", "c5", "c7", "c39", "c40"],
+      "type": "NPA_FZ_FULL / NPA_FZ / DATE_DMY",
+      "raw": "введённый Федеральным законом от 08.08.2024 № 274-ФЗ",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "П. 5.11 ст. 1.2 54-ФЗ введён Федеральным законом от 08.08.2024 № 274-ФЗ. Номер закона и дата подтверждены независимо несколькими источниками.",
+      "sources": [
+        "https://www.consultant.ru/legalnews/27829/",
+        "https://kontur.ru/market/spravka/55077-novye_pravila_rascheta_gostey_v_obshchepite",
+        "https://buh.ru/articles/vydacha-kassovykh-chekov-s-1-marta-2025-goda-v-voprosakh-i-otvetakh-prodazha-s-dostavkoy-riski-neopl.html"
+      ],
+      "action": "keep"
+    },
+    {
+      "ids": ["c38"],
+      "type": "NPA_FZ",
+      "raw": "самообслуживание и доставка регулируются по общим правилам 54-ФЗ",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.85,
+      "expectedValue": "Рекомендации ФНС (письмо от 14.02.2025 № АБ-4-20/1500@, не цитируется в статье напрямую) отдельно описывают сценарии самообслуживания и доставки; при доставке через агрегатора чек формирует агрегатор, а не заведение — норма п.5.11 в её \"персональном\" виде на такой расчёт не распространяется.",
+      "sources": [
+        "https://platformaofd.ru/articles/v-kakih-sluchayah-obshhepit-mozhet-vydavat-chek-posle-oplaty/",
+        "https://www.consultant.ru/legalnews/27829/"
+      ],
+      "action": "keep"
+    },
+    {
+      "ids": ["c8", "c9"],
+      "type": "DATE_DMY",
+      "raw": "письмо Минфина России от 09.07.2024 № 30-01-11/63923",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Письмо Минфина от 09.07.2024 № 30-01-11/63923: чаевые, переданные наличными или переводом лично сотруднику, — расчёт между физлицами, не входят в выручку и не требуют ККТ; средства на расчётный счёт заведения без разделения по умолчанию считаются выручкой.",
+      "sources": [
+        "https://glavkniga.ru/news/18478",
+        "https://kartpay.ru/tpost/mdm93jdv51-na-chaevie-chek-ne-nuzhen-razyasnenie-mi",
+        "https://www.v2b.ru/articles/chaevye-nalogi-vznosy-kkt/"
+      ],
+      "action": "keep"
+    },
+    {
+      "ids": ["c24", "c25", "c26", "c27", "c28", "c29", "c30"],
+      "type": "NPA_KOAP",
+      "raw": "ст. 14.5 КоАП РФ (ч. 2 / ч. 4 / ч. 6)",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Все упоминания ст. 14.5 КоАП в статье сопровождаются номером части (ч.2, ч.4 или ч.6), как того требует правило A2 редполитики. Части не перепутаны между собой (ч.2 — неприменение ККТ, ч.4 — нарушение порядка применения/неверные реквизиты, ч.6 — непередача чека).",
+      "sources": ["https://rulaws.ru/koap/Razdel-II/Glava-14/Statya-14.5/"],
+      "action": "keep"
+    },
+    {
+      "ids": ["c48", "c12", "c49", "c13"],
+      "type": "PERCENT / MONEY",
+      "raw": "ч. 2 ст. 14.5 КоАП РФ: 25–50% суммы расчёта, не менее 10 000 ₽ (ИП/ДЛ); 75–100% суммы расчёта, не менее 30 000 ₽ (юрлицо)",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.97,
+      "expectedValue": "Ч. 2 ст. 14.5 КоАП: должностные лица (и ИП) — 1/4–1/2 суммы расчёта, но не менее 10 000 ₽; юрлица — 3/4–1 суммы расчёта, но не менее 30 000 ₽. Вилка указана верно с обеими границами и раздельно по субъектам, как требует правило A1.",
+      "sources": ["https://rulaws.ru/koap/Razdel-II/Glava-14/Statya-14.5/", "https://vitvet.com/articles/koap/sostavy/shtraf-neprimenenie-kkt-2026/"],
+      "action": "keep"
+    },
+    {
+      "ids": ["c26", "c14", "c15", "c28", "c18", "c19", "c30", "c22", "c23"],
+      "type": "MONEY",
+      "raw": "ч. 4 ст. 14.5 КоАП РФ: 1500–3000 ₽ (ИП/ДЛ), 5000–10 000 ₽ (юрлицо)",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.97,
+      "expectedValue": "Ч. 4 ст. 14.5 КоАП: предупреждение или штраф 1500–3000 ₽ для должностных лиц (и ИП), 5000–10 000 ₽ для юрлиц — за неправильное применение ККТ, нарушение порядка регистрации/применения, в т.ч. неверные реквизиты чека.",
+      "sources": ["https://rulaws.ru/koap/Razdel-II/Glava-14/Statya-14.5/", "https://www.elcode.ru/service/news/daydjest-novostey-zakonodatelstva/kakaya-otvetstvennost-grozit-organizacii-za-otsuts"],
+      "action": "keep"
+    },
+    {
+      "ids": ["c27", "c16", "c29", "c20", "c21"],
+      "type": "MONEY",
+      "raw": "ч. 6 ст. 14.5 КоАП РФ: предупреждение или 2000 ₽ (ИП/ДЛ), предупреждение или 10 000 ₽ (юрлицо)",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.95,
+      "expectedValue": "Ч. 6 ст. 14.5 КоАП: предупреждение или штраф 2000 ₽ для должностных лиц, предупреждение или штраф 10 000 ₽ для юрлиц — за непередачу чека покупателю. Статья верно указывает опцию «предупреждение» для обоих субъектов.",
+      "sources": ["https://rulaws.ru/koap/Razdel-II/Glava-14/Statya-14.5/"],
+      "action": "keep"
+    },
+    {
+      "ids": ["c11"],
+      "type": "DATE_DMY",
+      "raw": "С 01.07.2026 касса дополнительно проверяет код маркировки через модуль ТС ПИоТ",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.9,
+      "expectedValue": "Дата 01.07.2026 — общеизвестный для проекта дедлайн обязательности ТС ПИоТ (формально норма о распознавании кода Data Matrix действует с 28.12.2025 по ПП РФ № 1674, 01.07.2026 — конец переходного периода). Формулировка статьи не противоречит: не заявляет 01.07.2026 как дату вступления нормы в силу, а описывает её как границу, к которой касса обязана проверять код — соответствует практике проекта (см. src/data/factcheck/sources.json → npaWhitelist.pp.1674).",
+      "sources": ["src/data/factcheck/sources.json (npaWhitelist.pp.1674)", "src/data/factcheck/results/2026-01-15-chto-takoe-ts-piot.json"],
+      "action": "keep"
+    }
+  ],
+  "recommendations": [
+    "Правок не требуется — все проверенные факты подтверждены первоисточниками/агрегаторами, критических и умеренных расхождений не найдено.",
+    "Письмо ФНС № АБ-4-20/1500@ от 14.02.2025 в статье не используется (по заданию — не должно использоваться); при этом его содержание (правило чека до оплаты, исключение для доставки через агрегаторов, сервис «Мои чеки онлайн» с согласием и контактом) статья описывает верно, без ссылки на письмо."
+  ],
+  "nextReview": "2027-05-10"
+}
