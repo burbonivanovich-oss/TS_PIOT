@@ -29,10 +29,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with: { ref: ${{ github.ref }} }
+        with:
+          ref: ${{ github.ref }}
 
       - uses: actions/setup-node@v4
-        with: { node-version: '22' }
+        with:
+          node-version: '22'
 
       - name: Fetch GSC
         if: ${{ inputs.skip_gsc != '1' }}
