@@ -97,6 +97,57 @@ function linkCandidatesFor(topic, articles) {
 	}));
 }
 
+/**
+ * Похожие статьи, которые уже есть в блоге.
+ *
+ * `buildQueue` отсекает точные совпадения по slug, но контент-план писали
+ * руками, и в нём встречаются темы, пересказывающие уже вышедший материал
+ * другими словами: «Касса для кафе и общепита» при живой «Касса для кафе
+ * 2026». Такую пару надо ловить до написания, иначе получим каннибализацию
+ * выдачи — две страницы под один запрос.
+ *
+ * Считаем долю общих значимых слов (slug + заголовок). Порог 0.34 подобран
+ * так, чтобы ловить «kassa-dlya-obschepita» ↔ «kassa-dlya-kafe-2026» и не
+ * шуметь на статьях, у которых совпадает только тема кластера.
+ */
+const STOP_WORDS = new Set([
+	'для', 'и', 'в', 'на', 'с', 'по', 'что', 'как', 'это', 'году', 'год', 'года',
+	'при', 'от', 'до', 'или', 'не', 'кому', 'чем', 'кто', 'где', 'а', 'к', 'о',
+	'2024', '2025', '2026', '2027', 'dlya', 'kak', 'chto', 'eto',
+]);
+
+function significantTokens(...parts) {
+	return new Set(
+		parts
+			.join(' ')
+			.toLowerCase()
+			.replace(/[«»"'(),.:;—–-]/g, ' ')
+			.split(/\s+/)
+			.filter((w) => w.length > 2 && !STOP_WORDS.has(w)),
+	);
+}
+
+function similarExistingFor(topic, articles) {
+	const topicTokens = significantTokens(topic.slug.replace(/-/g, ' '), topic.title);
+	if (topicTokens.size === 0) return [];
+
+	return articles
+		.map((a) => {
+			const tokens = significantTokens(
+				a.slug.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/-/g, ' '),
+				a.title,
+			);
+			let shared = 0;
+			for (const t of topicTokens) if (tokens.has(t)) shared++;
+			// Доля от меньшего множества: короткий заголовок не должен занижать счёт.
+			const score = shared / Math.min(topicTokens.size, tokens.size || 1);
+			return { url: `/blog/${a.slug}/`, title: a.title, draft: a.draft, score: Number(score.toFixed(2)) };
+		})
+		.filter((a) => a.score >= 0.34)
+		.sort((a, b) => b.score - a.score)
+		.slice(0, 3);
+}
+
 const CATEGORY_TOPICS = {
 	'ts-piot': ['ts-piot', 'kkt', 'markirovka'],
 	markirovka: ['markirovka', 'ts-piot'],
@@ -136,7 +187,11 @@ const scheduled = articles.filter((a) => a.draft && (!a.pubDate || a.pubDate >= 
 
 const norm = Math.min(QUOTA, weekdaysLeftInMonth(start));
 const requested = Number(flag('count') ?? Math.max(0, norm - scheduled));
-const count = Number.isFinite(requested) && requested > 0 ? Math.min(requested, 40) : 0;
+// Без --count потолок в 40 страхует от случайного гигантского прогона.
+// Явный --count — осознанное решение редактора (например, пачка на квартал
+// вперёд), поэтому он ограничен только здравым смыслом: 120 тем.
+const ceiling = flag('count') ? 120 : 40;
+const count = Number.isFinite(requested) && requested > 0 ? Math.min(requested, ceiling) : 0;
 
 const queue = buildQueue({ count });
 const dates = scheduleDates(queue.length, start, taken);
@@ -160,6 +215,7 @@ const plan = {
 		cpa: topic.cpa ?? `default-${topic.category}`,
 		priority: topic.priority,
 		linkCandidates: linkCandidatesFor(topic, articles),
+		similarExisting: similarExistingFor(topic, articles),
 		npaHints: npaHintsFor(topic.category),
 	})),
 };
@@ -182,5 +238,16 @@ for (const item of plan.items) {
 	console.log(`${item.pubDate}  ${item.priority} ${item.category.padEnd(15)} ${item.slug}`);
 	console.log(`            «${item.title}»`);
 	console.log(`            ключ: ${item.keyword} · CPA: ${item.cpa} · ссылок-кандидатов: ${item.linkCandidates.length}`);
+	for (const dupe of item.similarExisting) {
+		console.log(`            ⚠ похоже на ${dupe.url} «${dupe.title}» (${dupe.score})`);
+	}
+}
+
+const withDupes = plan.items.filter((i) => i.similarExisting.length);
+if (withDupes.length) {
+	console.log(
+		`\n⚠ Тем с риском дубля: ${withDupes.length}. Перед написанием сравните с указанной статьёй:`,
+	);
+	console.log('  тема раскрыта — пропустите её, тема шире или уже — сузьте заголовок и ключ.');
 }
 console.log('\nПолный контекст по каждой теме — с флагом --json.');
