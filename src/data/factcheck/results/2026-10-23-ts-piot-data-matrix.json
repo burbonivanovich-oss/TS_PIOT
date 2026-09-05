@@ -1,0 +1,121 @@
+{
+  "slug": "2026-10-23-ts-piot-data-matrix",
+  "checkedDate": "2026-09-05",
+  "checkedBy": "claude-sonnet-5+websearch",
+  "method": "manual-with-websearch",
+  "claims": [
+    {
+      "ids": ["c11", "c1", "c17", "c13", "c14"],
+      "type": "NPA_PP_NUMBERED / DATE_DMY / LINK",
+      "raw": "ПП РФ № 1674 от 29.11.2024 — http://government.ru/docs/all/156474/",
+      "status": "match",
+      "severity": "match",
+      "confidence": 0.95,
+      "explanation": "Подтверждено research brief (проверено WebFetch к government.ru) и whitelist src/data/factcheck/sources.json (pp.1674, дата 2024-11-29, тема ts-piot). Постановление вносит требование о распознавании кода Data Matrix без использования сведений EAN — цитата в статье соответствует формулировке первоисточника. Ссылка и номер совпадают во всех трёх упоминаниях в тексте.",
+      "sources": [
+        "http://government.ru/docs/all/156474/",
+        "src/data/factcheck/sources.json#npaWhitelist.pp.1674"
+      ]
+    },
+    {
+      "ids": ["c12", "c2", "c18"],
+      "type": "NPA_PP_NUMBERED / DATE_DMY / LINK",
+      "raw": "ПП РФ № 303 от 19.03.2020 (в редакции ПП № 1674) — http://publication.pravo.gov.ru/Document/View/0001202003230014",
+      "status": "match",
+      "severity": "match",
+      "confidence": 0.95,
+      "explanation": "Подтверждено research brief и whitelist (pp.303, дата 2020-03-19, статус 'действующее, в редакции ПП №1674'). Норма устанавливает требования к техническим средствам для обмена данными с ГИС МТ (аутентификация, защищённый канал) — соответствует тексту статьи.",
+      "sources": [
+        "http://publication.pravo.gov.ru/Document/View/0001202003230014",
+        "src/data/factcheck/sources.json#npaWhitelist.pp.303"
+      ]
+    },
+    {
+      "ids": ["c15", "c3", "c19", "c4"],
+      "type": "NPA_PRIKAZ / DATE_DMY / LINK",
+      "raw": "Приказ Минпромторга № 2044 от 25.04.2025, вступил в силу 08.07.2025 — http://publication.pravo.gov.ru/document/0001202506270011",
+      "status": "match",
+      "severity": "match",
+      "confidence": 0.95,
+      "explanation": "Подтверждено research brief (WebFetch) и whitelist (prikaz.2044, дата 2025-04-25, issuer Минпромторг, 'в силе с 08.07.2025'). Дополнительно перепроверено WebSearch независимо от брифа: несколько источников (pravo.gov.ru, alta.ru, ppt.ru) подтверждают номер, дату утверждения и дату вступления в силу.",
+      "sources": [
+        "http://publication.pravo.gov.ru/document/0001202506270011",
+        "src/data/factcheck/sources.json#npaWhitelist.prikaz.2044"
+      ]
+    },
+    {
+      "ids": ["c16", "c5", "c6", "c7"],
+      "type": "DATE_DMY (цепочка дат переходного периода)",
+      "raw": "переходный период, отсчитанный от даты публикации Приказа Минпромторга № 2044 (27.06.2025), истёк 28.12.2025; с 01.07.2026 прекращена резервная схема через ОФД/X-API-KEY",
+      "status": "match",
+      "severity": "match",
+      "confidence": 0.9,
+      "explanation": "Специально перепроверено по указанию задания (риск приписывания даты 28.12.2025 несуществующему отдельному постановлению). Статья формулирует дату корректно — как производную от 6-месячного переходного периода, отсчитанного от даты официального опубликования Приказа №2044 (27.06.2025), а НЕ как отдельную норму или несуществующее ПП. Независимый WebSearch (its.1c.ru, sb-sale.ru, lemma-group.ru, kktzip.ru) подтверждает ту же логику: 'правила опубликованы 27.06.2025 → 6 календарных месяцев → обязательность с 28.12.2025'. Дата 01.07.2026 (отмена резервной схемы ОФД/X-API-KEY) подтверждена research brief и соответствует уже опубликованным материалам кластера (ts-piot-shtrafy, ts-piot-bez-interneta). Критических расхождений не найдено — текст не приписывает 28.12.2025 отдельному постановлению.",
+      "sources": [
+        "https://its.1c.ru/db/content/newsclar/src/498090.htm",
+        "https://sb-sale.ru/blog/modul-ts-piot-novye-trebovaniya-pri-prodazhe-markirovannogo-tovara-s-28-dekabrya-2025-goda/",
+        "https://kktzip.ru/vnedrenie-ts-piot-dlja-markirovki-soglasno-prikazu-minpromtorga-ot-25-04-2025-2044/poleznaja-informacija/"
+      ]
+    },
+    {
+      "ids": ["c8"],
+      "type": "NPA_KOAP",
+      "raw": "ст. 15.12 КоАП РФ (без указания части)",
+      "status": "mismatch",
+      "severity": "critical",
+      "confidence": 0.95,
+      "expectedValue": "ст. 15.12 ч. 2 КоАП РФ",
+      "explanation": "Прямое нарушение правила A2 редполитики (docs/editorial-policy.md), где именно 'ст. 15.12 КоАП без части' приведена как канонический пример ошибки. Контекст фразы ('продать товар без легального кода через кассу с включённым ТС ПИоТ просто не получится') однозначно описывает состав ч. 2 ст. 15.12 КоАП РФ (продажа/хранение/перевозка немаркированного или выбывшего из оборота товара), а не ч. 1 (производство/ввод в оборот). Whitelist подтверждает разделение частей (ч.1 — производство, ч.2 — продажа). Все уже опубликованные статьи кластера (2026-01-15-chto-takoe-ts-piot, 2026-09-28-gis-mt-kak-rabotaet, 2026-06-26-markirovka-bad-2026 и др.) последовательно указывают часть статьи. Исправлено в тексте.",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_34661/",
+        "src/data/factcheck/sources.json#npaWhitelist.koap.15.12",
+        "docs/editorial-policy.md#A2"
+      ],
+      "action": "rewrite-inline",
+      "actionDetail": "Заменено 'ст. 15.12 КоАП РФ' на 'ст. 15.12 ч. 2 КоАП РФ' в абзаце про отказ кассы формировать чек на товар без легального кода."
+    },
+    {
+      "ids": ["c9"],
+      "type": "NPA_KOAP",
+      "raw": "ст. 14.5 КоАП (без указания части, как отсылка к 'полной таблице' в другом материале)",
+      "status": "match",
+      "severity": "minor",
+      "confidence": 0.8,
+      "explanation": "Формально тоже без части, но это не самостоятельное утверждение о конкретном штрафе, а отсылка читателя к статье с полной таблицей всех частей ст. 14.5 КоАП ('Полная таблица штрафов по этой статье и по ст. 14.5 КоАП — в материале...'). Такая формулировка соответствует уже принятой в кластере конвенции для ссылок на 'общий обзор' статьи КоАП без конкретного штрафа (см. 2026-10-09-koap-shtrafy-biznes-2026.mdx: 'ст. 14.5 КоАП, частный случай нарушений при работе с ККТ' — тоже без части). Не блокирует, правка не требуется.",
+      "sources": [
+        "src/content/blog/2026-10-09-koap-shtrafy-biznes-2026.mdx",
+        "src/content/blog/2026-07-06-shtrafy-za-kkt.mdx"
+      ]
+    },
+    {
+      "ids": ["c10"],
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ (Контур.Маркет включает кассовую программу по 54-ФЗ)",
+      "status": "match",
+      "severity": "match",
+      "confidence": 0.95,
+      "explanation": "Общее упоминание закона о ККТ без конкретной нормы или срока — соответствует whitelist (fz.54, 'О применении ККТ', 2003-05-22, тема kkt). Класс C2 по сути (общее утверждение), проверка формальная.",
+      "sources": ["src/data/factcheck/sources.json#npaWhitelist.fz.54"]
+    },
+    {
+      "ids": ["c20"],
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_34661/",
+      "status": "match",
+      "severity": "match",
+      "confidence": 0.95,
+      "explanation": "Ссылка совпадает с ожидаемым источником для NPA_KOAP из sources.json (byClaimType.NPA_KOAP включает ровно этот URL) — корректный первоисточник текста КоАП РФ на КонсультантПлюс.",
+      "sources": ["src/data/factcheck/sources.json#byClaimType.NPA_KOAP"]
+    }
+  ],
+  "summary": {
+    "totalClaims": 20,
+    "critical": 1,
+    "moderate": 0,
+    "minor": 1,
+    "match": 18,
+    "overallStatus": "fixed",
+    "note": "Найдено 1 критическое расхождение — 'ст. 15.12 КоАП РФ' без указания части (класс A2 редполитики), исправлено на 'ст. 15.12 ч. 2 КоАП РФ' по контексту фразы (продажа товара без легального кода). Специально перепроверена (по прямому указанию задания) дата 28.12.2025: подтверждено research brief и независимым WebSearch, что это производная от 6-месячного переходного периода после официальной публикации Приказа Минпромторга № 2044 (27.06.2025), а не отдельная норма или несуществующее постановление — статья формулирует это корректно, правка не потребовалась. Все упомянутые НПА (ПП №1674, ПП №303, Приказ Минпромторга №2044) подтверждены через research brief (WebFetch к первоисточникам) и совпадают с whitelist src/data/factcheck/sources.json. Один минорный момент — ссылка на ст. 14.5 КоАП без части — соответствует принятой в кластере конвенции для отсылок к 'полной таблице' в другой статье, правка не требуется."
+  },
+  "nextReview": "2027-04-23"
+}
