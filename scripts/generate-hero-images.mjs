@@ -565,7 +565,12 @@ let targets = files.filter(file => {
   const slug = file.replace(/\.(md|mdx)$/, '');
   if (targetSlug && slug !== targetSlug && !slug.startsWith(targetSlug)) return false;
   const content = fs.readFileSync(path.join(BLOG_DIR, file), 'utf8');
-  if (!FORCE && /^heroImage:/m.test(content)) return false;
+  // Заполненный heroImage — ещё не картинка: агент прописывает путь во
+  // фронтматтер сразу при создании черновика, и если прогон не дошёл до этой
+  // статьи, во фронтматтере остаётся ссылка на несуществующий файл. Без
+  // проверки на диске такая статья не чинится никогда — её пропускает и
+  // пакетный прогон, и ночной backfill, а на странице зияет битая картинка.
+  if (!FORCE && /^heroImage:/m.test(content) && fs.existsSync(path.join(HERO_DIR, `${slug}.jpg`))) return false;
   if (!targetSlug && !INCLUDE_DRAFTS && /^draft:\s*true/m.test(content)) return false;
   return true;
 });
