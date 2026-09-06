@@ -106,44 +106,105 @@ function linkCandidatesFor(topic, articles) {
  * 2026». Такую пару надо ловить до написания, иначе получим каннибализацию
  * выдачи — две страницы под один запрос.
  *
- * Считаем долю общих значимых слов (slug + заголовок). Порог 0.34 подобран
- * так, чтобы ловить «kassa-dlya-obschepita» ↔ «kassa-dlya-kafe-2026» и не
- * шуметь на статьях, у которых совпадает только тема кластера.
+ * Чего проверка НЕ умеет: она сравнивает слова, а не смысл. «Признаки
+ * фирмы-однодневки» и «Проверка контрагента перед сделкой» — один и тот же
+ * материал разными словами, и никакой счёт по токенам этого не покажет.
+ * Поэтому пустой `similarExisting` не означает «дубля нет»: после research
+ * brief тему всё равно надо сверить с кластером глазами.
  */
 const STOP_WORDS = new Set([
 	'для', 'и', 'в', 'на', 'с', 'по', 'что', 'как', 'это', 'году', 'год', 'года',
 	'при', 'от', 'до', 'или', 'не', 'кому', 'чем', 'кто', 'где', 'а', 'к', 'о',
+	'без', 'про', 'его', 'её', 'кого',
 	'2024', '2025', '2026', '2027', 'dlya', 'kak', 'chto', 'eto',
+	'ili', 'kogda', 'nuzhno', 'novye', 'vse', 'chem', 'komu', 'gde', 'vs',
 ]);
 
-function significantTokens(...parts) {
+/**
+ * Слова, означающие одно и то же: аббревиатура и расшифровка, кириллица и
+ * транслит. Без них «КЭДО» и «кадровые документы» — два непересекающихся
+ * набора слов, хотя это одна тема.
+ */
+const SYNONYM_GROUPS = [
+	['кэдо', 'kedo', 'кадровый', 'кадровые', 'кадровых', 'kadrovye', 'kadrovyj', 'kadrovyh'],
+	['честный', 'честного', 'чз', 'chestny', 'chestnyj', 'chz'],
+	['маркировка', 'маркировки', 'маркировке', 'markirovka', 'markirovki'],
+	['самозанятый', 'самозанятому', 'самозанятых', 'нпд', 'samozanyatyj', 'samozanyatomu', 'npd'],
+	['календарь', 'сроки', 'срок', 'kalendar', 'sroki', 'srok'],
+	['разрешительный', 'разрешительного', 'razreshitelnyj', 'razreshitelnogo'],
+	['касса', 'кассы', 'ккт', 'kassa', 'kassy', 'kkt'],
+	['общепит', 'общепита', 'кафе', 'ресторан', 'ресторана', 'obschepit', 'obschepita', 'kafe', 'restoran'],
+	['штраф', 'штрафы', 'штрафов', 'shtraf', 'shtrafy', 'shtrafov'],
+	['бухгалтерия', 'бухучёт', 'бухучет', 'buh', 'buhgalteriya'],
+	['контрагент', 'контрагента', 'однодневка', 'однодневки', 'kontragent', 'kontragenta', 'odnodevki', 'odnodnevki'],
+	['документооборот', 'эдо', 'edo', 'dokumentooborot'],
+	['персональные', 'пдн', 'personalnye', 'pdn'],
+	['маркетплейс', 'маркетплейсы', 'marketplace', 'wb', 'ozon', 'wildberries'],
+];
+const CANON = new Map();
+for (const group of SYNONYM_GROUPS) for (const word of group) CANON.set(word, group[0]);
+
+/** Двухбуквенные токены оставляем: «ИП», «ФН», «ЧЗ» — значимые слова темы. */
+function significantTokens(text) {
 	return new Set(
-		parts
-			.join(' ')
+		text
 			.toLowerCase()
-			.replace(/[«»"'(),.:;—–-]/g, ' ')
+			.replace(/[«»"'(),.:;—–_-]/g, ' ')
 			.split(/\s+/)
-			.filter((w) => w.length > 2 && !STOP_WORDS.has(w)),
+			.filter((w) => w.length >= 2 && !STOP_WORDS.has(w))
+			.map((w) => CANON.get(w) ?? w),
 	);
 }
 
-function similarExistingFor(topic, articles) {
-	const topicTokens = significantTokens(topic.slug.replace(/-/g, ' '), topic.title);
-	if (topicTokens.size === 0) return [];
+const deDate = (slug) => slug.replace(/^\d{4}-\d{2}-\d{2}-/, '');
 
+/** Порог редкости: слово из стольких статей и меньше считаем говорящим. */
+const RARE_DF = 3;
+
+function makeSimilarityScorer(articles) {
+	const df = new Map();
+	for (const a of articles) {
+		const all = new Set([...significantTokens(deDate(a.slug)), ...significantTokens(a.title)]);
+		for (const t of all) df.set(t, (df.get(t) ?? 0) + 1);
+	}
+	const total = articles.length || 1;
+	const idf = (t) => Math.log((total + 1) / ((df.get(t) ?? 0) + 1)) + 1;
+
+	const overlap = (a, b) => {
+		if (!a.size || !b.size) return 0;
+		const shared = [...a].filter((t) => b.has(t));
+		// Одно общее слово — это общий кластер, а не общая тема: «маркетплейс»
+		// роднит возврат товара с кассой, «личный кабинет» — WB с ТС ПИоТ.
+		// Исключение — редкое слово: «кэдо» есть в двух статьях блога, и его
+		// одного достаточно, чтобы заподозрить пересказ.
+		if (shared.length < 2 && !shared.some((t) => (df.get(t) ?? 0) <= RARE_DF)) return 0;
+		const weight = (set) => [...set].reduce((acc, t) => acc + idf(t), 0);
+		return shared.reduce((acc, t) => acc + idf(t), 0) / Math.min(weight(a), weight(b));
+	};
+
+	// Латиница слага и кириллица заголовка живут в разных алфавитах и никогда
+	// не пересекутся. В одном мешке они лишь раздували знаменатель: пара
+	// «разрешительный режим» ↔ «разрешительный режим» давала 0.40 вместо 0.79,
+	// а «самозанятый → ИП» ↔ «самозанятый или ИП» — 0.25 вместо 1.00 и молча
+	// уходила в работу. Считаем каналы отдельно и берём лучший.
+	return (topic, article) => Math.max(
+		overlap(significantTokens(deDate(topic.slug)), significantTokens(deDate(article.slug))),
+		overlap(significantTokens(topic.title), significantTokens(article.title)),
+	);
+}
+
+/** Ниже этого счёта пара — соседи по кластеру, а не дубль. */
+const SIMILAR_THRESHOLD = 0.45;
+
+function similarExistingFor(topic, articles, score) {
 	return articles
-		.map((a) => {
-			const tokens = significantTokens(
-				a.slug.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/-/g, ' '),
-				a.title,
-			);
-			let shared = 0;
-			for (const t of topicTokens) if (tokens.has(t)) shared++;
-			// Доля от меньшего множества: короткий заголовок не должен занижать счёт.
-			const score = shared / Math.min(topicTokens.size, tokens.size || 1);
-			return { url: `/blog/${a.slug}/`, title: a.title, draft: a.draft, score: Number(score.toFixed(2)) };
-		})
-		.filter((a) => a.score >= 0.34)
+		.map((a) => ({
+			url: `/blog/${a.slug}/`,
+			title: a.title,
+			draft: a.draft,
+			score: Number(score(topic, a).toFixed(2)),
+		}))
+		.filter((a) => a.score >= SIMILAR_THRESHOLD)
 		.sort((a, b) => b.score - a.score)
 		.slice(0, 3);
 }
@@ -156,6 +217,23 @@ const CATEGORY_TOPICS = {
 	zakonodatelstvo: ['nalogi', 'kadry', 'edo-kedo', 'personal-data', 'banki'],
 };
 
+/**
+ * Статьи КоАП, которые всплывают в каждой второй статье кластера.
+ *
+ * Записи по ним лежали в `npaWhitelist.koap` мёртвым грузом: подсказки
+ * собирались только по ФЗ, ПП и приказам, и до писателя описание частей не
+ * доходило вовсе. Итог — за одну пачку пять перепутанных вилок: ч. 2 вместо
+ * ч. 4 ст. 15.12 для табака, ставка «гражданин» вместо должностного лица для
+ * ИП, дисквалификация по ч. 3 ст. 14.5, которую к ИП применить нельзя.
+ */
+const CATEGORY_KOAP = {
+	'ts-piot': ['15.12', '14.5'],
+	markirovka: ['15.12', '14.5'],
+	kkt: ['14.5', '15.6'],
+	egais: ['14.16', '14.17', '14.19'],
+	zakonodatelstvo: ['13.11', '15.6'],
+};
+
 function npaHintsFor(category) {
 	const sources = JSON.parse(
 		fs.readFileSync(path.join(ROOT, 'src/data/factcheck/sources.json'), 'utf8'),
@@ -166,6 +244,10 @@ function npaHintsFor(category) {
 		for (const [number, meta] of Object.entries(sources.npaWhitelist[kind])) {
 			if (topics.includes(meta.topic)) hints.push(`${label} № ${number} от ${meta.date} — ${meta.title}`);
 		}
+	}
+	for (const number of CATEGORY_KOAP[category] ?? []) {
+		const meta = sources.npaWhitelist.koap?.[number];
+		if (meta) hints.push(`ст. ${number} КоАП — ${meta}`);
 	}
 	return hints;
 }
@@ -182,6 +264,7 @@ const start = startRaw
 	  })();
 
 const articles = allArticles();
+const similarityScore = makeSimilarityScorer(articles);
 const taken = new Set(articles.map((a) => (a.slug.match(/^(\d{4}-\d{2}-\d{2})/) ?? [])[1]).filter(Boolean));
 const scheduled = articles.filter((a) => a.draft && (!a.pubDate || a.pubDate >= start.toISOString().slice(0, 10))).length;
 
@@ -215,7 +298,7 @@ const plan = {
 		cpa: topic.cpa ?? `default-${topic.category}`,
 		priority: topic.priority,
 		linkCandidates: linkCandidatesFor(topic, articles),
-		similarExisting: similarExistingFor(topic, articles),
+		similarExisting: similarExistingFor(topic, articles, similarityScore),
 		npaHints: npaHintsFor(topic.category),
 	})),
 };

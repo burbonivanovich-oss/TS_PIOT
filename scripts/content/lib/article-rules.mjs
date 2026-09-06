@@ -77,6 +77,33 @@ export function parseFrontmatter(raw) {
 
 	const unquote = (v) => v.trim().replace(/^["'](.*)["']$/s, '$1');
 
+	/**
+	 * Flow-style список YAML: `[маркировка, "касса, ФН", 'ЕГАИС']`.
+	 *
+	 * Шаблон проекта использует блочный стиль, но агенты (и человек, правящий
+	 * файл руками) регулярно переписывают списки в одну строку — это законный
+	 * YAML, и Astro его читает. Без разбора здесь `tags` превращался в строку
+	 * `"[а, б]"`, а `categories` — в `"[ts-piot]"`, и шлюз валил статью с
+	 * жалобой на несуществующую категорию.
+	 */
+	const parseFlowSeq = (raw) => {
+		const items = [];
+		let buf = '';
+		let quote = null;
+		for (const ch of raw.slice(1, -1)) {
+			if (quote) {
+				if (ch === quote) quote = null;
+				else buf += ch;
+			} else if (ch === '"' || ch === "'") quote = ch;
+			else if (ch === ',') { items.push(buf.trim()); buf = ''; }
+			else buf += ch;
+		}
+		items.push(buf.trim());
+		return items.filter(Boolean);
+	};
+
+	const isFlowSeq = (v) => /^\[[\s\S]*\]$/.test(v.trim());
+
 	for (const line of m[1].split('\n')) {
 		if (!line.trim() || line.trim().startsWith('#')) continue;
 
@@ -90,7 +117,12 @@ export function parseFrontmatter(raw) {
 		const nestedPair = line.match(/^\s{2,}([\w-]+):\s*(.*)$/);
 		if (nestedPair && nested) {
 			nestedKey = nestedPair[1];
-			nested[nestedKey] = nestedPair[2] === '' ? [] : unquote(nestedPair[2]);
+			const nestedValue = nestedPair[2];
+			nested[nestedKey] = nestedValue === ''
+				? []
+				: isFlowSeq(nestedValue)
+					? parseFlowSeq(nestedValue)
+					: unquote(nestedValue);
 			continue;
 		}
 
@@ -116,6 +148,7 @@ export function parseFrontmatter(raw) {
 		}
 
 		if (rawValue === 'true' || rawValue === 'false') fm[key] = rawValue === 'true';
+		else if (isFlowSeq(rawValue)) fm[key] = parseFlowSeq(rawValue);
 		else fm[key] = unquote(rawValue);
 	}
 
