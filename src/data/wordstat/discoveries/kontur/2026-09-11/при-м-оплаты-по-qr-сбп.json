@@ -1,0 +1,9 @@
+{
+  "seed": "приём оплаты по QR СБП",
+  "slug": "при-м-оплаты-по-qr-сбп",
+  "category": "intent",
+  "cluster": "ekvairing",
+  "fetchedAt": "2026-09-11T17:03:41.295Z",
+  "count": 0,
+  "phrases": []
+}
