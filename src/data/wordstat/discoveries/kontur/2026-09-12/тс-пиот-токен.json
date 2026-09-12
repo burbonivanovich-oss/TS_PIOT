@@ -1,0 +1,22 @@
+{
+  "seed": "ТС ПИоТ токен",
+  "slug": "тс-пиот-токен",
+  "category": "entity",
+  "cluster": "ts-piot",
+  "fetchedAt": "2026-09-12T15:30:03.061Z",
+  "count": 3,
+  "phrases": [
+    {
+      "phrase": "токен от тс пиот",
+      "count": 29
+    },
+    {
+      "phrase": "токен x api key тс пиот",
+      "count": 21
+    },
+    {
+      "phrase": "токен тс пиот продлен",
+      "count": 16
+    }
+  ]
+}
