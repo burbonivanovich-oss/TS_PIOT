@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "startedAt": "2026-08-10",
+  "month": "2026-08",
+  "counters": {
+    "new": 0,
+    "rewrite": 0,
+    "published": 0,
+    "blockedDupes": 0,
+    "quarantined": 0
+  },
+  "inFlight": [],
+  "quarantine": [],
+  "history": [],
+  "lastRunAt": "2026-08-10T14:57:33.881Z",
+  "lastMigration": {
+    "at": "2026-09-13T19:07:00.147Z",
+    "actions": 6,
+    "droppedOrders": 8
+  }
+}

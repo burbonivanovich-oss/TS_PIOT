@@ -1,0 +1,137 @@
+# ДОРМАНТНО (AP-P0-14): файл лежит вне корневого `.github/` и GitHub его не
+# исполняет. Это черновик расписания из старой двухрепозиторной схемы; окончательная
+# версия появится после выбора единственного исполнителя (AP-P0-13/14).
+# Держим его только как зафиксированную ссылку на SHA и тест конфигурации.
+#
+# Детерминированная половина контура в GitHub Actions: планирование и
+# приёмка. Написание текста здесь не делается — для него нужна языковая
+# модель, её запускает отдельный scheduler по .agents/skills/auto-day/SKILL.md.
+#
+# Смысл дублирования: если Routine не сработала, наряды всё равно посчитаны, а
+# состояние корпуса (дубли, граф ссылок, темп) остаётся измеренным. Тихо
+# остановившийся контур должен быть виден в Actions, а не обнаруживаться через
+# месяц по отсутствию статей.
+name: autopilot
+
+# Минимальные права: контент принимающего проекта пушится отдельным токеном
+# CONTENT_REPO_TOKEN, GITHUB_TOKEN нужен только на чтение (AP-P2-01).
+permissions:
+  contents: read
+
+# Один мутирующий проход одновременно: второй запуск ждёт, а не конкурирует
+# за состояние (дополняет lock AP-P0-09).
+concurrency:
+  group: autopilot
+  cancel-in-progress: false
+
+on:
+  schedule:
+    - cron: '0 4 * * *'    # 07:00 МСК — план и здоровье
+    - cron: '0 15 * * *'   # 18:00 МСК — приёмка написанного
+  workflow_dispatch:
+    inputs:
+      step:
+        description: Какой шаг выполнить
+        required: true
+        default: health
+        type: choice
+        options: [health, plan, settle, audit]
+
+jobs:
+  tests:
+    # Матрица версий: production заявлен Node >=20, локально проверяем и
+    # текущий LTS/current. Контур обязан давать одинаковые результаты везде.
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ['20', '24']
+    steps:
+      - name: Репозиторий автопилота
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Зависимостей нет — npm ci нечего устанавливать, и это специально.
+      - name: Тесты
+        run: npm test
+
+      # Секреты не должны попадать в repo даже случайно (AP-P0-25). Скан идёт
+      # по tracked + untracked (кроме ignored), то есть по тому, что может
+      # оказаться в коммите.
+      - name: Секреты
+        run: npm run secret-scan
+
+  autopilot:
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Репозиторий автопилота
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Контент принимающего проекта
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          repository: burbonivanovich-oss/TS_PIOT
+          path: content-repo
+          token: ${{ secrets.CONTENT_REPO_TOKEN }}
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '20'
+
+      - name: Шаг
+        env:
+          CONTENT_ROOT: ${{ github.workspace }}/content-repo
+        run: |
+          STEP="${{ inputs.step }}"
+          if [ -z "$STEP" ]; then
+            # По расписанию: утренний прогон планирует, вечерний принимает.
+            if [ "${{ github.event.schedule }}" = "0 4 * * *" ]; then STEP=plan; else STEP=settle; fi
+          fi
+          echo "Шаг: $STEP"
+          # Preflight обязателен для любой мутирующей команды: неуспешная
+          # проверка прекращает job до записи (раньше health-check глушился
+          # `|| true`, и plan всё равно запускался — это нарушало главный
+          # принцип контура). Шаг идёт с `-e`, поэтому отказ прерывает run.
+          case "$STEP" in
+            health) node scripts/preflight.mjs
+                    node scripts/health-check.mjs ;;
+            plan)   node scripts/preflight.mjs
+                    node scripts/pipeline.mjs plan ;;
+            settle) node scripts/preflight.mjs
+                    node scripts/pipeline.mjs settle ;;
+            audit)  node scripts/preflight.mjs
+                    node scripts/dedupe.mjs scan
+                    node scripts/interlink.mjs graph
+                    node scripts/state.mjs month ;;
+          esac
+
+      - name: Коммит контента
+        env:
+          CONTENT_ROOT: ${{ github.workspace }}/content-repo
+        run: |
+          cd content-repo
+          if [ -n "$(git status --porcelain src/content/blog)" ]; then
+            git config user.name "autopilot"
+            git config user.email "autopilot@users.noreply.github.com"
+            git add src/content/blog
+            git commit -m "автопилот: приёмка $(date -u +%F)"
+            git push
+          fi
+
+      - name: Состояние автопилота
+        run: |
+          if [ -n "$(git status --porcelain data)" ]; then
+            git config user.name "autopilot"
+            git config user.email "autopilot@users.noreply.github.com"
+            git add data
+            git commit -m "автопилот: состояние $(date -u +%F)"
+            git push
+          fi
+
+      - name: Отчёт в лог
+        if: always()
+        run: node scripts/health-check.mjs || true

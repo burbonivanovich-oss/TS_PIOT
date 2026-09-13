@@ -1,0 +1,301 @@
+{
+  "generatedAt": "2026-08-10",
+  "pairs": [
+    {
+      "a": "2026-05-01-chto-takoe-fn",
+      "b": "2026-05-03-srok-fn-15-36",
+      "title": 0,
+      "containment": 0.92,
+      "body": 0,
+      "verdict": "merge"
+    },
+    {
+      "a": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
+      "b": "2026-05-03-vidy-kkt",
+      "title": 0.07,
+      "containment": 0.77,
+      "body": 0.01,
+      "verdict": "merge"
+    },
+    {
+      "a": "2026-05-03-markirovka-igrushek-2026",
+      "b": "2026-06-17-poexzemplyarnyj-uchet",
+      "title": 0.06,
+      "containment": 0.72,
+      "body": 0.01,
+      "verdict": "merge"
+    },
+    {
+      "a": "2026-05-01-ofd-dlya-ts-piot",
+      "b": "2026-05-03-chto-takoe-ofd",
+      "title": 0.13,
+      "containment": 0.67,
+      "body": 0.01,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-chto-takoe-ofd",
+      "b": "2026-05-03-kak-vybrat-ofd-2026",
+      "title": 0,
+      "containment": 0.67,
+      "body": 0.01,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-chto-takoe-ofd",
+      "b": "2026-06-27-smena-ofd-instrukciya",
+      "title": 0.17,
+      "containment": 0.67,
+      "body": 0.01,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-01-15-chto-takoe-ts-piot",
+      "b": "2026-05-25-ts-piot-bez-interneta",
+      "title": 0.11,
+      "containment": 0.64,
+      "body": 0.01,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+      "b": "2026-05-03-utm-egais-podklyuchenie",
+      "title": 0.42,
+      "containment": 0.63,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-markirovka-avtozhidkostey-2026",
+      "b": "2026-05-03-markirovka-konservov-2026",
+      "title": 0.15,
+      "containment": 0.63,
+      "body": 0.04,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-mspos-f20-obzor",
+      "b": "2026-05-03-mspos-f20-vs-d3-mini",
+      "title": 0.28,
+      "containment": 0.62,
+      "body": 0.02,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-mspos-f20-vs-d3-mini",
+      "b": "2026-05-03-mspos-t-d3-mini-obzor",
+      "title": 0.27,
+      "containment": 0.62,
+      "body": 0.03,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-onlayn-buhgalteriya-2026",
+      "b": "2026-05-03-sravnenie-onlayn-buhov",
+      "title": 0.08,
+      "containment": 0.61,
+      "body": 0.01,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-uchyot-alkogolya-v-obschepite",
+      "b": "2026-05-03-poshtuchnyj-uchyot-alkogolya",
+      "title": 0.16,
+      "containment": 0.61,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-atol-27f-obzor",
+      "b": "2026-05-03-atol-30f-obzor",
+      "title": 0.23,
+      "containment": 0.61,
+      "body": 0.05,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-utm-egais-podklyuchenie",
+      "b": "2026-07-05-egais-registraciya-nachalo",
+      "title": 0.4,
+      "containment": 0.6,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-markirovka-molochki-msb",
+      "b": "2026-06-17-poexzemplyarnyj-uchet",
+      "title": 0.05,
+      "containment": 0.59,
+      "body": 0.01,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-shtraf-za-markirovku",
+      "b": "2026-05-01-ts-piot-shtrafy",
+      "title": 0.21,
+      "containment": 0.59,
+      "body": 0.01,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-kak-vybrat-ofd-2026",
+      "b": "2026-05-17-ip-ili-ooo-chto-vybrat-2026",
+      "title": 0.02,
+      "containment": 0.59,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-31-chestny-znak-registraciya",
+      "b": "2026-07-05-egais-registraciya-nachalo",
+      "title": 0.24,
+      "containment": 0.59,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-ofd-dlya-ts-piot",
+      "b": "2026-05-03-kak-vybrat-ofd-2026",
+      "title": 0.5,
+      "containment": 0.58,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-mspos-f20-obzor",
+      "b": "2026-05-03-mspos-t-d3-mini-obzor",
+      "title": 0.22,
+      "containment": 0.58,
+      "body": 0.03,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-21-samozanyatyj-na-wildberries",
+      "b": "2026-07-02-samozanyatyj-ili-ip",
+      "title": 0.1,
+      "containment": 0.57,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-18-npd-vs-ip-chto-vybrat",
+      "b": "2026-05-21-samozanyatyj-na-wildberries",
+      "title": 0.02,
+      "containment": 0.56,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-uchyot-alkogolya-v-obschepite",
+      "b": "2026-06-09-egais-dlya-bara",
+      "title": 0.16,
+      "containment": 0.55,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj",
+      "b": "2026-06-17-poexzemplyarnyj-uchet",
+      "title": 0.28,
+      "containment": 0.55,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-egais-chto-eto",
+      "b": "2026-05-03-utm-egais-podklyuchenie",
+      "title": 0.14,
+      "containment": 0.54,
+      "body": 0.01,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-18-kak-otkryt-ip-poshagovo",
+      "b": "2026-05-20-kak-otkryt-kafe-cheklis",
+      "title": 0.16,
+      "containment": 0.53,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-buh-dlya-marketplace",
+      "b": "2026-05-17-nalogi-s-wildberries-2026",
+      "title": 0.01,
+      "containment": 0.52,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-kak-vybrat-onlayn-kassu-2026",
+      "b": "2026-05-01-onlayn-buhgalteriya-2026",
+      "title": 0.37,
+      "containment": 0.52,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-registraciya-kkt-v-fns",
+      "b": "2026-06-11-ts-piot-lichnyj-kabinet",
+      "title": 0.12,
+      "containment": 0.51,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-atol-27f-obzor",
+      "b": "2026-05-03-atol-30f-vs-27f",
+      "title": 0.24,
+      "containment": 0.51,
+      "body": 0.02,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-atol-30f-obzor",
+      "b": "2026-05-03-atol-30f-vs-27f",
+      "title": 0.26,
+      "containment": 0.51,
+      "body": 0.04,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-31-chestny-znak-registraciya",
+      "b": "2026-06-11-ts-piot-lichnyj-kabinet",
+      "title": 0.11,
+      "containment": 0.51,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-gashenie-vsd-merkuriy",
+      "b": "2026-06-15-vetdokumenty-kak-poluchit",
+      "title": 0.16,
+      "containment": 0.5,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-markirovka-igrushek-2026",
+      "b": "2026-05-03-markirovka-kosmetiki-2026",
+      "title": 0.49,
+      "containment": 0.43,
+      "body": 0.04,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-registraciya-v-merkurii",
+      "b": "2026-05-31-chestny-znak-registraciya",
+      "title": 0.49,
+      "containment": 0.44,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-06-28-merkuriy-shtrafy",
+      "b": "2026-07-06-shtrafy-za-kkt",
+      "title": 0.47,
+      "containment": 0.42,
+      "body": 0,
+      "verdict": "watch"
+    }
+  ]
+}

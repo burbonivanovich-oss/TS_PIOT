@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-08-10T14:57:23.991Z",
+  "date": "2026-08-10",
+  "capacity": {
+    "month": "2026-08",
+    "done": 0,
+    "monthlyTarget": 200,
+    "expectedByToday": 67,
+    "debt": 67,
+    "todayTarget": 19,
+    "inFlight": 0,
+    "freeSlots": 8,
+    "canTake": 8
+  },
+  "healed": 0,
+  "orders": [],
+  "skipped": []
+}

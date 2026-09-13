@@ -1,0 +1,25 @@
+{
+  "name": "etiketka-autopilot",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Автономный контур производства контента: темы, дубли, статьи, рерайты, перелинковка — без согласований",
+  "scripts": {
+    "plan": "node scripts/pipeline.mjs plan",
+    "settle": "node scripts/pipeline.mjs settle",
+    "report": "node scripts/pipeline.mjs report",
+    "backlog": "node scripts/backlog.mjs refill",
+    "dupes": "node scripts/dedupe.mjs scan",
+    "rewrites": "node scripts/rewrite-queue.mjs build",
+    "links": "node scripts/interlink.mjs graph",
+    "links:apply": "node scripts/interlink.mjs apply",
+    "gates": "node scripts/gates.mjs check",
+    "sources": "node scripts/source-check.mjs status",
+    "metrics": "node scripts/metrics.mjs",
+    "backup": "node scripts/backup.mjs",
+    "secret-scan": "node scripts/secret-scan.mjs",
+    "preflight": "node scripts/preflight.mjs",
+    "health": "node scripts/health-check.mjs",
+    "test": "node --test"
+  }
+}
