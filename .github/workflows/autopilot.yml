@@ -1,0 +1,150 @@
+# Автопилот: детерминированная половина контура (план и приёмка).
+#
+# Почему файл лежит здесь: GitHub запускает workflow только из корневого
+# `.github/workflows/`. Черновик в `autopilot/.github/workflows/` исполняться
+# не может и оставлен лишь как историческая ссылка (ETK-P0-02).
+#
+# Текст здесь не пишется — для него нужна языковая модель, её запускает
+# отдельный scheduler по .agents/skills/auto-day/SKILL.md.
+name: autopilot
+
+# Минимальные права на уровне workflow: только чтение. Запись (коммит
+# контента и состояния) разрешена точечно, в мутирующем job ниже
+# (permissions: contents: write). Глобальный write запрещён.
+permissions:
+  contents: read
+
+# ОБЩИЙ мьютекс с auto-publish.yml: оба прохода мутируют src/content/blog,
+# поэтому второй запуск ждёт, а не конкурирует за состояние. Имя группы
+# обязано совпадать с group в auto-publish.yml, иначе мьютекс не работает.
+concurrency:
+  group: auto-publish
+  cancel-in-progress: false
+
+on:
+  # Расписание ВЫКЛЮЧЕНО до canary (ETK-P0-04): включается только после двух
+  # успешных ручных canary-проходов. Держим блок целиком закомментированным,
+  # чтобы исключить случайный мутирующий запуск по крону.
+  # schedule:
+  #   - cron: '0 4 * * *'    # 07:00 МСК — план и здоровье
+  #   - cron: '0 15 * * *'   # 18:00 МСК — приёмка написанного
+  workflow_dispatch:
+    inputs:
+      step:
+        description: Какой шаг выполнить
+        required: true
+        default: health
+        type: choice
+        options: [health, plan, settle, audit]
+
+jobs:
+  tests:
+    # Матрица версий: production заявлен Node >=20, проверяем LTS и current.
+    # Контур обязан давать одинаковые результаты везде.
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ['20', '24']
+    steps:
+      - name: Репозиторий сайта (корень)
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Зависимостей у движка нет — npm ci нечего устанавливать, и это специально.
+      # Команды — из autopilot/package.json (свои скрипты движка).
+      - name: Тесты автопилота
+        working-directory: autopilot
+        run: npm test
+
+      # Секреты не должны попадать в repo даже случайно. Скан идёт по тому,
+      # что может оказаться в коммите.
+      - name: Скан секретов
+        working-directory: autopilot
+        run: npm run secret-scan
+
+  autopilot:
+    # Мутирующий job идёт строго после зелёных тестов: с красным контуром
+    # ничего не планируем и не коммитим.
+    needs: tests
+    runs-on: ubuntu-latest
+    # Точечный write: только этот job коммитит контент и состояние.
+    permissions:
+      contents: write
+    env:
+      # Fail-closed git-контроль preflight: проверка ветки и allowlist путей.
+      AUTOPILOT_PREFLIGHT_GIT: '1'
+      AUTOPILOT_ALLOWED_BRANCH: 'main'
+      AUTOPILOT_ALLOWED_PATHS: 'autopilot/data,src/content/blog'
+      AUTOPILOT_MIN_FREE_MB: '200'
+      # Feature flag расписания: пока vars.AUTOPILOT_ENABLED != 'true',
+      # мутирующие шаги по крону пропускаются (см. шаг ниже).
+      AUTOPILOT_ENABLED: ${{ vars.AUTOPILOT_ENABLED }}
+    steps:
+      - name: Репозиторий сайта (корень)
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '20'
+
+      - name: Шаг автопилота
+        run: |
+          set -e
+          STEP="${{ inputs.step }}"
+          if [ -z "$STEP" ]; then
+            # По расписанию (когда оно включится после canary): утренний
+            # прогон планирует, вечерний принимает.
+            if [ "${{ github.event.schedule }}" = "0 4 * * *" ]; then STEP=plan; else STEP=settle; fi
+          fi
+          echo "Шаг: $STEP"
+          # FEATURE FLAG: расписание не мутирует состояние, пока флаг выключен.
+          # Ручной workflow_dispatch флагом не блокируется: оператор осознанно
+          # выбрал шаг, а health обязан работать всегда.
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            if [ "$STEP" = "plan" ] || [ "$STEP" = "settle" ]; then
+              if [ "$AUTOPILOT_ENABLED" != "true" ]; then
+                echo "AUTOPILOT_ENABLED != 'true' — пропуск мутирующего шага $STEP по расписанию."
+                exit 0
+              fi
+            fi
+          fi
+          echo "AUTOPILOT_ENABLED=$AUTOPILOT_ENABLED event=${{ github.event_name }} step=$STEP"
+          # FAIL-CLOSED: preflight обязателен перед любой мутирующей командой.
+          # Ненулевой код прерывает job до записи (set -e выше). Глушение
+          # проверки запрещено: раньше заглушённый health-check позволил
+          # plan запуститься при проваленной проверке.
+          # Все пути — от корня репозитория (node autopilot/scripts/...).
+          case "$STEP" in
+            health) node autopilot/scripts/preflight.mjs
+                    node autopilot/scripts/health-check.mjs ;;
+            plan)   node autopilot/scripts/preflight.mjs
+                    node autopilot/scripts/pipeline.mjs plan ;;
+            settle) node autopilot/scripts/preflight.mjs
+                    node autopilot/scripts/pipeline.mjs settle ;;
+            audit)  node autopilot/scripts/preflight.mjs
+                    node autopilot/scripts/dedupe.mjs scan
+                    node autopilot/scripts/interlink.mjs graph
+                    node autopilot/scripts/state.mjs month ;;
+          esac
+
+      - name: Коммит контента и состояния
+        run: |
+          set -e
+          git config user.name "autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          for p in src/content/blog autopilot/data; do
+            [ -e "$p" ] && git add "$p"
+          done
+          git diff --staged --quiet && echo "Нечего коммитить." && exit 0
+          git commit -m "автопилот: проход $(date -u +%F)"
+          git push
+
+      - name: Отчёт в лог
+        if: always()
+        run: |
+          set -e
+          node autopilot/scripts/health-check.mjs || true

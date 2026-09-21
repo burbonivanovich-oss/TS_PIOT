@@ -1,0 +1,12 @@
+# Обновления GitHub Actions приходят отдельным PR: версии в
+# workflow зафиксированы по commit SHA, поэтому автоматическое обновление —
+# единственный безопасный способ получать патчи.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
