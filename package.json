@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "test:autopilot": "cd autopilot && node --test",
-    "test:release": "node --test scripts/__tests__/release-next-draft.test.mjs"
+    "test:release": "node --test scripts/__tests__/release-next-draft.test.mjs",
+    "test:seo": "node --test scripts/__tests__/check-seo.test.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.4",
