@@ -10,6 +10,7 @@ import {
 	CATALOG_GROUPS,
 	PRODUCT_CATALOG,
 	CPA_BANNERS,
+	resolveProductCta,
 } from '../../data/cpa-banners';
 
 export function getStaticPaths() {
@@ -30,6 +31,13 @@ const name = banner.title.split('—')[0].trim();
 
 // Инлайн-форма заявки только если у оффера есть widget-конфиг; иначе CTA-переход.
 const hasForm = !!(banner.widget && banner.erid);
+
+// Единый источник CTA: примарный и вторичный пути берём из resolveProductCta,
+// а не из локальных условий (ETK-P0-10: easy-buy vs consultative).
+const cta = resolveProductCta(product);
+const primaryIsPurchase = cta.primary.kind === 'purchase';
+const secondaryPurchase =
+	cta.secondary && cta.secondary.kind === 'purchase' ? cta.secondary : undefined;
 
 const clusters = product.clusters
 	.map(id => ({ id, meta: CATEGORIES[id as keyof typeof CATEGORIES] }))
@@ -126,11 +134,27 @@ const faqJsonLd = {
 								{clusters.map(c => <a href={u(`/category/${c.id}/`)}>{c.meta.title}</a>)}
 							</div>
 						)}
-						<a href="#lead" class="pp-btn pp-btn-mobile">Оставить заявку ↓</a>
+						{primaryIsPurchase ? (
+							<a
+								href={cta.primary.href}
+								class="pp-btn pp-btn-lime pp-btn-buy"
+								target="_blank"
+								rel="sponsored nofollow noopener"
+								data-cpa-id={banner.id}
+							>{cta.primary.label} →</a>
+						) : (
+							<a href="#lead" class="pp-btn pp-btn-mobile">Оставить заявку ↓</a>
+						)}
+						{primaryIsPurchase && cta.secondary && (
+							<div><a href={cta.secondary.href} class="pp-cta-alt">Нужна консультация — оставьте заявку ↓</a></div>
+						)}
+						{!primaryIsPurchase && secondaryPurchase && (
+							<div><a href={secondaryPurchase.href} class="pp-cta-alt" target="_blank" rel="sponsored nofollow noopener" data-cpa-id={banner.id}>{secondaryPurchase.label} →</a></div>
+						)}
 					</div>
 					<div class="pp-hero-form" id="lead">
 						{hasForm ? (
-							<KonturOrderWidget id={product.bannerId} heading="Оставьте заявку — перезвоним за 15 минут" compact />
+							<KonturOrderWidget id={product.bannerId} heading={primaryIsPurchase ? 'Нужна консультация — перезвоним за 15 минут' : 'Оставьте заявку — перезвоним за 15 минут'} compact />
 						) : (
 							<CpaCallout id={product.bannerId} />
 						)}
@@ -196,9 +220,31 @@ const faqJsonLd = {
 			<!-- ФИНАЛЬНЫЙ CTA -->
 			<section class="pp-cta">
 				<div class="pp-inner pp-cta-in">
-					<h2>{name}: оставьте заявку</h2>
-					<p>Специалист Контура перезвонит, подберёт тариф под вашу задачу и поможет с подключением.</p>
-					<a href="#lead" class="pp-btn pp-btn-lime">Оставить заявку →</a>
+					{primaryIsPurchase ? (
+						<>
+							<h2>{cta.primary.label}</h2>
+							<p>Оплата и договор — на стороне Контура. Нужен подбор — оставьте заявку, специалист перезвонит.</p>
+							<a
+								href={cta.primary.href}
+								class="pp-btn pp-btn-lime"
+								target="_blank"
+								rel="sponsored nofollow noopener"
+								data-cpa-id={banner.id}
+							>{cta.primary.label} →</a>
+							{cta.secondary && (
+								<div><a href={cta.secondary.href} class="pp-cta-alt">Нужна консультация — оставьте заявку ↓</a></div>
+							)}
+						</>
+					) : (
+						<>
+							<h2>{name}: оставьте заявку</h2>
+							<p>Специалист Контура перезвонит, подберёт тариф под вашу задачу и поможет с подключением.</p>
+							<a href="#lead" class="pp-btn pp-btn-lime">Оставить заявку →</a>
+							{secondaryPurchase && (
+								<div><a href={secondaryPurchase.href} class="pp-cta-alt" target="_blank" rel="sponsored nofollow noopener" data-cpa-id={banner.id}>{secondaryPurchase.label} →</a></div>
+							)}
+						</>
+					)}
 				</div>
 			</section>
 
@@ -287,6 +333,11 @@ const faqJsonLd = {
 			.pp-btn:hover { background: #c2e000; transform: translateY(-1px); box-shadow: 0 8px 22px rgba(175,204,0,.35); }
 			.pp-btn-lime { background: var(--lime, #AFCC00); color: #111; }
 			.pp-btn-mobile { display: none; margin-top: 1.4rem; }
+			/* Покупательский primary CTA (easy-buy) виден на всех ширинах —
+			   в отличие от .pp-btn-mobile, который только для узких экранов. */
+			.pp-btn-buy { display: inline-block; margin-top: 1.4rem; }
+			.pp-cta-alt { display: inline-block; margin-top: .85rem; color: rgba(255,255,255,.85); font-size: .92rem; }
+			.pp-cta-alt:hover { color: var(--lime, #AFCC00); }
 
 			/* ─── СОЦ-ДОКАЗАТЕЛЬСТВО ───────────────────────────────── */
 			.pp-stats { background: var(--sand, #EDE8DF); border-bottom: 1px solid var(--line, #E5E1D8); }
