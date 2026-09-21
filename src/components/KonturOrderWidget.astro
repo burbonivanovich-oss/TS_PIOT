@@ -116,6 +116,7 @@ const source = w?.source ?? 'etiketka-media.ru';
 		border: 2px solid var(--dark, #111);
 		background: var(--sand-l, #f6f4ee);
 		padding: 1.5rem;
+		min-width: 0;
 	}
 	.kow--compact { padding: 1.25rem; background: #fff; }
 	.kow--compact .kow-head { margin-bottom: .75rem; }
@@ -176,6 +177,9 @@ const source = w?.source ?? 'etiketka-media.ru';
 		border-top: 1px solid rgba(0, 0, 0, 0.08);
 		font-size: 0.7rem;
 		color: var(--ink-3, #888);
+		/* Только anywhere уменьшает min-content неразрывного токена erid;
+		   break-word оставляет его неделимым и колонка не сжимается. */
+		overflow-wrap: anywhere;
 	}
 	.kow-nojs {
 		font-size: 0.9rem;
@@ -226,6 +230,8 @@ const source = w?.source ?? 'etiketka-media.ru';
 		font-size: 0.85rem !important;
 		color: var(--ink-2, #3a3a3a) !important;
 		font-weight: 500 !important;
+		min-width: 0 !important;
+		overflow-wrap: anywhere !important;
 	}
 	.kontur-widget-scope input[type='text'],
 	.kontur-widget-scope input[type='tel'],
@@ -234,6 +240,8 @@ const source = w?.source ?? 'etiketka-media.ru';
 	.kontur-widget-scope select,
 	.kontur-widget-scope textarea {
 		width: 100%;
+		min-width: 0 !important;
+		max-width: 100% !important;
 		padding: 0.6em 0.75em !important;
 		font-size: 0.95rem !important;
 		color: var(--dark, #111) !important;
@@ -296,6 +304,8 @@ const source = w?.source ?? 'etiketka-media.ru';
 		padding: 0.42em 0.6em !important;
 		font-size: 0.9rem !important;
 		min-height: 0 !important;
+		min-width: 0 !important;
+		max-width: 100% !important;
 	}
 	/* Гасим утилитарные отступы Контура (m-t-*, m-b-*) внутри формы. */
 	.kontur-widget-scope [class*='m-t-'],
