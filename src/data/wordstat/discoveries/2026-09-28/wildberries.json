@@ -1,0 +1,8010 @@
+{
+  "seed": "Wildberries",
+  "slug": "wildberries",
+  "category": "entity",
+  "cluster": "marketplace",
+  "fetchedAt": "2026-09-28T10:21:07.615Z",
+  "count": 2000,
+  "phrases": [
+    {
+      "phrase": "wildberries",
+      "count": 1442398
+    },
+    {
+      "phrase": "wildberries ru",
+      "count": 216760
+    },
+    {
+      "phrase": "wildberries интернет",
+      "count": 176056
+    },
+    {
+      "phrase": "магазин wildberries",
+      "count": 172062
+    },
+    {
+      "phrase": "wildberries интернет магазин",
+      "count": 167254
+    },
+    {
+      "phrase": "www wildberries",
+      "count": 66490
+    },
+    {
+      "phrase": "www wildberries ru",
+      "count": 64775
+    },
+    {
+      "phrase": "магазин wildberries ru",
+      "count": 62127
+    },
+    {
+      "phrase": "https wildberries",
+      "count": 62116
+    },
+    {
+      "phrase": "wildberries ru интернет",
+      "count": 61995
+    },
+    {
+      "phrase": "wildberries ru интернет магазин",
+      "count": 61800
+    },
+    {
+      "phrase": "wb ru wildberries",
+      "count": 60580
+    },
+    {
+      "phrase": "https wildberries ru",
+      "count": 60509
+    },
+    {
+      "phrase": "wb ru магазин wildberries",
+      "count": 58034
+    },
+    {
+      "phrase": "wb ru wildberries интернет",
+      "count": 58017
+    },
+    {
+      "phrase": "wb ru интернет магазин wildberries",
+      "count": 58014
+    },
+    {
+      "phrase": "https www wildberries ru",
+      "count": 54674
+    },
+    {
+      "phrase": "купить на wildberries",
+      "count": 54332
+    },
+    {
+      "phrase": "wildberries catalog",
+      "count": 49142
+    },
+    {
+      "phrase": "wildberries ru catalog",
+      "count": 48620
+    },
+    {
+      "phrase": "wildberries aspx",
+      "count": 47209
+    },
+    {
+      "phrase": "www wildberries catalog",
+      "count": 47165
+    },
+    {
+      "phrase": "www wildberries ru catalog",
+      "count": 46689
+    },
+    {
+      "phrase": "wildberries ru aspx",
+      "count": 46663
+    },
+    {
+      "phrase": "https wildberries ru catalog",
+      "count": 46260
+    },
+    {
+      "phrase": "https www wildberries catalog",
+      "count": 45913
+    },
+    {
+      "phrase": "detail aspx wildberries",
+      "count": 45618
+    },
+    {
+      "phrase": "https www wildberries ru catalog",
+      "count": 45455
+    },
+    {
+      "phrase": "wildberries ru catalog detail",
+      "count": 45355
+    },
+    {
+      "phrase": "wildberries ru catalog detail aspx",
+      "count": 45021
+    },
+    {
+      "phrase": "www wildberries ru catalog detail",
+      "count": 44511
+    },
+    {
+      "phrase": "https wildberries detail aspx",
+      "count": 44251
+    },
+    {
+      "phrase": "www wildberries ru catalog detail aspx",
+      "count": 44194
+    },
+    {
+      "phrase": "https wildberries ru catalog detail aspx",
+      "count": 43702
+    },
+    {
+      "phrase": "сайт wildberries",
+      "count": 43672
+    },
+    {
+      "phrase": "wildberries официальный",
+      "count": 36764
+    },
+    {
+      "phrase": "wildberries официальный сайт",
+      "count": 29023
+    },
+    {
+      "phrase": "wildberries size",
+      "count": 25856
+    },
+    {
+      "phrase": "ozon wildberries",
+      "count": 25692
+    },
+    {
+      "phrase": "wildberries ул",
+      "count": 25169
+    },
+    {
+      "phrase": "wildberries подписка",
+      "count": 25125
+    },
+    {
+      "phrase": "можно wildberries",
+      "count": 25054
+    },
+    {
+      "phrase": "wildberries seller",
+      "count": 23545
+    },
+    {
+      "phrase": "wildberries отзывы",
+      "count": 20980
+    },
+    {
+      "phrase": "товары на wildberries",
+      "count": 20561
+    },
+    {
+      "phrase": "wildberries фото",
+      "count": 17709
+    },
+    {
+      "phrase": "wildberries магазин официальное",
+      "count": 16606
+    },
+    {
+      "phrase": "wildberries личный",
+      "count": 16578
+    },
+    {
+      "phrase": "wildberries официальный интернет",
+      "count": 16270
+    },
+    {
+      "phrase": "wildberries интернет магазин официальный",
+      "count": 16258
+    },
+    {
+      "phrase": "wildberries телефон",
+      "count": 15926
+    },
+    {
+      "phrase": "озон wildberries",
+      "count": 15840
+    },
+    {
+      "phrase": "wildberries 1",
+      "count": 15797
+    },
+    {
+      "phrase": "пункты wildberries",
+      "count": 15674
+    },
+    {
+      "phrase": "сайт wildberries ru",
+      "count": 15599
+    },
+    {
+      "phrase": "кабинет wildberries",
+      "count": 15411
+    },
+    {
+      "phrase": "склад wildberries",
+      "count": 15142
+    },
+    {
+      "phrase": "wildberries личный кабинет",
+      "count": 14973
+    },
+    {
+      "phrase": "wildberries приложение",
+      "count": 14433
+    },
+    {
+      "phrase": "выдача wildberries",
+      "count": 13356
+    },
+    {
+      "phrase": "скачать wildberries",
+      "count": 13193
+    },
+    {
+      "phrase": "wildberries сколько",
+      "count": 13028
+    },
+    {
+      "phrase": "пункт выдачи wildberries",
+      "count": 12884
+    },
+    {
+      "phrase": "wildberries карта",
+      "count": 12665
+    },
+    {
+      "phrase": "wildberries 2",
+      "count": 12566
+    },
+    {
+      "phrase": "wildberries ru подписка",
+      "count": 12270
+    },
+    {
+      "phrase": "wildberries ru официальный",
+      "count": 12217
+    },
+    {
+      "phrase": "wildberries ru отключить",
+      "count": 12053
+    },
+    {
+      "phrase": "сайт магазина wildberries",
+      "count": 12004
+    },
+    {
+      "phrase": "wildberries ru отключить подписку",
+      "count": 11878
+    },
+    {
+      "phrase": "сайт wildberries интернет",
+      "count": 11867
+    },
+    {
+      "phrase": "сайт wildberries интернет магазин",
+      "count": 11775
+    },
+    {
+      "phrase": "заказать на wildberries",
+      "count": 11572
+    },
+    {
+      "phrase": "wildberries деньги",
+      "count": 11338
+    },
+    {
+      "phrase": "wildberries магазин официальный сайт",
+      "count": 11268
+    },
+    {
+      "phrase": "где wildberries",
+      "count": 11255
+    },
+    {
+      "phrase": "wildberries официальный сайт интернет",
+      "count": 11126
+    },
+    {
+      "phrase": "интернет магазин wildberries официальный сайт",
+      "count": 11117
+    },
+    {
+      "phrase": "клуб wildberries",
+      "count": 10913
+    },
+    {
+      "phrase": "почему wildberries",
+      "count": 10457
+    },
+    {
+      "phrase": "wildberries женская",
+      "count": 10319
+    },
+    {
+      "phrase": "wildberries ru официальный сайт",
+      "count": 10191
+    },
+    {
+      "phrase": "номер wildberries",
+      "count": 9897
+    },
+    {
+      "phrase": "центры wildberries",
+      "count": 9765
+    },
+    {
+      "phrase": "лет wildberries",
+      "count": 9587
+    },
+    {
+      "phrase": "wildberries работа",
+      "count": 9460
+    },
+    {
+      "phrase": "промокод wildberries",
+      "count": 9397
+    },
+    {
+      "phrase": "wildberries подписка клуб",
+      "count": 9365
+    },
+    {
+      "phrase": "через wildberries",
+      "count": 9009
+    },
+    {
+      "phrase": "кошелек wildberries",
+      "count": 8714
+    },
+    {
+      "phrase": "3 wildberries",
+      "count": 8575
+    },
+    {
+      "phrase": "какие есть wildberries",
+      "count": 8457
+    },
+    {
+      "phrase": "wildberries отключить подписку клуб",
+      "count": 8381
+    },
+    {
+      "phrase": "банки wildberries",
+      "count": 8306
+    },
+    {
+      "phrase": "wildberries войти",
+      "count": 8273
+    },
+    {
+      "phrase": "wildberries банк",
+      "count": 8252
+    },
+    {
+      "phrase": "вб wildberries",
+      "count": 8007
+    },
+    {
+      "phrase": "wildberries ru seller",
+      "count": 7907
+    },
+    {
+      "phrase": "логистическая wildberries",
+      "count": 7656
+    },
+    {
+      "phrase": "как отключить wildberries",
+      "count": 7500
+    },
+    {
+      "phrase": "логистический центр wildberries",
+      "count": 7275
+    },
+    {
+      "phrase": "wildberries ru личный",
+      "count": 7071
+    },
+    {
+      "phrase": "покажи wildberries",
+      "count": 7030
+    },
+    {
+      "phrase": "wildberries 5",
+      "count": 6881
+    },
+    {
+      "phrase": "wildberries доставка",
+      "count": 6880
+    },
+    {
+      "phrase": "пвз wildberries",
+      "count": 6853
+    },
+    {
+      "phrase": "wildberries возврат",
+      "count": 6825
+    },
+    {
+      "phrase": "wildberries открыт",
+      "count": 6649
+    },
+    {
+      "phrase": "открой wildberries",
+      "count": 6618
+    },
+    {
+      "phrase": "мужской wildberries",
+      "count": 6610
+    },
+    {
+      "phrase": "wildberries купил ozon",
+      "count": 6604
+    },
+    {
+      "phrase": "парка wildberries",
+      "count": 6602
+    },
+    {
+      "phrase": "можно ли на wildberries",
+      "count": 6551
+    },
+    {
+      "phrase": "wildberries построят",
+      "count": 6484
+    },
+    {
+      "phrase": "wildberries индустриальная",
+      "count": 6383
+    },
+    {
+      "phrase": "wildberries ru кабинет",
+      "count": 6262
+    },
+    {
+      "phrase": "wildberries ru личный кабинет",
+      "count": 6242
+    },
+    {
+      "phrase": "wildberries номер телефона",
+      "count": 6233
+    },
+    {
+      "phrase": "wildberries 4",
+      "count": 6200
+    },
+    {
+      "phrase": "как отключить подписку wildberries",
+      "count": 6017
+    },
+    {
+      "phrase": "wildberries размеры",
+      "count": 5983
+    },
+    {
+      "phrase": "wildberries большие",
+      "count": 5963
+    },
+    {
+      "phrase": "версии wildberries",
+      "count": 5731
+    },
+    {
+      "phrase": "wildberries посмотреть",
+      "count": 5396
+    },
+    {
+      "phrase": "wildberries 2026",
+      "count": 5386
+    },
+    {
+      "phrase": "wildberries сделали",
+      "count": 5236
+    },
+    {
+      "phrase": "wildberries со",
+      "count": 5202
+    },
+    {
+      "phrase": "цена на wildberries",
+      "count": 5202
+    },
+    {
+      "phrase": "найти на wildberries",
+      "count": 5125
+    },
+    {
+      "phrase": "вернуть wildberries",
+      "count": 5119
+    },
+    {
+      "phrase": "wildberries видео",
+      "count": 5077
+    },
+    {
+      "phrase": "wildberries ru клуб",
+      "count": 5075
+    },
+    {
+      "phrase": "wildberries оплата",
+      "count": 5025
+    },
+    {
+      "phrase": "бесплатно wildberries",
+      "count": 4930
+    },
+    {
+      "phrase": "wildberries хорошо",
+      "count": 4910
+    },
+    {
+      "phrase": "wildberries ru отключить подписку клуб",
+      "count": 4901
+    },
+    {
+      "phrase": "wildberries ru войти",
+      "count": 4770
+    },
+    {
+      "phrase": "wildberries рубли",
+      "count": 4677
+    },
+    {
+      "phrase": "линия wildberries",
+      "count": 4673
+    },
+    {
+      "phrase": "wildberries горячая",
+      "count": 4665
+    },
+    {
+      "phrase": "день wildberries",
+      "count": 4604
+    },
+    {
+      "phrase": "оплатить wildberries",
+      "count": 4581
+    },
+    {
+      "phrase": "wildberries наборы",
+      "count": 4557
+    },
+    {
+      "phrase": "wildberries улица",
+      "count": 4554
+    },
+    {
+      "phrase": "wildberries 10",
+      "count": 4505
+    },
+    {
+      "phrase": "1 wildberries ru",
+      "count": 4503
+    },
+    {
+      "phrase": "wildberries горячая линия",
+      "count": 4436
+    },
+    {
+      "phrase": "сколько стоит wildberries",
+      "count": 4376
+    },
+    {
+      "phrase": "wildberries вход",
+      "count": 4344
+    },
+    {
+      "phrase": "wildberries маркетплейс",
+      "count": 4318
+    },
+    {
+      "phrase": "кабинет wildberries войти",
+      "count": 4296
+    },
+    {
+      "phrase": "wildberries личный кабинет войти",
+      "count": 4286
+    },
+    {
+      "phrase": "костюм wildberries",
+      "count": 4241
+    },
+    {
+      "phrase": "wildberries что делать",
+      "count": 4237
+    },
+    {
+      "phrase": "wildberries поддержка",
+      "count": 4235
+    },
+    {
+      "phrase": "wildberries перевод",
+      "count": 4192
+    },
+    {
+      "phrase": "каталог wildberries",
+      "count": 4157
+    },
+    {
+      "phrase": "wildberries данные",
+      "count": 4138
+    },
+    {
+      "phrase": "wildberries москва",
+      "count": 4128
+    },
+    {
+      "phrase": "wildberries 6",
+      "count": 4104
+    },
+    {
+      "phrase": "wildberries забрать",
+      "count": 4073
+    },
+    {
+      "phrase": "курьер wildberries",
+      "count": 4071
+    },
+    {
+      "phrase": "нужен wildberries",
+      "count": 4043
+    },
+    {
+      "phrase": "карточки wildberries",
+      "count": 3989
+    },
+    {
+      "phrase": "есть ли wildberries",
+      "count": 3967
+    },
+    {
+      "phrase": "другой wildberries",
+      "count": 3933
+    },
+    {
+      "phrase": "wildberries продажа",
+      "count": 3899
+    },
+    {
+      "phrase": "сайт wildberries отключить",
+      "count": 3862
+    },
+    {
+      "phrase": "wildberries скидки",
+      "count": 3855
+    },
+    {
+      "phrase": "wildberries скачать приложение",
+      "count": 3829
+    },
+    {
+      "phrase": "wildberries адреса",
+      "count": 3820
+    },
+    {
+      "phrase": "сайт wildberries отключить подписку",
+      "count": 3817
+    },
+    {
+      "phrase": "wildberries 0",
+      "count": 3798
+    },
+    {
+      "phrase": "wildberries артикул",
+      "count": 3750
+    },
+    {
+      "phrase": "wildberries зимние",
+      "count": 3706
+    },
+    {
+      "phrase": "wildberries детские",
+      "count": 3701
+    },
+    {
+      "phrase": "wildberries города",
+      "count": 3699
+    },
+    {
+      "phrase": "2 wildberries ru",
+      "count": 3677
+    },
+    {
+      "phrase": "wildberries час",
+      "count": 3672
+    },
+    {
+      "phrase": "wildberries часы",
+      "count": 3672
+    },
+    {
+      "phrase": "сертификат wildberries",
+      "count": 3668
+    },
+    {
+      "phrase": "wildberries новая",
+      "count": 3658
+    },
+    {
+      "phrase": "wildberries subscription",
+      "count": 3647
+    },
+    {
+      "phrase": "отменить wildberries",
+      "count": 3626
+    },
+    {
+      "phrase": "wildberries 7",
+      "count": 3588
+    },
+    {
+      "phrase": "wildberries ru subscription",
+      "count": 3575
+    },
+    {
+      "phrase": "wildberries дешевле",
+      "count": 3573
+    },
+    {
+      "phrase": "получить wildberries",
+      "count": 3513
+    },
+    {
+      "phrase": "магазин wildberries товар",
+      "count": 3511
+    },
+    {
+      "phrase": "wildberries 8",
+      "count": 3508
+    },
+    {
+      "phrase": "wildberries на русском",
+      "count": 3495
+    },
+    {
+      "phrase": "яндекс wildberries",
+      "count": 3489
+    },
+    {
+      "phrase": "wildberries ru сайт войти",
+      "count": 3466
+    },
+    {
+      "phrase": "2 1 wildberries",
+      "count": 3422
+    },
+    {
+      "phrase": "одежда wildberries",
+      "count": 3419
+    },
+    {
+      "phrase": "wildberries время",
+      "count": 3400
+    },
+    {
+      "phrase": "wildberries черная",
+      "count": 3396
+    },
+    {
+      "phrase": "wildberries 12",
+      "count": 3361
+    },
+    {
+      "phrase": "wildberries нея",
+      "count": 3278
+    },
+    {
+      "phrase": "как отключить wildberries клуб",
+      "count": 3262
+    },
+    {
+      "phrase": "wildberries корп",
+      "count": 3258
+    },
+    {
+      "phrase": "wildberries 15",
+      "count": 3241
+    },
+    {
+      "phrase": "wildberries котовск",
+      "count": 3180
+    },
+    {
+      "phrase": "wildberries частями",
+      "count": 3175
+    },
+    {
+      "phrase": "посылка wildberries",
+      "count": 3168
+    },
+    {
+      "phrase": "товары интернет магазина wildberries",
+      "count": 3133
+    },
+    {
+      "phrase": "wildberries отправить",
+      "count": 3130
+    },
+    {
+      "phrase": "wildberries девочки",
+      "count": 3074
+    },
+    {
+      "phrase": "wildberries ru телефоны",
+      "count": 3069
+    },
+    {
+      "phrase": "wildberries бел",
+      "count": 3031
+    },
+    {
+      "phrase": "кроссовки wildberries",
+      "count": 2997
+    },
+    {
+      "phrase": "wildberries нижний",
+      "count": 2989
+    },
+    {
+      "phrase": "цвет wildberries",
+      "count": 2983
+    },
+    {
+      "phrase": "wildberries 9",
+      "count": 2967
+    },
+    {
+      "phrase": "wildberries оформлен",
+      "count": 2947
+    },
+    {
+      "phrase": "https seller wildberries",
+      "count": 2945
+    },
+    {
+      "phrase": "wildberries ru номер",
+      "count": 2930
+    },
+    {
+      "phrase": "магазин wildberries каталог",
+      "count": 2930
+    },
+    {
+      "phrase": "wildberries пк",
+      "count": 2911
+    },
+    {
+      "phrase": "https seller wildberries ru",
+      "count": 2897
+    },
+    {
+      "phrase": "wildberries отказаться",
+      "count": 2887
+    },
+    {
+      "phrase": "wildberries вопрос",
+      "count": 2871
+    },
+    {
+      "phrase": "wildberries сегодня",
+      "count": 2857
+    },
+    {
+      "phrase": "targeturl wildberries",
+      "count": 2849
+    },
+    {
+      "phrase": "wildberry интернет каталог",
+      "count": 2841
+    },
+    {
+      "phrase": "wildberries интернет магазины интернет магазин каталог",
+      "count": 2833
+    },
+    {
+      "phrase": "pro wildberries",
+      "count": 2831
+    },
+    {
+      "phrase": "wildberries 18",
+      "count": 2796
+    },
+    {
+      "phrase": "wildberries браузер",
+      "count": 2761
+    },
+    {
+      "phrase": "wildberries возврат товара",
+      "count": 2747
+    },
+    {
+      "phrase": "wildberries под",
+      "count": 2734
+    },
+    {
+      "phrase": "wildberries списали",
+      "count": 2715
+    },
+    {
+      "phrase": "на wildberries самые",
+      "count": 2680
+    },
+    {
+      "phrase": "игрушки на wildberries",
+      "count": 2679
+    },
+    {
+      "phrase": "сейчас wildberries",
+      "count": 2675
+    },
+    {
+      "phrase": "wildberries 14",
+      "count": 2651
+    },
+    {
+      "phrase": "сайт товаров wildberries",
+      "count": 2647
+    },
+    {
+      "phrase": "wildberries 20",
+      "count": 2618
+    },
+    {
+      "phrase": "удали wildberries",
+      "count": 2605
+    },
+    {
+      "phrase": "wildberries ru товары",
+      "count": 2604
+    },
+    {
+      "phrase": "wildberries спортивная",
+      "count": 2602
+    },
+    {
+      "phrase": "wildberries удалили",
+      "count": 2592
+    },
+    {
+      "phrase": "скачать wildberries бесплатно",
+      "count": 2583
+    },
+    {
+      "phrase": "wildberries сотрудникам",
+      "count": 2582
+    },
+    {
+      "phrase": "wildberries ru номер телефона",
+      "count": 2566
+    },
+    {
+      "phrase": "wildberries 11",
+      "count": 2564
+    },
+    {
+      "phrase": "wildberries россия",
+      "count": 2563
+    },
+    {
+      "phrase": "скачать вб wildberries",
+      "count": 2559
+    },
+    {
+      "phrase": "wildberries спб",
+      "count": 2546
+    },
+    {
+      "phrase": "wildberries вакансии",
+      "count": 2516
+    },
+    {
+      "phrase": "wildberries 50",
+      "count": 2502
+    },
+    {
+      "phrase": "wildberries bank",
+      "count": 2484
+    },
+    {
+      "phrase": "обновить wildberries",
+      "count": 2471
+    },
+    {
+      "phrase": "получение wildberries",
+      "count": 2466
+    },
+    {
+      "phrase": "wildberries войти в личный",
+      "count": 2459
+    },
+    {
+      "phrase": "покупки на wildberries",
+      "count": 2447
+    },
+    {
+      "phrase": "wildberries недорогие",
+      "count": 2442
+    },
+    {
+      "phrase": "компания wildberries",
+      "count": 2442
+    },
+    {
+      "phrase": "wildberries каталог товаров",
+      "count": 2433
+    },
+    {
+      "phrase": "машина wildberries",
+      "count": 2420
+    },
+    {
+      "phrase": "wildberries новости",
+      "count": 2417
+    },
+    {
+      "phrase": "магазин wildberries купить",
+      "count": 2404
+    },
+    {
+      "phrase": "сроки wildberries",
+      "count": 2381
+    },
+    {
+      "phrase": "на без на wildberries",
+      "count": 2368
+    },
+    {
+      "phrase": "wildberries заходи",
+      "count": 2357
+    },
+    {
+      "phrase": "wildberries ввел",
+      "count": 2354
+    },
+    {
+      "phrase": "wildberries ru сайт отключить подписку",
+      "count": 2346
+    },
+    {
+      "phrase": "wildberries 100",
+      "count": 2336
+    },
+    {
+      "phrase": "реклама wildberries",
+      "count": 2312
+    },
+    {
+      "phrase": "выдача товаров wildberries",
+      "count": 2307
+    },
+    {
+      "phrase": "авито wildberries",
+      "count": 2294
+    },
+    {
+      "phrase": "3 wildberries ru",
+      "count": 2290
+    },
+    {
+      "phrase": "wildberries 1 1 3",
+      "count": 2289
+    },
+    {
+      "phrase": "футболки wildberries",
+      "count": 2283
+    },
+    {
+      "phrase": "wildberries рассрочка",
+      "count": 2274
+    },
+    {
+      "phrase": "wildberries utm",
+      "count": 2272
+    },
+    {
+      "phrase": "www wildberries ru официальный",
+      "count": 2259
+    },
+    {
+      "phrase": "wildberries картинка",
+      "count": 2243
+    },
+    {
+      "phrase": "wildberries маленький",
+      "count": 2240
+    },
+    {
+      "phrase": "купить на озоне или wildberries",
+      "count": 2232
+    },
+    {
+      "phrase": "купить женский wildberries",
+      "count": 2225
+    },
+    {
+      "phrase": "wildberries пк версия",
+      "count": 2221
+    },
+    {
+      "phrase": "wildberries media",
+      "count": 2218
+    },
+    {
+      "phrase": "смотреть wildberries",
+      "count": 2205
+    },
+    {
+      "phrase": "до скольки wildberries",
+      "count": 2203
+    },
+    {
+      "phrase": "кабинет wildberries сайт",
+      "count": 2201
+    },
+    {
+      "phrase": "сайт wildberries личный кабинет",
+      "count": 2197
+    },
+    {
+      "phrase": "wildberries ru личный кабинет войти",
+      "count": 2178
+    },
+    {
+      "phrase": "wildberries нажимаем",
+      "count": 2177
+    },
+    {
+      "phrase": "пункты выдачи товаров wildberries",
+      "count": 2173
+    },
+    {
+      "phrase": "wildberries маркет",
+      "count": 2166
+    },
+    {
+      "phrase": "wildberries селлер",
+      "count": 2145
+    },
+    {
+      "phrase": "wildberries официальный сайт войти",
+      "count": 2144
+    },
+    {
+      "phrase": "открыть сайт wildberries",
+      "count": 2138
+    },
+    {
+      "phrase": "wildberries тюмень",
+      "count": 2130
+    },
+    {
+      "phrase": "wildberries последние",
+      "count": 2128
+    },
+    {
+      "phrase": "телефон сайта wildberries",
+      "count": 2125
+    },
+    {
+      "phrase": "wildberries официальный личный кабинет",
+      "count": 2119
+    },
+    {
+      "phrase": "интернет сайт wildberries ru",
+      "count": 2108
+    },
+    {
+      "phrase": "сайт www wildberries",
+      "count": 2094
+    },
+    {
+      "phrase": "wildberries ru вход",
+      "count": 2085
+    },
+    {
+      "phrase": "сайт www wildberries ru",
+      "count": 2082
+    },
+    {
+      "phrase": "wildberries официальный сайт личный",
+      "count": 2080
+    },
+    {
+      "phrase": "wildberries ru интернет магазин официальный",
+      "count": 2079
+    },
+    {
+      "phrase": "wildberries книги",
+      "count": 2075
+    },
+    {
+      "phrase": "номер сайта wildberries",
+      "count": 2070
+    },
+    {
+      "phrase": "сайт wildberries ru интернет магазин",
+      "count": 2058
+    },
+    {
+      "phrase": "до скольки работает wildberries",
+      "count": 2056
+    },
+    {
+      "phrase": "значок wildberries",
+      "count": 2054
+    },
+    {
+      "phrase": "wildberries 17",
+      "count": 2050
+    },
+    {
+      "phrase": "дай wildberries",
+      "count": 2050
+    },
+    {
+      "phrase": "коды на wildberries",
+      "count": 2050
+    },
+    {
+      "phrase": "wildberries дали",
+      "count": 2047
+    },
+    {
+      "phrase": "чехол на wildberries",
+      "count": 2042
+    },
+    {
+      "phrase": "хранение wildberries",
+      "count": 2027
+    },
+    {
+      "phrase": "wildberries интернет купить",
+      "count": 2018
+    },
+    {
+      "phrase": "wildberries интернет каталог товаров",
+      "count": 2005
+    },
+    {
+      "phrase": "магазин wildberries каталог товаров",
+      "count": 2005
+    },
+    {
+      "phrase": "интернет магазин wildberries каталог товаров",
+      "count": 2002
+    },
+    {
+      "phrase": "wildberries отключили телефон",
+      "count": 1996
+    },
+    {
+      "phrase": "выбери wildberries",
+      "count": 1991
+    },
+    {
+      "phrase": "игру wildberries",
+      "count": 1979
+    },
+    {
+      "phrase": "выдача заказов wildberries",
+      "count": 1971
+    },
+    {
+      "phrase": "wildberries телефон горячей",
+      "count": 1966
+    },
+    {
+      "phrase": "wildberries 13",
+      "count": 1965
+    },
+    {
+      "phrase": "закрой wildberries",
+      "count": 1962
+    },
+    {
+      "phrase": "wildberries ru 2 1",
+      "count": 1958
+    },
+    {
+      "phrase": "wildberries закрыты",
+      "count": 1957
+    },
+    {
+      "phrase": "wildberries магазин спб",
+      "count": 1940
+    },
+    {
+      "phrase": "wildberries интернет магазин спб",
+      "count": 1933
+    },
+    {
+      "phrase": "wildberries интернет спб",
+      "count": 1933
+    },
+    {
+      "phrase": "атака на wildberries",
+      "count": 1928
+    },
+    {
+      "phrase": "купить интернет магазин wildberries",
+      "count": 1926
+    },
+    {
+      "phrase": "wildberries ответ",
+      "count": 1926
+    },
+    {
+      "phrase": "24 wildberries",
+      "count": 1925
+    },
+    {
+      "phrase": "wildberries ленина",
+      "count": 1924
+    },
+    {
+      "phrase": "wildberries телефон горячей линии",
+      "count": 1917
+    },
+    {
+      "phrase": "wildberries ru открыть",
+      "count": 1913
+    },
+    {
+      "phrase": "см wildberries",
+      "count": 1913
+    },
+    {
+      "phrase": "сайт wildberries номер телефона",
+      "count": 1909
+    },
+    {
+      "phrase": "wildberries официальный сайт личный кабинет",
+      "count": 1897
+    },
+    {
+      "phrase": "wildberries счета",
+      "count": 1890
+    },
+    {
+      "phrase": "wildberries личный кабинет по номеру",
+      "count": 1866
+    },
+    {
+      "phrase": "wildberries бренд",
+      "count": 1861
+    },
+    {
+      "phrase": "пункт выдачи заказов wildberries",
+      "count": 1860
+    },
+    {
+      "phrase": "wildberries где можно",
+      "count": 1855
+    },
+    {
+      "phrase": "масло wildberries",
+      "count": 1846
+    },
+    {
+      "phrase": "www wildberries ru личный",
+      "count": 1846
+    },
+    {
+      "phrase": "яндекс маркет яндекс маркет wildberry",
+      "count": 1842
+    },
+    {
+      "phrase": "wildberries акции",
+      "count": 1841
+    },
+    {
+      "phrase": "раздел wildberries",
+      "count": 1840
+    },
+    {
+      "phrase": "wildberries аккаунт",
+      "count": 1822
+    },
+    {
+      "phrase": "перейти на wildberries",
+      "count": 1817
+    },
+    {
+      "phrase": "wildberries андроид",
+      "count": 1810
+    },
+    {
+      "phrase": "где найти wildberries",
+      "count": 1810
+    },
+    {
+      "phrase": "wildberries осенние",
+      "count": 1808
+    },
+    {
+      "phrase": "wildberries 21",
+      "count": 1799
+    },
+    {
+      "phrase": "хочу wildberries",
+      "count": 1797
+    },
+    {
+      "phrase": "wildberries г",
+      "count": 1794
+    },
+    {
+      "phrase": "wildberries вход в личный",
+      "count": 1794
+    },
+    {
+      "phrase": "wildberries район",
+      "count": 1793
+    },
+    {
+      "phrase": "wildberries сайт браузер",
+      "count": 1790
+    },
+    {
+      "phrase": "брюки wildberries",
+      "count": 1789
+    },
+    {
+      "phrase": "купить мужской wildberries",
+      "count": 1787
+    },
+    {
+      "phrase": "бпла wildberries",
+      "count": 1784
+    },
+    {
+      "phrase": "wildberries открыть в браузере",
+      "count": 1782
+    },
+    {
+      "phrase": "сбербанк wildberries",
+      "count": 1779
+    },
+    {
+      "phrase": "маркетплейсы ozon wildberries",
+      "count": 1778
+    },
+    {
+      "phrase": "вернет ли wildberries",
+      "count": 1776
+    },
+    {
+      "phrase": "wildberries рабочий",
+      "count": 1774
+    },
+    {
+      "phrase": "wildberries ru в браузере",
+      "count": 1773
+    },
+    {
+      "phrase": "купить wildberries ru",
+      "count": 1772
+    },
+    {
+      "phrase": "фирма wildberries",
+      "count": 1772
+    },
+    {
+      "phrase": "село wildberries",
+      "count": 1769
+    },
+    {
+      "phrase": "www wildberries ru официальный сайт",
+      "count": 1767
+    },
+    {
+      "phrase": "wildberries большие размеры",
+      "count": 1764
+    },
+    {
+      "phrase": "wildberries 40",
+      "count": 1759
+    },
+    {
+      "phrase": "wildberries ru официальный сайт войти",
+      "count": 1755
+    },
+    {
+      "phrase": "5 wildberries ru",
+      "count": 1741
+    },
+    {
+      "phrase": "www wildberries ru subscription",
+      "count": 1738
+    },
+    {
+      "phrase": "wb ru wildberries официальный",
+      "count": 1735
+    },
+    {
+      "phrase": "ноутбук wildberries",
+      "count": 1732
+    },
+    {
+      "phrase": "wildberries проверить",
+      "count": 1730
+    },
+    {
+      "phrase": "алиса wildberries",
+      "count": 1728
+    },
+    {
+      "phrase": "открыть сайт wildberries ru",
+      "count": 1721
+    },
+    {
+      "phrase": "1 www wildberries ru",
+      "count": 1710
+    },
+    {
+      "phrase": "wildberries автомобили",
+      "count": 1708
+    },
+    {
+      "phrase": "wildberries широкая",
+      "count": 1707
+    },
+    {
+      "phrase": "wildberries екатеринбург",
+      "count": 1702
+    },
+    {
+      "phrase": "куртки на wildberries",
+      "count": 1698
+    },
+    {
+      "phrase": "wildberries ru профиль",
+      "count": 1687
+    },
+    {
+      "phrase": "открыть сайт wildberries в браузере",
+      "count": 1683
+    },
+    {
+      "phrase": "wildberries летняя",
+      "count": 1682
+    },
+    {
+      "phrase": "баллы wildberries",
+      "count": 1680
+    },
+    {
+      "phrase": "включи wildberries",
+      "count": 1679
+    },
+    {
+      "phrase": "wildberries красная",
+      "count": 1676
+    },
+    {
+      "phrase": "джинсы wildberries",
+      "count": 1675
+    },
+    {
+      "phrase": "wildberries вход в личный кабинет",
+      "count": 1675
+    },
+    {
+      "phrase": "wildberries 25",
+      "count": 1665
+    },
+    {
+      "phrase": "wildberries seller личный",
+      "count": 1664
+    },
+    {
+      "phrase": "браузер сайт wildberries ru",
+      "count": 1653
+    },
+    {
+      "phrase": "wildberries 60",
+      "count": 1652
+    },
+    {
+      "phrase": "wildberries ru официальный сайт магазина",
+      "count": 1651
+    },
+    {
+      "phrase": "установить wildberries",
+      "count": 1648
+    },
+    {
+      "phrase": "wildberries ru открыть в браузере",
+      "count": 1647
+    },
+    {
+      "phrase": "wildberries комплект",
+      "count": 1639
+    },
+    {
+      "phrase": "https www wildberries ru 1",
+      "count": 1633
+    },
+    {
+      "phrase": "wildberries полно",
+      "count": 1633
+    },
+    {
+      "phrase": "www wildberries ru личный кабинет",
+      "count": 1628
+    },
+    {
+      "phrase": "wildberries не приходит",
+      "count": 1627
+    },
+    {
+      "phrase": "заявку на wildberries",
+      "count": 1625
+    },
+    {
+      "phrase": "wildberries ru перейти",
+      "count": 1624
+    },
+    {
+      "phrase": "wb wildberries сайт",
+      "count": 1613
+    },
+    {
+      "phrase": "wildberries для детей",
+      "count": 1613
+    },
+    {
+      "phrase": "1 откройте сайт wildberries ru",
+      "count": 1612
+    },
+    {
+      "phrase": "коробки wildberries",
+      "count": 1610
+    },
+    {
+      "phrase": "wildberries мир",
+      "count": 1602
+    },
+    {
+      "phrase": "https wildberries ru subscription",
+      "count": 1602
+    },
+    {
+      "phrase": "машинки wildberries",
+      "count": 1596
+    },
+    {
+      "phrase": "платье на wildberries",
+      "count": 1594
+    },
+    {
+      "phrase": "wildberries продается",
+      "count": 1594
+    },
+    {
+      "phrase": "wildberries ru отключить подписку открыть сайт",
+      "count": 1593
+    },
+    {
+      "phrase": "wildberries qr",
+      "count": 1589
+    },
+    {
+      "phrase": "сортировочный центр wildberries",
+      "count": 1584
+    },
+    {
+      "phrase": "сайт wildberries каталог",
+      "count": 1581
+    },
+    {
+      "phrase": "wildberries онлайн",
+      "count": 1581
+    },
+    {
+      "phrase": "wildberries покупатель",
+      "count": 1579
+    },
+    {
+      "phrase": "wildberries ru catalog 2",
+      "count": 1578
+    },
+    {
+      "phrase": "открой wildberries на телефоне",
+      "count": 1566
+    },
+    {
+      "phrase": "раздели wildberries",
+      "count": 1566
+    },
+    {
+      "phrase": "wildberries на телефон приложение",
+      "count": 1562
+    },
+    {
+      "phrase": "https www wildberries ru 2",
+      "count": 1556
+    },
+    {
+      "phrase": "деньги на wildberries кошелек",
+      "count": 1555
+    },
+    {
+      "phrase": "https www wildberries ru subscription",
+      "count": 1549
+    },
+    {
+      "phrase": "куда wildberries",
+      "count": 1548
+    },
+    {
+      "phrase": "wildberries август",
+      "count": 1547
+    },
+    {
+      "phrase": "wildberries не работает",
+      "count": 1546
+    },
+    {
+      "phrase": "wildberries электрический",
+      "count": 1545
+    },
+    {
+      "phrase": "wildberries личный кабинет по номеру телефона",
+      "count": 1545
+    },
+    {
+      "phrase": "просто wildberries",
+      "count": 1543
+    },
+    {
+      "phrase": "wildberries официальный каталог",
+      "count": 1541
+    },
+    {
+      "phrase": "wildberries ru личный вход",
+      "count": 1541
+    },
+    {
+      "phrase": "где купить wildberries",
+      "count": 1539
+    },
+    {
+      "phrase": "wildberries московский",
+      "count": 1536
+    },
+    {
+      "phrase": "wildberries фигурки",
+      "count": 1532
+    },
+    {
+      "phrase": "wildberries со скольки",
+      "count": 1529
+    },
+    {
+      "phrase": "яндекс ozon wildberries",
+      "count": 1526
+    },
+    {
+      "phrase": "wildberries ru нижний",
+      "count": 1523
+    },
+    {
+      "phrase": "wildberries официальный сайт каталог",
+      "count": 1520
+    },
+    {
+      "phrase": "wildberries ru официальный сайт интернет",
+      "count": 1519
+    },
+    {
+      "phrase": "wildberries красивые",
+      "count": 1517
+    },
+    {
+      "phrase": "wildberries ru интернет магазин официальный сайт",
+      "count": 1516
+    },
+    {
+      "phrase": "язык wildberries",
+      "count": 1514
+    },
+    {
+      "phrase": "wildberries вывести",
+      "count": 1511
+    },
+    {
+      "phrase": "wb интернет магазин wildberries официальный",
+      "count": 1508
+    },
+    {
+      "phrase": "wildberries что значит",
+      "count": 1503
+    },
+    {
+      "phrase": "www wildberries seller",
+      "count": 1500
+    },
+    {
+      "phrase": "wildberries войти в браузере",
+      "count": 1495
+    },
+    {
+      "phrase": "сайт wb ru wildberries",
+      "count": 1494
+    },
+    {
+      "phrase": "wildberries английского",
+      "count": 1494
+    },
+    {
+      "phrase": "товары продавца wildberries",
+      "count": 1489
+    },
+    {
+      "phrase": "wildberries ru 0",
+      "count": 1487
+    },
+    {
+      "phrase": "wildberries ru войти в профиль",
+      "count": 1481
+    },
+    {
+      "phrase": "пострадавшие wildberries",
+      "count": 1480
+    },
+    {
+      "phrase": "меню wildberries",
+      "count": 1478
+    },
+    {
+      "phrase": "wildberries ваша",
+      "count": 1477
+    },
+    {
+      "phrase": "www seller wildberries ru",
+      "count": 1476
+    },
+    {
+      "phrase": "wb ru wildberries официальный интернет",
+      "count": 1475
+    },
+    {
+      "phrase": "wb ru интернет магазин wildberries официальный",
+      "count": 1475
+    },
+    {
+      "phrase": "wildberries продажа товаров",
+      "count": 1473
+    },
+    {
+      "phrase": "ввести в телефон wildberries",
+      "count": 1470
+    },
+    {
+      "phrase": "https www wildberries ru catalog 2",
+      "count": 1464
+    },
+    {
+      "phrase": "wildberries алмазная",
+      "count": 1463
+    },
+    {
+      "phrase": "wildberries раздевает",
+      "count": 1462
+    },
+    {
+      "phrase": "товара через wildberries",
+      "count": 1458
+    },
+    {
+      "phrase": "wildberries аккумулятор",
+      "count": 1450
+    },
+    {
+      "phrase": "wildberries подарочный",
+      "count": 1447
+    },
+    {
+      "phrase": "открой wildberries номер",
+      "count": 1447
+    },
+    {
+      "phrase": "wildberries смартфоны",
+      "count": 1447
+    },
+    {
+      "phrase": "https www wildberries ru catalog 1",
+      "count": 1446
+    },
+    {
+      "phrase": "wildberries д",
+      "count": 1443
+    },
+    {
+      "phrase": "wildberries надо",
+      "count": 1426
+    },
+    {
+      "phrase": "сколько пунктов wildberries",
+      "count": 1426
+    },
+    {
+      "phrase": "wildberries мозаика",
+      "count": 1422
+    },
+    {
+      "phrase": "wildberries id",
+      "count": 1420
+    },
+    {
+      "phrase": "номер телефона wildberries открыть",
+      "count": 1420
+    },
+    {
+      "phrase": "wildberries ru 2 войдите в профиль",
+      "count": 1419
+    },
+    {
+      "phrase": "wildberries корзина",
+      "count": 1411
+    },
+    {
+      "phrase": "wildberries госуслуги",
+      "count": 1409
+    },
+    {
+      "phrase": "пакет wildberries",
+      "count": 1405
+    },
+    {
+      "phrase": "вайлдберриз wildberries",
+      "count": 1403
+    },
+    {
+      "phrase": "wildberries белье",
+      "count": 1402
+    },
+    {
+      "phrase": "wildberries мини",
+      "count": 1402
+    },
+    {
+      "phrase": "wildberry s",
+      "count": 1400
+    },
+    {
+      "phrase": "сайт wildberries личный кабинет войти",
+      "count": 1399
+    },
+    {
+      "phrase": "ссылка на wildberries",
+      "count": 1399
+    },
+    {
+      "phrase": "wildberries виды",
+      "count": 1392
+    },
+    {
+      "phrase": "м wildberries",
+      "count": 1390
+    },
+    {
+      "phrase": "wildberries перевод на русский",
+      "count": 1390
+    },
+    {
+      "phrase": "версия сайта wildberries",
+      "count": 1389
+    },
+    {
+      "phrase": "wildberries волосы",
+      "count": 1387
+    },
+    {
+      "phrase": "обратно wildberries",
+      "count": 1387
+    },
+    {
+      "phrase": "как написать wildberries",
+      "count": 1385
+    },
+    {
+      "phrase": "заказ товаров wildberries",
+      "count": 1383
+    },
+    {
+      "phrase": "клиенты wildberries",
+      "count": 1382
+    },
+    {
+      "phrase": "crm wildberries",
+      "count": 1381
+    },
+    {
+      "phrase": "какой товар на wildberries",
+      "count": 1373
+    },
+    {
+      "phrase": "wildberries войти по номеру",
+      "count": 1369
+    },
+    {
+      "phrase": "wildberries стать",
+      "count": 1368
+    },
+    {
+      "phrase": "менеджер wildberries",
+      "count": 1367
+    },
+    {
+      "phrase": "рубашка wildberries",
+      "count": 1364
+    },
+    {
+      "phrase": "wildberries шины",
+      "count": 1360
+    },
+    {
+      "phrase": "можно ли вернуть wildberries",
+      "count": 1358
+    },
+    {
+      "phrase": "wildberries ru перейти на сайт",
+      "count": 1353
+    },
+    {
+      "phrase": "wb ru wildberries официальный сайт",
+      "count": 1351
+    },
+    {
+      "phrase": "wildberries мягкие",
+      "count": 1338
+    },
+    {
+      "phrase": "wildberries электронные",
+      "count": 1337
+    },
+    {
+      "phrase": "wildberries диски",
+      "count": 1336
+    },
+    {
+      "phrase": "wildberries стал",
+      "count": 1335
+    },
+    {
+      "phrase": "wildberries график",
+      "count": 1332
+    },
+    {
+      "phrase": "кабинет seller wildberries",
+      "count": 1327
+    },
+    {
+      "phrase": "wildberries магазины официальный сайт каталог",
+      "count": 1326
+    },
+    {
+      "phrase": "в чем суть wildberries",
+      "count": 1318
+    },
+    {
+      "phrase": "wildberries оплата частями",
+      "count": 1313
+    },
+    {
+      "phrase": "wildberries зарабатывать",
+      "count": 1312
+    },
+    {
+      "phrase": "wildberries резина",
+      "count": 1311
+    },
+    {
+      "phrase": "wildberries ru по номеру личный кабинет",
+      "count": 1307
+    },
+    {
+      "phrase": "wildberries чат",
+      "count": 1303
+    },
+    {
+      "phrase": "алмазные мозаики на wildberries",
+      "count": 1302
+    },
+    {
+      "phrase": "wildberries банк карта",
+      "count": 1301
+    },
+    {
+      "phrase": "wildberries личный кабинет войти по номеру",
+      "count": 1299
+    },
+    {
+      "phrase": "сайт wildberries ru личный кабинет",
+      "count": 1298
+    },
+    {
+      "phrase": "wildberries интернет каталог сайт",
+      "count": 1298
+    },
+    {
+      "phrase": "служба wildberries",
+      "count": 1297
+    },
+    {
+      "phrase": "сайт интернет магазина wildberries каталог",
+      "count": 1296
+    },
+    {
+      "phrase": "wildberries seller личный кабинет",
+      "count": 1295
+    },
+    {
+      "phrase": "камеры wildberries",
+      "count": 1294
+    },
+    {
+      "phrase": "wildberries как переводится",
+      "count": 1290
+    },
+    {
+      "phrase": "два wildberries",
+      "count": 1289
+    },
+    {
+      "phrase": "wildberries мобильный",
+      "count": 1288
+    },
+    {
+      "phrase": "wildberries начало",
+      "count": 1288
+    },
+    {
+      "phrase": "wildberries про",
+      "count": 1287
+    },
+    {
+      "phrase": "wildberries отправить посылку",
+      "count": 1285
+    },
+    {
+      "phrase": "https www wildberries seller",
+      "count": 1282
+    },
+    {
+      "phrase": "wildberries search",
+      "count": 1281
+    },
+    {
+      "phrase": "wildberries сколько пунктов выдачи",
+      "count": 1279
+    },
+    {
+      "phrase": "wildberries режим",
+      "count": 1276
+    },
+    {
+      "phrase": "wildberries ru catalog 0",
+      "count": 1272
+    },
+    {
+      "phrase": "wildberries интернет магазин официальный каталог",
+      "count": 1271
+    },
+    {
+      "phrase": "global wildberries",
+      "count": 1270
+    },
+    {
+      "phrase": "теплый wildberries",
+      "count": 1270
+    },
+    {
+      "phrase": "wildberries мальчик",
+      "count": 1270
+    },
+    {
+      "phrase": "https www wildberries ru seller",
+      "count": 1268
+    },
+    {
+      "phrase": "спортивный костюм wildberries",
+      "count": 1267
+    },
+    {
+      "phrase": "обувь на wildberries",
+      "count": 1267
+    },
+    {
+      "phrase": "wildberries 22",
+      "count": 1263
+    },
+    {
+      "phrase": "wildberries высокое",
+      "count": 1263
+    },
+    {
+      "phrase": "wildberries пожар",
+      "count": 1261
+    },
+    {
+      "phrase": "wildberries ru search",
+      "count": 1260
+    },
+    {
+      "phrase": "wildberries официальный сайт личный кабинет войти",
+      "count": 1259
+    },
+    {
+      "phrase": "wildberries отказ",
+      "count": 1257
+    },
+    {
+      "phrase": "wildberries интернет магазин официальный сайт каталог",
+      "count": 1254
+    },
+    {
+      "phrase": "взять wildberries",
+      "count": 1250
+    },
+    {
+      "phrase": "wildberries где находится",
+      "count": 1249
+    },
+    {
+      "phrase": "ближайший wildberries",
+      "count": 1246
+    },
+    {
+      "phrase": "wildberries китай",
+      "count": 1245
+    },
+    {
+      "phrase": "wildberries как перевести",
+      "count": 1245
+    },
+    {
+      "phrase": "как переводить wildberries",
+      "count": 1245
+    },
+    {
+      "phrase": "wildberries ozon яндекс маркет",
+      "count": 1240
+    },
+    {
+      "phrase": "wildberries купить мозаику",
+      "count": 1239
+    },
+    {
+      "phrase": "игровой wildberries",
+      "count": 1233
+    },
+    {
+      "phrase": "wildberries принят",
+      "count": 1232
+    },
+    {
+      "phrase": "доставка товаров wildberries",
+      "count": 1232
+    },
+    {
+      "phrase": "wildberries купить алмазную мозаику",
+      "count": 1231
+    },
+    {
+      "phrase": "wildberries samsung",
+      "count": 1227
+    },
+    {
+      "phrase": "лего wildberries",
+      "count": 1220
+    },
+    {
+      "phrase": "называется wildberries",
+      "count": 1215
+    },
+    {
+      "phrase": "убрать wildberries",
+      "count": 1214
+    },
+    {
+      "phrase": "wildberries ru официальный личный кабинет",
+      "count": 1214
+    },
+    {
+      "phrase": "работа пунктов wildberries",
+      "count": 1210
+    },
+    {
+      "phrase": "wildberries ru сайт войти в личный",
+      "count": 1208
+    },
+    {
+      "phrase": "брак wildberries",
+      "count": 1203
+    },
+    {
+      "phrase": "отключить приложение wildberries",
+      "count": 1202
+    },
+    {
+      "phrase": "wildberries т",
+      "count": 1198
+    },
+    {
+      "phrase": "сайт wb интернет магазин wildberries",
+      "count": 1197
+    },
+    {
+      "phrase": "wildberries петербург",
+      "count": 1196
+    },
+    {
+      "phrase": "wildberries wb клуб",
+      "count": 1186
+    },
+    {
+      "phrase": "wildberries ru catalog search",
+      "count": 1182
+    },
+    {
+      "phrase": "ozon цена wildberries",
+      "count": 1182
+    },
+    {
+      "phrase": "со скольки работает wildberries",
+      "count": 1180
+    },
+    {
+      "phrase": "wildberries доставка курьером",
+      "count": 1179
+    },
+    {
+      "phrase": "wildberries официальный сайт отключить подписку",
+      "count": 1179
+    },
+    {
+      "phrase": "wildberries наклейки",
+      "count": 1175
+    },
+    {
+      "phrase": "19 wildberries",
+      "count": 1175
+    },
+    {
+      "phrase": "wildberries ручки",
+      "count": 1174
+    },
+    {
+      "phrase": "интернет магазин wb wildberries официальный сайт",
+      "count": 1170
+    },
+    {
+      "phrase": "wildberries санкт",
+      "count": 1168
+    },
+    {
+      "phrase": "стоимость wildberries",
+      "count": 1167
+    },
+    {
+      "phrase": "wildberries banner",
+      "count": 1167
+    },
+    {
+      "phrase": "wildberries атаки бпла",
+      "count": 1165
+    },
+    {
+      "phrase": "wb ru интернет магазин wildberries сайт",
+      "count": 1164
+    },
+    {
+      "phrase": "wildberries советская",
+      "count": 1160
+    },
+    {
+      "phrase": "wildberries api",
+      "count": 1159
+    },
+    {
+      "phrase": "wildberries ru ссылка",
+      "count": 1158
+    },
+    {
+      "phrase": "wildberries санкт петербург",
+      "count": 1156
+    },
+    {
+      "phrase": "официальный сайт wildberries ru личный кабинет",
+      "count": 1154
+    },
+    {
+      "phrase": "wildberries c",
+      "count": 1154
+    },
+    {
+      "phrase": "wildberries catalog search aspx search",
+      "count": 1149
+    },
+    {
+      "phrase": "wildberries старый",
+      "count": 1148
+    },
+    {
+      "phrase": "оператор wildberries",
+      "count": 1144
+    },
+    {
+      "phrase": "подарки wildberries",
+      "count": 1142
+    },
+    {
+      "phrase": "wb ru wildberries официальный сайт интернет",
+      "count": 1137
+    },
+    {
+      "phrase": "wb магазин интернет wildberries ru официальный сайт",
+      "count": 1137
+    },
+    {
+      "phrase": "wildberries сгорел",
+      "count": 1136
+    },
+    {
+      "phrase": "wildberries войти по номеру телефона",
+      "count": 1135
+    },
+    {
+      "phrase": "wildberries р",
+      "count": 1130
+    },
+    {
+      "phrase": "wildberries управление",
+      "count": 1129
+    },
+    {
+      "phrase": "школьный wildberries",
+      "count": 1126
+    },
+    {
+      "phrase": "wildberries краски",
+      "count": 1123
+    },
+    {
+      "phrase": "wildberries процент",
+      "count": 1121
+    },
+    {
+      "phrase": "собран wildberries",
+      "count": 1119
+    },
+    {
+      "phrase": "можно приложение wildberries",
+      "count": 1119
+    },
+    {
+      "phrase": "wildberries заявка на возврат",
+      "count": 1115
+    },
+    {
+      "phrase": "wildberries скидки товары",
+      "count": 1114
+    },
+    {
+      "phrase": "wildberries russ",
+      "count": 1113
+    },
+    {
+      "phrase": "wildberries рядом",
+      "count": 1110
+    },
+    {
+      "phrase": "wildberries ввел 3",
+      "count": 1107
+    },
+    {
+      "phrase": "wildberries платный",
+      "count": 1105
+    },
+    {
+      "phrase": "бесплатное приложение wildberries",
+      "count": 1105
+    },
+    {
+      "phrase": "маски wildberries",
+      "count": 1104
+    },
+    {
+      "phrase": "зайти на wildberries",
+      "count": 1096
+    },
+    {
+      "phrase": "wildberries 199",
+      "count": 1096
+    },
+    {
+      "phrase": "wildberries описание",
+      "count": 1095
+    },
+    {
+      "phrase": "слово wildberries",
+      "count": 1093
+    },
+    {
+      "phrase": "wildberries новгород",
+      "count": 1090
+    },
+    {
+      "phrase": "ким wildberries",
+      "count": 1085
+    },
+    {
+      "phrase": "первый wildberries",
+      "count": 1084
+    },
+    {
+      "phrase": "wildberries штаны",
+      "count": 1084
+    },
+    {
+      "phrase": "wildberries ru catalog 0 search aspx",
+      "count": 1081
+    },
+    {
+      "phrase": "wildberries вода",
+      "count": 1081
+    },
+    {
+      "phrase": "max wildberries",
+      "count": 1079
+    },
+    {
+      "phrase": "wildberries купить костюм",
+      "count": 1077
+    },
+    {
+      "phrase": "правильная wildberries",
+      "count": 1075
+    },
+    {
+      "phrase": "wildberries берет",
+      "count": 1074
+    },
+    {
+      "phrase": "игрушечный wildberries",
+      "count": 1073
+    },
+    {
+      "phrase": "потом wildberries",
+      "count": 1072
+    },
+    {
+      "phrase": "сумки на wildberries",
+      "count": 1072
+    },
+    {
+      "phrase": "личный кабинет wildberries войти по номеру телефона",
+      "count": 1071
+    },
+    {
+      "phrase": "wildberries интернет личный",
+      "count": 1070
+    },
+    {
+      "phrase": "каталог товаров сайта wildberries",
+      "count": 1068
+    },
+    {
+      "phrase": "wildberries идти",
+      "count": 1065
+    },
+    {
+      "phrase": "wildberries нож",
+      "count": 1063
+    },
+    {
+      "phrase": "wildberries ростов",
+      "count": 1062
+    },
+    {
+      "phrase": "wildberries ru продажи",
+      "count": 1060
+    },
+    {
+      "phrase": "wildberries кухни",
+      "count": 1059
+    },
+    {
+      "phrase": "wildberries интернет магазин личный",
+      "count": 1056
+    },
+    {
+      "phrase": "wildberries последняя версия",
+      "count": 1054
+    },
+    {
+      "phrase": "посылка через wildberries",
+      "count": 1053
+    },
+    {
+      "phrase": "wildberries basket",
+      "count": 1052
+    },
+    {
+      "phrase": "lk wildberries",
+      "count": 1048
+    },
+    {
+      "phrase": "сколько товаров на wildberries",
+      "count": 1048
+    },
+    {
+      "phrase": "сайт продаж wildberries",
+      "count": 1047
+    },
+    {
+      "phrase": "sales wildberries",
+      "count": 1044
+    },
+    {
+      "phrase": "wildberries обновить приложение",
+      "count": 1041
+    },
+    {
+      "phrase": "режим работы wildberries",
+      "count": 1040
+    },
+    {
+      "phrase": "раз wildberries",
+      "count": 1039
+    },
+    {
+      "phrase": "wildberries ближний",
+      "count": 1037
+    },
+    {
+      "phrase": "добавь wildberries",
+      "count": 1037
+    },
+    {
+      "phrase": "wildberries аккумуляторный",
+      "count": 1035
+    },
+    {
+      "phrase": "23 wildberries",
+      "count": 1034
+    },
+    {
+      "phrase": "дверь wildberries",
+      "count": 1033
+    },
+    {
+      "phrase": "уведомление wildberries",
+      "count": 1032
+    },
+    {
+      "phrase": "https wildberries ru catalog 0 search",
+      "count": 1031
+    },
+    {
+      "phrase": "wildberries название",
+      "count": 1031
+    },
+    {
+      "phrase": "wildberries каталог товаров официальный",
+      "count": 1030
+    },
+    {
+      "phrase": "магазин wildberries кабинет",
+      "count": 1029
+    },
+    {
+      "phrase": "wildberries товары и цены",
+      "count": 1028
+    },
+    {
+      "phrase": "wildberries списывает деньги",
+      "count": 1028
+    },
+    {
+      "phrase": "магазин wildberries личный кабинет",
+      "count": 1027
+    },
+    {
+      "phrase": "промокоды wildberries 2026",
+      "count": 1026
+    },
+    {
+      "phrase": "сайт wildberries интернет магазин каталог товаров",
+      "count": 1024
+    },
+    {
+      "phrase": "wildberries интернет кабинет",
+      "count": 1024
+    },
+    {
+      "phrase": "wildberries интернет личный кабинет",
+      "count": 1024
+    },
+    {
+      "phrase": "wildberries собаки",
+      "count": 1023
+    },
+    {
+      "phrase": "wildberries официальный сайт каталог товаров",
+      "count": 1021
+    },
+    {
+      "phrase": "https www wildberries ru catalog 0",
+      "count": 1018
+    },
+    {
+      "phrase": "инструкции wildberries",
+      "count": 1017
+    },
+    {
+      "phrase": "wildberries домашнее",
+      "count": 1017
+    },
+    {
+      "phrase": "айфон wildberries",
+      "count": 1016
+    },
+    {
+      "phrase": "wildberries крема",
+      "count": 1015
+    },
+    {
+      "phrase": "wildberries ну",
+      "count": 1014
+    },
+    {
+      "phrase": "wildberries интернет магазин кабинет",
+      "count": 1011
+    },
+    {
+      "phrase": "wildberries интернет магазин личный кабинет",
+      "count": 1011
+    },
+    {
+      "phrase": "wildberries вариант",
+      "count": 1011
+    },
+    {
+      "phrase": "iphone на wildberries",
+      "count": 1010
+    },
+    {
+      "phrase": "wildberries побыстрее",
+      "count": 1007
+    },
+    {
+      "phrase": "wildberries ru официальный сайт войти в личный",
+      "count": 1002
+    },
+    {
+      "phrase": "wildberries китайский",
+      "count": 1001
+    },
+    {
+      "phrase": "wildberries ru basket",
+      "count": 1000
+    },
+    {
+      "phrase": "wildberries ru сайт войти в личный кабинет",
+      "count": 1000
+    },
+    {
+      "phrase": "площадка wildberries",
+      "count": 997
+    },
+    {
+      "phrase": "wildberries 500",
+      "count": 997
+    },
+    {
+      "phrase": "wildberries интернет магазин каталог товаров официальный",
+      "count": 996
+    },
+    {
+      "phrase": "рюкзак wildberries",
+      "count": 995
+    },
+    {
+      "phrase": "wildberries можно ли заказать",
+      "count": 995
+    },
+    {
+      "phrase": "синий wildberries",
+      "count": 995
+    },
+    {
+      "phrase": "wildberries тамбовская",
+      "count": 993
+    },
+    {
+      "phrase": "wildberries каталог цены",
+      "count": 991
+    },
+    {
+      "phrase": "wildberries интернет магазин официальный сайт товары",
+      "count": 991
+    },
+    {
+      "phrase": "где товар wildberries",
+      "count": 988
+    },
+    {
+      "phrase": "wildberries интернет магазин официальный сайт каталог товаров",
+      "count": 987
+    },
+    {
+      "phrase": "wildberries самара",
+      "count": 984
+    },
+    {
+      "phrase": "wildberries web",
+      "count": 983
+    },
+    {
+      "phrase": "пункты wildberries работают",
+      "count": 982
+    },
+    {
+      "phrase": "wildberries похожие",
+      "count": 979
+    },
+    {
+      "phrase": "wildberries ванна",
+      "count": 976
+    },
+    {
+      "phrase": "wildberrie",
+      "count": 976
+    },
+    {
+      "phrase": "татьяна wildberries",
+      "count": 975
+    },
+    {
+      "phrase": "история wildberries",
+      "count": 974
+    },
+    {
+      "phrase": "чеки на wildberries",
+      "count": 974
+    },
+    {
+      "phrase": "wildberries полная версия",
+      "count": 974
+    },
+    {
+      "phrase": "wildberries wildberrie",
+      "count": 974
+    },
+    {
+      "phrase": "владелец wildberries",
+      "count": 973
+    },
+    {
+      "phrase": "wildberries рукава",
+      "count": 972
+    },
+    {
+      "phrase": "seller wildberries ru личный",
+      "count": 972
+    },
+    {
+      "phrase": "система wildberries",
+      "count": 972
+    },
+    {
+      "phrase": "скачать вб wildberries бесплатно",
+      "count": 967
+    },
+    {
+      "phrase": "wildberries озон можно",
+      "count": 966
+    },
+    {
+      "phrase": "wildberries наушники",
+      "count": 965
+    },
+    {
+      "phrase": "как отключить подписку wb wildberries",
+      "count": 964
+    },
+    {
+      "phrase": "lk wildberries ru",
+      "count": 962
+    },
+    {
+      "phrase": "wildberries интернет цена",
+      "count": 962
+    },
+    {
+      "phrase": "wildberries стекло",
+      "count": 961
+    },
+    {
+      "phrase": "wildberries com",
+      "count": 961
+    },
+    {
+      "phrase": "wildberries мм",
+      "count": 959
+    },
+    {
+      "phrase": "https wildberries ru basket",
+      "count": 958
+    },
+    {
+      "phrase": "ваза wildberries",
+      "count": 956
+    },
+    {
+      "phrase": "wildberries стол",
+      "count": 956
+    },
+    {
+      "phrase": "wildberries женщинам",
+      "count": 955
+    },
+    {
+      "phrase": "wildberries инн",
+      "count": 954
+    },
+    {
+      "phrase": "инна wildberries",
+      "count": 954
+    },
+    {
+      "phrase": "r wildberries",
+      "count": 953
+    },
+    {
+      "phrase": "wildberries поиск",
+      "count": 952
+    },
+    {
+      "phrase": "wildberries интернет магазин цены",
+      "count": 951
+    },
+    {
+      "phrase": "кожа wildberries",
+      "count": 951
+    },
+    {
+      "phrase": "правила wildberries",
+      "count": 948
+    },
+    {
+      "phrase": "wildberries pay",
+      "count": 944
+    },
+    {
+      "phrase": "ботинки wildberries",
+      "count": 944
+    },
+    {
+      "phrase": "работает ли wildberries",
+      "count": 943
+    },
+    {
+      "phrase": "wildberries поменял",
+      "count": 942
+    },
+    {
+      "phrase": "wildberries школа",
+      "count": 941
+    },
+    {
+      "phrase": "wildberries новосибирск",
+      "count": 940
+    },
+    {
+      "phrase": "колесо wildberries",
+      "count": 938
+    },
+    {
+      "phrase": "wildberries изменил",
+      "count": 937
+    },
+    {
+      "phrase": "wildberries форма",
+      "count": 931
+    },
+    {
+      "phrase": "wildberries приложение сайт",
+      "count": 931
+    },
+    {
+      "phrase": "wildberries ozon 1 1",
+      "count": 929
+    },
+    {
+      "phrase": "скачать версию wildberries",
+      "count": 929
+    },
+    {
+      "phrase": "wildberries очки",
+      "count": 928
+    },
+    {
+      "phrase": "wildberries ул ленина",
+      "count": 928
+    },
+    {
+      "phrase": "wildberries jobs",
+      "count": 927
+    },
+    {
+      "phrase": "wildberries часы работы",
+      "count": 927
+    },
+    {
+      "phrase": "wildberries партнеры",
+      "count": 925
+    },
+    {
+      "phrase": "ассортимент wildberries",
+      "count": 923
+    },
+    {
+      "phrase": "комиссия wildberries",
+      "count": 923
+    },
+    {
+      "phrase": "скачать бесплатно приложение wildberries",
+      "count": 923
+    },
+    {
+      "phrase": "wildberries тетрадь",
+      "count": 923
+    },
+    {
+      "phrase": "ип wildberries",
+      "count": 921
+    },
+    {
+      "phrase": "pro wildberries ru",
+      "count": 921
+    },
+    {
+      "phrase": "как выглядит wildberries",
+      "count": 919
+    },
+    {
+      "phrase": "типы wildberries",
+      "count": 919
+    },
+    {
+      "phrase": "wildberries нижний новгород",
+      "count": 918
+    },
+    {
+      "phrase": "wildberries служба поддержки",
+      "count": 916
+    },
+    {
+      "phrase": "wildberries оплата товара",
+      "count": 916
+    },
+    {
+      "phrase": "wildberries горит",
+      "count": 916
+    },
+    {
+      "phrase": "горящий wildberries",
+      "count": 916
+    },
+    {
+      "phrase": "горячий номер wildberries",
+      "count": 915
+    },
+    {
+      "phrase": "как отключить подписку wb клуб на wildberries",
+      "count": 914
+    },
+    {
+      "phrase": "оверсайз wildberries",
+      "count": 914
+    },
+    {
+      "phrase": "wildberries лимит",
+      "count": 912
+    },
+    {
+      "phrase": "wildberries продлить хранение",
+      "count": 911
+    },
+    {
+      "phrase": "разные wildberries",
+      "count": 910
+    },
+    {
+      "phrase": "выплаты wildberries",
+      "count": 910
+    },
+    {
+      "phrase": "6 wildberries ru",
+      "count": 905
+    },
+    {
+      "phrase": "розовый wildberries",
+      "count": 903
+    },
+    {
+      "phrase": "возврат денег wildberries",
+      "count": 902
+    },
+    {
+      "phrase": "телефон поддержки wildberries",
+      "count": 901
+    },
+    {
+      "phrase": "wildberries ru приложение",
+      "count": 901
+    },
+    {
+      "phrase": "кредит wildberries",
+      "count": 900
+    },
+    {
+      "phrase": "wildberries п",
+      "count": 897
+    },
+    {
+      "phrase": "wildberries магазины москва",
+      "count": 896
+    },
+    {
+      "phrase": "wildberries колонок",
+      "count": 894
+    },
+    {
+      "phrase": "wildberries какие склады",
+      "count": 892
+    },
+    {
+      "phrase": "хранение заказа wildberries",
+      "count": 891
+    },
+    {
+      "phrase": "wildberries нельзя",
+      "count": 890
+    },
+    {
+      "phrase": "wildberries условия",
+      "count": 889
+    },
+    {
+      "phrase": "wildberries сквиши",
+      "count": 889
+    },
+    {
+      "phrase": "найти wildberries ru",
+      "count": 888
+    },
+    {
+      "phrase": "что означает wildberries",
+      "count": 887
+    },
+    {
+      "phrase": "wildberries ru женская",
+      "count": 883
+    },
+    {
+      "phrase": "wildberries крышка",
+      "count": 883
+    },
+    {
+      "phrase": "wildberries фильтры",
+      "count": 882
+    },
+    {
+      "phrase": "триммер wildberries",
+      "count": 881
+    },
+    {
+      "phrase": "мессенджер wildberries",
+      "count": 881
+    },
+    {
+      "phrase": "wildberries можно ли оплатить",
+      "count": 881
+    },
+    {
+      "phrase": "почему товары на wildberries",
+      "count": 880
+    },
+    {
+      "phrase": "wildberries кнопки",
+      "count": 880
+    },
+    {
+      "phrase": "где приложение wildberries",
+      "count": 879
+    },
+    {
+      "phrase": "настоящий wildberries",
+      "count": 879
+    },
+    {
+      "phrase": "wildberries оферта",
+      "count": 879
+    },
+    {
+      "phrase": "wildberries ru личный кабинет войти по номеру",
+      "count": 876
+    },
+    {
+      "phrase": "подарочный сертификат wildberries",
+      "count": 876
+    },
+    {
+      "phrase": "сайт wildberries клуб",
+      "count": 873
+    },
+    {
+      "phrase": "сайт wildberries москва",
+      "count": 872
+    },
+    {
+      "phrase": "активируй wildberries",
+      "count": 871
+    },
+    {
+      "phrase": "почта wildberries",
+      "count": 866
+    },
+    {
+      "phrase": "wildberries атака на склады",
+      "count": 866
+    },
+    {
+      "phrase": "wildberries костюм женский",
+      "count": 865
+    },
+    {
+      "phrase": "оригинальный wildberries",
+      "count": 863
+    },
+    {
+      "phrase": "номер wildberries горячая линия",
+      "count": 863
+    },
+    {
+      "phrase": "магазин wildberries цены товары",
+      "count": 861
+    },
+    {
+      "phrase": "wildberries обзор",
+      "count": 860
+    },
+    {
+      "phrase": "wildberries partners",
+      "count": 859
+    },
+    {
+      "phrase": "магазин wildberries скидки",
+      "count": 858
+    },
+    {
+      "phrase": "выкупы wildberries",
+      "count": 855
+    },
+    {
+      "phrase": "программу wildberries",
+      "count": 854
+    },
+    {
+      "phrase": "много wildberries",
+      "count": 854
+    },
+    {
+      "phrase": "wildberries стиральная",
+      "count": 853
+    },
+    {
+      "phrase": "wildberries пожалуйста",
+      "count": 853
+    },
+    {
+      "phrase": "втб wildberries",
+      "count": 853
+    },
+    {
+      "phrase": "wildberries секс",
+      "count": 852
+    },
+    {
+      "phrase": "wildberries оплатить заказ",
+      "count": 852
+    },
+    {
+      "phrase": "wildberries ru вход в личный кабинет",
+      "count": 851
+    },
+    {
+      "phrase": "wildberries apk",
+      "count": 849
+    },
+    {
+      "phrase": "средство на wildberries",
+      "count": 848
+    },
+    {
+      "phrase": "wildberries договор",
+      "count": 845
+    },
+    {
+      "phrase": "wildberries ru source",
+      "count": 844
+    },
+    {
+      "phrase": "имя wildberries",
+      "count": 844
+    },
+    {
+      "phrase": "платформы wildberries",
+      "count": 844
+    },
+    {
+      "phrase": "получение товара wildberries",
+      "count": 834
+    },
+    {
+      "phrase": "wildberries бесплатный телефон",
+      "count": 833
+    },
+    {
+      "phrase": "wildberries 35",
+      "count": 832
+    },
+    {
+      "phrase": "wildberries официальный сайт москва",
+      "count": 832
+    },
+    {
+      "phrase": "можно работать на wildberries",
+      "count": 832
+    },
+    {
+      "phrase": "открыть приложение wildberries",
+      "count": 831
+    },
+    {
+      "phrase": "wildberries мобильное приложение",
+      "count": 830
+    },
+    {
+      "phrase": "магазин интернет wildberries каталог цены",
+      "count": 830
+    },
+    {
+      "phrase": "как пополнить wildberries",
+      "count": 829
+    },
+    {
+      "phrase": "wildberries пистолет",
+      "count": 829
+    },
+    {
+      "phrase": "промокод wildberries на сегодня",
+      "count": 829
+    },
+    {
+      "phrase": "й wildberries",
+      "count": 826
+    },
+    {
+      "phrase": "https wildberries личный кабинет",
+      "count": 826
+    },
+    {
+      "phrase": "wildberries коврики",
+      "count": 826
+    },
+    {
+      "phrase": "планшет на wildberries",
+      "count": 826
+    },
+    {
+      "phrase": "https pro wildberries ru",
+      "count": 825
+    },
+    {
+      "phrase": "wildberries сайт полная",
+      "count": 825
+    },
+    {
+      "phrase": "https wildberries ru личный кабинет",
+      "count": 824
+    },
+    {
+      "phrase": "wildberries зеленый",
+      "count": 823
+    },
+    {
+      "phrase": "график работы wildberries",
+      "count": 822
+    },
+    {
+      "phrase": "wildberries скачать последнюю",
+      "count": 822
+    },
+    {
+      "phrase": "wildberries резиновая",
+      "count": 818
+    },
+    {
+      "phrase": "короче wildberries",
+      "count": 817
+    },
+    {
+      "phrase": "wildberries качество",
+      "count": 816
+    },
+    {
+      "phrase": "wildberries кофты",
+      "count": 816
+    },
+    {
+      "phrase": "wildberries на русском языке",
+      "count": 816
+    },
+    {
+      "phrase": "wildberries документы",
+      "count": 815
+    },
+    {
+      "phrase": "wildberries brands",
+      "count": 813
+    },
+    {
+      "phrase": "wildberries сервис",
+      "count": 813
+    },
+    {
+      "phrase": "wildberries https wb ru",
+      "count": 812
+    },
+    {
+      "phrase": "скачать wildberries на андроид",
+      "count": 811
+    },
+    {
+      "phrase": "wildberries 2025",
+      "count": 811
+    },
+    {
+      "phrase": "wildberries пульт",
+      "count": 810
+    },
+    {
+      "phrase": "wildberries статус",
+      "count": 810
+    },
+    {
+      "phrase": "wildberries x",
+      "count": 810
+    },
+    {
+      "phrase": "wildberries тамбов",
+      "count": 809
+    },
+    {
+      "phrase": "не найду wildberries",
+      "count": 808
+    },
+    {
+      "phrase": "ооо wildberries",
+      "count": 807
+    },
+    {
+      "phrase": "сайт магазина wildberries москва",
+      "count": 805
+    },
+    {
+      "phrase": "скачать wildberries последняя версия",
+      "count": 804
+    },
+    {
+      "phrase": "wildberries card",
+      "count": 802
+    },
+    {
+      "phrase": "wildberries полная версия сайта",
+      "count": 800
+    },
+    {
+      "phrase": "wildberries интернет москва",
+      "count": 797
+    },
+    {
+      "phrase": "wildberries пылесос",
+      "count": 796
+    },
+    {
+      "phrase": "wildberries интернет магазин москва",
+      "count": 796
+    },
+    {
+      "phrase": "xiaomi wildberries",
+      "count": 795
+    },
+    {
+      "phrase": "ягодки wildberries",
+      "count": 794
+    },
+    {
+      "phrase": "карточка товара для wildberries",
+      "count": 791
+    },
+    {
+      "phrase": "wildberries проспект",
+      "count": 790
+    },
+    {
+      "phrase": "мл wildberries",
+      "count": 789
+    },
+    {
+      "phrase": "wildberries информация",
+      "count": 789
+    },
+    {
+      "phrase": "ш wildberries",
+      "count": 788
+    },
+    {
+      "phrase": "wildberries 27",
+      "count": 787
+    },
+    {
+      "phrase": "цифровой wildberries",
+      "count": 787
+    },
+    {
+      "phrase": "wildberries можно отказаться",
+      "count": 785
+    },
+    {
+      "phrase": "wildberries услуги",
+      "count": 784
+    },
+    {
+      "phrase": "8 wildberries ru",
+      "count": 783
+    },
+    {
+      "phrase": "wildberries дата",
+      "count": 782
+    },
+    {
+      "phrase": "wildberries куртку женскую",
+      "count": 780
+    },
+    {
+      "phrase": "wildberries купить дешевле",
+      "count": 779
+    },
+    {
+      "phrase": "wildberries код товара",
+      "count": 778
+    },
+    {
+      "phrase": "wildberries интернет скидка",
+      "count": 777
+    },
+    {
+      "phrase": "wildberries ru без",
+      "count": 776
+    },
+    {
+      "phrase": "wildberries мебель",
+      "count": 776
+    },
+    {
+      "phrase": "www wildberries lk",
+      "count": 776
+    },
+    {
+      "phrase": "wildberries сколько денег",
+      "count": 776
+    },
+    {
+      "phrase": "wildberries платеж",
+      "count": 775
+    },
+    {
+      "phrase": "www lk wildberries ru",
+      "count": 775
+    },
+    {
+      "phrase": "wildberries интернет магазин скидка",
+      "count": 774
+    },
+    {
+      "phrase": "wildberries поставка",
+      "count": 774
+    },
+    {
+      "phrase": "юбка wildberries",
+      "count": 774
+    },
+    {
+      "phrase": "устройство wildberries",
+      "count": 774
+    },
+    {
+      "phrase": "wildberries seller вход",
+      "count": 774
+    },
+    {
+      "phrase": "wildberries вопросы и ответы",
+      "count": 772
+    },
+    {
+      "phrase": "оформление wildberries",
+      "count": 772
+    },
+    {
+      "phrase": "сапоги wildberries",
+      "count": 772
+    },
+    {
+      "phrase": "https www wildberries ru женские",
+      "count": 772
+    },
+    {
+      "phrase": "что пришло на wildberries",
+      "count": 771
+    },
+    {
+      "phrase": "sales wildberries ru",
+      "count": 770
+    },
+    {
+      "phrase": "обычный wildberries",
+      "count": 768
+    },
+    {
+      "phrase": "wildberries кольца",
+      "count": 767
+    },
+    {
+      "phrase": "ассортимент товаров wildberries",
+      "count": 767
+    },
+    {
+      "phrase": "wildberries плюсы",
+      "count": 766
+    },
+    {
+      "phrase": "wildberries открыть пункт",
+      "count": 766
+    },
+    {
+      "phrase": "продлить хранение заказа wildberries",
+      "count": 765
+    },
+    {
+      "phrase": "можно ли через wildberries",
+      "count": 764
+    },
+    {
+      "phrase": "интернет магазин wildberries широкий",
+      "count": 764
+    },
+    {
+      "phrase": "wildberries теперь",
+      "count": 763
+    },
+    {
+      "phrase": "смешарики wildberries",
+      "count": 763
+    },
+    {
+      "phrase": "почему приложение wildberries",
+      "count": 763
+    },
+    {
+      "phrase": "wildberries кухонные",
+      "count": 763
+    },
+    {
+      "phrase": "wildberries правда",
+      "count": 762
+    },
+    {
+      "phrase": "wildberries пропало",
+      "count": 762
+    },
+    {
+      "phrase": "склады wildberries бпла",
+      "count": 759
+    },
+    {
+      "phrase": "ozon заказал wildberries",
+      "count": 759
+    },
+    {
+      "phrase": "ассортимент магазина wildberries",
+      "count": 757
+    },
+    {
+      "phrase": "google wildberries",
+      "count": 757
+    },
+    {
+      "phrase": "3 https www wildberries ru",
+      "count": 757
+    },
+    {
+      "phrase": "wildberries лист",
+      "count": 756
+    },
+    {
+      "phrase": "отчет wildberries",
+      "count": 754
+    },
+    {
+      "phrase": "wildberries отмена",
+      "count": 752
+    },
+    {
+      "phrase": "на озоне на авито на wildberries",
+      "count": 752
+    },
+    {
+      "phrase": "сайт wildberries купить",
+      "count": 750
+    },
+    {
+      "phrase": "wildberries ресейл",
+      "count": 750
+    },
+    {
+      "phrase": "л wildberries",
+      "count": 750
+    },
+    {
+      "phrase": "ищу wildberries",
+      "count": 749
+    },
+    {
+      "phrase": "описание товаров wildberries",
+      "count": 749
+    },
+    {
+      "phrase": "wildberries роботов",
+      "count": 749
+    },
+    {
+      "phrase": "wildberries продлить срок",
+      "count": 749
+    },
+    {
+      "phrase": "точку wildberries",
+      "count": 749
+    },
+    {
+      "phrase": "скидка дня wildberries",
+      "count": 747
+    },
+    {
+      "phrase": "каталог и цены магазина wildberries",
+      "count": 747
+    },
+    {
+      "phrase": "wildberries ru catalog 3",
+      "count": 747
+    },
+    {
+      "phrase": "татьяна ким wildberries",
+      "count": 747
+    },
+    {
+      "phrase": "где можно купить wildberries",
+      "count": 745
+    },
+    {
+      "phrase": "wildberries веб",
+      "count": 744
+    },
+    {
+      "phrase": "wildberries ru ozon ru",
+      "count": 744
+    },
+    {
+      "phrase": "wildberries просят",
+      "count": 743
+    },
+    {
+      "phrase": "wildberries promo",
+      "count": 741
+    },
+    {
+      "phrase": "wildberries нету",
+      "count": 741
+    },
+    {
+      "phrase": "wildberries digital",
+      "count": 741
+    },
+    {
+      "phrase": "wildberries ru скидка",
+      "count": 740
+    },
+    {
+      "phrase": "wildberries время работы",
+      "count": 740
+    },
+    {
+      "phrase": "https lk wildberries ru",
+      "count": 740
+    },
+    {
+      "phrase": "logistics wildberries",
+      "count": 739
+    },
+    {
+      "phrase": "wildberries мыло",
+      "count": 738
+    },
+    {
+      "phrase": "wildberries деревянная",
+      "count": 738
+    },
+    {
+      "phrase": "можно ли вернуть товар wildberries",
+      "count": 737
+    },
+    {
+      "phrase": "wildberries шкаф",
+      "count": 736
+    },
+    {
+      "phrase": "как перевести деньги на wildberries",
+      "count": 735
+    },
+    {
+      "phrase": "wildberries 28",
+      "count": 734
+    },
+    {
+      "phrase": "wildberries t",
+      "count": 733
+    },
+    {
+      "phrase": "wildberries резинки",
+      "count": 733
+    },
+    {
+      "phrase": "wildberries 1000",
+      "count": 732
+    },
+    {
+      "phrase": "wildberries интернет магазин официальный москва",
+      "count": 731
+    },
+    {
+      "phrase": "wildberries интернет магазин официальный сайт москва",
+      "count": 731
+    },
+    {
+      "phrase": "wildberries москва официальный сайт интернет",
+      "count": 731
+    },
+    {
+      "phrase": "wildberries для подростков",
+      "count": 731
+    },
+    {
+      "phrase": "как отключить подписку wildberries на телефоне",
+      "count": 731
+    },
+    {
+      "phrase": "список wildberries",
+      "count": 729
+    },
+    {
+      "phrase": "wildberries сказать",
+      "count": 729
+    },
+    {
+      "phrase": "wildberries в тамбовской области",
+      "count": 729
+    },
+    {
+      "phrase": "wildberries краснодар",
+      "count": 729
+    },
+    {
+      "phrase": "https www wildberries ru личный",
+      "count": 729
+    },
+    {
+      "phrase": "wildberries ru brands",
+      "count": 728
+    },
+    {
+      "phrase": "можно ли в заказе wildberries",
+      "count": 727
+    },
+    {
+      "phrase": "wildberries интернет магазин каталог товаров и цены",
+      "count": 726
+    },
+    {
+      "phrase": "магазин wildberries каталог товаров и цены",
+      "count": 726
+    },
+    {
+      "phrase": "wildberries купить резину",
+      "count": 724
+    },
+    {
+      "phrase": "wildberries зарплаты",
+      "count": 724
+    },
+    {
+      "phrase": "интернет магазин wildberries широкий ассортимент",
+      "count": 723
+    },
+    {
+      "phrase": "вещи в wildberries",
+      "count": 723
+    },
+    {
+      "phrase": "wildberries реквизиты",
+      "count": 723
+    },
+    {
+      "phrase": "выписать на wildberries",
+      "count": 723
+    },
+    {
+      "phrase": "wildberries защита",
+      "count": 722
+    },
+    {
+      "phrase": "wildberries ключи",
+      "count": 722
+    },
+    {
+      "phrase": "сколько зарабатывает wildberries",
+      "count": 722
+    },
+    {
+      "phrase": "сколько заработал wildberries",
+      "count": 722
+    },
+    {
+      "phrase": "wildberries куртки мужские",
+      "count": 722
+    },
+    {
+      "phrase": "wildberries женские зимние",
+      "count": 720
+    },
+    {
+      "phrase": "wildberries ru официальный сайт отключить",
+      "count": 720
+    },
+    {
+      "phrase": "wildberries скидки каждый день",
+      "count": 718
+    },
+    {
+      "phrase": "wildberries устроиться",
+      "count": 718
+    },
+    {
+      "phrase": "wildberries широкий ассортимент товаров",
+      "count": 718
+    },
+    {
+      "phrase": "wildberries девушки",
+      "count": 717
+    },
+    {
+      "phrase": "wildberries пришел код",
+      "count": 716
+    },
+    {
+      "phrase": "wildberries казань",
+      "count": 716
+    },
+    {
+      "phrase": "туфли wildberries",
+      "count": 713
+    },
+    {
+      "phrase": "wildberries 90",
+      "count": 713
+    },
+    {
+      "phrase": "https www wildberries ru lk",
+      "count": 713
+    },
+    {
+      "phrase": "интернет магазин wildberries ассортимент товаров",
+      "count": 712
+    },
+    {
+      "phrase": "wildberries ru официальный отключить подписку",
+      "count": 712
+    },
+    {
+      "phrase": "wb ru wildberries личный",
+      "count": 712
+    },
+    {
+      "phrase": "срок хранения заказа wildberries",
+      "count": 711
+    },
+    {
+      "phrase": "wildberries ru официальный сайт отключить подписку",
+      "count": 711
+    },
+    {
+      "phrase": "возврат через wildberries",
+      "count": 710
+    },
+    {
+      "phrase": "https www wildberries ru catalog 3",
+      "count": 710
+    },
+    {
+      "phrase": "wildberries wb кошелек",
+      "count": 709
+    },
+    {
+      "phrase": "официальный номер wildberries",
+      "count": 708
+    },
+    {
+      "phrase": "wildberries воронеж",
+      "count": 708
+    },
+    {
+      "phrase": "wildberries садовая",
+      "count": 707
+    },
+    {
+      "phrase": "телевизор на wildberries",
+      "count": 707
+    },
+    {
+      "phrase": "id wildberries ru",
+      "count": 706
+    },
+    {
+      "phrase": "wildberries запросы",
+      "count": 705
+    },
+    {
+      "phrase": "интернет магазин wildberries широкий ассортимент товаров",
+      "count": 704
+    },
+    {
+      "phrase": "брелок wildberries",
+      "count": 703
+    },
+    {
+      "phrase": "лад wildberries",
+      "count": 700
+    },
+    {
+      "phrase": "лада wildberries",
+      "count": 700
+    },
+    {
+      "phrase": "банковская карта wildberries",
+      "count": 698
+    },
+    {
+      "phrase": "как продавать на wildberries",
+      "count": 696
+    },
+    {
+      "phrase": "создание wildberries",
+      "count": 696
+    },
+    {
+      "phrase": "списание wildberries",
+      "count": 696
+    },
+    {
+      "phrase": "http wildberries",
+      "count": 695
+    },
+    {
+      "phrase": "wildberries причины",
+      "count": 694
+    },
+    {
+      "phrase": "wildberries регистрация",
+      "count": 693
+    },
+    {
+      "phrase": "wildberries косметика",
+      "count": 693
+    },
+    {
+      "phrase": "https www wildberries ru кабинет",
+      "count": 693
+    },
+    {
+      "phrase": "как закрыть wildberries",
+      "count": 691
+    },
+    {
+      "phrase": "https www wildberries ru личный кабинет",
+      "count": 691
+    },
+    {
+      "phrase": "v wildberries",
+      "count": 691
+    },
+    {
+      "phrase": "wildberries группа",
+      "count": 691
+    },
+    {
+      "phrase": "wildberries shop",
+      "count": 690
+    },
+    {
+      "phrase": "wildberries shopping",
+      "count": 690
+    },
+    {
+      "phrase": "магазин wildberries товар дня",
+      "count": 690
+    },
+    {
+      "phrase": "матрас wildberries",
+      "count": 690
+    },
+    {
+      "phrase": "wildberries пароль",
+      "count": 688
+    },
+    {
+      "phrase": "wildberries главное",
+      "count": 688
+    },
+    {
+      "phrase": "seller wildberries ru личный кабинет",
+      "count": 687
+    },
+    {
+      "phrase": "магазин www wildberries",
+      "count": 687
+    },
+    {
+      "phrase": "как вернуть товар на wildberries",
+      "count": 685
+    },
+    {
+      "phrase": "куклы на wildberries",
+      "count": 684
+    },
+    {
+      "phrase": "ванная wildberries",
+      "count": 682
+    },
+    {
+      "phrase": "wildberries штрафы",
+      "count": 682
+    },
+    {
+      "phrase": "можно ли в пункте выдачи wildberries",
+      "count": 681
+    },
+    {
+      "phrase": "какого года wildberries",
+      "count": 680
+    },
+    {
+      "phrase": "wildberries российский",
+      "count": 680
+    },
+    {
+      "phrase": "wildberries работникам",
+      "count": 679
+    },
+    {
+      "phrase": "wildberries стиль",
+      "count": 679
+    },
+    {
+      "phrase": "фотография wildberries",
+      "count": 678
+    },
+    {
+      "phrase": "wildberries вход лично номер",
+      "count": 678
+    },
+    {
+      "phrase": "wildberries личный кабинет вход по номеру",
+      "count": 676
+    },
+    {
+      "phrase": "wildberries заблокируют",
+      "count": 676
+    },
+    {
+      "phrase": "wildberries 000",
+      "count": 674
+    },
+    {
+      "phrase": "wildberries пользоваться",
+      "count": 672
+    },
+    {
+      "phrase": "купить набор wildberries",
+      "count": 670
+    },
+    {
+      "phrase": "можно ли на wildberries забрать",
+      "count": 668
+    },
+    {
+      "phrase": "доставка заказов wildberries",
+      "count": 668
+    },
+    {
+      "phrase": "магазин www wildberries ru",
+      "count": 667
+    },
+    {
+      "phrase": "найти телефон wildberries",
+      "count": 664
+    },
+    {
+      "phrase": "пожар склада wildberries",
+      "count": 663
+    },
+    {
+      "phrase": "штуки на wildberries",
+      "count": 662
+    },
+    {
+      "phrase": "топы wildberries",
+      "count": 661
+    },
+    {
+      "phrase": "склад wildberries в котовске",
+      "count": 661
+    },
+    {
+      "phrase": "wildberries ru вопросы ответы",
+      "count": 660
+    },
+    {
+      "phrase": "открытие wildberries",
+      "count": 659
+    },
+    {
+      "phrase": "wildberries сообщение",
+      "count": 659
+    },
+    {
+      "phrase": "wildberries магазин продажа",
+      "count": 656
+    },
+    {
+      "phrase": "wildberries техника",
+      "count": 656
+    },
+    {
+      "phrase": "на wildberries можно вернуть товар",
+      "count": 656
+    },
+    {
+      "phrase": "еду в wildberries",
+      "count": 655
+    },
+    {
+      "phrase": "rwb wildberries",
+      "count": 654
+    },
+    {
+      "phrase": "www wildberries ru интернет",
+      "count": 654
+    },
+    {
+      "phrase": "фотка wildberries",
+      "count": 653
+    },
+    {
+      "phrase": "озон цена wildberries",
+      "count": 653
+    },
+    {
+      "phrase": "wildberries место",
+      "count": 651
+    },
+    {
+      "phrase": "wildberries банк телефон",
+      "count": 651
+    },
+    {
+      "phrase": "wildberries просвещения",
+      "count": 649
+    },
+    {
+      "phrase": "www wildberries ru brands",
+      "count": 648
+    },
+    {
+      "phrase": "wildberry ru интернет магазин купить",
+      "count": 648
+    },
+    {
+      "phrase": "wildberries самой дешево",
+      "count": 646
+    },
+    {
+      "phrase": "категорий wildberries",
+      "count": 645
+    },
+    {
+      "phrase": "wildberries p",
+      "count": 645
+    },
+    {
+      "phrase": "wildberries закрывается",
+      "count": 645
+    },
+    {
+      "phrase": "сц wildberries",
+      "count": 644
+    },
+    {
+      "phrase": "suppliers wildberries",
+      "count": 644
+    },
+    {
+      "phrase": "wildberries ru отзыва",
+      "count": 644
+    },
+    {
+      "phrase": "wildberries мужские кроссовки",
+      "count": 643
+    },
+    {
+      "phrase": "wildberries премиум",
+      "count": 641
+    },
+    {
+      "phrase": "wildberries купить куртки",
+      "count": 641
+    },
+    {
+      "phrase": "wildberries семена",
+      "count": 641
+    },
+    {
+      "phrase": "wildberries через госуслуги",
+      "count": 641
+    },
+    {
+      "phrase": "wildberries капюшон",
+      "count": 639
+    },
+    {
+      "phrase": "как пополнить кошелек wildberries",
+      "count": 639
+    },
+    {
+      "phrase": "w wildberries",
+      "count": 638
+    },
+    {
+      "phrase": "сертификаты wildberries купить",
+      "count": 638
+    },
+    {
+      "phrase": "wildberries где склады",
+      "count": 637
+    },
+    {
+      "phrase": "как подключить wildberries",
+      "count": 637
+    },
+    {
+      "phrase": "wildberries мягкие игрушки",
+      "count": 636
+    },
+    {
+      "phrase": "выдай wildberries",
+      "count": 636
+    },
+    {
+      "phrase": "wildberries производство",
+      "count": 635
+    },
+    {
+      "phrase": "пришел заказ wildberries",
+      "count": 635
+    },
+    {
+      "phrase": "wildberries рейтинг",
+      "count": 635
+    },
+    {
+      "phrase": "wildberries уничтожен",
+      "count": 635
+    },
+    {
+      "phrase": "wildberries победа",
+      "count": 634
+    },
+    {
+      "phrase": "открыть сайт wildberries клуб",
+      "count": 634
+    },
+    {
+      "phrase": "wildberries ru карта",
+      "count": 634
+    },
+    {
+      "phrase": "wildberries октябрьское",
+      "count": 633
+    },
+    {
+      "phrase": "сгоревшие склады wildberries",
+      "count": 633
+    },
+    {
+      "phrase": "wildberries край",
+      "count": 632
+    },
+    {
+      "phrase": "logistics wildberries ru",
+      "count": 632
+    },
+    {
+      "phrase": "объекты wildberries",
+      "count": 631
+    },
+    {
+      "phrase": "wildberries 38",
+      "count": 631
+    },
+    {
+      "phrase": "беспилотник wildberries",
+      "count": 630
+    },
+    {
+      "phrase": "wildberries balance",
+      "count": 630
+    },
+    {
+      "phrase": "www wildberries ru войти",
+      "count": 629
+    },
+    {
+      "phrase": "скачать на телефон wildberries",
+      "count": 628
+    },
+    {
+      "phrase": "как переводится wildberries на русский",
+      "count": 628
+    },
+    {
+      "phrase": "купить под wildberries",
+      "count": 628
+    },
+    {
+      "phrase": "духи на wildberries",
+      "count": 627
+    },
+    {
+      "phrase": "найти номер wildberries",
+      "count": 627
+    },
+    {
+      "phrase": "wildberries кэшбэк",
+      "count": 626
+    },
+    {
+      "phrase": "wildberries советская ул",
+      "count": 626
+    },
+    {
+      "phrase": "заказать через wildberries",
+      "count": 625
+    },
+    {
+      "phrase": "тысяча wildberries",
+      "count": 625
+    },
+    {
+      "phrase": "wildberries ошибка",
+      "count": 625
+    },
+    {
+      "phrase": "самокаты wildberries",
+      "count": 625
+    },
+    {
+      "phrase": "wildberries гагарин",
+      "count": 625
+    },
+    {
+      "phrase": "wildberries официальный телефон",
+      "count": 625
+    },
+    {
+      "phrase": "обновление wildberries",
+      "count": 624
+    },
+    {
+      "phrase": "https www wildberries ru brands",
+      "count": 623
+    },
+    {
+      "phrase": "ultras wildberries",
+      "count": 623
+    },
+    {
+      "phrase": "со скольки лет wildberries",
+      "count": 623
+    },
+    {
+      "phrase": "club wildberries",
+      "count": 621
+    },
+    {
+      "phrase": "https www wildberries ru 6",
+      "count": 621
+    },
+    {
+      "phrase": "wildberries постельное",
+      "count": 621
+    },
+    {
+      "phrase": "wildberries вход по телефону",
+      "count": 620
+    },
+    {
+      "phrase": "диваны на wildberries",
+      "count": 619
+    },
+    {
+      "phrase": "wildberries экраны",
+      "count": 619
+    },
+    {
+      "phrase": "бокс wildberries",
+      "count": 619
+    },
+    {
+      "phrase": "wildberries страна",
+      "count": 617
+    },
+    {
+      "phrase": "wildberries панель",
+      "count": 617
+    },
+    {
+      "phrase": "wildberries 199 рублей",
+      "count": 616
+    },
+    {
+      "phrase": "seller wildberries вход в личный",
+      "count": 616
+    },
+    {
+      "phrase": "доступ к wildberries",
+      "count": 616
+    },
+    {
+      "phrase": "wildberries результаты",
+      "count": 615
+    },
+    {
+      "phrase": "wildberries приставка",
+      "count": 615
+    },
+    {
+      "phrase": "где на wildberries посмотреть",
+      "count": 614
+    },
+    {
+      "phrase": "купить телефон на wildberries",
+      "count": 613
+    },
+    {
+      "phrase": "wildberries настойка",
+      "count": 613
+    },
+    {
+      "phrase": "10 лет wildberries",
+      "count": 612
+    },
+    {
+      "phrase": "как узнать на wildberries",
+      "count": 611
+    },
+    {
+      "phrase": "wildberries работа на складе",
+      "count": 610
+    },
+    {
+      "phrase": "распаковка с wildberries",
+      "count": 610
+    },
+    {
+      "phrase": "что можно купить на wildberries",
+      "count": 609
+    },
+    {
+      "phrase": "wildberries вход по номеру телефона",
+      "count": 609
+    },
+    {
+      "phrase": "удары по wildberries",
+      "count": 609
+    },
+    {
+      "phrase": "wildberries yandex",
+      "count": 607
+    },
+    {
+      "phrase": "wildberries купить автомобиль",
+      "count": 606
+    },
+    {
+      "phrase": "wildberries женский брюки",
+      "count": 606
+    },
+    {
+      "phrase": "офис wildberries",
+      "count": 605
+    },
+    {
+      "phrase": "wildberries не пришел товар",
+      "count": 605
+    },
+    {
+      "phrase": "wildberries светильники",
+      "count": 605
+    },
+    {
+      "phrase": "заказ через wildberries",
+      "count": 604
+    },
+    {
+      "phrase": "wildberries саратов",
+      "count": 604
+    },
+    {
+      "phrase": "адреса складов wildberries",
+      "count": 604
+    },
+    {
+      "phrase": "как оформить возврат на wildberries",
+      "count": 604
+    },
+    {
+      "phrase": "wildberries киров",
+      "count": 604
+    },
+    {
+      "phrase": "wildberries заказ курьера",
+      "count": 601
+    },
+    {
+      "phrase": "wildberries с английского на русский",
+      "count": 601
+    },
+    {
+      "phrase": "wildberries сборки",
+      "count": 601
+    },
+    {
+      "phrase": "три wildberries",
+      "count": 601
+    },
+    {
+      "phrase": "wildberries паспорту",
+      "count": 601
+    },
+    {
+      "phrase": "wildberries am",
+      "count": 600
+    },
+    {
+      "phrase": "wildberries говорю",
+      "count": 600
+    },
+    {
+      "phrase": "pvz wildberries",
+      "count": 600
+    },
+    {
+      "phrase": "wildberries номер поддержки",
+      "count": 598
+    },
+    {
+      "phrase": "wildberries пижамы",
+      "count": 597
+    },
+    {
+      "phrase": "оборот wildberries",
+      "count": 596
+    },
+    {
+      "phrase": "www wb ru wildberries",
+      "count": 596
+    },
+    {
+      "phrase": "шуруповерт на wildberries",
+      "count": 596
+    },
+    {
+      "phrase": "арты wildberries",
+      "count": 595
+    },
+    {
+      "phrase": "зимняя куртка wildberries",
+      "count": 595
+    },
+    {
+      "phrase": "продлить заказ в wildberries",
+      "count": 594
+    },
+    {
+      "phrase": "логотип wildberries",
+      "count": 594
+    },
+    {
+      "phrase": "wildberries store",
+      "count": 594
+    },
+    {
+      "phrase": "wildberries ru 7",
+      "count": 593
+    },
+    {
+      "phrase": "пункты возврата wildberries",
+      "count": 593
+    },
+    {
+      "phrase": "wildberries зимняя резина",
+      "count": 592
+    },
+    {
+      "phrase": "m wildberries",
+      "count": 591
+    },
+    {
+      "phrase": "как отправить через wildberries",
+      "count": 591
+    },
+    {
+      "phrase": "wildberries атакуют",
+      "count": 591
+    },
+    {
+      "phrase": "wildberries кофе",
+      "count": 590
+    },
+    {
+      "phrase": "заказать карту wildberries",
+      "count": 590
+    },
+    {
+      "phrase": "пила wildberries",
+      "count": 589
+    },
+    {
+      "phrase": "wildberries для кошек",
+      "count": 588
+    },
+    {
+      "phrase": "wildberries сетка",
+      "count": 588
+    },
+    {
+      "phrase": "wildberries личный кабинет вход по телефону",
+      "count": 588
+    },
+    {
+      "phrase": "центральный wildberries",
+      "count": 587
+    },
+    {
+      "phrase": "насос wildberries",
+      "count": 587
+    },
+    {
+      "phrase": "wildberries оплата картой",
+      "count": 587
+    },
+    {
+      "phrase": "wildberries личный вход по номеру телефона",
+      "count": 587
+    },
+    {
+      "phrase": "wildberries личный кабинет вход по номеру телефона",
+      "count": 587
+    },
+    {
+      "phrase": "wildberries номер телефона горячей",
+      "count": 586
+    },
+    {
+      "phrase": "wildberries ru фото",
+      "count": 585
+    },
+    {
+      "phrase": "открыт пункт выдачи wildberries",
+      "count": 585
+    },
+    {
+      "phrase": "wildberries redmi",
+      "count": 585
+    },
+    {
+      "phrase": "wildberries пр",
+      "count": 585
+    },
+    {
+      "phrase": "wildberries оригинал",
+      "count": 585
+    },
+    {
+      "phrase": "открыть пункт выдачи wildberries",
+      "count": 582
+    },
+    {
+      "phrase": "https www wildberries ru basket",
+      "count": 581
+    },
+    {
+      "phrase": "водитель wildberries",
+      "count": 581
+    },
+    {
+      "phrase": "постельное белье wildberries",
+      "count": 580
+    },
+    {
+      "phrase": "wildberries браслеты",
+      "count": 580
+    },
+    {
+      "phrase": "wildberries светодиодный",
+      "count": 579
+    },
+    {
+      "phrase": "молния wildberries",
+      "count": 579
+    },
+    {
+      "phrase": "wildberries таблетки",
+      "count": 578
+    },
+    {
+      "phrase": "wildberries сигареты",
+      "count": 578
+    },
+    {
+      "phrase": "знак wildberries",
+      "count": 578
+    },
+    {
+      "phrase": "wildberries ковров",
+      "count": 578
+    },
+    {
+      "phrase": "wildberries ру",
+      "count": 576
+    },
+    {
+      "phrase": "шапка wildberries",
+      "count": 576
+    },
+    {
+      "phrase": "wildberries насадки",
+      "count": 575
+    },
+    {
+      "phrase": "wildberries ru интернет магазин скидки",
+      "count": 575
+    },
+    {
+      "phrase": "wildberries покупка товаров",
+      "count": 575
+    },
+    {
+      "phrase": "wildberries можно ли отказаться",
+      "count": 574
+    },
+    {
+      "phrase": "wildberries телеграм",
+      "count": 574
+    },
+    {
+      "phrase": "wildberries сбер",
+      "count": 574
+    },
+    {
+      "phrase": "www wildberries ru кабинет войти",
+      "count": 574
+    },
+    {
+      "phrase": "www wildberries ru личный кабинет войти",
+      "count": 574
+    },
+    {
+      "phrase": "wildberries ozon 3",
+      "count": 573
+    },
+    {
+      "phrase": "площадь wildberries",
+      "count": 572
+    },
+    {
+      "phrase": "lego на wildberries",
+      "count": 571
+    },
+    {
+      "phrase": "отгрузки wildberries",
+      "count": 569
+    },
+    {
+      "phrase": "покажи цены на wildberries",
+      "count": 569
+    },
+    {
+      "phrase": "wildberries huawei",
+      "count": 568
+    },
+    {
+      "phrase": "wildberries сайт вход",
+      "count": 568
+    },
+    {
+      "phrase": "www wildberries ru интернет магазин",
+      "count": 568
+    },
+    {
+      "phrase": "wildberries рвб",
+      "count": 568
+    },
+    {
+      "phrase": "на wildberries пластиковая",
+      "count": 568
+    },
+    {
+      "phrase": "шорты wildberries",
+      "count": 568
+    },
+    {
+      "phrase": "как отменить заказ на wildberries",
+      "count": 567
+    },
+    {
+      "phrase": "wildberries настольный",
+      "count": 567
+    },
+    {
+      "phrase": "global wildberries ru",
+      "count": 566
+    },
+    {
+      "phrase": "wildberries vk",
+      "count": 566
+    },
+    {
+      "phrase": "http wildberries ru",
+      "count": 563
+    },
+    {
+      "phrase": "wildberries лампы",
+      "count": 563
+    },
+    {
+      "phrase": "покажи озон wildberries",
+      "count": 562
+    },
+    {
+      "phrase": "wildberries b",
+      "count": 562
+    },
+    {
+      "phrase": "официальный номер телефона wildberries",
+      "count": 562
+    },
+    {
+      "phrase": "wildberries инструменты",
+      "count": 561
+    },
+    {
+      "phrase": "wildberries 149",
+      "count": 559
+    },
+    {
+      "phrase": "wildberries номер телефона горячей линии",
+      "count": 559
+    },
+    {
+      "phrase": "лет можно работать на wildberries",
+      "count": 558
+    },
+    {
+      "phrase": "купить через wildberries",
+      "count": 557
+    },
+    {
+      "phrase": "интернет продажи wildberries",
+      "count": 557
+    },
+    {
+      "phrase": "найти приложение wildberries",
+      "count": 556
+    },
+    {
+      "phrase": "скачать вб wildberries последняя",
+      "count": 555
+    },
+    {
+      "phrase": "traveling wildberries",
+      "count": 554
+    },
+    {
+      "phrase": "wildberries travel",
+      "count": 554
+    },
+    {
+      "phrase": "wildberries если не подошло",
+      "count": 554
+    },
+    {
+      "phrase": "wb https www wildberries ru",
+      "count": 554
+    },
+    {
+      "phrase": "скачать вб wildberries последняя версия",
+      "count": 554
+    },
+    {
+      "phrase": "wildberries не приходит товар",
+      "count": 554
+    },
+    {
+      "phrase": "wildberries удаленно",
+      "count": 554
+    },
+    {
+      "phrase": "wildberries официальный сайт телефон",
+      "count": 554
+    },
+    {
+      "phrase": "wildberries фонари",
+      "count": 554
+    },
+    {
+      "phrase": "номер приложения wildberries",
+      "count": 553
+    },
+    {
+      "phrase": "велосипеды на wildberries",
+      "count": 553
+    },
+    {
+      "phrase": "wildberries шампунь",
+      "count": 553
+    },
+    {
+      "phrase": "wildberries проблемы",
+      "count": 551
+    },
+    {
+      "phrase": "отправка wildberries",
+      "count": 551
+    },
+    {
+      "phrase": "wildberries не открывается",
+      "count": 551
+    },
+    {
+      "phrase": "запусти wildberries",
+      "count": 550
+    },
+    {
+      "phrase": "wildberries предложи",
+      "count": 550
+    },
+    {
+      "phrase": "seller wildberries вход в личный кабинет",
+      "count": 549
+    },
+    {
+      "phrase": "wildberries большие размеры женские",
+      "count": 549
+    },
+    {
+      "phrase": "реальный wildberries",
+      "count": 548
+    },
+    {
+      "phrase": "wildberries ru широкий ассортимент",
+      "count": 548
+    },
+    {
+      "phrase": "замок wildberries",
+      "count": 548
+    },
+    {
+      "phrase": "wildberries клей",
+      "count": 547
+    },
+    {
+      "phrase": "ленты wildberries",
+      "count": 547
+    },
+    {
+      "phrase": "suppliers wildberries ru",
+      "count": 547
+    },
+    {
+      "phrase": "адреса пунктов wildberries",
+      "count": 547
+    },
+    {
+      "phrase": "день рождения wildberries",
+      "count": 546
+    },
+    {
+      "phrase": "avito wildberries",
+      "count": 546
+    },
+    {
+      "phrase": "худи wildberries",
+      "count": 546
+    },
+    {
+      "phrase": "начать на wildberries",
+      "count": 544
+    },
+    {
+      "phrase": "каналы wildberries",
+      "count": 544
+    },
+    {
+      "phrase": "wildberries генератор",
+      "count": 543
+    },
+    {
+      "phrase": "balance pay wildberries",
+      "count": 542
+    },
+    {
+      "phrase": "заказать доставку wildberries",
+      "count": 542
+    },
+    {
+      "phrase": "wildberries интернет магазин продажа",
+      "count": 541
+    },
+    {
+      "phrase": "wildberries пеналы",
+      "count": 541
+    },
+    {
+      "phrase": "wildberries московская область",
+      "count": 540
+    },
+    {
+      "phrase": "wildberries стул",
+      "count": 540
+    },
+    {
+      "phrase": "код в приложении wildberries",
+      "count": 539
+    },
+    {
+      "phrase": "wildberries последние новости",
+      "count": 539
+    },
+    {
+      "phrase": "мобильный сайт wildberries",
+      "count": 539
+    },
+    {
+      "phrase": "поставь wildberries",
+      "count": 536
+    },
+    {
+      "phrase": "wildberries паспортные данные",
+      "count": 535
+    },
+    {
+      "phrase": "принтер wildberries",
+      "count": 534
+    },
+    {
+      "phrase": "wildberries баланс",
+      "count": 534
+    },
+    {
+      "phrase": "wildberries ru wildberries ru детские",
+      "count": 533
+    },
+    {
+      "phrase": "ногти wildberries",
+      "count": 533
+    },
+    {
+      "phrase": "зарядка wildberries",
+      "count": 533
+    },
+    {
+      "phrase": "широкий ассортимент товаров wildberries ru",
+      "count": 533
+    },
+    {
+      "phrase": "wildberries возможности",
+      "count": 530
+    },
+    {
+      "phrase": "газель wildberries",
+      "count": 530
+    },
+    {
+      "phrase": "wildberries ru кроссовки",
+      "count": 529
+    },
+    {
+      "phrase": "какие пункты выдачи wildberries",
+      "count": 529
+    },
+    {
+      "phrase": "магнит wildberries",
+      "count": 529
+    },
+    {
+      "phrase": "wildberries рост",
+      "count": 529
+    },
+    {
+      "phrase": "е wildberries",
+      "count": 529
+    },
+    {
+      "phrase": "карточка wildberries ozon",
+      "count": 528
+    },
+    {
+      "phrase": "wildberries медицинская",
+      "count": 527
+    },
+    {
+      "phrase": "wildberries не платит",
+      "count": 527
+    },
+    {
+      "phrase": "wildberries yandex ru",
+      "count": 527
+    },
+    {
+      "phrase": "во сколько открывается wildberries",
+      "count": 526
+    },
+    {
+      "phrase": "wildberries 75",
+      "count": 526
+    },
+    {
+      "phrase": "купить аккумулятор на wildberries",
+      "count": 525
+    },
+    {
+      "phrase": "зоны wildberries",
+      "count": 525
+    },
+    {
+      "phrase": "wildberries лада купить",
+      "count": 524
+    },
+    {
+      "phrase": "wildberries интернет магазин женское женские",
+      "count": 522
+    },
+    {
+      "phrase": "wildberries подставки",
+      "count": 522
+    },
+    {
+      "phrase": "распродажа на wildberries",
+      "count": 521
+    },
+    {
+      "phrase": "wildberries com ru",
+      "count": 521
+    },
+    {
+      "phrase": "wildberries помощь",
+      "count": 521
+    },
+    {
+      "phrase": "wildberries упаковка товара",
+      "count": 520
+    },
+    {
+      "phrase": "сделали ли wildberries",
+      "count": 520
+    },
+    {
+      "phrase": "берите на wildberries",
+      "count": 519
+    },
+    {
+      "phrase": "wildberries корм",
+      "count": 519
+    },
+    {
+      "phrase": "натуральный на wildberries",
+      "count": 518
+    },
+    {
+      "phrase": "wildberries доход",
+      "count": 518
+    },
+    {
+      "phrase": "wildberries ночью",
+      "count": 517
+    },
+    {
+      "phrase": "wildberries торговая",
+      "count": 517
+    },
+    {
+      "phrase": "можно ли купить на wildberries",
+      "count": 517
+    },
+    {
+      "phrase": "чат продавца wildberries",
+      "count": 516
+    },
+    {
+      "phrase": "wildberries пере",
+      "count": 516
+    },
+    {
+      "phrase": "wildberries кресло",
+      "count": 516
+    },
+    {
+      "phrase": "wildberries электросталь",
+      "count": 516
+    },
+    {
+      "phrase": "как вывести деньги с wildberries",
+      "count": 514
+    },
+    {
+      "phrase": "wildberries низкие цены",
+      "count": 514
+    },
+    {
+      "phrase": "интернет магазин wildberries catalog",
+      "count": 514
+    },
+    {
+      "phrase": "wildberries логистика",
+      "count": 514
+    },
+    {
+      "phrase": "wildberries стиральная машина",
+      "count": 514
+    },
+    {
+      "phrase": "wildberries ru каталог",
+      "count": 513
+    },
+    {
+      "phrase": "wildberries ru личный кабинет вход по номеру",
+      "count": 513
+    },
+    {
+      "phrase": "wildberries ru s",
+      "count": 512
+    },
+    {
+      "phrase": "wildberries service",
+      "count": 512
+    },
+    {
+      "phrase": "дорогой на wildberries",
+      "count": 512
+    },
+    {
+      "phrase": "wildberries магазин нижний новгород",
+      "count": 512
+    },
+    {
+      "phrase": "wildberries интернет магазин нижний",
+      "count": 512
+    },
+    {
+      "phrase": "почему не работает wildberries",
+      "count": 511
+    },
+    {
+      "phrase": "wildberries государство",
+      "count": 511
+    },
+    {
+      "phrase": "wildberries wildberries плита плита",
+      "count": 511
+    },
+    {
+      "phrase": "wildberries tags",
+      "count": 511
+    },
+    {
+      "phrase": "wildberries предпринимателям",
+      "count": 510
+    },
+    {
+      "phrase": "wildberries chat",
+      "count": 510
+    },
+    {
+      "phrase": "проверки wildberries",
+      "count": 510
+    },
+    {
+      "phrase": "wildberries android",
+      "count": 510
+    },
+    {
+      "phrase": "wildberries аналитика",
+      "count": 510
+    },
+    {
+      "phrase": "аналитики wildberries",
+      "count": 510
+    },
+    {
+      "phrase": "пункты выдачи возврата wildberries",
+      "count": 509
+    },
+    {
+      "phrase": "wildberries ru реклама",
+      "count": 509
+    },
+    {
+      "phrase": "wildberries брак товара",
+      "count": 508
+    },
+    {
+      "phrase": "покажи картинки wildberries",
+      "count": 507
+    },
+    {
+      "phrase": "wildberries сколько возврат",
+      "count": 507
+    },
+    {
+      "phrase": "wildberries заказы приходят",
+      "count": 507
+    },
+    {
+      "phrase": "сколько хранится wildberries",
+      "count": 507
+    },
+    {
+      "phrase": "оформить заявку на wildberries",
+      "count": 507
+    },
+    {
+      "phrase": "пути wildberries",
+      "count": 506
+    },
+    {
+      "phrase": "wildberries интернет магазин нижний новгород",
+      "count": 505
+    },
+    {
+      "phrase": "wildberries интернет нижний новгород",
+      "count": 505
+    },
+    {
+      "phrase": "интернет магазин wildberries ru catalog",
+      "count": 505
+    },
+    {
+      "phrase": "play wildberries",
+      "count": 504
+    },
+    {
+      "phrase": "номер телефона официального сайта wildberries",
+      "count": 504
+    },
+    {
+      "phrase": "wildberries 00",
+      "count": 504
+    },
+    {
+      "phrase": "wildberries после атаки",
+      "count": 504
+    },
+    {
+      "phrase": "1с wildberries",
+      "count": 503
+    },
+    {
+      "phrase": "https www wildberries ru кроссовки",
+      "count": 503
+    },
+    {
+      "phrase": "wildberries мобильный браузер",
+      "count": 502
+    },
+    {
+      "phrase": "digital wildberries ru",
+      "count": 502
+    },
+    {
+      "phrase": "цветы на wildberries",
+      "count": 502
+    },
+    {
+      "phrase": "wildberries товар принят",
+      "count": 502
+    },
+    {
+      "phrase": "wildberries зимняя мужская",
+      "count": 501
+    },
+    {
+      "phrase": "wildberries картины",
+      "count": 501
+    },
+    {
+      "phrase": "pop wildberries",
+      "count": 500
+    },
+    {
+      "phrase": "официальная версия wildberries",
+      "count": 499
+    },
+    {
+      "phrase": "трансформеры wildberries",
+      "count": 498
+    },
+    {
+      "phrase": "wildberries тула",
+      "count": 497
+    },
+    {
+      "phrase": "на wildberries 4 в 1",
+      "count": 497
+    },
+    {
+      "phrase": "wildberries купить сейчас",
+      "count": 496
+    },
+    {
+      "phrase": "wildberries популярное",
+      "count": 496
+    },
+    {
+      "phrase": "wildberries округ",
+      "count": 496
+    },
+    {
+      "phrase": "www wildberries ru телефоны",
+      "count": 495
+    },
+    {
+      "phrase": "wildberries велики",
+      "count": 494
+    },
+    {
+      "phrase": "склад wildberries города",
+      "count": 494
+    },
+    {
+      "phrase": "номер wildberries банк",
+      "count": 494
+    },
+    {
+      "phrase": "пострадавшие склады wildberries",
+      "count": 494
+    },
+    {
+      "phrase": "wildberries красноярск",
+      "count": 494
+    },
+    {
+      "phrase": "электросамокат на wildberries",
+      "count": 493
+    },
+    {
+      "phrase": "купить книги wildberries",
+      "count": 493
+    },
+    {
+      "phrase": "wildberries волгоград",
+      "count": 492
+    },
+    {
+      "phrase": "wildberries контакты",
+      "count": 492
+    },
+    {
+      "phrase": "wildberries чехлы купить",
+      "count": 492
+    },
+    {
+      "phrase": "купить диски wildberries",
+      "count": 492
+    },
+    {
+      "phrase": "wildberries рф",
+      "count": 492
+    },
+    {
+      "phrase": "wildberries чайник",
+      "count": 490
+    },
+    {
+      "phrase": "wildberries если не забрал товар",
+      "count": 490
+    },
+    {
+      "phrase": "премиум wildberries ru",
+      "count": 490
+    },
+    {
+      "phrase": "wildberries выплатит",
+      "count": 489
+    },
+    {
+      "phrase": "wildberries зима",
+      "count": 489
+    },
+    {
+      "phrase": "официальная версия сайта wildberries",
+      "count": 489
+    },
+    {
+      "phrase": "техподдержка wildberries",
+      "count": 488
+    },
+    {
+      "phrase": "https www wildberries ru c",
+      "count": 488
+    },
+    {
+      "phrase": "корпус wildberries",
+      "count": 488
+    },
+    {
+      "phrase": "открыть пвз wildberries",
+      "count": 487
+    },
+    {
+      "phrase": "wildberries ru смартфоны",
+      "count": 487
+    },
+    {
+      "phrase": "wildberries списали 199",
+      "count": 487
+    },
+    {
+      "phrase": "wildberries х",
+      "count": 486
+    },
+    {
+      "phrase": "2 магазин wildberries",
+      "count": 486
+    },
+    {
+      "phrase": "wildberries склад работать",
+      "count": 485
+    },
+    {
+      "phrase": "профиль wildberries найти",
+      "count": 485
+    },
+    {
+      "phrase": "сайт wildberries в мобильном браузере",
+      "count": 485
+    },
+    {
+      "phrase": "wildberries компьютерная",
+      "count": 485
+    },
+    {
+      "phrase": "wildberries обучения",
+      "count": 484
+    },
+    {
+      "phrase": "какие работает wildberries",
+      "count": 482
+    },
+    {
+      "phrase": "центр wildberries в котовске",
+      "count": 482
+    },
+    {
+      "phrase": "паста wildberries",
+      "count": 482
+    },
+    {
+      "phrase": "как отключить подписку в приложении wildberries",
+      "count": 481
+    },
+    {
+      "phrase": "wildberries носки",
+      "count": 481
+    },
+    {
+      "phrase": "примера wildberries",
+      "count": 481
+    },
+    {
+      "phrase": "номер телефона приложения wildberries",
+      "count": 480
+    },
+    {
+      "phrase": "склад wildberries видео",
+      "count": 480
+    },
+    {
+      "phrase": "магазин wildberries самара",
+      "count": 479
+    },
+    {
+      "phrase": "wildberries владимир",
+      "count": 479
+    },
+    {
+      "phrase": "wildberries скачать приложение на андроид",
+      "count": 479
+    },
+    {
+      "phrase": "wildberries животные",
+      "count": 479
+    },
+    {
+      "phrase": "кровати на wildberries",
+      "count": 478
+    },
+    {
+      "phrase": "wildberries ru описание товара",
+      "count": 477
+    },
+    {
+      "phrase": "wildberries rus",
+      "count": 477
+    },
+    {
+      "phrase": "wildberries marketplace",
+      "count": 477
+    },
+    {
+      "phrase": "wildberries чай",
+      "count": 476
+    },
+    {
+      "phrase": "wildberries склад екатеринбург",
+      "count": 475
+    },
+    {
+      "phrase": "купить масло на wildberries",
+      "count": 475
+    },
+    {
+      "phrase": "сотрудники пвз wildberries",
+      "count": 475
+    },
+    {
+      "phrase": "как можно найти wildberries",
+      "count": 475
+    },
+    {
+      "phrase": "wildberries катушки",
+      "count": 474
+    },
+    {
+      "phrase": "купить двигатель на wildberries",
+      "count": 474
+    },
+    {
+      "phrase": "wildberries омск",
+      "count": 474
+    },
+    {
+      "phrase": "wildberries задерживает",
+      "count": 474
+    },
+    {
+      "phrase": "оценить wildberries",
+      "count": 473
+    },
+    {
+      "phrase": "wildberries стена",
+      "count": 472
+    },
+    {
+      "phrase": "wildberries ru джинсы",
+      "count": 472
+    },
+    {
+      "phrase": "wildberries хранение товара",
+      "count": 471
+    },
+    {
+      "phrase": "wildberries получение заказов",
+      "count": 471
+    },
+    {
+      "phrase": "wildberries вк",
+      "count": 470
+    },
+    {
+      "phrase": "wildberries купить игрушку",
+      "count": 470
+    },
+    {
+      "phrase": "загрузить wildberries",
+      "count": 470
+    },
+    {
+      "phrase": "wildberries ru брюки",
+      "count": 470
+    },
+    {
+      "phrase": "можно возврат на wildberries",
+      "count": 469
+    },
+    {
+      "phrase": "wildberries газ",
+      "count": 468
+    },
+    {
+      "phrase": "wildberries продукты",
+      "count": 468
+    },
+    {
+      "phrase": "wildberries app",
+      "count": 468
+    },
+    {
+      "phrase": "как связаться с wildberries",
+      "count": 468
+    },
+    {
+      "phrase": "wildberries на андроид бесплатно",
+      "count": 468
+    },
+    {
+      "phrase": "wildberries за рубежом",
+      "count": 467
+    },
+    {
+      "phrase": "мотоцикл на wildberries",
+      "count": 467
+    },
+    {
+      "phrase": "оценка wildberries",
+      "count": 467
+    },
+    {
+      "phrase": "wildberries темные",
+      "count": 466
+    },
+    {
+      "phrase": "wildberries не подошел товар",
+      "count": 466
+    },
+    {
+      "phrase": "wildberries налог",
+      "count": 465
+    },
+    {
+      "phrase": "скачать русский wildberries",
+      "count": 465
+    },
+    {
+      "phrase": "playstation wildberries",
+      "count": 465
+    },
+    {
+      "phrase": "покажите wildberries заказать",
+      "count": 465
+    },
+    {
+      "phrase": "wildberries оплата заказа",
+      "count": 464
+    },
+    {
+      "phrase": "wildberries ozon можно ли",
+      "count": 462
+    },
+    {
+      "phrase": "смс wildberries",
+      "count": 462
+    },
+    {
+      "phrase": "wildberries кошелек вывести",
+      "count": 462
+    },
+    {
+      "phrase": "мобильные телефоны на wildberries",
+      "count": 461
+    },
+    {
+      "phrase": "пиджак wildberries",
+      "count": 461
+    },
+    {
+      "phrase": "wildberries призы",
+      "count": 461
+    },
+    {
+      "phrase": "отзыв пункт выдачи wildberries",
+      "count": 461
+    },
+    {
+      "phrase": "wildberries интернет магазин самара",
+      "count": 461
+    },
+    {
+      "phrase": "wildberries интернет самара",
+      "count": 461
+    },
+    {
+      "phrase": "как позвонить в wildberries",
+      "count": 460
+    },
+    {
+      "phrase": "galaxy wildberries",
+      "count": 459
+    },
+    {
+      "phrase": "выбор wildberries",
+      "count": 459
+    },
+    {
+      "phrase": "холодильники на wildberries",
+      "count": 459
+    },
+    {
+      "phrase": "как отправить посылку через wildberries",
+      "count": 458
+    },
+    {
+      "phrase": "wildberries товар отменен",
+      "count": 457
+    },
+    {
+      "phrase": "логистический центр wildberries в котовске",
+      "count": 457
+    },
+    {
+      "phrase": "wildberries выбрать товар",
+      "count": 457
+    },
+    {
+      "phrase": "демисезонный куртка wildberries",
+      "count": 456
+    },
+    {
+      "phrase": "что можно заказать на wildberries",
+      "count": 456
+    },
+    {
+      "phrase": "wildberries сети",
+      "count": 456
+    },
+    {
+      "phrase": "как заказать товар на wildberries",
+      "count": 456
+    },
+    {
+      "phrase": "wildberries рыбалка",
+      "count": 456
+    },
+    {
+      "phrase": "стойка wildberries",
+      "count": 455
+    },
+    {
+      "phrase": "wildberries банк горячая линия",
+      "count": 455
+    },
+    {
+      "phrase": "wildberries кошелек приложение",
+      "count": 454
+    },
+    {
+      "phrase": "wildberries сайт пк",
+      "count": 454
+    },
+    {
+      "phrase": "смартфон www wildberries ru",
+      "count": 453
+    },
+    {
+      "phrase": "макс wildberries",
+      "count": 453
+    },
+    {
+      "phrase": "wildberries пострадал",
+      "count": 453
+    },
+    {
+      "phrase": "щетки wildberries",
+      "count": 452
+    },
+    {
+      "phrase": "как отключить подписку wildberries клуб на сайте",
+      "count": 452
+    },
+    {
+      "phrase": "wildberries рынок",
+      "count": 452
+    },
+    {
+      "phrase": "20 wildberries ru",
+      "count": 451
+    },
+    {
+      "phrase": "купить на wildberries летние",
+      "count": 451
+    },
+    {
+      "phrase": "wildberries модный",
+      "count": 451
+    },
+    {
+      "phrase": "wildberries ru вход по номеру телефона",
+      "count": 450
+    },
+    {
+      "phrase": "wildberries помогаем",
+      "count": 450
+    },
+    {
+      "phrase": "wildberries уходит",
+      "count": 450
+    },
+    {
+      "phrase": "fbs wildberries что это",
+      "count": 450
+    },
+    {
+      "phrase": "wildberries рязань",
+      "count": 449
+    },
+    {
+      "phrase": "wildberries магазины телефонов",
+      "count": 449
+    },
+    {
+      "phrase": "как в приложении wildberries отключить клуб",
+      "count": 449
+    },
+    {
+      "phrase": "wildberries на дону",
+      "count": 449
+    },
+    {
+      "phrase": "wildberries безопасные",
+      "count": 449
+    },
+    {
+      "phrase": "мотор wildberries",
+      "count": 449
+    },
+    {
+      "phrase": "wildberries 1 сентября",
+      "count": 449
+    },
+    {
+      "phrase": "wildberries пер",
+      "count": 448
+    },
+    {
+      "phrase": "картинка цена wildberries",
+      "count": 448
+    },
+    {
+      "phrase": "работа wildberries ozon",
+      "count": 447
+    },
+    {
+      "phrase": "wildberry табак",
+      "count": 447
+    },
+    {
+      "phrase": "оплата wildberries кошельком",
+      "count": 447
+    },
+    {
+      "phrase": "wildberry world",
+      "count": 447
+    },
+    {
+      "phrase": "скачать бесплатно андроид wildberries",
+      "count": 446
+    },
+    {
+      "phrase": "сколько пвз wildberries",
+      "count": 445
+    },
+    {
+      "phrase": "https www wildberries ru джинсы",
+      "count": 445
+    },
+    {
+      "phrase": "wildberries adidas",
+      "count": 445
+    },
+    {
+      "phrase": "wildberries пятерочка",
+      "count": 445
+    },
+    {
+      "phrase": "скачать wildberries на русском бесплатно",
+      "count": 445
+    },
+    {
+      "phrase": "как сделать wildberries кошелек",
+      "count": 444
+    },
+    {
+      "phrase": "wildberries пленка",
+      "count": 444
+    },
+    {
+      "phrase": "накладная wildberries",
+      "count": 444
+    },
+    {
+      "phrase": "заказывать ли товары на wildberries",
+      "count": 442
+    },
+    {
+      "phrase": "wildberries операции",
+      "count": 441
+    },
+    {
+      "phrase": "масло моторное wildberries",
+      "count": 441
+    },
+    {
+      "phrase": "пвз wildberries карта",
+      "count": 441
+    },
+    {
+      "phrase": "как можно открыть wildberries",
+      "count": 441
+    },
+    {
+      "phrase": "сколько лет wildberries",
+      "count": 440
+    },
+    {
+      "phrase": "wildberries пульт управления",
+      "count": 440
+    },
+    {
+      "phrase": "https wildberries ru сайт",
+      "count": 439
+    },
+    {
+      "phrase": "wildberries горят склады",
+      "count": 439
+    },
+    {
+      "phrase": "горящие склады wildberries",
+      "count": 439
+    },
+    {
+      "phrase": "wildberries honor",
+      "count": 438
+    },
+    {
+      "phrase": "wildberries примерка",
+      "count": 438
+    },
+    {
+      "phrase": "как перейти на сайт wildberries",
+      "count": 438
+    },
+    {
+      "phrase": "wildberries где заказывают",
+      "count": 438
+    },
+    {
+      "phrase": "wildberries смена",
+      "count": 438
+    },
+    {
+      "phrase": "wildberries выкупил",
+      "count": 438
+    },
+    {
+      "phrase": "полки wildberries",
+      "count": 438
+    },
+    {
+      "phrase": "wildberries ru subscription отключить",
+      "count": 437
+    },
+    {
+      "phrase": "wildberries какой банк",
+      "count": 437
+    },
+    {
+      "phrase": "как выйти из wildberries",
+      "count": 437
+    },
+    {
+      "phrase": "адреса выдачи wildberries",
+      "count": 437
+    },
+    {
+      "phrase": "магазин wildberries и ozon",
+      "count": 436
+    },
+    {
+      "phrase": "банк wildberries перевести",
+      "count": 436
+    },
+    {
+      "phrase": "wb ru wildberries личный кабинет",
+      "count": 436
+    },
+    {
+      "phrase": "wildberries конструктор",
+      "count": 435
+    },
+    {
+      "phrase": "wildberries потерял",
+      "count": 435
+    },
+    {
+      "phrase": "wildberries песни",
+      "count": 434
+    },
+    {
+      "phrase": "в 2026 году на wildberries",
+      "count": 434
+    },
+    {
+      "phrase": "возврат заказа wildberries",
+      "count": 434
+    },
+    {
+      "phrase": "как найти сайт wildberries",
+      "count": 434
+    },
+    {
+      "phrase": "карта пункта wildberries",
+      "count": 434
+    },
+    {
+      "phrase": "основы wildberries",
+      "count": 433
+    },
+    {
+      "phrase": "wildberries l",
+      "count": 433
+    },
+    {
+      "phrase": "wildberries введите код",
+      "count": 433
+    },
+    {
+      "phrase": "отменить wildberries клуб",
+      "count": 433
+    },
+    {
+      "phrase": "wildberries можно частями",
+      "count": 432
+    },
+    {
+      "phrase": "wildberries сайт официальный полный",
+      "count": 432
+    },
+    {
+      "phrase": "что писать на wildberries",
+      "count": 432
+    },
+    {
+      "phrase": "wildberries зимние шины",
+      "count": 432
+    },
+    {
+      "phrase": "https www wildberries магазин",
+      "count": 430
+    },
+    {
+      "phrase": "задания wildberries",
+      "count": 429
+    },
+    {
+      "phrase": "купить кроссовки на wildberries",
+      "count": 429
+    },
+    {
+      "phrase": "такси wildberries",
+      "count": 429
+    },
+    {
+      "phrase": "wildberries официальный сайт полная версия",
+      "count": 429
+    },
+    {
+      "phrase": "wildberries полная официальная версия",
+      "count": 429
+    },
+    {
+      "phrase": "скачать wildberries магазин",
+      "count": 428
+    },
+    {
+      "phrase": "сделай в телефоне wildberries",
+      "count": 428
+    },
+    {
+      "phrase": "как отменить подписку на wildberries",
+      "count": 427
+    },
+    {
+      "phrase": "wildberries бумага",
+      "count": 427
+    },
+    {
+      "phrase": "wildberries ru ли",
+      "count": 426
+    },
+    {
+      "phrase": "e wildberries",
+      "count": 426
+    },
+    {
+      "phrase": "пальто wildberries",
+      "count": 425
+    },
+    {
+      "phrase": "как понять wildberries",
+      "count": 425
+    },
+    {
+      "phrase": "wildberries plus",
+      "count": 423
+    },
+    {
+      "phrase": "wildberries перевод с английского",
+      "count": 423
+    },
+    {
+      "phrase": "wildberries где заказ",
+      "count": 422
+    },
+    {
+      "phrase": "wildberries лежит",
+      "count": 422
+    },
+    {
+      "phrase": "https www wildberries ru летние",
+      "count": 422
+    },
+    {
+      "phrase": "пользователи wildberries",
+      "count": 422
+    },
+    {
+      "phrase": "wildberries пк версия сайта",
+      "count": 422
+    },
+    {
+      "phrase": "шторы на wildberries",
+      "count": 422
+    },
+    {
+      "phrase": "wildberries ru куртки",
+      "count": 421
+    },
+    {
+      "phrase": "wildberries со скидкой",
+      "count": 421
+    },
+    {
+      "phrase": "wildberries жалобы",
+      "count": 421
+    },
+    {
+      "phrase": "требования wildberries",
+      "count": 421
+    },
+    {
+      "phrase": "адреса пункта выдачи wildberries",
+      "count": 420
+    },
+    {
+      "phrase": "wildberries 7 лет",
+      "count": 420
+    },
+    {
+      "phrase": "wildberries возврат брака",
+      "count": 420
+    },
+    {
+      "phrase": "www wildberries ru catalog 10",
+      "count": 420
+    },
+    {
+      "phrase": "wildberries карандаш",
+      "count": 419
+    },
+    {
+      "phrase": "фиолетовый wildberries",
+      "count": 419
+    },
+    {
+      "phrase": "комната wildberries",
+      "count": 419
+    },
+    {
+      "phrase": "получатели wildberries",
+      "count": 419
+    },
+    {
+      "phrase": "y2k wildberries",
+      "count": 418
+    },
+    {
+      "phrase": "подсветка wildberries",
+      "count": 418
+    },
+    {
+      "phrase": "скачать приложение wildberries на телефон",
+      "count": 418
+    },
+    {
+      "phrase": "как войти на сайт wildberries",
+      "count": 418
+    },
+    {
+      "phrase": "wildberries списанный товар",
+      "count": 417
+    },
+    {
+      "phrase": "wildberries маркс",
+      "count": 417
+    },
+    {
+      "phrase": "wildberries гарантия",
+      "count": 417
+    },
+    {
+      "phrase": "wildberries весы",
+      "count": 416
+    },
+    {
+      "phrase": "wildberries женские одежды",
+      "count": 416
+    },
+    {
+      "phrase": "https www wildberries ru магазин",
+      "count": 416
+    },
+    {
+      "phrase": "wildberries ru subscription отключить подписку",
+      "count": 416
+    },
+    {
+      "phrase": "банкоматы wildberries",
+      "count": 416
+    },
+    {
+      "phrase": "со скольки лет работают wildberries",
+      "count": 415
+    },
+    {
+      "phrase": "кредитная карта wildberries",
+      "count": 415
+    },
+    {
+      "phrase": "wildberries 39",
+      "count": 415
+    },
+    {
+      "phrase": "wildberries веб версия",
+      "count": 414
+    },
+    {
+      "phrase": "https www wildberries ru catalog 12",
+      "count": 414
+    },
+    {
+      "phrase": "кардиганы wildberries",
+      "count": 413
+    },
+    {
+      "phrase": "wildberries вб клуб",
+      "count": 413
+    },
+    {
+      "phrase": "майку wildberries",
+      "count": 413
+    },
+    {
+      "phrase": "ремни wildberries",
+      "count": 413
+    },
+    {
+      "phrase": "wildberries audit",
+      "count": 412
+    },
+    {
+      "phrase": "wildberries ru сумки",
+      "count": 412
+    },
+    {
+      "phrase": "wildberries ru работа",
+      "count": 412
+    },
+    {
+      "phrase": "wildberries ростов на дону",
+      "count": 411
+    },
+    {
+      "phrase": "https wildberries com",
+      "count": 411
+    },
+    {
+      "phrase": "https телефон wildberries",
+      "count": 410
+    },
+    {
+      "phrase": "wildberries звезда",
+      "count": 410
+    },
+    {
+      "phrase": "pvz audit wildberries",
+      "count": 410
+    },
+    {
+      "phrase": "wildberries куплю платье",
+      "count": 409
+    },
+    {
+      "phrase": "кошелек wildberries банк",
+      "count": 409
+    },
+    {
+      "phrase": "найди номер телефона wildberries",
+      "count": 409
+    },
+    {
+      "phrase": "wildberries оружие",
+      "count": 408
+    },
+    {
+      "phrase": "настрой wildberries",
+      "count": 408
+    },
+    {
+      "phrase": "wildberries искусственные",
+      "count": 408
+    },
+    {
+      "phrase": "wildberries g",
+      "count": 408
+    },
+    {
+      "phrase": "wildberries 3d",
+      "count": 407
+    },
+    {
+      "phrase": "wildberries для мужчин",
+      "count": 406
+    },
+    {
+      "phrase": "доставка wildberries сколько",
+      "count": 406
+    },
+    {
+      "phrase": "как пишется wildberries",
+      "count": 406
+    },
+    {
+      "phrase": "wildberries 1 8",
+      "count": 405
+    },
+    {
+      "phrase": "wildberries если не забрал заказ",
+      "count": 405
+    },
+    {
+      "phrase": "wildberries не принимает",
+      "count": 405
+    },
+    {
+      "phrase": "ssp wildberries",
+      "count": 405
+    },
+    {
+      "phrase": "https yandex ru wildberries",
+      "count": 405
+    },
+    {
+      "phrase": "wildberries домики",
+      "count": 405
+    },
+    {
+      "phrase": "кому принадлежит wildberries",
+      "count": 404
+    },
+    {
+      "phrase": "wildberries пермь",
+      "count": 404
+    },
+    {
+      "phrase": "wildberries ru 9",
+      "count": 403
+    },
+    {
+      "phrase": "wildberries какого города",
+      "count": 402
+    },
+    {
+      "phrase": "как найти подписки в wildberries",
+      "count": 402
+    },
+    {
+      "phrase": "wildberries ru официальный телефон",
+      "count": 402
+    },
+    {
+      "phrase": "трусы на wildberries",
+      "count": 402
+    },
+    {
+      "phrase": "wildberries русский сайт",
+      "count": 402
+    },
+    {
+      "phrase": "wildberries юридический",
+      "count": 402
+    },
+    {
+      "phrase": "wildberries значок приложение",
+      "count": 401
+    },
+    {
+      "phrase": "купить на wildberries детское",
+      "count": 401
+    },
+    {
+      "phrase": "wildberries смарт",
+      "count": 401
+    },
+    {
+      "phrase": "wildberries ru официальный сайт телефон",
+      "count": 401
+    },
+    {
+      "phrase": "wildberries трактор",
+      "count": 400
+    },
+    {
+      "phrase": "реализация товара на сайте wildberries",
+      "count": 400
+    },
+    {
+      "phrase": "склад wildberries в тамбовской",
+      "count": 400
+    },
+    {
+      "phrase": "wildberries go",
+      "count": 399
+    },
+    {
+      "phrase": "выгодный wildberries",
+      "count": 399
+    },
+    {
+      "phrase": "wildberries верхняя",
+      "count": 399
+    },
+    {
+      "phrase": "wildberries ru платье",
+      "count": 399
+    },
+    {
+      "phrase": "таможня wildberries",
+      "count": 398
+    },
+    {
+      "phrase": "wb seller wildberries",
+      "count": 398
+    },
+    {
+      "phrase": "wildberries правительство",
+      "count": 398
+    },
+    {
+      "phrase": "wildberries северная",
+      "count": 398
+    },
+    {
+      "phrase": "t wildberries ru",
+      "count": 398
+    },
+    {
+      "phrase": "купить машинку wildberries",
+      "count": 398
+    },
+    {
+      "phrase": "кеды wildberries",
+      "count": 398
+    },
+    {
+      "phrase": "wildberries интернет магазин официальный личный",
+      "count": 398
+    },
+    {
+      "phrase": "как отвязать карту от wildberries",
+      "count": 397
+    },
+    {
+      "phrase": "wildberries 12 лет",
+      "count": 397
+    },
+    {
+      "phrase": "wildberries камень",
+      "count": 397
+    },
+    {
+      "phrase": "wildberries станция",
+      "count": 396
+    },
+    {
+      "phrase": "wildberries питание",
+      "count": 396
+    },
+    {
+      "phrase": "пуховик wildberries",
+      "count": 396
+    },
+    {
+      "phrase": "wildberries казахстан",
+      "count": 396
+    },
+    {
+      "phrase": "зеркало wildberries",
+      "count": 396
+    },
+    {
+      "phrase": "вб wildberries ru",
+      "count": 395
+    },
+    {
+      "phrase": "wildberries вместе",
+      "count": 395
+    },
+    {
+      "phrase": "wildberries поставщиком",
+      "count": 395
+    },
+    {
+      "phrase": "smart wildberries",
+      "count": 395
+    },
+    {
+      "phrase": "https suppliers wildberries",
+      "count": 395
+    },
+    {
+      "phrase": "wildberries официальный сайт русский",
+      "count": 395
+    },
+    {
+      "phrase": "цепочка wildberries",
+      "count": 395
+    },
+    {
+      "phrase": "wildberries просп ленина",
+      "count": 395
+    },
+    {
+      "phrase": "wildberries увеличил",
+      "count": 394
+    },
+    {
+      "phrase": "как восстановить wildberries",
+      "count": 394
+    },
+    {
+      "phrase": "wildberries раньше",
+      "count": 394
+    },
+    {
+      "phrase": "wildberries голубое",
+      "count": 393
+    },
+    {
+      "phrase": "wildberries батарейка",
+      "count": 393
+    },
+    {
+      "phrase": "wildberries 66",
+      "count": 392
+    },
+    {
+      "phrase": "купить часы на wildberries",
+      "count": 391
+    },
+    {
+      "phrase": "женские кроссовки на wildberries",
+      "count": 391
+    },
+    {
+      "phrase": "wildberries авто",
+      "count": 391
+    },
+    {
+      "phrase": "s www wildberries ru",
+      "count": 391
+    },
+    {
+      "phrase": "купить планшет на wildberries",
+      "count": 391
+    },
+    {
+      "phrase": "pvz wildberries ru",
+      "count": 390
+    },
+    {
+      "phrase": "посмотреть товары на wildberries",
+      "count": 390
+    },
+    {
+      "phrase": "wildberries apple",
+      "count": 390
+    },
+    {
+      "phrase": "wildberries зачем",
+      "count": 390
+    },
+    {
+      "phrase": "wildberries уфа",
+      "count": 390
+    },
+    {
+      "phrase": "купить нож wildberries",
+      "count": 390
+    },
+    {
+      "phrase": "бесплатная линия wildberries",
+      "count": 390
+    },
+    {
+      "phrase": "wildberries прикольно",
+      "count": 389
+    },
+    {
+      "phrase": "wildberries украина",
+      "count": 389
+    },
+    {
+      "phrase": "loans wildberries",
+      "count": 389
+    },
+    {
+      "phrase": "wildberries задержка",
+      "count": 389
+    },
+    {
+      "phrase": "мужские костюмы wildberries",
+      "count": 388
+    },
+    {
+      "phrase": "wildberries дроны",
+      "count": 388
+    },
+    {
+      "phrase": "wildberries здравствуйте",
+      "count": 388
+    },
+    {
+      "phrase": "не обновляется wildberries",
+      "count": 388
+    },
+    {
+      "phrase": "wildberries ru футболки",
+      "count": 387
+    },
+    {
+      "phrase": "wildberries номер заказа",
+      "count": 387
+    },
+    {
+      "phrase": "wildberries каталог товаров и цены официальный",
+      "count": 387
+    },
+    {
+      "phrase": "https suppliers wildberries ru",
+      "count": 387
+    },
+    {
+      "phrase": "антистрессы на wildberries",
+      "count": 387
+    },
+    {
+      "phrase": "wildberries каблук",
+      "count": 386
+    },
+    {
+      "phrase": "www wildberries ru сумки",
+      "count": 386
+    },
+    {
+      "phrase": "www wildberries ru найти",
+      "count": 386
+    },
+    {
+      "phrase": "wildberries проверить товар",
+      "count": 386
+    },
+    {
+      "phrase": "товар проверен wildberries",
+      "count": 386
+    },
+    {
+      "phrase": "wildberries оформить заказ",
+      "count": 386
+    },
+    {
+      "phrase": "wildberries официальный сайт каталог товаров и цены",
+      "count": 386
+    },
+    {
+      "phrase": "https www wildberries ru карта",
+      "count": 386
+    },
+    {
+      "phrase": "бесплатно wildberries последнюю версию",
+      "count": 385
+    },
+    {
+      "phrase": "wildberries интернет скачать",
+      "count": 385
+    },
+    {
+      "phrase": "https www wildberries ru сумки",
+      "count": 385
+    },
+    {
+      "phrase": "wildberries отследить",
+      "count": 385
+    },
+    {
+      "phrase": "склад wildberries в тамбовской области",
+      "count": 384
+    },
+    {
+      "phrase": "www wildberries ru вход",
+      "count": 384
+    },
+    {
+      "phrase": "wildberries заказы можно забрать",
+      "count": 383
+    },
+    {
+      "phrase": "сбп wildberries",
+      "count": 383
+    },
+    {
+      "phrase": "склад wildberries новости",
+      "count": 382
+    },
+    {
+      "phrase": "wildberries горячая линия бесплатный",
+      "count": 382
+    },
+    {
+      "phrase": "надпись wildberries",
+      "count": 382
+    },
+    {
+      "phrase": "предмет wildberries",
+      "count": 382
+    },
+    {
+      "phrase": "wildberries карла маркса",
+      "count": 382
+    },
+    {
+      "phrase": "wildberries майнкрафт",
+      "count": 382
+    },
+    {
+      "phrase": "wildberries перед",
+      "count": 382
+    },
+    {
+      "phrase": "wildberries найти продавца",
+      "count": 381
+    },
+    {
+      "phrase": "wildberries запчасти",
+      "count": 381
+    },
+    {
+      "phrase": "wildberries работа на выдаче",
+      "count": 380
+    },
+    {
+      "phrase": "настройку wildberries",
+      "count": 380
+    },
+    {
+      "phrase": "комплекс wildberries",
+      "count": 380
+    },
+    {
+      "phrase": "wildberries порошки",
+      "count": 380
+    },
+    {
+      "phrase": "wildberries москва отзывы",
+      "count": 379
+    },
+    {
+      "phrase": "на wildberries золотые",
+      "count": 379
+    },
+    {
+      "phrase": "https www wildberries ru catalog сумки",
+      "count": 379
+    },
+    {
+      "phrase": "wildberries куртки размер",
+      "count": 378
+    },
+    {
+      "phrase": "пункты доставки wildberries",
+      "count": 378
+    },
+    {
+      "phrase": "купить спортивный костюм на wildberries",
+      "count": 378
+    },
+    {
+      "phrase": "wildberries подделка",
+      "count": 378
+    },
+    {
+      "phrase": "серьги wildberries",
+      "count": 377
+    },
+    {
+      "phrase": "купить телеграм премиум дешево digital wildberries",
+      "count": 377
+    },
+    {
+      "phrase": "купить телеграм премиум дешево digital wildberries ru",
+      "count": 377
+    },
+    {
+      "phrase": "wildberries nike",
+      "count": 377
+    },
+    {
+      "phrase": "wildberries сортировка",
+      "count": 377
+    },
+    {
+      "phrase": "дабл бабл wildberries",
+      "count": 377
+    },
+    {
+      "phrase": "https www wildberries ru куртки",
+      "count": 377
+    },
+    {
+      "phrase": "wb seller wildberries ru",
+      "count": 377
+    },
+    {
+      "phrase": "wildberries интернет магазин официальный личный кабинет",
+      "count": 377
+    },
+    {
+      "phrase": "пояса wildberries",
+      "count": 377
+    },
+    {
+      "phrase": "wildberries интернет телефон",
+      "count": 376
+    },
+    {
+      "phrase": "wildberries вайлдберриз банк",
+      "count": 376
+    },
+    {
+      "phrase": "можно ли забрать товар на wildberries",
+      "count": 376
+    },
+    {
+      "phrase": "wildberries учебники",
+      "count": 376
+    },
+    {
+      "phrase": "wildberries ru api",
+      "count": 376
+    },
+    {
+      "phrase": "wildberries блузка",
+      "count": 376
+    },
+    {
+      "phrase": "https wildberries ru войти",
+      "count": 376
+    },
+    {
+      "phrase": "скачать интернет магазин wildberries",
+      "count": 376
+    },
+    {
+      "phrase": "магазин wildberries екатеринбург",
+      "count": 376
+    },
+    {
+      "phrase": "минусы wildberries",
+      "count": 375
+    },
+    {
+      "phrase": "wildberries микрофоны",
+      "count": 375
+    },
+    {
+      "phrase": "против wildberries",
+      "count": 375
+    },
+    {
+      "phrase": "wildberries книжки",
+      "count": 375
+    },
+    {
+      "phrase": "самолет wildberries",
+      "count": 374
+    },
+    {
+      "phrase": "wildberries товары хранятся",
+      "count": 374
+    },
+    {
+      "phrase": "wildberries ярославль",
+      "count": 374
+    },
+    {
+      "phrase": "витамины wildberries",
+      "count": 374
+    },
+    {
+      "phrase": "wildberries интернет екатеринбург",
+      "count": 374
+    },
+    {
+      "phrase": "wildberries 2024",
+      "count": 374
+    },
+    {
+      "phrase": "заказать телефон wildberries",
+      "count": 373
+    },
+    {
+      "phrase": "wildberries горького",
+      "count": 373
+    },
+    {
+      "phrase": "https www wildberries ru s",
+      "count": 373
+    },
+    {
+      "phrase": "работа на пункте выдачи wildberries",
+      "count": 373
+    },
+    {
+      "phrase": "content wildberries",
+      "count": 372
+    },
+    {
+      "phrase": "wildberries костюм брючный",
+      "count": 372
+    },
+    {
+      "phrase": "wildberries задерживается",
+      "count": 372
+    },
+    {
+      "phrase": "wildberries нормально",
+      "count": 372
+    },
+    {
+      "phrase": "сайт https www wildberries ru",
+      "count": 371
+    },
+    {
+      "phrase": "курсы wildberries",
+      "count": 371
+    },
+    {
+      "phrase": "wildberries украшения",
+      "count": 371
+    },
+    {
+      "phrase": "wildberries связь",
+      "count": 371
+    },
+    {
+      "phrase": "организация wildberries",
+      "count": 371
+    },
+    {
+      "phrase": "wildberries откуда",
+      "count": 370
+    },
+    {
+      "phrase": "отделы wildberries",
+      "count": 370
+    },
+    {
+      "phrase": "wildberries 99",
+      "count": 370
+    },
+    {
+      "phrase": "wildberries ru полная",
+      "count": 370
+    },
+    {
+      "phrase": "мои заказы на wildberries",
+      "count": 370
+    },
+    {
+      "phrase": "wb point wildberries",
+      "count": 370
+    },
+    {
+      "phrase": "как пополнить вб кошелек на wildberries",
+      "count": 370
+    },
+    {
+      "phrase": "платье www wildberries ru",
+      "count": 369
+    },
+    {
+      "phrase": "срок хранения на wildberries",
+      "count": 369
+    },
+    {
+      "phrase": "wildberries games",
+      "count": 369
+    },
+    {
+      "phrase": "капсула wildberries",
+      "count": 368
+    },
+    {
+      "phrase": "wildberries цифра",
+      "count": 368
+    },
+    {
+      "phrase": "wildberries крым",
+      "count": 368
+    },
+    {
+      "phrase": "wildberries интернет магазин екатеринбург",
+      "count": 368
+    },
+    {
+      "phrase": "wildberries 195",
+      "count": 368
+    },
+    {
+      "phrase": "wildberries провод",
+      "count": 367
+    },
+    {
+      "phrase": "магазин wildberries войти",
+      "count": 367
+    },
+    {
+      "phrase": "wildberries ч",
+      "count": 367
+    },
+    {
+      "phrase": "остатки wildberries",
+      "count": 366
+    },
+    {
+      "phrase": "wildberries ru коды",
+      "count": 366
+    },
+    {
+      "phrase": "ой wildberries",
+      "count": 366
+    },
+    {
+      "phrase": "как перевести на wildberries кошелек",
+      "count": 366
+    },
+    {
+      "phrase": "wildberries лодки",
+      "count": 365
+    },
+    {
+      "phrase": "где чеки на wildberries",
+      "count": 365
+    },
+    {
+      "phrase": "wildberries мотоблок",
+      "count": 365
+    },
+    {
+      "phrase": "отказ товара на wildberries",
+      "count": 365
+    },
+    {
+      "phrase": "wildberries usb",
+      "count": 365
+    },
+    {
+      "phrase": "wildberries вообще wildberries",
+      "count": 365
+    },
+    {
+      "phrase": "wildberries шоколад",
+      "count": 365
+    },
+    {
+      "phrase": "wildberries для бизнеса",
+      "count": 365
+    },
+    {
+      "phrase": "https www wildberries ru платья",
+      "count": 365
+    },
+    {
+      "phrase": "https www wildberries платье",
+      "count": 365
+    },
+    {
+      "phrase": "wildberries 2022",
+      "count": 364
+    },
+    {
+      "phrase": "бесплатные товары wildberries",
+      "count": 364
+    },
+    {
+      "phrase": "https www wildberries ru catalog 16",
+      "count": 364
+    },
+    {
+      "phrase": "плохая wildberries",
+      "count": 364
+    },
+    {
+      "phrase": "wildberries пар",
+      "count": 364
+    },
+    {
+      "phrase": "black wildberries",
+      "count": 364
+    },
+    {
+      "phrase": "wildberries купить триммеры",
+      "count": 364
+    },
+    {
+      "phrase": "wildberries помещение",
+      "count": 364
+    },
+    {
+      "phrase": "wildberries фонарики",
+      "count": 363
+    },
+    {
+      "phrase": "https www wildberries ru футболки",
+      "count": 363
+    },
+    {
+      "phrase": "образ wildberries",
+      "count": 363
+    },
+    {
+      "phrase": "как использовать wildberries",
+      "count": 363
+    },
+    {
+      "phrase": "перчатки wildberries",
+      "count": 363
+    },
+    {
+      "phrase": "wildberries кошелек госуслуги",
+      "count": 363
+    },
+    {
+      "phrase": "wildberries кружка",
+      "count": 362
+    },
+    {
+      "phrase": "wildberries кружки",
+      "count": 362
+    },
+    {
+      "phrase": "ближайшие пункты wildberries",
+      "count": 362
+    },
+    {
+      "phrase": "wildberries одеяла",
+      "count": 362
+    },
+    {
+      "phrase": "скачать wildberries бесплатно на телефон",
+      "count": 362
+    },
+    {
+      "phrase": "wildberries войти без телефона",
+      "count": 362
+    },
+    {
+      "phrase": "как через приложение wildberries",
+      "count": 361
+    },
+    {
+      "phrase": "wildberries интернет войти",
+      "count": 361
+    },
+    {
+      "phrase": "wildberries 200 рублей",
+      "count": 361
+    },
+    {
+      "phrase": "v wildberries ru",
+      "count": 360
+    },
+    {
+      "phrase": "wildberries котовск пожар",
+      "count": 359
+    },
+    {
+      "phrase": "wildberries google play",
+      "count": 359
+    },
+    {
+      "phrase": "wildberries потому",
+      "count": 359
+    },
+    {
+      "phrase": "www wildberrie",
+      "count": 359
+    },
+    {
+      "phrase": "wildberries войти по паролю",
+      "count": 359
+    },
+    {
+      "phrase": "как закрыть кошелек на wildberries",
+      "count": 358
+    },
+    {
+      "phrase": "wildberries телефон оператора",
+      "count": 358
+    },
+    {
+      "phrase": "wildberries личный кабинет войти по паролю",
+      "count": 357
+    },
+    {
+      "phrase": "стильный wildberries",
+      "count": 357
+    },
+    {
+      "phrase": "wildberries внутри",
+      "count": 357
+    },
+    {
+      "phrase": "wildberries интернет новосибирск",
+      "count": 356
+    },
+    {
+      "phrase": "интернет магазин wildberries новосибирск",
+      "count": 356
+    },
+    {
+      "phrase": "wildberries ru пк",
+      "count": 356
+    },
+    {
+      "phrase": "wildberries ru интернет магазин личный",
+      "count": 356
+    },
+    {
+      "phrase": "wildberries подшипники",
+      "count": 356
+    },
+    {
+      "phrase": "функции wildberries",
+      "count": 355
+    },
+    {
+      "phrase": "открыт ли wildberries",
+      "count": 355
+    },
+    {
+      "phrase": "wildberries отзывы 18",
+      "count": 355
+    },
+    {
+      "phrase": "мешок wildberries",
+      "count": 355
+    },
+    {
+      "phrase": "track wildberries",
+      "count": 355
+    },
+    {
+      "phrase": "tracking wildberries",
+      "count": 355
+    },
+    {
+      "phrase": "как активировать сертификат wildberries",
+      "count": 354
+    },
+    {
+      "phrase": "стикеры wildberries",
+      "count": 354
+    },
+    {
+      "phrase": "обои на wildberries",
+      "count": 354
+    },
+    {
+      "phrase": "белорусский wildberries",
+      "count": 354
+    },
+    {
+      "phrase": "скачать бесплатную версию wildberries",
+      "count": 354
+    },
+    {
+      "phrase": "wildberries h",
+      "count": 354
+    },
+    {
+      "phrase": "wildberries ул гагарина",
+      "count": 354
+    },
+    {
+      "phrase": "фото товаров wildberries",
+      "count": 353
+    },
+    {
+      "phrase": "wildberries resale",
+      "count": 353
+    },
+    {
+      "phrase": "wildberries poco",
+      "count": 353
+    },
+    {
+      "phrase": "wildberries kia",
+      "count": 353
+    },
+    {
+      "phrase": "купить карту wildberries",
+      "count": 353
+    },
+    {
+      "phrase": "wildberries отдали",
+      "count": 353
+    },
+    {
+      "phrase": "https www wildberries ru 7",
+      "count": 353
+    },
+    {
+      "phrase": "трек wildberries",
+      "count": 353
+    },
+    {
+      "phrase": "wildberries текст",
+      "count": 353
+    },
+    {
+      "phrase": "wildberries дзен",
+      "count": 352
+    },
+    {
+      "phrase": "продукцию wildberries",
+      "count": 352
+    },
+    {
+      "phrase": "основательница wildberries",
+      "count": 352
+    },
+    {
+      "phrase": "https www wildberries ru интернет",
+      "count": 352
+    },
+    {
+      "phrase": "wildberries ru игрушка",
+      "count": 352
+    },
+    {
+      "phrase": "https www wildberrie",
+      "count": 352
+    },
+    {
+      "phrase": "купить на wildberries показать на wildberries",
+      "count": 352
+    },
+    {
+      "phrase": "wildberries порно",
+      "count": 352
+    },
+    {
+      "phrase": "табак для сигарет на wildberries",
+      "count": 351
+    },
+    {
+      "phrase": "https wildberries ru интернет магазин",
+      "count": 351
+    },
+    {
+      "phrase": "со скольки можно работать на wildberries",
+      "count": 351
+    },
+    {
+      "phrase": "wildberries рубашку купить",
+      "count": 351
+    },
+    {
+      "phrase": "кабель wildberries",
+      "count": 351
+    },
+    {
+      "phrase": "звук wildberries",
+      "count": 351
+    },
+    {
+      "phrase": "всу wildberries",
+      "count": 351
+    },
+    {
+      "phrase": "приложение wildberries вб",
+      "count": 351
+    },
+    {
+      "phrase": "wildberries для взрослых",
+      "count": 350
+    },
+    {
+      "phrase": "wildberries юбилейная",
+      "count": 349
+    },
+    {
+      "phrase": "подушки на wildberries",
+      "count": 349
+    },
+    {
+      "phrase": "pvz audit wildberries ru",
+      "count": 349
+    },
+    {
+      "phrase": "проценты выкупа wildberries",
+      "count": 348
+    },
+    {
+      "phrase": "wildberries толстовки",
+      "count": 348
+    },
+    {
+      "phrase": "wildberries комсомольское",
+      "count": 348
+    },
+    {
+      "phrase": "wildberries в котовске тамбовской",
+      "count": 348
+    },
+    {
+      "phrase": "карта выдачи wildberries",
+      "count": 348
+    },
+    {
+      "phrase": "wildberries сколько платят",
+      "count": 347
+    },
+    {
+      "phrase": "основатель wildberries",
+      "count": 346
+    },
+    {
+      "phrase": "wildberry ягода",
+      "count": 346
+    },
+    {
+      "phrase": "bubble wildberries",
+      "count": 346
+    },
+    {
+      "phrase": "wildberries отмена заказа",
+      "count": 346
+    },
+    {
+      "phrase": "seller wildberries suppliers",
+      "count": 346
+    },
+    {
+      "phrase": "ssp wildberries ru",
+      "count": 346
+    },
+    {
+      "phrase": "wildberries государственный",
+      "count": 346
+    },
+    {
+      "phrase": "wildberries светлый",
+      "count": 346
+    },
+    {
+      "phrase": "wildberries o",
+      "count": 346
+    },
+    {
+      "phrase": "wildberries производителям",
+      "count": 346
+    },
+    {
+      "phrase": "тапочки wildberries",
+      "count": 346
+    },
+    {
+      "phrase": "wildberries ленинградская",
+      "count": 345
+    },
+    {
+      "phrase": "ботинки женские wildberries",
+      "count": 345
+    },
+    {
+      "phrase": "wildberries горячая линия бесплатный телефон",
+      "count": 345
+    },
+    {
+      "phrase": "скачать wildberries последнюю версию бесплатно",
+      "count": 344
+    },
+    {
+      "phrase": "wildberries аптека",
+      "count": 344
+    },
+    {
+      "phrase": "mp wildberries",
+      "count": 344
+    },
+    {
+      "phrase": "мобильный браузер на телефоне wildberries",
+      "count": 344
+    },
+    {
+      "phrase": "сумки wildberries купить",
+      "count": 344
+    },
+    {
+      "phrase": "wb ru интернет магазин wildberries личный",
+      "count": 344
+    },
+    {
+      "phrase": "wildberries маш",
+      "count": 343
+    },
+    {
+      "phrase": "wildberries пойти",
+      "count": 343
+    },
+    {
+      "phrase": "на wildberries заявку на возврат товара",
+      "count": 343
+    },
+    {
+      "phrase": "как оформить заявку на возврат в wildberries",
+      "count": 343
+    },
+    {
+      "phrase": "атаковали склады wildberries",
+      "count": 343
+    },
+    {
+      "phrase": "лонгслив wildberries",
+      "count": 342
+    },
+    {
+      "phrase": "колокольчик wildberries",
+      "count": 342
+    },
+    {
+      "phrase": "пункт пвз wildberries",
+      "count": 342
+    },
+    {
+      "phrase": "wildberries ru детям",
+      "count": 341
+    },
+    {
+      "phrase": "wildberries ru интернет магазин личный кабинет",
+      "count": 341
+    },
+    {
+      "phrase": "wildberries приемка",
+      "count": 341
+    },
+    {
+      "phrase": "wildberries market",
+      "count": 340
+    },
+    {
+      "phrase": "wildberries marketing",
+      "count": 340
+    },
+    {
+      "phrase": "скачать приложение wildberries на русском",
+      "count": 340
+    },
+    {
+      "phrase": "какие цены на wildberries",
+      "count": 340
+    },
+    {
+      "phrase": "wildberries владивосток",
+      "count": 340
+    },
+    {
+      "phrase": "человек паук wildberries",
+      "count": 340
+    },
+    {
+      "phrase": "https www wildberries ru телефоны",
+      "count": 340
+    },
+    {
+      "phrase": "подписка wildberries club",
+      "count": 339
+    },
+    {
+      "phrase": "как сделать возврат на wildberries",
+      "count": 339
+    },
+    {
+      "phrase": "wildberries roblox",
+      "count": 339
+    },
+    {
+      "phrase": "wildberries твое",
+      "count": 339
+    },
+    {
+      "phrase": "wildberries квартиры",
+      "count": 339
+    },
+    {
+      "phrase": "атаки на объекты wildberries",
+      "count": 339
+    },
+    {
+      "phrase": "wildberries через браузер",
+      "count": 339
+    },
+    {
+      "phrase": "https www wildberries ru catalog tags",
+      "count": 339
+    },
+    {
+      "phrase": "wildberries заказали 1",
+      "count": 338
+    },
+    {
+      "phrase": "wildberries строителей",
+      "count": 338
+    },
+    {
+      "phrase": "как сделать вб кошелек на wildberries",
+      "count": 338
+    },
+    {
+      "phrase": "wildberries приобрел",
+      "count": 338
+    },
+    {
+      "phrase": "темы wildberries",
+      "count": 338
+    },
+    {
+      "phrase": "wildberries wi",
+      "count": 337
+    },
+    {
+      "phrase": "ssd wildberries",
+      "count": 337
+    },
+    {
+      "phrase": "купить на wildberries аккумуляторный",
+      "count": 337
+    },
+    {
+      "phrase": "supplier wildberries seller wildberries ru",
+      "count": 337
+    },
+    {
+      "phrase": "приложение wildberries скачать бесплатно на русском",
+      "count": 336
+    },
+    {
+      "phrase": "wildberries толстого",
+      "count": 336
+    },
+    {
+      "phrase": "wildberries вклад",
+      "count": 336
+    },
+    {
+      "phrase": "wildberries футбольный",
+      "count": 335
+    },
+    {
+      "phrase": "каталог wildberries москва",
+      "count": 335
+    },
+    {
+      "phrase": "брызговики wildberries",
+      "count": 335
+    },
+    {
+      "phrase": "wildberries лампочки",
+      "count": 335
+    },
+    {
+      "phrase": "атака бпла на склад wildberries",
+      "count": 334
+    }
+  ]
+}
