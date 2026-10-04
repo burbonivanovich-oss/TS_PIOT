@@ -48,3 +48,18 @@ test('monitor rotates 76 actual extracted source URLs within six daily passes',a
  await assert.rejects(monitorSources({articles:Array.from({length:301},(_,i)=>article(`https://www.consultant.ru/document/large-${i}/`)),limit:10,coverageDays:7,capture:async()=>{attempted=true;}}),/more than 50/);
  assert.equal(attempted,false);
 });
+
+test('future-dated observation is refreshed before regularly due sources and then rejoins rotation', async () => {
+  const articles = [article(a), article(b)];
+  let previous = { byUrl: {
+    [a]: { status: 'ok', checkedAt: '2030-01-01T00:00:00Z', sha256: 'b'.repeat(64) },
+    [b]: { status: 'ok', checkedAt: '2026-10-01T00:00:00Z', sha256: 'a'.repeat(64) },
+  } };
+  const calls = [];
+  const capture = async url => { calls.push(url); return { sha256: 'c'.repeat(64), finalUrl: url }; };
+  for (let day = 0; day < 4; day++) {
+    previous = await monitorSources({ articles, previous, now: new Date(now.getTime() + day * 86400000), limit: 1, capture });
+  }
+  assert.deepEqual(calls, [a, b, a, b]);
+  assert.equal(previous.byUrl[a].checkedAt, '2026-10-05T12:00:00.000Z');
+});

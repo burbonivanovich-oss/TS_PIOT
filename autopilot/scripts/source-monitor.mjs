@@ -19,10 +19,16 @@ export async function monitorSources({ articles, previous = { byUrl: {} }, limit
   const byUrl = { ...previous.byUrl };
   const urls = [...new Set(articles.flatMap(article => extractCriticalClaims(article.body).map(c => c.source)).filter(url => url && auditSourceUrl(url).ok))];
   const effectiveLimit = coverageDays === null ? limit : sourceCheckBudget(urls.length, limit, coverageDays);
+  // A future or malformed timestamp is not a valid successful observation.
+  // Prioritize its recovery instead of letting every normally due URL pass it.
+  const checkedTime = url => {
+    const stamp = Date.parse(byUrl[url]?.checkedAt);
+    return Number.isFinite(stamp) && stamp <= now.getTime() ? stamp : Number.NEGATIVE_INFINITY;
+  };
   const candidates = urls.filter(url => {
     const age = now.getTime() - Date.parse(byUrl[url]?.checkedAt);
     return !Number.isFinite(age) || age < 0 || age >= intervalDays * 86400000;
-  }).sort((a, b) => (Date.parse(byUrl[a]?.checkedAt) || 0) - (Date.parse(byUrl[b]?.checkedAt) || 0) || a.localeCompare(b));
+  }).sort((a, b) => checkedTime(a) - checkedTime(b) || a.localeCompare(b));
   const checked = [];
   for (const url of candidates.slice(0, effectiveLimit)) {
     let observation;
