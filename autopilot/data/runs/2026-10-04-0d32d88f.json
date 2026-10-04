@@ -3,7 +3,7 @@
   "date": "2026-10-04",
   "kind": "day",
   "createdAt": "2026-10-04T20:39:37.247Z",
-  "updatedAt": "2026-10-04T20:52:18.898Z",
+  "updatedAt": "2026-10-04T20:52:35.862Z",
   "stages": {
     "planned": {
       "at": "2026-10-04T20:39:37.314Z",
@@ -63,6 +63,12 @@
       "code": 0,
       "corpusSha256": "92e15770f04bb30a0a141384a38fe123181dbcf22440bd45337d2510248b1d07",
       "scope": "blog Markdown/MDX bytes at build start"
+    },
+    "committed": {
+      "at": "2026-10-04T20:52:35.862Z",
+      "commit": "652f3178c398618cae4b0535698e55161cbb176f",
+      "tree": "a30f430417777b6b7c2a25d13b6da4c15280259d",
+      "stateOnly": false
     }
   },
   "orders": [],
@@ -82,6 +88,10 @@
     {
       "stage": "built",
       "at": "2026-10-04T20:52:18.898Z"
+    },
+    {
+      "stage": "committed",
+      "at": "2026-10-04T20:52:35.862Z"
     }
   ],
   "meta": {
