@@ -16,9 +16,11 @@ import { envelope } from './lib/outcome.mjs';
 
 const cfg = loadConfig();
 
+export const notificationIssues = report => report.checks.filter(c => c.level === 'fail' || c.actionRequired === true).map(c => c.name).sort();
+
 /** Компактная подпись состояния: меняется только по значимым причинам. */
 export function healthSignature(report, { quarantine = 0 } = {}) {
-  const failed = report.checks.filter((c) => c.level === 'fail').map((c) => c.name).sort();
+  const failed = notificationIssues(report);
   return JSON.stringify({ level: report.level, failed, quarantine });
 }
 
@@ -43,7 +45,7 @@ function main() {
   const previous = readJson(stateFile, null);
   const state = readJson(path.join(cfg.resolved.dataDir, 'autopilot.json'), { quarantine: [] });
   const signature = healthSignature(report, { quarantine: (state.quarantine || []).length });
-  const failed = report.checks.filter((c) => c.level === 'fail').map((c) => c.name).sort();
+  const failed = notificationIssues(report);
   const decision = decideNotification(previous, { signature, failed, level: report.level });
 
   writeJson(stateFile, {

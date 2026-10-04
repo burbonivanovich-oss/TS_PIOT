@@ -7,7 +7,8 @@ import { spawnSync } from 'node:child_process';
 import { loadConfig, assertContentRoot, ROOT } from './lib/config.mjs';
 import { readJson, writeJson, loadArticles, isMain, parseArgs } from './lib/content.mjs';
 import { acquireLock, releaseLock } from './lib/lock.mjs';
-import { readRun } from './lib/run.mjs';
+import { publicationCapacity, publicationFailureStreak } from './lib/release.mjs';
+import { readRun, listRuns } from './lib/run.mjs';
 import { recoverWriting, writeOrders } from './writer.mjs';
 import { plan, settle } from './pipeline.mjs';
 import { monitorSources } from './source-monitor.mjs';
@@ -74,12 +75,18 @@ export async function dailyCycle({ commit = false, push = false, remote = 'origi
       if (!commit) return { status: 'git_delivery_pending', runId: journal.runId, modelCalled: false };
       return { status: 'committed', runId: journal.runId, delivery: deliver(journal.runId), modelCalled: false };
     }
+    const currentForGuard = pending();
+    if ((!currentForGuard || currentForGuard.manifest.stages.committed) && cfg.throughput.monthlyRewriteTarget !== undefined) {
+      const bound = publicationCapacity({ config: cfg, publishLog: readJson(path.join(cfg.resolved.dataDir, 'publish-log.json'), { days: {} }) });
+      const streak = publicationFailureStreak(listRuns({ dir: cfg.resolved.dataDir }), bound.day);
+      if (bound.impossible && streak >= 3) return { status: 'publication_halted', actionRequired: true, reason: 'Три завершённых прохода подряд: месячная норма выпуска недостижима при текущем лимите', streak, publicationCapacity: bound, modelCalled: false };
+    }
     if (commit) {
       const current = pending();
       if (!journal && current && !current.manifest.stages.committed) throw new Error('Чистая исходная точка не записана до plan; автоматический коммит запрещён');
       if (!journal || journal.phase === 'committed') beginGitDelivery(root);
     }
-    return await coordinateCycle({
+    const result = await coordinateCycle({
       pending,
       refresh: async () => {
         const file = path.join(cfg.resolved.dataDir, 'source-observations.json');
@@ -92,6 +99,12 @@ export async function dailyCycle({ commit = false, push = false, remote = 'origi
       settle,
       deliver: commit ? deliver : undefined,
     });
+    if (result.status === 'committed' && cfg.throughput.monthlyRewriteTarget !== undefined) {
+      const bound = publicationCapacity({ config: cfg, publishLog: readJson(path.join(cfg.resolved.dataDir, 'publish-log.json'), { days: {} }) });
+      const streak = publicationFailureStreak(listRuns({ dir: cfg.resolved.dataDir }), bound.day);
+      if (bound.impossible && streak >= 3) return { ...result, publicationHalted: true, actionRequired: true, streak, publicationCapacity: bound, reason: 'Три завершённых прохода подряд: следующий plan остановлен до устранения недостижимости' };
+    }
+    return result;
   } finally { releaseLock(); }
 }
 

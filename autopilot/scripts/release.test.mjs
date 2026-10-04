@@ -253,3 +253,26 @@ test('gated delivered draft-only run obtains real build evidence before Git reco
  const manifest=JSON.parse(readFileSync(runFile));assert.equal(manifest.stages.built.corpusSha256,result.build.corpusSha256);
  const repeated=settle(fx);assert.equal(repeated.build.checked,false);
 });
+
+import { publicationCapacity } from './lib/release.mjs';
+test('publication capacity uses published kinds and consumed daily slots, not accepted counters', () => {
+  const config = {throughput:{monthlyTarget:55,monthlyRewriteTarget:14},publish:{maxPerDay:3}};
+  const slugs = Array.from({length:63}, (_,i)=>`s${i}`);
+  const days = {'2026-10-30':slugs.slice(0,60),'2026-10-31':slugs.slice(60)};
+  const kinds = Object.fromEntries(Object.entries(days).map(([day,ss])=>[day,Object.fromEntries(ss.map(s=>[s,Number(s.slice(1))<50?'new':'rewrite']))]));
+  const result=publicationCapacity({date:new Date('2026-10-31T12:00:00Z'),config,publishLog:{days,kinds}});
+  assert.equal(result.slotsRemaining,0);assert.equal(result.needed,6);assert.equal(result.impossible,true);
+  assert.deepEqual(result.byKind.new,{target:55,published:50,remaining:5});
+  const before=publicationCapacity({date:new Date('2026-10-04T12:00:00Z'),config,publishLog:{days:{}}});
+  assert.equal(before.impossible,false);assert.equal(before.slotsRemaining,84);
+});
+
+import { publicationFailureStreak } from './lib/release.mjs';
+test('publication stop counts distinct completed passes; recovery and month boundary reset it', () => {
+ const run=(id,date,bad,committed=true)=>({runId:id,date,createdAt:date,stages:{gated:{at:date,publicationCapacity:{impossible:bad}},...(committed?{committed:{}}:{})}});
+ const a=run('a','2026-10-20',true),b=run('b','2026-10-21',true),c=run('c','2026-10-22',true);
+ assert.equal(publicationFailureStreak([a,b,c,c,run('pending','2026-10-23',true,false)],'2026-10-23'),3);
+ assert.equal(publicationFailureStreak([a,b,c,run('recovered','2026-10-23',false)],'2026-10-23'),0);
+ assert.equal(publicationFailureStreak([a,b,c],'2026-11-01'),0);
+ assert.equal(publicationFailureStreak([a,b,c,run('legacy','2026-10-24',undefined)],'2026-10-24'),0);
+});
