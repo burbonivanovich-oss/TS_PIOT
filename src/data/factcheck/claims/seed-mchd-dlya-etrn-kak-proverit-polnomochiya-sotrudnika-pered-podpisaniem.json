@@ -1,0 +1,65 @@
+{
+  "slug": "seed-mchd-dlya-etrn-kak-proverit-polnomochiya-sotrudnika-pered-podpisaniem",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/related_activities/el_doc/el_bus_entities/edotransp/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 651,
+      "line": 9,
+      "context": "го подписания. ## Определите действие, для которого нужна МЧД [ФНС объясняет](https://www.nalog.gov.ru/rn77/related_activities/el_doc/el_bus_entities/edotransp/): когда перевозочный документ подписывает сотрудник организации с КЭП физлица,",
+      "expected_source": "nalog.gov.ru"
+    },
+    {
+      "id": "c2",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn65/news/activities_fts/14111448/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 2507,
+      "line": 19,
+      "context": "т работать ваш оператор. [ФНС описывает МЧД как структурированный XML-документ](https://www.nalog.gov.ru/rn65/news/activities_fts/14111448/) и указывает возможность проверки доверенностей, созданных в сторонних сервисах",
+      "expected_source": "nalog.gov.ru"
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn38/news/activities_fts/15371936/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 2783,
+      "line": 21,
+      "context": "ФНС, найдите карточку по уникальному номеру. В [инструкции ФНС о проверке МЧД](https://www.nalog.gov.ru/rn38/news/activities_fts/15371936/) указано, что карточка появляется при наличии доверенности с введёнными реквизи",
+      "expected_source": "nalog.gov.ru"
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/related_activities/el_doc/use_electronic_sign/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 3324,
+      "line": 23,
+      "context": "ом реестра подтверждает [действующая страница о применении электронной подписи](https://www.nalog.gov.ru/rn77/related_activities/el_doc/use_electronic_sign/). При работе через оператора выясните, откуда его система получает статус и как",
+      "expected_source": "nalog.gov.ru"
+    },
+    {
+      "id": "c5",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/related_activities/el_doc/use_electronic_sign/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 7205,
+      "line": 53,
+      "context": "документ о его полномочиях решают разные задачи. ФНС [описывает назначение МЧД](https://www.nalog.gov.ru/rn77/related_activities/el_doc/use_electronic_sign/) как подтверждение права подписанта действовать от имени выдавшего её хозяйству",
+      "expected_source": "nalog.gov.ru"
+    }
+  ]
+}

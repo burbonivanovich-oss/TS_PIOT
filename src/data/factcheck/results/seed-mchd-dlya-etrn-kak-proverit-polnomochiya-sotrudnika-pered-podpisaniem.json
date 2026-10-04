@@ -1,0 +1,126 @@
+{
+  "slug": "seed-mchd-dlya-etrn-kak-proverit-polnomochiya-sotrudnika-pered-podpisaniem",
+  "checkedAt": "2026-10-04T20:12:09.969Z",
+  "passed": true,
+  "scope": "Все внешние ссылки и содержательные утверждения о МЧД; нормативные даты, штрафы и номера НПА в статье отсутствуют.",
+  "results": [
+    {
+      "id": "c1",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/related_activities/el_doc/el_bus_entities/edotransp/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 651,
+      "line": 9,
+      "context": "го подписания. ## Определите действие, для которого нужна МЧД [ФНС объясняет](https://www.nalog.gov.ru/rn77/related_activities/el_doc/el_bus_entities/edotransp/): когда перевозочный документ подписывает сотрудник организации с КЭП физлица,",
+      "expected_source": "nalog.gov.ru",
+      "status": "match",
+      "severity": null,
+      "action": "keep",
+      "detail": "URL проверен свежим снимком ФНС и прочитан в контексте; архивность двух объяснений указана, общие рекомендации не представлены как нормы."
+    },
+    {
+      "id": "c2",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn65/news/activities_fts/14111448/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 2507,
+      "line": 19,
+      "context": "т работать ваш оператор. [ФНС описывает МЧД как структурированный XML-документ](https://www.nalog.gov.ru/rn65/news/activities_fts/14111448/) и указывает возможность проверки доверенностей, созданных в сторонних сервисах",
+      "expected_source": "nalog.gov.ru",
+      "status": "match",
+      "severity": null,
+      "action": "keep",
+      "detail": "URL проверен свежим снимком ФНС и прочитан в контексте; архивность двух объяснений указана, общие рекомендации не представлены как нормы."
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn38/news/activities_fts/15371936/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 2783,
+      "line": 21,
+      "context": "ФНС, найдите карточку по уникальному номеру. В [инструкции ФНС о проверке МЧД](https://www.nalog.gov.ru/rn38/news/activities_fts/15371936/) указано, что карточка появляется при наличии доверенности с введёнными реквизи",
+      "expected_source": "nalog.gov.ru",
+      "status": "match",
+      "severity": null,
+      "action": "keep",
+      "detail": "URL проверен свежим снимком ФНС и прочитан в контексте; архивность двух объяснений указана, общие рекомендации не представлены как нормы."
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/related_activities/el_doc/use_electronic_sign/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 3324,
+      "line": 23,
+      "context": "ом реестра подтверждает [действующая страница о применении электронной подписи](https://www.nalog.gov.ru/rn77/related_activities/el_doc/use_electronic_sign/). При работе через оператора выясните, откуда его система получает статус и как",
+      "expected_source": "nalog.gov.ru",
+      "status": "match",
+      "severity": null,
+      "action": "keep",
+      "detail": "URL проверен свежим снимком ФНС и прочитан в контексте; архивность двух объяснений указана, общие рекомендации не представлены как нормы."
+    },
+    {
+      "id": "c5",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/related_activities/el_doc/use_electronic_sign/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 7205,
+      "line": 53,
+      "context": "документ о его полномочиях решают разные задачи. ФНС [описывает назначение МЧД](https://www.nalog.gov.ru/rn77/related_activities/el_doc/use_electronic_sign/) как подтверждение права подписанта действовать от имени выдавшего её хозяйству",
+      "expected_source": "nalog.gov.ru",
+      "status": "match",
+      "severity": null,
+      "action": "keep",
+      "detail": "URL проверен свежим снимком ФНС и прочитан в контексте; архивность двух объяснений указана, общие рекомендации не представлены как нормы."
+    }
+  ],
+  "semanticChecks": [
+    {
+      "claimHash": "0be62148cff98ab1ea783dd4ccc4e412fa2d2c81146cc61dc6de4e2f863b4fe0",
+      "sentence": "Сотрудник организации подписывает перевозочный документ личной КЭП с МЧД.",
+      "source": "https://www.nalog.gov.ru/rn77/related_activities/el_doc/el_bus_entities/edotransp/",
+      "excerpt": "Обратите внимание: если документ подписывает не ИП или руководитель юридического лица, а сотрудник организации, он делает это с помощью КЭП физлица. В этом случае нужно дополнительно использовать машиночитаемую доверенность (МЧД). Она подтверждает полномочия сотрудника на подпись перевозочных документов.",
+      "checkedAt": "2026-10-04T20:12:09.969Z",
+      "result": "verified",
+      "rationale": "ФНС прямо подтверждает схему для сотрудника. Не распространено на руководителя и все действия водителя."
+    },
+    {
+      "claimHash": "d812b2120591d30c4577b363492d43570b833f4f48583f034ee8c79c941f015d",
+      "sentence": "В реестре ФНС можно проверить статус размещённой МЧД.",
+      "source": "https://www.nalog.gov.ru/rn38/news/activities_fts/15371936/",
+      "excerpt": "Проверить статус МЧД и подробную информацию о ней можно в ресурсе",
+      "checkedAt": "2026-10-04T20:12:09.969Z",
+      "result": "verified",
+      "rationale": "Прочитан полный абзац о поиске по уникальному номеру, сроке и карточке при наличии в реестре; архивность указана в статье."
+    },
+    {
+      "claimHash": "d1afaf6807dfe6b798b42bc9bde10244e529e574aacdd075b1fd314efa013d85",
+      "sentence": "МЧД имеет структурированный XML-формат.",
+      "source": "https://www.nalog.gov.ru/rn65/news/activities_fts/14111448/",
+      "excerpt": "имеет структурированный формат «xml»",
+      "checkedAt": "2026-10-04T20:12:09.969Z",
+      "result": "verified",
+      "rationale": "Подтверждена форма документа; налоговый формат не объявлен универсальным для ЭТрН."
+    },
+    {
+      "claimHash": "ead43b26440f007a0283372c3301b762967ab1eec7a8c407c057749c769e775d",
+      "sentence": "МЧД подтверждает право действовать от имени доверителя.",
+      "source": "https://www.nalog.gov.ru/rn77/related_activities/el_doc/use_electronic_sign/",
+      "excerpt": "Машиночитаемая доверенность (МЧД) используется для подтверждения полномочий подписанта электронного документа действовать от имени хозяйствующего субъекта, который выдал ему машиночитаемую доверенность (МЧД).",
+      "checkedAt": "2026-10-04T20:12:09.969Z",
+      "result": "verified",
+      "rationale": "Действующая тематическая страница ФНС подтверждает назначение и интеграцию реестра; исторические сроки не перенесены в статью."
+    }
+  ]
+}

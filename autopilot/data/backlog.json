@@ -2034,13 +2034,14 @@
         "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD"
       },
       "priorityScore": 30,
-      "status": "planned",
+      "status": "accepted_waiting_release",
       "createdAt": "2026-10-04",
       "dedupe": {
         "verdict": "ok",
         "advice": "",
         "related": []
-      }
+      },
+      "updatedAt": "2026-10-04"
     },
     {
       "slug": "seed-etrn-dlya-gruzopoluchatelya-priemka-gruza-rashozhdeniya-i-podpisanie",

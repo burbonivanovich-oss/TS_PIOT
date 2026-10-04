@@ -1,0 +1,82 @@
+{
+  "runId": "2026-10-04-0106495d",
+  "date": "2026-10-04",
+  "kind": "day",
+  "createdAt": "2026-10-04T20:06:40.856Z",
+  "updatedAt": "2026-10-04T20:13:02.026Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-04T20:06:40.936Z",
+      "orderCount": 1,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 1,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "written": {
+      "at": "2026-10-04T20:12:35.062Z",
+      "delivered": 1,
+      "meaning": "bytes delivered; gates not passed yet"
+    },
+    "gated": {
+      "at": "2026-10-04T20:13:01.999Z",
+      "publicationCapacity": {
+        "day": "2026-10-04",
+        "slotsRemaining": 81,
+        "needed": 66,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 2,
+            "remaining": 53
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 1,
+            "remaining": 13
+          }
+        }
+      },
+      "published": 0,
+      "acceptedWaiting": 14,
+      "results": [
+        {
+          "slug": "seed-mchd-dlya-etrn-kak-proverit-polnomochiya-sotrudnika-pered-podpisaniem",
+          "status": "accepted_waiting_release"
+        }
+      ]
+    },
+    "built": {
+      "at": "2026-10-04T20:13:01.998Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "92e15770f04bb30a0a141384a38fe123181dbcf22440bd45337d2510248b1d07",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-04T20:06:40.936Z"
+    },
+    {
+      "stage": "written",
+      "at": "2026-10-04T20:12:35.062Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-04T20:13:01.999Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-04T20:13:02.026Z"
+    }
+  ],
+  "meta": {}
+}

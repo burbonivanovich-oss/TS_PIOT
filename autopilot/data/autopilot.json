@@ -3,7 +3,7 @@
   "startedAt": "2026-08-10",
   "month": "2026-10",
   "counters": {
-    "new": 12,
+    "new": 13,
     "rewrite": 4,
     "published": 3,
     "blockedDupes": 0,
@@ -22,7 +22,7 @@
       "quarantined": 0
     }
   ],
-  "lastRunAt": "2026-10-04T19:20:15.460Z",
+  "lastRunAt": "2026-10-04T20:13:02.075Z",
   "lastMigration": {
     "at": "2026-09-13T19:07:00.147Z",
     "actions": 6,

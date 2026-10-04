@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-10-04T19:11:33.383Z",
+  "generatedAt": "2026-10-04T20:06:40.952Z",
   "date": "2026-10-04",
-  "runId": "2026-10-04-28b41e7a",
+  "runId": "2026-10-04-0106495d",
   "capacity": {
     "month": "2026-10",
     "done": 12,
     "monthlyTarget": 55,
-    "totalDone": 15,
+    "totalDone": 16,
     "totalTarget": 69,
     "expectedByToday": 7,
     "debt": 0,
     "todayTarget": 3,
     "inFlight": 0,
     "freeSlots": 4,
-    "remaining": 54,
+    "remaining": 53,
     "canTake": 1,
     "byKind": {
       "new": {
@@ -27,49 +27,47 @@
       },
       "rewrite": {
         "target": 14,
-        "done": 3,
+        "done": 4,
         "active": 0,
         "carriedAccepted": 0,
         "expectedByToday": 2,
         "debt": 0,
-        "remaining": 11
+        "remaining": 10
       }
     },
     "takeByKind": {
-      "new": 0,
-      "rewrite": 1
+      "new": 1,
+      "rewrite": 0
     },
-    "urgentRewriteSlots": 1,
-    "correctionsOnly": true
+    "urgentRewriteSlots": 0,
+    "buffer": {
+      "limit": 14,
+      "waiting": 13,
+      "reserved": 13,
+      "free": 1,
+      "paused": false
+    }
   },
   "healed": 0,
   "orders": [
     {
-      "kind": "rewrite",
-      "slug": "2026-05-03-etrn-2026",
-      "title": "ЭТрН с 1 сентября 2026: кто обязан оформлять электронную транспортную накладную",
-      "reasons": [
-        "Исправить подтверждённую фактическую ошибку: В статье суммы 30000 для ИП и 100000 для юридических лиц приписаны ч. 3 ст. 14.1. Прочитанная часть относится к условиям лицензии и содержит иной диапазон для юридических лиц. Она не подтверждает универсальную квалификацию отсутствия ЭТрН. Удалить этот вывод либо подтвердить конкретный применимый состав новым первоисточником. Источник: https://www.consultant.ru/document/cons_doc_LAW_34661/75bd42f831f7b882297cf0c477ced1e5dcfc89f2/",
-        " с 1 сентября 2026: нет сохранённой содержательной сверки утверждения",
-        "\nС 1 сентября 2026: нет сохранённой содержательной сверки утверждения",
-        "30 000 руб: нет сохранённой содержательной сверки утверждения",
-        "100 000 руб: нет сохранённой содержательной сверки утверждения",
-        " № 259-ФЗ: нет сохранённой содержательной сверки утверждения",
-        "(ст. 8: нет сохранённой содержательной сверки утверждения",
-        " ст. 1: нет сохранённой содержательной сверки утверждения",
-        " КоАП: нет сохранённой содержательной сверки утверждения",
-        "reviewDate просрочен на 48 дн."
+      "kind": "new",
+      "slug": "seed-mchd-dlya-etrn-kak-proverit-polnomochiya-sotrudnika-pered-podpisaniem",
+      "title": "МЧД для ЭТрН: как проверить полномочия сотрудника перед подписанием",
+      "keywords": [
+        "мчд для этрн"
       ],
-      "score": 55,
-      "factCorrections": [
-        {
-          "claimHash": "9636845b9541d8720f35219c0d803b480d1bc6d37462a1334474cf12429657a7",
-          "source": "https://www.consultant.ru/document/cons_doc_LAW_34661/75bd42f831f7b882297cf0c477ced1e5dcfc89f2/",
-          "rationale": "В статье суммы 30000 для ИП и 100000 для юридических лиц приписаны ч. 3 ст. 14.1. Прочитанная часть относится к условиям лицензии и содержит иной диапазон для юридических лиц. Она не подтверждает универсальную квалификацию отсутствия ЭТрН. Удалить этот вывод либо подтвердить конкретный применимый состав новым первоисточником."
-        }
-      ],
-      "targetFile": "src/content/blog/2026-05-03-etrn-2026.md",
-      "runId": "2026-10-04-28b41e7a"
+      "entity": "этрн",
+      "intent": "seed",
+      "format": "howto",
+      "segment": "none",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "targetFile": "src/content/blog/seed-mchd-dlya-etrn-kak-proverit-polnomochiya-sotrudnika-pered-podpisaniem.md",
+      "runId": "2026-10-04-0106495d"
     }
   ],
   "skipped": []
