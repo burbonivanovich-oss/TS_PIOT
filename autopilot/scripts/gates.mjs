@@ -11,6 +11,7 @@ import { checkHeroAssets } from './lib/hero-assets.mjs';
 //
 // Код выхода: 0 — прошло, 1 — ошибка запуска, 2 — не прошло.
 import path from 'node:path';
+import { activeFactCorrections } from './lib/fact-corrections.mjs';
 import { checkClaimEvidence } from './lib/claim-evidence.mjs';
 import { observedSourceChanges } from './lib/fact-freshness.mjs';
 import { readJson } from './lib/content.mjs';
@@ -156,11 +157,15 @@ export function extractCriticalClaims(body, sourceEvidence = null) {
   );
 }
 
-export function runGates({ file, source, requiredPubDate = null, knownSlugs = null, sourceEvidence = null, siteQuality = runSiteQuality, claimEvidence = undefined, claimVerifier = checkClaimEvidence, assetVerifier = checkHeroAssets }) {
+export function runGates({ file, source, requiredPubDate = null, knownSlugs = null, sourceEvidence = null, siteQuality = runSiteQuality, claimEvidence = undefined, claimVerifier = checkClaimEvidence, assetVerifier = checkHeroAssets, correctionEvidence = undefined }) {
   const raw = source ?? readFileSync(file, 'utf8');
   const { data, body } = parseFrontmatter(raw);
   const checks = [];
   const add = (id, ok, weight, detail) => checks.push({ id, ok, weight, detail });
+
+  const correctionSlug = file ? path.basename(file).replace(/\.mdx?$/, '') : String(data.slug || '');
+  const unresolvedCorrections = activeFactCorrections({ slug: correctionSlug, body, evidence: correctionEvidence ?? (correctionSlug ? readJson(path.join(cfg.resolved.dataDir, 'fact-corrections', correctionSlug + '.json'), null) : null), maxAgeDays: G.sourceMaxAgeDays ?? 180 });
+  add('fact-corrections', unresolvedCorrections.length === 0, 0, unresolvedCorrections.length ? unresolvedCorrections.map(c => c.rationale).join('; ') : 'подтверждённых неисправленных ошибок нет');
 
   // 1. Frontmatter: без него статья не соберётся у принимающего проекта.
   const required = ['title', 'description', 'pubDate'];
@@ -329,7 +334,7 @@ export function runGates({ file, source, requiredPubDate = null, knownSlugs = nu
   const score = Math.round((gained / total) * 100);
 
   // Блокеры — то, что нельзя компенсировать баллами в других проверках.
-  const blockers = checks.filter((c) => !c.ok && ['frontmatter', 'length', 'sources', 'links-valid', 'dates', 'site-quality', 'claim-evidence', 'hero-assets'].includes(c.id));
+  const blockers = checks.filter((c) => !c.ok && ['frontmatter', 'length', 'sources', 'links-valid', 'dates', 'site-quality', 'claim-evidence', 'hero-assets', 'fact-corrections'].includes(c.id));
 
   return {
     file: file || null,

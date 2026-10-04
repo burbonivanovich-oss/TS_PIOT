@@ -1,4 +1,6 @@
 import { test } from 'node:test';
+import { createHash } from 'node:crypto';
+import { claimHash } from './lib/claim-evidence.mjs';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync, mkdirSync, symlinkSync } from 'node:fs';
@@ -345,4 +347,16 @@ test('hero-assets is a non-compensable blocker', () => {
   const result = actualRunGates({ source: good(), knownSlugs: KNOWN, siteQuality: () => ({ ok: true, blockers: [] }), claimVerifier: () => ({ ok: true, problems: [] }), assetVerifier: () => ({ ok: false, detail: 'missing image' }) });
   assert.equal(result.passed, false);
   assert.ok(result.blockers.includes('hero-assets'));
+});
+
+
+test('confirmed wrong statement is a non-compensable blocker until removed',()=>{
+ const statement='Ошибочное утверждение тестового материала.';const date=new Date().toISOString();
+ const source='https://www.consultant.ru/document/cons_doc_LAW_34661/';const text='Фрагмент для тестовой сверки.';
+ const correctionEvidence={version:1,slug:'testarticle',documents:[{url:source,status:200,text,sha256:createHash('sha256').update(text).digest('hex'),fetchedAt:date}],findings:[{statement,claimHash:claimHash(statement),source,result:'contradicted',excerpt:text,checkedAt:date,rationale:'Подтверждённая ошибка тестового материала.'}]};
+ const options={file:path.join(tmpdir(),'testarticle.md'),knownSlugs:KNOWN,correctionEvidence};
+ const bad=runGates({...options,source:good()+'\n'+statement});
+ const corrected=runGates({...options,source:good()});
+ assert.ok(bad.blockers.includes('fact-corrections'));assert.equal(bad.passed,false);
+ assert.equal(corrected.passed,true);assert.equal(bad.score,corrected.score);
 });

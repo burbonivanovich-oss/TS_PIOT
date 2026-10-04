@@ -18,6 +18,7 @@ import { acquireLock, releaseLock } from './lib/lock.mjs';
 import { buildLinkGraph } from './interlink.mjs';
 import { extractCriticalClaims } from './gates.mjs';
 import { factFreshness } from './lib/fact-freshness.mjs';
+import { activeFactCorrections } from './lib/fact-corrections.mjs';
 
 const cfg = loadConfig();
 const R = cfg.rewrite;
@@ -87,9 +88,10 @@ function buildQueueInner() {
       maxAgeDays: cfg.gates.sourceMaxAgeDays ?? 180,
       observationMaxAgeDays: R.sourceObservationMaxAgeDays ?? 7,
     });
-    if (sinceRewrite !== null && sinceRewrite < R.minDaysBetweenRewrites && !facts.needsReview) continue;
+    const corrections = activeFactCorrections({ slug: article.slug, body: article.body, evidence: readJson(path.join(cfg.resolved.dataDir, 'fact-corrections', article.slug + '.json'), null), now, maxAgeDays: cfg.gates.sourceMaxAgeDays ?? 180 });
+    if (sinceRewrite !== null && sinceRewrite < R.minDaysBetweenRewrites && !facts.needsReview && !corrections.length) continue;
 
-    const reasons = [];
+    const reasons = corrections.map(c => `Исправить подтверждённую фактическую ошибку: ${c.rationale} Источник: ${c.source}`);
     let score = 0;
     if (facts.needsReview) {
       score += R.npaTriggerBoost;
@@ -144,7 +146,7 @@ function buildQueueInner() {
       reasons.push(`${item.date}: ${item.event}`);
     }
 
-    if (score <= 0) continue;
+    if (score <= 0 && !corrections.length) continue;
     seen.add(article.slug);
     rows.push({
       slug: article.slug,
@@ -156,6 +158,7 @@ function buildQueueInner() {
       outbound,
       reasons,
       factReview: facts,
+      factCorrections: corrections,
       lastRewrite: lastRewrite ? lastRewrite.toISOString().slice(0, 10) : null,
       ...(reservations.get(article.slug) || {}),
     });
@@ -168,7 +171,10 @@ function buildQueueInner() {
     if (item.reservedAt && !seen.has(item.slug)) rows.push(item);
   }
 
-  rows.sort((a, b) => b.score - a.score);
+  // Confirmed wrong statements precede routine age/evidence/graph reviews.
+  // Corrected text drops the finding automatically; queued/active exclusions
+  // still prevent a second order for the same article.
+  rows.sort((a, b) => Number(Boolean(b.factCorrections?.length)) - Number(Boolean(a.factCorrections?.length)) || b.score - a.score);
   const queue = { generatedAt: today(), size: rows.length, items: rows };
   writeJson(QUEUE_FILE, queue);
   return queue;
