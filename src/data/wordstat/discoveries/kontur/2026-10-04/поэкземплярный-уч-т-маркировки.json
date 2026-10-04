@@ -1,0 +1,35 @@
+{
+  "seed": "поэкземплярный учёт маркировки",
+  "slug": "поэкземплярный-уч-т-маркировки",
+  "category": "entity",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-04T17:03:16.516Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 3,
+  "phrases": [
+    {
+      "phrase": "маркировка поэкземплярный учет",
+      "count": 397
+    },
+    {
+      "phrase": "контур маркировка поэкземплярный учет",
+      "count": 22
+    },
+    {
+      "phrase": "маркировка воды поэкземплярный учет",
+      "count": 8
+    }
+  ]
+}

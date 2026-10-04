@@ -1,0 +1,59 @@
+{
+  "seed": "маркировка парфюмерии",
+  "slug": "маркировка-парфюмерии",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-04T17:00:46.081Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 9,
+  "phrases": [
+    {
+      "phrase": "маркировка парфюмерии",
+      "count": 482
+    },
+    {
+      "phrase": "маркировка парфюмерии честный",
+      "count": 114
+    },
+    {
+      "phrase": "честный знак маркировка парфюмерии",
+      "count": 112
+    },
+    {
+      "phrase": "обязательная маркировка парфюмерии",
+      "count": 47
+    },
+    {
+      "phrase": "маркировка косметика и парфюмерия",
+      "count": 41
+    },
+    {
+      "phrase": "парфюмерия подлежит маркировке",
+      "count": 35
+    },
+    {
+      "phrase": "сроки маркировки парфюмерии",
+      "count": 33
+    },
+    {
+      "phrase": "парфюмерия с маркировкой оптом",
+      "count": 14
+    },
+    {
+      "phrase": "маркировка остатков парфюмерии сроки",
+      "count": 8
+    }
+  ]
+}

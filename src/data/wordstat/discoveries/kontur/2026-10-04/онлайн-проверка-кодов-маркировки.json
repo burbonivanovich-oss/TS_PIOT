@@ -1,0 +1,39 @@
+{
+  "seed": "онлайн-проверка кодов маркировки",
+  "slug": "онлайн-проверка-кодов-маркировки",
+  "category": "intent",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-04T17:03:22.423Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "проверка кода маркировки онлайн",
+      "count": 1684
+    },
+    {
+      "phrase": "честный знак проверка кода маркировки онлайн",
+      "count": 283
+    },
+    {
+      "phrase": "код маркировки не прошел онлайн проверку",
+      "count": 55
+    },
+    {
+      "phrase": "онлайн проверка статуса кода маркировки",
+      "count": 31
+    }
+  ]
+}
