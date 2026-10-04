@@ -15,6 +15,7 @@ import { loadArticles, readJson, isMain, parseArgs, daysBetween } from './lib/co
 import { readState, capacity } from './state.mjs';
 import { inspectLock } from './lib/lock.mjs';
 import { publicationCapacity } from './lib/release.mjs';
+import { factualCoverage } from './lib/factual-coverage.mjs';
 import { buildLinkGraph } from './interlink.mjs';
 
 const cfg = loadConfig();
@@ -60,6 +61,11 @@ export function healthCheck() {
       };
     }),
   );
+
+  checks.push(check('фактическое покрытие', () => {
+    const coverage = factualCoverage({articles:loadArticles({includeDrafts:false}), observations:readJson(path.join(cfg.resolved.dataDir,'source-observations.json'), {byUrl:{}}).byUrl, evidenceFor:slug=>readJson(path.join(cfg.resolved.dataDir,'claim-evidence',slug+'.json'),null), maxAgeDays:cfg.gates.sourceMaxAgeDays, observationMaxAgeDays:cfg.rewrite.sourceObservationMaxAgeDays});
+    return {...coverage, detail:`${coverage.freshSources}/${coverage.sourceUrls} свежих источников; недоступных ${coverage.unavailableSources}, без свежего наблюдения ${coverage.missingOrExpiredSources}; содержательная сверка нужна ${coverage.reviewRequired}/${coverage.articles} статьям; срабатываний без источника ${coverage.claimsWithoutSource} (не число ошибок)`};
+  }));
 
   checks.push(check('готовность запаса к выпуску', () => {
     const queue = readJson(path.join(cfg.resolved.dataDir, 'release-queue.json'), {items: []}).items;
