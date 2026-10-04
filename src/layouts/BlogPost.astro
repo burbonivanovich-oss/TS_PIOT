@@ -508,7 +508,7 @@ const shareTitle = encodeURIComponent(title);
 			.art-banner-cta:hover { background: #7d2240; }
 
 			/* ── Content column ── */
-			.art-content { padding: 40px 48px 80px; border-left: 1px solid rgba(0,0,0,.08); min-height: 100vh; }
+			.art-content { min-width: 0; padding: 40px 48px 80px; border-left: 1px solid rgba(0,0,0,.08); min-height: 100vh; }
 
 			/* TOC */
 			.toc { border-left: 3px solid #9E2B4F; background: #F6F4F0; padding: 1rem 1.2rem; margin-bottom: 2rem; }
@@ -537,7 +537,7 @@ const shareTitle = encodeURIComponent(title);
 			.cpa-action { padding: 0 22px; background: #fff; border-left: 1px solid rgba(0,0,0,.08); display: flex; align-items: center; }
 			.cpa-btn { display: inline-block; background: #9E2B4F; color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 12px 18px; text-decoration: none; white-space: nowrap; transition: background .15s; }
 			.cpa-btn:hover { background: #7d2240; }
-			.cpa-erid { grid-column: 1 / -1; padding: 4px 12px; background: rgba(0,0,0,.04); font-size: .62rem; color: #999; letter-spacing: .04em; border-top: 1px solid rgba(0,0,0,.07); }
+			.cpa-erid { min-width: 0; overflow-wrap: anywhere; grid-column: 1 / -1; padding: 4px 12px; background: rgba(0,0,0,.04); font-size: .62rem; color: #999; letter-spacing: .04em; border-top: 1px solid rgba(0,0,0,.07); }
 
 			/* ── Share ── */
 			.funnel-cta {
@@ -554,7 +554,7 @@ const shareTitle = encodeURIComponent(title);
 				font-size: .8rem; font-weight: 700; letter-spacing: .04em;
 				text-transform: uppercase; color: var(--pink, #9E2B4F); white-space: nowrap;
 			}
-			.art-share { display: flex; align-items: center; gap: 8px; padding: 1.2rem 0; border-top: 1px solid rgba(0,0,0,.1); border-bottom: 1px solid rgba(0,0,0,.1); }
+			.art-share { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 1.2rem 0; border-top: 1px solid rgba(0,0,0,.1); border-bottom: 1px solid rgba(0,0,0,.1); }
 			.share-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #888; margin-right: 4px; }
 			.share-btn { display: inline-block; padding: 6px 14px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; background: #111; color: #EDE8DF; transition: background .15s; }
 			.share-btn:hover { background: #9E2B4F; color: #fff; }
