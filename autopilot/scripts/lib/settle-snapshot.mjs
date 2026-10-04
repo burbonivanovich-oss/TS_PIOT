@@ -32,6 +32,9 @@ function context({ blog, dataDir, contentRoot, mode = 'settle' }) {
     { kind: 'data', root: roots.data, recursive: false, match: name => name.endsWith('.json') },
     { kind: 'data', root: path.join(roots.data, 'runs'), recursive: true, match: name => name.endsWith('.json') },
   ];
+  for (const name of ['published-rewrites', 'release-drafts', 'failed-rewrites']) {
+    scopes.push({ kind: 'data', root: path.join(roots.data, name), recursive: true, match: file => /\.(md|mdx)$/.test(file) });
+  }
   if (mode === 'writer') {
     scopes.push({ kind: 'data', root: path.join(roots.data, 'claim-evidence'), recursive: true, match: name => name.endsWith('.json') });
     for (const kind of ['hero', 'preview', 'factchecked', 'factresults', 'factclaims', 'research']) scopes.push({ kind, root: roots[kind], recursive: true, match: () => true });
@@ -92,7 +95,7 @@ function readJournal(ctx) {
     const { kind, relative, base64, sha256, mode, snapshotKey } = entry;
     if (!Number.isInteger(mode) || mode < 0 || mode > 0o777) throw new Error('Некорректный режим файла в журнале');
     if (!Object.hasOwn(ctx.roots, kind) || typeof relative !== 'string' || relative.includes('\\') || path.isAbsolute(relative) || relative.split('/').some(p => !p || p === '.' || p === '..')) throw new Error('Небезопасный путь в журнале приёмки');
-    const allowed = kind === 'blog' ? /\.(md|mdx)$/.test(relative) : kind === 'data' ? relative.endsWith('.json') && (!relative.includes('/') || relative.startsWith('runs/') || (ctx.mode === 'writer' && relative.startsWith('claim-evidence/'))) : ctx.mode === 'writer';
+    const allowed = kind === 'blog' ? /\.(md|mdx)$/.test(relative) : kind === 'data' ? (relative.endsWith('.json') && (!relative.includes('/') || relative.startsWith('runs/') || (ctx.mode === 'writer' && relative.startsWith('claim-evidence/')))) || (kind === 'data' && /^(published-rewrites|release-drafts|failed-rewrites)\/[a-z0-9-]+\.(md|mdx)$/.test(relative)) : ctx.mode === 'writer';
     if (!allowed) throw new Error('Небезопасная запись в журнале приёмки');
     let bytes = null; let backup = null;
     if (document.version === 2) {
