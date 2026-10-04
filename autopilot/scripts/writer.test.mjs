@@ -22,6 +22,8 @@ test('writer refuses unchanged rewrite, stale attempt and mismatched bytes', () 
 test('prompt chooses rewrite procedure and leaves state ownership with parent', () => {
   const prompt = writerPrompt({ slug: 'article', kind: 'rewrite' }, before, { resolved: { dataDir: '/data' } });
   assert.match(prompt, /auto-rewrite/); assert.match(prompt, /now\/0\/0/); assert.match(prompt, /Не запускай plan/);
+  assert.match(prompt, /\/data\/claim-evidence\/article\.json/);
+  assert.match(prompt, /Вывод самопроверок печатай в терминал/);
 });
 test('missing executable is infrastructure failure, never delivery', async () => {
   const root = mkdtempSync(path.join(tmpdir(), 'missing-writer-'));
@@ -29,7 +31,7 @@ test('missing executable is infrastructure failure, never delivery', async () =>
 });
 test('writer permits current artifacts and rejects another article or state change', () => {
   validateWriterChanges([{ kind: 'blog', relative: 'article.mdx' }, { kind: 'hero', relative: 'article-v2.webp' }, { kind: 'data', relative: 'claim-evidence/article.json' }], 'article');
-  for (const change of [{ kind: 'blog', relative: 'other.md' }, { kind: 'data', relative: 'autopilot.json' }, { kind: 'hero', relative: 'article-other/image.webp' }]) assert.throws(() => validateWriterChanges([change], 'article'), /Посторонняя/);
+  for (const change of [{ kind: 'blog', relative: 'other.md' }, { kind: 'data', relative: 'autopilot.json' }, { kind: 'hero', relative: 'article-other/image.webp' }, { kind: 'research', relative: 'article-checks.json' }]) assert.throws(() => validateWriterChanges([change], 'article'), /Посторонняя/);
 });
 test('real writer/receipt path skips delivered order on repeat without model call', () => {
   const root = mkdtempSync(path.join(tmpdir(), 'writer-path-'));
