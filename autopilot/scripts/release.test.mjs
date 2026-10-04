@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -204,4 +204,30 @@ test('calendar counts legacy entries as new and rejects corrupt ledger', () => {
   const result = releaseCalendar({ date, config, publishLog: { days: { '2026-10-01': ['legacy'] } } });
   assert.equal(result.byKind.new.done, 1);
   assert.throws(() => releaseCalendar({ date, config, publishLog: { days: { '2026-10-04': ['future'] } } }), /Повреждён/);
+});
+
+import { preservePublishedRewrite, stageQueuedRewrite } from './lib/queued-rewrite.mjs';
+test('queued rewrite keeps published URL through full quota, then promotes once after rechecking gates', () => {
+  const fx = fixture();
+  const slug = 'rewrite-safe';
+  const oldFile = path.join(fx.blog, slug + '.md');
+  const original = '---\ntitle: "Старая опубликованная версия"\ndraft: false\n---\nСтабильная опубликованная страница.';
+  writeFileSync(oldFile, original);
+  preservePublishedRewrite({ ...fx, slug });
+  writeFileSync(oldFile, validWaitingArticle('rewrite-safe'));
+  const stagedFile = stageQueuedRewrite({ ...fx, slug, file: oldFile });
+  const queuePath = path.join(fx.dataDir, 'release-queue.json');
+  writeFileSync(queuePath, JSON.stringify({ items: [{ slug, kind: 'rewrite', acceptedAt: '2026-09-01T00:00:00Z', score: 100, stagedFile }] }));
+  const logPath = path.join(fx.dataDir, 'publish-log.json');
+  writeFileSync(logPath, JSON.stringify({ days: { [fx.day]: ['x1', 'x2', 'x3'] } }));
+  assert.equal(settle(fx).published, 0);
+  assert.equal(readFileSync(oldFile, 'utf8'), original);
+  assert.equal(JSON.parse(readFileSync(queuePath)).items[0].stagedFile, stagedFile);
+  writeFileSync(logPath, JSON.stringify({ days: { [fx.day]: ['x1', 'x2'] } }));
+  assert.equal(settle(fx).published, 1);
+  assert.match(readFileSync(oldFile, 'utf8'), /draft: false/);
+  assert.match(readFileSync(oldFile, 'utf8'), /rewrite-safe/);
+  assert.equal(existsSync(path.join(fx.dataDir, stagedFile)), false);
+  assert.equal(settle(fx).published, 0);
+  assert.equal(JSON.parse(readFileSync(logPath)).days[fx.day].filter(s => s === slug).length, 1);
 });
