@@ -82,7 +82,7 @@ export async function dailyCycle({ commit = false, push = false, remote = 'origi
       pending,
       refresh: async () => {
         const file = path.join(cfg.resolved.dataDir, 'source-observations.json');
-        const report = await monitorSources({ articles: loadArticles({ includeDrafts: false }), previous: readJson(file, { byUrl: {} }), limit: cfg.rewrite.sourceChecksPerRun ?? 10, intervalDays: cfg.rewrite.sourceCheckIntervalDays ?? 1 });
+        const report = await monitorSources({ articles: loadArticles({ includeDrafts: false }), previous: readJson(file, { byUrl: {} }), limit: cfg.rewrite.sourceChecksPerRun ?? 10, intervalDays: cfg.rewrite.sourceCheckIntervalDays ?? 1, coverageDays: cfg.rewrite.sourceObservationMaxAgeDays ?? 7 });
         writeJson(file, report);
       },
       plan,

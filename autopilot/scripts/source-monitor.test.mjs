@@ -26,3 +26,25 @@ test('unsupported sources are never fetched and invalid limit refuses', async ()
   assert.equal(calls, 0);
   await assert.rejects(monitorSources({ articles: [], limit: 0 }), /1–50/);
 });
+
+import { sourceCheckBudget } from './source-monitor.mjs';
+test('daily coverage budget grows with corpus instead of making a seven-day freshness window impossible',()=>{
+ assert.equal(sourceCheckBudget(76,10,7),13);
+ assert.equal(sourceCheckBudget(105,10,7),18);
+ assert.equal(sourceCheckBudget(10,10,7),10);
+ assert.equal(sourceCheckBudget(300,10,7),50);
+ assert.throws(()=>sourceCheckBudget(301,10,7),/more than 50/);
+ for(const args of [[-1,10,7],[76,0,7],[76,10,0],[76,10,NaN]])assert.throws(()=>sourceCheckBudget(...args));
+});
+test('monitor rotates 76 actual extracted source URLs within six daily passes',async()=>{
+ const articles=Array.from({length:76},(_,i)=>article(`https://www.consultant.ru/document/source-${i}/`));
+ let previous={byUrl:{}}, calls=0;
+ for(let day=0;day<6;day++) {
+  previous=await monitorSources({articles,previous,limit:10,coverageDays:7,now:new Date(now.getTime()+day*86400000),capture:async url=>{calls++;return {sha256:'a'.repeat(64),finalUrl:url};}});
+  assert.equal(previous.checkBudget,13);
+ }
+ assert.equal(Object.keys(previous.byUrl).length,76);assert.equal(calls,78);
+ let attempted=false;
+ await assert.rejects(monitorSources({articles:Array.from({length:301},(_,i)=>article(`https://www.consultant.ru/document/large-${i}/`)),limit:10,coverageDays:7,capture:async()=>{attempted=true;}}),/more than 50/);
+ assert.equal(attempted,false);
+});
