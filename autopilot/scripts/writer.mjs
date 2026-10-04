@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // Model delivery only. Quality, counters and publication remain owned by settle.
+import { randomUUID } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -9,7 +10,7 @@ import { readJson, isMain, parseArgs } from './lib/content.mjs';
 import { acquireLock, releaseLock, newRunId } from './lib/lock.mjs';
 import { checkpoint, writingStatus } from './writing-checkpoint.mjs';
 import { snapshotSettle, recoverSettle } from './lib/settle-snapshot.mjs';
-import { readRun } from './lib/run.mjs';
+import { readRun, recordModelInvocation } from './lib/run.mjs';
 import { supervisedProcess } from './lib/writer-process.mjs';
 
 const writerScope = cfg => ({ blog: cfg.resolved.blog, dataDir: cfg.resolved.dataDir, contentRoot: cfg.resolved.contentRoot, mode: 'writer' });
@@ -55,13 +56,16 @@ ${order.kind === 'new' ? `Это новый материал текущего п
 Верни JSON: slug, attempt (точно выше), status=delivered либо failed, sha256 текущего файла статьи (или пустую строку при failed), reason (краткая конкретная причина failed, иначе пустая строка). delivered означает доставленную попытку текста, а не разрешение публикации.`;
 }
 
-export async function codexDelivery(prompt, { cwd, actorFile, timeout = 30 * 60_000, binary = process.env.AUTOPILOT_CODEX_BIN || 'codex' } = {}) {
+export async function codexDelivery(prompt, { cwd, actorFile, timeout = 30 * 60_000, binary = process.env.AUTOPILOT_CODEX_BIN || 'codex', onObservation = () => {} } = {}) {
   const dir = mkdtempSync(path.join(tmpdir(), 'autopilot-writer-'));
   try {
     const schema = path.join(dir, 'schema.json'); const output = path.join(dir, 'result.json');
     writeFileSync(schema, JSON.stringify({ type: 'object', additionalProperties: false, required: ['slug', 'attempt', 'status', 'sha256', 'reason'], properties: { slug: { type: 'string' }, attempt: { type: 'string' }, status: { type: 'string', enum: ['delivered', 'failed'] }, sha256: { type: 'string' }, reason: { type: 'string' } } }));
     // No shell interpolation; inherit configured model/auth, never print credentials.
-    await supervisedProcess(binary, ['--no-daemon', '--search', '--ask-for-approval', 'never', '-c', 'sandbox_workspace_write.network_access=true', 'exec', '--sandbox', 'workspace-write', '--cd', cwd, '--output-schema', schema, '--output-last-message', output, '-'], { input: prompt, cwd, timeout, actorFile });
+    let processResult;
+    try { processResult = await supervisedProcess(binary, ['--no-daemon', '--search', '--ask-for-approval', 'never', '-c', 'sandbox_workspace_write.network_access=true', 'exec', '--sandbox', 'workspace-write', '--cd', cwd, '--output-schema', schema, '--output-last-message', output, '-'], { input: prompt, cwd, timeout, actorFile }); }
+    catch (error) { onObservation({ reportedTokens: error.reportedTokens ?? null, tokenSource: 'codex-cli-footer' }); throw error; }
+    onObservation({ reportedTokens: processResult.reportedTokens, tokenSource: 'codex-cli-footer' });
     writeFileSync(path.join(path.dirname(actorFile), '.writer-model-result.log'), readFileSync(output), { mode: 0o600 });
     return JSON.parse(readFileSync(output, 'utf8'));
   } finally { rmSync(dir, { recursive: true, force: true }); }
@@ -84,9 +88,14 @@ export async function writeOrders({ cfg = loadConfig(), deliver = codexDelivery,
     for (const before of selected) {
       if (before.action !== 'write') { results.push({ slug: before.slug, status: 'skipped', reason: before.action }); continue; }
       const order = initial.orders.orders.find(item => item.slug === before.slug);
+      const observation = { id: randomUUID(), slug: before.slug, attempt: before.attempt, startedAt: new Date().toISOString(), status: 'started' };
+      recordModelInvocation(initial.orders.runId, observation, { dir });
       const transaction = snapshotSettle(writerScope(cfg));
+      const started = performance.now();
+      let deliveryFailed = false;
       try {
-        const result = await deliver(writerPrompt(order, before, cfg), { cwd: cfg.resolved.contentRoot, actorFile: path.join(dir, '.writer-actor') });
+        const result = await deliver(writerPrompt(order, before, cfg), { cwd: cfg.resolved.contentRoot, actorFile: path.join(dir, '.writer-actor'), onObservation: value => { observation.reportedTokens = value.reportedTokens; observation.tokenSource = value.tokenSource; } });
+        observation.durationMs ??= Math.round(performance.now() - started);
         validateWriterChanges(transaction.changes(), before.slug);
         const current = inputs();
         if (JSON.stringify(current.orders) !== JSON.stringify(initial.orders) || JSON.stringify(current.state) !== JSON.stringify(initial.state)) throw new Error('Исполнитель изменил наряды или счётчики');
@@ -99,8 +108,14 @@ export async function writeOrders({ cfg = loadConfig(), deliver = codexDelivery,
       } catch (error) {
         transaction.restore();
         results.push({ slug: before.slug, status: 'failed', reason: error.message });
-        break; // Runtime failure stops further model calls; settle decides retry accounting.
+        deliveryFailed = true;
       }
+      observation.finishedAt = new Date().toISOString();
+      observation.durationMs ??= Math.round(performance.now() - started);
+      observation.status = deliveryFailed ? 'failed' : 'delivered';
+      // Persist only after commit/restore: never let parent accounting enter child changes.
+      recordModelInvocation(initial.orders.runId, observation, { dir });
+      if (deliveryFailed) break; // settle owns retry accounting.
     }
     return { ok: results.every(item => item.status !== 'failed'), results };
   } finally { releaseLock(); }

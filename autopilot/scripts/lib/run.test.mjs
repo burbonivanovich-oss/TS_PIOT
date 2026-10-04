@@ -62,3 +62,19 @@ test('AP-P0-11: симуляция падения после planned не соз
   assert.equal(again.changed, false);
   assert.equal(listRuns({ dir: d }).length, 1, 'второго прохода не появилось');
 });
+
+test('model ledger retains interrupted calls, strips transcripts and refuses completed-call overwrites', async () => {
+  const { recordModelInvocation } = await import('./run.mjs');
+  const { randomUUID } = await import('node:crypto');
+  const d=dir(), run=createRun({dir:d,orders:['a']});
+  const call={id:randomUUID(),slug:'a',attempt:'attempt',startedAt:new Date().toISOString(),status:'started',stderr:'secret transcript'};
+  recordModelInvocation(run.runId,call,{dir:d});
+  const pending=readRun(run.runId,{dir:d}).meta.modelInvocations[0];
+  assert.equal(pending.status,'started');assert.equal(pending.reportedTokens,null);assert.equal(pending.durationMs,null);assert.equal(pending.stderr,undefined);
+  recordModelInvocation(run.runId,{...call,status:'failed',finishedAt:new Date().toISOString(),durationMs:10,reportedTokens:0,tokenSource:'codex-cli-footer'},{dir:d});
+  assert.equal(readRun(run.runId,{dir:d}).meta.modelInvocations.length,1);
+  assert.throws(()=>recordModelInvocation(run.runId,{...call,status:'delivered'},{dir:d}),/уже завершён/);
+  assert.throws(()=>recordModelInvocation(run.runId,{...call,id:randomUUID(),slug:'foreign'},{dir:d}),/Неверная/);
+  setStage(run.runId,'gated',{}, {dir:d});
+  assert.throws(()=>recordModelInvocation(run.runId,{...call,id:randomUUID()},{dir:d}),/открытого/);
+});

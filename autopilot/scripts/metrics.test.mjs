@@ -159,3 +159,20 @@ test('ambiguous legacy day report is flagged and future/outside-window runs do n
  writeFileSync(path.join(dir,'runs','future.json'),JSON.stringify({runId:'future',date:'2999-01-01',stages:{planned:{at:'2999-01-01T00:00:00Z'},gated:{at:'2999-01-01T01:00:00Z',results:[{slug:'future',status:'rejected'}]}}}));
  const m=computeMetrics({dir,days:0});assert.equal(m.period.ambiguousLegacyReports,1);assert.equal(m.period.gatedRuns,1);assert.equal(m.acceptance.accepted,1);assert.equal(m.acceptance.rejected,0);assert.equal(m.period.linkMeasurements,0);assert.equal(m.cycle.samples,2);
 });
+
+test('model accounting keeps failures and unknown historical/unfinished usage distinct from zero', async () => {
+  const { modelUsage } = await import('./metrics.mjs');
+  const start = '2026-10-04T01:00:00Z';
+  const runs = [{ date:'2026-10-04', stages:{written:{}}, meta:{modelInvocations:[
+    {startedAt:start,status:'delivered',reportedTokens:100,tokenSource:'codex-cli-footer',durationMs:1000},
+    {startedAt:start,status:'failed',reportedTokens:50,tokenSource:'codex-cli-footer',durationMs:3000},
+    {startedAt:start,status:'started',reportedTokens:null,durationMs:null},
+    {startedAt:'2026-09-01',status:'delivered',reportedTokens:999,tokenSource:'codex-cli-footer',durationMs:999},
+  ]}}, {date:'2026-10-04',stages:{written:{}}}];
+  const m=modelUsage(runs,'2026-10-01','2026-10-04');
+  assert.equal(m.callsRecorded,3);assert.equal(m.finished,2);assert.equal(m.unfinished,1);
+  assert.equal(m.reportedTokens,150);assert.equal(m.callsWithoutTokenMeasurement,1);
+  assert.equal(m.totalDurationMs,4000);assert.equal(m.medianDurationMs,2000);
+  assert.equal(m.historicalWrittenRunsWithoutLedger,1);assert.equal(m.paidCost,null);
+  const empty=modelUsage([],'2026-10-01','2026-10-04');assert.equal(empty.reportedTokens,null);assert.equal(empty.totalDurationMs,null);
+});

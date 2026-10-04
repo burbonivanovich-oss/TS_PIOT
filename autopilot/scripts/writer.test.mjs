@@ -45,7 +45,7 @@ test('real writer/receipt path skips delivered order on repeat without model cal
     writeFileSync(path.join(data, 'orders.json'), JSON.stringify({ runId: run.runId, orders: [{ slug: 'article', kind: 'new' }] }));
     writeFileSync(path.join(data, 'autopilot.json'), JSON.stringify({ inFlight: [{ slug: 'article', kind: 'new', claimedAt: 'now', failures: 0, infraFailures: 0 }] }));
     const script = `import { writeOrders } from './scripts/writer.mjs'; import { writeFileSync, readFileSync, existsSync } from 'node:fs'; import { createHash } from 'node:crypto';
-      let calls=0; const deliver=()=>{ calls++; const text='delivered bytes'; writeFileSync(${JSON.stringify(path.join(blog, 'article.md'))},text); return { slug:'article',attempt:'now/0/0',status:'delivered',sha256:createHash('sha256').update(text).digest('hex') }; };
+      let calls=0; const deliver=(prompt,options)=>{ calls++; options?.onObservation({reportedTokens:71644,tokenSource:'codex-cli-footer'}); const text='delivered bytes'; writeFileSync(${JSON.stringify(path.join(blog, 'article.md'))},text); return { slug:'article',attempt:'now/0/0',status:'delivered',sha256:createHash('sha256').update(text).digest('hex') }; };
       const first=await writeOrders({deliver}); const second=await writeOrders({deliver});
       writeFileSync(${JSON.stringify(path.join(data, 'writing-receipts.json'))},JSON.stringify({items:{}}));
       const failed=await writeOrders({deliver:()=>{writeFileSync(${JSON.stringify(path.join(blog, 'article.md'))},'partial');throw new Error('runtime failed');}});
@@ -72,6 +72,12 @@ test('real writer/receipt path skips delivered order on repeat without model cal
     assert.equal(output.codeAttempt.ok, false); assert.equal(output.codeRestored, true);
     assert.equal(output.selectedRepeat.results[0].status, 'skipped'); assert.equal(output.repeatedCalls, 0); assert.equal(output.openRefused, true);
     const manifest = JSON.parse(readFileSync(path.join(data, 'runs', run.runId + '.json'), 'utf8'));
+    assert.equal(manifest.meta.modelInvocations.length, 4);
+    assert.deepEqual(manifest.meta.modelInvocations.map(item=>item.status), ['delivered','failed','failed','failed']);
+    assert.equal(manifest.meta.modelInvocations[0].reportedTokens, 71644);
+    assert.equal(manifest.meta.modelInvocations[1].reportedTokens, null);
+    assert.ok(manifest.meta.modelInvocations.every(item=>item.durationMs >= 0 && item.finishedAt));
+    assert.equal(new Set(manifest.meta.modelInvocations.map(item=>item.id)).size,4);
     assert.equal(manifest.stages.written.delivered, 1); assert.ok(manifest.stages.gated);
   } finally { rmSync(root, { recursive: true, force: true }); }
 });

@@ -57,3 +57,20 @@ test('live leased actor prevents restoration; dead actor lease is recoverable', 
     assertWriterStopped(actorFile); assert.equal(existsSync(actorFile), false);
   } finally { try { process.kill(-child.pid, 'SIGKILL'); } catch {} await stopped; rmSync(root, { recursive: true, force: true }); }
 });
+
+test('terminal CLI token footer is observed on real successful and failed processes', async () => {
+  const root = mkdtempSync(path.join(tmpdir(), 'writer-usage-'));
+  try {
+    const actorFile = path.join(root, '.actor');
+    for (const code of [0, 7]) {
+      const call = supervisedProcess(process.execPath, ['-e', `process.stderr.write('tokens used\\n71\\u00a0644\\n');process.exit(${code});`], {cwd:root,actorFile});
+      if (!code) assert.equal((await call).reportedTokens,71644);
+      else await assert.rejects(call, error => error.reportedTokens===71644);
+    }
+    const { reportedCliTokens } = await import('./writer-process.mjs');
+    assert.equal(reportedCliTokens('tokens used\n40\nmore output'),null);
+    assert.equal(reportedCliTokens('tokens used\n999999999999999999999\n'),null);
+    assert.equal(reportedCliTokens('no usage'),null);
+    assert.equal(reportedCliTokens('tokens used\n0\n'),0);
+  } finally { rmSync(root,{recursive:true,force:true}); }
+});

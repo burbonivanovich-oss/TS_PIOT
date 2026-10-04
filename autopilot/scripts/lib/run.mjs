@@ -97,3 +97,24 @@ export function setStage(runId, stage, payload = {}, { dir = dataDir() } = {}) {
   persist(dir, manifest);
   return { changed: true, manifest };
 }
+
+/** Parent-owned call ledger. A started record survives crashes and writer rollback. */
+export function recordModelInvocation(runId, observation, { dir = dataDir() } = {}) {
+  const manifest = readRun(runId, { dir });
+  if (!manifest || manifest.stages.gated || manifest.stages.built || manifest.stages.committed) throw new Error('Нет открытого прохода для учёта модели');
+  if (!manifest.orders.includes(observation.slug) || !/^[a-z0-9-]{36}$/.test(observation.id) || !['started', 'delivered', 'failed'].includes(observation.status)) throw new Error('Неверная запись вызова модели');
+  const entry = { id: observation.id, slug: observation.slug, attempt: observation.attempt,
+    startedAt: observation.startedAt, finishedAt: observation.finishedAt || null,
+    durationMs: Number.isFinite(observation.durationMs) && observation.durationMs >= 0 ? observation.durationMs : null,
+    reportedTokens: Number.isSafeInteger(observation.reportedTokens) && observation.reportedTokens >= 0 ? observation.reportedTokens : null,
+    tokenSource: observation.tokenSource === 'codex-cli-footer' ? 'codex-cli-footer' : null,
+    status: observation.status };
+  manifest.meta ||= {};
+  manifest.meta.modelInvocations ||= [];
+  const index = manifest.meta.modelInvocations.findIndex(item => item.id === entry.id);
+  if (index >= 0) {
+    if (manifest.meta.modelInvocations[index].status !== 'started') throw new Error('Вызов модели уже завершён');
+    manifest.meta.modelInvocations[index] = entry;
+  } else manifest.meta.modelInvocations.push(entry);
+  return persist(dir, manifest);
+}
