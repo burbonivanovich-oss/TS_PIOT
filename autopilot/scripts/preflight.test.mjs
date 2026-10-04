@@ -42,6 +42,10 @@ function run(fixture, extraEnv = {}) {
     cwd: ROOT,
     env: {
       ...process.env,
+      // This fixture is intentionally not a Git checkout. Runtime Git guards
+      // remain enabled for the real preflight; negative tests opt in below.
+      AUTOPILOT_PREFLIGHT_GIT: '0',
+      CONTENT_ROOT: '',
       AUTOPILOT_CONFIG: fixture.configFile,
       AUTOPILOT_DATA_DIR: fixture.dataDir,
       AUTOPILOT_LOCK_FILE: path.join(fixture.dataDir, '.autopilot.lock'),
