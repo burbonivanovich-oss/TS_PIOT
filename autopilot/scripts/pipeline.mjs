@@ -69,13 +69,16 @@ export function plan() {
 function planInner() {
   assertContentRoot(cfg);
   const state = readState();
-  const cap = capacity(state, new Date(), cfg, readJson(RELEASE_FILE, { items: [] }).items);
+  const waitingForRelease = readJson(RELEASE_FILE, { items: [] }).items;
 
   // Сначала самолечение, потом пополнение: иначе refill добьёт запас до нормы,
   // считая зависшие темы живыми, и бэклог раздуется на каждом сбое.
   const healed = reconcile(state.inFlight.map((t) => t.slug));
   refill();
-  buildQueue();
+  const rewriteQueue = buildQueue();
+  const unavailableRewrites = new Set([...state.inFlight, ...state.quarantine, ...waitingForRelease].map(item => item.slug));
+  const urgentRewrites = rewriteQueue.items.filter(item => item.factCorrections?.length && !unavailableRewrites.has(item.slug)).length;
+  const cap = capacity(state, new Date(), cfg, waitingForRelease, { urgentRewrites });
 
   // Проход дня создаём/переиспользуем до выдачи рерайтов: reservation должна
   // нести тот же runId, что и наряд (AP-P1-09).
