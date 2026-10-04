@@ -195,3 +195,8 @@ public/images/hero/_orig/
 
 # Временные файлы атомарного восстановления автопилота.
 *.settle-tmp
+
+# Private commercial reconciliation / receipts: never publish with content state.
+autopilot/data/partner/
+autopilot/data/costs/
+autopilot/data/receipts/

@@ -6,9 +6,8 @@
 //     когда она на самом деле мёртвая (источник не настроен, выгрузка
 //     устарела). Отчёт обязан различать число (в т.ч. 0), «нет данных»
 //     и «не проверено в кабинете» и никогда их не схлопывать в ноль.
-//  2. выставленные счета смешиваются с оплаченными — воронка выглядит живой
-//     за счёт invoices, хотя денег (paid) ноль. Выручкой считается ТОЛЬКО paid,
-//     invoices в денежный результат не входит никогда.
+//  2. оплаты клиентов смешиваются с доходом проекта. Доход проекта — его
+//     начисленная комиссия; оплаченные счета и фактические выплаты отдельно.
 //
 // Источники данных (клиентской телеметрии ETK-P0-08 и доступа к кабинету НЕТ):
 //  - телеметрия (пользователи, показы оффера, CTA CTR, просмотры, формы, лиды,
@@ -25,14 +24,16 @@
 //     "formStarts": 120, "validLeads": 80, "paymentClicks": 25,
 //     "bySource": { "organic": { "users": 100 } },
 //     "byOffer": { "offer-1": { "users": 50 } } }
-// При нескольких *.json берётся самый свежий по mtime.
+// При нескольких *.json берётся самая свежая фактическая fetchedAt; mtime не используется.
 //
 // Формат data/partner/attribution.json (ручная сверка из кабинета):
 //   { "fetchedAt": "2026-09-20T10:00:00.000Z", "partnerLeads": 12,
 //     "invoices": 5, "invoicesAmount": 50000,
 //     "paid": 30000, "paidCount": 3, "payout": 25000 }
-// где invoices — выставлено (шт, НЕ выручка), paid — оплачено (₽, выручка),
-// payout — выплата (₽). Поля invoices/paid принимают и число, и объект
+// где invoices — выставлено (шт), paid — оплаты клиентов партнёру (₽),
+// commission — начисленная комиссия проекта (₽), payout — выплата (₽).
+// Обязательны period с UTC, fetchedAt, currency:RUB и verification источника.
+// Поля invoices/paid принимают и число, и объект
 // вида { "count": 5, "amount": 50000 }.
 //
 //   node scripts/commercial-report.mjs [--days 7] [--json]
@@ -41,10 +42,9 @@ import path from 'node:path';
 import { loadConfig } from './lib/config.mjs';
 import { readJson, isMain } from './lib/content.mjs';
 import { envelope, EXIT, classifyError } from './lib/outcome.mjs';
+import { timestamp, sourceProblem, basisFor, validMetric, confirmedLeads, receiptProblem } from './lib/commercial-source.mjs';
 
-// Порог свежести выгрузки — 36 часов. Совпадает с Gate M1: та же граница,
-// за которой данным уже нельзя доверять, действует и здесь. Выгрузка старше
-// порога — это «нет данных» с причиной устаревания, даже если числа в файле есть.
+// Порог свежести фактической выгрузки и сверки — 36 часов. mtime не доказательство.
 export const ANALYTICS_FRESHNESS_MS = 36 * 3600 * 1000;
 export const ANALYTICS_HINT = 'data/analytics/*.json';
 export const PARTNER_HINT = 'data/partner/attribution.json';
@@ -53,6 +53,7 @@ export const PARTNER_HINT = 'data/partner/attribution.json';
 // и тесты подсовывали свой каталог без правки файлов (config.mjs это понимает,
 // но loadConfig кэшируется — поэтому env проверяем при каждом вызове).
 export function resolveDataDir() {
+  if (process.env.AUTOPILOT_COMMERCIAL_DATA_DIR) return process.env.AUTOPILOT_COMMERCIAL_DATA_DIR;
   if (process.env.AUTOPILOT_DATA_DIR) return process.env.AUTOPILOT_DATA_DIR;
   return loadConfig().resolved.dataDir;
 }
@@ -61,8 +62,8 @@ export function resolveDataDir() {
 // «не проверено в кабинете». value=null означает отсутствие числа, и это
 // единственный допустимый null — форматирование обязано идти через
 // formatMetric, а не через подстановку нуля.
-export function metricOk(value, source, fetchedAt) {
-  return { value, status: 'ok', source, fetchedAt: fetchedAt ?? null, reason: null };
+export function metricOk(value, source, fetchedAt, basis = null) {
+  return { value, basis, status: 'ok', source, fetchedAt: fetchedAt ?? null, reason: null };
 }
 export function metricNoData(reason, source, fetchedAt) {
   return { value: null, status: 'no-data', source, fetchedAt: fetchedAt ?? null, reason };
@@ -100,9 +101,9 @@ const TELEMETRY_DEFS = [
 ];
 
 // CR стадий: числитель/знаменатель по ключам metrics. Деньги сюда не входят:
-// CR считается только между счётчиками, иначе смешались бы штуки и рубли.
+// CR требует одинаковые уникальные единицы, период и явно связанную когорту.
 const CR_DEFS = [
-  { key: 'offerReach', label: 'CR: показы оффера / пользователи', num: 'offerImpressions', den: 'users' },
+  { key: 'offerReach', label: 'CR: пользователи с показом / пользователи', num: 'offerImpressions', den: 'users' },
   { key: 'productInterest', label: 'CR: просмотры / показы', num: 'productViews', den: 'offerImpressions' },
   { key: 'formStart', label: 'CR: формы / просмотры', num: 'formStarts', den: 'productViews' },
   { key: 'leadValid', label: 'CR: валидные лиды / формы', num: 'validLeads', den: 'formStarts' },
@@ -115,16 +116,16 @@ function finiteNumber(value) {
   return typeof value === 'number' && Number.isFinite(value) ? value : null;
 }
 
-function pickNumber(obj, names) {
+function pickNumber(obj, names, kind = 'int') {
   for (const name of names) {
     const v = finiteNumber(obj[name]);
-    if (v !== null) return v;
+    if (v !== null && validMetric(v, kind)) return v;
   }
   return null;
 }
 
 // Самый свежий *.json в data/analytics. null — выгрузки нет вообще.
-function findAnalyticsFile(dir) {
+function findAnalyticsFile(dir, period) {
   const analyticsDir = path.join(dir, 'analytics');
   if (!existsSync(analyticsDir)) return null;
   const files = readdirSync(analyticsDir)
@@ -138,15 +139,17 @@ function findAnalyticsFile(dir) {
       }
     });
   if (!files.length) return null;
-  files.sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs);
-  return files[0];
+  const matching = files.filter(file => { const p = readJson(file, undefined)?.period; return p?.from === period.from && p?.to === period.to && p?.timeZone === 'UTC'; });
+  const ranked = matching.length ? matching : files;
+  ranked.sort((a, b) => (timestamp(readJson(b, undefined)?.fetchedAt) ?? -Infinity) - (timestamp(readJson(a, undefined)?.fetchedAt) ?? -Infinity));
+  return ranked[0];
 }
 
 // Чтение телеметрии: свежий файл → ok/поштучные no-data, нет файла или
 // просрочка → все метрики no-data с причиной. Битый JSON — настоящая ошибка
 // с именем файла (читаем через строгий readJson, он называет файл сам).
-function readAnalytics(dir, now) {
-  const file = findAnalyticsFile(dir);
+function readAnalytics(dir, now, period) {
+  const file = findAnalyticsFile(dir, period);
   const empty = (reason) => {
     const metrics = {};
     for (const def of TELEMETRY_DEFS) metrics[def.key] = metricNoData(reason, 'аналитика');
@@ -157,45 +160,35 @@ function readAnalytics(dir, now) {
   if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
     throw new Error(`Выгрузка ${file} должна содержать объект с метриками`);
   }
-  const mtimeMs = statSync(file).mtimeMs;
-  const mtimeIso = new Date(mtimeMs).toISOString();
-  const fetchedAt = typeof parsed.fetchedAt === 'string' && !Number.isNaN(Date.parse(parsed.fetchedAt))
-    ? parsed.fetchedAt
-    : mtimeIso;
-  // Устаревание считаем и по mtime файла, и по fetchedAt внутри: врёт любой —
-  // доверять уже нельзя ничему из файла.
-  const fetchedMs = Date.parse(fetchedAt);
-  const staleByMtime = now.getTime() - mtimeMs > ANALYTICS_FRESHNESS_MS;
-  const staleByFetchedAt = !Number.isNaN(fetchedMs) && now.getTime() - fetchedMs > ANALYTICS_FRESHNESS_MS;
-  if (staleByMtime || staleByFetchedAt) {
-    const ageHours = Math.round((staleByMtime ? now.getTime() - mtimeMs : now.getTime() - fetchedMs) / 3600000);
-    return {
-      ...empty(`выгрузка устарела: возраст ${ageHours} ч при пороге 36 ч (${path.basename(file)})`),
-      file,
-      fetchedAt,
-    };
-  }
+  const fetchedAt = parsed.fetchedAt ?? null;
+  const problem = sourceProblem(parsed, { period, now, maxAgeMs: ANALYTICS_FRESHNESS_MS });
+  if (problem) return { ...empty(problem), fetchedAt };
   const source = `аналитика: ${path.basename(file)}`;
   const metrics = {};
   for (const def of TELEMETRY_DEFS) {
-    const v = pickNumber(parsed, def.names);
+    const v = pickNumber(parsed, def.names, def.kind);
+    if (def.key === 'validLeads' && (!confirmedLeads(parsed) || receiptProblem(dir, parsed.confirmation.validLeads))) {
+      metrics[def.key] = metricNoData('нет подтверждения приёма заявки сервером или кабинетом; попытки формы не являются валидными лидами', source, fetchedAt);
+      continue;
+    }
     metrics[def.key] = v !== null
-      ? metricOk(v, source, fetchedAt)
+      ? metricOk(v, source, fetchedAt, basisFor(parsed, def.key, period))
       : metricNoData(`нет поля «${def.names[0]}» в выгрузке ${path.basename(file)}`, source, fetchedAt);
   }
-  return { metrics, bySource: readSlices(parsed.bySource), byOffer: readSlices(parsed.byOffer), file, fetchedAt, fresh: true, reason: null };
+  return { metrics, bySource: readSlices(parsed.bySource, dir), byOffer: readSlices(parsed.byOffer, dir), file, fetchedAt, fresh: true, reason: null };
 }
 
 // Разрезы по источнику/офферу — только сырые конечные числа из свежей выгрузки.
 // Свежесть уже проверена на уровне файла: несвежий файл сюда не доходит.
-function readSlices(raw) {
+function readSlices(raw, dir) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return [];
   const out = [];
   for (const [name, slice] of Object.entries(raw)) {
     if (!slice || typeof slice !== 'object') continue;
     const values = {};
     for (const def of TELEMETRY_DEFS) {
-      const v = pickNumber(slice, def.names);
+      if (def.key === 'validLeads' && (!confirmedLeads(slice) || receiptProblem(dir, slice.confirmation.validLeads))) continue;
+      const v = pickNumber(slice, def.names, def.kind);
       if (v !== null) values[def.key] = v;
     }
     if (Object.keys(values).length) out.push({ name, values });
@@ -205,7 +198,7 @@ function readSlices(raw) {
 
 // Чтение ручной сверки из кабинета. Файла нет — все четыре метрики unverified.
 // Битый JSON или не-объект — настоящая ошибка с именем файла, а не «нет данных».
-function readPartner(dir) {
+function readPartner(dir, now, period) {
   const file = path.join(dir, 'partner', 'attribution.json');
   const source = 'партнёрский кабинет (ручная сверка)';
   const missing = (name) => metricUnverified(
@@ -221,6 +214,7 @@ function readPartner(dir) {
         paid: missing('paid'),
         paidCount: missing('paidCount'),
         payout: missing('payout'),
+        commission: missing('commission'),
       },
       file: null,
       fetchedAt: null,
@@ -230,9 +224,9 @@ function readPartner(dir) {
   if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
     throw new Error(`Файл сверки ${file} должен содержать объект`);
   }
-  const fetchedAt = typeof parsed.fetchedAt === 'string' && !Number.isNaN(Date.parse(parsed.fetchedAt))
-    ? parsed.fetchedAt
-    : new Date(statSync(file).mtimeMs).toISOString();
+  const fetchedAt = parsed.fetchedAt ?? null;
+  const problem = sourceProblem(parsed, { period, now, maxAgeMs: ANALYTICS_FRESHNESS_MS, partner: true }) || receiptProblem(dir, parsed.verification);
+  if (problem) return { metrics: Object.fromEntries(['partnerLeads','invoices','invoicesAmount','paid','paidCount','payout','commission'].map(key => [key, metricUnverified(problem, source)])), file, fetchedAt };
   const fileSource = `ручная сверка: ${PARTNER_HINT}`;
   // invoices/paid принимают число или объект {count, amount} — оба варианта
   // разбираем явно, чтобы суммы и штуки не перепутались.
@@ -250,8 +244,8 @@ function readPartner(dir) {
   const paidCount = typeof paidRaw === 'object' && paidRaw !== null
     ? finiteNumber(paidRaw.count ?? paidRaw.cnt)
     : finiteNumber(parsed.paidCount ?? parsed.paid_count);
-  const take = (value, name) => (value !== null
-    ? metricOk(value, fileSource, fetchedAt)
+  const take = (value, name) => (value !== null && validMetric(value, ['invoicesAmount','paid','payout','commission'].includes(name) ? 'money' : 'int')
+    ? metricOk(value, fileSource, fetchedAt, basisFor(parsed, name, period))
     : metricUnverified(`нет поля «${name}» в сверке ${PARTNER_HINT}; подтверждается только в кабинете`, fileSource));
   return {
     metrics: {
@@ -261,10 +255,24 @@ function readPartner(dir) {
       paid: take(paid, 'paid'),
       paidCount: take(paidCount, 'paidCount'),
       payout: take(finiteNumber(parsed.payout), 'payout'),
+      commission: take(finiteNumber(parsed.commission), 'commission'),
     },
     file,
     fetchedAt,
+    asOf: timestamp(parsed.asOf) !== null && timestamp(parsed.asOf) <= timestamp(parsed.fetchedAt) ? new Date(timestamp(parsed.asOf)).toISOString() : null,
   };
+}
+
+function readCosts(dir, now, period) {
+  const file = path.join(dir, 'costs', 'reconciliation.json');
+  const source = 'сверка затрат проекта';
+  if (!existsSync(file)) return { total: metricNoData('нет сверки полных затрат проекта', source), asOf: null };
+  const parsed = readJson(file, undefined);
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error(`Файл затрат ${file} должен содержать объект`);
+  const problem = sourceProblem(parsed, { period, now, maxAgeMs: ANALYTICS_FRESHNESS_MS, verificationSource: 'project-costs' }) || receiptProblem(dir, parsed.verification);
+  const cutoff = timestamp(parsed.asOf), fetched = timestamp(parsed.fetchedAt);
+  if (problem || parsed.complete !== true || !validMetric(parsed.totalCosts, 'money') || cutoff === null || cutoff > fetched) return { total: metricNoData(problem || 'нет полной сверки суммы затрат и момента среза', source, parsed.fetchedAt), asOf: null };
+  return { total: metricOk(parsed.totalCosts, source, parsed.fetchedAt), asOf: new Date(cutoff).toISOString() };
 }
 
 // CR только между двумя метриками со статусом ok. Любой другой случай —
@@ -273,6 +281,10 @@ export function conversionRate(current, previous) {
   if (current.status !== 'ok' || previous.status !== 'ok') {
     return metricNoData('нет подтверждённых данных для CR (нужны два статуса ok)', 'расчёт отчёта');
   }
+  const a = current.basis, b = previous.basis;
+  if (!a || !b || !a.unique || !b.unique || !a.complete || !b.complete || !['visitors','visits','leads'].includes(a.unit) || a.unit !== b.unit || a.cohort !== b.cohort || a.asOf !== b.asOf || a.period.from !== b.period.from || a.period.to !== b.period.to) return metricNoData('несопоставимые единицы, период, момент среза или когорта; CR не доказан', 'расчёт отчёта');
+  if (!a.subsetOf.includes(b.metric)) return metricNoData('не подтверждено, что числитель является подмножеством знаменателя', 'расчёт отчёта');
+  if (current.value > previous.value) return metricNoData('числитель превышает размер когорты; это не доказанная конверсия', 'расчёт отчёта');
   if (previous.value === 0) {
     return metricNoData('деление на ноль: знаменатель 0', 'расчёт отчёта');
   }
@@ -280,32 +292,38 @@ export function conversionRate(current, previous) {
 }
 
 export function computeCommercialReport({ dir = resolveDataDir(), days = 7, now = new Date() } = {}) {
+  if (!Number.isInteger(days) || days < 1 || !(now instanceof Date) || !Number.isFinite(now.getTime())) throw new Error('Invalid report days or current date');
   const to = now.toISOString().slice(0, 10);
   const fromDate = new Date(now);
-  fromDate.setUTCDate(fromDate.getUTCDate() - days);
+  fromDate.setUTCDate(fromDate.getUTCDate() - days + 1);
   const from = fromDate.toISOString().slice(0, 10);
 
-  const analytics = readAnalytics(dir, now);
-  const partner = readPartner(dir);
+  const period = { from, to, days, timeZone: 'UTC' };
+  const analytics = readAnalytics(dir, now, period);
+  const partner = readPartner(dir, now, period);
   const metrics = { ...analytics.metrics, ...partner.metrics };
 
   const cr = {};
   for (const def of CR_DEFS) cr[def.key] = conversionRate(metrics[def.num], metrics[def.den]);
 
-  // Выручка — ТОЛЬКО paid. invoices (выставлено, invoicesAmount) в денежный
-  // результат не входит: статус выручки зеркалит статус paid один в один.
-  const revenue = partner.metrics.paid.status === 'ok'
-    ? metricOk(partner.metrics.paid.value, `выручка: только paid (${partner.metrics.paid.source})`, partner.metrics.paid.fetchedAt)
-    : partner.metrics.paid.status === 'unverified'
-      ? metricUnverified(partner.metrics.paid.reason, 'выручка: только paid')
-      : metricNoData(partner.metrics.paid.reason, 'выручка: только paid', partner.metrics.paid.fetchedAt);
+  // Customer payments belong to the merchant; project income is its commission.
+  const revenue = partner.metrics.commission;
+  const costs = readCosts(dir, now, period);
+  const netResult = revenue.status === 'ok' && costs.total.status === 'ok' && partner.asOf && partner.asOf === costs.asOf
+    ? metricOk(Math.round((revenue.value - costs.total.value) * 100) / 100, 'комиссия минус сверенные полные затраты', partner.fetchedAt)
+    : metricNoData('нужны сверенные комиссия и полные затраты за один период и момент среза', 'расчёт экономики');
 
   return {
-    period: { from, to, days },
+    period,
     generatedAt: now.toISOString(),
     metrics,
     cr,
     revenue,
+    projectIncome: revenue,
+    customerPayments: partner.metrics.paid,
+    cashReceived: partner.metrics.payout,
+    totalProjectCosts: costs.total,
+    netResult,
     bySource: analytics.bySource,
     byOffer: analytics.byOffer,
     analyticsFile: analytics.file,
@@ -329,6 +347,7 @@ const CABINET_DEFS = [
   { key: 'paid', label: 'оплачено (paid, ₽)', kind: 'money' },
   { key: 'paidCount', label: 'оплачено (счетов, шт)', kind: 'int' },
   { key: 'payout', label: 'выплата (payout)', kind: 'money' },
+  { key: 'commission', label: 'начисленная комиссия проекта', kind: 'money' },
 ];
 
 export function formatReport(r) {
@@ -349,8 +368,10 @@ export function formatReport(r) {
     const m = r.cr[def.key];
     lines.push(`  ${def.label}: ${formatMetric(m, 'ratio')}${sourceSuffix(m)}`);
   }
-  // Отдельная строка про деньги: выручка — только paid, invoices не считается.
-  lines.push(`Выручка (только paid; invoices в выручку не входит): ${formatMetric(r.revenue, 'money')}${sourceSuffix(r.revenue)}`);
+  // Комиссия, оплаченные счета и выплаты не подменяют друг друга.
+  lines.push(`Доход проекта (начисленная комиссия; оплаты клиентов и выплаты отдельно): ${formatMetric(r.revenue, 'money')}${sourceSuffix(r.revenue)}`);
+  lines.push(`Полные затраты проекта: ${formatMetric(r.totalProjectCosts, 'money')}${sourceSuffix(r.totalProjectCosts)}`);
+  lines.push(`Результат (комиссия минус полные затраты; не денежный поток): ${formatMetric(r.netResult, 'money')}${sourceSuffix(r.netResult)}`);
   const sliceBlock = (title, slices) => {
     if (!slices.length) {
       const reason = r.analyticsReason ? ` — ${r.analyticsReason}` : '';
