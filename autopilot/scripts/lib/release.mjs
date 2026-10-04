@@ -58,3 +58,16 @@ export function releaseCalendar({ date = new Date(), config, publishLog = { days
   }));
   return { day, byKind };
 }
+
+/** Necessary publication capacity bound; sufficient room never promises success. */
+export function publicationCapacity({ date = new Date(), config, publishLog = { days: {} } }) {
+  const calendar = releaseCalendar({ date, config, publishLog });
+  const limit = config.publish.maxPerDay;
+  if (!Number.isInteger(limit) || limit < 1) throw new Error('Нужен положительный суточный лимит выпуска');
+  const daysInMonth = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0)).getUTCDate();
+  const todayPublished = (publishLog.days[calendar.day] || []).length;
+  const slotsRemaining = (daysInMonth - date.getUTCDate()) * limit + Math.max(0, limit - todayPublished);
+  const byKind = Object.fromEntries(Object.entries(calendar.byKind).map(([kind, v]) => [kind, { target: v.target, published: v.done, remaining: Math.max(0, v.target - v.done) }]));
+  const needed = Object.values(byKind).reduce((sum, v) => sum + v.remaining, 0);
+  return { day: calendar.day, slotsRemaining, needed, impossible: needed > slotsRemaining, shortfall: Math.max(0, needed - slotsRemaining), byKind };
+}

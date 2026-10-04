@@ -12,6 +12,7 @@ import { loadConfig } from './lib/config.mjs';
 import { loadArticles, readJson, isMain, parseArgs, daysBetween } from './lib/content.mjs';
 import { readState, capacity } from './state.mjs';
 import { inspectLock } from './lib/lock.mjs';
+import { publicationCapacity } from './lib/release.mjs';
 import { buildLinkGraph } from './interlink.mjs';
 
 const cfg = loadConfig();
@@ -57,6 +58,12 @@ export function healthCheck() {
       };
     }),
   );
+
+  checks.push(check('достижимость выпуска', () => {
+    if (cfg.throughput.monthlyRewriteTarget === undefined) return { level: 'warn', detail: 'раздельный календарь новых статей и обновлений не настроен' };
+    const bound = publicationCapacity({ config: cfg, publishLog: readJson(path.join(cfg.resolved.dataDir, 'publish-log.json'), { days: {} }) });
+    return { level: bound.impossible ? 'warn' : 'ok', detail: `нужно выпустить ${bound.needed}, осталось максимум ${bound.slotsRemaining} дневных слотов` + (bound.impossible ? `; недобор минимум ${bound.shortfall}, норма выпуска недостижима при текущем лимите` : '; наличие слотов не гарантирует приёмку и доставку'), ...bound };
+  }));
 
   checks.push(
     check('бэклог', () => {
