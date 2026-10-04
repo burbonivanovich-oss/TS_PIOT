@@ -169,3 +169,13 @@ test('AP-P1-05: maxPerEntityShare ограничивает долю одной �
   assert.equal(result.stats.byEntity['популярная сущность'].accepted, result.stats.accepted);
   assert.ok(result.stats.byEntity['популярная сущность'].capped >= 1);
 });
+
+test('one pilot slot selects a measured seed while preserving generic priorities and diversity',()=>{
+ const general={slug:'g',entity:'ГИС ЭПД',priorityScore:80};
+ const pilot={slug:'p',entity:'этрн',intent:'seed',priorityScore:30,demand:{status:'collected',count:8326}};
+ const other={slug:'p2',entity:'этрн',intent:'seed',priorityScore:29,demand:{status:'collected',count:3561}};
+ const input=[general,pilot,other];assert.deepEqual(selectDiverse(input,2,2,1).map(t=>t.slug),['p','g']);assert.deepEqual(input,[general,pilot,other]);
+ assert.deepEqual(selectDiverse(input,2,2,0).map(t=>t.slug),['g','p']);
+ for(const demand of [{status:'not_collected',count:null},{status:'collected',count:0}])assert.equal(selectDiverse([general,{...pilot,demand}],1,2,1)[0].slug,'g');
+ assert.equal(selectDiverse([general],2,2,1)[0].slug,'g');
+});

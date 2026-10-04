@@ -24,7 +24,7 @@ export const SECTIONS = {
 
 // Необязательные ключи, которые код умеет читать через `?? default`.
 export const OPTIONAL = {
-  backlog: ['demandMaxBoost', 'demandMaxAgeDays', 'demandRegion'],
+  backlog: ['demandMaxBoost', 'demandMaxAgeDays', 'demandRegion', 'pilotSlotsPerBatch'],
   publish: ['calendar'],
   throughput: ['monthlyRewriteTarget'],
   rewrite: ['sourceCheckIntervalDays', 'sourceObservationMaxAgeDays', 'sourceChecksPerRun'],
@@ -176,6 +176,7 @@ export function validateConfig(cfg) {
   }
 
   const b = cfg.backlog || {};
+  if ('pilotSlotsPerBatch' in b && !(isInt(b.pilotSlotsPerBatch) && b.pilotSlotsPerBatch >= 0 && b.pilotSlotsPerBatch <= cfg.throughput?.maxBatchSize)) errors.push('backlog.pilotSlotsPerBatch должен быть целым от 0 до maxBatchSize');
   if ('demandMaxBoost' in b && !(isNum(b.demandMaxBoost) && b.demandMaxBoost >= 0 && b.demandMaxBoost <= 100)) errors.push('backlog.demandMaxBoost должен быть 0–100');
   if ('demandMaxAgeDays' in b && !(isInt(b.demandMaxAgeDays) && b.demandMaxAgeDays >= 1)) errors.push('backlog.demandMaxAgeDays должен быть положительным целым');
   if ('demandRegion' in b && !(isInt(b.demandRegion) && b.demandRegion > 0)) errors.push('backlog.demandRegion должен быть положительным целым');
