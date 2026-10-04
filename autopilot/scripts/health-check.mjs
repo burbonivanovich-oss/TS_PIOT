@@ -7,7 +7,9 @@
 //
 // Код выхода: 0 — всё в норме, 2 — есть отказы (для CI).
 import path from 'node:path';
-import { existsSync } from 'node:fs';
+import { existsSync, lstatSync } from 'node:fs';
+import { runGates, bodyDuplication } from './gates.mjs';
+import { readSourceEvidence } from './lib/sources.mjs';
 import { loadConfig } from './lib/config.mjs';
 import { loadArticles, readJson, isMain, parseArgs, daysBetween } from './lib/content.mjs';
 import { readState, capacity } from './state.mjs';
@@ -58,6 +60,33 @@ export function healthCheck() {
       };
     }),
   );
+
+  checks.push(check('готовность запаса к выпуску', () => {
+    const queue = readJson(path.join(cfg.resolved.dataDir, 'release-queue.json'), {items: []}).items;
+    const sourceEvidence = readSourceEvidence().entries;
+    const items = queue.map(item => {
+      try {
+        if (!/^[a-z0-9-]+$/.test(item.slug)) throw new Error('небезопасный slug');
+        let file;
+        if (item.stagedFile) {
+          if (![`release-drafts/${item.slug}.md`, `release-drafts/${item.slug}.mdx`].includes(item.stagedFile)) throw new Error('небезопасный путь рерайта');
+          const dir = path.join(cfg.resolved.dataDir, 'release-drafts');
+          if (!existsSync(dir) || lstatSync(dir).isSymbolicLink()) throw new Error('нет безопасного каталога рерайтов');
+          file = path.join(cfg.resolved.dataDir, item.stagedFile);
+        } else {
+          const files = ['md', 'mdx'].map(ext => path.join(cfg.resolved.blog, `${item.slug}.${ext}`)).filter(existsSync);
+          if (files.length !== 1) throw new Error('ожидающий файл отсутствует или неоднозначен');
+          file = files[0];
+        }
+        if (!existsSync(file) || !lstatSync(file).isFile() || lstatSync(file).isSymbolicLink()) throw new Error('нет безопасного файла');
+        const gates = runGates({file, sourceEvidence, requiredPubDate: cfg.gates.requireWritingReceipt && item.kind === 'new' ? String(item.acceptedAt || '').slice(0,10) : null});
+        const duplication = bodyDuplication({file, excludeSlug: item.stagedFile ? item.slug : undefined});
+        return {slug:item.slug, ready:gates.passed && duplication.verdict === 'ok', score:gates.score, blockers:gates.blockers, failedChecks:gates.checks.filter(c=>!c.ok), duplication};
+      } catch (error) { return {slug:item.slug,ready:false,error:error.message}; }
+    });
+    const failed = items.filter(item=>!item.ready);
+    return {level:failed.length ? 'fail' : 'ok', actionRequired:failed.length > 0, detail:`${items.length-failed.length}/${items.length} ожидающих проходят текущие гейты`+(failed.length ? `; требуют исправления: ${failed.map(i=>i.slug).join(', ')}` : ''),items};
+  }));
 
   checks.push(check('достижимость выпуска', () => {
     if (cfg.throughput.monthlyRewriteTarget === undefined) return { level: 'warn', detail: 'раздельный календарь новых статей и обновлений не настроен' };
