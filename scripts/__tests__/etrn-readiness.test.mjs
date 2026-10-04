@@ -20,3 +20,20 @@ test('all affirmative answers still require operational checks and make no legal
   assert.match(plan.title, /проверить/);
   assert.match(plan.steps[0].text, /замечания/);
 });
+
+test('forwarder and self-pickup give distinct operational tasks and retain unresolved checks', () => {
+  const answers = { interface: '1c', partners: 'unknown', signing: 'unknown', trial: 'no' };
+  const forwarder = readinessPlan({ ...answers, role: 'forwarder' });
+  const pickup = readinessPlan({ ...answers, role: 'self_pickup' });
+  for (const plan of [forwarder, pickup]) {
+    assert.equal(plan.complete, true);
+    assert.equal(plan.unresolved, 3);
+    assert.deepEqual(plan.steps.map(s => s.id), ['roles', 'interface', 'partners', 'signing', 'trial']);
+  }
+  assert.match(forwarder.steps[0].text, /заказчиком и перевозчиком/);
+  assert.match(forwarder.steps[0].text, /полномочия/);
+  assert.match(pickup.steps[0].text, /чей транспорт/);
+  assert.match(pickup.steps[0].text, /самовывоз сам по себе не определяет/);
+  assert.notEqual(forwarder.steps[0].text, pickup.steps[0].text);
+  assert.equal(readinessPlan({ ...answers, role: 'forwarder<script>' }).complete, false);
+});
