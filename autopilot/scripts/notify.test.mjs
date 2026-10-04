@@ -99,3 +99,15 @@ test('AP-P1-15: решение о уведомлении чистое и пре�
   const ok = { signature: sig('warn', []), failed: [], level: 'warn' };
   assert.equal(decideNotification(changed, ok).kind, 'recovery');
 });
+
+import { notificationIssues } from './notify.mjs';
+test('unattainable publication warning requests action once and recovers without ordinary-warning noise', () => {
+  const ordinary = {level:'warn',checks:[{name:'low links',level:'warn'}]};
+  const blocked = {level:'warn',checks:[{name:'publication capacity',level:'warn',actionRequired:true}]};
+  const current={signature:healthSignature(blocked),failed:notificationIssues(blocked),level:blocked.level};
+  assert.deepEqual(current.failed,['publication capacity']);
+  assert.equal(decideNotification(null,current).kind,'first');
+  assert.equal(decideNotification(current,current).notify,false);
+  const recovered={signature:healthSignature(ordinary),failed:notificationIssues(ordinary),level:ordinary.level};
+  assert.equal(decideNotification(current,recovered).kind,'recovery');
+});

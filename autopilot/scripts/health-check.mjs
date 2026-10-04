@@ -62,7 +62,7 @@ export function healthCheck() {
   checks.push(check('достижимость выпуска', () => {
     if (cfg.throughput.monthlyRewriteTarget === undefined) return { level: 'warn', detail: 'раздельный календарь новых статей и обновлений не настроен' };
     const bound = publicationCapacity({ config: cfg, publishLog: readJson(path.join(cfg.resolved.dataDir, 'publish-log.json'), { days: {} }) });
-    return { level: bound.impossible ? 'warn' : 'ok', detail: `нужно выпустить ${bound.needed}, осталось максимум ${bound.slotsRemaining} дневных слотов` + (bound.impossible ? `; недобор минимум ${bound.shortfall}, норма выпуска недостижима при текущем лимите` : '; наличие слотов не гарантирует приёмку и доставку'), ...bound };
+    return { level: bound.impossible ? 'warn' : 'ok', actionRequired: bound.impossible, detail: `нужно выпустить ${bound.needed}, осталось максимум ${bound.slotsRemaining} дневных слотов` + (bound.impossible ? `; недобор минимум ${bound.shortfall}, норма выпуска недостижима при текущем лимите` : '; наличие слотов не гарантирует приёмку и доставку'), ...bound };
   }));
 
   checks.push(
