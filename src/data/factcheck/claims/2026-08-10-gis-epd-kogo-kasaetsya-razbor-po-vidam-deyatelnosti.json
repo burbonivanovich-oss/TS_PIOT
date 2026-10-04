@@ -1,0 +1,88 @@
+{
+  "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "DATE_TEXT",
+      "raw": "1 сентября 2026 года",
+      "groups": [
+        "1",
+        "2026"
+      ],
+      "offset": 796,
+      "line": 11,
+      "context": "еревозки груза. ## От чего зависит обязанность: документ и роль в перевозке С 1 сентября 2026 года действуют положения об обязательной электронной форме транспортной накладной, з"
+    },
+    {
+      "id": "c2",
+      "type": "DATE_YEAR",
+      "raw": "2026 года",
+      "groups": [
+        "2026"
+      ],
+      "offset": 807,
+      "line": 11,
+      "context": "уза. ## От чего зависит обязанность: документ и роль в перевозке С 1 сентября 2026 года действуют положения об обязательной электронной форме транспортной накладной, з"
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 1017,
+      "line": 11,
+      "context": "е — основание и дату устанавливают [изменения Устава автомобильного транспорта](https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/) и [норма о вступлении этих положений в силу](https://www.consultant.ru/documen",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/5bdc78bf7e3015a0ea0c0ea5bef708a6c79e2f0a/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 1160,
+      "line": 11,
+      "context": "b83c920baeae9bb9fdc9b94feb1af0ad/) и [норма о вступлении этих положений в силу](https://www.consultant.ru/document/cons_doc_LAW_507282/5bdc78bf7e3015a0ea0c0ea5bef708a6c79e2f0a/). Закон связывает транспортную накладную с подтверждением заключения договора",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c5",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 1581,
+      "line": 13,
+      "context": "м ведомством. Это следует из [действующей редакции изменений правил оформления](https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/). Поэтому вопрос «мы обязаны подключаться?» полезно заменить вопросами «какой д",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c6",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/news/activities_fts/16597444/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 5882,
+      "line": 45,
+      "context": "нимает ли груз и какие документы оформляет. [Разъяснение ФНС о переходе на ЭПД](https://www.nalog.gov.ru/rn77/news/activities_fts/16597444/) охватывает также экспедиторские документы, железнодорожные и воздушные грузовы",
+      "expected_source": "nalog.gov.ru"
+    },
+    {
+      "id": "c7",
+      "type": "LINK",
+      "raw": "https://www.mintrans.gov.ru/press-center/news/12993",
+      "groups": [
+        "mintrans.gov.ru"
+      ],
+      "offset": 7244,
+      "line": 55,
+      "context": "ценарии собственной перевозки, в которых транспортная накладная не оформляется](https://www.mintrans.gov.ru/press-center/news/12993). Это не означает освобождение компании от всех документов или от участия в дру",
+      "expected_source": "mintrans.gov.ru"
+    }
+  ]
+}

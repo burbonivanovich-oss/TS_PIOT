@@ -1,204 +1,36 @@
 {
   "generatedAt": "2026-10-04",
   "dry": false,
-  "inserted": 14,
-  "touched": 14,
+  "inserted": 2,
+  "touched": 2,
   "orphansBefore": 34,
   "orphansAfter": 34,
   "plan": [
     {
-      "slug": "2026-05-03-markirovka-igrushek-2026",
-      "outboundBefore": 6,
-      "additions": [
-        {
-          "target": "2026-06-17-poexzemplyarnyj-uchet",
-          "anchor": "поэкземплярный учёт",
-          "relevance": 0.52,
-          "offset": 6597,
-          "length": 19,
-          "line": "Маркировка игрушек с 1 сентября 2026 вводит поэкземплярный учёт — наиболее строгий формат прослежива"
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-mspos-f20-obzor",
-      "outboundBefore": 7,
-      "additions": [
-        {
-          "target": "2026-05-03-atol-30f-obzor",
-          "anchor": "АТОЛ 30Ф",
-          "relevance": 0.75,
-          "offset": 3711,
-          "length": 8,
-          "line": "Если нагрузка высокая или нужен большой экран — рассмотрите [MSPOS T D3 Mini](/blog/2026-05-03-mspos"
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-mspos-t-d3-mini-obzor",
-      "outboundBefore": 6,
-      "additions": [
-        {
-          "target": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
-          "anchor": "смарт-терминал",
-          "relevance": 0.64,
-          "offset": 32,
-          "length": 14,
-          "line": "MSPOS T D3 Mini — стационарный смарт-терминал с сенсорным экраном 10 дюймов, разработанный «МультиСо"
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-uchyot-razlivnogo-piva",
+      "slug": "2026-09-07-markirovka-tabaka-novye-proverki-2026",
       "outboundBefore": 4,
-      "additions": [
-        {
-          "target": "2026-06-17-poexzemplyarnyj-uchet",
-          "anchor": "поэкземплярный учёт",
-          "relevance": 0.52,
-          "offset": 1110,
-          "length": 19,
-          "line": "С 01.03.2025 для кег действует поэкземплярный учёт в системе «Честный знак» (код DataMatrix на каждо"
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-21-kassa-dlya-internet-magazina",
-      "outboundBefore": 3,
-      "additions": [
-        {
-          "target": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
-          "anchor": "смарт-терминал или фискальный регистратор",
-          "relevance": 0.58,
-          "offset": 2043,
-          "length": 41,
-          "line": "**Кому подходит:** если принимаете наличные при самовывозе, есть физическая точка продаж, или объём "
-        }
-      ]
-    },
-    {
-      "slug": "2026-06-09-kassa-dlya-kafe-2026",
-      "outboundBefore": 6,
-      "additions": [
-        {
-          "target": "2026-01-15-chto-takoe-ts-piot",
-          "anchor": "ТС ПИоТ обязателен",
-          "relevance": 0.81,
-          "offset": 6693,
-          "length": 18,
-          "line": "01.07.2026 — дата, с которой ТС ПИоТ обязателен на кассе при продаже маркированных пива, молочной и "
-        }
-      ]
-    },
-    {
-      "slug": "2026-06-09-kto-ne-nuzhen-ts-piot",
-      "outboundBefore": 5,
-      "additions": [
-        {
-          "target": "2026-06-17-poexzemplyarnyj-uchet",
-          "anchor": "поэкземплярный учёт",
-          "relevance": 0.52,
-          "offset": 5799,
-          "length": 19,
-          "line": "Второй случай — временный. Разрешительный режим разворачивается по графику: сначала ввод кодов и поэ"
-        }
-      ]
-    },
-    {
-      "slug": "2026-06-09-markirovka-tabaka-2026",
-      "outboundBefore": 6,
-      "additions": [
-        {
-          "target": "2026-06-17-poexzemplyarnyj-uchet",
-          "anchor": "поэкземплярный учёт",
-          "relevance": 0.52,
-          "offset": 1653,
-          "length": 19,
-          "line": "**Производители, импортёры и оптовое звено.** Они регистрируются в ГИС МТ, ведут поэкземплярный учёт"
-        }
-      ]
-    },
-    {
-      "slug": "2026-06-19-ts-piot-dlya-obschepita",
-      "outboundBefore": 6,
-      "additions": [
-        {
-          "target": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
-          "anchor": "смарт-терминал",
-          "relevance": 0.4,
-          "offset": 752,
-          "length": 14,
-          "line": "Технические средства проверки информации о товаре (ТС ПИоТ) — программный модуль, встроенный в кассо"
-        }
-      ]
-    },
-    {
-      "slug": "2026-06-26-markirovka-bad-2026",
-      "outboundBefore": 5,
       "additions": [
         {
           "target": "2026-01-15-chto-takoe-ts-piot",
           "anchor": "модуль ТС ПИоТ",
-          "relevance": 0.67,
-          "offset": 3699,
+          "relevance": 0.65,
+          "offset": 2308,
           "length": 14,
-          "line": "**3. 2D-сканер DataMatrix и ТС ПИоТ на кассе.** Для розницы — обязательны оба. Обычный 1D-сканер штр"
-        }
-      ]
-    },
-    {
-      "slug": "2026-06-29-markirovka-vody-2026",
-      "outboundBefore": 3,
-      "additions": [
-        {
-          "target": "2026-01-15-chto-takoe-ts-piot",
-          "anchor": "ТС ПИоТ обязателен",
-          "relevance": 0.75,
-          "offset": 4047,
-          "length": 18,
-          "line": "ТС ПИоТ обязателен с 01.07.2026 для всех розничных продавцов маркированных товаров, включая воду. Пр"
-        }
-      ]
-    },
-    {
-      "slug": "2026-07-04-markirovka-odezhdy-2026",
-      "outboundBefore": 4,
-      "additions": [
-        {
-          "target": "2026-01-15-chto-takoe-ts-piot",
-          "anchor": "ТС ПИоТ обязателен",
-          "relevance": 0.75,
-          "offset": 8343,
-          "length": 18,
-          "line": "ТС ПИоТ нужен тем, кто пробивает чеки через кассу — то есть розничным продавцам. Оптовик работает че"
-        }
-      ]
-    },
-    {
-      "slug": "2026-09-30-fn-dlya-markirovki",
-      "outboundBefore": 6,
-      "additions": [
-        {
-          "target": "2026-05-01-chto-takoe-fn",
-          "anchor": "фискальный накопитель",
-          "relevance": 1,
-          "offset": 79,
-          "length": 21,
-          "line": "Продавец покупает фискальный накопитель по цене, ставит на кассу — а при первой продаже маркированно"
+          "line": "За считывание и проверку кода на кассе отвечает программный модуль ТС ПИоТ — техническое средство по"
         }
       ]
     },
     {
       "slug": "2026-10-02-atol-podklyuchenie-1c",
-      "outboundBefore": 6,
+      "outboundBefore": 7,
       "additions": [
         {
-          "target": "2026-05-01-chto-takoe-fn",
-          "anchor": "фискальный накопитель",
-          "relevance": 0.71,
-          "offset": 1204,
-          "length": 21,
-          "line": "Фискальный регистратор в отличие от простого чекопечатающего устройства обязан работать в связке с ф"
+          "target": "2026-01-15-chto-takoe-ts-piot",
+          "anchor": "модуль ТС ПИоТ",
+          "relevance": 0.69,
+          "offset": 9515,
+          "length": 14,
+          "line": "Если ТС ПИоТ не подключён или настроен неверно, кассир физически не сможет провести продажу маркиров"
         }
       ]
     }

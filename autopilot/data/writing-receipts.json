@@ -20,6 +20,27 @@
       "sha256": "57c3c71942e0d111864b464ba602db44ca73e84861ef7b2d0ebff7e38dbb7fe3",
       "runId": "2026-10-04-390d16a6",
       "at": "2026-10-04T08:08:08.308Z"
+    },
+    "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu": {
+      "kind": "new",
+      "attempt": "2026-10-04T14:00:11.920Z/0/0",
+      "sha256": "975e3a491a8625a702414cd735774c46e813f0b17e36b97c1cfeac7b0259043b",
+      "runId": "2026-10-04-3e30a332",
+      "at": "2026-10-04T14:06:59.801Z"
+    },
+    "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti": {
+      "kind": "new",
+      "attempt": "2026-10-04T14:00:11.939Z/0/0",
+      "sha256": "2e3414ed2aca347174a07a032fbb6ffb400757f4598247c89321996126801920",
+      "runId": "2026-10-04-3e30a332",
+      "at": "2026-10-04T14:13:23.871Z"
+    },
+    "2026-05-01-ofd-dlya-ts-piot": {
+      "kind": "rewrite",
+      "attempt": "2026-10-04T14:00:11.956Z/0/0",
+      "sha256": "cbde591360de102de0701c0132a7ac343f0b829ab774042b7634a9fdb8207aaf",
+      "runId": "2026-10-04-3e30a332",
+      "at": "2026-10-04T14:20:55.158Z"
     }
   }
 }
