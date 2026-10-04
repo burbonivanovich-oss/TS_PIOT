@@ -27,7 +27,7 @@ const isAd = !!banner?.erid;
 ---
 
 {banner && (
-	<div class={`cpa-block ${className ?? ''}`} data-pagefind-ignore>
+	<div class={`cpa-block ${className ?? ''}`} data-pagefind-ignore data-cpa-placement="inline">
 		<div class="cpa-visual" style={`background:${banner.visual.bg}`}>
 			<span class="cpa-visual-letter">{banner.visual.abbrev}</span>
 		</div>
@@ -54,16 +54,8 @@ const isAd = !!banner?.erid;
 )}
 
 <script>
-	// Трекинг кликов по любому CPA-баннеру (CpaCallout + подвальный в BlogPost).
-	// Делегированно + guard, чтобы слушатель регистрировался один раз на странице.
-	import { track } from '../utils/track';
-	if (!(window as any).__cpaTrackInit) {
-		(window as any).__cpaTrackInit = true;
-		document.addEventListener('click', (e) => {
-			const a = (e.target as HTMLElement)?.closest?.('a[data-cpa-id]') as HTMLElement | null;
-			if (a) track('cpa-click', { offer: a.dataset.cpaId });
-		});
-	}
+  import { initCpaTracking } from '../utils/track-cpa';
+  initCpaTracking();
 </script>
 
 <style>
