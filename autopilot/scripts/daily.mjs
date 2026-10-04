@@ -15,6 +15,21 @@ import { recoverSettle } from './lib/settle-snapshot.mjs';
 import { readDeliveryJournal, beginGitDelivery, commitGitDelivery } from './lib/git-delivery.mjs';
 import { pushGitDelivery } from './lib/git-push.mjs';
 
+export function readPendingOrders(dataDir) {
+  const orders = readJson(path.join(dataDir, 'orders.json'), null);
+  if (!orders) return null;
+  if (!orders.runId) {
+    const state = readJson(path.join(dataDir, 'autopilot.json'), null);
+    // Legacy empty orders contain no work to resume. Unknown or occupied slots
+    // must not be discarded while bootstrapping the manifest-based executor.
+    if (Array.isArray(orders.orders) && orders.orders.length === 0 && Array.isArray(state?.inFlight) && state.inFlight.length === 0) return null;
+    throw new Error('Старые наряды или слоты без runId; требуется сверка состояния');
+  }
+  const manifest = readRun(orders.runId, { dir: dataDir });
+  if (!manifest) throw new Error('Наряды без действующего манифеста; новый plan запрещён');
+  return { orders, manifest };
+}
+
 export async function coordinateCycle({ pending, refresh, plan: makePlan, write, settle: accept, deliver }) {
   const current = pending();
   if (current && current.manifest.stages.gated && !current.manifest.stages.committed) {
@@ -40,13 +55,7 @@ export async function dailyCycle({ commit = false, push = false, remote = 'origi
   try {
     recoverWriting(cfg);
     recoverSettle({ blog: cfg.resolved.blog, dataDir: cfg.resolved.dataDir });
-    const pending = () => {
-        const orders = readJson(path.join(cfg.resolved.dataDir, 'orders.json'), null);
-        if (!orders) return null;
-        const manifest = orders.runId && readRun(orders.runId);
-        if (!manifest) throw new Error('Наряды без действующего манифеста; новый plan запрещён');
-        return { orders, manifest };
-      };
+    const pending = () => readPendingOrders(cfg.resolved.dataDir);
     const root = cfg.resolved.contentRoot;
     const journal = existsSync(path.join(root, '.git')) ? readDeliveryJournal(root) : null;
     if (!push && journal?.push?.phase === 'pending') return { status: 'push_pending', runId: journal.runId, modelCalled: false };

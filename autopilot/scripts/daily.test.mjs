@@ -1,12 +1,25 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { coordinateCycle } from './daily.mjs';
+import { coordinateCycle, readPendingOrders } from './daily.mjs';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { createRun, setStage } from './lib/run.mjs';
+
+test('legacy empty orders bootstrap only with proven empty slots; lost current manifest refuses', () => {
+  const dir = mkdtempSync(path.join(tmpdir(), 'daily-legacy-'));
+  try {
+    const put = (file, data) => writeFileSync(path.join(dir, file), JSON.stringify(data));
+    put('orders.json', { orders: [] });
+    assert.throws(() => readPendingOrders(dir), /сверка/);
+    put('autopilot.json', { inFlight: [] }); assert.equal(readPendingOrders(dir), null);
+    put('autopilot.json', { inFlight: [{ slug: 'active' }] }); assert.throws(() => readPendingOrders(dir), /сверка/);
+    put('autopilot.json', { inFlight: [] }); put('orders.json', { orders: [{ slug: 'active' }] }); assert.throws(() => readPendingOrders(dir), /сверка/);
+    put('orders.json', { runId: '2026-10-04-12345678', orders: [] }); assert.throws(() => readPendingOrders(dir), /манифеста/);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
 
 function fixture(current) {
   const calls = [];
