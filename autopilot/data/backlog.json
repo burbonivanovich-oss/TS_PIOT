@@ -393,6 +393,37 @@
       "updatedAt": "2026-10-04"
     },
     {
+      "slug": "seed-mchd-dlya-etrn-kak-proverit-polnomochiya-sotrudnika-pered-podpisaniem",
+      "title": "МЧД для ЭТрН: как проверить полномочия сотрудника перед подписанием",
+      "entity": "этрн",
+      "keywords": [
+        "мчд для этрн"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 8,
+      "demand": {
+        "status": "collected",
+        "phrase": "мчд для этрн",
+        "count": 4614,
+        "match": "broad",
+        "region": "225",
+        "periodStart": "2026-09-02",
+        "periodEnd": "2026-10-01",
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD"
+      },
+      "priorityScore": 30,
+      "status": "accepted_waiting_release",
+      "createdAt": "2026-10-04",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "updatedAt": "2026-10-04"
+    },
+    {
       "slug": "2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya",
       "title": "ГИС ЭПД: частые ошибки и чем они заканчиваются",
       "keywords": [
@@ -2013,37 +2044,6 @@
       "priorityScore": 30.6
     },
     {
-      "slug": "seed-mchd-dlya-etrn-kak-proverit-polnomochiya-sotrudnika-pered-podpisaniem",
-      "title": "МЧД для ЭТрН: как проверить полномочия сотрудника перед подписанием",
-      "entity": "этрн",
-      "keywords": [
-        "мчд для этрн"
-      ],
-      "intent": "seed",
-      "segment": "none",
-      "format": "howto",
-      "score": 8,
-      "demand": {
-        "status": "collected",
-        "phrase": "мчд для этрн",
-        "count": 4614,
-        "match": "broad",
-        "region": "225",
-        "periodStart": "2026-09-02",
-        "periodEnd": "2026-10-01",
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD"
-      },
-      "priorityScore": 30,
-      "status": "accepted_waiting_release",
-      "createdAt": "2026-10-04",
-      "dedupe": {
-        "verdict": "ok",
-        "advice": "",
-        "related": []
-      },
-      "updatedAt": "2026-10-04"
-    },
-    {
       "slug": "seed-etrn-dlya-gruzopoluchatelya-priemka-gruza-rashozhdeniya-i-podpisanie",
       "title": "ЭТрН для грузополучателя: приёмка груза, расхождения и подписание",
       "entity": "этрн",
@@ -2554,6 +2554,32 @@
           "2026-05-03-utm-egais-podklyuchenie",
           "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
         ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 13.3
+    },
+    {
+      "slug": "2026-08-10-administrativnaya-otvetstvennost-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Административная-ответственность: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить административная-ответственность",
+        "административная-ответственность инструкция"
+      ],
+      "entity": "административная-ответственность",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 13.3,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
       },
       "demand": {
         "status": "not_collected",
@@ -3617,34 +3643,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 14.4,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
-      "slug": "2026-08-10-administrativnaya-otvetstvennost-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Административная-ответственность: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить административная-ответственность",
-        "административная-ответственность инструкция"
-      ],
-      "entity": "административная-ответственность",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 13.3,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "ok",
-        "advice": "",
-        "related": []
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 13.3,
       "deferredAt": "2026-10-04",
       "deferredReason": "buffer-rebalanced"
     },

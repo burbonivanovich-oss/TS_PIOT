@@ -1,0 +1,102 @@
+{
+  "runId": "2026-10-04-0d32d88f",
+  "date": "2026-10-04",
+  "kind": "day",
+  "createdAt": "2026-10-04T20:39:37.247Z",
+  "updatedAt": "2026-10-04T20:52:18.898Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-04T20:39:37.314Z",
+      "orderCount": 1,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 1,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "written": {
+      "at": "2026-10-04T20:51:57.436Z",
+      "delivered": 1,
+      "meaning": "bytes delivered; gates not passed yet"
+    },
+    "gated": {
+      "at": "2026-10-04T20:52:18.877Z",
+      "publicationCapacity": {
+        "day": "2026-10-04",
+        "slotsRemaining": 81,
+        "needed": 66,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 2,
+            "remaining": 53
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 1,
+            "remaining": 13
+          }
+        }
+      },
+      "published": 0,
+      "acceptedWaiting": 15,
+      "results": [
+        {
+          "slug": "2026-07-06-shtrafy-za-kkt",
+          "status": "accepted_waiting_release",
+          "score": 100
+        }
+      ],
+      "links": {
+        "linksInserted": 0,
+        "orphansBefore": 34,
+        "orphansAfter": 34
+      }
+    },
+    "built": {
+      "at": "2026-10-04T20:52:18.877Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "92e15770f04bb30a0a141384a38fe123181dbcf22440bd45337d2510248b1d07",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-04T20:39:37.314Z"
+    },
+    {
+      "stage": "written",
+      "at": "2026-10-04T20:51:57.436Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-04T20:52:18.877Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-04T20:52:18.898Z"
+    }
+  ],
+  "meta": {
+    "modelInvocations": [
+      {
+        "id": "d60be83d-3cf6-4aa1-91fd-8917c5a2fdd9",
+        "slug": "2026-07-06-shtrafy-za-kkt",
+        "attempt": "2026-10-04T20:39:37.294Z/0/0",
+        "startedAt": "2026-10-04T20:45:40.755Z",
+        "finishedAt": "2026-10-04T20:51:58.967Z",
+        "durationMs": 291906,
+        "reportedTokens": 75305,
+        "tokenSource": "codex-cli-footer",
+        "status": "delivered"
+      }
+    ]
+  }
+}
