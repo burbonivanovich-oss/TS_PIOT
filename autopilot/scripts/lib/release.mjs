@@ -12,6 +12,9 @@
 // Выход: { release, wait } — что публикуем сейчас и что остаётся в очереди.
 
 const byAge = (a, b) => {
+  const urgent = item => item.kind === 'rewrite' && item.factualCorrection === true;
+  const priority = Number(urgent(b)) - Number(urgent(a));
+  if (priority) return priority;
   const t = String(a.acceptedAt || '').localeCompare(String(b.acceptedAt || ''));
   return t !== 0 ? t : String(a.slug).localeCompare(String(b.slug));
 };

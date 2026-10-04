@@ -1,0 +1,25 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { activeFactCorrections } from './fact-corrections.mjs';
+import { claimHash } from './claim-evidence.mjs';
+const now = new Date('2026-10-04T18:00:00Z');
+const source = 'https://www.consultant.ru/document/cons_doc_LAW_34661/';
+const statement = 'Неверное утверждение про штраф.';
+function fixture() {
+ const text = 'Подтверждающий фрагмент нормы.';
+ return { version:1,slug:'article',documents:[{url:source,status:200,text,sha256:createHash('sha256').update(text).digest('hex'),fetchedAt:now.toISOString()}],findings:[{statement,claimHash:claimHash(statement),source,result:'contradicted',excerpt:text,checkedAt:now.toISOString(),rationale:'Заявленная квалификация противоречит области применения нормы.'}] };
+}
+const check = evidence => activeFactCorrections({slug:'article',body:statement,evidence,now});
+test('fresh semantic finding is active only while its exact statement is present',()=>{
+ const evidence=fixture();assert.equal(check(evidence).length,1);
+ assert.equal(activeFactCorrections({slug:'article',body:'Исправленное утверждение.',evidence,now}).length,0);
+ assert.equal(activeFactCorrections({slug:'other',body:statement,evidence,now}).length,0);
+ assert.equal(activeFactCorrections({slug:'article',body:'[Неверное утверждение](/blog/other/) про штраф.',evidence,now}).length,1);
+});
+test('missing verification and invalid primary evidence cannot produce correction priority',()=>{
+ for(const mutate of [e=>e.findings[0].result='unreviewed',e=>e.findings[0].claimHash='0'.repeat(64),e=>e.findings[0].rationale='',e=>e.findings[0].excerpt='not present',e=>e.documents[0].sha256='0'.repeat(64),e=>e.documents[0].status=403,e=>e.findings[0].source='https://example.com/norm',e=>e.findings[0].checkedAt='2027-01-01',e=>e.documents[0].fetchedAt='2025-01-01']){
+  const evidence=fixture();mutate(evidence);assert.deepEqual(check(evidence),[]);
+ }
+ assert.deepEqual(check(null),[]);
+});

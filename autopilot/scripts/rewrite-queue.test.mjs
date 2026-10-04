@@ -1,4 +1,5 @@
 import { test } from 'node:test';
+import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
@@ -207,4 +208,26 @@ test('duplicate remediation targets only selected weaker article and names its k
   writeFileSync(path.join(fx.dataDir,'dupes.json'),JSON.stringify({pairs:[{a:'keep',b:'weak',verdict:'merge'}]}));
   const legacy = run(`import {buildQueue} from ${JSON.stringify(MODULE)}; console.log(JSON.stringify(buildQueue()));`,fx);
   assert.equal(legacy.items.find(i=>i.slug==='weak').score,legacy.items.find(i=>i.slug==='keep').score);
+});
+
+
+test('confirmed wrong statement outranks routine review and disappears after correction', () => {
+  const fx = fixture(); const date = new Date().toISOString();
+  const statement = 'Неверное утверждение в свежей статье.';
+  const source = 'https://www.consultant.ru/document/cons_doc_LAW_34661/';
+  const text = 'Содержательный фрагмент для тестовой сверки.';
+  for (const [slug,body,pubDate] of [['urgent',statement,date.slice(0,10)],['routine','Федеральный закон № 259-ФЗ [источник]('+source+').','2020-01-01']]) {
+    writeFileSync(path.join(fx.root,'src/content/blog',slug+'.md'),`---\ntitle: ${slug}\npubDate: ${pubDate}\ndraft: false\n---\n${body}`);
+  }
+  writeFileSync(path.join(fx.dataDir,'rewrite-log.json'),JSON.stringify({entries:{urgent:{lastRewrite:date}}}));
+  mkdirSync(path.join(fx.dataDir,'fact-corrections'));
+  writeFileSync(path.join(fx.dataDir,'fact-corrections/urgent.json'),JSON.stringify({version:1,slug:'urgent',documents:[{url:source,text,status:200,fetchedAt:date,sha256:createHash('sha256').update(text).digest('hex')}],findings:[{statement,claimHash:createHash('sha256').update(statement).digest('hex'),source,result:'contradicted',excerpt:text,checkedAt:date,rationale:'Подтверждённая ошибка тестового утверждения.'}]}));
+  let result=run(`import {buildQueue} from ${JSON.stringify(MODULE)};process.stdout.write(JSON.stringify(buildQueue()));`,fx);
+  assert.equal(result.items[0].slug,'urgent');assert.equal(result.items[0].factCorrections.length,1);
+  assert.ok(result.items[0].score < result.items[1].score);
+  result=run(`import {takeRewrites} from ${JSON.stringify(MODULE)};process.stdout.write(JSON.stringify(takeRewrites(1,{excluded:['urgent']})));`,fx);
+  assert.equal(result[0].slug,'routine');
+  writeFileSync(path.join(fx.root,'src/content/blog/urgent.md'),`---\ntitle: urgent\npubDate: ${date.slice(0,10)}\ndraft: false\n---\nИсправленное утверждение.`);
+  result=run(`import {buildQueue} from ${JSON.stringify(MODULE)};process.stdout.write(JSON.stringify(buildQueue()));`,fx);
+  assert.equal(result.items.some(item=>item.slug==='urgent'),false);
 });

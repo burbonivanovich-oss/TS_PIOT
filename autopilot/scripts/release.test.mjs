@@ -276,3 +276,13 @@ test('publication stop counts distinct completed passes; recovery and month boun
  assert.equal(publicationFailureStreak([a,b,c],'2026-11-01'),0);
  assert.equal(publicationFailureStreak([a,b,c,run('legacy','2026-10-24',undefined)],'2026-10-24'),0);
 });
+
+test('accepted factual correction goes first while daily and rewrite calendar limits remain binding',()=>{
+ const waiting=[{slug:'older',kind:'rewrite',acceptedAt:'2026-10-01'},{slug:'new',kind:'new',acceptedAt:'2026-10-01'}];
+ const accepted=[{slug:'correction',kind:'rewrite',factualCorrection:true,acceptedAt:'2026-10-04'}];
+ let result=allocateReleases({waiting,accepted,alreadyToday:0,maxPerDay:1,calendar:{byKind:{new:{remaining:1},rewrite:{remaining:1}}}});
+ assert.deepEqual(result.release.map(i=>i.slug),['correction']);
+ result=allocateReleases({waiting,accepted,alreadyToday:0,maxPerDay:1,calendar:{byKind:{new:{remaining:1},rewrite:{remaining:0}}}});
+ assert.deepEqual(result.release.map(i=>i.slug),['new']);assert.ok(result.wait.some(i=>i.slug==='correction'));
+ result=allocateReleases({waiting,accepted,alreadyToday:1,maxPerDay:1});assert.equal(result.release.length,0);
+});

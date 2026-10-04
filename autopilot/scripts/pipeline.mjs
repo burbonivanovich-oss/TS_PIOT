@@ -114,6 +114,7 @@ function planInner() {
       title: item.title,
       reasons: item.reasons || ['продолжение зарезервированного рерайта'],
       score: item.score,
+      factCorrections: item.factCorrections || [],
       targetFile: path.join(cfg.paths.blog, `${item.slug}.md`),
       retry: true,
       runId: item.runId || run.runId,
@@ -150,6 +151,7 @@ function planInner() {
       title: item.title,
       reasons: item.reasons,
       score: item.score,
+      factCorrections: item.factCorrections || [],
       targetFile: path.join(cfg.paths.blog, `${item.slug}.md`),
     });
   }
@@ -301,7 +303,7 @@ function settleInner({ dry = false } = {}) {
       continue;
     }
 
-    accepted.push({ slug: order.slug, kind: order.kind, order, score: gates.score, file, acceptedAt: new Date().toISOString() });
+    accepted.push({ slug: order.slug, kind: order.kind, order, ...(order.kind === 'rewrite' && order.factCorrections?.length ? { factualCorrection: true } : {}), score: gates.score, file, acceptedAt: new Date().toISOString() });
   }
 
   // Распределяем квоту: ожидавшие ранее + принятые сейчас, старейшие первыми.
@@ -414,7 +416,7 @@ function settleInner({ dry = false } = {}) {
     publishLog.kinds = prunePublishDays(publishLog.kinds || {}, day);
     publishLog.kinds[day] = { ...(publishLog.kinds[day] || {}), ...Object.fromEntries(release.filter(item => releasedSlugs.includes(item.slug)).map(item => [item.slug, item.kind])) };
     writeJson(PUBLISH_LOG_FILE, publishLog);
-    writeJson(RELEASE_FILE, { generatedAt: day, items: wait.map((i) => ({ slug: i.slug, kind: i.kind, score: i.score, acceptedAt: i.acceptedAt, ...(i.stagedFile ? {stagedFile:i.stagedFile} : {}) })) });
+    writeJson(RELEASE_FILE, { generatedAt: day, items: wait.map((i) => ({ slug: i.slug, kind: i.kind, score: i.score, acceptedAt: i.acceptedAt, ...(i.factualCorrection === true ? { factualCorrection: true } : {}), ...(i.stagedFile ? {stagedFile:i.stagedFile} : {}) })) });
     saveState(state);
   }
 
