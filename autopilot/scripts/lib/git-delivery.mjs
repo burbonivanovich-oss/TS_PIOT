@@ -30,7 +30,10 @@ export function beginGitDelivery(root) {
   if (git(root, ['status', '--porcelain', '--untracked-files=all'])) throw new Error('Доставка требует чистый отдельный checkout до plan');
   if (existsSync(file)) {
     const previous = readJson(file, null);
-    if (previous?.phase !== 'committed' || previous.root !== path.resolve(root) || previous.metadataCommit !== git(root, ['rev-parse', 'HEAD']) || !/^\d{4}-\d{2}-\d{2}-[a-f0-9]{8}$/.test(previous.runId)) throw new Error('Незавершённая доставка уже существует');
+    if (previous?.phase !== 'committed' || previous.root !== path.resolve(root) || previous.branch !== git(root, ['symbolic-ref', 'HEAD']) || !/^[a-f0-9]{40,64}$/.test(previous.metadataCommit) || !/^\d{4}-\d{2}-\d{2}-[a-f0-9]{8}$/.test(previous.runId) || (previous.push && previous.push.phase !== 'verified')) throw new Error('Незавершённая доставка уже существует');
+    // A completed delivery survives later reviewed maintenance commits. Its
+    // exact commit must remain an ancestor; rewritten/divergent history stops.
+    git(root, ['merge-base', '--is-ancestor', previous.metadataCommit, 'HEAD']);
     writeJson(localFile(root, `autopilot-delivery-${previous.runId}.json`), previous);
     rmSync(file);
   }

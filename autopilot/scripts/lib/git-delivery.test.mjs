@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'nod
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { beginGitDelivery, commitGitDelivery, corpusHash } from './git-delivery.mjs';
+import { beginGitDelivery, commitGitDelivery, corpusHash, readDeliveryJournal } from './git-delivery.mjs';
 import { createRun, setStage, readRun } from './run.mjs';
 
 function fixture() {
@@ -71,6 +71,20 @@ test('next cycle can record a new clean baseline after completed delivery', () =
   const f = fixture(); try {
     const delivered = commitGitDelivery(f); const baseline = beginGitDelivery(f.root);
     assert.equal(baseline.baseHead, delivered.metadataCommit); assert.equal(baseline.phase, 'baseline');
+  } finally { rmSync(f.root, { recursive: true, force: true }); }
+});
+test('completed delivery archives after clean maintenance commit preserving its ancestry', () => {
+  const f = fixture(); try {
+    const delivered = commitGitDelivery(f);
+    writeFileSync(path.join(f.root, 'README.md'), 'reviewed maintenance'); f.git('add', 'README.md'); f.git('commit', '-qm', 'maintenance');
+    const baseline = beginGitDelivery(f.root); assert.equal(baseline.baseHead, f.git('rev-parse', 'HEAD')); assert.notEqual(baseline.baseHead, delivered.metadataCommit);
+  } finally { rmSync(f.root, { recursive: true, force: true }); }
+});
+test('unverified push cannot be archived even after local delivery completes', () => {
+  const f = fixture(); try {
+    commitGitDelivery(f); const journal = readDeliveryJournal(f.root); journal.push = { phase: 'pending' };
+    writeFileSync(path.join(f.root, '.git/autopilot-delivery.json'), JSON.stringify(journal));
+    assert.throws(() => beginGitDelivery(f.root), /Незавершённая/); assert.equal(readDeliveryJournal(f.root).push.phase, 'pending');
   } finally { rmSync(f.root, { recursive: true, force: true }); }
 });
 test('article research cannot bypass secret checks with fixture allow marker', () => {
