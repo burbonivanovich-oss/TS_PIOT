@@ -15,7 +15,7 @@ import { rebalancePlanned } from './lib/backlog-refresh.mjs';
 import { loadConfig, assertContentRoot } from './lib/config.mjs';
 import { loadArticles, readJson, writeJson, today, isMain, parseArgs } from './lib/content.mjs';
 import { acquireLock, releaseLock } from './lib/lock.mjs';
-import { slugify, tokenize } from './lib/text.mjs';
+import { slugify, tokenize, canonicalKey } from './lib/text.mjs';
 import { buildIndex, checkTopic } from './dedupe.mjs';
 import { rankByDemand } from './lib/demand.mjs';
 
@@ -164,7 +164,7 @@ function refillInner({ target } = {}) {
   const baseIndex=buildIndex();
   const refreshed=rebalancePlanned(backlog.topics,freshOffers,{target:want,maxShare:cfg.backlog.maxPerEntityShare,rank:rankTopics,day:today(),check:(offer, peers)=>{
     const index=baseIndex.slice();index.idf=baseIndex.idf;
-    for(const t of peers) if(!baseIndex.some(e=>e.slug===t.slug))index.push({kind:'planned',slug:t.slug,title:t.title,keywords:t.keywords||[],canonical:'',titleTokens:tokenize(t.title),keywordTokens:tokenize((t.keywords||[]).join(' ')),allTokens:tokenize([t.title,...(t.keywords||[])].join(' '))});
+    for(const t of peers) if(!baseIndex.some(e=>e.slug===t.slug))index.push({kind:'planned',slug:t.slug,title:t.title,keywords:t.keywords||[],canonical:canonicalKey(t.title),titleTokens:tokenize(t.title),keywordTokens:tokenize((t.keywords||[]).join(' ')),allTokens:tokenize([t.title,...(t.keywords||[])].join(' '))});
     return checkTopic(offer,index);
   }});
   backlog.topics=refreshed.topics;
