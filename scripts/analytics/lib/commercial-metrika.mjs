@@ -3,11 +3,13 @@
 export const COUNTER_ID = 109130279;
 // First HTTP verification of the release enabling these events, not a guessed launch date.
 export const TRACKING_VERIFIED_AT = '2026-10-04T08:31:34.252Z';
+export const CPA_TRACKING_VERIFIED_AT = '2026-10-04T21:31:08.779Z';
 export const COMMERCIAL_GOALS = [
   ['product-view', 'productViews'], ['product-cta-click', 'ctaClicks'],
   ['selector-task', 'selectorTasks'], ['selector-result', 'selectorResults'],
   ['selector-product-click', 'selectorProductClicks'], ['form-start', 'formStarts'],
   ['form-submit-attempt', 'formSubmitAttempts'],
+  ['cpa-visible', 'cpaVisibleVisitors'], ['cpa-click', 'cpaClickVisitors'],
 ];
 const integer = x => typeof x === 'number' && Number.isSafeInteger(x) && x >= 0;
 export function collectionWindow(now, days) {
@@ -19,7 +21,7 @@ export function resolveCommercialGoals(goals) {
   if (!Array.isArray(goals)) throw new Error('Invalid goal list');
   return COMMERCIAL_GOALS.map(([event, field]) => {
     const matches = goals.filter(g => g.type === 'action' && g.conditions?.length === 1 && g.conditions[0].type === 'exact' && g.conditions[0].url === event && integer(g.id) && g.id > 0);
-    return { event, field, goalId: matches.length === 1 ? matches[0].id : null, issue: matches.length === 1 ? null : 'goal_missing_or_ambiguous' };
+    return { event, field, trackingVerifiedAt: event.startsWith('cpa-') ? CPA_TRACKING_VERIFIED_AT : TRACKING_VERIFIED_AT, goalId: matches.length === 1 ? matches[0].id : null, issue: matches.length === 1 ? null : 'goal_missing_or_ambiguous' };
   });
 }
 export function reportRequest(goalRows, period, asOf) {
@@ -37,12 +39,14 @@ export function normalizeCommercialReport(body, {period, asOf, fetchedAt, reques
   if (!queryMatches || !precise || !Array.isArray(body.totals) || body.totals.length !== request.definitions.length) return {...result,status:'error',reason:!queryMatches?'response_query_mismatch':!precise?'sampling_rounding_privacy_or_lag_unverified':'missing_aggregate_totals'};
   const totalUsers = body.totals[0];
   const cohort = `counter:${COUNTER_ID};UTC:${period.from}/${period.to};visit-start-cutoff:${asOf}`;
-  const fullyTracked = Date.parse(`${period.from}T00:00:00Z`) >= Date.parse(TRACKING_VERIFIED_AT);
+
   for (let i=0;i<request.definitions.length;i++) {
     const d=request.definitions[i], value=body.totals[i];
     if (!integer(value) || (d.goalId && (!integer(totalUsers) || value > totalUsers))) {result.issues[d.field]='invalid_or_missing_aggregate';continue;}
+    const verifiedAt = d.trackingVerifiedAt || TRACKING_VERIFIED_AT;
+    const fullyTracked = Date.parse(`${period.from}T00:00:00Z`) >= Date.parse(verifiedAt);
     result[d.field]=value;
-    result.measurement[d.field]={unit:d.field==='siteVisits'?'visits':'visitors',cohort,unique:true,complete:body.data_lag===0 && (!d.goalId || fullyTracked),subsetOf:d.goalId?['users']:[],trackingCoverage:d.goalId?(fullyTracked?'full':'partial_since_verified_release'):'not_applicable'};
+    result.measurement[d.field]={unit:d.field==='siteVisits'?'visits':'visitors',cohort,unique:true,complete:body.data_lag===0 && (!d.goalId || fullyTracked),trackingVerifiedAt:d.goalId?verifiedAt:null,subsetOf:d.goalId?['users']:[],trackingCoverage:d.goalId?(fullyTracked?'full':'partial_since_verified_release'):'not_applicable'};
   }
   for (const g of goalRows) if (g.issue) result.issues[g.field]=g.issue;
   if (Object.keys(result.issues).length) result.status='partial';

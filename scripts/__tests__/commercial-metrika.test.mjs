@@ -12,7 +12,7 @@ const rows=resolveCommercialGoals(goals),period=collectionWindow(now,7),asOf=now
 const context={period,asOf,fetchedAt:asOf,request,goalRows:rows};
 function response(over={}) {return {query:{timezone:'+00:00',date1:period.from,date2:period.to,metrics:request.definitions.map(d=>d.metric),filters:request.filters,dimensions:[]},sampled:false,sample_share:1,total_rows_rounded:false,contains_sensitive_data:false,data_lag:0,totals:[10,12,...COMMERCIAL_GOALS.map(()=>2)],data:[{metrics:[999,999]}],...over};}
 test('one UTC request uses report totals and unique goal users, not page sums or paid/lead aliases',()=>{
-  const url=new URL(request.url);assert.equal(url.searchParams.get('ids'),String(COUNTER_ID));assert.equal(url.searchParams.get('timezone'),'+00:00');assert.equal(request.definitions.length,9);
+  const url=new URL(request.url);assert.equal(url.searchParams.get('ids'),String(COUNTER_ID));assert.equal(url.searchParams.get('timezone'),'+00:00');assert.equal(request.definitions.length,11);
   const r=normalizeCommercialReport(response(),context);
   assert.equal(r.status,'ok');assert.equal(r.users,10);assert.equal(r.siteVisits,12);assert.equal(r.productViews,2);assert.equal(r.formSubmitAttempts,2);
   assert.equal(r.validLeads,undefined);assert.equal(r.paid,undefined);assert.equal(r.paymentClicks,undefined);
@@ -65,8 +65,21 @@ test('collected aggregates feed the report while client attempts and unrelated s
     mkdirSync(path.join(dir,'analytics'));writeFileSync(path.join(dir,'analytics','export.json'),JSON.stringify(normalizeCommercialReport(response(),context)));
     const r=computeCommercialReport({dir,now,days:7});
     assert.equal(r.metrics.users.value,10);assert.equal(r.metrics.formSubmitAttempts.value,2);
+    assert.equal(r.metrics.cpaVisibleVisitors.value,2);assert.equal(r.cr.cpaVisibleReach.value,0.2);
+    assert.equal(r.metrics.ctaCtr.value,null);
     assert.equal(r.metrics.validLeads.value,null);assert.equal(r.metrics.paymentClicks.value,null);
     assert.equal(r.cr.productReach.value,0.2);assert.equal(r.cr.ctaReach.value,0.2);
     assert.equal(r.cr.formStart.value,null);assert.equal(r.projectIncome.value,null);
   } finally {rmSync(dir,{recursive:true,force:true});}
+});
+
+test('CPA visibility uses its own release boundary and never becomes raw impressions or CTR',()=>{
+  const p={from:'2026-10-04',to:'2026-10-04',timeZone:'UTC'};
+  const req=reportRequest(rows,p,asOf); const b=response();
+  b.query={...b.query,date1:p.from,date2:p.to,filters:req.filters};
+  const r=normalizeCommercialReport(b,{...context,period:p,request:req});
+  assert.equal(r.cpaVisibleVisitors,2); assert.equal(r.cpaClickVisitors,2);
+  assert.equal(r.measurement.cpaVisibleVisitors.complete,false);
+  assert.equal(r.measurement.cpaVisibleVisitors.trackingVerifiedAt,'2026-10-04T21:31:08.779Z');
+  assert.equal(r.offerImpressions,undefined); assert.equal(r.ctaCtr,undefined);
 });
