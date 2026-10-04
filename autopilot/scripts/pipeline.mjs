@@ -53,20 +53,20 @@ const RELEASE_FILE = path.join(cfg.resolved.dataDir, 'release-queue.json');
 const PUBLISH_LOG_FILE = path.join(cfg.resolved.dataDir, 'publish-log.json');
 
 /** Наряды на день: что писать заново и что переписывать. */
-export function plan() {
+export function plan({ correctionsOnly = false } = {}) {
   // Единый lock на весь проход (AP-P0-09): второй plan отказывает до чтения
   // состояния, а не затирает чужой результат после.
   acquireLock({ cmd: 'plan', runId: newRunId() });
   try {
     assertContentRoot(cfg);
     recoverSettle({ blog: cfg.resolved.blog, dataDir: cfg.resolved.dataDir });
-    return planInner();
+    return planInner({ correctionsOnly });
   } finally {
     releaseLock();
   }
 }
 
-function planInner() {
+function planInner({ correctionsOnly = false } = {}) {
   assertContentRoot(cfg);
   const state = readState();
   const waitingForRelease = readJson(RELEASE_FILE, { items: [] }).items;
@@ -78,7 +78,11 @@ function planInner() {
   const rewriteQueue = buildQueue();
   const unavailableRewrites = new Set([...state.inFlight, ...state.quarantine, ...waitingForRelease].map(item => item.slug));
   const urgentRewrites = rewriteQueue.items.filter(item => item.factCorrections?.length && !unavailableRewrites.has(item.slug)).length;
-  const cap = capacity(state, new Date(), cfg, waitingForRelease, { urgentRewrites });
+  let cap = capacity(state, new Date(), cfg, waitingForRelease, { urgentRewrites });
+  if (correctionsOnly) {
+    if (cfg.throughput.monthlyRewriteTarget === undefined) throw new Error('Corrections-only requires a separate rewrite budget');
+    cap = { ...cap, canTake: cap.urgentRewriteSlots, takeByKind: { new: 0, rewrite: cap.urgentRewriteSlots }, correctionsOnly: true };
+  }
 
   // Проход дня создаём/переиспользуем до выдачи рерайтов: reservation должна
   // нести тот же runId, что и наряд (AP-P1-09).
@@ -547,7 +551,7 @@ function main() {
   // стабильный exit code, а не стек и русский текст.
   try {
     if (cmd === 'plan') {
-      const payload = plan();
+      const payload = plan({ correctionsOnly: args['corrections-only'] !== undefined });
       const out = envelope({ ok: true, ...payload, category: 'ok', exitCode: 0 });
       if (json) {
         console.log(JSON.stringify(out, null, 2));

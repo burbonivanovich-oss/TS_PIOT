@@ -49,7 +49,7 @@ export async function coordinateCycle({ pending, refresh, plan: makePlan, write,
   return { status: 'delivery_pending', runId: orders.runId, writing, acceptance };
 }
 
-export async function dailyCycle({ commit = false, push = false, remote = 'origin', targetRef } = {}) {
+export async function dailyCycle({ commit = false, push = false, remote = 'origin', targetRef, correctionsOnly = false } = {}) {
   if (push && (!commit || !targetRef)) throw new Error('Push требует --commit и явный --target-ref');
   const cfg = loadConfig();
   assertContentRoot(cfg);
@@ -94,7 +94,7 @@ export async function dailyCycle({ commit = false, push = false, remote = 'origi
         writeJson(file, report);
         refreshDuplicateAudit({ dataDir: cfg.resolved.dataDir });
       },
-      plan,
+      plan: () => plan({ correctionsOnly }),
       write: () => writeOrders(),
       settle,
       deliver: commit ? deliver : undefined,
@@ -116,6 +116,6 @@ if (isMain(import.meta.url)) {
       if (check.error || check.status !== 0) throw new Error('Preflight/тесты не пройдены; цикл не запускается');
     }
     const args = parseArgs(process.argv.slice(2));
-    console.log(JSON.stringify(await dailyCycle({ commit: args.commit !== undefined, push: args.push !== undefined, remote: args.remote || 'origin', targetRef: args['target-ref'] }), null, 2));
+    console.log(JSON.stringify(await dailyCycle({ commit: args.commit !== undefined, push: args.push !== undefined, remote: args.remote || 'origin', targetRef: args['target-ref'], correctionsOnly: args['corrections-only'] !== undefined }), null, 2));
   } catch (error) { console.error(error.message); process.exitCode = 1; }
 }

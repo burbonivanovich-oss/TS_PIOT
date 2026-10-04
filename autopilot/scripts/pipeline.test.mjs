@@ -363,7 +363,7 @@ test('receipt-backed NEW with a legacy date is held; matching run date publishes
 
 
 test('real plan reserves an urgent factual rewrite ahead of mix without reissuing excluded work',()=>{
- for(const excluded of ['none','quarantine','waiting']) {
+ for(const excluded of ['none','quarantine','waiting','only']) {
   const fx=fixture();const date=new Date().toISOString();const slug='urgent-error';const statement='Ошибочное утверждение опубликованной статьи.';
   const config=baseConfig(fx.root);config.throughput.monthlyTarget=55;config.throughput.monthlyRewriteTarget=14;config.throughput.maxBatchSize=3;
   writeFileSync(fx.configFile,JSON.stringify(config));
@@ -371,15 +371,16 @@ test('real plan reserves an urgent factual rewrite ahead of mix without reissuin
   if(excluded==='quarantine')state.quarantine=[{slug,kind:'rewrite'}];
   writeFileSync(path.join(fx.dataDir,'autopilot.json'),JSON.stringify(state));
   writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({date:date.slice(0,10),orders:[]}));
-  writeFileSync(path.join(fx.dataDir,'backlog.json'),JSON.stringify({topics:[]}));
+  writeFileSync(path.join(fx.dataDir,'backlog.json'),JSON.stringify({topics:[{slug:'available-new',title:'Выбор кассового оборудования магазина',entity:'касса',status:'planned',keywords:['касса магазина']}]}));
   writeFileSync(path.join(fx.root,'src/content/blog',slug+'.md'),`---\ntitle: urgent error\npubDate: ${date.slice(0,10)}\ndraft: false\n---\n${statement}`);
   const source='https://www.consultant.ru/document/cons_doc_LAW_34661/';const text='Фрагмент тестового документа.';
   mkdirSync(path.join(fx.dataDir,'fact-corrections'));
   writeFileSync(path.join(fx.dataDir,'fact-corrections',slug+'.json'),JSON.stringify({version:1,slug,documents:[{url:source,status:200,text,sha256:createHash('sha256').update(text).digest('hex'),fetchedAt:date}],findings:[{statement,claimHash:createHash('sha256').update(statement).digest('hex'),source,result:'contradicted',excerpt:text,checkedAt:date,rationale:'Подтверждённая ошибка тестового материала.'}]}));
   if(excluded==='waiting')writeFileSync(path.join(fx.dataDir,'release-queue.json'),JSON.stringify({items:[{slug,kind:'rewrite',acceptedAt:date}]}));
-  const invoke=()=>{const result=spawnSync(process.execPath,['scripts/pipeline.mjs','plan','--json'],{cwd:ROOT,env:{...process.env,AUTOPILOT_CONFIG:fx.configFile,AUTOPILOT_DATA_DIR:fx.dataDir,AUTOPILOT_LOCK_FILE:path.join(fx.dataDir,'.autopilot.lock'),CONTENT_ROOT:fx.root},encoding:'utf8'});assert.equal(result.status,0,result.stderr);return JSON.parse(result.stdout);};
+  const invoke=()=>{const result=spawnSync(process.execPath,['scripts/pipeline.mjs','plan','--json',...(excluded==='only'?['--corrections-only']:[])],{cwd:ROOT,env:{...process.env,AUTOPILOT_CONFIG:fx.configFile,AUTOPILOT_DATA_DIR:fx.dataDir,AUTOPILOT_LOCK_FILE:path.join(fx.dataDir,'.autopilot.lock'),CONTENT_ROOT:fx.root},encoding:'utf8'});assert.equal(result.status,0,result.stderr);return JSON.parse(result.stdout);};
   const first=invoke();const urgent=first.orders.filter(o=>o.slug===slug);
-  if(excluded!=='none'){assert.equal(urgent.length,0,excluded);continue;}
+  if(!['none','only'].includes(excluded)){assert.equal(urgent.length,0,excluded);continue;}
+  if(excluded==='only'){assert.equal(first.orders.length,1);assert.equal(first.capacity.correctionsOnly,true);assert.equal(first.capacity.takeByKind.new,0);}
   assert.equal(urgent.length,1);assert.equal(urgent[0].kind,'rewrite');assert.equal(urgent[0].factCorrections.length,1);
   const second=invoke();assert.equal(second.orders.filter(o=>o.slug===slug).length,1);assert.equal(readState(fx).inFlight.filter(o=>o.slug===slug).length,1);
  }
