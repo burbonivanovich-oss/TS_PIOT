@@ -2,6 +2,7 @@
 // Model delivery only. Quality, counters and publication remain owned by settle.
 import { randomUUID } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
+import { isolatedTestEnv } from './lib/test-env.mjs';
 import { mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -126,7 +127,7 @@ if (isMain(import.meta.url)) {
     const cfg = loadConfig();
     recoverWriting(cfg);
     for (const args of [[path.join(ROOT, 'scripts/preflight.mjs')], ['--test', 'scripts/*.test.mjs', 'scripts/lib/*.test.mjs']]) {
-      const check = spawnSync(process.execPath, args, { cwd: ROOT, stdio: 'inherit' });
+      const check = spawnSync(process.execPath, args, { cwd: ROOT, stdio: 'inherit', env: args.includes('--test') ? isolatedTestEnv() : process.env });
       if (check.error || check.status !== 0) throw new Error('Preflight/тесты не пройдены; модель не запускается');
     }
     const args = parseArgs(process.argv.slice(2));
