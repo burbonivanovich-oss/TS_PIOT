@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, rmSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { pushGitDelivery } from './git-push.mjs';
+import { pushGitDelivery, inspectWordstatDeliveryRace } from './git-push.mjs';
 
 function fixture() {
   const dir = mkdtempSync(path.join(tmpdir(), 'autopilot-push-')); const root = path.join(dir, 'work'); const bare = path.join(dir, 'remote.git');
@@ -25,4 +25,17 @@ test('dirty checkout and invalid destination refuse push', () => {
 });
 test('remote divergence refuses push without force or overwriting external commit', () => {
   const f = fixture(); try { writeFileSync(path.join(f.root, 'article.md'), 'external'); f.local('commit', '-qam', 'external'); const external = f.local('rev-parse', 'HEAD'); f.local('push', '-q', 'origin', 'HEAD:refs/heads/main'); f.local('reset', '--hard', f.metadataCommit); assert.throws(() => pushGitDelivery(f), /outside/); assert.equal(f.git('--git-dir', f.bare, 'rev-parse', 'main'), external); } finally { rmSync(f.dir, { recursive: true, force: true }); }
+});
+
+test('Wordstat race inspection preserves both trees without changing checkout or remote', () => {
+ const f=fixture();try {
+  const other=path.join(f.dir,'collector');f.git('clone','-q','--branch','main',f.bare,other);
+  const folder=path.join(other,'src/data/wordstat');mkdirSync(folder,{recursive:true});writeFileSync(path.join(folder,'спрос.json'),'{}');
+  f.git('-C',other,'add','.');f.git('-C',other,'commit','-qm','collector');f.git('-C',other,'push','-q','origin','main');
+  const remoteHead=f.git('-C',other,'rev-parse','HEAD');f.local('fetch','-q','origin','main');
+  const result=inspectWordstatDeliveryRace({...f,remoteHead});assert.equal(result.deliveryBytesUnchanged,true);assert.equal(result.wordstatBytesUnchanged,true);
+  assert.equal(f.local('rev-parse','HEAD'),f.metadataCommit);assert.equal(f.local('status','--porcelain'),'');assert.equal(f.git('--git-dir',f.bare,'rev-parse','main'),remoteHead);
+  writeFileSync(path.join(other,'unexpected.md'),'outside');f.git('-C',other,'add','.');f.git('-C',other,'commit','-qm','outside');f.git('-C',other,'push','-q','origin','main');f.local('fetch','-q','origin','main');
+  assert.throws(()=>inspectWordstatDeliveryRace({...f,remoteHead:f.git('-C',other,'rev-parse','HEAD')}),/outside Wordstat/);
+ }finally{rmSync(f.dir,{recursive:true,force:true});}
 });

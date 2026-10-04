@@ -39,3 +39,22 @@ export function pushGitDelivery({ root, remote = 'origin', targetRef }) {
   journal.push.phase = 'verified'; journal.push.verifiedAt = new Date().toISOString(); writeJson(file, journal);
   return { pushed: true, deployed: false, commit: journal.metadataCommit, remote, targetRef };
 }
+
+/** Read-only planning: produce a merge tree only for disjoint Wordstat data. */
+export function inspectWordstatDeliveryRace({ root, remoteHead }) {
+  const journal = readDeliveryJournal(root);
+  if (journal?.phase !== 'committed' || journal.root !== path.resolve(root) || ![journal.baseHead,journal.metadataCommit,remoteHead].every(s => /^[a-f0-9]{40,64}$/.test(s || ''))) throw new Error('Invalid delivery race identity');
+  git(root, ['merge-base', '--is-ancestor', journal.baseHead, remoteHead]);
+  const prefix = 'src/data/wordstat/';
+  const paths = git(root, ['diff', '--no-renames', '--name-only', '-z', journal.baseHead, remoteHead]).split('\0').filter(Boolean);
+  if (!paths.length || paths.some(p => !p.startsWith(prefix) || !/\.(json|md)$/.test(p))) throw new Error('Remote changes outside Wordstat data');
+  if (git(root, ['diff', '--name-only', journal.baseHead, journal.metadataCommit, '--', prefix])) throw new Error('Delivery also changed Wordstat data');
+  for (const file of paths) {
+    const mode = git(root, ['ls-tree', '--format=%(objectmode)', remoteHead, '--', file]);
+    if (mode && mode !== '100644') throw new Error('Wordstat change is not a regular data file');
+  }
+  const tree = git(root, ['merge-tree', '--write-tree', remoteHead, journal.metadataCommit]).split('\n')[0];
+  if (!/^[a-f0-9]{40,64}$/.test(tree)) throw new Error('Invalid merged tree');
+  if (git(root, ['diff', '--name-only', journal.metadataCommit, tree, '--', '.', ':(exclude)src/data/wordstat']) || git(root, ['diff', '--name-only', remoteHead, tree, '--', prefix])) throw new Error('Merged tree changed delivery or foreign data');
+  return { remoteHead, deliveryCommit: journal.metadataCommit, tree, foreignPaths: paths, deliveryBytesUnchanged: true, wordstatBytesUnchanged: true, checkoutChanged: false };
+}
