@@ -1,0 +1,79 @@
+{
+  "seed": "оплата чаевых",
+  "slug": "оплата-чаевых",
+  "category": "audience",
+  "cluster": "ekvairing",
+  "fetchedAt": "2026-10-04T17:41:31.135Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 14,
+  "phrases": [
+    {
+      "phrase": "оплата чаевых",
+      "count": 874
+    },
+    {
+      "phrase": "оплата чаевых картой",
+      "count": 175
+    },
+    {
+      "phrase": "озон оплата чаевые",
+      "count": 98
+    },
+    {
+      "phrase": "как оставить чаевые при оплате",
+      "count": 59
+    },
+    {
+      "phrase": "чаевые в ресторане при оплате картой",
+      "count": 47
+    },
+    {
+      "phrase": "оплата по qr чаевые",
+      "count": 42
+    },
+    {
+      "phrase": "оплата чаевых по qr коду",
+      "count": 38
+    },
+    {
+      "phrase": "оплата счета и чаевых",
+      "count": 38
+    },
+    {
+      "phrase": "сервисы оплаты чаевых",
+      "count": 29
+    },
+    {
+      "phrase": "как дают чаевые при оплате картой",
+      "count": 29
+    },
+    {
+      "phrase": "как оставить чаевые если оплата картой",
+      "count": 15
+    },
+    {
+      "phrase": "как отменить оплату чаевых на озон",
+      "count": 8
+    },
+    {
+      "phrase": "как отказаться от оплаты чаевых на озоне",
+      "count": 8
+    },
+    {
+      "phrase": "как отключить оплату чаевых в озоне",
+      "count": 8
+    }
+  ]
+}

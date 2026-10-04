@@ -1,0 +1,55 @@
+{
+  "seed": "касса для кофейни",
+  "slug": "касса-для-кофейни",
+  "category": "audience",
+  "cluster": "horeca",
+  "fetchedAt": "2026-10-04T17:41:44.202Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 8,
+  "phrases": [
+    {
+      "phrase": "касса для кофеен",
+      "count": 173
+    },
+    {
+      "phrase": "касса для кофейни",
+      "count": 152
+    },
+    {
+      "phrase": "какая касса для кофейни",
+      "count": 18
+    },
+    {
+      "phrase": "онлайн касса для кофейни",
+      "count": 13
+    },
+    {
+      "phrase": "касса для кофейни на планшете",
+      "count": 9
+    },
+    {
+      "phrase": "касса для кофейни 2026 форум",
+      "count": 6
+    },
+    {
+      "phrase": "касса айко для кофейни",
+      "count": 5
+    },
+    {
+      "phrase": "точка банк касса для кофейни",
+      "count": 5
+    }
+  ]
+}

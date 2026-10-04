@@ -1,0 +1,31 @@
+{
+  "seed": "маркировка для салона красоты",
+  "slug": "маркировка-для-салона-красоты",
+  "category": "audience",
+  "cluster": "uslugi",
+  "fetchedAt": "2026-10-04T17:41:52.452Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 2,
+  "phrases": [
+    {
+      "phrase": "маркировка для салонов красоты",
+      "count": 66
+    },
+    {
+      "phrase": "маркировка уборочного инвентаря для салона красоты",
+      "count": 12
+    }
+  ]
+}
