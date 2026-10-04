@@ -108,3 +108,9 @@ test('full buffer allows only urgent correction slots and keeps all hard budgets
  assert.equal(cap(state(12,4),{waiting,urgentRewrites:20}).canTake,config.throughput.maxBatchSize);
  for(const limit of [0,-1,1.5,NaN])assert.throws(()=>cap(state(),{config:{...config,throughput:{...config.throughput,maxAcceptedBuffer:limit}}}),/buffer/);
 });
+
+test('accepted repair occupies physical slots without reserving its counted month twice',()=>{
+ const s=state(55,14);s.inFlight=[{slug:'repair',kind:'new',acceptedRepair:{countedMonth:'2026-10'}}];
+ let c=cap(s);assert.equal(c.byKind.new.active,0);assert.equal(c.byKind.new.remaining,0);assert.equal(c.inFlight,1);assert.equal(c.freeSlots,3);
+ s.month='2026-11';s.counters={new:0,rewrite:0};c=cap(s,{now:new Date('2026-11-01T12:00:00Z')});assert.equal(c.byKind.new.active,1);assert.equal(c.byKind.new.remaining,54);
+});

@@ -11,7 +11,7 @@ export function productionCapacity({ state, now, config, waiting = [], urgentRew
   for (const kind of ['new', 'rewrite']) {
     const target = kind === 'new' ? T.monthlyTarget : T.monthlyRewriteTarget;
     const done = state.month === month ? (state.counters[kind] || 0) : 0;
-    const active = state.inFlight.filter(t => t.kind === kind).length;
+    const active = state.inFlight.filter(t => t.kind === kind && t.acceptedRepair?.countedMonth !== month).length;
     const carriedAccepted = waiting.filter(t => t.kind === kind && !String(t.acceptedAt || '').startsWith(month)).length;
     const expectedByToday = Math.round(target * day / days);
     byKind[kind] = {

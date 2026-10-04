@@ -17,7 +17,7 @@
 //   node scripts/pipeline.mjs settle [--dry]
 //   node scripts/pipeline.mjs report
 import path from 'node:path';
-import {preservePublishedRewrite,stageQueuedRewrite,queuedRewriteFile,promoteQueuedRewrite,forgetPublishedRewrite,retainFailedRewrite} from './lib/queued-rewrite.mjs';
+import {preservePublishedRewrite,stageQueuedRewrite,queuedRewriteFile,promoteQueuedRewrite,forgetPublishedRewrite,retainFailedRewrite,retainRepairCandidate,activateRepairCandidate,forgetRepairCandidate} from './lib/queued-rewrite.mjs';
 import { existsSync, readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { loadConfig, assertContentRoot } from './lib/config.mjs';
@@ -33,7 +33,7 @@ import {
   writeArticle,
   loadArticles,
 } from './lib/content.mjs';
-import { readState, saveState, capacity, claim, done, fail } from './state.mjs';
+import { readState, saveState, capacity, claim, claimAcceptedRepair, done, fail } from './state.mjs';
 import { acquireLock, releaseLock, newRunId } from './lib/lock.mjs';
 import { refill, take as takeTopics, setStatus, reconcile } from './backlog.mjs';
 import { buildQueue, takeRewrites, markRewritten, activeRewrites, releaseReservation } from './rewrite-queue.mjs';
@@ -60,7 +60,9 @@ export function plan({ correctionsOnly = false } = {}) {
   try {
     assertContentRoot(cfg);
     recoverSettle({ blog: cfg.resolved.blog, dataDir: cfg.resolved.dataDir });
-    return planInner({ correctionsOnly });
+    const snapshot=snapshotSettle({blog:cfg.resolved.blog,dataDir:cfg.resolved.dataDir});
+    try {const result=planInner({correctionsOnly});snapshot.commit();return result;}
+    catch(error){snapshot.restore();throw error;}
   } finally {
     releaseLock();
   }
@@ -106,7 +108,7 @@ function planInner({ correctionsOnly = false } = {}) {
   const previous = readJson(ORDERS_FILE, { orders: [] }).orders;
   const inFlight = new Set(state.inFlight.map((t) => t.slug));
   const carried = previous
-    .filter((o) => inFlight.has(o.slug))
+    .filter((o) => inFlight.has(o.slug) && !state.inFlight.find(t=>t.slug===o.slug)?.acceptedRepair)
     .map((o) => ({ ...o, retry: true }));
   orders.push(...carried);
   const carriedSlugs = new Set(carried.map((o) => o.slug));
@@ -114,7 +116,7 @@ function planInner({ correctionsOnly = false } = {}) {
   // Потеря orders.json не должна оставить активный рерайт без наряда: очередь
   // — второй источник правды о том, что уже в работе (AP-P1-09).
   for (const item of activeRewrites([...inFlight])) {
-    if (carriedSlugs.has(item.slug)) continue;
+    if (carriedSlugs.has(item.slug) || state.inFlight.find(t=>t.slug===item.slug)?.acceptedRepair) continue;
     carried.push({
       kind: 'rewrite',
       slug: item.slug,
@@ -128,6 +130,14 @@ function planInner({ correctionsOnly = false } = {}) {
     });
     carriedSlugs.add(item.slug);
     orders.push(carried[carried.length - 1]);
+  }
+
+  for(const task of state.inFlight.filter(t=>t.acceptedRepair)) {
+    const repair=task.acceptedRepair;
+    const file=repair.plannedRunId===run.runId ? (resolveArticleFile(task.slug) || activateRepairCandidate({blog:cfg.resolved.blog,dataDir:cfg.resolved.dataDir,slug:task.slug,backupFile:repair.backupFile,kind:task.kind})) : activateRepairCandidate({blog:cfg.resolved.blog,dataDir:cfg.resolved.dataDir,slug:task.slug,backupFile:repair.backupFile,kind:task.kind});
+    repair.plannedRunId=run.runId;
+    orders.push({kind:task.kind,slug:task.slug,title:task.title,reasons:[task.lastFailure],acceptedRepair:repair,targetFile:path.relative(cfg.resolved.contentRoot,file),retry:true,runId:run.runId});
+    carriedSlugs.add(task.slug);
   }
 
   const wantNewAdjusted = wantNew;
@@ -271,7 +281,16 @@ function settleInner({ dry = false } = {}) {
       const res = fail(state, { slug: order.slug, reason: missingReason, kind: 'infra' });
       Object.assign(state, res.state);
       if (res.released) {
-        releaseTopic(order);
+        if(order.acceptedRepair) {
+          const repair=order.acceptedRepair;
+          if(!dry) {
+          const restored=activateRepairCandidate({blog:cfg.resolved.blog,dataDir:cfg.resolved.dataDir,slug:order.slug,backupFile:repair.backupFile,kind:order.kind});
+          if(order.kind==='rewrite')retainFailedRewrite({blog:cfg.resolved.blog,dataDir:cfg.resolved.dataDir,slug:order.slug,file:restored});
+          else forgetRepairCandidate({dataDir:cfg.resolved.dataDir,slug:order.slug,backupFile:repair.backupFile});
+          }
+          releaseQueue.items.push({...repair,recheckFailures:1});
+          if(order.kind==='new' && readJson(path.join(cfg.resolved.dataDir,'backlog.json'),{topics:[]}).topics.some(t=>t.slug===order.slug))setStatus(order.slug,'accepted_waiting_release');
+        } else releaseTopic(order);
         // Активный рерайт, снятый с производства, освобождает резервацию,
         // иначе очередь навсегда считает его выданным (AP-P1-09).
         if (order.kind === 'rewrite') releaseReservation(order.slug);
@@ -299,6 +318,7 @@ function settleInner({ dry = false } = {}) {
       if (res.quarantined) {
         retireTopic(order);
         if (order.kind === 'rewrite') releaseReservation(order.slug);
+        if(!dry && order.acceptedRepair)forgetRepairCandidate({dataDir:cfg.resolved.dataDir,slug:order.slug,backupFile:order.acceptedRepair.backupFile});
       }
       if (!dry) {hold(file, reason || `score ${gates.score}`);if(order.kind==='rewrite')retainFailedRewrite({blog:cfg.resolved.blog,dataDir:cfg.resolved.dataDir,slug:order.slug,file});}
       results.push({
@@ -310,7 +330,8 @@ function settleInner({ dry = false } = {}) {
       continue;
     }
 
-    accepted.push({ slug: order.slug, kind: order.kind, order, ...(order.kind === 'rewrite' && order.factCorrections?.length ? { factualCorrection: true } : {}), score: gates.score, file, acceptedAt: new Date().toISOString() });
+    if(!dry && order.acceptedRepair)forgetRepairCandidate({dataDir:cfg.resolved.dataDir,slug:order.slug,backupFile:order.acceptedRepair.backupFile});
+    accepted.push({ slug: order.slug, kind: order.kind, order, ...(order.kind === 'rewrite' && (order.factCorrections?.length || order.acceptedRepair?.factualCorrection) ? { factualCorrection: true } : {}), score: gates.score, file, acceptedAt: new Date().toISOString() });
   }
 
   // Распределяем квоту: ожидавшие ранее + принятые сейчас, старейшие первыми.
@@ -318,7 +339,8 @@ function settleInner({ dry = false } = {}) {
   for (const item of releaseQueue.items) {
     const file = item.stagedFile ? queuedRewriteFile({dataDir:cfg.resolved.dataDir,...item}) : resolveArticleFile(item.slug);
     if (!file) {
-      results.push({ slug: item.slug, status: 'release_missing', detail: 'ожидающая статья отсутствует' });
+      results.push({ slug: item.slug, status: 'release_missing', detail: 'ожидающая статья отсутствует; запись удержана до восстановления файла' });
+      waiting.push({...item,file:null,waiting:true,recheckFailed:true});
       continue;
     }
     const gates = runGates({ file, sourceEvidence, requiredPubDate: cfg.gates.requireWritingReceipt && item.kind === 'new' ? String(item.acceptedAt || '').slice(0, 10) : null });
@@ -339,8 +361,17 @@ function settleInner({ dry = false } = {}) {
       });
       // Сохраняем в ожидании; устаревший результат не разрешает публикацию.
       item.recheckFailed = true;
+      if(!dry) {
+        const retry=claimAcceptedRepair(state,{item:{...item,title:parseFrontmatter(readFileSync(file,'utf8')).data.title},reason:detail,maxSlots:Math.min(cfg.throughput.maxBatchSize,cfg.throughput.maxParallelWriting)});
+        if(retry.claimed) {
+          retry.task.acceptedRepair.backupFile=retainRepairCandidate({dataDir:cfg.resolved.dataDir,slug:item.slug,file,stagedFile:item.stagedFile});
+          item.repairStarted=true;
+          if(item.kind==='new' && readJson(path.join(cfg.resolved.dataDir,'backlog.json'),{topics:[]}).topics.some(t=>t.slug===item.slug))setStatus(item.slug,'writing');
+          results.push({slug:item.slug,status:'release_repair_started',detail:'слот исправления зарезервирован; повторный отказ ведёт в карантин'});
+        }
+      }
     }
-    waiting.push({ ...item, file, waiting: true });
+    if(!item.repairStarted)waiting.push({ ...item, file, waiting: true });
   }
   const { release, wait } = allocateReleases({ waiting: waiting.filter(i => !i.recheckFailed), accepted, alreadyToday: todaySlugs.length, maxPerDay, calendar });
   wait.push(...waiting.filter(i => i.recheckFailed));
@@ -365,7 +396,7 @@ function settleInner({ dry = false } = {}) {
     } else {
       const finished = done(state, { slug: item.slug, score: item.score, published: true });
       Object.assign(state, finished.state);
-      if (item.kind === 'new') setStatus(item.slug, 'released');
+      if (item.kind === 'new' && (!item.order?.acceptedRepair || readJson(path.join(cfg.resolved.dataDir,'backlog.json'),{topics:[]}).topics.some(t=>t.slug===item.slug))) setStatus(item.slug, 'released');
       if (item.kind === 'rewrite') markRewritten(item.slug);
       results.push({ slug: item.slug, status: 'published', score: item.score });
     }

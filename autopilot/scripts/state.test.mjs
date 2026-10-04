@@ -1,3 +1,4 @@
+import {claimAcceptedRepair} from './state.mjs';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { claim, done, fail, capacity as actualCapacity } from './state.mjs';
@@ -152,4 +153,24 @@ test('PUB-03: выполненная норма и резерв активных
   assert.equal(capacity(state).canTake, 1);
   state.inFlight = [{ slug: 'reserved', kind: 'new' }];
   assert.equal(capacity(state).canTake, 0);
+});
+
+test('accepted repair is not counted twice, while its second failure quarantines',()=>{
+ for(const kind of ['new','rewrite']) {
+  const s=fresh();s.counters[kind]=1;
+  const item={slug:'accepted-'+kind,kind,acceptedAt:'2026-08-01T00:00:00Z'};
+  claimAcceptedRepair(s,{item,reason:'release gate'});done(s,{slug:item.slug,published:true});
+  assert.equal(s.counters[kind],1);assert.equal(s.counters.published,1);
+  const rejected=fresh();rejected.counters[kind]=1;claimAcceptedRepair(rejected,{item,reason:'release gate'});const failed=fail(rejected,{slug:item.slug,reason:'repair gate'});
+  assert.equal(failed.quarantined,true);assert.equal(rejected.inFlight.length,0);assert.equal(rejected.counters[kind],0);assert.equal(rejected.quarantine[0].acceptedRepair.acceptanceRevoked,true);
+ }
+});
+test('accepted repair respects slots, validates identity and reserves a new month only once',()=>{
+ const s=fresh();claim(s,{slug:'busy',kind:'new'});
+ const item={slug:'accepted-new',kind:'new',acceptedAt:'2026-07-01T00:00:00Z'};
+ assert.equal(claimAcceptedRepair(s,{item,reason:'gate',maxSlots:1}).claimed,false);
+ assert.equal(s.inFlight.length,1);
+ assert.throws(()=>claimAcceptedRepair(s,{item:{...item,acceptedAt:'bad'},reason:'gate'}),/Invalid/);
+ claimAcceptedRepair(s,{item,reason:'gate'});done(s,{slug:item.slug});assert.equal(s.counters.new,1);
+ assert.throws(()=>claimAcceptedRepair(s,{item:{...item,slug:'../outside'},reason:'gate'}),/Invalid/);
 });

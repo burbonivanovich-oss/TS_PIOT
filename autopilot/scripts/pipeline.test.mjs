@@ -391,11 +391,11 @@ test('waiting release retains exact QA rejection and keeps the article held', ()
  const fx=fixture(), blog=path.join(fx.root,'src/content/blog'), slug='waiting-qa-failure';
  addReferenceArticles(blog);
  writeFileSync(path.join(blog,slug+'.md'),validWaitingArticle('Проверка отказа'));
- const config=JSON.parse(readFileSync(fx.configFile));config.security={qualityCheck:true};
+ const config=JSON.parse(readFileSync(fx.configFile));config.security={qualityCheck:true};config.throughput.maxBatchSize=1;config.throughput.maxParallelWriting=1;
  writeFileSync(fx.configFile,JSON.stringify(config));
  const qa=path.join(fx.root,'scripts/content');mkdirSync(qa,{recursive:true});
  writeFileSync(path.join(qa,'qa-gate.mjs'),`console.log(JSON.stringify({pass:false,blockers:['QA: missing source snapshot']}));process.exit(1);`);
- const state=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));state.inFlight=[];
+ const state=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));state.inFlight=[{slug:'busy',kind:'new'}];
  writeFileSync(path.join(fx.dataDir,'autopilot.json'),JSON.stringify(state));
  writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({orders:[]}));
  writeFileSync(path.join(fx.dataDir,'release-queue.json'),JSON.stringify({items:[{slug,kind:'new',score:100,acceptedAt:new Date().toISOString()}]}));
@@ -421,4 +421,76 @@ test('waiting release retains exact QA rejection and keeps the article held', ()
  assert.equal(duplicate.duplication.slug,'duplicate-peer');
  assert.equal(duplicate.duplication.verdict,'block');
  assert.match(duplicate.detail,/duplication: block, duplicate-peer/);
+});
+
+test('accepted NEW repair survives lost orders and failed build without double counting',()=>{
+ const fx=fixture(),slug='accepted-repair',blog=path.join(fx.root,'src/content/blog');addReferenceArticles(blog);
+ const file=path.join(blog,slug+'.md'),date=new Date().toISOString().slice(0,10);
+ writeFileSync(file,validWaitingArticle('Исправляемая').replace('2026-01-01',date));
+ const config=JSON.parse(readFileSync(fx.configFile));config.throughput.monthlyTarget=1;config.throughput.monthlyRewriteTarget=0;config.publish.maxPerDay=1;config.security={qualityCheck:true,buildCheck:true};config.gates.requireWritingReceipt=true;writeFileSync(fx.configFile,JSON.stringify(config));
+ const qa=path.join(fx.root,'scripts/content');mkdirSync(qa,{recursive:true});writeFileSync(path.join(qa,'qa-gate.mjs'),`console.log(JSON.stringify({pass:false,blockers:['repair required']}));process.exit(1);`);
+ const state=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));state.inFlight=[];state.counters.new=1;writeFileSync(path.join(fx.dataDir,'autopilot.json'),JSON.stringify(state));
+ writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({orders:[]}));writeFileSync(path.join(fx.dataDir,'release-queue.json'),JSON.stringify({items:[{slug,kind:'new',score:100,acceptedAt:new Date().toISOString()}]}));
+ const env={...process.env,AUTOPILOT_CONFIG:fx.configFile,AUTOPILOT_DATA_DIR:fx.dataDir,AUTOPILOT_LOCK_FILE:path.join(fx.dataDir,'.autopilot.lock'),CONTENT_ROOT:fx.root};
+ const cli=(...args)=>spawnSync(process.execPath,args,{cwd:ROOT,env,encoding:'utf8'});
+ let result=cli('scripts/pipeline.mjs','settle','--json');assert.equal(result.status,0,result.stderr);
+ let saved=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));assert.equal(saved.inFlight[0].failures,1);assert.equal(saved.counters.new,1);assert.equal(JSON.parse(readFileSync(path.join(fx.dataDir,'release-queue.json'))).items.length,0);
+ // orders can be lost; the accepted slot carries all data needed for recovery.
+ writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({orders:[]}));result=cli('scripts/pipeline.mjs','plan','--json');assert.equal(result.status,0,result.stderr);
+ const orders=JSON.parse(result.stdout);assert.equal(orders.orders.length,1);assert.equal(orders.orders[0].slug,slug);assert.ok(orders.orders[0].acceptedRepair);assert.equal(orders.capacity.canTake,0);
+ writeFileSync(path.join(qa,'qa-gate.mjs'),`console.log(JSON.stringify({pass:true,blockers:[]}));`);
+ writeFileSync(file,readFileSync(file,'utf8')+'\nИсправленная редакция сохраняется при повторном планировании.\n');
+ result=cli('scripts/writing-checkpoint.mjs','record','--slug',slug);assert.equal(result.status,0,result.stderr);
+ const delivered=readFileSync(file,'utf8');result=cli('scripts/pipeline.mjs','plan','--json');assert.equal(result.status,0,result.stdout+result.stderr);assert.equal(readFileSync(file,'utf8'),delivered);
+ writeFileSync(path.join(fx.root,'package.json'),JSON.stringify({scripts:{build:'node -e "process.exit(1)"'}}));
+ result=cli('scripts/pipeline.mjs','settle','--json');assert.notEqual(result.status,0);saved=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));assert.equal(saved.inFlight.length,1);assert.equal(saved.counters.new,1);assert.match(readFileSync(file,'utf8'),/draft: true/);
+ writeFileSync(path.join(fx.root,'package.json'),JSON.stringify({scripts:{build:'node -e "process.exit(0)"'}}));
+ result=cli('scripts/pipeline.mjs','settle','--json');assert.equal(result.status,0,result.stdout+result.stderr);saved=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));assert.equal(saved.inFlight.length,0);assert.equal(saved.counters.new,1);assert.equal(saved.counters.published,1);assert.match(readFileSync(file,'utf8'),/draft: false/);
+});
+
+test('staged accepted rewrite restores published baseline when repair fails a second time',()=>{
+ const fx=fixture(),slug='accepted-rewrite',blog=path.join(fx.root,'src/content/blog');addReferenceArticles(blog);
+ const original=validWaitingArticle('Опубликованная').replace('draft: true','draft: false').replace('autopilotHold: true','');
+ const file=path.join(blog,slug+'.md');writeFileSync(file,original);
+ mkdirSync(path.join(fx.dataDir,'published-rewrites'));writeFileSync(path.join(fx.dataDir,'published-rewrites',slug+'.md'),original);
+ mkdirSync(path.join(fx.dataDir,'release-drafts'));writeFileSync(path.join(fx.dataDir,'release-drafts',slug+'.md'),validWaitingArticle('Кандидат').slice(0,600));
+ const config=JSON.parse(readFileSync(fx.configFile));config.throughput.monthlyTarget=1;config.throughput.monthlyRewriteTarget=1;config.publish.maxPerDay=1;writeFileSync(fx.configFile,JSON.stringify(config));
+ const state=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));state.inFlight=[];state.counters.new=1;state.counters.rewrite=1;writeFileSync(path.join(fx.dataDir,'autopilot.json'),JSON.stringify(state));
+ writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({orders:[]}));writeFileSync(path.join(fx.dataDir,'release-queue.json'),JSON.stringify({items:[{slug,kind:'rewrite',score:100,factualCorrection:true,stagedFile:'release-drafts/'+slug+'.md',acceptedAt:new Date().toISOString()}]}));
+ const env={...process.env,AUTOPILOT_CONFIG:fx.configFile,AUTOPILOT_DATA_DIR:fx.dataDir,AUTOPILOT_LOCK_FILE:path.join(fx.dataDir,'.autopilot.lock'),CONTENT_ROOT:fx.root};const cli=(...a)=>spawnSync(process.execPath,a,{cwd:ROOT,env,encoding:'utf8'});
+ let r=cli('scripts/pipeline.mjs','settle','--json');assert.equal(r.status,0,r.stdout+r.stderr);assert.equal(readFileSync(file,'utf8'),original);
+ r=cli('scripts/pipeline.mjs','plan','--json');assert.equal(r.status,0,r.stdout+r.stderr);const orders=JSON.parse(r.stdout);assert.equal(orders.orders.length,1);assert.equal(orders.orders[0].acceptedRepair.factualCorrection,true);
+ writeFileSync(file,'---\ntitle: Bad\ndraft: true\n---\nToo short');r=cli('scripts/pipeline.mjs','settle','--json');assert.equal(r.status,0,r.stdout+r.stderr);
+ const saved=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));assert.equal(saved.quarantine[0].slug,slug);assert.equal(saved.inFlight.length,0);assert.equal(saved.counters.rewrite,0);assert.equal(readFileSync(file,'utf8'),original);
+ assert.equal(existsSync(path.join(fx.dataDir,'release-drafts',slug+'.md')),false);assert.match(readFileSync(path.join(fx.dataDir,'failed-rewrites',slug+'.md'),'utf8'),/Too short/);
+});
+
+test('accepted repair infrastructure limit retains the candidate without quarantine or extra output',()=>{
+ const fx=fixture(),slug='infra-repair',blog=path.join(fx.root,'src/content/blog'),date=new Date().toISOString().slice(0,10);addReferenceArticles(blog);
+ const file=path.join(blog,slug+'.md');writeFileSync(file,validWaitingArticle('Инфраструктурный повтор').replace('2026-01-01',date));
+ const cfg=JSON.parse(readFileSync(fx.configFile));cfg.throughput.monthlyTarget=1;cfg.throughput.monthlyRewriteTarget=0;cfg.publish.maxPerDay=1;cfg.gates.requireWritingReceipt=true;cfg.security={qualityCheck:true};writeFileSync(fx.configFile,JSON.stringify(cfg));
+ const qa=path.join(fx.root,'scripts/content');mkdirSync(qa,{recursive:true});writeFileSync(path.join(qa,'qa-gate.mjs'),`console.log(JSON.stringify({pass:false,blockers:['repair required']}));process.exit(1);`);
+ const s=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));s.inFlight=[];s.counters.new=1;writeFileSync(path.join(fx.dataDir,'autopilot.json'),JSON.stringify(s));writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({orders:[]}));writeFileSync(path.join(fx.dataDir,'release-queue.json'),JSON.stringify({items:[{slug,kind:'new',score:100,acceptedAt:new Date().toISOString()}]}));
+ const env={...process.env,AUTOPILOT_CONFIG:fx.configFile,AUTOPILOT_DATA_DIR:fx.dataDir,AUTOPILOT_LOCK_FILE:path.join(fx.dataDir,'.autopilot.lock'),CONTENT_ROOT:fx.root};const cli=(...a)=>spawnSync(process.execPath,a,{cwd:ROOT,env,encoding:'utf8'});
+ let r=cli('scripts/pipeline.mjs','settle','--json');assert.equal(r.status,0,r.stdout+r.stderr);
+ for(let i=0;i<3;i++){r=cli('scripts/pipeline.mjs','plan','--json');assert.equal(r.status,0,r.stdout+r.stderr);r=cli('scripts/pipeline.mjs','settle','--json');assert.equal(r.status,0,r.stdout+r.stderr);}
+ const saved=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));assert.equal(saved.counters.new,1);assert.equal(saved.quarantine.length,0);assert.equal(saved.counters.infraReleases,1);assert.equal(saved.inFlight.length,1);assert.equal(saved.inFlight[0].failures,1);assert.ok(existsSync(file));assert.ok(existsSync(path.join(fx.dataDir,saved.inFlight[0].acceptedRepair.backupFile)));
+});
+
+test('accepted rewrite repair returns to calendar with factual priority and unchanged published baseline',()=>{
+ const fx=fixture(),slug='accepted-rewrite',blog=path.join(fx.root,'src/content/blog');addReferenceArticles(blog);
+ const original=validWaitingArticle('Опубликованная').replace('draft: true','draft: false').replace('autopilotHold: true','');
+ const file=path.join(blog,slug+'.md');writeFileSync(file,original);
+ mkdirSync(path.join(fx.dataDir,'published-rewrites'));writeFileSync(path.join(fx.dataDir,'published-rewrites',slug+'.md'),original);
+ mkdirSync(path.join(fx.dataDir,'release-drafts'));writeFileSync(path.join(fx.dataDir,'release-drafts',slug+'.md'),validWaitingArticle('Кандидат').slice(0,600));
+ const config=JSON.parse(readFileSync(fx.configFile));config.throughput.monthlyTarget=1;config.throughput.monthlyRewriteTarget=1;config.publish.maxPerDay=1;writeFileSync(fx.configFile,JSON.stringify(config));
+ const state=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));state.inFlight=[];state.counters.new=1;state.counters.rewrite=1;writeFileSync(path.join(fx.dataDir,'autopilot.json'),JSON.stringify(state));
+ writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({orders:[]}));writeFileSync(path.join(fx.dataDir,'release-queue.json'),JSON.stringify({items:[{slug,kind:'rewrite',score:100,factualCorrection:true,stagedFile:'release-drafts/'+slug+'.md',acceptedAt:new Date().toISOString()}]}));
+ const env={...process.env,AUTOPILOT_CONFIG:fx.configFile,AUTOPILOT_DATA_DIR:fx.dataDir,AUTOPILOT_LOCK_FILE:path.join(fx.dataDir,'.autopilot.lock'),CONTENT_ROOT:fx.root};const cli=(...a)=>spawnSync(process.execPath,a,{cwd:ROOT,env,encoding:'utf8'});
+ writeFileSync(path.join(fx.dataDir,'publish-log.json'),JSON.stringify({days:{[new Date().toISOString().slice(0,10)]:['already-published']}}));
+ let r=cli('scripts/pipeline.mjs','settle','--json');assert.equal(r.status,0,r.stdout+r.stderr);assert.equal(readFileSync(file,'utf8'),original);
+ r=cli('scripts/pipeline.mjs','plan','--json');assert.equal(r.status,0,r.stdout+r.stderr);const orders=JSON.parse(r.stdout);assert.equal(orders.orders.length,1);assert.equal(orders.orders[0].acceptedRepair.factualCorrection,true);
+ writeFileSync(file,validWaitingArticle('Исправленная статья'));r=cli('scripts/pipeline.mjs','settle','--json');assert.equal(r.status,0,r.stdout+r.stderr);
+ const saved=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));assert.equal(saved.quarantine.length,0);assert.equal(saved.inFlight.length,0);assert.equal(saved.counters.rewrite,1);assert.equal(readFileSync(file,'utf8'),original);
+ const queue=JSON.parse(readFileSync(path.join(fx.dataDir,'release-queue.json')));assert.equal(queue.items[0].factualCorrection,true);assert.match(readFileSync(path.join(fx.dataDir,queue.items[0].stagedFile),'utf8'),/Исправленная статья/);
 });
