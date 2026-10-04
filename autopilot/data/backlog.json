@@ -13,7 +13,7 @@
       "format": "howto",
       "segment": "none",
       "score": 71.5,
-      "status": "planned",
+      "status": "released",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "warn",
@@ -23,7 +23,7 @@
           "2026-05-25-140-fz-epd-perehod-msb"
         ]
       },
-      "updatedAt": "2026-09-13",
+      "updatedAt": "2026-10-04",
       "migration": {
         "at": "2026-09-13T19:07:00.110Z",
         "reason": "файла в корпусе нет — возврат в план"
@@ -41,14 +41,14 @@
       "format": "news",
       "segment": "none",
       "score": 71.5,
-      "status": "planned",
+      "status": "released",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "ok",
         "advice": "",
         "related": []
       },
-      "updatedAt": "2026-09-13",
+      "updatedAt": "2026-10-04",
       "migration": {
         "at": "2026-09-13T19:07:00.110Z",
         "reason": "файла в корпусе нет — возврат в план"

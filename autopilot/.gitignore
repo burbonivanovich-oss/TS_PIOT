@@ -9,6 +9,14 @@ data/backups/
 data/lock-events.jsonl
 data/.autopilot.lock
 data/.autopilot.lock.reap
+data/.writer-journal
+data/.writer-journal.settle-tmp
+data/.writer-backup/
+data/.writer-actor
+data/.writer-actor.trace.log
+data/.writer-actor.stdout.log
+data/.writer-actor.stderr.log
+data/.writer-model-result.log
 data/*.candidate-*
 data/*.tmp-*
 data/*.bak
@@ -22,10 +30,11 @@ data/*.bak
 # Служебные файлы контура, которые обязаны переживать чистый клон: очередь
 # отложенного выпуска и суточный журнал публикаций. НЕ игнорируются.
 
-# Политика данных research/chats (AP-P0-25): черновики ресёрча и транскрипты
-# могут содержать чувствительные данные — в репозиторий они не попадают.
+# Транскрипты и служебные черновики остаются приватными. Публичная фактура
+# статьи хранится только в research/<slug>.md и проходит скан секретов.
 chats/
-research/
+research/*
+!research/*.md
 .agents/chats/
 .agents/research/
 
@@ -35,3 +44,7 @@ research/
 *.pem
 *.key
 id_rsa*
+
+# Локальный журнал незавершённой приёмки (не коммитить промежуточный корпус).
+data/.settle-journal
+*.settle-tmp

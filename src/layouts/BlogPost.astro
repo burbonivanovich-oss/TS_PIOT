@@ -15,6 +15,7 @@ import {
 	SIDEBAR_BANNER,
 } from '../consts';
 import { CPA_BANNERS, CATEGORY_DEFAULT_CPA } from '../data/cpa-banners';
+import { articleCpa } from '../utils/article-cpa.mjs';
 import { tagSlug } from '../utils/tags';
 import { u } from '../utils/url';
 
@@ -128,7 +129,7 @@ const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
 /* CPA-баннер в подвале статьи: из frontmatter или дефолт по категории.
    Второй CPA-блок убран — теперь его роль играет inline <CpaCallout>
    в середине тела (вставляется content-writer'ом, см. .claude/agents/content-writer.md). */
-const cpaBannerId = cpa ?? CATEGORY_DEFAULT_CPA[primaryCategory ?? ''] ?? 'default-ts-piot';
+const cpaBannerId = articleCpa({ cpa, title, tags }, CATEGORY_DEFAULT_CPA[primaryCategory ?? ''] ?? 'default-ts-piot');
 const cpaBanner = CPA_BANNERS[cpaBannerId] ?? CPA_BANNERS['default-ts-piot'];
 
 const catAccent =
@@ -261,7 +262,7 @@ const shareTitle = encodeURIComponent(title);
 					<!-- CPA врезка -->
 					<div class="cpa-block" data-pagefind-ignore>
 						<div class="cpa-visual" style={`background:${cpaBanner.visual.bg}`}>
-							<span class="cpa-visual-letter">{cpaBanner.visual.abbrev}</span>
+							<span class:list={["cpa-visual-letter", { "is-long": cpaBanner.visual.abbrev.length >= 4 }]}>{cpaBanner.visual.abbrev}</span>
 						</div>
 						<div class="cpa-body">
 							<div class="cpa-eyebrow">{cpaBanner.eyebrow}</div>
@@ -531,6 +532,7 @@ const shareTitle = encodeURIComponent(title);
 			/* ── CPA-врезка ── */
 			.cpa-block { display: grid; grid-template-columns: 120px 1fr auto; grid-template-rows: auto auto; align-items: stretch; margin: 2.5rem 0; border: 2px solid #111; overflow: hidden; }
 			.cpa-visual { display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+			.cpa-visual-letter.is-long { font-size: 2rem; }
 			.cpa-visual-letter { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: #AFCC00; line-height: 1; letter-spacing: -.03em; }
 			.cpa-body { padding: 18px 22px; background: #fff; }
 			.cpa-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #888; margin-bottom: 4px; }

@@ -79,3 +79,25 @@ test('AP-P0-15: настоящий корпус TS_PIOT разбирается �
 		assert.ok(a.file.endsWith('.md') || a.file.endsWith('.mdx'));
 	}
 });
+
+import { spawnSync } from 'node:child_process';
+import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { loadConfig } from '../../autopilot/scripts/lib/config.mjs';
+
+test('calendar owner blocks legacy release even with FORCE_DATE and SKIP_GATE', () => {
+  const root = mkdtempSync(path.join(tmpdir(), 'legacy-calendar-'));
+  try {
+    const file = path.join(root, 'config.json');
+    const { resolved, ...base } = loadConfig();
+    writeFileSync(file, JSON.stringify({ ...base, publish: { ...base.publish, calendar: true }, throughput: { ...base.throughput, monthlyRewriteTarget: 14 } }));
+    const before = readCandidates(path.join(ROOT, 'src/content/blog'));
+    const result = spawnSync(process.execPath, ['scripts/release-next-draft.mjs'], {
+      cwd: ROOT, encoding: 'utf8', env: { ...process.env, AUTOPILOT_CONFIG: file, FORCE_DATE: '1', SKIP_GATE: '1' },
+    });
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(result.stdout, '');
+    assert.match(result.stderr, /календарём автопилота/);
+    assert.deepEqual(readCandidates(path.join(ROOT, 'src/content/blog')), before);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});

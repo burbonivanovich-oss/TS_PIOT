@@ -17,7 +17,8 @@
 //   node scripts/pipeline.mjs settle [--dry]
 //   node scripts/pipeline.mjs report
 import path from 'node:path';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { loadConfig, assertContentRoot } from './lib/config.mjs';
 import {
   readJson,
@@ -37,11 +38,13 @@ import { refill, take as takeTopics, setStatus, reconcile } from './backlog.mjs'
 import { buildQueue, takeRewrites, markRewritten, activeRewrites, releaseReservation } from './rewrite-queue.mjs';
 import { runGates, bodyDuplication } from './gates.mjs';
 import { readSourceEvidence } from './lib/sources.mjs';
-import { allocateReleases } from './lib/release.mjs';
+import { allocateReleases, releaseCalendar } from './lib/release.mjs';
 import { findResumableRun, createRun, setStage, readRun } from './lib/run.mjs';
 import { envelope, classifyError, EXIT } from './lib/outcome.mjs';
 import { runSiteBuild } from './lib/site.mjs';
 import { applyLinks } from './interlink.mjs';
+import { snapshotSettle, recoverSettle } from './lib/settle-snapshot.mjs';
+import { writingStatus } from './writing-checkpoint.mjs';
 
 const cfg = loadConfig();
 const ORDERS_FILE = path.join(cfg.resolved.dataDir, 'orders.json');
@@ -54,6 +57,8 @@ export function plan() {
   // состояния, а не затирает чужой результат после.
   acquireLock({ cmd: 'plan', runId: newRunId() });
   try {
+    assertContentRoot(cfg);
+    recoverSettle({ blog: cfg.resolved.blog, dataDir: cfg.resolved.dataDir });
     return planInner();
   } finally {
     releaseLock();
@@ -63,7 +68,7 @@ export function plan() {
 function planInner() {
   assertContentRoot(cfg);
   const state = readState();
-  const cap = capacity(state);
+  const cap = capacity(state, new Date(), cfg, readJson(RELEASE_FILE, { items: [] }).items);
 
   // Сначала самолечение, потом пополнение: иначе refill добьёт запас до нормы,
   // считая зависшие темы живыми, и бэклог раздуется на каждом сбое.
@@ -74,11 +79,14 @@ function planInner() {
   // Проход дня создаём/переиспользуем до выдачи рерайтов: reservation должна
   // нести тот же runId, что и наряд (AP-P1-09).
   const date = today();
-  const run = findResumableRun({ date }) || createRun({ date, kind: 'day' });
+  const previousRun = findResumableRun({ date });
+  // Приёмка закрывает попытку; её повторные отказы требуют нового манифеста,
+  // чтобы written следующего захода не оказался после старого gated.
+  const run = previousRun && !previousRun.stages.gated ? previousRun : createRun({ date, kind: 'day' });
 
   const rewriteShare = cfg.mix.rewrite;
-  const wantRewrite = Math.min(Math.round(cap.canTake * rewriteShare), cap.canTake);
-  const wantNew = cap.canTake - wantRewrite;
+  const wantRewrite = cap.takeByKind?.rewrite ?? Math.min(Math.round(cap.canTake * rewriteShare), cap.canTake);
+  const wantNew = cap.takeByKind?.new ?? (cap.canTake - wantRewrite);
 
   const orders = [];
 
@@ -113,8 +121,8 @@ function planInner() {
     orders.push(carried[carried.length - 1]);
   }
 
-  const wantNewAdjusted = Math.max(0, wantNew - carried.filter((o) => o.kind === 'new').length);
-  const wantRewriteAdjusted = Math.max(0, wantRewrite - carried.filter((o) => o.kind === 'rewrite').length);
+  const wantNewAdjusted = wantNew;
+  const wantRewriteAdjusted = wantRewrite;
 
   for (const topic of takeTopics(wantNewAdjusted)) {
     if (carriedSlugs.has(topic.slug)) continue;
@@ -132,7 +140,7 @@ function planInner() {
     });
   }
 
-  for (const item of takeRewrites(wantRewriteAdjusted, { runId: run.runId, active: [...inFlight] })) {
+  for (const item of takeRewrites(wantRewriteAdjusted, { runId: run.runId, active: [...inFlight], excluded: state.quarantine.map(item => item.slug) })) {
     if (carriedSlugs.has(item.slug)) continue;
     orders.push({
       kind: 'rewrite',
@@ -160,8 +168,8 @@ function planInner() {
   saveState(state);
 
   // Манифест прохода (AP-P0-11): наряды дня привязываются к одному runId, а
-  // повторный plan продолжает незавершённый проход за ту же дату, а не создаёт
-  // второй. Слоты уже заняты, поэтому продолжение не выдаёт тему дважды.
+  // повторный plan до приёмки продолжает проход за ту же дату. После gated
+  // новая попытка получает отдельный манифест. Слоты уже заняты, поэтому продолжение не выдаёт тему дважды.
   const finalOrders = orders.filter((o) => !o.skipped);
   const skipped = orders.filter((o) => o.skipped);
   for (const order of finalOrders) if (!order.runId) order.runId = run.runId;
@@ -193,7 +201,17 @@ function planInner() {
 export function settle({ dry = false } = {}) {
   acquireLock({ cmd: dry ? 'settle-dry' : 'settle', runId: newRunId() });
   try {
-    return settleInner({ dry });
+    assertContentRoot(cfg);
+    recoverSettle({ blog: cfg.resolved.blog, dataDir: cfg.resolved.dataDir }, { dry });
+    const snapshot = dry ? null : snapshotSettle({ blog: cfg.resolved.blog, dataDir: cfg.resolved.dataDir });
+    try {
+      const report = settleInner({ dry });
+      snapshot?.commit();
+      return report;
+    } catch (error) {
+      snapshot?.restore();
+      throw error;
+    }
   } finally {
     releaseLock();
   }
@@ -215,10 +233,14 @@ function settleInner({ dry = false } = {}) {
   const publishLog = readJson(PUBLISH_LOG_FILE, { days: {} });
   publishLog.days = prunePublishDays(publishLog.days, day);
   const todaySlugs = publishLog.days[day] || [];
+  const calendar = cfg.publish.calendar ? releaseCalendar({ config: cfg, publishLog }) : null;
   const releaseQueue = readJson(RELEASE_FILE, { items: [] });
 
   const inFlight = new Set(state.inFlight.map((t) => t.slug));
   const accepted = [];
+  const delivery = cfg.gates.requireWritingReceipt
+    ? new Map(writingStatus({ orders, state, receipts: readJson(path.join(cfg.resolved.dataDir, 'writing-receipts.json'), { items: {} }), blog: cfg.resolved.blog }).map(item => [item.slug, item]))
+    : null;
 
   for (const order of orders.orders) {
     // Идемпотентность повторного settle: наряд, уже закрытый прошлым проходом,
@@ -229,11 +251,13 @@ function settleInner({ dry = false } = {}) {
     }
 
     const file = resolveArticleFile(order.slug);
-    if (!file) {
+    const notDelivered = delivery && delivery.get(order.slug)?.action !== 'settle';
+    if (!file || notDelivered) {
+      const missingReason = notDelivered ? 'нет квитанции доставки текущих байтов и попытки' : 'файл не создан исполнителем';
       // Отсутствие файла — инфраструктурный отказ, а не редакционный:
       // выключенный исполнитель не должен дважды загонять тему в карантин
       // (AP-P0-12). Повторы ограничены, после лимита слот освобождается.
-      const res = fail(state, { slug: order.slug, reason: 'файл не создан исполнителем', kind: 'infra' });
+      const res = fail(state, { slug: order.slug, reason: missingReason, kind: 'infra' });
       Object.assign(state, res.state);
       if (res.released) {
         releaseTopic(order);
@@ -245,13 +269,13 @@ function settleInner({ dry = false } = {}) {
         slug: order.slug,
         status: res.released ? 'infra_released' : 'infra_missing',
         detail: res.released
-          ? `исполнитель не создал файл ${res.infraFailures} раз — слот освобождён, тема возвращена`
-          : `файл не создан (инфраструктура, попытка ${res.infraFailures})`,
+          ? `${missingReason}, ${res.infraFailures} попыток — слот освобождён, тема возвращена`
+          : `${missingReason} (инфраструктура, попытка ${res.infraFailures})`,
       });
       continue;
     }
 
-    const gates = runGates({ file, sourceEvidence });
+    const gates = runGates({ file, sourceEvidence, requiredPubDate: cfg.gates.requireWritingReceipt && order.kind === 'new' ? (orders.date || '') : null });
     const dupe = bodyDuplication({ file });
     const passed = gates.passed && dupe.verdict === 'ok';
 
@@ -278,21 +302,26 @@ function settleInner({ dry = false } = {}) {
     accepted.push({ slug: order.slug, kind: order.kind, order, score: gates.score, file, acceptedAt: new Date().toISOString() });
   }
 
-  // Build-гейт принимающего сайта (AP-P0-16): до публикации и только когда
-  // действительно есть что выпускать. Провал сборки не финализирует счётчики,
-  // не выставляет стадию `gated` и не пишет report.
-  const hasReleases = accepted.length > 0 || releaseQueue.items.length > 0;
-  if (!dry && hasReleases && (cfg.security?.buildCheck === true || process.env.AUTOPILOT_BUILD === '1')) {
-    const build = runSiteBuild({ contentRoot: cfg.resolved.contentRoot });
-    if (!build.ok) {
-      const tail = String(build.stderr || '').split('\n').slice(-5).join('\n');
-      throw new Error(`build принимающего сайта не прошёл (AP-P0-16): ${build.error || `код ${build.code}`}${tail ? `\n${tail}` : ''}`);
-    }
-  }
-
   // Распределяем квоту: ожидавшие ранее + принятые сейчас, старейшие первыми.
-  const waiting = releaseQueue.items.map((item) => ({ ...item, waiting: true }));
-  const { release, wait } = allocateReleases({ waiting, accepted, alreadyToday: todaySlugs.length, maxPerDay });
+  const waiting = [];
+  for (const item of releaseQueue.items) {
+    const file = resolveArticleFile(item.slug);
+    if (!file) {
+      results.push({ slug: item.slug, status: 'release_missing', detail: 'ожидающая статья отсутствует' });
+      continue;
+    }
+    const gates = runGates({ file, sourceEvidence, requiredPubDate: cfg.gates.requireWritingReceipt && item.kind === 'new' ? String(item.acceptedAt || '').slice(0, 10) : null });
+    const dupe = bodyDuplication({ file });
+    if (!gates.passed || dupe.verdict !== 'ok') {
+      if (!dry) hold(file, 'waiting_recheck_failed');
+      results.push({ slug: item.slug, status: 'release_rejected', detail: 'повторная проверка ожидающей статьи не пройдена' });
+      // Сохраняем в ожидании; устаревший результат не разрешает публикацию.
+      item.recheckFailed = true;
+    }
+    waiting.push({ ...item, waiting: true });
+  }
+  const { release, wait } = allocateReleases({ waiting: waiting.filter(i => !i.recheckFailed), accepted, alreadyToday: todaySlugs.length, maxPerDay, calendar });
+  wait.push(...waiting.filter(i => i.recheckFailed));
   const releasedSlugs = [];
 
   for (const item of release) {
@@ -305,6 +334,9 @@ function settleInner({ dry = false } = {}) {
     releasedSlugs.push(item.slug);
     if (item.waiting) {
       state.counters.published += 1; // работа была закрыта ранее
+      if (!String(item.acceptedAt || '').startsWith(day.slice(0, 7))) {
+        state.counters[item.kind === 'rewrite' ? 'rewrite' : 'new'] += 1;
+      }
       results.push({ slug: item.slug, status: 'published', score: item.score, detail: 'из очереди ожидания' });
     } else {
       const finished = done(state, { slug: item.slug, score: item.score, published: true });
@@ -331,6 +363,26 @@ function settleInner({ dry = false } = {}) {
   // пересчитывается с ними, а не без них.
   const links = applyLinks({ dry });
 
+  // Проверяем окончательный корпус после выпуска и перелинковки.
+  const hasReleases = releasedSlugs.length > 0 || links.inserted > 0;
+  let buildEvidence = { checked: false, reason: dry ? 'dry-run' : hasReleases ? 'build-check-disabled' : 'no-release-or-interlink-change' };
+  if (!dry && hasReleases && (cfg.security?.buildCheck === true || process.env.AUTOPILOT_BUILD === '1')) {
+    const corpusHash = createHash('sha256');
+    for (const article of loadArticles({ includeDrafts: true }).sort((a, b) => a.path.localeCompare(b.path))) {
+      const bytes = readFileSync(article.path);
+      corpusHash.update(path.relative(cfg.resolved.blog, article.path));
+      corpusHash.update('\0' + bytes.length + '\0');
+      corpusHash.update(bytes);
+    }
+    const build = runSiteBuild({ contentRoot: cfg.resolved.contentRoot });
+    if (!build.ok) {
+      const tail = String(build.stderr || '').split('\n').slice(-5).join('\n');
+      throw new Error(`build принимающего сайта не прошёл (AP-P0-16): ${build.error || `код ${build.code}`}${tail ? `\n${tail}` : ''}`);
+    }
+    buildEvidence = { checked: true, ok: true, code: build.code, at: new Date().toISOString(), corpusSha256: corpusHash.digest('hex'), scope: 'blog Markdown/MDX bytes at build start' };
+  }
+
+
   // Манифест прохода (AP-P0-11): стадия `gated` фиксируется до записи счётчиков.
   // Если наряд принадлежит проходу, а манифест потерян — это испорченное
   // состояние, приёмка останавливается (fail-closed).
@@ -345,10 +397,13 @@ function settleInner({ dry = false } = {}) {
       results: results.map((r) => ({ slug: r.slug, status: r.status })),
     });
     runStage = staged.changed ? 'set' : 'already';
+    if (buildEvidence.checked) setStage(orders.runId, 'built', buildEvidence);
   }
 
   if (!dry) {
     publishLog.days[day] = [...todaySlugs, ...releasedSlugs];
+    publishLog.kinds = prunePublishDays(publishLog.kinds || {}, day);
+    publishLog.kinds[day] = { ...(publishLog.kinds[day] || {}), ...Object.fromEntries(release.filter(item => releasedSlugs.includes(item.slug)).map(item => [item.slug, item.kind])) };
     writeJson(PUBLISH_LOG_FILE, publishLog);
     writeJson(RELEASE_FILE, { generatedAt: day, items: wait.map((i) => ({ slug: i.slug, kind: i.kind, score: i.score, acceptedAt: i.acceptedAt })) });
     saveState(state);
@@ -359,6 +414,7 @@ function settleInner({ dry = false } = {}) {
     dry,
     runId: orders.runId || null,
     runStage,
+    build: buildEvidence,
     results,
     published: releasedSlugs.length,
     acceptedWaiting: wait.length,
@@ -370,7 +426,7 @@ function settleInner({ dry = false } = {}) {
     linksInserted: links.inserted,
     orphansBefore: links.orphansBefore,
     orphansAfter: links.orphansAfter,
-    month: capacity(state),
+    month: capacity(state, new Date(), cfg, wait),
   };
   if (!dry) writeJson(path.join(cfg.resolved.dataDir, `report-${day}.json`), report);
   return report;
@@ -514,7 +570,8 @@ function main() {
       for (const r of report.results) {
         if (r.status !== 'published') console.log(`   ${r.status}: ${r.slug} — ${r.detail}`);
       }
-      console.log(`Месяц: ${report.month.done}/${report.month.monthlyTarget}`);
+      console.log(`Новые принятые материалы за месяц: ${report.month.done}/${report.month.monthlyTarget}`);
+      if (report.month.byKind) console.log(`Обновления: ${report.month.byKind.rewrite.done}/${report.month.byKind.rewrite.target}`);
       return;
     }
 

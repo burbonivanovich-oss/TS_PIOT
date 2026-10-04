@@ -50,3 +50,20 @@ export function runSiteBuild({ contentRoot, script = 'build', timeoutMs = 15 * 6
     stderr: tail(proc.stderr),
   };
 }
+
+
+/** QA сайта — обязательный дополнительный блокер, без shell-интерполяции. */
+export function runSiteQuality({ contentRoot, file, timeoutMs = 60000 } = {}) {
+  const gate = path.join(contentRoot || '', 'scripts/content/qa-gate.mjs');
+  if (!file || !existsSync(gate)) return { ok: false, blockers: ['нет файла статьи или QA сайта'] };
+  const proc = spawnSync(process.execPath, [gate, path.resolve(file), '--json'], {
+    cwd: contentRoot, encoding: 'utf8', timeout: timeoutMs,
+  });
+  let verdict;
+  try { verdict = JSON.parse(proc.stdout); }
+  catch { return { ok: false, blockers: [proc.error?.message || 'QA сайта не вернул JSON'] }; }
+  if (proc.error || proc.status !== 0 || verdict?.pass !== true) {
+    return { ok: false, blockers: Array.isArray(verdict?.blockers) && verdict.blockers.length ? verdict.blockers : [proc.error?.message || 'QA сайта завершился с ошибкой'] };
+  }
+  return { ok: true, blockers: [], warnings: verdict.warnings || [] };
+}

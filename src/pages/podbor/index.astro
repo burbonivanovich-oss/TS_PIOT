@@ -7,7 +7,7 @@ import { PRODUCT_CATALOG, CPA_BANNERS } from '../../data/cpa-banners';
 
 const title = 'Подбор сервиса Контура под задачу бизнеса';
 const description =
-	'Ответьте на 2 вопроса — подберём сервис Контура под вашу задачу: касса с ТС ПИоТ, маркировка, бухгалтерия, ЭДО, кадры или проверка контрагентов.';
+	'Ответьте на 2 вопроса — подберём сервис Контура под вашу задачу: касса с ТС ПИоТ, маркировка, бухгалтерия, ЭДО, ЭТРН, кадры или проверка контрагентов.';
 
 // Пул карточек продуктов (рендерим все, JS показывает подходящие).
 const pool = PRODUCT_CATALOG.map(p => ({
@@ -22,6 +22,7 @@ const tasks = [
 	{ id: 'ofd', label: 'Передавать чеки в ФНС (ОФД), зарегистрировать кассу' },
 	{ id: 'markirovka', label: 'Маркировать товар как производитель или импортёр' },
 	{ id: 'buh', label: 'Вести бухгалтерию, налоги и отчётность' },
+	{ id: 'etrn', label: 'Оформлять электронные транспортные накладные (ЭТРН)' },
 	{ id: 'edo', label: 'Обмениваться документами с контрагентами (ЭДО, УПД)' },
 	{ id: 'kadry', label: 'Перевести кадровые документы в электронный вид' },
 	{ id: 'kontragenty', label: 'Проверять контрагентов перед сделкой' },
@@ -65,10 +66,13 @@ const forms = [
 			<!-- Шаг 2 -->
 			<section class="pb-step is-hidden" data-step="2">
 				<div class="pb-q">Вопрос 2 из 2</div>
-				<h2>Какая у вас форма бизнеса?</h2>
+				<h2 id="pb-second-title">Какая у вас форма бизнеса?</h2>
 				<div class="pb-options">
 					{forms.map(f => (
-						<button type="button" class="pb-opt" data-form={f.id}>{f.label}</button>
+						<button type="button" class="pb-opt" data-business-option data-form={f.id}>{f.label}</button>
+					))}
+					{['Грузоотправитель', 'Перевозчик', 'Грузополучатель', 'Совмещаю несколько ролей'].map(role => (
+						<button type="button" class="pb-opt is-hidden" data-transport-role={role}>{role}</button>
 					))}
 				</div>
 				<button type="button" class="pb-back" data-back>← Назад</button>
@@ -78,6 +82,7 @@ const forms = [
 			<section class="pb-step is-hidden" data-step="result">
 				<div class="pb-q">Рекомендуем</div>
 				<h2 id="pb-result-title">Подходящие сервисы</h2>
+				<p id="pb-result-reason" class="is-hidden"></p>
 				<div class="pb-result-grid" id="pb-result-grid">
 					{pool.map(p => (
 						<a class="pb-card is-hidden" data-product={p.id} href={u(`/produkty/${p.slug}/`)}>
@@ -85,7 +90,7 @@ const forms = [
 							<span class="pb-body">
 								<span class="pb-title">{p.banner.title}</span>
 								<span class="pb-audience">{p.audience}</span>
-								<span class="pb-cta">Подробнее и заявка →</span>
+								<span class="pb-cta">{p.id === 'diadoc-logistika' ? 'Подобрать подключение ЭТРН →' : 'Подробнее и заявка →'}</span>
 							</span>
 						</a>
 					))}
@@ -101,6 +106,7 @@ const forms = [
 		<Footer />
 
 		<script>
+			import { trackCommercial } from '../../utils/track-commercial';
 			// Логика подбора: задача (Q1) задаёт основной продукт, форма (Q2) добавляет
 			// сопутствующие. Все карточки уже в DOM — показываем подходящие.
 			const steps: Record<string, HTMLElement | null> = {
@@ -122,6 +128,7 @@ const forms = [
 				markirovka: ['kontur-markirovka', 'kontur-diadoc'],
 				buh: [],
 				edo: ['kontur-diadoc'],
+				etrn: ['diadoc-logistika'],
 				kadry: ['diadoc-kedo'],
 				kontragenty: ['kontur-focus'],
 			};
@@ -139,19 +146,33 @@ const forms = [
 			}
 
 			document.querySelectorAll<HTMLButtonElement>('[data-task]').forEach(btn => {
-				btn.addEventListener('click', () => { task = btn.dataset.task || ''; show('2'); });
+				btn.addEventListener('click', () => { task = btn.dataset.task || '';
+					trackCommercial('selector-task', { task });
+					const transport = task === 'etrn';
+					document.getElementById('pb-second-title')!.textContent = transport ? 'Какова ваша роль в перевозке?' : 'Какая у вас форма бизнеса?';
+					document.querySelectorAll('[data-business-option]').forEach(el => el.classList.toggle('is-hidden', transport));
+					document.querySelectorAll('[data-transport-role]').forEach(el => el.classList.toggle('is-hidden', !transport));
+					show('2'); });
 			});
 			document.querySelector('[data-back]')?.addEventListener('click', () => show('1'));
 			document.querySelector('[data-restart]')?.addEventListener('click', () => { task = ''; show('1'); });
 
-			document.querySelectorAll<HTMLButtonElement>('[data-form]').forEach(btn => {
+			document.querySelectorAll<HTMLButtonElement>('[data-form], [data-transport-role]').forEach(btn => {
 				btn.addEventListener('click', () => {
 					const ids = recommend(btn.dataset.form || '');
+					const reason = document.getElementById('pb-result-reason')!;
+					reason.classList.toggle('is-hidden', task !== 'etrn');
+					reason.textContent = task === 'etrn' ? `Ваша роль: ${btn.dataset.transportRole}. Логистика от Контур.Диадока помогает обмениваться ЭТРН и передавать данные в ГИС ЭПД. При подборе уточните способ работы: браузер, 1С или интеграция, а также готовность других участников перевозки.` : '';
 					document.querySelectorAll<HTMLElement>('[data-product]').forEach(card => {
 						card.classList.toggle('is-hidden', !ids.includes(card.dataset.product || ''));
 					});
+					const roles: Record<string, string> = { 'Грузоотправитель': 'sender', 'Перевозчик': 'carrier', 'Грузополучатель': 'recipient', 'Совмещаю несколько ролей': 'mixed' };
+					trackCommercial('selector-result', { task, form: btn.dataset.form, role: roles[btn.dataset.transportRole || ''] });
 					show('result');
 				});
+			});
+			document.querySelectorAll<HTMLAnchorElement>('[data-product]').forEach(card => {
+				card.addEventListener('click', () => trackCommercial('selector-product-click', { task, offer: card.dataset.product }));
 			});
 		</script>
 
@@ -169,7 +190,7 @@ const forms = [
 			.pb-lead { margin: 0; font-size: 1.05rem; color: #555; line-height: 1.55; }
 
 			.pb-step { margin-top: 1.5rem; }
-			.pb-step.is-hidden { display: none; }
+			.pb-step.is-hidden, .pb-opt.is-hidden, #pb-result-reason.is-hidden { display: none; }
 			.pb-q {
 				font-family: var(--f-mono, monospace); font-size: .72rem; letter-spacing: .06em;
 				text-transform: uppercase; color: var(--pink, #9E2B4F); margin-bottom: .5rem;

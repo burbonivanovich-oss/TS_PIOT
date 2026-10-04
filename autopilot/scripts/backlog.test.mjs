@@ -74,6 +74,26 @@ const topics = (spec) =>
     Array.from({ length: n }, (_, i) => ({ slug: `${entity}-${i}`, entity })),
   );
 
+test('real take selects a topic using fresh measured demand without changing its base score', () => {
+  const fx = refillFixture([], undefined, config => Object.assign(config.backlog, { demandMaxBoost: 30, demandMaxAgeDays: 30, demandRegion: 225 }));
+  const now = Date.now(), day = ms => new Date(ms).toISOString().slice(0, 10);
+  writeFileSync(path.join(fx.dataDir, 'backlog.json'), JSON.stringify({ topics: [
+    { slug: 'unknown', status: 'planned', entity: 'X', score: 42, keywords: ['другой запрос'] },
+    { slug: 'measured', status: 'planned', entity: 'Y', score: 40, keywords: ['этрн для перевозчиков'] },
+  ] }));
+  writeFileSync(path.join(fx.dataDir, 'demand.json'), JSON.stringify({ schemaVersion: 1, snapshots: [{
+    url: 'https://wordstat.yandex.ru/?region=225&words=этрн', region: '225', devices: 'all', match: 'broad', capturedAt: new Date(now).toISOString(), periodStart: day(now - 29 * 86400000), periodEnd: day(now - 86400000), rows: [{ phrase: 'этрн для перевозчиков', count: 8326 }],
+  }] }));
+  const proc = spawnSync(process.execPath, ['--input-type=module', '-e', "import { take } from './scripts/backlog.mjs'; console.log(JSON.stringify(take(1)))"], {
+    cwd: ROOT, encoding: 'utf8', env: { ...process.env, AUTOPILOT_CONFIG: fx.configFile, AUTOPILOT_DATA_DIR: fx.dataDir, AUTOPILOT_LOCK_FILE: path.join(fx.dataDir, '.lock'), CONTENT_ROOT: fx.root },
+  });
+  assert.equal(proc.status, 0, proc.stderr);
+  const picked = JSON.parse(proc.stdout);
+  assert.equal(picked[0].slug, 'measured');
+  assert.equal(picked[0].score, 40);
+  assert.equal(picked[0].demand.count, 8326);
+});
+
 test('батч не забивается одной сущностью', () => {
   // В первом реальном проходе четыре статьи из шести пришлись на один
   // кластер: квота бэклога ограничивает долю в запасе, а наряды берутся

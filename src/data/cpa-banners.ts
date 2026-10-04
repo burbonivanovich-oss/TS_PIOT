@@ -48,9 +48,9 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 	'default-ts-piot': {
 		id: 'default-ts-piot',
 		eyebrow: 'Полезно знать',
-		title: 'Подключите ТС ПИоТ до 1 июля 2026',
+		title: 'Проверьте подключение ТС ПИоТ к своей кассе',
 		description:
-			'Срок обязателен для всех касс с разрешительным режимом «Честного знака». Без модуля — касса заблокирует продажи маркированных товаров.',
+			'Сверьте модель кассы и кассовую программу с реестрами «Честного знака». В инструкции — порядок подключения и проверки работы.',
 		cta: 'Инструкция по подключению →',
 		ctaHref: '/blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/',
 		visual: { abbrev: 'ТС', bg: '#111' },
@@ -78,9 +78,9 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 	'ts-piot-provider': {
 		id: 'ts-piot-provider',
 		eyebrow: 'Реклама · Контур.Маркет',
-		title: 'Касса с модулем ТС ПИоТ под ключ — скидка 15% онлайн',
+		title: 'Подберите кассу и сервисы для работы с ТС ПИоТ',
 		description:
-			'Контур.Маркет включает кассовую программу по 54-ФЗ, модуль ТС ПИоТ для разрешительного режима и товарный учёт с маркировкой. Подключение от 1 рабочего дня.',
+			'Поможем подобрать кассу, фискальный накопитель, кассовую программу и настройку для работы с маркированными товарами.',
 		cta: 'Подключить Контур.Маркет →',
 		ctaHref: 'https://kontur.ru/lp/market-ts-piot?p=f74746',
 		visual: { abbrev: 'ТС', bg: '#9E2B4F' },
@@ -104,7 +104,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 	'edo-operator': {
 		id: 'edo-operator',
 		eyebrow: 'Реклама · Диадок',
-		title: 'ЭДО для приёмки маркированных товаров — скидка 10% онлайн',
+		title: 'ЭДО для приёмки маркированных товаров',
 		description:
 			'Диадок принимает УПД с кодами маркировки от поставщиков, передаёт сведения в «Честный знак». Аккредитованный оператор, используют более 1,5 млн компаний.',
 		cta: 'Подключить Диадок →',
@@ -117,7 +117,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 	'kontur-ofd': {
 		id: 'kontur-ofd',
 		eyebrow: 'Реклама · Контур.ОФД',
-		title: 'Подключите ОФД до регистрации кассы — скидка 15% при онлайн-оплате',
+		title: 'Подключите ОФД для передачи чеков в ФНС',
 		description:
 			'Передача чеков в ФНС по 54-ФЗ, регистрация и перерегистрация кассы онлайн без визита в налоговую. Совместим со всеми моделями касс.',
 		cta: 'Подключить ОФД →',
@@ -133,7 +133,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 	'kontur-markirovka': {
 		id: 'kontur-markirovka',
 		eyebrow: 'Реклама · Контур.Маркировка',
-		title: 'Работа с маркировкой под ключ — скидка 20% при онлайн-оплате',
+		title: 'Работа с маркировкой под ключ',
 		description:
 			'Полный цикл: от нанесения кода на производстве до выбытия из оборота через кассу. Интеграция с 1С, ERP и «Честным знаком».',
 		cta: 'Подробнее →',
@@ -149,7 +149,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 	'kontur-diadoc': {
 		id: 'kontur-diadoc',
 		eyebrow: 'Реклама · Диадок',
-		title: 'ЭДО для приёмки маркированных товаров — скидка 10% онлайн',
+		title: 'ЭДО для приёмки маркированных товаров',
 		description:
 			'УПД с кодами маркировки принимается только через аккредитованного ЭДО-оператора. Диадок используют более 1,5 млн компаний.',
 		cta: 'Подключить Диадок →',
@@ -165,10 +165,10 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 	'diadoc-logistika': {
 		id: 'diadoc-logistika',
 		eyebrow: 'Реклама · Диадок: Логистика',
-		title: 'Обязательный переход на ЭТрН с 1 сентября 2026 по 140-ФЗ',
+		title: 'ЭТРН для отправителей, перевозчиков и получателей груза',
 		description:
 			'Сервис Логистика от Контура обеспечивает юридически значимый ЭДО между всеми участниками грузоперевозок с передачей данных в ГИС ЭПД.',
-		cta: 'Подготовиться к переходу →',
+		cta: 'Подобрать подключение ЭТРН →',
 		ctaHref: 'https://kontur.ru/logistika?p=f74746',
 		visual: { abbrev: 'ЭТрН', bg: '#1E4A7A' },
 		widget: {
@@ -191,7 +191,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 	'kontur-extern': {
 		id: 'kontur-extern',
 		eyebrow: 'Реклама · Контур.Экстерн',
-		title: 'Отчётность в ФНС, СФР и Росстат — скидка 15% при онлайн-оплате',
+		title: 'Отчётность в ФНС, СФР и Росстат',
 		description:
 			'Актуальные формы деклараций, сверка с ЕНС, электронная подпись в комплекте. Подходит для ИП и ООО на любом режиме налогообложения.',
 		cta: 'Подключить Экстерн →',
@@ -207,7 +207,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 	'kontur-focus': {
 		id: 'kontur-focus',
 		eyebrow: 'Реклама · Контур.Фокус',
-		title: 'Проверьте контрагента до сделки — скидка 7% онлайн',
+		title: 'Проверьте контрагента до сделки',
 		description:
 			'Данные из реестров ФНС, судов, ЕГРЮЛ и ЕГРИП. Проверка директора, учредителей, аффилированных лиц и арбитражных дел.',
 		cta: 'Проверить контрагента →',
@@ -257,7 +257,7 @@ const _BANNERS_RAW: Record<string, Omit<CpaBanner, 'erid'>> = {
 		eyebrow: 'Реклама · Контур.Маркет',
 		title: 'Учёт товаров и работа на кассе — бесплатный доступ 14 дней',
 		description:
-			'Товарный учёт с маркировкой, кассовая программа по 54-ФЗ, инвентаризация. Скидка 15% при онлайн-оплате.',
+			'Товарный учёт с маркировкой, кассовая программа по 54-ФЗ, инвентаризация.',
 		cta: 'Попробовать 14 дней →',
 		ctaHref: 'https://kontur.ru/market/kkt?p=f74746',
 		visual: { abbrev: 'МРТ', bg: '#1A3A6C' },
@@ -463,6 +463,20 @@ export interface CatalogGroup {
 	description: string;
 }
 
+/**
+ * Коммерческий режим покупки продукта — НЕ технический флаг.
+ *
+ * - 'easy-buy': покупку можно совершить сразу по партнёрской онлайн-ссылке
+ *   (primary CTA ведёт на оплату/заказ с атрибуцией p=); лид-форма вторична
+ *   («Нужна консультация»). Сайт не принимает деньги сам — оплата и договор
+ *   остаются на стороне Контура, проект получает вознаграждение за
+ *   атрибутированную оплату.
+ * - 'consultative': до покупки нужен подбор конфигурации или внедрение,
+ *   поэтому primary CTA открывает лид-форму (#lead); покупательская ссылка
+ *   показывается вторичной и только если она атрибутирована.
+ */
+export type PurchaseMode = 'easy-buy' | 'consultative';
+
 export const CATALOG_GROUPS: CatalogGroup[] = [
 	{
 		id: 'kassa-markirovka',
@@ -496,6 +510,8 @@ export interface ProductCatalogEntry {
 	slug: string;
 	/** ключ в CPA_BANNERS — источник заголовка, оффера, визуала и erid */
 	bannerId: string;
+	/** коммерческий режим покупки: easy-buy (сразу к оплате) или consultative (сначала заявка) */
+	purchaseMode: PurchaseMode;
 	/** id раздела из CATALOG_GROUPS */
 	group: string;
 	/** для кого продукт */
@@ -516,6 +532,8 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-market',
 		bannerId: 'kontur-market',
+		// consultative: касса+ТС ПИоТ требуют подбора комплекта и запуска (бэклог ETK-P0-10).
+		purchaseMode: 'consultative',
 		group: 'kassa-markirovka',
 		audience:
 			'Розница, общепит и услуги, которые продают маркированный или алкогольный товар через кассу.',
@@ -530,6 +548,7 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-ofd',
 		bannerId: 'kontur-ofd',
+		purchaseMode: 'easy-buy',
 		group: 'kassa-markirovka',
 		audience: 'Любой бизнес с онлайн-кассой по 54-ФЗ.',
 		bullets: [
@@ -543,6 +562,8 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-markirovka',
 		bannerId: 'kontur-markirovka',
+		// consultative: полный цикл маркировки требует интеграции с 1С/ERP (бэклог ETK-P0-10).
+		purchaseMode: 'consultative',
 		group: 'kassa-markirovka',
 		audience: 'Производители, импортёры и оптовики маркированных товаров.',
 		bullets: [
@@ -556,6 +577,7 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-elba',
 		bannerId: 'kontur-elba',
+		purchaseMode: 'easy-buy',
 		group: 'buhgalteriya',
 		audience: 'ИП и небольшие ООО на УСН без штатного бухгалтера.',
 		bullets: [
@@ -569,6 +591,8 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-extern',
 		bannerId: 'kontur-extern',
+		// easy-buy: отчётность — самообслуживаемая подписка с онлайн-прайсом, внедрения не требует.
+		purchaseMode: 'easy-buy',
 		group: 'buhgalteriya',
 		audience: 'Бухгалтеры и компании на любом режиме налогообложения.',
 		bullets: [
@@ -582,6 +606,7 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-diadoc',
 		bannerId: 'kontur-diadoc',
+		purchaseMode: 'easy-buy',
 		group: 'dokumenty-kadry',
 		audience:
 			'Кто принимает и отправляет УПД, акты и счета-фактуры, особенно с кодами маркировки.',
@@ -596,6 +621,8 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'diadoc-kedo',
 		bannerId: 'diadoc-kedo',
+		// consultative: КЭДО требует внедрения и интеграции с 1С:ЗУП — сначала подбор.
+		purchaseMode: 'consultative',
 		group: 'dokumenty-kadry',
 		audience: 'Компании с наёмными сотрудниками, переходящие на электронный кадровый учёт.',
 		bullets: [
@@ -609,6 +636,8 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-mchd',
 		bannerId: 'kontur-mchd',
+		// easy-buy: МЧД оформляется онлайн за 5 минут, самообслуживание без внедрения.
+		purchaseMode: 'easy-buy',
 		group: 'dokumenty-kadry',
 		audience: 'Сотрудники, подписывающие документы от имени компании своей ЭП.',
 		bullets: [
@@ -622,19 +651,23 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'diadoc-logistika',
 		bannerId: 'diadoc-logistika',
+		// consultative: ЭТрН/ГИС ЭПД подключают всех участников перевозки — нужен подбор (бэклог ETK-P0-10).
+		purchaseMode: 'consultative',
 		group: 'dokumenty-kadry',
-		audience: 'Грузоотправители, перевозчики и грузополучатели перед переходом на ЭТрН.',
+		audience: 'Грузоотправители, перевозчики и грузополучатели, которым нужен обмен ЭТРН.',
 		bullets: [
 			'Электронные транспортные накладные',
 			'Передача данных в ГИС ЭПД',
 			'ЭДО между всеми участниками перевозки',
-			'Соответствие 140-ФЗ с 01.09.2026',
+			'Работа в браузере или интеграция с учётной системой',
 		],
 		clusters: ['zakonodatelstvo'],
 	},
 	{
 		slug: 'kontur-focus',
 		bannerId: 'kontur-focus',
+		// easy-buy: проверка контрагентов — самообслуживаемый SaaS с онлайн-покупкой.
+		purchaseMode: 'easy-buy',
 		group: 'proverki-dengi',
 		audience: 'Кто проверяет контрагентов перед сделкой и снижает налоговые риски.',
 		bullets: [
@@ -648,6 +681,8 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'bank-elba',
 		bannerId: 'bank-elba',
+		// consultative: открытие счёта требует идентификации и проверки — не мгновенная покупка.
+		purchaseMode: 'consultative',
 		group: 'proverki-dengi',
 		audience: 'ИП и ООО, которым нужен расчётный счёт и бухгалтерия в одном окне.',
 		bullets: [
@@ -663,6 +698,8 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-podpis',
 		bannerId: 'kontur-podpis',
+		// easy-buy: электронная подпись — стандартная онлайн-услуга УЦ (бэклог ETK-P0-10).
+		purchaseMode: 'easy-buy',
 		group: 'kassa-markirovka',
 		audience: 'Кому нужна квалифицированная ЭП для кассы, «Честного знака», ЭДО и торгов.',
 		bullets: [
@@ -676,6 +713,8 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-merkuriy',
 		bannerId: 'kontur-merkuriy',
+		// easy-buy: работа с ВСД в браузере без внедрения — покупка очевидна по ссылке.
+		purchaseMode: 'easy-buy',
 		group: 'kassa-markirovka',
 		audience: 'Розница, общепит и оптовики продукции животного происхождения (мясо, молоко, рыба).',
 		bullets: [
@@ -689,6 +728,8 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-zarplata',
 		bannerId: 'kontur-zarplata',
+		// easy-buy: расчёт зарплаты — самообслуживаемый SaaS с онлайн-покупкой.
+		purchaseMode: 'easy-buy',
 		group: 'buhgalteriya',
 		audience: 'Компании и ИП с наёмными сотрудниками.',
 		bullets: [
@@ -702,6 +743,8 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-nds',
 		bannerId: 'kontur-nds',
+		// easy-buy: сверка НДС — самообслуживаемый SaaS, покупка очевидна по ссылке.
+		purchaseMode: 'easy-buy',
 		group: 'buhgalteriya',
 		audience: 'Плательщики НДС, которым важно пройти декларацию без требований ФНС.',
 		bullets: [
@@ -715,6 +758,8 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-prizma',
 		bannerId: 'kontur-prizma',
+		// consultative: CTA «Подробнее» ведёт не на заказ/прайс — риск-подход по 115-ФЗ требует подбора.
+		purchaseMode: 'consultative',
 		group: 'proverki-dengi',
 		audience: 'Бизнес, которому важно снизить риск блокировки счёта по 115-ФЗ.',
 		bullets: [
@@ -728,6 +773,8 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 	{
 		slug: 'kontur-dokumenty',
 		bannerId: 'kontur-dokumenty',
+		// easy-buy: лёгкий вход в ЭДО для МСБ без интеграций — антипод сложных внедрений.
+		purchaseMode: 'easy-buy',
 		group: 'dokumenty-kadry',
 		audience: 'Малый бизнес, которому нужен простой ЭДО без сложных интеграций.',
 		bullets: [
@@ -739,3 +786,114 @@ export const PRODUCT_CATALOG: ProductCatalogEntry[] = [
 		clusters: ['zakonodatelstvo'],
 	},
 ];
+
+// ─── Режим покупки → CTA (единый источник) ───────────────────────────────
+// Сайт не принимает деньги сам: оплата и договор — на стороне Контура.
+// resolveProductCta возвращает примарный и вторичный CTA записи каталога.
+// НИКАКИХ новых URL здесь не сочиняется — используются только ctaHref,
+// уже лежащие в CPA_BANNERS.
+
+/** Вид CTA: purchase — внешняя атрибутированная покупка; lead — лид-форма (#lead). */
+export type ProductCtaKind = 'purchase' | 'lead';
+
+/** Один CTA: подпись кнопки и (для purchase — внешняя ссылка, для lead — #lead). */
+export interface ProductCta {
+	kind: ProductCtaKind;
+	label: string;
+	href?: string;
+}
+
+/**
+ * Признак партнёрской атрибуции покупательской ссылки.
+ *
+ * Внешняя ссылка считается атрибутированной, только если содержит партнёрский
+ * маркер — параметр p= в query (например diadoc.ru/order?p=f74746,
+ * kontur.ru/...?p=f74746, e-kontur.ru/?p=f74746). Внутренняя ссылка на свою
+ * статью (начинается с / или #) атрибуцией НЕ считается и как primary
+ * для easy-buy недопустима.
+ */
+export function hasPartnerAttribution(href: string): boolean {
+	if (!href) return false;
+	if (href.startsWith('/') || href.startsWith('#')) return false;
+	if (!/^https?:\/\//i.test(href)) return false;
+	return /[?&]p=/.test(href);
+}
+
+/** Убирает стрелку «→» из подписи баннера для использования в кнопке. */
+function cleanPurchaseLabel(cta: string): string {
+	return cta.replace(/\s*→\s*$/, '').trim();
+}
+
+/**
+ * Единый источник CTA карточки продукта.
+ *
+ * - easy-buy: primary = purchase (label — действие покупки из banner.cta,
+ *   href = banner.ctaHref); secondary = lead («Нужна консультация», #lead).
+ * - consultative: primary = lead («Оставить заявку», #lead); secondary =
+ *   purchase только если атрибутированная ссылка есть, иначе отсутствует.
+ */
+export function resolveProductCta(entry: ProductCatalogEntry): {
+	primary: ProductCta;
+	secondary?: ProductCta;
+} {
+	const banner = CPA_BANNERS[entry.bannerId];
+	const purchaseLabel = cleanPurchaseLabel(banner?.cta ?? '');
+	if (entry.purchaseMode === 'easy-buy') {
+		return {
+			primary: { kind: 'purchase', label: purchaseLabel, href: banner?.ctaHref },
+			secondary: { kind: 'lead', label: 'Нужна консультация', href: '#lead' },
+		};
+	}
+	const secondary: ProductCta | undefined =
+		banner?.ctaHref && hasPartnerAttribution(banner.ctaHref)
+			? { kind: 'purchase', label: purchaseLabel, href: banner.ctaHref }
+			: undefined;
+	return {
+		primary: { kind: 'lead', label: 'Оставить заявку', href: '#lead' },
+		...(secondary ? { secondary } : {}),
+	};
+}
+
+// ─── Валидация каталога на этапе импорта (ломает сборку Astro) ───────────
+function validateProductCatalog(): void {
+	for (const entry of PRODUCT_CATALOG) {
+		const mode = (entry as ProductCatalogEntry).purchaseMode;
+		if (mode !== 'easy-buy' && mode !== 'consultative') {
+			throw new Error(
+				`[cpa-banners] продукт "${entry.slug}": неизвестный purchaseMode "${String(mode)}" — ожидается 'easy-buy' или 'consultative'`
+			);
+		}
+		const banner = CPA_BANNERS[entry.bannerId];
+		if (!banner) {
+			throw new Error(
+				`[cpa-banners] продукт "${entry.slug}": нет примарного CTA — баннер "${entry.bannerId}" не найден в CPA_BANNERS`
+			);
+		}
+		const cta = resolveProductCta(entry);
+		if (
+			!cta.primary ||
+			!cta.primary.label ||
+			(cta.primary.kind === 'purchase' && !cta.primary.href) ||
+			(cta.primary.kind === 'lead' && !cta.primary.href)
+		) {
+			throw new Error(
+				`[cpa-banners] продукт "${entry.slug}": нет примарного CTA для purchaseMode "${mode}"`
+			);
+		}
+		if (mode === 'easy-buy') {
+			const href = banner.ctaHref ?? '';
+			if (!href) {
+				throw new Error(
+					`[cpa-banners] продукт "${entry.slug}": easy-buy без banner.ctaHref — нужна атрибутированная внешняя ссылка с параметром p=`
+				);
+			}
+			if (!hasPartnerAttribution(href)) {
+				throw new Error(
+					`[cpa-banners] продукт "${entry.slug}": easy-buy, но ссылка "${href}" без партнёрской атрибуции — нужен внешний URL с параметром p=, внутренние ссылки на /... недопустимы как primary`
+				);
+			}
+		}
+	}
+}
+
+validateProductCatalog();

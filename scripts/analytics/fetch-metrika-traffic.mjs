@@ -16,6 +16,7 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { normalizeMetrikaReport } from './lib/metrika-report.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT_DIR = join(ROOT, 'src', 'data', 'analytics');
@@ -73,26 +74,7 @@ if (!res.ok) {
 }
 const data = JSON.parse(text);
 
-const byPage = {};
-let totalPv = 0;
-let totalUsers = 0;
-
-for (const row of data.data || []) {
-  const path = row.dimensions?.[0]?.name;
-  if (!path) continue;
-  // отсекаем query/hash и редкие хвосты
-  const clean = path.split('?')[0].split('#')[0];
-  if (!clean.startsWith('/')) continue;
-  const [pageviews, users] = row.metrics;
-  byPage[clean] = {
-    pageviews: Math.round(pageviews),
-    visits: null,
-    users: Math.round(users),
-    avgDuration: null,
-  };
-  totalPv += pageviews;
-  totalUsers += users;
-}
+const { byPage, totals, coverage } = normalizeMetrikaReport(data);
 
 mkdirSync(OUT_DIR, { recursive: true });
 writeFileSync(
@@ -102,12 +84,8 @@ writeFileSync(
       fetchedAt: today.toISOString(),
       days: DAYS,
       counterId: COUNTER,
-      totals: {
-        pages: Object.keys(byPage).length,
-        pageviews: Math.round(totalPv),
-        visits: null,
-        users: Math.round(totalUsers),
-      },
+      totals,
+      coverage,
       byPage,
     },
     null,
@@ -115,5 +93,5 @@ writeFileSync(
   ),
 );
 
-console.log(`Готово. Страниц с трафиком: ${Object.keys(byPage).length}, просмотров: ${Math.round(totalPv)}, пользователей: ${Math.round(totalUsers)}`);
+console.log(`Готово. Получено страниц: ${totals.pages}, просмотров по отчёту: ${totals.pageviews ?? 'неизвестно'}, пользователей по отчёту: ${totals.users ?? 'неизвестно'}`);
 console.log(`Записано в ${OUT_FILE}`);

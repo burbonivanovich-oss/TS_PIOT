@@ -8,7 +8,7 @@
  *
  * Env:
  *   FORCE_DATE=1   — игнорировать pubDate (выпустить самый ранний черновик)
- *   SKIP_GATE=1    — пропустить шлюз качества (только для отладки)
+ *   SKIP_GATE больше не обходит объединённые гейты.
  *
  * Выход 0 + slug в stdout — статья опубликована.
  * Выход 0 + пустой stdout — публиковать нечего.
@@ -21,6 +21,7 @@
  * Отсутствие поля сохраняет прежнее поведение: статья может быть выпущена.
  */
 
+import { loadConfig } from '../autopilot/scripts/lib/config.mjs';
 import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync, readdirSync, mkdirSync } from 'fs';
 import { join, basename } from 'path';
@@ -77,6 +78,12 @@ export function readCandidates(dir = blogDir) {
 }
 
 function main() {
+	// В режиме общего календаря владелец выпуска — pipeline settle.
+	// Старый cron не может обойти квоту, журнал, lock и финальную сборку.
+	if (loadConfig().publish.calendar === true) {
+		process.stderr.write('Выпуск управляется календарём автопилота: запустите pipeline.mjs settle.\n');
+		return;
+	}
 	const today = new Date().toISOString().slice(0, 10);
 	const forceDate = process.env.FORCE_DATE === '1';
 	const candidates = readCandidates()
@@ -95,10 +102,10 @@ function main() {
 	}
 
 	for (const candidate of candidates) {
-		if (process.env.SKIP_GATE !== '1') {
+		{
 			const gate = spawnSync(
 				process.execPath,
-				[join(ROOT, 'scripts/content/qa-gate.mjs'), candidate.slug, '--json'],
+				[join(ROOT, 'autopilot/scripts/gates.mjs'), 'check', '--file', join(blogDir, candidate.file), '--json'],
 				{ encoding: 'utf8' },
 			);
 			let verdict = null;
@@ -108,8 +115,10 @@ function main() {
 				/* шлюз не смог отработать — трактуем как отказ */
 			}
 
-			if (!verdict?.pass) {
-				const reasons = verdict?.blockers ?? [gate.stderr?.trim() || 'шлюз качества не отработал'];
+			if (gate.status !== 0 || verdict?.passed !== true) {
+				const reasons = verdict?.checks?.filter(c => !c.ok).map(c => `${c.id}: ${c.detail}`) || [];
+				if (verdict?.duplication?.verdict !== 'ok') reasons.push('duplication: пересечение с корпусом');
+				if (!reasons.length) reasons.push(gate.stderr?.trim() || 'шлюз качества не отработал');
 				mkdirSync(blockedDir, { recursive: true });
 				writeFileSync(
 					join(blockedDir, candidate.slug),

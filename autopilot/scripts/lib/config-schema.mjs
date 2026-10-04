@@ -24,12 +24,16 @@ export const SECTIONS = {
 
 // Необязательные ключи, которые код умеет читать через `?? default`.
 export const OPTIONAL = {
-  gates: ['sourceMaxAgeDays', 'infraRetryLimit'],
+  backlog: ['demandMaxBoost', 'demandMaxAgeDays', 'demandRegion'],
+  publish: ['calendar'],
+  throughput: ['monthlyRewriteTarget'],
+  rewrite: ['sourceCheckIntervalDays', 'sourceObservationMaxAgeDays', 'sourceChecksPerRun'],
+  gates: ['sourceMaxAgeDays', 'infraRetryLimit', 'requireClaimEvidence', 'requireHeroImage', 'requireWritingReceipt'],
 };
 
 // Необязательный раздел защиты целевого checkout (AP-P0-04).
 export const OPTIONAL_TOP = ['security'];
-export const SECURITY_KEYS = ['strictContentRoot', 'expectedRemote', 'allowedBranches', 'buildCheck'];
+export const SECURITY_KEYS = ['strictContentRoot', 'expectedRemote', 'allowedBranches', 'buildCheck', 'qualityCheck'];
 const REQUIRED_TOP = ['contentRoot', 'paths', ...Object.keys(SECTIONS)];
 
 export function validateConfig(cfg) {
@@ -59,6 +63,7 @@ export function validateConfig(cfg) {
       if ('allowedBranches' in cfg.security && (!Array.isArray(cfg.security.allowedBranches) || cfg.security.allowedBranches.some((b) => typeof b !== 'string' || b.trim() === ''))) {
         errors.push('security.allowedBranches должен быть массивом непустых строк');
       }
+      if ('qualityCheck' in cfg.security && typeof cfg.security.qualityCheck !== 'boolean') errors.push('security.qualityCheck должен быть boolean');
       if ('buildCheck' in cfg.security && typeof cfg.security.buildCheck !== 'boolean') {
         errors.push('security.buildCheck должен быть boolean');
       }
@@ -100,6 +105,7 @@ export function validateConfig(cfg) {
 
   const t = cfg.throughput || {};
   if (isNum(t.monthlyTarget) && !(isInt(t.monthlyTarget) && t.monthlyTarget > 0)) errors.push('throughput.monthlyTarget должен быть положительным целым');
+  if ('monthlyRewriteTarget' in t && !(Number.isInteger(t.monthlyRewriteTarget) && t.monthlyRewriteTarget >= 0)) errors.push('throughput.monthlyRewriteTarget должен быть неотрицательным целым');
   if (isNum(t.batchesPerDay) && !(isInt(t.batchesPerDay) && t.batchesPerDay >= 1)) errors.push('throughput.batchesPerDay должен быть ≥1');
   if (isNum(t.maxBatchSize) && !(isInt(t.maxBatchSize) && t.maxBatchSize >= 1)) errors.push('throughput.maxBatchSize должен быть ≥1');
   if (isNum(t.maxParallelWriting) && !(isInt(t.maxParallelWriting) && t.maxParallelWriting >= 1)) errors.push('throughput.maxParallelWriting должен быть ≥1');
@@ -140,6 +146,12 @@ export function validateConfig(cfg) {
     errors.push('interlink.protectedZones должен быть массивом строк');
   }
 
+  const refresh = cfg.rewrite || {};
+  for (const key of ['sourceCheckIntervalDays', 'sourceObservationMaxAgeDays']) {
+    if (key in refresh && !(isNum(refresh[key]) && refresh[key] >= 1)) errors.push(`rewrite.${key} должен быть ≥1`);
+  }
+  if ('sourceChecksPerRun' in refresh && !(isInt(refresh.sourceChecksPerRun) && inRange(refresh.sourceChecksPerRun, 1, 50))) errors.push('rewrite.sourceChecksPerRun должен быть целым 1–50');
+  if ((refresh.sourceCheckIntervalDays ?? 1) > (refresh.sourceObservationMaxAgeDays ?? 7)) errors.push('интервал проверки источников не может превышать срок наблюдения');
   const g = cfg.gates || {};
   if (isNum(g.minScore) && !inRange(g.minScore, 0, 100)) errors.push('gates.minScore должен быть 0–100');
   if (isNum(g.maxAiMarkerDensity) && g.maxAiMarkerDensity < 0) errors.push('gates.maxAiMarkerDensity должен быть ≥0');
@@ -147,11 +159,16 @@ export function validateConfig(cfg) {
   if (isNum(g.minChars) && g.minChars < 1) errors.push('gates.minChars должен быть ≥1');
   if (isNum(g.quarantineAfterFailures) && !(isInt(g.quarantineAfterFailures) && g.quarantineAfterFailures >= 1)) errors.push('gates.quarantineAfterFailures должен быть ≥1');
   if ('requireFactcheck' in g && typeof g.requireFactcheck !== 'boolean') errors.push('gates.requireFactcheck должен быть boolean');
+  if ('requireClaimEvidence' in g && typeof g.requireClaimEvidence !== 'boolean') errors.push('gates.requireClaimEvidence должен быть boolean');
   if ('sourceMaxAgeDays' in g && !(isNum(g.sourceMaxAgeDays) && g.sourceMaxAgeDays >= 1)) errors.push('gates.sourceMaxAgeDays должен быть ≥1');
   if ('infraRetryLimit' in g && !(isInt(g.infraRetryLimit) && g.infraRetryLimit >= 1)) errors.push('gates.infraRetryLimit должен быть ≥1');
 
+  if ('requireWritingReceipt' in g && typeof g.requireWritingReceipt !== 'boolean') errors.push('gates.requireWritingReceipt должен быть boolean');
+  if ('requireHeroImage' in g && typeof g.requireHeroImage !== 'boolean') errors.push('gates.requireHeroImage должен быть boolean');
   const p = cfg.publish || {};
   if (isNum(p.maxPerDay) && !(isInt(p.maxPerDay) && p.maxPerDay >= 1)) errors.push('publish.maxPerDay должен быть ≥1');
+  if ('calendar' in p && typeof p.calendar !== 'boolean') errors.push('publish.calendar должен быть boolean');
+  if (p.calendar === true && !isInt(t.monthlyRewriteTarget)) errors.push('publish.calendar требует throughput.monthlyRewriteTarget');
   if ('autoPublish' in p && typeof p.autoPublish !== 'boolean') errors.push('publish.autoPublish должен быть boolean');
   if ('draftOnFail' in p && typeof p.draftOnFail !== 'boolean') errors.push('publish.draftOnFail должен быть boolean');
   if (isNum(p.maxPerDay) && isNum(t.monthlyTarget) && p.maxPerDay > t.monthlyTarget) {
@@ -159,6 +176,10 @@ export function validateConfig(cfg) {
   }
 
   const b = cfg.backlog || {};
+  if ('demandMaxBoost' in b && !(isNum(b.demandMaxBoost) && b.demandMaxBoost >= 0 && b.demandMaxBoost <= 100)) errors.push('backlog.demandMaxBoost должен быть 0–100');
+  if ('demandMaxAgeDays' in b && !(isInt(b.demandMaxAgeDays) && b.demandMaxAgeDays >= 1)) errors.push('backlog.demandMaxAgeDays должен быть положительным целым');
+  if ('demandRegion' in b && !(isInt(b.demandRegion) && b.demandRegion > 0)) errors.push('backlog.demandRegion должен быть положительным целым');
+  if (b.demandMaxBoost > 0 && (!('demandMaxAgeDays' in b) || !('demandRegion' in b))) errors.push('При включённом спросе обязательны demandMaxAgeDays и demandRegion');
   if (isNum(b.targetBufferFactor) && b.targetBufferFactor < 1) errors.push('backlog.targetBufferFactor должен быть ≥1');
   if (isNum(b.maxPerEntityShare) && !inRange(b.maxPerEntityShare, 0, 1)) errors.push('backlog.maxPerEntityShare должен быть в диапазоне 0–1');
   if ('maxPerEntityPerBatch' in b && !(isInt(b.maxPerEntityPerBatch) && b.maxPerEntityPerBatch >= 1)) errors.push('backlog.maxPerEntityPerBatch должен быть ≥1');

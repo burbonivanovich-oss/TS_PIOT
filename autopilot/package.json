@@ -20,6 +20,11 @@
     "secret-scan": "node scripts/secret-scan.mjs",
     "preflight": "node scripts/preflight.mjs",
     "health": "node scripts/health-check.mjs",
-    "test": "node --test"
+    "commercial-report": "node scripts/commercial-report.mjs",
+    "test": "node --test \"scripts/*.test.mjs\" \"scripts/lib/*.test.mjs\"",
+    "audit:drafts": "node scripts/audit-drafts.mjs",
+    "source:snapshot": "node scripts/source-snapshot.mjs",
+    "write": "node scripts/writer.mjs",
+    "daily": "node scripts/daily.mjs"
   }
 }

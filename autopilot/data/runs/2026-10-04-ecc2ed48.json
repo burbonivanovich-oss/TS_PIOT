@@ -1,0 +1,72 @@
+{
+  "runId": "2026-10-04-ecc2ed48",
+  "date": "2026-10-04",
+  "kind": "day",
+  "createdAt": "2026-10-04T07:03:39.059Z",
+  "updatedAt": "2026-10-04T07:10:31.183Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-04T07:03:39.160Z",
+      "orderCount": 3,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 3,
+        "todayTarget": 4,
+        "debt": 7
+      }
+    },
+    "gated": {
+      "at": "2026-10-04T07:10:09.273Z",
+      "published": 0,
+      "acceptedWaiting": 0,
+      "results": [
+        {
+          "slug": "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya",
+          "status": "infra_missing"
+        },
+        {
+          "slug": "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+          "status": "infra_missing"
+        },
+        {
+          "slug": "2026-05-01-kak-vybrat-onlayn-kassu-2026",
+          "status": "infra_missing"
+        }
+      ]
+    },
+    "built": {
+      "at": "2026-10-04T07:10:09.272Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "6cb62b05fe9e09741798d009e5a754ea8443c0b377ab8c11056c81072e4555a7",
+      "scope": "blog Markdown/MDX bytes at build start"
+    },
+    "committed": {
+      "at": "2026-10-04T07:10:31.183Z",
+      "commit": "1021e98f89e3d19c7a97ac9625ea4facec84fa77",
+      "tree": "ba8ee5e015f6d3d44c6f6ccb99d372f36c5996bb",
+      "stateOnly": false
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-04T07:03:39.160Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-04T07:10:09.273Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-04T07:10:09.297Z"
+    },
+    {
+      "stage": "committed",
+      "at": "2026-10-04T07:10:31.183Z"
+    }
+  ],
+  "meta": {}
+}

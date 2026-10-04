@@ -16,6 +16,8 @@ import { loadConfig, assertContentRoot } from './lib/config.mjs';
 import { loadArticles, readJson, writeJson, today, daysBetween, isMain, parseArgs } from './lib/content.mjs';
 import { acquireLock, releaseLock } from './lib/lock.mjs';
 import { buildLinkGraph } from './interlink.mjs';
+import { extractCriticalClaims } from './gates.mjs';
+import { factFreshness } from './lib/fact-freshness.mjs';
 
 const cfg = loadConfig();
 const R = cfg.rewrite;
@@ -39,6 +41,7 @@ function buildQueueInner() {
   const log = readJson(LOG_FILE, { entries: {} }).entries;
   const seeds = readJson(path.join(cfg.resolved.dataDir, 'seeds.json'), { calendar: [] });
   const graph = buildLinkGraph(articles);
+  const observations = readJson(path.join(cfg.resolved.dataDir, 'source-observations.json'), { byUrl: {} }).byUrl;
 
   // Резервации прошлой очереди (AP-P1-09): активный рерайт не должен
   // потеряться из-за пересборки — иначе исполнитель остаётся без наряда.
@@ -66,10 +69,22 @@ function buildQueueInner() {
 
     // Свежепереписанное не берём повторно, даже если формально «старое»:
     // иначе очередь начинает крутить одни и те же статьи каждый месяц.
-    if (sinceRewrite !== null && sinceRewrite < R.minDaysBetweenRewrites) continue;
+    const facts = factFreshness({
+      claims: extractCriticalClaims(article.body),
+      evidence: readJson(path.join(cfg.resolved.dataDir, 'claim-evidence', article.slug + '.json'), null),
+      observations,
+      now,
+      maxAgeDays: cfg.gates.sourceMaxAgeDays ?? 180,
+      observationMaxAgeDays: R.sourceObservationMaxAgeDays ?? 7,
+    });
+    if (sinceRewrite !== null && sinceRewrite < R.minDaysBetweenRewrites && !facts.needsReview) continue;
 
     const reasons = [];
     let score = 0;
+    if (facts.needsReview) {
+      score += R.npaTriggerBoost;
+      reasons.push(...facts.reasons);
+    }
 
     if (age >= R.hardStaleAfterDays) {
       score += 45;
@@ -130,6 +145,7 @@ function buildQueueInner() {
       inbound,
       outbound,
       reasons,
+      factReview: facts,
       lastRewrite: lastRewrite ? lastRewrite.toISOString().slice(0, 10) : null,
       ...(reservations.get(article.slug) || {}),
     });
@@ -157,11 +173,12 @@ function readQueue() {
  * занятые в state.inFlight: их повторно не выдаём. Резервации, которых нет
  * среди активных, считаются брошенными и снимаются (recovery после падения).
  */
-export function takeRewrites(count, { runId = null, active = [] } = {}) {
+export function takeRewrites(count, { runId = null, active = [], excluded = [] } = {}) {
   acquireLock({ cmd: 'rewrite-take' });
   try {
     const queue = readQueue();
     const activeSet = new Set(active);
+    const excludedSet = new Set(excluded);
     for (const item of queue.items) {
       if (item.reservedAt && !activeSet.has(item.slug)) {
         delete item.reservedAt;
@@ -171,7 +188,7 @@ export function takeRewrites(count, { runId = null, active = [] } = {}) {
     const picked = [];
     for (const item of queue.items) {
       if (picked.length >= count) break;
-      if (item.reservedAt || activeSet.has(item.slug)) continue;
+      if (item.reservedAt || activeSet.has(item.slug) || excludedSet.has(item.slug)) continue;
       item.reservedAt = new Date().toISOString();
       item.runId = runId;
       picked.push(item);

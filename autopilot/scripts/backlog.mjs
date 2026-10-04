@@ -16,10 +16,12 @@ import { loadArticles, readJson, writeJson, today, isMain, parseArgs } from './l
 import { acquireLock, releaseLock } from './lib/lock.mjs';
 import { slugify, tokenize } from './lib/text.mjs';
 import { buildIndex, checkTopic } from './dedupe.mjs';
+import { rankByDemand } from './lib/demand.mjs';
 
 const cfg = loadConfig();
 const BACKLOG_FILE = path.join(cfg.resolved.dataDir, 'backlog.json');
 const SEEDS_FILE = path.join(cfg.resolved.dataDir, 'seeds.json');
+const rankTopics = topics => rankByDemand(topics, readJson(path.join(cfg.resolved.dataDir, 'demand.json'), null), cfg.backlog);
 
 const readBacklog = () => readJson(BACKLOG_FILE, { generatedAt: null, topics: [] });
 const writeBacklog = (b) => writeJson(BACKLOG_FILE, b);
@@ -184,7 +186,7 @@ function refillInner({ target } = {}) {
   const entityCount = new Map();
   for (const t of alive) entityCount.set(t.entity, (entityCount.get(t.entity) || 0) + 1);
 
-  for (const candidate of generateCandidates(seeds, articles)) {
+  for (const candidate of rankTopics(generateCandidates(seeds, articles))) {
     if (added.length >= need) break;
     stats.candidates++;
     bump(stats.byEntity, candidate.entity, 'candidates');
@@ -228,6 +230,8 @@ function refillInner({ target } = {}) {
       format: candidate.format,
       segment: candidate.segment,
       score: candidate.score,
+      demand: candidate.demand,
+      priorityScore: candidate.priorityScore,
       status: 'planned',
       createdAt: today(),
       dedupe: {
@@ -312,7 +316,7 @@ export function take(count) {
   acquireLock({ cmd: 'backlog-take' });
   try {
     const backlog = readBacklog();
-    const planned = backlog.topics.filter((t) => t.status === 'planned');
+    const planned = rankTopics(backlog.topics.filter((t) => t.status === 'planned'));
     const picked = selectDiverse(planned, count, cfg.backlog.maxPerEntityPerBatch ?? count);
     writeBacklog(backlog);
     return picked;

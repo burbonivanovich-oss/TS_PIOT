@@ -15,7 +15,7 @@
 //   • перед apply — backup `data/` в `data/backups/`;
 //   • идемпотентно: повторный запуск не меняет ничего.
 import path from 'node:path';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { loadConfig, assertContentRoot } from './lib/config.mjs';
 import { readJson, writeJson, today, isMain, parseArgs } from './lib/content.mjs';
 import { runGates } from './gates.mjs';
@@ -43,18 +43,21 @@ export function planReconcile({ dataDir, blog, gates = runGates }) {
 
   const actions = [];
   for (const topic of backlog.topics || []) {
-    if (topic.status !== 'writing') continue;
+    if (topic.status !== 'writing' || inFlight.has(topic.slug)) continue;
     const file = fileFor(blog, topic.slug);
     if (!file) {
       actions.push({ slug: topic.slug, action: 'planned', reason: 'файла в корпусе нет — возврат в план' });
       continue;
     }
     const gate = gates({ file });
+    const frontmatter = readFileSync(file, 'utf8').match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] || '';
+    const hold = frontmatter.match(/^autopilotHold[ \t]*:[ \t]*(.*)$/m);
+    const published = /^draft:[ \t]*false[ \t]*$/m.test(frontmatter) && (!hold || hold[1].trim() === 'false');
     actions.push({
       slug: topic.slug,
-      action: gate.passed ? 'released' : 'planned',
+      action: gate.passed && published ? 'released' : 'planned',
       reason: gate.passed
-        ? 'статья существует и проходит гейты'
+        ? (published ? 'статья опубликована и проходит гейты' : 'статья остаётся черновиком или удержана — возврат в план')
         : `гейты не пройдены: ${gate.blockers.length ? gate.blockers.join(', ') : `балл ${gate.score}`}`,
       gateScore: gate.score,
       blockers: gate.blockers,
@@ -70,6 +73,9 @@ export function planReconcile({ dataDir, blog, gates = runGates }) {
 /** Применить план. Возвращает отчёт. */
 export function applyReconcile({ dataDir, blog, gates = runGates, backup = true } = {}) {
   const plan = planReconcile({ dataDir, blog, gates });
+  if (plan.orphanInFlight.length) {
+    throw new Error(`Активные слоты без нарядов: ${plan.orphanInFlight.join(', ')}; восстановите наряды до миграции`);
+  }
   const changes = plan.actions.length + plan.dropOrders.length + plan.orphanInFlight.length;
 
   if (backup && changes > 0) {
@@ -89,9 +95,6 @@ export function applyReconcile({ dataDir, blog, gates = runGates, backup = true 
     plan.orders.orders = (plan.orders.orders || []).filter((o) => plan.keepOrders.includes(o.slug));
     writeJson(path.join(dataDir, 'orders.json'), plan.orders);
 
-    for (const slug of plan.orphanInFlight) {
-      plan.state.inFlight = (plan.state.inFlight || []).filter((t) => t.slug !== slug);
-    }
     plan.state.lastMigration = { at: new Date().toISOString(), actions: plan.actions.length, droppedOrders: plan.dropOrders.length };
     writeJson(path.join(dataDir, 'autopilot.json'), plan.state);
   }

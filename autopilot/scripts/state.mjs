@@ -15,6 +15,7 @@
 import path from 'node:path';
 import { loadConfig } from './lib/config.mjs';
 import { readJson, writeJson, today, isMain, parseArgs } from './lib/content.mjs';
+import { productionCapacity } from './lib/production-capacity.mjs';
 import { acquireLock, releaseLock, forceUnlock } from './lib/lock.mjs';
 
 const cfg = loadConfig();
@@ -71,8 +72,11 @@ export function saveState(state) {
  * семантику производственного календаря. `now` инъектируется для контрольных
  * дат в тестах.
  */
-export function capacity(state = readState(), now = new Date()) {
-  const T = cfg.throughput;
+export function capacity(state = readState(), now = new Date(), config = cfg, waiting = []) {
+  if (config.throughput.monthlyRewriteTarget !== undefined) {
+    return productionCapacity({ state, now, config, waiting });
+  }
+  const T = config.throughput;
   const done = state.counters.new + state.counters.rewrite;
   // Отчётный день — UTC, и вычисление конца месяца тоже UTC. Раньше здесь
   // `new Date(y, m, 0)` строила локальную дату, и в UTC+14 конец месяца
@@ -95,6 +99,8 @@ export function capacity(state = readState(), now = new Date()) {
     ceilStable(evenPace * T.catchUpFactor * T.batchesPerDay),
   );
 
+  // Принятое уже включено в done; активные слоты резервируют остаток.
+  const remaining = Math.max(0, T.monthlyTarget - done - state.inFlight.length);
   const freeSlots = Math.max(0, T.maxParallelWriting - state.inFlight.length);
   return {
     month: state.month,
@@ -105,7 +111,8 @@ export function capacity(state = readState(), now = new Date()) {
     todayTarget,
     inFlight: state.inFlight.length,
     freeSlots,
-    canTake: Math.min(freeSlots, todayTarget, T.maxBatchSize * T.batchesPerDay),
+    remaining,
+    canTake: Math.min(remaining, freeSlots, todayTarget, T.maxBatchSize * T.batchesPerDay),
   };
 }
 

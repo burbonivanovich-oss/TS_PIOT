@@ -1,6 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { claim, done, fail, capacity } from './state.mjs';
+import { claim, done, fail, capacity as actualCapacity } from './state.mjs';
+
+// Исторический контракт общего бюджета проверяется на явном legacy-конфиге.
+const capacity = (state, now) => actualCapacity(state, now, { throughput: { monthlyTarget: 200, batchesPerDay: 2, maxBatchSize: 6, maxParallelWriting: 8, catchUpFactor: 1.35 } });
 
 const fresh = () => ({
   version: 1,
@@ -137,3 +140,16 @@ function pick(cap) {
     canTake: cap.canTake,
   };
 }
+
+
+test('PUB-03: выполненная норма и резерв активных слотов останавливают выдачу', () => {
+  const state = fresh();
+  state.counters.new = 200;
+  assert.equal(capacity(state).canTake, 0);
+  state.counters.new = 205;
+  assert.equal(capacity(state).canTake, 0);
+  state.counters.new = 199;
+  assert.equal(capacity(state).canTake, 1);
+  state.inFlight = [{ slug: 'reserved', kind: 'new' }];
+  assert.equal(capacity(state).canTake, 0);
+});

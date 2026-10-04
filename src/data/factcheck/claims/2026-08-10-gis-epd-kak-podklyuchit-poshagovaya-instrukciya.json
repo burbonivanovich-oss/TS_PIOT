@@ -1,0 +1,53 @@
+{
+  "slug": "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "LINK",
+      "raw": "https://www.mintrans.gov.ru/activities/376/377",
+      "groups": [
+        "mintrans.gov.ru"
+      ],
+      "offset": 833,
+      "line": 11,
+      "context": "пределите маршрут подключения и участников [Минтранс объясняет маршрут обмена](https://www.mintrans.gov.ru/activities/376/377): участники перевозок направляют сведения в ГИС ЭПД через аккредитованных опера",
+      "expected_source": "mintrans.gov.ru"
+    },
+    {
+      "id": "c2",
+      "type": "LINK",
+      "raw": "https://www.mintrans.gov.ru/activities/376/377/380",
+      "groups": [
+        "mintrans.gov.ru"
+      ],
+      "offset": 2277,
+      "line": 21,
+      "context": "оператора и оформите подключение Откройте [реестр операторов ИС ЭПД Минтранса](https://www.mintrans.gov.ru/activities/376/377/380). Сверьте юридическое наименование поставщика сервиса с записью реестра. Наличи",
+      "expected_source": "mintrans.gov.ru"
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://kontur.ru/logistika",
+      "groups": [
+        "kontur.ru"
+      ],
+      "offset": 3735,
+      "line": 36,
+      "context": "ввода и сложности маршрутов. Например, [официальная страница Контур.Логистики](https://kontur.ru/logistika) описывает веб-версию, работу из учётных систем и мобильное приложение. Возможн",
+      "expected_source": "kontur.ru"
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_417606/310767ff902c8a0686dd4b18c93ea6049dfcf2db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 7448,
+      "line": 66,
+      "context": "ридически значимыми подписями только ради теста. В [описании схем обмена ЭТрН](https://www.consultant.ru/document/cons_doc_LAW_417606/310767ff902c8a0686dd4b18c93ea6049dfcf2db/) перечислены обязательные файлы информации грузоотправителя, перевозчика о приё",
+      "expected_source": "consultant.ru"
+    }
+  ]
+}

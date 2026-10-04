@@ -1,0 +1,145 @@
+{
+  "slug": "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+  "claims": [
+    {
+      "id": "c7",
+      "type": "NPA_FZ",
+      "raw": "140-ФЗ",
+      "groups": [
+        "140"
+      ],
+      "offset": 181,
+      "line": 5,
+      "context": "тронные перевозочные документы уже наступил: соответствующие положения закона № 140-ФЗ действуют с 1 сентября 2026 года, как установлено [статьёй о вступлении норм в"
+    },
+    {
+      "id": "c1",
+      "type": "DATE_TEXT",
+      "raw": "1 сентября 2026 года",
+      "groups": [
+        "1",
+        "2026"
+      ],
+      "offset": 200,
+      "line": 5,
+      "context": "е документы уже наступил: соответствующие положения закона № 140-ФЗ действуют с 1 сентября 2026 года, как установлено [статьёй о вступлении норм в силу](https://www.consultant.ru/d"
+    },
+    {
+      "id": "c4",
+      "type": "DATE_YEAR",
+      "raw": "2026 года",
+      "groups": [
+        "2026"
+      ],
+      "offset": 211,
+      "line": 5,
+      "context": "уже наступил: соответствующие положения закона № 140-ФЗ действуют с 1 сентября 2026 года, как установлено [статьёй о вступлении норм в силу](https://www.consultant.ru/d"
+    },
+    {
+      "id": "c8",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/5bdc78bf7e3015a0ea0c0ea5bef708a6c79e2f0a/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 273,
+      "line": 5,
+      "context": "вуют с 1 сентября 2026 года, как установлено [статьёй о вступлении норм в силу](https://www.consultant.ru/document/cons_doc_LAW_507282/5bdc78bf7e3015a0ea0c0ea5bef708a6c79e2f0a/). Поэтому сейчас задача бизнеса — проверить готовность всей цепочки перевозки и",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c2",
+      "type": "DATE_TEXT",
+      "raw": "1 сентября 2026 года",
+      "groups": [
+        "1",
+        "2026"
+      ],
+      "offset": 731,
+      "line": 9,
+      "context": "я обязательного электронного оформления перечисленных перевозочных документов — 1 сентября 2026 года; [ФНС перечисляет транспортные накладные, заказы или заявки, экспедиторские док"
+    },
+    {
+      "id": "c5",
+      "type": "DATE_YEAR",
+      "raw": "2026 года",
+      "groups": [
+        "2026"
+      ],
+      "offset": 742,
+      "line": 9,
+      "context": "ного электронного оформления перечисленных перевозочных документов — 1 сентября 2026 года; [ФНС перечисляет транспортные накладные, заказы или заявки, экспедиторские док"
+    },
+    {
+      "id": "c9",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/news/activities_fts/16597444/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 889,
+      "line": 9,
+      "context": "ки, экспедиторские документы, железнодорожную и авиационную грузовую накладные](https://www.nalog.gov.ru/rn77/news/activities_fts/16597444/). Разъяснение ФНС опубликовано до перехода и отмечено как архивное, поэтому дей",
+      "expected_source": "nalog.gov.ru"
+    },
+    {
+      "id": "c10",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 1371,
+      "line": 11,
+      "context": "акреплена в [действующей редакции изменений к Уставу автомобильного транспорта](https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/). Из одного только перечня электронных документов нельзя сделать вывод, что люб",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c3",
+      "type": "DATE_TEXT",
+      "raw": "1 марта 2027 года",
+      "groups": [
+        "1",
+        "2027"
+      ],
+      "offset": 2487,
+      "line": 25,
+      "context": "почему это не перенос обязанности [Минтранс сообщил о нештрафуемом периоде до 1 марта 2027 года](https://www.mintrans.gov.ru/eye/press-center/news/12933) для участников, оформ"
+    },
+    {
+      "id": "c6",
+      "type": "DATE_YEAR",
+      "raw": "2027 года",
+      "groups": [
+        "2027"
+      ],
+      "offset": 2495,
+      "line": 25,
+      "context": "это не перенос обязанности [Минтранс сообщил о нештрафуемом периоде до 1 марта 2027 года](https://www.mintrans.gov.ru/eye/press-center/news/12933) для участников, оформ"
+    },
+    {
+      "id": "c11",
+      "type": "LINK",
+      "raw": "https://www.mintrans.gov.ru/eye/press-center/news/12933",
+      "groups": [
+        "mintrans.gov.ru"
+      ],
+      "offset": 2506,
+      "line": 25,
+      "context": "нос обязанности [Минтранс сообщил о нештрафуемом периоде до 1 марта 2027 года](https://www.mintrans.gov.ru/eye/press-center/news/12933) для участников, оформивших документы на бумаге вместо электронного формата. В",
+      "expected_source": "mintrans.gov.ru"
+    },
+    {
+      "id": "c12",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/news/activities_fts/16597444/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 6070,
+      "line": 54,
+      "context": "рудников и подключение к аккредитованному оператору в [порядке перехода на ЭПД](https://www.nalog.gov.ru/rn77/news/activities_fts/16597444/). Для настройки конкретной роли используйте инструкции сервиса: одинаковый набо",
+      "expected_source": "nalog.gov.ru"
+    }
+  ]
+}

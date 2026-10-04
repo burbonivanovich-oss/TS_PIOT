@@ -25,11 +25,11 @@ function baseConfig(contentRoot) {
 }
 
 /** Тело, проходящее гейты: 3 H2, подтверждённые даты, внутренние ссылки. */
-function goodBody({ links, salt, draft = true }) {
+function goodBody({ links, salt, draft = true, critical = true }) {
   const sections = ['Первый', 'Второй', 'Третий'].map(
     (h, i) =>
       `## ${h} раздел ${salt}\n\n` +
-      `Норма вступает в силу с 01.0${i + 1}.2026 согласно [закону](https://publication.pravo.gov.ru/document/${salt}${i}). ` +
+      (critical ? `Норма вступает в силу с 01.0${i + 1}.2026 согласно [закону](https://publication.pravo.gov.ru/document/${salt}${i}). ` : `Описание рабочего процесса ${salt}: распределение задач и проверка результата. `) +
       `Смежные материалы: ${links.map((s) => `[${s}](/blog/${s}/)`).join(', ')}.\n\n` +
       `Наполнитель ${salt} для объёма и связности текста без штампов и правовых утверждений. `.repeat(20),
   );
@@ -54,7 +54,7 @@ function fixture() {
   const targets = ['target-odin', 'target-dva', 'target-tri'];
   for (const slug of targets) {
     const links = targets.filter((s) => s !== slug);
-    writeFileSync(path.join(blog, `${slug}.md`), goodBody({ links, salt: slug, draft: false }), 'utf8');
+    writeFileSync(path.join(blog, `${slug}.md`), goodBody({ links, salt: slug, draft: false, critical: false }), 'utf8');
   }
 
   writeFileSync(
@@ -141,11 +141,40 @@ test('AP-P1-18: полный цикл plan → simulated write → settle → gr
   assert.equal(stateAgain.counters.new, 1);
   assert.equal(stateAgain.counters.published, 1);
 
-  // 5. повторный plan в тот же день продолжает тот же проход и не плодит дубли:
+  // 5. plan после закрытой приёмки начинает новый проход и не плодит дубли:
   //    та же тема не выдаётся как новая статья повторно (рерайт-наряд для
   //    только что опубликованной сироты — законный, это не дубль статьи).
   const planAgain = JSON.parse(runCli(['scripts/pipeline.mjs', 'plan', '--json'], fx).stdout);
-  assert.equal(planAgain.runId, runId, 'тот же runId незавершённого дня');
+  assert.notEqual(planAgain.runId, runId, 'закрытая приёмка не переиспользует стадии новой попытки');
+  const nextManifest = JSON.parse(readFileSync(path.join(fx.dataDir, 'runs', `${planAgain.runId}.json`), 'utf8'));
+  assert.equal(nextManifest.stages.gated, undefined);
   assert.ok(!planAgain.orders.some((o) => o.kind === 'new' && o.slug === order.slug), 'новая статья не выдаётся повторно');
   assert.ok(!planAgain.skipped.some((o) => o.slug === order.slug && o.kind === 'new'));
+});
+
+test('PUB-03: повторный plan резервирует остаток и переносит активный наряд', () => {
+  const fx = fixture();
+  const config = baseConfig(fx.root);
+  config.throughput.monthlyTarget = 55;
+  config.throughput.monthlyRewriteTarget = 14;
+  config.throughput.maxBatchSize = 3;
+  writeFileSync(fx.configFile, JSON.stringify(config));
+  writeFileSync(path.join(fx.dataDir, 'autopilot.json'), JSON.stringify({
+    version: 1, month: TODAY.slice(0, 7), counters: { new: 54, rewrite: 14, published: 0 },
+    inFlight: [], quarantine: [], history: [],
+  }));
+  const first = runCli(['scripts/pipeline.mjs', 'plan', '--json'], fx);
+  assert.equal(first.status, 0, first.stderr);
+  const plan = JSON.parse(first.stdout);
+  assert.equal(plan.orders.length, 1);
+  assert.equal(plan.orders[0].kind, 'new');
+  const second = runCli(['scripts/pipeline.mjs', 'plan', '--json'], fx);
+  assert.equal(second.status, 0, second.stderr);
+  const repeated = JSON.parse(second.stdout);
+  assert.equal(repeated.capacity.canTake, 0);
+  assert.equal(repeated.orders.length, 1);
+  assert.equal(repeated.orders[0].slug, plan.orders[0].slug);
+  assert.equal(repeated.orders[0].retry, true);
+  const state = JSON.parse(readFileSync(path.join(fx.dataDir, 'autopilot.json')));
+  assert.equal(state.inFlight.length, 1);
 });

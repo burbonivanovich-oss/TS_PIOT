@@ -1,4 +1,5 @@
-name: Картинки — бэкфилл героев (ежедневно)
+# Автоматический запуск выключен: корпус и hero меняет единственный daily.mjs.
+name: Картинки — ручной бэкфилл героев
 
 # Safety-net: раз в сутки находит статьи без heroImage и догенерит hero
 # через Nano Banana (Google Gemini 3.1 Flash Image Preview).
@@ -13,9 +14,6 @@ name: Картинки — бэкфилл героев (ежедневно)
 # день no-op.
 
 on:
-  schedule:
-    # 21:00 UTC = 00:00 МСК (UTC+3). Минимальная нагрузка ночью.
-    - cron: '0 21 * * *'
   workflow_dispatch:
     inputs:
       limit:

@@ -192,3 +192,6 @@ config.local.json
 settings.local.json
 # Original AI-generated heroes before sharpening
 public/images/hero/_orig/
+
+# Временные файлы атомарного восстановления автопилота.
+*.settle-tmp

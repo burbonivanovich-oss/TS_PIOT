@@ -35,6 +35,15 @@ test('AP-P0-17: уже опубликованное сегодня сокращ�
   assert.equal(full.wait.length, 2);
 });
 
+function validWaitingArticle(title) {
+  const description = 'Проверенное описание ожидающей статьи для проверки повторной приёмки и ограниченной суточной квоты публикаций сайта.';
+  const body = ['Первый', 'Второй', 'Третий'].map(h => `## ${h} раздел\n\n` + ('Нейтральный материал описывает рабочие действия команды и порядок подготовки технической документации. '.split(' ').map(w => w + title).join(' ') + ' ').repeat(17)).join('\n');
+  return `---\ntitle: "${title}"\ndescription: "${description}"\npubDate: "2026-01-01"\ndraft: true\nautopilotHold: true\n---\n${body}\n[Первый](/blog/ref-one/) [Второй](/blog/ref-two/) [Третий](/blog/ref-three/)\n`;
+}
+function addReferenceArticles(blog) {
+  for (const slug of ['ref-one', 'ref-two', 'ref-three']) writeFileSync(path.join(blog, `${slug}.md`), `---\ntitle: ${slug}\ndraft: false\n---\nСоседний материал ${slug}`);
+}
+
 function baseConfig(contentRoot) {
   return {
     contentRoot,
@@ -57,6 +66,7 @@ function fixture() {
   const root = mkdtempSync(path.join(tmpdir(), 'release-'));
   const blog = path.join(root, 'src', 'content', 'blog');
   mkdirSync(blog, { recursive: true });
+  addReferenceArticles(blog);
   const dataDir = path.join(root, 'data');
   mkdirSync(dataDir, { recursive: true });
   const configFile = path.join(root, 'config.json');
@@ -70,7 +80,7 @@ function fixture() {
     score: 80,
     acceptedAt: `2026-09-${String(10 + i).padStart(2, '0')}T00:00:00Z`,
   }));
-  for (const item of waiting) writeFileSync(path.join(blog, `${item.slug}.md`), heldArticle(item.slug), 'utf8');
+  for (const item of waiting) writeFileSync(path.join(blog, `${item.slug}.md`), validWaitingArticle(item.slug), 'utf8');
 
   writeFileSync(path.join(dataDir, 'release-queue.json'), JSON.stringify({ generatedAt: day, items: waiting }), 'utf8');
   writeFileSync(path.join(dataDir, 'publish-log.json'), JSON.stringify({ days: { [day]: ['x1', 'x2'] } }), 'utf8');
@@ -114,6 +124,19 @@ test('AP-P0-17: settle выпускает только остаток квоты
   assert.match(w2, /autopilotHold: true/);
 });
 
+test('PUB-04: изменение принятой статьи требует повторной проверки перед выпуском', () => {
+  const fx = fixture();
+  writeFileSync(path.join(fx.blog, 'w1.md'), heldArticle('Повреждённая статья'));
+  const report = settle(fx);
+  assert.equal(report.published, 1);
+  assert.ok(report.results.some(r => r.slug === 'w1' && r.status === 'release_rejected'));
+  assert.match(readFileSync(path.join(fx.blog, 'w1.md'), 'utf8'), /draft: true/);
+  const queue = JSON.parse(readFileSync(path.join(fx.dataDir, 'release-queue.json')));
+  assert.ok(queue.items.some(i => i.slug === 'w1'));
+  const log = JSON.parse(readFileSync(path.join(fx.dataDir, 'publish-log.json')));
+  assert.ok(!log.days[fx.day].includes('w1'));
+});
+
 test('AP-P0-17: повторный settle в тот же день не выпускает и не дублирует', () => {
   const fx = fixture();
   settle(fx);
@@ -140,4 +163,45 @@ test('AP-P0-17: на следующий день квота открываетс
   for (const slug of ['w2', 'w3', 'w4']) {
     assert.match(readFileSync(path.join(fx.blog, `${slug}.md`), 'utf8'), /draft: false/);
   }
+});
+
+import { releaseCalendar } from './lib/release.mjs';
+
+for (const [year, month, days] of [[2026, 1, 28], [2028, 1, 29], [2026, 3, 30], [2026, 0, 31]]) {
+  test(`calendar: ${days} days releases exactly 55 new + 14 rewrites, repeat runs do not exceed quota`, () => {
+    const config = { throughput: { monthlyTarget: 55, monthlyRewriteTarget: 14 } };
+    const publishLog = { days: {}, kinds: {} };
+    let waiting = [...Array.from({ length: 80 }, (_, i) => ({ slug: `new-${i}`, kind: 'new' })), ...Array.from({ length: 30 }, (_, i) => ({ slug: `rewrite-${i}`, kind: 'rewrite' }))];
+    for (let d = 1; d <= days; d++) {
+      const date = new Date(Date.UTC(year, month, d)); const day = date.toISOString().slice(0, 10);
+      publishLog.days[day] = []; publishLog.kinds[day] = {};
+      for (let pass = 0; pass < 4; pass++) {
+        const calendar = releaseCalendar({ date, config, publishLog });
+        const result = allocateReleases({ waiting, maxPerDay: 3, alreadyToday: publishLog.days[day].length, calendar });
+        for (const item of result.release) { publishLog.days[day].push(item.slug); publishLog.kinds[day][item.slug] = item.kind; }
+        waiting = result.wait;
+      }
+      assert.ok(publishLog.days[day].length <= 3);
+    }
+    const end = releaseCalendar({ date: new Date(Date.UTC(year, month, days)), config, publishLog });
+    assert.equal(end.byKind.new.done, 55); assert.equal(end.byKind.rewrite.done, 14);
+    assert.equal(end.byKind.new.remaining, 0); assert.equal(end.byKind.rewrite.remaining, 0);
+  });
+}
+
+test('calendar carries debt with daily ceiling; previous month does not consume current norm', () => {
+  const config = { throughput: { monthlyTarget: 55, monthlyRewriteTarget: 14 } };
+  const date = new Date('2026-10-20T23:00:00Z');
+  const calendar = releaseCalendar({ date, config, publishLog: { days: { '2026-09-30': ['old'] } } });
+  const { release } = allocateReleases({ accepted: Array.from({ length: 50 }, (_, i) => ({ slug: `n-${i}`, kind: 'new' })), maxPerDay: 3, calendar });
+  assert.equal(release.length, 3);
+  assert.equal(calendar.byKind.new.done, 0);
+});
+
+test('calendar counts legacy entries as new and rejects corrupt ledger', () => {
+  const config = { throughput: { monthlyTarget: 55, monthlyRewriteTarget: 14 } };
+  const date = new Date('2026-10-03T00:00:00Z');
+  const result = releaseCalendar({ date, config, publishLog: { days: { '2026-10-01': ['legacy'] } } });
+  assert.equal(result.byKind.new.done, 1);
+  assert.throws(() => releaseCalendar({ date, config, publishLog: { days: { '2026-10-04': ['future'] } } }), /Повреждён/);
 });
