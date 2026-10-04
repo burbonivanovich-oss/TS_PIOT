@@ -39,7 +39,7 @@ import { refill, take as takeTopics, setStatus, reconcile } from './backlog.mjs'
 import { buildQueue, takeRewrites, markRewritten, activeRewrites, releaseReservation } from './rewrite-queue.mjs';
 import { runGates, bodyDuplication } from './gates.mjs';
 import { readSourceEvidence } from './lib/sources.mjs';
-import { allocateReleases, releaseCalendar } from './lib/release.mjs';
+import { allocateReleases, releaseCalendar, publicationCapacity } from './lib/release.mjs';
 import { findResumableRun, createRun, setStage, readRun } from './lib/run.mjs';
 import { envelope, classifyError, EXIT } from './lib/outcome.mjs';
 import { runSiteBuild } from './lib/site.mjs';
@@ -400,6 +400,7 @@ function settleInner({ dry = false } = {}) {
       throw new Error(`Нет манифеста прохода ${orders.runId}; наряды повреждены, приёмка остановлена`);
     }
     const staged = setStage(orders.runId, 'gated', {
+      ...(cfg.throughput.monthlyRewriteTarget !== undefined ? { publicationCapacity: publicationCapacity({ config: cfg, publishLog: { ...publishLog, days: { ...publishLog.days, [day]: [...todaySlugs, ...releasedSlugs] }, kinds: { ...(publishLog.kinds || {}), [day]: { ...(publishLog.kinds?.[day] || {}), ...Object.fromEntries(release.filter(item => releasedSlugs.includes(item.slug)).map(item => [item.slug, item.kind])) } } } }) } : {}),
       published: releasedSlugs.length,
       acceptedWaiting: wait.length,
       results: results.map((r) => ({ slug: r.slug, status: r.status })),

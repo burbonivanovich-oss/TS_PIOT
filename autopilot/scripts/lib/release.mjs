@@ -71,3 +71,19 @@ export function publicationCapacity({ date = new Date(), config, publishLog = { 
   const needed = Object.values(byKind).reduce((sum, v) => sum + v.remaining, 0);
   return { day: calendar.day, slotsRemaining, needed, impossible: needed > slotsRemaining, shortfall: Math.max(0, needed - slotsRemaining), byKind };
 }
+
+/** Distinct completed passes only; retrying a run cannot add an observation. */
+export function publicationFailureStreak(runs, day) {
+  const month = day.slice(0, 7);
+  const seen = new Set();
+  const completed = runs.filter(r => r.date?.startsWith(month) && r.date <= day && r.stages?.committed)
+    .sort((a,b) => String(b.stages.gated?.at || b.createdAt).localeCompare(String(a.stages.gated?.at || a.createdAt)));
+  let count = 0;
+  for (const run of completed) {
+    if (seen.has(run.runId)) continue;
+    seen.add(run.runId);
+    if (run.stages.gated?.publicationCapacity?.impossible !== true) break;
+    count++;
+  }
+  return count;
+}
