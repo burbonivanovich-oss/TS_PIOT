@@ -11,6 +11,7 @@ import { readRun } from './lib/run.mjs';
 import { recoverWriting, writeOrders } from './writer.mjs';
 import { plan, settle } from './pipeline.mjs';
 import { monitorSources } from './source-monitor.mjs';
+import { refreshDuplicateAudit } from './lib/duplicate-audit.mjs';
 import { recoverSettle } from './lib/settle-snapshot.mjs';
 import { readDeliveryJournal, beginGitDelivery, commitGitDelivery } from './lib/git-delivery.mjs';
 import { pushGitDelivery } from './lib/git-push.mjs';
@@ -84,6 +85,7 @@ export async function dailyCycle({ commit = false, push = false, remote = 'origi
         const file = path.join(cfg.resolved.dataDir, 'source-observations.json');
         const report = await monitorSources({ articles: loadArticles({ includeDrafts: false }), previous: readJson(file, { byUrl: {} }), limit: cfg.rewrite.sourceChecksPerRun ?? 10, intervalDays: cfg.rewrite.sourceCheckIntervalDays ?? 1, coverageDays: cfg.rewrite.sourceObservationMaxAgeDays ?? 7 });
         writeJson(file, report);
+        refreshDuplicateAudit({ dataDir: cfg.resolved.dataDir });
       },
       plan,
       write: () => writeOrders(),

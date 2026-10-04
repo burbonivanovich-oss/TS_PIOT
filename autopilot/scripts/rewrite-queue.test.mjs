@@ -192,3 +192,19 @@ test('AP-P1-05: возраст, тонкость и minDaysBetweenRewrites уп�
   const queue2 = buildQueueCli(fx2);
   assert.ok(!queue2.items.some((i) => i.slug === 'old'), 'свежий рерайт не берётся повторно');
 });
+
+test('duplicate remediation targets only selected weaker article and names its keeper; draft overlap does not boost keeper', () => {
+  const fx = fixture();
+  const day = new Date().toISOString().slice(0,10);
+  for (const slug of ['weak','keep','draft']) writeFileSync(path.join(fx.root,'src/content/blog',slug+'.md'),`---\ntitle: ${slug}\npubDate: ${day}\ndraft: ${slug==='draft'}\n---\n${'Содержательный материал без нормативных утверждений. '.repeat(110)}`);
+  writeFileSync(path.join(fx.dataDir,'dupes.json'),JSON.stringify({pairs:[{a:'keep',b:'weak',keep:'keep',rewrite:'weak',verdict:'merge'},{a:'keep',b:'draft',keep:'keep',rewrite:'draft',verdict:'merge'}]}));
+  const first = run(`import {buildQueue} from ${JSON.stringify(MODULE)}; console.log(JSON.stringify(buildQueue()));`,fx);
+  const weak=first.items.find(i=>i.slug==='weak'),keep=first.items.find(i=>i.slug==='keep');
+  assert.equal(weak.score-keep.score,35);
+  assert.ok(weak.reasons.some(r=>r.includes('/blog/keep/')&&r.includes('не удалять')));
+  assert.ok(!keep.reasons.some(r=>r.includes('Развести')));
+  assert.ok(!first.items.some(i=>i.slug==='draft'));
+  writeFileSync(path.join(fx.dataDir,'dupes.json'),JSON.stringify({pairs:[{a:'keep',b:'weak',verdict:'merge'}]}));
+  const legacy = run(`import {buildQueue} from ${JSON.stringify(MODULE)}; console.log(JSON.stringify(buildQueue()));`,fx);
+  assert.equal(legacy.items.find(i=>i.slug==='weak').score,legacy.items.find(i=>i.slug==='keep').score);
+});

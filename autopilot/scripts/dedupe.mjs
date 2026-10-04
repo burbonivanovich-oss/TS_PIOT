@@ -147,7 +147,7 @@ function shingleJaccard(a, b) {
 }
 
 /** Взаимные дубли уже опубликованного корпуса — вход для очереди рерайтов. */
-function scanCorpus() {
+export function scanCorpus() {
   assertContentRoot(cfg);
   const articles = loadArticles();
   const model = buildIdf(articles.map((a) => [a.title, ...a.keywords].join(' ')));
