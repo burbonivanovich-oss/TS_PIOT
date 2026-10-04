@@ -1,0 +1,37 @@
+{
+  "slug": "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya",
+  "claims": [
+    {
+      "id": "connection",
+      "status": "match",
+      "sources": [
+        "https://www.mintrans.gov.ru/activities/376/377"
+      ],
+      "note": "Оператор из реестра и соглашение подтверждены Минтрансом."
+    },
+    {
+      "id": "signature",
+      "status": "match",
+      "sources": [
+        "https://base.garant.ru/404741819/"
+      ],
+      "note": "Не универсализированы УКЭП водителя и SMS."
+    },
+    {
+      "id": "workflow",
+      "status": "match",
+      "sources": [
+        "https://base.garant.ru/404741819/"
+      ],
+      "note": "Правила содержат идентификатор документа, проверку подписей и отслеживание обработки."
+    },
+    {
+      "id": "cpa",
+      "status": "match",
+      "sources": [
+        "https://kontur.ru/logistika/epd"
+      ],
+      "note": "Проверено обещание перевозочного ЭДО и передачи в ГИС; тарифов и гарантий срока нет."
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-04T07:03:39.174Z",
+  "generatedAt": "2026-10-04T07:16:52.185Z",
   "date": "2026-10-04",
-  "runId": "2026-10-04-ecc2ed48",
+  "runId": "2026-10-04-7401bf2a",
   "capacity": {
     "month": "2026-10",
     "done": 0,
@@ -11,33 +11,33 @@
     "expectedByToday": 7,
     "debt": 7,
     "todayTarget": 4,
-    "inFlight": 0,
-    "freeSlots": 4,
-    "remaining": 69,
-    "canTake": 3,
+    "inFlight": 3,
+    "freeSlots": 1,
+    "remaining": 66,
+    "canTake": 0,
     "byKind": {
       "new": {
         "target": 55,
         "done": 0,
-        "active": 0,
+        "active": 2,
         "carriedAccepted": 0,
         "expectedByToday": 7,
         "debt": 7,
-        "remaining": 55
+        "remaining": 53
       },
       "rewrite": {
         "target": 14,
         "done": 0,
-        "active": 0,
+        "active": 1,
         "carriedAccepted": 0,
         "expectedByToday": 2,
         "debt": 2,
-        "remaining": 14
+        "remaining": 13
       }
     },
     "takeByKind": {
-      "new": 2,
-      "rewrite": 1
+      "new": 0,
+      "rewrite": 0
     }
   },
   "healed": 0,
@@ -63,7 +63,8 @@
         ]
       },
       "targetFile": "src/content/blog/2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya.md",
-      "runId": "2026-10-04-ecc2ed48"
+      "runId": "2026-10-04-ecc2ed48",
+      "retry": true
     },
     {
       "kind": "new",
@@ -83,7 +84,8 @@
         "related": []
       },
       "targetFile": "src/content/blog/2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna.md",
-      "runId": "2026-10-04-ecc2ed48"
+      "runId": "2026-10-04-ecc2ed48",
+      "retry": true
     },
     {
       "kind": "rewrite",
@@ -100,7 +102,8 @@
       ],
       "score": 132,
       "targetFile": "src/content/blog/2026-05-01-kak-vybrat-onlayn-kassu-2026.md",
-      "runId": "2026-10-04-ecc2ed48"
+      "runId": "2026-10-04-ecc2ed48",
+      "retry": true
     }
   ],
   "skipped": []

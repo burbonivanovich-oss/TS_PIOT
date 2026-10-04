@@ -3,42 +3,14 @@
   "startedAt": "2026-08-10",
   "month": "2026-10",
   "counters": {
-    "new": 0,
-    "rewrite": 0,
-    "published": 0,
+    "new": 2,
+    "rewrite": 1,
+    "published": 3,
     "blockedDupes": 0,
     "quarantined": 0,
     "infraReleases": 0
   },
-  "inFlight": [
-    {
-      "slug": "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya",
-      "kind": "new",
-      "title": "ГИС ЭПД: как подключить — пошаговая инструкция",
-      "claimedAt": "2026-10-04T07:03:39.106Z",
-      "failures": 0,
-      "infraFailures": 1,
-      "lastFailure": "нет квитанции доставки текущих байтов и попытки"
-    },
-    {
-      "slug": "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna",
-      "kind": "new",
-      "title": "ГИС ЭПД: сроки 2026 года и что успеть до дедлайна",
-      "claimedAt": "2026-10-04T07:03:39.125Z",
-      "failures": 0,
-      "infraFailures": 1,
-      "lastFailure": "нет квитанции доставки текущих байтов и попытки"
-    },
-    {
-      "slug": "2026-05-01-kak-vybrat-onlayn-kassu-2026",
-      "kind": "rewrite",
-      "title": "Онлайн-касса: как выбрать для бизнеса в 2026 году",
-      "claimedAt": "2026-10-04T07:03:39.144Z",
-      "failures": 0,
-      "infraFailures": 1,
-      "lastFailure": "нет квитанции доставки текущих байтов и попытки"
-    }
-  ],
+  "inFlight": [],
   "quarantine": [],
   "history": [
     {
@@ -50,7 +22,7 @@
       "quarantined": 0
     }
   ],
-  "lastRunAt": "2026-10-04T07:10:09.328Z",
+  "lastRunAt": "2026-10-04T07:39:06.279Z",
   "lastMigration": {
     "at": "2026-09-13T19:07:00.147Z",
     "actions": 6,
