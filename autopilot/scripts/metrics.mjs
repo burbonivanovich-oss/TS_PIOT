@@ -54,6 +54,27 @@ function readRuns(dir) {
     .filter(Boolean);
 }
 
+export function modelUsage(runs, from, to) {
+  const entries = runs.flatMap(run => run.meta?.modelInvocations || [])
+    .filter(item => typeof item.startedAt === 'string' && item.startedAt.slice(0, 10) >= from && item.startedAt.slice(0, 10) <= to);
+  const measured = entries.filter(item => item.tokenSource === 'codex-cli-footer' && Number.isSafeInteger(item.reportedTokens) && item.reportedTokens >= 0);
+  const durations = entries.filter(item => Number.isFinite(item.durationMs) && item.durationMs >= 0);
+  return {
+    callsRecorded: entries.length,
+    finished: entries.filter(item => ['delivered', 'failed'].includes(item.status)).length,
+    unfinished: entries.filter(item => item.status === 'started').length,
+    tokenMeasurements: measured.length,
+    callsWithoutTokenMeasurement: entries.length - measured.length,
+    reportedTokens: measured.length ? measured.reduce((sum, item) => sum + item.reportedTokens, 0) : null,
+    durationMeasurements: durations.length,
+    totalDurationMs: durations.length ? durations.reduce((sum, item) => sum + item.durationMs, 0) : null,
+    medianDurationMs: median(durations.map(item => item.durationMs)),
+    historicalWrittenRunsWithoutLedger: runs.filter(run => run.date >= from && run.date <= to && run.stages?.written && !Array.isArray(run.meta?.modelInvocations)).length,
+    paidCost: null,
+    scope: 'observed executor calls; CLI-reported tokens, not billing; missing historical calls are unknown',
+  };
+}
+
 export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } = {}) {
   const cutoffDate = new Date(now);
   cutoffDate.setUTCDate(cutoffDate.getUTCDate() - days);
@@ -65,7 +86,8 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
   });
   const to=now.toISOString().slice(0,10);
   const history=readReports(dir,cutoff);
-  const runs=readRuns(dir).filter(r=>r.date>=cutoff && r.date<=to);
+  const allRuns = readRuns(dir);
+  const runs=allRuns.filter(r=>r.date>=cutoff && r.date<=to);
   const gated=runs.filter(r=>Array.isArray(r.stages?.gated?.results));
   const covered=new Set(gated.map(r=>r.runId));
   const coveredDates=new Set(gated.map(r=>r.date));
@@ -155,6 +177,7 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
       debtNew: Math.max(0, targetNewToday - state.counters.new),
       debtRewrite: Math.max(0, targetRewriteToday - state.counters.rewrite),
     },
+    modelUsage: modelUsage(allRuns, cutoff, to),
     cycle: { medianMinutes: median(cycles), samples: cycles.length },
     byDay: periodDays,
     backlog: {

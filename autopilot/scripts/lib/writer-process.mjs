@@ -15,6 +15,14 @@ export function assertWriterStopped(actorFile) {
   unlinkSync(actorFile);
 }
 
+// Only the terminal CLI footer is an observation; this is not billing data.
+export function reportedCliTokens(stderr) {
+  const match = stderr.match(/(?:^|\n)tokens used\r?\n([0-9]+(?:[ ,\u00a0\u202f][0-9]{3})*)\s*$/);
+  if (!match) return null;
+  const value = Number(match[1].replace(/[ ,\u00a0\u202f]/g, ''));
+  return Number.isSafeInteger(value) && value >= 0 ? value : null;
+}
+
 export async function supervisedProcess(command, args, { cwd, input = '', timeout = 30 * 60_000, actorFile, maxBytes = 32 * 1024 * 1024 } = {}) {
   if (process.platform === 'win32') throw new Error('Модельный исполнитель требует POSIX process groups');
   if (!actorFile) throw new Error('Нет пути actor lease');
@@ -63,8 +71,9 @@ export async function supervisedProcess(command, args, { cwd, input = '', timeou
     // Private diagnostics stay local and are excluded from Git. Never echo raw
     // model/tool transcripts into routine reports or production artifacts.
     writeFileSync(`${actorFile}.trace.log`, JSON.stringify({ code: result.code, signal: result.signal, failure: failure?.message || null, output, stderr }), { mode: 0o600 });
-    if (failure) throw failure;
-    if (result.code !== 0 || result.signal) throw new Error(`Исполнитель завершился с ошибкой: ${result.signal || result.code}`);
-    return { output, stderr };
+    const reportedTokens = reportedCliTokens(stderr);
+    if (failure) { failure.reportedTokens = reportedTokens; throw failure; }
+    if (result.code !== 0 || result.signal) { const error = new Error(`Исполнитель завершился с ошибкой: ${result.signal || result.code}`); error.reportedTokens = reportedTokens; throw error; }
+    return { output, stderr, reportedTokens };
   } finally { clearTimeout(timer); clearInterval(sizeTimer); kill(); }
 }
