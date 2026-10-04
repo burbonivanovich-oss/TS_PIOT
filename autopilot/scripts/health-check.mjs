@@ -103,7 +103,11 @@ export function healthCheck() {
       const writing = new Set(backlog.topics.filter((t) => t.status === 'writing').map((t) => t.slug));
       const inFlight = new Set(state.inFlight.map((t) => t.slug));
       const newInFlight = new Set(state.inFlight.filter((t) => t.kind !== 'rewrite').map((t) => t.slug));
-      const openOrders = new Set(orders.orders.map((o) => o.slug));
+      const run = /^[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-f0-9]{8}$/.test(orders.runId || '')
+        ? readJson(path.join(cfg.resolved.dataDir, 'runs', `${orders.runId}.json`), null) : null;
+      const closed = new Set((run?.runId === orders.runId ? run?.stages?.gated?.results || [] : [])
+        .filter(r => ['published', 'accepted_waiting_release', 'quarantined'].includes(r.status)).map(r => r.slug));
+      const openOrders = new Set(orders.orders.filter(o => !closed.has(o.slug) || inFlight.has(o.slug)).map(o => o.slug));
       const problems = [];
 
       const slotsNoOrder = [...inFlight].filter((s) => !openOrders.has(s));

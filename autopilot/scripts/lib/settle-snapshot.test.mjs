@@ -97,3 +97,41 @@ test('journal cannot write outside corpus through traversal', () => {
     assert.equal(existsSync(path.join(fx.root, 'outside.md')), false);
   } finally { rmSync(fx.root, { recursive: true, force: true }); }
 });
+
+for (const action of ['stage', 'promote']) test(`SIGKILL during queued rewrite ${action}: recovery restores candidate, baseline, corpus and queue together`, () => {
+  const fx = crashFixture();
+  try {
+    const data = fx.options.dataDir;
+    for (const dir of ['published-rewrites', 'release-drafts', 'failed-rewrites']) mkdirSync(path.join(data, dir));
+    const baseline = path.join(data, 'published-rewrites/a.md');
+    const candidate = path.join(data, 'release-drafts/a.mdx');
+    const queue = path.join(data, 'release-queue.json');
+    const original = '---\ntitle: old\ndraft: false\n---\nold published';
+    const rewritten = '---\ntitle: new\ndraft: true\n---\nnew candidate';
+    writeFileSync(baseline, original);
+    writeFileSync(fx.article, action === 'stage' ? rewritten : original);
+    if (action === 'promote') writeFileSync(candidate, rewritten);
+    writeFileSync(queue, JSON.stringify({ items: [{slug:'a',kind:'rewrite'}] }));
+    const before = readFileSync(queue, 'utf8');
+    const snapshots = new URL('./settle-snapshot.mjs', import.meta.url).href;
+    const rewrites = new URL('./queued-rewrite.mjs', import.meta.url).href;
+    const child = spawnSync(process.execPath, ['--input-type=module', '-e', `
+      import {snapshotSettle} from ${JSON.stringify(snapshots)};
+      import {stageQueuedRewrite,promoteQueuedRewrite} from ${JSON.stringify(rewrites)};
+      import {writeFileSync} from 'node:fs';
+      snapshotSettle(${JSON.stringify(fx.options)});
+      ${action === 'stage' ? `stageQueuedRewrite({...${JSON.stringify(fx.options)},slug:'a',file:${JSON.stringify(fx.article)}});` : `promoteQueuedRewrite({...${JSON.stringify(fx.options)},slug:'a',stagedFile:'release-drafts/a.mdx'});`}
+      writeFileSync(${JSON.stringify(queue)}, '{"items":[]}');
+      process.kill(process.pid,'SIGKILL');
+    `]);
+    assert.equal(child.signal, 'SIGKILL', child.stderr?.toString());
+    assert.equal(recoverSettle(fx.options), true);
+    assert.equal(readFileSync(baseline,'utf8'), original);
+    assert.equal(readFileSync(queue,'utf8'), before);
+    assert.equal(readFileSync(fx.article,'utf8'), action === 'stage' ? rewritten : original);
+    if (action === 'promote') assert.equal(readFileSync(candidate,'utf8'),rewritten);
+    else assert.equal(existsSync(path.join(data,'release-drafts/a.md')),false);
+    assert.equal(existsSync(path.join(fx.options.blog,'a.mdx')),false);
+    assert.equal(recoverSettle(fx.options), false);
+  } finally {rmSync(fx.root,{recursive:true,force:true});}
+});

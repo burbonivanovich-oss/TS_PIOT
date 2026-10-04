@@ -121,3 +121,19 @@ test('AP-P1-13: reconcile возвращает writing без слота в plan
   // сигнал; проверяем, что writing-рассинхронизация ушла.
   assert.ok(!/writing без активного слота/.test(check.detail), check.detail);
 });
+
+test('closed orders require matching gated evidence; accepted waiting work is not reopened', () => {
+  const fx = fixture({orders:['waiting','published','unknown','retry']});
+  const runId = '2026-10-04-1234abcd';
+  writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({runId,orders:['waiting','published','unknown','retry'].map(slug=>({slug,kind:'new'}))}));
+  mkdirSync(path.join(fx.dataDir,'runs'));
+  const manifest = path.join(fx.dataDir,'runs',runId+'.json');
+  writeFileSync(manifest,JSON.stringify({runId,stages:{gated:{results:[{slug:'waiting',status:'accepted_waiting_release'},{slug:'published',status:'published'},{slug:'retry',status:'rejected'}]}}}));
+  let check=health(fx).check;
+  assert.match(check.detail,/наряды без слота: unknown, retry/);
+  assert.ok(!check.detail.includes('waiting'));
+  assert.ok(!check.detail.includes('published'));
+  writeFileSync(manifest,JSON.stringify({runId:'2026-10-04-deadbeef',stages:{gated:{results:[{slug:'unknown',status:'published'}]}}}));
+  check=health(fx).check;
+  assert.match(check.detail,/waiting, published, unknown, retry/);
+});
