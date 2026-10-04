@@ -32,6 +32,8 @@ import {
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { queryCount, topRows, topScope } from "./source-contract.mjs";
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const DATA_DIR = join(ROOT, "src", "data", "wordstat");
 const CANDIDATES = join(DATA_DIR, ".candidates.json");
@@ -75,9 +77,7 @@ function daysBetween(aIso, bIso) {
 
 // Yandex Cloud отдаёт count строкой — приводим вручную, иначе арифметика молча
 // ломается (конкатенация / NaN).
-function toInt(v) {
-  const n = parseInt(v, 10);
-  return Number.isFinite(n) ? n : 0;
+function toInt(v) { return queryCount(v);
 }
 
 // RFC3339 с временем и Z — date-only Cloud отклоняет (Invalid time format).
@@ -154,11 +154,7 @@ async function getTopRequests(phrase) {
     regions: [REGION_ID],
     devices: ["DEVICE_ALL"],
   });
-  const arr = Array.isArray(data?.results) ? data.results : [];
-  return arr.slice(0, 30).map((r) => ({
-    phrase: String(r.phrase || ""),
-    count: toInt(r.count),
-  }));
+  return topRows(data).slice(0, 30);
 }
 
 function classifyTrend(history) {
@@ -231,8 +227,7 @@ async function main() {
   if (!DRY_RUN) {
     // Ключ не светим — только длину и хвост, чтобы видеть, что env прочитан.
     console.log(
-      `[WORDSTAT] folder_id=${FOLDER_ID} api_key_len=${API_KEY.length} ` +
-        `api_key_tail=${API_KEY.slice(-4)}`,
+      "[WORDSTAT] credentials available; values are not logged",
     );
   }
   const candidates = loadJSON(CANDIDATES, { keys: [] });
@@ -315,6 +310,7 @@ async function main() {
           ? {
               related,
               topShows,
+              topScope: topScope(REGION_ID),
               // Если точная фраза молчит, а топ говорит — это сигнал
               // переформулировать целевой запрос. Скиллы это покажут.
               topPhrase: related[0]?.phrase,

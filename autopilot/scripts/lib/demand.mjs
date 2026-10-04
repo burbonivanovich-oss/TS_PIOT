@@ -16,18 +16,20 @@ export function rankByDemand(topics, evidence, settings, now = Date.now()) {
       const captured = Date.parse(snapshot.capturedAt);
       let url;
       try { url = new URL(snapshot.url); } catch { continue; }
+      const rolling = snapshot.window?.kind === 'provider_last_30_days' && snapshot.window?.exactDatesVerified === false &&
+        snapshot.source === 'Yandex Cloud Wordstat GetTop' && snapshot.endpoint === 'https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests' &&
+        snapshot.periodStart == null && snapshot.periodEnd == null;
+      const validPeriod = snapshot.source === 'Yandex Cloud Wordstat GetTop' ? rolling : !snapshot.window && (Number.isFinite(start) && Number.isFinite(end) && start <= end && end <= now && captured >= end && now - end <= settings.demandMaxAgeDays * DAY);
       if (url.protocol !== 'https:' || url.hostname !== 'wordstat.yandex.ru' || url.username || url.password ||
           String(snapshot.region) !== String(settings.demandRegion) || url.searchParams.get('region') !== String(settings.demandRegion) ||
-          snapshot.devices !== 'all' || snapshot.match !== 'broad' ||
-          !Number.isFinite(start) || !Number.isFinite(end) || start > end || end > now ||
-          !Number.isFinite(captured) || captured > now || captured < end ||
-          now - end > settings.demandMaxAgeDays * DAY || now - captured > settings.demandMaxAgeDays * DAY) continue;
+          snapshot.devices !== 'all' || snapshot.match !== 'broad' || !validPeriod ||
+          !Number.isFinite(captured) || captured > now || now - captured > settings.demandMaxAgeDays * DAY) continue;
       for (const row of snapshot.rows || []) {
         if (typeof row.phrase !== 'string' || !row.phrase.trim() || !Number.isSafeInteger(row.count) || row.count < 0) continue;
         const key = normalize(row.phrase), previous = index.get(key);
         // Overlapping queries and duplicate snapshots are never added together.
-        if (!previous || end > previous.end || (end === previous.end && captured > previous.captured)) {
-          index.set(key, { ...row, end, captured, periodStart: snapshot.periodStart, periodEnd: snapshot.periodEnd, url: snapshot.url, region: snapshot.region });
+        if (!previous || (rolling || previous.window ? captured > previous.captured : end > previous.end || (end === previous.end && captured > previous.captured))) {
+          index.set(key, { ...row, end, captured, periodStart: snapshot.periodStart, periodEnd: snapshot.periodEnd, url: snapshot.url, region: snapshot.region, window: rolling ? snapshot.window : undefined });
         }
       }
     }
@@ -39,7 +41,7 @@ export function rankByDemand(topics, evidence, settings, now = Date.now()) {
     const matches = keywords.map(key => index.get(normalize(key))).filter(Boolean);
     const match = matches.sort((a, b) => b.count - a.count)[0];
     const boost = match ? Math.min(maxBoost, Math.log10(1 + match.count) * maxBoost / 5) : 0;
-    const demand = match ? { status: 'collected', phrase: match.phrase, count: match.count, match: 'broad', region: match.region, periodStart: match.periodStart, periodEnd: match.periodEnd, source: match.url } : { status: 'not_collected', count: null, reason: 'Нет свежей выборки с совпадающим запросом и регионом' };
+    const demand = match ? { status: 'collected', phrase: match.phrase, count: match.count, match: 'broad', region: match.region, periodStart: match.periodStart, periodEnd: match.periodEnd, source: match.url, window: match.window } : { status: 'not_collected', count: null, reason: 'Нет свежей выборки с совпадающим запросом и регионом' };
     return { ...topic, demand, priorityScore: Math.round(((topic.score || 0) + boost) * 10) / 10 };
   }).sort((a, b) => b.priorityScore - a.priorityScore);
 }
