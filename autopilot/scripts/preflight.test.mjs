@@ -161,3 +161,22 @@ test('AP-P1-03: неверная дата в seeds.json останавливае
   assert.equal(status, 2);
   assert.match(report.checks.find((c) => c.id === 'seeds').detail, /несуществующая календарная дата/);
 });
+
+test('real Git preflight preserves unstaged status prefix and checks both rename paths', () => {
+ const fx=sandbox();
+ const git=(args)=>{const p=spawnSync('git',args,{cwd:fx.root,encoding:'utf8'});assert.equal(p.status,0,p.stderr);};
+ git(['init','--initial-branch=main']);git(['config','user.name','Fixture']);git(['config','user.email','fixture@example.invalid']);
+ writeFileSync(path.join(fx.dataDir,'state.json'),'{}');writeFileSync(path.join(fx.root,'outside.txt'),'outside');
+ git(['add','.']);git(['commit','-m','fixture']);
+ writeFileSync(path.join(fx.dataDir,'state.json'),'{"changed":true}');
+ const env={AUTOPILOT_PREFLIGHT_GIT:'1',AUTOPILOT_ALLOWED_BRANCH:'main',AUTOPILOT_ALLOWED_PATHS:'data,src/content'};
+ let report=parse(run(fx,env)).report;assert.equal(report.checks.find(c=>c.id==='git').ok,true);
+ git(['mv','outside.txt','data/inside.txt']);
+ report=parse(run(fx,env)).report;assert.equal(report.checks.find(c=>c.id==='git').ok,false);
+ assert.match(report.checks.find(c=>c.id==='git').detail,/outside.txt/);
+ git(['reset','--hard','HEAD']);
+ writeFileSync(path.join(fx.dataDir,'тест с пробелом.json'),'{}');
+ report=parse(run(fx,env)).report;assert.equal(report.checks.find(c=>c.id==='git').ok,true);
+ writeFileSync(path.join(fx.root,'data-escape.txt'),'outside');
+ report=parse(run(fx,env)).report;assert.equal(report.checks.find(c=>c.id==='git').ok,false);
+});

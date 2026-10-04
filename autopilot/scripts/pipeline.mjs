@@ -370,8 +370,11 @@ function settleInner({ dry = false } = {}) {
 
   // Проверяем окончательный корпус после выпуска и перелинковки.
   const hasReleases = releasedSlugs.length > 0 || links.inserted > 0;
-  let buildEvidence = { checked: false, reason: dry ? 'dry-run' : hasReleases ? 'build-check-disabled' : 'no-release-or-interlink-change' };
-  if (!dry && hasReleases && (cfg.security?.buildCheck === true || process.env.AUTOPILOT_BUILD === '1')) {
+  const manifestBeforeBuild = orders.runId ? readRun(orders.runId) : null;
+  const pendingDeliveredBuild = (manifestBeforeBuild?.stages.written?.delivered || 0) > 0 && !manifestBeforeBuild.stages.built && !manifestBeforeBuild.stages.committed;
+  const needsBuild = hasReleases || accepted.length > 0 || pendingDeliveredBuild;
+  let buildEvidence = { checked: false, reason: dry ? 'dry-run' : needsBuild ? 'build-check-disabled' : 'no-content-work' };
+  if (!dry && needsBuild && (cfg.security?.buildCheck === true || process.env.AUTOPILOT_BUILD === '1')) {
     const corpusHash = createHash('sha256');
     for (const article of loadArticles({ includeDrafts: true }).sort((a, b) => a.path.localeCompare(b.path))) {
       const bytes = readFileSync(article.path);

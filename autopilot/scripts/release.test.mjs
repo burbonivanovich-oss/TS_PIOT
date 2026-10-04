@@ -231,3 +231,25 @@ test('queued rewrite keeps published URL through full quota, then promotes once 
   assert.equal(settle(fx).published, 0);
   assert.equal(JSON.parse(readFileSync(logPath)).days[fx.day].filter(s => s === slug).length, 1);
 });
+
+test('gated delivered draft-only run obtains real build evidence before Git recovery; failure preserves queued bytes', () => {
+ const fx=fixture();
+ const runId='2026-10-04-abcdef01';
+ const config=JSON.parse(readFileSync(fx.configFile));config.security={buildCheck:true};writeFileSync(fx.configFile,JSON.stringify(config));
+ mkdirSync(path.join(fx.dataDir,'runs'));
+ const runFile=path.join(fx.dataDir,'runs',runId+'.json');
+ writeFileSync(runFile,JSON.stringify({runId,stages:{planned:{},written:{delivered:3},gated:{published:0}},history:[]}));
+ writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({runId,date:fx.day,orders:[]}));
+ writeFileSync(path.join(fx.dataDir,'publish-log.json'),JSON.stringify({days:{[fx.day]:['x1','x2','x3']}}));
+ writeFileSync(path.join(fx.root,'package.json'),JSON.stringify({scripts:{build:'node -e "process.exit(1)"'}}));
+ const before=readFileSync(path.join(fx.blog,'w1.md'),'utf8');
+ const failed=settle(fx);assert.equal(failed.ok,false);assert.match(failed.error,/build принимающего сайта не прошёл/);
+ assert.equal(readFileSync(path.join(fx.blog,'w1.md'),'utf8'),before);
+ assert.equal(JSON.parse(readFileSync(runFile)).stages.built,undefined);
+ writeFileSync(path.join(fx.root,'package.json'),JSON.stringify({scripts:{build:'node -e "process.exit(0)"'}}));
+ const result=settle(fx);
+ assert.equal(result.published,0);assert.equal(result.acceptedWaiting,5);
+ assert.equal(result.build.checked,true);assert.equal(result.build.ok,true);
+ const manifest=JSON.parse(readFileSync(runFile));assert.equal(manifest.stages.built.corpusSha256,result.build.corpusSha256);
+ const repeated=settle(fx);assert.equal(repeated.build.checked,false);
+});

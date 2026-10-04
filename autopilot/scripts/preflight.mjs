@@ -160,11 +160,11 @@ function checkGit(cfg) {
   const git = (args) => {
     const proc = spawnSync('git', ['-C', root, ...args], { encoding: 'utf8' });
     if (proc.status !== 0) throw new Error(`git ${args.join(' ')}: ${proc.stderr.trim()}`);
-    return proc.stdout.trim();
+    return proc.stdout;
   };
   const expectedBranch = process.env.AUTOPILOT_ALLOWED_BRANCH;
   if (expectedBranch) {
-    const branch = git(['rev-parse', '--abbrev-ref', 'HEAD']);
+    const branch = git(['rev-parse', '--abbrev-ref', 'HEAD']).trim();
     if (branch !== expectedBranch) throw new Error(`ветка ${branch}, ожидалась ${expectedBranch}`);
   }
   git(['rev-parse', 'HEAD']); // HEAD должен резолвиться
@@ -172,10 +172,19 @@ function checkGit(cfg) {
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean);
-  const changed = git(['status', '--porcelain'])
-    .split('\n')
-    .filter(Boolean)
-    .map((line) => line.slice(3).trim())
+  const records = git(['status', '--porcelain=v1', '-z']).split('\0');
+  const paths = [];
+  for (let i = 0; i < records.length; i++) {
+    const record = records[i];
+    if (!record) continue;
+    if (record.length < 4 || record[2] !== ' ') throw new Error('Некорректный git status');
+    paths.push(record.slice(3));
+    if (/[RC]/.test(record.slice(0, 2))) {
+      if (!records[i + 1]) throw new Error('Неполный rename в git status');
+      paths.push(records[++i]);
+    }
+  }
+  const changed = paths
     .filter((p) => !allowed.some((prefix) => p === prefix || p.startsWith(`${prefix}/`)));
   if (changed.length) throw new Error(`изменения вне allowlist: ${changed.slice(0, 5).join(', ')}${changed.length > 5 ? ' …' : ''}`);
   return { ok: true, detail: `git: ветка${expectedBranch ? ` ${expectedBranch}` : ' ok'}, diff в пределах allowlist` };
