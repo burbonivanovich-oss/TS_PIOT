@@ -41,6 +41,27 @@
       "sha256": "cbde591360de102de0701c0132a7ac343f0b829ab774042b7634a9fdb8207aaf",
       "runId": "2026-10-04-3e30a332",
       "at": "2026-10-04T14:20:55.158Z"
+    },
+    "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika": {
+      "kind": "new",
+      "attempt": "2026-10-04T15:15:23.512Z/0/0",
+      "sha256": "94da60ef501ee14021646017a200a8a7c181378762712a2260e7be0f3e688295",
+      "runId": "2026-10-04-ff9a256a",
+      "at": "2026-10-04T15:22:39.297Z"
+    },
+    "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena": {
+      "kind": "new",
+      "attempt": "2026-10-04T15:15:23.532Z/0/0",
+      "sha256": "ca08543f207e1649036881059e3609c59c76baaf997634803d3bdb78adaf24db",
+      "runId": "2026-10-04-ff9a256a",
+      "at": "2026-10-04T15:29:03.355Z"
+    },
+    "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki": {
+      "kind": "new",
+      "attempt": "2026-10-04T15:15:23.551Z/0/0",
+      "sha256": "161a0a795d0244a581498a38e5bb141948dc108f872441e566f92201a2bf694a",
+      "runId": "2026-10-04-ff9a256a",
+      "at": "2026-10-04T15:34:53.719Z"
     }
   }
 }

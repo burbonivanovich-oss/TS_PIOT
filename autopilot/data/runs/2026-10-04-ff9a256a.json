@@ -1,0 +1,71 @@
+{
+  "runId": "2026-10-04-ff9a256a",
+  "date": "2026-10-04",
+  "kind": "day",
+  "createdAt": "2026-10-04T15:15:23.462Z",
+  "updatedAt": "2026-10-04T16:40:25.864Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-04T15:15:23.588Z",
+      "orderCount": 3,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 3,
+        "todayTarget": 4,
+        "debt": 3
+      }
+    },
+    "written": {
+      "at": "2026-10-04T15:34:53.739Z",
+      "delivered": 3,
+      "meaning": "bytes delivered; gates not passed yet"
+    },
+    "gated": {
+      "at": "2026-10-04T15:34:56.973Z",
+      "published": 0,
+      "acceptedWaiting": 6,
+      "results": [
+        {
+          "slug": "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
+          "status": "accepted_waiting_release"
+        },
+        {
+          "slug": "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena",
+          "status": "accepted_waiting_release"
+        },
+        {
+          "slug": "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki",
+          "status": "accepted_waiting_release"
+        }
+      ]
+    },
+    "built": {
+      "at": "2026-10-04T16:40:25.864Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "66ba5bc802c2b64e52c3c6f64754faf23684c7e7a37cf9606e0697c16411952d",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-04T15:15:23.588Z"
+    },
+    {
+      "stage": "written",
+      "at": "2026-10-04T15:34:53.739Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-04T15:34:56.973Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-04T16:40:25.864Z"
+    }
+  ],
+  "meta": {}
+}

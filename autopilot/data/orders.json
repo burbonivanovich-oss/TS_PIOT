@@ -1,116 +1,105 @@
 {
-  "generatedAt": "2026-10-04T14:00:11.986Z",
+  "generatedAt": "2026-10-04T15:15:23.605Z",
   "date": "2026-10-04",
-  "runId": "2026-10-04-3e30a332",
+  "runId": "2026-10-04-ff9a256a",
   "capacity": {
     "month": "2026-10",
-    "done": 2,
+    "done": 4,
     "monthlyTarget": 55,
-    "totalDone": 3,
+    "totalDone": 6,
     "totalTarget": 69,
     "expectedByToday": 7,
-    "debt": 5,
+    "debt": 3,
     "todayTarget": 4,
     "inFlight": 0,
     "freeSlots": 4,
-    "remaining": 66,
+    "remaining": 63,
     "canTake": 3,
     "byKind": {
       "new": {
         "target": 55,
-        "done": 2,
+        "done": 4,
         "active": 0,
         "carriedAccepted": 0,
         "expectedByToday": 7,
-        "debt": 5,
-        "remaining": 53
+        "debt": 3,
+        "remaining": 51
       },
       "rewrite": {
         "target": 14,
-        "done": 1,
+        "done": 2,
         "active": 0,
         "carriedAccepted": 0,
         "expectedByToday": 2,
-        "debt": 1,
-        "remaining": 13
+        "debt": 0,
+        "remaining": 12
       }
     },
     "takeByKind": {
-      "new": 2,
-      "rewrite": 1
+      "new": 3,
+      "rewrite": 0
     }
   },
   "healed": 0,
   "orders": [
     {
       "kind": "new",
-      "slug": "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
-      "title": "ГИС ЭПД: штрафы и ответственность в 2026 году",
+      "slug": "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
+      "title": "ЭТрН при самовывозе: как разобрать роли покупателя и перевозчика",
       "keywords": [
-        "штраф гис эпд",
-        "гис эпд ответственность"
+        "этрн при самовывозе"
       ],
-      "entity": "ГИС ЭПД",
-      "intent": "fines",
-      "format": "reference",
-      "segment": "none",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «140-ФЗ: переход на ЭПД с 01.09.2026 для малого и среднего бизнеса». Обязательна ссылка на /blog/2026-05-25-140-fz-epd-perehod-msb/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-25-140-fz-epd-perehod-msb",
-          "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "targetFile": "src/content/blog/2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu.md",
-      "runId": "2026-10-04-3e30a332"
-    },
-    {
-      "kind": "new",
-      "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
-      "title": "ГИС ЭПД: кого касается — разбор по видам деятельности",
-      "keywords": [
-        "кому нужен гис эпд",
-        "гис эпд кто обязан"
-      ],
-      "entity": "ГИС ЭПД",
-      "intent": "who",
-      "format": "explainer",
+      "entity": "этрн",
+      "intent": "seed",
+      "format": "howto",
       "segment": "none",
       "dedupe": {
         "verdict": "ok",
         "advice": "",
         "related": []
       },
-      "targetFile": "src/content/blog/2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti.md",
-      "runId": "2026-10-04-3e30a332"
+      "targetFile": "src/content/blog/seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika.md",
+      "runId": "2026-10-04-ff9a256a"
     },
     {
-      "kind": "rewrite",
-      "slug": "2026-05-01-ofd-dlya-ts-piot",
-      "title": "ОФД для ТС ПИоТ 2026: что такое оператор фискальных данных и как его выбрать",
-      "reasons": [
-        "\nС 1 июля 2026: нет сохранённой содержательной сверки утверждения",
-        " С 1 июля 2026: нет сохранённой содержательной сверки утверждения",
-        " с 28.12.2025: нет сохранённой содержательной сверки утверждения",
-        " С 01.07.2026: нет сохранённой содержательной сверки утверждения",
-        "\nС 01.07.2026: нет сохранённой содержательной сверки утверждения",
-        "10 000 ₽: нет сохранённой содержательной сверки утверждения",
-        "30 000 ₽: нет сохранённой содержательной сверки утверждения",
-        "3 000 ₽: нет сохранённой содержательной сверки утверждения",
-        " № 54-ФЗ: нет сохранённой содержательной сверки утверждения",
-        " ст. 3: нет сохранённой содержательной сверки утверждения",
-        " ст. 1: нет сохранённой содержательной сверки утверждения",
-        " КоАП: нет сохранённой содержательной сверки утверждения",
-        "reviewDate просрочен на 64 дн.",
-        "пересечение с другой статьёй корпуса",
-        "2026-10-01: закрывается временный доступ по старой схеме",
-        "2027-01-01: новые товарные группы"
+      "kind": "new",
+      "slug": "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena",
+      "title": "ГИС ЭПД: сколько стоит и из чего складывается цена",
+      "keywords": [
+        "гис эпд стоимость",
+        "сколько стоит гис эпд"
       ],
-      "score": 132,
-      "targetFile": "src/content/blog/2026-05-01-ofd-dlya-ts-piot.md",
-      "runId": "2026-10-04-3e30a332"
+      "entity": "ГИС ЭПД",
+      "intent": "cost",
+      "format": "reference",
+      "segment": "none",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "targetFile": "src/content/blog/2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena.md",
+      "runId": "2026-10-04-ff9a256a"
+    },
+    {
+      "kind": "new",
+      "slug": "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki",
+      "title": "ГИС ЭПД: как выбрать — критерии и типичные ошибки",
+      "keywords": [
+        "как выбрать гис эпд",
+        "гис эпд сравнение"
+      ],
+      "entity": "ГИС ЭПД",
+      "intent": "choose",
+      "format": "comparison",
+      "segment": "none",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "targetFile": "src/content/blog/2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki.md",
+      "runId": "2026-10-04-ff9a256a"
     }
   ],
   "skipped": []

@@ -1,0 +1,107 @@
+{
+  "slug": "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
+  "checkedAt": "2026-10-04T15:21:46.865Z",
+  "method": "manual-primary-source-snapshots",
+  "npa": [
+    {
+      "kind": "fz",
+      "number": "259",
+      "exists": true,
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/"
+    }
+  ],
+  "summary": {
+    "overallStatus": "ok",
+    "criticalIssues": 0,
+    "checked": 4,
+    "note": "Сверены нормы, определения ролей, область применения и вывод для собственного товара без договора перевозки. Сроки перехода, штрафы и исключения для бумажной формы не заявлены."
+  },
+  "claims": [
+    {
+      "id": "c2",
+      "type": "NPA_FZ_FULL",
+      "raw": "Федерального закона № 259",
+      "groups": [
+        "259"
+      ],
+      "offset": 891,
+      "line": 11,
+      "context": "ль, если стороны договора не установили иной порядок — это закрепляет [статья 8 Федерального закона № 259-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514d",
+      "status": "match",
+      "severity": "none",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/",
+      "rationale": "Номер закона и правило статьи 8 подтверждены полным снимком."
+    },
+    {
+      "id": "c1",
+      "type": "NPA_FZ",
+      "raw": "259-ФЗ",
+      "groups": [
+        "259"
+      ],
+      "offset": 913,
+      "line": 11,
+      "context": "ора не установили иной порядок — это закрепляет [статья 8 Федерального закона № 259-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7",
+      "status": "match",
+      "severity": "none",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/",
+      "rationale": "Номер закона и правило статьи 8 подтверждены полным снимком."
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 921,
+      "line": 11,
+      "context": "становили иной порядок — это закрепляет [статья 8 Федерального закона № 259-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/). Электронная форма не меняет назначения документа. Поэтому вопрос «кто платит",
+      "expected_source": "consultant.ru",
+      "status": "match",
+      "severity": "none",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/",
+      "rationale": "Текст документа получен и прочитан; снимок сохранён."
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_72388/b819c620a8c698de35861ad4c9d9696ee0c3ee7a/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 3317,
+      "line": 32,
+      "context": "его отправителем. [Определения участников в Уставе автомобильного транспорта](https://www.consultant.ru/document/cons_doc_LAW_72388/b819c620a8c698de35861ad4c9d9696ee0c3ee7a/) позволяют проверить схему: отправитель действует по договору перевозки от свое",
+      "expected_source": "consultant.ru",
+      "status": "match",
+      "severity": "none",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_72388/b819c620a8c698de35861ad4c9d9696ee0c3ee7a/",
+      "rationale": "Текст документа получен и прочитан; снимок сохранён."
+    }
+  ],
+  "semanticChecks": [
+    {
+      "claim": "Собственный товар для своих нужд без договора перевозки",
+      "status": "verified-inference",
+      "rationale": "Вывод из назначения накладной, ограничен отсутствием договора; не распространяется на наёмного перевозчика, связанные юрлица или обязательства перед другим лицом."
+    },
+    {
+      "claim": "Совмещение отправителя и получателя покупателем",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_72388/b819c620a8c698de35861ad4c9d9696ee0c3ee7a/",
+      "rationale": "В определениях нет запрета на совмещение. Пример обусловлен участием в договоре и полномочием получить груз."
+    },
+    {
+      "claim": "CPA diadoc-logistika",
+      "status": "match",
+      "source": "https://kontur.ru/logistika",
+      "rationale": "Официальная страница kontur.ru/logistika содержательно прочитана: сервис для всех участников перевозки, юридически значимый документооборот; баннер соответствует этим возможностям."
+    },
+    {
+      "claim": "heroImage",
+      "status": "match",
+      "rationale": "Изображение просмотрено: грузовой автомобиль у склада, планшет с транспортной накладной. Подходит как тематическая иллюстрация, не образец формы документа."
+    }
+  ]
+}

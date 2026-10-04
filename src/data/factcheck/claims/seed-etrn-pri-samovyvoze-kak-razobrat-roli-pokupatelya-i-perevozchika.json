@@ -1,0 +1,51 @@
+{
+  "slug": "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
+  "claims": [
+    {
+      "id": "c2",
+      "type": "NPA_FZ_FULL",
+      "raw": "Федерального закона № 259",
+      "groups": [
+        "259"
+      ],
+      "offset": 891,
+      "line": 11,
+      "context": "ль, если стороны договора не установили иной порядок — это закрепляет [статья 8 Федерального закона № 259-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514d"
+    },
+    {
+      "id": "c1",
+      "type": "NPA_FZ",
+      "raw": "259-ФЗ",
+      "groups": [
+        "259"
+      ],
+      "offset": 913,
+      "line": 11,
+      "context": "ора не установили иной порядок — это закрепляет [статья 8 Федерального закона № 259-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7"
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 921,
+      "line": 11,
+      "context": "становили иной порядок — это закрепляет [статья 8 Федерального закона № 259-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/). Электронная форма не меняет назначения документа. Поэтому вопрос «кто платит",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_72388/b819c620a8c698de35861ad4c9d9696ee0c3ee7a/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 3317,
+      "line": 32,
+      "context": "его отправителем. [Определения участников в Уставе автомобильного транспорта](https://www.consultant.ru/document/cons_doc_LAW_72388/b819c620a8c698de35861ad4c9d9696ee0c3ee7a/) позволяют проверить схему: отправитель действует по договору перевозки от свое",
+      "expected_source": "consultant.ru"
+    }
+  ]
+}

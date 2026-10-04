@@ -138,7 +138,7 @@
       "format": "reference",
       "segment": "none",
       "score": 57.2,
-      "status": "planned",
+      "status": "accepted_waiting_release",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "ok",
@@ -155,7 +155,8 @@
         "periodEnd": "2026-10-01",
         "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%B3%D0%B8%D1%81%20%D1%8D%D0%BF%D0%B4"
       },
-      "priorityScore": 67.9
+      "priorityScore": 67.9,
+      "updatedAt": "2026-10-04"
     },
     {
       "slug": "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki",
@@ -169,14 +170,14 @@
       "format": "comparison",
       "segment": "none",
       "score": 64.4,
-      "status": "planned",
+      "status": "accepted_waiting_release",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "ok",
         "advice": "",
         "related": []
       },
-      "updatedAt": "2026-09-13",
+      "updatedAt": "2026-10-04",
       "migration": {
         "at": "2026-09-13T19:07:00.110Z",
         "reason": "файла в корпусе нет — возврат в план"
@@ -675,6 +676,63 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 50.9
+    },
+    {
+      "slug": "2026-08-10-gis-epd-chek-list-gotovnosti-biznesa",
+      "title": "ГИС ЭПД: чек-лист готовности бизнеса",
+      "keywords": [
+        "гис эпд чек-лист",
+        "гис эпд требования"
+      ],
+      "entity": "ГИС ЭПД",
+      "intent": "checklist",
+      "format": "checklist",
+      "segment": "none",
+      "score": 50.1,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 50.1
+    },
+    {
+      "slug": "2026-08-10-gis-epd-chastye-voprosy-i-korotkie-otvety",
+      "title": "ГИС ЭПД: частые вопросы и короткие ответы",
+      "keywords": [
+        "гис эпд вопросы",
+        "гис эпд faq"
+      ],
+      "entity": "ГИС ЭПД",
+      "intent": "faq",
+      "format": "faq",
+      "segment": "none",
+      "score": 35.8,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "гис эпд вопросы",
+        "count": 57,
+        "match": "broad",
+        "region": "225",
+        "periodStart": "2026-09-02",
+        "periodEnd": "2026-10-01",
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%B3%D0%B8%D1%81%20%D1%8D%D0%BF%D0%B4"
+      },
+      "priorityScore": 46.4
     },
     {
       "slug": "2026-08-10-markirovka-vody-skolko-stoit-selleru-na-marketpleyse-i-iz-chego-skladyvaetsya-c",
@@ -1635,13 +1693,14 @@
         }
       },
       "priorityScore": 32.1,
-      "status": "planned",
+      "status": "accepted_waiting_release",
       "createdAt": "2026-10-04",
       "dedupe": {
         "verdict": "ok",
         "advice": "",
         "related": []
-      }
+      },
+      "updatedAt": "2026-10-04"
     },
     {
       "slug": "2026-08-10-razreshitelnyy-rezhim-sroki-2026-goda-i-chto-uspet-do-dedlayna",
@@ -2261,67 +2320,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 13.3
-    },
-    {
-      "slug": "2026-08-10-gis-epd-chek-list-gotovnosti-biznesa",
-      "title": "ГИС ЭПД: чек-лист готовности бизнеса",
-      "keywords": [
-        "гис эпд чек-лист",
-        "гис эпд требования"
-      ],
-      "entity": "ГИС ЭПД",
-      "intent": "checklist",
-      "format": "checklist",
-      "segment": "none",
-      "score": 50.1,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "ok",
-        "advice": "",
-        "related": []
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 50.1,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
-      "slug": "2026-08-10-gis-epd-chastye-voprosy-i-korotkie-otvety",
-      "title": "ГИС ЭПД: частые вопросы и короткие ответы",
-      "keywords": [
-        "гис эпд вопросы",
-        "гис эпд faq"
-      ],
-      "entity": "ГИС ЭПД",
-      "intent": "faq",
-      "format": "faq",
-      "segment": "none",
-      "score": 35.8,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "ok",
-        "advice": "",
-        "related": []
-      },
-      "demand": {
-        "status": "collected",
-        "phrase": "гис эпд вопросы",
-        "count": 57,
-        "match": "broad",
-        "region": "225",
-        "periodStart": "2026-09-02",
-        "periodEnd": "2026-10-01",
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%B3%D0%B8%D1%81%20%D1%8D%D0%BF%D0%B4"
-      },
-      "priorityScore": 46.4,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
     },
     {
       "slug": "2026-08-10-markirovka-molochnoy-produkcii-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
