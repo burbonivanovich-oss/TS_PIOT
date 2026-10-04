@@ -62,6 +62,27 @@
       "sha256": "161a0a795d0244a581498a38e5bb141948dc108f872441e566f92201a2bf694a",
       "runId": "2026-10-04-ff9a256a",
       "at": "2026-10-04T15:34:53.719Z"
+    },
+    "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke": {
+      "kind": "new",
+      "attempt": "2026-10-04T17:24:13.762Z/0/0",
+      "sha256": "f01c72c8a327c34dc3ca5a0dfa7d4f57c96dd0721ed4f35e0f474f5f512d281f",
+      "runId": "2026-10-04-2bcf9cda",
+      "at": "2026-10-04T17:32:32.639Z"
+    },
+    "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya": {
+      "kind": "new",
+      "attempt": "2026-10-04T17:24:13.783Z/0/0",
+      "sha256": "0bc50278d8873f351a2015370fb4785e55490ac619beac97aeea0595474bbbde",
+      "runId": "2026-10-04-2bcf9cda",
+      "at": "2026-10-04T17:40:21.214Z"
+    },
+    "2026-05-03-markirovka-igrushek-2026": {
+      "kind": "rewrite",
+      "attempt": "2026-10-04T17:24:13.802Z/0/0",
+      "sha256": "59c6e03680df6d526fcc1f2dbb0571b7c3ccbb32f380637f1d2dde64bb46fd03",
+      "runId": "2026-10-04-2bcf9cda",
+      "at": "2026-10-04T17:46:38.083Z"
     }
   }
 }

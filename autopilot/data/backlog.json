@@ -190,6 +190,41 @@
       "priorityScore": 64.4
     },
     {
+      "slug": "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
+      "title": "ЭТрН при самовывозе: как разобрать роли покупателя и перевозчика",
+      "entity": "этрн",
+      "keywords": [
+        "этрн при самовывозе"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 8,
+      "demand": {
+        "status": "collected",
+        "phrase": "этрн при самовывозе",
+        "count": 10226,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 32.1,
+      "status": "accepted_waiting_release",
+      "createdAt": "2026-10-04",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "updatedAt": "2026-10-04"
+    },
+    {
       "slug": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
       "title": "Маркировка воды: как подключить — пошаговая инструкция",
       "keywords": [
@@ -201,7 +236,7 @@
       "format": "howto",
       "segment": "none",
       "score": 63.7,
-      "status": "planned",
+      "status": "accepted_waiting_release",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "warn",
@@ -212,7 +247,7 @@
           "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
         ]
       },
-      "updatedAt": "2026-09-13",
+      "updatedAt": "2026-10-04",
       "migration": {
         "at": "2026-09-13T19:07:00.110Z",
         "reason": "файла в корпусе нет — возврат в план"
@@ -858,6 +893,35 @@
       "priorityScore": 45.8
     },
     {
+      "slug": "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya-sfere-uslug",
+      "title": "ГИС ЭПД: как подключить — пошаговая инструкция сфере услуг",
+      "keywords": [
+        "как подключить гис эпд",
+        "гис эпд инструкция",
+        "гис эпд  сфере услуг"
+      ],
+      "entity": "ГИС ЭПД",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "services",
+      "score": 42.9,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: как подключить — пошаговая инструкция». Обязательна ссылка на /blog/2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 42.9
+    },
+    {
       "slug": "2026-08-10-fiskalnyy-nakopitel-kak-podklyuchit-poshagovaya-instrukciya",
       "title": "Фискальный накопитель: как подключить — пошаговая инструкция",
       "keywords": [
@@ -1091,6 +1155,37 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 40
+    },
+    {
+      "slug": "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice",
+      "title": "ГИС ЭПД: что это и зачем нужно рознице",
+      "keywords": [
+        "что такое гис эпд",
+        "гис эпд",
+        "гис эпд  рознице"
+      ],
+      "entity": "ГИС ЭПД",
+      "intent": "what",
+      "format": "explainer",
+      "segment": "retail",
+      "score": 38.6,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «140-ФЗ: переход на ЭПД с 01.09.2026 для малого и среднего бизнеса». Обязательна ссылка на /blog/2026-05-25-140-fz-epd-perehod-msb/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-25-140-fz-epd-perehod-msb",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya",
+          "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 38.6
     },
     {
       "slug": "2026-08-10-markirovka-obuvi-sroki-2026-goda-i-chto-uspet-do-dedlayna",
@@ -1668,41 +1763,6 @@
       "priorityScore": 32.4
     },
     {
-      "slug": "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
-      "title": "ЭТрН при самовывозе: как разобрать роли покупателя и перевозчика",
-      "entity": "этрн",
-      "keywords": [
-        "этрн при самовывозе"
-      ],
-      "intent": "seed",
-      "segment": "none",
-      "format": "howto",
-      "score": 8,
-      "demand": {
-        "status": "collected",
-        "phrase": "этрн при самовывозе",
-        "count": 10226,
-        "match": "broad",
-        "region": "225",
-        "periodStart": null,
-        "periodEnd": null,
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD",
-        "window": {
-          "kind": "provider_last_30_days",
-          "exactDatesVerified": false
-        }
-      },
-      "priorityScore": 32.1,
-      "status": "accepted_waiting_release",
-      "createdAt": "2026-10-04",
-      "dedupe": {
-        "verdict": "ok",
-        "advice": "",
-        "related": []
-      },
-      "updatedAt": "2026-10-04"
-    },
-    {
       "slug": "2026-08-10-razreshitelnyy-rezhim-sroki-2026-goda-i-chto-uspet-do-dedlayna",
       "title": "Разрешительный режим: сроки 2026 года и что успеть до дедлайна",
       "keywords": [
@@ -1789,13 +1849,14 @@
         }
       },
       "priorityScore": 31.5,
-      "status": "planned",
+      "status": "accepted_waiting_release",
       "createdAt": "2026-10-04",
       "dedupe": {
         "verdict": "ok",
         "advice": "",
         "related": []
-      }
+      },
+      "updatedAt": "2026-10-04"
     },
     {
       "slug": "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya",
@@ -1982,6 +2043,36 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 28.8
+    },
+    {
+      "slug": "seed-etrn-dlya-gruzootpravitelya-podgotovka-otpravki-i-peredacha-dokumenta-perevozchi",
+      "title": "ЭТрН для грузоотправителя: подготовка отправки и передача документа перевозчику",
+      "entity": "этрн",
+      "keywords": [
+        "этрн для грузоотправителя"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 8,
+      "demand": {
+        "status": "collected",
+        "phrase": "этрн для грузоотправителя",
+        "count": 2650,
+        "match": "broad",
+        "region": "225",
+        "periodStart": "2026-09-02",
+        "periodEnd": "2026-10-01",
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD"
+      },
+      "priorityScore": 28.5,
+      "status": "planned",
+      "createdAt": "2026-10-04",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      }
     },
     {
       "slug": "2026-08-10-fiskalnyy-nakopitel-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
@@ -2414,37 +2505,6 @@
       "deferredReason": "buffer-rebalanced"
     },
     {
-      "slug": "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya-sfere-uslug",
-      "title": "ГИС ЭПД: как подключить — пошаговая инструкция сфере услуг",
-      "keywords": [
-        "как подключить гис эпд",
-        "гис эпд инструкция",
-        "гис эпд  сфере услуг"
-      ],
-      "entity": "ГИС ЭПД",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "services",
-      "score": 42.9,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: как подключить — пошаговая инструкция». Обязательна ссылка на /blog/2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 42.9,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
       "slug": "2026-08-10-markirovka-vody-chastye-oshibki-i-chem-oni-zakanchivayutsya",
       "title": "Маркировка воды: частые ошибки и чем они заканчиваются",
       "keywords": [
@@ -2505,39 +2565,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 40.1,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
-      "slug": "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice",
-      "title": "ГИС ЭПД: что это и зачем нужно рознице",
-      "keywords": [
-        "что такое гис эпд",
-        "гис эпд",
-        "гис эпд  рознице"
-      ],
-      "entity": "ГИС ЭПД",
-      "intent": "what",
-      "format": "explainer",
-      "segment": "retail",
-      "score": 38.6,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «140-ФЗ: переход на ЭПД с 01.09.2026 для малого и среднего бизнеса». Обязательна ссылка на /blog/2026-05-25-140-fz-epd-perehod-msb/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-25-140-fz-epd-perehod-msb",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya",
-          "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 38.6,
       "deferredAt": "2026-10-04",
       "deferredReason": "buffer-rebalanced"
     },
@@ -2821,38 +2848,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 28.7,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
-      "slug": "seed-etrn-dlya-gruzootpravitelya-podgotovka-otpravki-i-peredacha-dokumenta-perevozchi",
-      "title": "ЭТрН для грузоотправителя: подготовка отправки и передача документа перевозчику",
-      "entity": "этрн",
-      "keywords": [
-        "этрн для грузоотправителя"
-      ],
-      "intent": "seed",
-      "segment": "none",
-      "format": "howto",
-      "score": 8,
-      "demand": {
-        "status": "collected",
-        "phrase": "этрн для грузоотправителя",
-        "count": 2650,
-        "match": "broad",
-        "region": "225",
-        "periodStart": "2026-09-02",
-        "periodEnd": "2026-10-01",
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD"
-      },
-      "priorityScore": 28.5,
-      "status": "deferred",
-      "createdAt": "2026-10-04",
-      "dedupe": {
-        "verdict": "ok",
-        "advice": "",
-        "related": []
-      },
       "deferredAt": "2026-10-04",
       "deferredReason": "buffer-rebalanced"
     },

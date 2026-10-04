@@ -1,0 +1,65 @@
+{
+  "slug": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_385620/f2cdb69cd6afc22acfd49bb49234d5e2ef8af65b/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 1311,
+      "line": 13,
+      "context": "дин ИНН, а документы приходят на другой. [Правила маркировки упакованной воды](https://www.consultant.ru/document/cons_doc_LAW_385620/f2cdb69cd6afc22acfd49bb49234d5e2ef8af65b/) предусматривают квалифицированную электронную подпись и возможность подписыват",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c2",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_385620/f2cdb69cd6afc22acfd49bb49234d5e2ef8af65b/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 2456,
+      "line": 19,
+      "context": "исывается электронной подписью; порядок описан в [разделе правил о регистрации](https://www.consultant.ru/document/cons_doc_LAW_385620/f2cdb69cd6afc22acfd49bb49234d5e2ef8af65b/). Если магазин уже работает с другой маркированной продукцией, сначала откройт",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_385620/7cebbcef1a0c786249070e7fcbe66173cc962d6b/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 3952,
+      "line": 31,
+      "context": "документ будет виден сотруднику магазина. В [правилах передачи и приёмки воды](https://www.consultant.ru/document/cons_doc_LAW_385620/7cebbcef1a0c786249070e7fcbe66173cc962d6b/) предусмотрен УПД, подписанный обеими сторонами, и направление сведений операто",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_385620/7cebbcef1a0c786249070e7fcbe66173cc962d6b/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 6544,
+      "line": 49,
+      "context": "ДО, но и результат обработки сведений системой маркировки. В [правилах приёмки](https://www.consultant.ru/document/cons_doc_LAW_385620/7cebbcef1a0c786249070e7fcbe66173cc962d6b/) отражение передачи связано с получением уведомления системой мониторинга. Сохр",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c5",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_385620/f2cdb69cd6afc22acfd49bb49234d5e2ef8af65b/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 7137,
+      "line": 53,
+      "context": ". Эти требования приведены в [разделе правил для участников розничного оборота](https://www.consultant.ru/document/cons_doc_LAW_385620/f2cdb69cd6afc22acfd49bb49234d5e2ef8af65b/). Для автономного режима предусмотрены особенности; текущая инструкция рассматр",
+      "expected_source": "consultant.ru"
+    }
+  ]
+}
