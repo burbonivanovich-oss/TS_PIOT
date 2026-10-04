@@ -63,19 +63,30 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
     counters: { new: 0, rewrite: 0, published: 0, quarantined: 0, infraReleases: 0 },
     history: [],
   });
-  const { reports, unreadable } = readReports(dir, cutoff);
+  const to=now.toISOString().slice(0,10);
+  const history=readReports(dir,cutoff);
+  const runs=readRuns(dir).filter(r=>r.date>=cutoff && r.date<=to);
+  const gated=runs.filter(r=>Array.isArray(r.stages?.gated?.results));
+  const covered=new Set(gated.map(r=>r.runId));
+  const coveredDates=new Set(gated.map(r=>r.date));
+  const ambiguousLegacyReports=history.reports.filter(r=>!r.runId&&coveredDates.has(r.date)).length;
+  const reports=[...gated.map(r=>({date:r.date,runId:r.runId,...r.stages.gated,...(r.stages.gated.links||{})})),...history.reports.filter(r=>r.date<=to && (r.runId ? !covered.has(r.runId) : !coveredDates.has(r.date)))].sort((a,b)=>a.date.localeCompare(b.date));
+  const unreadable=history.unreadable;
   const publishLog = readJson(path.join(dir, 'publish-log.json'), { days: {} });
   const release = readJson(path.join(dir, 'release-queue.json'), { items: [] });
   const dupes = readJson(path.join(dir, 'dupes.json'), { pairs: [] });
   const backlog = readJson(path.join(dir, 'backlog.json'), { topics: [] });
 
   const results = reports.flatMap((r) => r.results || []);
-  const published = reports.reduce((s, r) => s + (r.published || 0), 0);
+  const periodDays=Object.fromEntries(Object.entries(publishLog.days||{}).filter(([date])=>date>=cutoff&&date<=to));
+  for(const slugs of Object.values(periodDays))if(!Array.isArray(slugs))throw new Error('Invalid publication ledger');
+  const published=Object.values(periodDays).reduce((sum,slugs)=>sum+new Set(slugs).size,0);
+  const accepted=results.filter(r=>['published','accepted_waiting_release'].includes(r.status)).length;
   const rejected = results.filter((r) => r.status === 'rejected').length;
   const quarantined = results.filter((r) => r.status === 'quarantined').length;
   const infraMissing = results.filter((r) => r.status === 'infra_missing').length;
   const infraReleased = results.filter((r) => r.status === 'infra_released').length;
-  const attempts = published + rejected + quarantined;
+  const attempts = accepted + rejected + quarantined;
 
   const reasonCounts = new Map();
   for (const r of results.filter((x) => x.status === 'rejected' || x.status === 'quarantined')) {
@@ -84,7 +95,6 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
     }
   }
 
-  const runs = readRuns(dir);
   const cycles = runs
     .filter((r) => r.stages?.planned?.at && r.stages?.gated?.at)
     .map((r) => Math.round((new Date(r.stages.gated.at) - new Date(r.stages.planned.at)) / 60000));
@@ -111,7 +121,7 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
   const watch = dupes.pairs.filter((p) => p.verdict === 'watch').length;
 
   const metrics = {
-    period: { from: cutoff, to: today(), reports: reports.length, unreadableReports: unreadable },
+    period: { from: cutoff, to, reports: reports.length, unreadableReports: unreadable, gatedRuns: gated.length, ambiguousLegacyReports, linkMeasurements:reports.filter(r=>Number.isFinite(r.linksInserted)).length },
     pace: {
       month,
       done,
@@ -121,12 +131,14 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
     },
     acceptance: {
       attempts,
+      accepted,
+      scope: 'recorded acceptance/release decisions, not unique articles',
       published,
       rejected,
       quarantined,
       infraMissing,
       infraReleased,
-      acceptanceRate: attempts ? Math.round((published / attempts) * 100) / 100 : null,
+      acceptanceRate: attempts ? Math.round((accepted / attempts) * 100) / 100 : null,
     },
     rejectReasons: [...reasonCounts.entries()].map(([reason, count]) => ({ reason, count })).sort((a, b) => b.count - a.count),
     links: {
@@ -144,7 +156,7 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
       debtRewrite: Math.max(0, targetRewriteToday - state.counters.rewrite),
     },
     cycle: { medianMinutes: median(cycles), samples: cycles.length },
-    byDay: publishLog.days,
+    byDay: periodDays,
     backlog: {
       planned: plannedTopics.length,
       entities: entityCounts.size,

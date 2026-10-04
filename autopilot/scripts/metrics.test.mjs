@@ -144,3 +144,18 @@ test('AP-P1-16: пустой каталог даёт нулевые метрик
   assert.equal(m.cycle.medianMinutes, null);
   assert.equal(m.backlog.planned, 0);
 });
+
+test('multiple gated runs on one day survive the overwritten day report and queue acceptance counts as success',()=>{
+ const dir=fixture(), date=day(0);
+ const first={runId:'first',date,stages:{gated:{published:0,results:[{slug:'new-a',status:'accepted_waiting_release'},{slug:'bad',status:'rejected',detail:'sources'}],links:{linksInserted:3}}}};
+ const second={runId:'second',date,stages:{gated:{published:0,results:[{slug:'new-b',status:'accepted_waiting_release'}],links:{linksInserted:1}}}};
+ writeFileSync(path.join(dir,'runs','first.json'),JSON.stringify(first));writeFileSync(path.join(dir,'runs','second.json'),JSON.stringify(second));
+ writeFileSync(path.join(dir,`report-${date}.json`),JSON.stringify({date,runId:'second',published:0,results:second.stages.gated.results,linksInserted:1}));
+ const m=computeMetrics({dir,days:0});assert.equal(m.period.gatedRuns,2);assert.equal(m.period.reports,2);assert.equal(m.acceptance.accepted,2);assert.equal(m.acceptance.attempts,3);assert.equal(m.acceptance.acceptanceRate,.67);assert.equal(m.acceptance.published,2,'journal is authoritative for publication');assert.equal(m.links.inserted,4);assert.deepEqual(m.rejectReasons,[{reason:'sources',count:1}]);
+});
+
+test('ambiguous legacy day report is flagged and future/outside-window runs do not affect cycle or rates',()=>{
+ const dir=fixture(),date=day(0);writeFileSync(path.join(dir,'runs','current.json'),JSON.stringify({runId:'current',date,stages:{gated:{results:[{slug:'a',status:'accepted_waiting_release'}]}}}));
+ writeFileSync(path.join(dir,'runs','future.json'),JSON.stringify({runId:'future',date:'2999-01-01',stages:{planned:{at:'2999-01-01T00:00:00Z'},gated:{at:'2999-01-01T01:00:00Z',results:[{slug:'future',status:'rejected'}]}}}));
+ const m=computeMetrics({dir,days:0});assert.equal(m.period.ambiguousLegacyReports,1);assert.equal(m.period.gatedRuns,1);assert.equal(m.acceptance.accepted,1);assert.equal(m.acceptance.rejected,0);assert.equal(m.period.linkMeasurements,0);assert.equal(m.cycle.samples,2);
+});
