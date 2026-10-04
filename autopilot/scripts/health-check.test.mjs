@@ -137,3 +137,10 @@ test('closed orders require matching gated evidence; accepted waiting work is no
   check=health(fx).check;
   assert.match(check.detail,/waiting, published, unknown, retry/);
 });
+
+test('waiting queue health cannot count rejected or missing articles as a ready buffer',()=>{
+ const fx=fixture();writeFileSync(path.join(fx.dataDir,'release-queue.json'),JSON.stringify({items:[{slug:'seed',kind:'new',acceptedAt:TODAY},{slug:'missing',kind:'new',acceptedAt:TODAY}]}));
+ const r=health(fx);const report=r.report||r;const check=report.checks.find(c=>c.name==='готовность запаса к выпуску');
+ assert.equal(check.level,'fail');assert.equal(check.actionRequired,true);assert.equal(check.items.length,2);
+ assert.ok(check.items[0].blockers.includes('length'));assert.match(check.items[1].error,/отсутствует/);
+});
