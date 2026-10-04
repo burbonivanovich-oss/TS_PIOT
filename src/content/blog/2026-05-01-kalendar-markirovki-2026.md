@@ -14,6 +14,7 @@ tags:
 categories:
   - markirovka
 draft: false
+interlinkExempt: true
 seo:
   keywords:
     - календарь маркировки 2026
