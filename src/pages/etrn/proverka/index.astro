@@ -1,0 +1,72 @@
+---
+import BaseHead from '../../../components/BaseHead.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { READINESS_QUESTIONS } from '../../../utils/etrn-readiness.mjs';
+import { u } from '../../../utils/url';
+---
+<!doctype html>
+<html lang="ru">
+  <head><BaseHead title="Готовы ли вы к ЭТРН — проверка и план подготовки" description="Ответьте на пять вопросов о роли компании, учётной системе и участниках перевозки. Получите список действий для подготовки обмена ЭТРН." /></head>
+  <body>
+    <Header />
+    <main>
+      <a href={u('/produkty/diadoc-logistika/')}>ЭТРН и подключение</a>
+      <h1>Что подготовить для работы с ЭТРН</h1>
+      <p class="intro">Пять вопросов — и список действий для вашей компании. Ответы остаются на этой странице.</p>
+      <form id="readiness-form">
+        {READINESS_QUESTIONS.map(q => <fieldset><legend>{q.label}</legend><div class="options">{q.options.map(([value, label]) => <label><input type="radio" name={q.id} value={value} required />{label}</label>)}</div></fieldset>)}
+        <button type="submit">Получить план подготовки</button>
+      </form>
+      <section id="readiness-result" hidden aria-live="polite" aria-labelledby="result-title">
+        <h2 id="result-title" tabindex="-1"></h2>
+        <ol id="result-steps"></ol>
+        <p>Этот список помогает организовать запуск. Для конкретной перевозки отдельно проверьте применимые требования и документы.</p>
+        <div class="actions"><a class="cta" href={u('/produkty/diadoc-logistika/#lead')}>Подобрать подключение ЭТРН →</a><button id="readiness-reset" type="button">Изменить ответы</button></div>
+      </section>
+      <noscript><p>Для персонального плана включите JavaScript. Общий порядок: распределите роли, выберите интерфейс, согласуйте обмен с контрагентами, проверьте подписантов и проведите пробный рейс.</p></noscript>
+    </main>
+    <Footer />
+    <script>
+      import { readinessPlan } from '../../../utils/etrn-readiness.mjs';
+      const form = document.querySelector<HTMLFormElement>('#readiness-form');
+      const result = document.querySelector<HTMLElement>('#readiness-result');
+      const title = document.querySelector<HTMLElement>('#result-title');
+      const list = document.querySelector<HTMLOListElement>('#result-steps');
+      form?.addEventListener('submit', event => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        const plan = readinessPlan(Object.fromEntries(new FormData(form)));
+        if (!plan.complete || !result || !title || !list) return;
+        title.textContent = plan.title;
+        list.replaceChildren(...plan.steps.map(step => { const li = document.createElement('li'); li.textContent = step.text; return li; }));
+        result.hidden = false;
+        title.focus();
+        result.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      });
+      document.querySelector('#readiness-reset')?.addEventListener('click', () => {
+        if (result) result.hidden = true;
+        form?.querySelector<HTMLInputElement>('input:checked, input')?.focus();
+        form?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      });
+    </script>
+    <style>
+      main { max-width: 800px; margin: 0 auto; padding: 48px 20px 72px; color: var(--color-text, #172c26); }
+      h1 { font-size: clamp(28px, 5vw, 44px); line-height: 1.15; margin: 20px 0; }
+      .intro { font-size: 20px; line-height: 1.5; }
+      fieldset { border: 1px solid #b7c9c1; border-radius: 12px; margin: 24px 0; padding: 20px; min-width: 0; }
+      legend { font-weight: 700; padding: 0 6px; }
+      .options { display: grid; gap: 12px; }
+      label { display: flex; gap: 12px; align-items: center; min-height: 44px; cursor: pointer; }
+      input { flex-shrink: 0; width: 20px; height: 20px; accent-color: #145747; }
+      button, .cta { display: inline-block; background: #145747; color: white; border: 0; border-radius: 8px; padding: 14px 20px; font: inherit; text-decoration: none; cursor: pointer; }
+      button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #dc841b; outline-offset: 4px; }
+      #readiness-result { margin-top: 36px; padding: 24px; border: 2px solid #145747; border-radius: 12px; scroll-margin-top: 24px; }
+      li { margin: 14px 0; line-height: 1.6; }
+      .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+      #readiness-reset { background: #e4ede8; color: #172c26; }
+      @media print { form, .actions { display: none; } }
+      @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+    </style>
+  </body>
+</html>

@@ -27,7 +27,8 @@ export function getStaticPaths() {
 const { product } = Astro.props;
 const banner = CPA_BANNERS[product.bannerId];
 const group = CATALOG_GROUPS.find(g => g.id === product.group);
-const name = banner.title.split('—')[0].trim();
+const isLogistics = product.slug === 'diadoc-logistika';
+const name = isLogistics ? 'Логистика от Контур.Диадока' : banner.title.split('—')[0].trim();
 
 // Инлайн-форма заявки только если у оффера есть widget-конфиг; иначе CTA-переход.
 const hasForm = !!(banner.widget && banner.erid);
@@ -52,13 +53,21 @@ const description = banner.description;
 
 // Соц-доказательство цифрами — единое для всех продуктов Контура,
 // согласовано с текстами на странице (перезвон за 15 минут, подключение от 1 дня).
-const stats = [
+const stats = isLogistics ? [
+	{ n: 'Браузер', l: 'обмен ЭТРН через веб-интерфейс' },
+	{ n: '1С', l: 'работа из учётной системы' },
+	{ n: 'Телефон', l: 'приём и передача груза водителем' },
+] : [
 	{ n: '2 млн+', l: 'компаний работают с Контуром' },
 	{ n: '15 минут', l: 'перезвон специалиста после заявки' },
 	{ n: 'от 1 дня', l: 'подключение и настройка' },
 ];
 // Как подключить — единый процесс для всех продуктов Контура.
-const steps = [
+const steps = isLogistics ? [
+	{ t: 'Уточните сценарий', d: 'Ваша роль в перевозке, объём документов, учётная система и готовность контрагентов — основа подбора.' },
+	{ t: 'Подготовьте обмен', d: 'Согласуйте способ работы, электронные подписи уполномоченных лиц и подключение участников перевозки.' },
+	{ t: 'Проведите первый обмен', d: 'Создание, погрузка, приёмка и завершение накладной: проверьте весь маршрут документа с участниками.' },
+] : [
 	{ t: 'Оставьте заявку', d: 'Заполните форму — специалист Контура перезвонит в тот же рабочий день.' },
 	{ t: 'Подберём решение', d: 'Под вашу задачу и объём, ответим на вопросы и назовём тариф.' },
 	{ t: 'Подключим и настроим', d: 'Поможем с запуском и интеграцией — без простоя в работе.' },
@@ -68,7 +77,13 @@ const trust = [
 	'Заявку обрабатывает Контур, без посредников',
 	'Помощь на всех этапах подключения',
 ];
-const faq = [
+const faq = isLogistics ? [
+	{ q: 'Что уточнить для расчёта стоимости?', a: 'Укажите свою роль, ожидаемый объём ЭТРН и способ работы: браузер или интеграция с учётной системой. Запросите у Контура стоимость документов, настройки и сопровождения для вашего сценария.' },
+	{ q: 'Можно ли работать из 1С?', a: 'У Логистики есть решения для обмена ЭПД из 1С. Поддержку вашей конфигурации и возможность работы в роли отправителя, перевозчика или получателя уточните при подборе.' },
+	{ q: 'Что понадобится водителю?', a: 'Водитель подтверждает приём и передачу груза простой электронной подписью в мобильном приложении. До первого обмена уточните настройку доступа и устройств.' },
+	{ q: 'Можно подключиться, если партнёры ещё не готовы?', a: 'Для завершения обмена нужны действия других участников перевозки. При подборе уточните, как подключить контрагентов и проверить обмен с их оператором; срок запуска зависит от готовности участников и способа интеграции.' },
+	{ q: 'Кто оформляет договор?', a: 'Договор и подключение — на стороне Контура. «Этикетка» помогает выбрать сервис и направляет заявку; отправка заявки не является оплатой.' },
+] : [
 	{ q: 'Сколько это стоит?', a: 'Тариф рассчитывает Контур под вашу задачу и объём. Оставьте заявку — специалист подберёт решение и назовёт цену, это ни к чему не обязывает.' },
 	{ q: 'Кто оформляет договор?', a: 'Договор вы заключаете напрямую с Контуром, заявку обрабатывает Контур. «Этикетка» — информационный партнёр.' },
 	{ q: 'Как быстро подключат?', a: 'После заявки специалист Контура перезванивает в тот же рабочий день, помогает с подбором, подключением и настройкой.' },
@@ -113,7 +128,7 @@ const faqJsonLd = {
 	<body>
 		<Header />
 
-		<main class="pp">
+		<main class="pp" data-commercial-product={banner.id}>
 			<!-- HERO: тёмный полноширинный, оффер слева, заявка-карточка справа -->
 			<section class="pp-hero">
 				<div class="pp-inner pp-hero-grid">
@@ -154,7 +169,7 @@ const faqJsonLd = {
 					</div>
 					<div class="pp-hero-form" id="lead">
 						{hasForm ? (
-							<KonturOrderWidget id={product.bannerId} heading={primaryIsPurchase ? 'Нужна консультация — перезвоним за 15 минут' : 'Оставьте заявку — перезвоним за 15 минут'} compact />
+							<KonturOrderWidget id={product.bannerId} heading={isLogistics ? 'Подобрать подключение ЭТРН' : primaryIsPurchase ? 'Нужна консультация — перезвоним за 15 минут' : 'Оставьте заявку — перезвоним за 15 минут'} compact />
 						) : (
 							<CpaCallout id={product.bannerId} />
 						)}
@@ -192,6 +207,22 @@ const faqJsonLd = {
 						<p>{product.audience}</p>
 					</div>
 				</section>
+
+				{isLogistics && (
+					<section class="pp-section" aria-labelledby="transport-roles">
+						<h2 class="pp-h2" id="transport-roles">Какую задачу решает ваша компания</h2>
+						<div class="pp-steps">
+							{[
+								{ t: 'Грузоотправитель', d: 'Создавайте ЭТРН и подписывайте свой раздел: сведения о грузе и участниках перевозки.' },
+								{ t: 'Перевозчик', d: 'Подписывайте накладную при приёме и сдаче груза; водитель подтверждает операции в приложении.' },
+								{ t: 'Грузополучатель', d: 'Фиксируйте приёмку груза и подписывайте свой раздел накладной.' },
+							].map(role => <div class="pp-step"><div class="pp-step-b"><h3 class="pp-step-t">{role.t}</h3><p>{role.d}</p></div></div>)}
+						</div>
+						<p><a href={u('/etrn/proverka/')}>Проверить готовность к ЭТРН и получить план подготовки →</a></p>
+						<p><a href="#lead" class="pp-btn pp-btn-lime">Подобрать подключение ЭТРН →</a></p>
+						<p>Возможности сервиса: <a href="https://kontur.ru/logistika/etrn" target="_blank" rel="noopener noreferrer">обмен ЭТРН</a>, <a href="https://kontur.ru/logistika/1c" target="_blank" rel="noopener noreferrer">работа в 1С</a> и <a href="https://kontur.ru/logistika/how/web" target="_blank" rel="noopener noreferrer">веб-интерфейс</a>.</p>
+					</section>
+				)}
 
 				<!-- КАК ПОДКЛЮЧИТЬ -->
 				<section class="pp-section">
@@ -237,9 +268,9 @@ const faqJsonLd = {
 						</>
 					) : (
 						<>
-							<h2>{name}: оставьте заявку</h2>
+							<h2>{isLogistics ? 'Подберите подключение ЭТРН под свой сценарий' : `${name}: оставьте заявку`}</h2>
 							<p>Специалист Контура перезвонит, подберёт тариф под вашу задачу и поможет с подключением.</p>
-							<a href="#lead" class="pp-btn pp-btn-lime">Оставить заявку →</a>
+							<a href="#lead" class="pp-btn pp-btn-lime">{isLogistics ? 'Подобрать подключение ЭТРН' : 'Оставить заявку'} →</a>
 							{secondaryPurchase && (
 								<div><a href={secondaryPurchase.href} class="pp-cta-alt" target="_blank" rel="sponsored nofollow noopener" data-cpa-id={banner.id}>{secondaryPurchase.label} →</a></div>
 							)}
@@ -277,6 +308,20 @@ const faqJsonLd = {
 		</main>
 
 		<Footer />
+
+		<script>
+			import { trackCommercial } from '../../utils/track-commercial';
+			const productPage = document.querySelector<HTMLElement>('[data-commercial-product]');
+			if (productPage) {
+				const offer = productPage.dataset.commercialProduct;
+				trackCommercial('product-view', { offer });
+				productPage.addEventListener('click', event => {
+					const link = (event.target as Element)?.closest('a[href="#lead"], a[data-cpa-id]');
+					if (!link) return;
+					trackCommercial('product-cta-click', { offer, action: link.getAttribute('href') === '#lead' ? 'lead' : 'external' });
+				});
+			}
+		</script>
 
 		<style>
 			/* Полноширинные «ленты» + центрированные внутренние обёртки.

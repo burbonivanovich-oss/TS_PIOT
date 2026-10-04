@@ -81,3 +81,15 @@ test('ETK-P0-02: permissions на уровне workflow не шире contents: 
   // contents: write допустим только в job (с отступом), но не на уровне workflow (с колонки 0).
   assert.ok(!/^permissions:\n\s+contents: write/m.test(WORKFLOW), 'workflow-уровень не должен иметь contents: write');
 });
+
+test('ETK-P0-01: внутри autopilot/ нет второго каталога workflow', () => {
+  // GitHub запускает workflow только из корневого .github/workflows.
+  // Копия внутри autopilot/ выглядела рабочей, но не исполнялась никогда —
+  // из-за этой иллюзии ETK-P0-02 однажды уже была сделана дважды, в двух
+  // копиях движка. Второго такого каталога быть не должно.
+  const decoy = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '.github');
+  assert.ok(
+    !existsSync(decoy),
+    'autopilot/.github не исполняется GitHub и вводит в заблуждение — workflow живёт только в корне',
+  );
+});

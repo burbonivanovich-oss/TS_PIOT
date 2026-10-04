@@ -57,7 +57,7 @@ const source = w?.source ?? 'etiketka-media.ru';
 			{!compact && <p class="kow-desc">{banner.description}</p>}
 		</div>
 
-		<div class="kow-mount kontur-widget-scope" data-kontur-widget data-goal={`lead-${id}`}>
+		<div class="kow-mount kontur-widget-scope" data-kontur-widget data-offer={id}>
 			{/* Штатный сниппет заявки Контура: исполняется на месте, форма
 			    монтируется лоадером в этот контейнер. Значения _skbOrder уходят
 			    дословно — атрибуция сохранена. is:inline, чтобы Astro не трогал. */}
@@ -99,13 +99,18 @@ const source = w?.source ?? 'etiketka-media.ru';
 )}
 
 <script>
-	import { track } from '../utils/track';
+	import { trackCommercial } from '../utils/track-commercial';
 
-	// Цель Метрики на отправку заявки — ловим submit делегированно на контейнере
-	// (форму впрыскивает сторонний лоадер уже после загрузки страницы).
+	// focus/submit — интерес и попытка отправки, не подтверждённый лид.
 	document.querySelectorAll<HTMLElement>('[data-kontur-widget]').forEach((mount) => {
-		const goal = mount.dataset.goal;
-		if (goal) mount.addEventListener('submit', () => track(goal), true);
+		const offer = mount.dataset.offer;
+		let started = false;
+		mount.addEventListener('focusin', event => {
+			if (started || !(event.target as Element)?.matches('input, select, textarea')) return;
+			started = true;
+			trackCommercial('form-start', { offer });
+		});
+		mount.addEventListener('submit', () => trackCommercial('form-submit-attempt', { offer }), true);
 	});
 </script>
 

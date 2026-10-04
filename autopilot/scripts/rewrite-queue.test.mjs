@@ -53,6 +53,26 @@ function run(code, fx) {
 const item = (slug, score) => ({ slug, title: slug, score, reasons: ['старое'] });
 const queue = (fx) => JSON.parse(readFileSync(path.join(fx.dataDir, 'rewrite-queue.json'), 'utf8'));
 
+test('factual urgency cannot reissue a quarantined rewrite', () => {
+  const fx = fixture([item('quarantined', 100), item('available', 10)]);
+  const result = run(`import { takeRewrites } from ${JSON.stringify(MODULE)}; process.stdout.write(JSON.stringify(takeRewrites(1, { excluded: ['quarantined'] })));`, fx);
+  assert.deepEqual(result.map(i => i.slug), ['available']);
+  assert.equal(queue(fx).items.find(i => i.slug === 'quarantined').reservedAt, undefined);
+});
+
+test('published critical claims without evidence bypass rewrite cooldown; ordinary articles do not', () => {
+  const fx = fixture();
+  const date = new Date().toISOString().slice(0, 10);
+  for (const [slug, body] of [['law', 'Федеральный закон № 259-ФЗ описан в [источнике](https://www.consultant.ru/document/cons_doc_LAW_72388/).'], ['ordinary', 'Обычный материал без нормативных утверждений.']]) {
+    writeFileSync(path.join(fx.root, 'src/content/blog', slug + '.md'), `---\ntitle: ${slug}\npubDate: ${date}\ndraft: false\n---\n${body}`);
+  }
+  writeFileSync(path.join(fx.dataDir, 'rewrite-log.json'), JSON.stringify({ entries: { law: { lastRewrite: date }, ordinary: { lastRewrite: date } } }));
+  const result = run(`import { buildQueue } from ${JSON.stringify(MODULE)}; process.stdout.write(JSON.stringify(buildQueue()));`, fx);
+  assert.deepEqual(result.items.map(i => i.slug), ['law']);
+  assert.equal(result.items[0].factReview.needsReview, true);
+  assert.ok(result.items[0].reasons.some(r => r.includes('сверки')));
+});
+
 test('AP-P1-09: выдача резервирует рерайт и не отдаёт его повторно', () => {
   const fx = fixture([item('a', 10), item('b', 9), item('c', 8)]);
   const first = run(

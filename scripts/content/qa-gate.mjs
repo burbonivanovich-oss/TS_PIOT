@@ -20,6 +20,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { checkFactcheckDate } from './lib/factcheck-date.mjs';
 import { ROOT, validateArticle } from './lib/article-rules.mjs';
 
 const FACTCHECK_MAX_AGE_DAYS = 180;
@@ -60,9 +61,8 @@ const marker = path.join(ROOT, '.claude/factchecked', slug);
 if (!fs.existsSync(marker)) {
 	blockers.push('нет маркера фактчека .claude/factchecked/' + slug);
 } else {
-	const ageDays = (Date.now() - fs.statSync(marker).mtimeMs) / 86_400_000;
-	if (ageDays > FACTCHECK_MAX_AGE_DAYS)
-		blockers.push(`маркер фактчека старше ${FACTCHECK_MAX_AGE_DAYS} дней (${Math.round(ageDays)})`);
+	const date = checkFactcheckDate(fs.readFileSync(marker, 'utf8'), { maxAgeDays: FACTCHECK_MAX_AGE_DAYS });
+	if (!date.ok) blockers.push(`маркер фактчека: ${date.detail}`);
 }
 if (npaUnknown.length) {
 	const results = path.join(ROOT, 'src/data/factcheck/results', `${slug}.json`);
@@ -92,6 +92,7 @@ try {
 		warnings.push('не удалось прогнать check-ai-markers.mjs');
 	}
 }
+if (aiScore === null || !Number.isFinite(aiScore)) blockers.push('AI-проверка не вернула корректный скор');
 if (aiScore !== null && aiScore >= AI_SCORE_MAX) blockers.push(`скор AI-маркеров ${aiScore}/10 (потолок ${AI_SCORE_MAX})`);
 
 // — Соцчерновик —

@@ -3,8 +3,13 @@
   "security": {
     "strictContentRoot": true,
     "expectedRemote": "TS_PIOT",
-    "allowedBranches": ["main", "codex/*", "autopilot/*"],
-    "buildCheck": true
+    "allowedBranches": [
+      "main",
+      "codex/*",
+      "autopilot/*"
+    ],
+    "buildCheck": true,
+    "qualityCheck": true
   },
   "paths": {
     "blog": "src/content/blog",
@@ -13,10 +18,11 @@
     "wiki": "src/content/wiki"
   },
   "throughput": {
-    "monthlyTarget": 200,
-    "batchesPerDay": 2,
-    "maxBatchSize": 6,
-    "maxParallelWriting": 8,
+    "monthlyTarget": 55,
+    "monthlyRewriteTarget": 14,
+    "batchesPerDay": 1,
+    "maxBatchSize": 3,
+    "maxParallelWriting": 4,
     "catchUpFactor": 1.35
   },
   "mix": {
@@ -38,7 +44,10 @@
     "hardStaleAfterDays": 365,
     "minDaysBetweenRewrites": 90,
     "npaTriggerBoost": 40,
-    "thinContentChars": 4500
+    "thinContentChars": 4500,
+    "sourceCheckIntervalDays": 1,
+    "sourceObservationMaxAgeDays": 7,
+    "sourceChecksPerRun": 10
   },
   "interlink": {
     "minOutbound": 3,
@@ -62,16 +71,20 @@
     "minScore": 70,
     "maxAiMarkerDensity": 0.6,
     "requireFactcheck": true,
+    "requireClaimEvidence": true,
     "minChars": 4000,
     "maxChars": 22000,
     "quarantineAfterFailures": 2,
     "sourceMaxAgeDays": 180,
-    "infraRetryLimit": 3
+    "infraRetryLimit": 3,
+    "requireHeroImage": true,
+    "requireWritingReceipt": true
   },
   "publish": {
     "autoPublish": true,
     "draftOnFail": true,
-    "maxPerDay": 12
+    "maxPerDay": 3,
+    "calendar": true
   },
   "backlog": {
     "targetBufferFactor": 1.3,

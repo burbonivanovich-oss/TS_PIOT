@@ -110,9 +110,9 @@ test('AP-P1-16: метрики собираются из отчётов, сос�
   assert.equal(m.mix.rewrite, 1);
   const now = new Date();
   const daysInMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0)).getUTCDate();
-  const expectedByToday = Math.round((200 * now.getUTCDate()) / daysInMonth);
-  assert.equal(m.mix.targetRewriteToday, Math.round(expectedByToday * 0.25));
-  assert.equal(m.mix.debtRewrite, Math.max(0, Math.round(expectedByToday * 0.25) - 1));
+  const expectedByToday = Math.round((55 * now.getUTCDate()) / daysInMonth);
+  assert.equal(m.mix.targetRewriteToday, Math.round(14 * now.getUTCDate() / daysInMonth));
+  assert.equal(m.mix.debtRewrite, Math.max(0, Math.round(14 * now.getUTCDate() / daysInMonth) - 1));
   assert.equal(m.cycle.medianMinutes, 40);
   assert.equal(m.cycle.samples, 2);
   assert.equal(m.backlog.planned, 7);

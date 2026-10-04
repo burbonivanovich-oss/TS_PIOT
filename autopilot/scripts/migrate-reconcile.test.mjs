@@ -15,7 +15,7 @@ function fixture({ inFlight = [] } = {}) {
   const blog = path.join(root, 'blog');
   mkdirSync(dataDir, { recursive: true });
   mkdirSync(blog, { recursive: true });
-  writeFileSync(path.join(blog, 'exists-pass.md'), '---\ntitle: "a"\n---\nтело', 'utf8');
+  writeFileSync(path.join(blog, 'exists-pass.md'), '---\ntitle: "a"\ndraft: false\n---\nтело', 'utf8');
   writeFileSync(path.join(blog, 'exists-fail.md'), '---\ntitle: "b"\n---\nтело', 'utf8');
   writeFileSync(
     path.join(dataDir, 'backlog.json'),
@@ -95,12 +95,33 @@ test('AP-P0-05: apply восстанавливает инвариант и ид�
   assert.equal(second.changed, false, 'повторный запуск не меняет состояние');
 });
 
-test('AP-P0-05: orphan inFlight снимается, backup создаётся', () => {
+test('PUB-02: orphan inFlight блокирует миграцию до записи', () => {
   const fx = fixture({ inFlight: [{ slug: 'orphan-1', kind: 'new' }] });
-  const plan = planReconcile({ dataDir: fx.dataDir, blog: fx.blog, gates: passGates });
-  assert.deepEqual(plan.orphanInFlight, ['orphan-1']);
-  applyReconcile({ dataDir: fx.dataDir, blog: fx.blog, gates: passGates, backup: true });
-  const state = JSON.parse(readFileSync(path.join(fx.dataDir, 'autopilot.json'), 'utf8'));
-  assert.deepEqual(state.inFlight, []);
-  assert.ok(existsSync(path.join(fx.dataDir, 'backups')), 'backup создан перед миграцией');
+  const files = ['backlog.json', 'orders.json', 'autopilot.json'];
+  const before = files.map(f => readFileSync(path.join(fx.dataDir, f), 'utf8'));
+  assert.throws(() => applyReconcile({ ...fx, gates: passGates }), /Активные слоты без нарядов/);
+  assert.deepEqual(files.map(f => readFileSync(path.join(fx.dataDir, f), 'utf8')), before);
+  assert.equal(existsSync(path.join(fx.dataDir, 'backups')), false);
+});
+
+test('PUB-02: активный writing не перепланируется', () => {
+  const fx = fixture({ inFlight: [{ slug: 'exists-pass', kind: 'new' }] });
+  const report = applyReconcile({ ...fx, gates: passGates, backup: false });
+  assert.ok(!report.actions.some(a => a.slug === 'exists-pass'));
+  const backlog = JSON.parse(readFileSync(path.join(fx.dataDir, 'backlog.json'), 'utf8'));
+  assert.equal(backlog.topics.find(t => t.slug === 'exists-pass').status, 'writing');
+  assert.deepEqual(report.keptOrders, ['exists-pass']);
+});
+
+test('PUB-02: прошедший гейты черновик не считается выпущенным', () => {
+  const fx = fixture();
+  writeFileSync(path.join(fx.blog, 'exists-pass.md'), '---\ntitle: a\ndraft: true\n---\nтело');
+  const plan = planReconcile({ ...fx, gates: passGates });
+  assert.equal(plan.actions.find(a => a.slug === 'exists-pass').action, 'planned');
+});
+
+test('PUB-02: backup создан до изменения состояния', () => {
+  const fx = fixture();
+  applyReconcile({ ...fx, gates: passGates });
+  assert.ok(existsSync(path.join(fx.dataDir, 'backups')));
 });

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { checkHeroAssets } from './lib/hero-assets.mjs';
 // Гейты качества. Это замена редактора-человека, а не «дополнительная
 // проверка»: если гейт пропустил текст — текст выйдет в публикацию без
 // чьего-либо взгляда. Поэтому проверки жёсткие, а любой сомнительный случай
@@ -10,6 +11,10 @@
 //
 // Код выхода: 0 — прошло, 1 — ошибка запуска, 2 — не прошло.
 import path from 'node:path';
+import { checkClaimEvidence } from './lib/claim-evidence.mjs';
+import { observedSourceChanges } from './lib/fact-freshness.mjs';
+import { readJson } from './lib/content.mjs';
+import { runSiteQuality } from './lib/site.mjs';
 import { readFileSync, existsSync } from 'node:fs';
 import { loadConfig } from './lib/config.mjs';
 import { parseFrontmatter, loadArticles, isMain, parseArgs } from './lib/content.mjs';
@@ -115,7 +120,43 @@ function sourceInSentence(sentence) {
  * evidence ещё не собран. Гейт при этом всё равно проверяет URL
  * детерминированно (схема, allowlist, не главная страница).
  */
-export function runGates({ file, source, knownSlugs = null, sourceEvidence = null }) {
+/** Один детектор критических утверждений для приёмки и перепроверки корпуса. */
+export function extractCriticalClaims(body, sourceEvidence = null) {
+  return CLAIM_PATTERNS.flatMap((p) =>
+    [...body.matchAll(p.re)]
+      .filter((m) => !p.context || p.context.test(sentenceAt(body, m.index)))
+      .map((m) => {
+        const sentence = sentenceAt(body, m.index);
+        const sourceUrl = sourceInSentence(sentence);
+        let covered = Boolean(sourceUrl);
+        let reason = covered ? null : 'нет ссылки на первоисточник в этом предложении';
+        if (covered) {
+          const audit = auditSourceUrl(sourceUrl);
+          if (!audit.ok) {
+            covered = false;
+            reason = audit.reason;
+          } else if (sourceEvidence) {
+            // Evidence — отдельный сетевой этап. Пустая карта (файла ещё нет)
+            // не блокирует: непроверенное не значит опровергнутое. Блокирует
+            // только запись, которая говорит «404/редирект/устарело».
+            const entry = sourceEvidence[sourceUrl];
+            if (entry) {
+              const verdict = evaluateEvidence(entry, {
+                maxAgeDays: cfg.gates.sourceMaxAgeDays ?? 180,
+              });
+              if (!verdict.ok) {
+                covered = false;
+                reason = verdict.reason;
+              }
+            }
+          }
+        }
+        return { id: p.id, text: m[0], sentence, covered, source: sourceUrl, reason };
+      }),
+  );
+}
+
+export function runGates({ file, source, knownSlugs = null, sourceEvidence = null, siteQuality = runSiteQuality, claimEvidence = undefined, claimVerifier = checkClaimEvidence, assetVerifier = checkHeroAssets }) {
   const raw = source ?? readFileSync(file, 'utf8');
   const { data, body } = parseFrontmatter(raw);
   const checks = [];
@@ -125,6 +166,11 @@ export function runGates({ file, source, knownSlugs = null, sourceEvidence = nul
   const required = ['title', 'description', 'pubDate'];
   const missing = required.filter((k) => !data[k]);
   add('frontmatter', missing.length === 0, 15, missing.length ? `нет полей: ${missing.join(', ')}` : 'все обязательные поля на месте');
+
+  if (G.requireHeroImage === true) {
+    const assets = assetVerifier({ data, contentRoot: cfg.resolved.contentRoot });
+    add('hero-assets', assets.ok, 0, assets.detail);
+  }
 
   const descLength = String(data.description || '').length;
   add('description', descLength >= 100 && descLength <= 200, 5, `длина description ${descLength} (нужно 100–200)`);
@@ -194,38 +240,7 @@ export function runGates({ file, source, knownSlugs = null, sourceEvidence = nul
   // (AP-P0-24). Теперь каждое утверждение считается покрытым, только если
   // первоисточник стоит в том же предложении. Формируется манифест claims —
   // его можно сохранять и перепроверять отдельным сетевым этапом.
-  const claims = CLAIM_PATTERNS.flatMap((p) =>
-    [...body.matchAll(p.re)]
-      .filter((m) => !p.context || p.context.test(sentenceAt(body, m.index)))
-      .map((m) => {
-        const sentence = sentenceAt(body, m.index);
-        const sourceUrl = sourceInSentence(sentence);
-        let covered = Boolean(sourceUrl);
-        let reason = covered ? null : 'нет ссылки на первоисточник в этом предложении';
-        if (covered) {
-          const audit = auditSourceUrl(sourceUrl);
-          if (!audit.ok) {
-            covered = false;
-            reason = audit.reason;
-          } else if (sourceEvidence) {
-            // Evidence — отдельный сетевой этап. Пустая карта (файла ещё нет)
-            // не блокирует: непроверенное не значит опровергнутое. Блокирует
-            // только запись, которая говорит «404/редирект/устарело».
-            const entry = sourceEvidence[sourceUrl];
-            if (entry) {
-              const verdict = evaluateEvidence(entry, {
-                maxAgeDays: cfg.gates.sourceMaxAgeDays ?? 180,
-              });
-              if (!verdict.ok) {
-                covered = false;
-                reason = verdict.reason;
-              }
-            }
-          }
-        }
-        return { id: p.id, text: m[0], covered, source: sourceUrl, reason };
-      }),
-  );
+  const claims = extractCriticalClaims(body, sourceEvidence);
   const uncovered = claims.filter((c) => !c.covered);
   const sources = [...body.matchAll(SOURCE_RE)].length;
   add(
@@ -235,6 +250,22 @@ export function runGates({ file, source, knownSlugs = null, sourceEvidence = nul
     `утверждений с датами/штрафами/НПА: ${claims.length}, без пригодного источника в том же предложении: ${uncovered.length}, ссылок на первоисточники: ${sources}` +
       (uncovered.length ? ` (напр. «${uncovered[0].text}»: ${uncovered[0].reason})` : ''),
   );
+
+  if (G.requireClaimEvidence) {
+    let evidence = claimEvidence;
+    let error = null;
+    if (evidence === undefined && file) {
+      try { evidence = readJson(path.join(cfg.resolved.dataDir, 'claim-evidence', path.basename(file).replace(/\.mdx?$/, '') + '.json'), null); }
+      catch (e) { error = e.message; }
+    }
+    let observations = {};
+    try { observations = readJson(path.join(cfg.resolved.dataDir, 'source-observations.json'), { byUrl: {} }).byUrl; }
+    catch (e) { error = e.message; }
+    const verdict = claimVerifier({ claims, evidence, maxAgeDays: G.sourceMaxAgeDays });
+    const observed = observedSourceChanges({ claims, evidence, observations, observationMaxAgeDays: cfg.rewrite.sourceObservationMaxAgeDays ?? 7 });
+    const problems = [...verdict.problems.map(p => `${p.text}: ${p.reason}`), ...observed.reasons];
+    add('claim-evidence', !error && verdict.ok && !observed.reasons.length, 0, error || (problems.length ? problems.join('; ') : 'сверка утверждений сохранена'));
+  }
 
   // 6. Перелинковка: изолированная статья не работает ни на читателя, ни на
   //    краулер, и в автономном режиме её некому «потом дообвязать».
@@ -284,12 +315,17 @@ export function runGates({ file, source, knownSlugs = null, sourceEvidence = nul
   }
   add('links-valid', brokenOk, 10, brokenDetail);
 
+  if (cfg.security?.qualityCheck) {
+    const site = siteQuality({ contentRoot: cfg.resolved.contentRoot, file });
+    add('site-quality', site.ok, 0, site.ok ? 'QA сайта пройден' : site.blockers.join('; '));
+  }
+
   const gained = checks.filter((c) => c.ok).reduce((s, c) => s + c.weight, 0);
   const total = checks.reduce((s, c) => s + c.weight, 0);
   const score = Math.round((gained / total) * 100);
 
   // Блокеры — то, что нельзя компенсировать баллами в других проверках.
-  const blockers = checks.filter((c) => !c.ok && ['frontmatter', 'length', 'sources', 'links-valid', 'dates'].includes(c.id));
+  const blockers = checks.filter((c) => !c.ok && ['frontmatter', 'length', 'sources', 'links-valid', 'dates', 'site-quality', 'claim-evidence', 'hero-assets'].includes(c.id));
 
   return {
     file: file || null,

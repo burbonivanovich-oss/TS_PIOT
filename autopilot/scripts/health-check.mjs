@@ -53,7 +53,7 @@ export function healthCheck() {
       const ratio = cap.expectedByToday ? cap.done / cap.expectedByToday : 1;
       return {
         level: ratio >= 0.8 ? 'ok' : ratio >= 0.5 ? 'warn' : 'fail',
-        detail: `${cap.done}/${cap.monthlyTarget} за месяц, ожидалось к сегодня ${cap.expectedByToday}`,
+        detail: `${cap.done}/${cap.monthlyTarget} принятых новых материалов за месяц, ожидалось к сегодня ${cap.expectedByToday}` + (cap.byKind ? `; обновлений ${cap.byKind.rewrite.done}/${cap.byKind.rewrite.target}` : ''),
       };
     }),
   );

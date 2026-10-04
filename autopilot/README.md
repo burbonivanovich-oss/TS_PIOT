@@ -1,7 +1,7 @@
 # Автопилот — автономный контент-контур
 
 Производит контент без согласований: сам выбирает темы, отсекает дубли, пишет,
-переписывает старое и держит перелинковку. Цель — **200 статей в месяц**.
+переписывает старое и держит перелинковку. Цель — **50–60 новых статей в месяц**.
 
 Переработка `K_Editor`: там цикл шёл через редактора в Google Drive и упирался
 в скорость вычитки (~26 статей в месяц). Здесь человеческие шлюзы заменены
@@ -33,6 +33,8 @@ node autopilot/scripts/interlink.mjs graph             # сироты и туп�
 node autopilot/scripts/interlink.mjs apply             # расставить ссылки
 node autopilot/scripts/gates.mjs check --slug <slug>   # проверить статью
 node autopilot/scripts/source-check.mjs status         # свежесть evidence первоисточников
+node autopilot/scripts/audit-drafts.mjs --json         # read-only аудит всех черновиков
+node autopilot/scripts/source-snapshot.mjs --url <URL> # снимок текстового первоисточника
 node autopilot/scripts/metrics.mjs                     # почему темп не выполнен
 node autopilot/scripts/run.mjs latest                  # стадии последнего прохода
 node autopilot/scripts/notify.mjs                      # нужно ли уведомление
@@ -57,7 +59,7 @@ npm test
     "allowedBranches": ["main", "codex/*", "autopilot/*"],
     "buildCheck": true             // перед публикацией собирать сайт (AP-P0-16)
   },
-  "throughput": { "monthlyTarget": 200, "maxParallelWriting": 8 },
+  "throughput": { "monthlyTarget": 55, "monthlyRewriteTarget": 14, "maxParallelWriting": 4 },
   "mix": { "new": 0.75, "rewrite": 0.25 },
   "dedupe": { "containmentBlock": 0.72, "keywordOverlapBlock": 0.7 },
   "gates": { "minScore": 70, "requireFactcheck": true },
@@ -96,6 +98,7 @@ AUTOPILOT_CONFIG=/tmp/sandbox.config.json CONTENT_ROOT=/tmp/sandbox node autopil
 | [AGENTS.md](AGENTS.md) | Источник правды: принципы, архитектура, рутины, отличия от Editor |
 | [docs/operations.md](docs/operations.md) | Что делать, когда сломалось |
 | [docs/runbook.md](docs/runbook.md) | Остановка, lock, backup/restore, смена scheduler |
+| [docs/claim-evidence.md](docs/claim-evidence.md) | Снимки первоисточников и сверка утверждений |
 | [docs/decisions.md](docs/decisions.md) | Почему пороги и правила именно такие |
 | `.agents/skills/` | Процедуры Codex: `auto-day`, `auto-write`, `auto-rewrite`, `auto-audit` |
 

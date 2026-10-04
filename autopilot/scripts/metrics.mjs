@@ -97,14 +97,15 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
   const month = now.toISOString().slice(0, 7);
   const day = now.getUTCDate();
   const daysInMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0)).getUTCDate();
-  const done = state.counters.new + state.counters.rewrite;
+  const split = cfg.throughput.monthlyRewriteTarget !== undefined;
+  const done = split ? state.counters.new : state.counters.new + state.counters.rewrite;
   const expectedByToday = Math.round((cfg.throughput.monthlyTarget * day) / daysInMonth);
 
   // AP-P2-07: целевая доля рерайтов считается на сегодня, а не на конец месяца,
   // и дефицит виден отдельно по новым и рерайтам — иначе недобор одной половины
   // маскируется перевыполнением другой.
-  const targetRewriteToday = Math.round(expectedByToday * cfg.mix.rewrite);
-  const targetNewToday = expectedByToday - targetRewriteToday;
+  const targetRewriteToday = split ? Math.round(cfg.throughput.monthlyRewriteTarget * day / daysInMonth) : Math.round(expectedByToday * cfg.mix.rewrite);
+  const targetNewToday = split ? expectedByToday : expectedByToday - targetRewriteToday;
 
   const merge = dupes.pairs.filter((p) => p.verdict === 'merge').length;
   const watch = dupes.pairs.filter((p) => p.verdict === 'watch').length;

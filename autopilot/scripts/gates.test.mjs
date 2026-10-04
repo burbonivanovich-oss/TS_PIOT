@@ -5,7 +5,9 @@ import { mkdtempSync, writeFileSync, mkdirSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runGates } from './gates.mjs';
+import { runGates as actualRunGates } from './gates.mjs';
+// Unit-проверки движка отделены от реального QA; интеграция проверяется отдельно.
+const runGates = options => actualRunGates({ ...options, siteQuality: () => ({ ok: true, blockers: [] }), claimVerifier: () => ({ ok: true, problems: [] }), assetVerifier: () => ({ ok: true, detail: 'isolated unit fixture' }) });
 
 // Свой набор существующих статей: тесты не должны зависеть от того, что
 // сейчас лежит в принимающем репозитории.
@@ -320,4 +322,21 @@ test('AP-P0-06: целый корпус с известными слагами �
   const links = result.checks.find((c) => c.id === 'links-valid');
   assert.equal(links.ok, true, JSON.stringify(links));
   assert.ok(!result.blockers.includes('links-valid'));
+});
+
+
+test('PUB-04: QA сайта является блокером при высоком балле движка', () => {
+  const result = actualRunGates({ source: good(), knownSlugs: KNOWN,
+    siteQuality: () => ({ ok: false, blockers: ['нет FAQ'] }),
+  });
+  assert.ok(result.score >= 70);
+  assert.equal(result.passed, false);
+  assert.ok(result.blockers.includes('site-quality'));
+});
+
+
+test('hero-assets is a non-compensable blocker', () => {
+  const result = actualRunGates({ source: good(), knownSlugs: KNOWN, siteQuality: () => ({ ok: true, blockers: [] }), claimVerifier: () => ({ ok: true, problems: [] }), assetVerifier: () => ({ ok: false, detail: 'missing image' }) });
+  assert.equal(result.passed, false);
+  assert.ok(result.blockers.includes('hero-assets'));
 });

@@ -10,6 +10,15 @@ import { createRun, setStage, readRun } from './lib/run.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SLUG = '2026-09-13-test-topic';
 
+function validWaitingArticle(title) {
+  const description = 'Проверенное описание ожидающей статьи для проверки повторной приёмки и ограниченной суточной квоты публикаций сайта.';
+  const body = ['Первый', 'Второй', 'Третий'].map(h => `## ${h} раздел\n\n` + 'Нейтральный материал описывает рабочие действия команды и порядок подготовки технической документации. '.repeat(17)).join('\n');
+  return `---\ntitle: "${title}"\ndescription: "${description}"\npubDate: "2026-01-01"\ndraft: true\nautopilotHold: true\n---\n${body}\n[Первый](/blog/ref-one/) [Второй](/blog/ref-two/) [Третий](/blog/ref-three/)\n`;
+}
+function addReferenceArticles(blog) {
+  for (const slug of ['ref-one', 'ref-two', 'ref-three']) writeFileSync(path.join(blog, `${slug}.md`), `---\ntitle: ${slug}\ndraft: false\n---\nСоседний материал ${slug}`);
+}
+
 function baseConfig(contentRoot) {
   return {
     contentRoot,
@@ -113,6 +122,8 @@ test('AP-P0-11: settle фиксирует стадию gated и не повто�
   assert.equal(first.runId, run.runId);
   assert.equal(first.runStage, 'set');
   assert.ok(readRun(run.runId, { dir: fx.dataDir }).stages.gated, 'стадия gated записана');
+  assert.equal(first.build.checked, false);
+  assert.equal(readRun(run.runId, { dir: fx.dataDir }).stages.built, undefined, 'без сборки built не отмечается');
 
   const second = settle(fx);
   assert.equal(second.runStage, 'already', 'повтор стадии идемпотентен');
@@ -214,7 +225,8 @@ test('AP-P1-09: потеря orders.json не оставляет активны�
 test('AP-P0-16: провал build не публикует и не финализирует, успех — публикует', () => {
   const fx = fixture();
   const heldSlug = '2026-09-13-waiting-article';
-  const article = `---\ntitle: "Ожидающая"\ndescription: "d"\npubDate: "2026-01-01"\ndraft: true\nautopilotHold: true\nautopilotHoldReason: accepted_waiting_release\n---\n\nТело.\n`;
+  addReferenceArticles(path.join(fx.root, 'src/content/blog'));
+  const article = validWaitingArticle('Ожидающая');
   writeFileSync(path.join(fx.root, 'src', 'content', 'blog', `${heldSlug}.md`), article, 'utf8');
   writeFileSync(path.join(fx.dataDir, 'release-queue.json'), JSON.stringify({ generatedAt: '2026-09-13', items: [{ slug: heldSlug, kind: 'new', score: 80, acceptedAt: '2026-09-10T00:00:00Z' }] }), 'utf8');
   writeFileSync(path.join(fx.dataDir, 'publish-log.json'), JSON.stringify({ days: {} }), 'utf8');
@@ -239,16 +251,26 @@ test('AP-P0-16: провал build не публикует и не финали�
   assert.notEqual(failed.status, 0);
   const out = JSON.parse(failed.stdout);
   assert.match(out.error, /build принимающего сайта не прошёл/);
-  assert.match(readFileSync(path.join(fx.root, 'src', 'content', 'blog', `${heldSlug}.md`), 'utf8'), /draft: true/);
+  assert.equal(readFileSync(path.join(fx.root, 'src', 'content', 'blog', `${heldSlug}.md`), 'utf8'), article, 'провал build восстанавливает исходные байты');
   assert.equal(existsSync(path.join(fx.dataDir, `report-${new Date().toISOString().slice(0, 10)}.json`)), false);
   assert.equal(existsSync(path.join(fx.dataDir, 'runs')), false, 'манифест не должен получить gated');
 
-  // Успешная сборка: ожидающая статья выпускается.
-  writeFileSync(path.join(fx.root, 'package.json'), JSON.stringify({ name: 'fake-site', scripts: { build: 'node -e "process.exit(0)"' } }), 'utf8');
+  const run = createRun({ dir: fx.dataDir, date: new Date().toISOString().slice(0, 10) });
+  setStage(run.runId, 'planned', { orderCount: 0 }, { dir: fx.dataDir });
+  writeFileSync(path.join(fx.dataDir, 'orders.json'), JSON.stringify({ date: '2026-09-13', runId: run.runId, orders: [] }), 'utf8');
+  // Сборка должна видеть уже опубликованный окончательный файл.
+  writeFileSync(path.join(fx.root, 'check-build.cjs'), `const fs = require('node:fs'); const text = fs.readFileSync('src/content/blog/${heldSlug}.md', 'utf8'); if (!text.includes('draft: false') || text.includes('autopilotHold')) process.exit(1);`, 'utf8');
+  writeFileSync(path.join(fx.root, 'package.json'), JSON.stringify({ name: 'fake-site', scripts: { build: 'node check-build.cjs' } }), 'utf8');
   const ok = spawnSync(process.execPath, ['scripts/pipeline.mjs', 'settle', '--json'], { cwd: ROOT, env, encoding: 'utf8' });
   assert.notEqual(ok.status, 1, ok.stderr);
   const report = JSON.parse(ok.stdout);
   assert.equal(report.published, 1);
+  assert.equal(report.build.checked, true);
+  assert.equal(report.build.ok, true);
+  assert.match(report.build.corpusSha256, /^[a-f0-9]{64}$/);
+  const manifest = readRun(run.runId, { dir: fx.dataDir });
+  assert.equal(manifest.stages.built.corpusSha256, report.build.corpusSha256);
+  assert.equal(manifest.stages.built.code, 0);
   const after = readFileSync(path.join(fx.root, 'src', 'content', 'blog', `${heldSlug}.md`), 'utf8');
   assert.match(after, /draft: false/);
   assert.ok(!/autopilotHold/.test(after));
@@ -281,4 +303,43 @@ test('AP-P1-19: занятый lock останавливает settle катег
   // Состояние не тронуто, отчёт не создан.
   assert.equal(readFileSync(path.join(fx.dataDir, 'autopilot.json'), 'utf8'), stateBefore);
   assert.equal(existsSync(path.join(fx.dataDir, 'report-' + new Date().toISOString().slice(0, 10) + '.json')), false);
+});
+
+test('mandatory delivery receipt: an untouched rewrite is infrastructure missing, not accepted or held', () => {
+  const fx = fixture();
+  const config = JSON.parse(readFileSync(fx.configFile, 'utf8'));
+  config.gates.requireWritingReceipt = true;
+  writeFileSync(fx.configFile, JSON.stringify(config));
+  const state = readState(fx); state.inFlight[0].kind = 'rewrite';
+  writeFileSync(path.join(fx.dataDir, 'autopilot.json'), JSON.stringify(state));
+  writeFileSync(path.join(fx.dataDir, 'orders.json'), JSON.stringify({ orders: [{ slug: SLUG, kind: 'rewrite' }] }));
+  const article = path.join(fx.root, 'src/content/blog', `${SLUG}.md`);
+  const original = '---\ntitle: Previously published text\ndraft: false\n---\nOriginal article, not rewritten.';
+  writeFileSync(article, original);
+  const report = settle(fx);
+  assert.equal(report.infraMissing, 1);
+  assert.equal(report.rejected, 0);
+  assert.equal(report.published, 0);
+  assert.equal(readState(fx).counters.rewrite, 0);
+  assert.equal(readState(fx).inFlight[0].failures, 0);
+  assert.equal(readFileSync(article, 'utf8'), original, 'no delivery must not hold the existing published version');
+});
+
+test('mandatory delivery receipt: matching delivery still goes through quality gates', async () => {
+  const fx = fixture();
+  const config = JSON.parse(readFileSync(fx.configFile, 'utf8'));
+  config.gates.requireWritingReceipt = true;
+  writeFileSync(fx.configFile, JSON.stringify(config));
+  const article = path.join(fx.root, 'src/content/blog', `${SLUG}.md`);
+  writeFileSync(article, 'Delivered but invalid content');
+  const { writingStatus } = await import('./writing-checkpoint.mjs');
+  const state = readState(fx);
+  const orders = JSON.parse(readFileSync(path.join(fx.dataDir, 'orders.json'), 'utf8'));
+  const status = writingStatus({ orders, state, blog: path.dirname(article) })[0];
+  writeFileSync(path.join(fx.dataDir, 'writing-receipts.json'), JSON.stringify({ items: { [SLUG]: { kind: 'new', attempt: status.attempt, sha256: status.sha256 } } }));
+  const report = settle(fx);
+  assert.equal(report.infraMissing, 0);
+  assert.equal(report.rejected, 1);
+  assert.equal(report.published, 0);
+  assert.equal(readState(fx).inFlight[0].failures, 1);
 });

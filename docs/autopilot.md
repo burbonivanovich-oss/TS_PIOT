@@ -294,7 +294,7 @@ Routine: claude.ai/code/routines — там же кнопка запуска в�
 | `--start` | флаг `plan-run.mjs` | завтра | С какой даты расставлять `pubDate` |
 | `INCLUDE_DRAFTS` | `generate-hero-images.mjs` | — | `1` захватывает черновики в пакетный прогон |
 | `FORCE_DATE` | `release-next-draft.mjs` | — | `1` игнорирует `pubDate` |
-| `SKIP_GATE` | `release-next-draft.mjs` | — | `1` пропускает шлюз (только отладка) |
+| `SKIP_GATE` | `release-next-draft.mjs` | — | больше не обходит объединённые гейты |
 
 ## Границы доверия
 

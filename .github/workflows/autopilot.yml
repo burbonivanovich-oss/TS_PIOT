@@ -78,7 +78,7 @@ jobs:
       # Fail-closed git-контроль preflight: проверка ветки и allowlist путей.
       AUTOPILOT_PREFLIGHT_GIT: '1'
       AUTOPILOT_ALLOWED_BRANCH: 'main'
-      AUTOPILOT_ALLOWED_PATHS: 'autopilot/data,src/content/blog'
+      AUTOPILOT_ALLOWED_PATHS: 'autopilot/data,autopilot/research,src/content/blog,public/images/hero,public/images/preview,.claude/factchecked,src/data/factcheck/results,src/data/factcheck/claims'
       AUTOPILOT_MIN_FREE_MB: '200'
       # Feature flag расписания: пока vars.AUTOPILOT_ENABLED != 'true',
       # мутирующие шаги по крону пропускаются (см. шаг ниже).
@@ -90,6 +90,12 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: '20'
+
+      # QA и финальная сборка относятся к сайту, которому нужны зависимости.
+      # Сам движок остаётся без runtime dependencies.
+      - name: Зависимости принимающего сайта для приёмки
+        if: inputs.step == 'settle' || (github.event_name == 'schedule' && github.event.schedule == '0 15 * * *')
+        run: npm ci
 
       - name: Шаг автопилота
         run: |
@@ -122,6 +128,7 @@ jobs:
             health) node autopilot/scripts/preflight.mjs
                     node autopilot/scripts/health-check.mjs ;;
             plan)   node autopilot/scripts/preflight.mjs
+                    node autopilot/scripts/source-monitor.mjs --write
                     node autopilot/scripts/pipeline.mjs plan ;;
             settle) node autopilot/scripts/preflight.mjs
                     node autopilot/scripts/pipeline.mjs settle ;;
@@ -136,7 +143,7 @@ jobs:
           set -e
           git config user.name "autopilot"
           git config user.email "autopilot@users.noreply.github.com"
-          for p in src/content/blog autopilot/data; do
+          for p in src/content/blog public/images/hero public/images/preview .claude/factchecked src/data/factcheck/results src/data/factcheck/claims autopilot/data autopilot/research; do
             [ -e "$p" ] && git add "$p"
           done
           git diff --staged --quiet && echo "Нечего коммитить." && exit 0

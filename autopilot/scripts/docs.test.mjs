@@ -1,24 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+import { readFileSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { markdownFiles } from './lib/markdown-files.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SKIP_DIRS = new Set(['.git', 'node_modules', 'chats', 'research', 'data']);
 const LINK_RE = /\[[^\]]*\]\(([^)]+)\)/g;
-
-function markdownFiles(dir) {
-  const out = [];
-  for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    if (entry.name.startsWith('.') && entry.name !== '.agents') continue;
-    if (SKIP_DIRS.has(entry.name)) continue;
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) out.push(...markdownFiles(full));
-    else if (/\.md$/.test(entry.name)) out.push(full);
-  }
-  return out;
-}
 
 /** Внутренние относительные ссылки markdown, которые обязаны существовать. */
 function brokenLinks(file) {
