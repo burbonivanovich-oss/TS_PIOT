@@ -53,10 +53,20 @@ function buildQueueInner() {
   const seen = new Set();
 
   const dupeScore = new Map();
+  const dupeReasons = new Map();
   for (const pair of dupes) {
-    const weight = pair.verdict === 'merge' ? 35 : 15;
-    for (const slug of [pair.a, pair.b]) {
-      dupeScore.set(slug, Math.max(dupeScore.get(slug) || 0, weight));
+    const peers = [pair.a, pair.b];
+    // A scan selects the weaker article explicitly. Do not rewrite its keeper
+    // merely because it participates in the same overlap.
+    const actionable = pair.verdict === 'merge' && peers.includes(pair.rewrite) && peers.includes(pair.keep) && pair.rewrite !== pair.keep;
+    const candidates = actionable ? [pair.rewrite] : pair.verdict === 'watch' ? peers : [];
+    for (const slug of candidates) {
+      dupeScore.set(slug, Math.max(dupeScore.get(slug) || 0, actionable ? 35 : 15));
+      const other = peers.find(s => s !== slug);
+      const reason = actionable
+        ? `Развести с /blog/${other}/: сохранить URL и собственный предмет статьи, пересекающееся объяснение заменить ссылкой на соседа; не удалять материал.`
+        : `Проверить пересечение с /blog/${other}/; сигнал watch не доказывает дубль.`;
+      dupeReasons.set(slug, [...(dupeReasons.get(slug) || []), reason]);
     }
   }
 
@@ -107,7 +117,7 @@ function buildQueueInner() {
 
     if (dupeScore.has(article.slug)) {
       score += dupeScore.get(article.slug);
-      reasons.push('пересечение с другой статьёй корпуса');
+      reasons.push(...dupeReasons.get(article.slug));
     }
 
     const inbound = graph.inbound.get(article.slug)?.size || 0;
