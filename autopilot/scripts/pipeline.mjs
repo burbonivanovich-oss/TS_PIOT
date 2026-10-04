@@ -325,7 +325,18 @@ function settleInner({ dry = false } = {}) {
     const dupe = bodyDuplication({ file, excludeSlug: item.stagedFile ? item.slug : undefined });
     if (!gates.passed || dupe.verdict !== 'ok') {
       if (!dry) hold(file, 'waiting_recheck_failed');
-      results.push({ slug: item.slug, status: 'release_rejected', detail: 'повторная проверка ожидающей статьи не пройдена' });
+      const failedChecks = gates.checks.filter(check => !check.ok);
+      const blockers = [...gates.blockers, ...(dupe.verdict === 'ok' ? [] : ['duplication'])];
+      const detail = [
+        ...failedChecks.map(check => `${check.id}: ${check.detail}`),
+        ...(dupe.verdict === 'ok' ? [] : [`duplication: ${dupe.verdict}, ${dupe.slug || 'корпус'}, ${dupe.detail || `body=${dupe.body}, topic=${dupe.topic}`}`]),
+        ...(!gates.passed && blockers.length === 0 ? [`score: ${gates.score}, минимум ${cfg.gates.minScore}`] : []),
+      ].join('; ');
+      results.push({
+        slug: item.slug, status: 'release_rejected', score: gates.score,
+        detail, blockers, failedChecks,
+        duplication: dupe, checkedAt: new Date().toISOString(),
+      });
       // Сохраняем в ожидании; устаревший результат не разрешает публикацию.
       item.recheckFailed = true;
     }
