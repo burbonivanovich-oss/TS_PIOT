@@ -1,0 +1,236 @@
+{
+  "slug": "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+  "checkedAt": "2026-10-04T18:59:00.754Z",
+  "checkedBy": "codex",
+  "method": "manual-primary-source-snapshots",
+  "summary": {
+    "totalClaims": 18,
+    "checked": 18,
+    "match": 18,
+    "mismatch": 0,
+    "uncertain": 0,
+    "missing": 0,
+    "overallStatus": "ok",
+    "criticalIssues": 0,
+    "note": "Все извлечённые даты и правовые ссылки содержательно сверены с двумя сохранёнными документами; нет федеральных законов или штрафов. Дополнительно проверены классификация, пограничный срок годности и различие учёта партии и упаковки."
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "raw": "1 ноября 2026 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/"
+      ],
+      "explanation": "Сроки партийного учёта сверены по действующей редакции правил; год является частью той же даты.",
+      "action": "keep"
+    },
+    {
+      "id": "c7",
+      "raw": "2026 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/"
+      ],
+      "explanation": "Сроки партийного учёта сверены по действующей редакции правил; год является частью той же даты.",
+      "action": "keep"
+    },
+    {
+      "id": "c13",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/"
+      ],
+      "explanation": "Сроки партийного учёта сверены по действующей редакции правил; год является частью той же даты.",
+      "action": "keep"
+    },
+    {
+      "id": "c2",
+      "raw": "1 марта 2027 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/"
+      ],
+      "explanation": "Сроки партийного учёта сверены по действующей редакции правил; год является частью той же даты.",
+      "action": "keep"
+    },
+    {
+      "id": "c8",
+      "raw": "2027 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/"
+      ],
+      "explanation": "Сроки партийного учёта сверены по действующей редакции правил; год является частью той же даты.",
+      "action": "keep"
+    },
+    {
+      "id": "c14",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/"
+      ],
+      "explanation": "Сроки партийного учёта сверены по действующей редакции правил; год является частью той же даты.",
+      "action": "keep"
+    },
+    {
+      "id": "c3",
+      "raw": "1 ноября 2026 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+      ],
+      "explanation": "Сверены раздельные этапы нанесения, ввода, оборота и выбытия для групповой упаковки и специальной категории.",
+      "action": "keep"
+    },
+    {
+      "id": "c9",
+      "raw": "2026 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+      ],
+      "explanation": "Сверены раздельные этапы нанесения, ввода, оборота и выбытия для групповой упаковки и специальной категории.",
+      "action": "keep"
+    },
+    {
+      "id": "c4",
+      "raw": "1 февраля 2027 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+      ],
+      "explanation": "Сверены раздельные этапы нанесения, ввода, оборота и выбытия для групповой упаковки и специальной категории.",
+      "action": "keep"
+    },
+    {
+      "id": "c10",
+      "raw": "2027 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+      ],
+      "explanation": "Сверены раздельные этапы нанесения, ввода, оборота и выбытия для групповой упаковки и специальной категории.",
+      "action": "keep"
+    },
+    {
+      "id": "c15",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+      ],
+      "explanation": "Сверены раздельные этапы нанесения, ввода, оборота и выбытия для групповой упаковки и специальной категории.",
+      "action": "keep"
+    },
+    {
+      "id": "c5",
+      "raw": "1 сентября 2026 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+      ],
+      "explanation": "Сверены раздельные этапы нанесения, ввода, оборота и выбытия для групповой упаковки и специальной категории.",
+      "action": "keep"
+    },
+    {
+      "id": "c11",
+      "raw": "2026 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+      ],
+      "explanation": "Сверены раздельные этапы нанесения, ввода, оборота и выбытия для групповой упаковки и специальной категории.",
+      "action": "keep"
+    },
+    {
+      "id": "c6",
+      "raw": "1 марта 2027 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+      ],
+      "explanation": "Сверены раздельные этапы нанесения, ввода, оборота и выбытия для групповой упаковки и специальной категории.",
+      "action": "keep"
+    },
+    {
+      "id": "c12",
+      "raw": "2027 года",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+      ],
+      "explanation": "Сверены раздельные этапы нанесения, ввода, оборота и выбытия для групповой упаковки и специальной категории.",
+      "action": "keep"
+    },
+    {
+      "id": "c16",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+      ],
+      "explanation": "Сверены раздельные этапы нанесения, ввода, оборота и выбытия для групповой упаковки и специальной категории.",
+      "action": "keep"
+    },
+    {
+      "id": "c17",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/"
+      ],
+      "explanation": "Проверено содержание нормы: товар, количество, партия, вес при его различии; определение партии соответствует тексту изменений.",
+      "action": "keep"
+    },
+    {
+      "id": "c18",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/",
+      "status": "match",
+      "severity": "none",
+      "confidence": 1,
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+      ],
+      "explanation": "Проверено содержание нормы: товар, количество, партия, вес при его различии; определение партии соответствует тексту изменений.",
+      "action": "keep"
+    }
+  ],
+  "recommendations": []
+}

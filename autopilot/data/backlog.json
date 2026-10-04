@@ -260,6 +260,41 @@
       "priorityScore": 63.7
     },
     {
+      "slug": "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke",
+      "title": "ЭТрН для перевозчика: подписание водителем и передача сведений о перевозке",
+      "entity": "этрн",
+      "keywords": [
+        "этрн для перевозчиков"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 8,
+      "demand": {
+        "status": "collected",
+        "phrase": "этрн для перевозчиков",
+        "count": 8326,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 31.5,
+      "status": "accepted_waiting_release",
+      "createdAt": "2026-10-04",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "updatedAt": "2026-10-04"
+    },
+    {
       "slug": "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya",
       "title": "Маркировка молочной продукции: как подключить — пошаговая инструкция",
       "keywords": [
@@ -271,7 +306,7 @@
       "format": "howto",
       "segment": "none",
       "score": 63.7,
-      "status": "planned",
+      "status": "accepted_waiting_release",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "warn",
@@ -281,7 +316,7 @@
           "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya"
         ]
       },
-      "updatedAt": "2026-09-13",
+      "updatedAt": "2026-10-04",
       "migration": {
         "at": "2026-09-13T19:07:00.110Z",
         "reason": "файла в корпусе нет — возврат в план"
@@ -305,7 +340,7 @@
       "format": "news",
       "segment": "none",
       "score": 63.7,
-      "status": "planned",
+      "status": "accepted_waiting_release",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "warn",
@@ -319,7 +354,8 @@
         "count": null,
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
-      "priorityScore": 63.7
+      "priorityScore": 63.7,
+      "updatedAt": "2026-10-04"
     },
     {
       "slug": "2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya",
@@ -920,6 +956,36 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 42.9
+    },
+    {
+      "slug": "2026-08-10-markirovka-vody-chastye-oshibki-i-chem-oni-zakanchivayutsya",
+      "title": "Маркировка воды: частые ошибки и чем они заканчиваются",
+      "keywords": [
+        "ошибки маркировка воды",
+        "маркировка воды проблемы",
+        "маркировка воды  селлеру на маркетплейсе"
+      ],
+      "entity": "маркировка воды",
+      "intent": "mistakes",
+      "format": "explainer",
+      "segment": "marketplace",
+      "score": 40.1,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Маркировка молочной продукции: частые ошибки и чем они заканчиваются». Обязательна ссылка на /blog/2026-08-10-markirovka-molochnoy-produkcii-chastye-oshibki-i-chem-oni-zakanchivayutsya/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-markirovka-molochnoy-produkcii-chastye-oshibki-i-chem-oni-zakanchivayutsya",
+          "2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 40.1
     },
     {
       "slug": "2026-08-10-fiskalnyy-nakopitel-kak-podklyuchit-poshagovaya-instrukciya",
@@ -1824,41 +1890,6 @@
       "priorityScore": 32
     },
     {
-      "slug": "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke",
-      "title": "ЭТрН для перевозчика: подписание водителем и передача сведений о перевозке",
-      "entity": "этрн",
-      "keywords": [
-        "этрн для перевозчиков"
-      ],
-      "intent": "seed",
-      "segment": "none",
-      "format": "howto",
-      "score": 8,
-      "demand": {
-        "status": "collected",
-        "phrase": "этрн для перевозчиков",
-        "count": 8326,
-        "match": "broad",
-        "region": "225",
-        "periodStart": null,
-        "periodEnd": null,
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD",
-        "window": {
-          "kind": "provider_last_30_days",
-          "exactDatesVerified": false
-        }
-      },
-      "priorityScore": 31.5,
-      "status": "accepted_waiting_release",
-      "createdAt": "2026-10-04",
-      "dedupe": {
-        "verdict": "ok",
-        "advice": "",
-        "related": []
-      },
-      "updatedAt": "2026-10-04"
-    },
-    {
       "slug": "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya",
       "title": "Кто подписывает ЭТрН: полномочия водителя, сотрудника склада и руководителя",
       "entity": "этрн",
@@ -1884,13 +1915,14 @@
         }
       },
       "priorityScore": 31.5,
-      "status": "planned",
+      "status": "accepted_waiting_release",
       "createdAt": "2026-10-04",
       "dedupe": {
         "verdict": "ok",
         "advice": "",
         "related": []
-      }
+      },
+      "updatedAt": "2026-10-04"
     },
     {
       "slug": "2026-08-10-markirovka-tabaka-chto-eto-i-zachem-nuzhno-apteke",
@@ -2413,6 +2445,36 @@
       "priorityScore": 13.3
     },
     {
+      "slug": "2026-08-10-vsd-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "ВСД: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить всд",
+        "всд инструкция"
+      ],
+      "entity": "ВСД",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 13.3,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 13.3
+    },
+    {
       "slug": "2026-08-10-markirovka-molochnoy-produkcii-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
       "title": "Маркировка молочной продукции: кого касается — разбор по видам деятельности",
       "keywords": [
@@ -2501,38 +2563,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 44.6,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
-      "slug": "2026-08-10-markirovka-vody-chastye-oshibki-i-chem-oni-zakanchivayutsya",
-      "title": "Маркировка воды: частые ошибки и чем они заканчиваются",
-      "keywords": [
-        "ошибки маркировка воды",
-        "маркировка воды проблемы",
-        "маркировка воды  селлеру на маркетплейсе"
-      ],
-      "entity": "маркировка воды",
-      "intent": "mistakes",
-      "format": "explainer",
-      "segment": "marketplace",
-      "score": 40.1,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Маркировка молочной продукции: частые ошибки и чем они заканчиваются». Обязательна ссылка на /blog/2026-08-10-markirovka-molochnoy-produkcii-chastye-oshibki-i-chem-oni-zakanchivayutsya/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-markirovka-molochnoy-produkcii-chastye-oshibki-i-chem-oni-zakanchivayutsya",
-          "2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 40.1,
       "deferredAt": "2026-10-04",
       "deferredReason": "buffer-rebalanced"
     },
@@ -3560,38 +3590,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 14.4,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
-      "slug": "2026-08-10-vsd-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "ВСД: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить всд",
-        "всд инструкция"
-      ],
-      "entity": "ВСД",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 13.3,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 13.3,
       "deferredAt": "2026-10-04",
       "deferredReason": "buffer-rebalanced"
     },

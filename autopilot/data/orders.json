@@ -1,53 +1,53 @@
 {
-  "generatedAt": "2026-10-04T17:24:13.838Z",
+  "generatedAt": "2026-10-04T18:39:57.306Z",
   "date": "2026-10-04",
-  "runId": "2026-10-04-2bcf9cda",
+  "runId": "2026-10-04-e97f63b2",
   "capacity": {
     "month": "2026-10",
-    "done": 7,
+    "done": 9,
     "monthlyTarget": 55,
-    "totalDone": 9,
+    "totalDone": 12,
     "totalTarget": 69,
     "expectedByToday": 7,
     "debt": 0,
     "todayTarget": 3,
     "inFlight": 0,
     "freeSlots": 4,
-    "remaining": 60,
+    "remaining": 57,
     "canTake": 3,
     "byKind": {
       "new": {
         "target": 55,
-        "done": 7,
+        "done": 9,
         "active": 0,
         "carriedAccepted": 0,
         "expectedByToday": 7,
         "debt": 0,
-        "remaining": 48
+        "remaining": 46
       },
       "rewrite": {
         "target": 14,
-        "done": 2,
+        "done": 3,
         "active": 0,
         "carriedAccepted": 0,
         "expectedByToday": 2,
         "debt": 0,
-        "remaining": 12
+        "remaining": 11
       }
     },
     "takeByKind": {
-      "new": 2,
-      "rewrite": 1
+      "new": 3,
+      "rewrite": 0
     }
   },
   "healed": 0,
   "orders": [
     {
       "kind": "new",
-      "slug": "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke",
-      "title": "ЭТрН для перевозчика: подписание водителем и передача сведений о перевозке",
+      "slug": "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya",
+      "title": "Кто подписывает ЭТрН: полномочия водителя, сотрудника склада и руководителя",
       "keywords": [
-        "этрн для перевозчиков"
+        "кто подписывает этрн"
       ],
       "entity": "этрн",
       "intent": "seed",
@@ -58,57 +58,53 @@
         "advice": "",
         "related": []
       },
-      "targetFile": "src/content/blog/seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke.md",
-      "runId": "2026-10-04-2bcf9cda"
+      "targetFile": "src/content/blog/seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya.md",
+      "runId": "2026-10-04-e97f63b2"
     },
     {
       "kind": "new",
-      "slug": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Маркировка воды: как подключить — пошаговая инструкция",
+      "slug": "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Маркировка молочной продукции: как подключить — пошаговая инструкция",
       "keywords": [
-        "как подключить маркировка воды",
-        "маркировка воды инструкция"
+        "как подключить маркировка молочной продукции",
+        "маркировка молочной продукции инструкция"
       ],
-      "entity": "маркировка воды",
+      "entity": "маркировка молочной продукции",
       "intent": "howto",
       "format": "howto",
       "segment": "none",
       "dedupe": {
         "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "advice": "Сузить угол: пересечение с «Маркировка молочной продукции для малого бизнеса: что нужно делать в 2026». Обязательна ссылка на /blog/2026-05-01-markirovka-molochki-msb/ и разведение целевых запросов.",
         "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+          "2026-05-01-markirovka-molochki-msb",
+          "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya"
         ]
       },
-      "targetFile": "src/content/blog/2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya.md",
-      "runId": "2026-10-04-2bcf9cda"
+      "targetFile": "src/content/blog/2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya.md",
+      "runId": "2026-10-04-e97f63b2"
     },
     {
-      "kind": "rewrite",
-      "slug": "2026-05-03-markirovka-igrushek-2026",
-      "title": "Маркировка игрушек 2026: сроки, товары, что делать",
-      "reasons": [
-        "\nС 1 сентября 2026: нет сохранённой содержательной сверки утверждения",
-        " с 01.09.2025: нет сохранённой содержательной сверки утверждения",
-        " с 01.12.2025: нет сохранённой содержательной сверки утверждения",
-        " С 01.02.2027: нет сохранённой содержательной сверки утверждения",
-        " с 1 сентября 2026: нет сохранённой содержательной сверки утверждения",
-        "10 000 руб: нет сохранённой содержательной сверки утверждения",
-        "300 000 руб: нет сохранённой содержательной сверки утверждения",
-        "(ст. 4: нет сохранённой содержательной сверки утверждения",
-        " ст. 1: нет сохранённой содержательной сверки утверждения",
-        " КоАП: нет сохранённой содержательной сверки утверждения",
-        "reviewDate просрочен на 36 дн.",
-        "Развести с /blog/2026-06-17-poexzemplyarnyj-uchet/: сохранить URL и собственный предмет статьи, пересекающееся объяснение заменить ссылкой на соседа; не удалять материал.",
-        "Проверить пересечение с /blog/2026-05-03-markirovka-kosmetiki-2026/; сигнал watch не доказывает дубль.",
-        "входящих ссылок 1",
-        "2027-01-01: новые товарные группы"
+      "kind": "new",
+      "slug": "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+      "title": "Маркировка молочной продукции: сроки 2026 года и что успеть до дедлайна",
+      "keywords": [
+        "маркировка молочной продукции сроки",
+        "маркировка молочной продукции когда обязателен"
       ],
-      "score": 131,
-      "targetFile": "src/content/blog/2026-05-03-markirovka-igrushek-2026.md",
-      "runId": "2026-10-04-2bcf9cda"
+      "entity": "маркировка молочной продукции",
+      "intent": "deadline",
+      "format": "news",
+      "segment": "none",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: сроки 2026 года и что успеть до дедлайна». Обязательна ссылка на /blog/2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna"
+        ]
+      },
+      "targetFile": "src/content/blog/2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna.md",
+      "runId": "2026-10-04-e97f63b2"
     }
   ],
   "skipped": []

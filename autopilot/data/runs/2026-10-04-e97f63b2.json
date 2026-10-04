@@ -1,0 +1,90 @@
+{
+  "runId": "2026-10-04-e97f63b2",
+  "date": "2026-10-04",
+  "kind": "day",
+  "createdAt": "2026-10-04T18:39:57.144Z",
+  "updatedAt": "2026-10-04T19:00:22.132Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-04T18:39:57.290Z",
+      "orderCount": 3,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 3,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "written": {
+      "at": "2026-10-04T18:59:37.796Z",
+      "delivered": 3,
+      "meaning": "bytes delivered; gates not passed yet"
+    },
+    "gated": {
+      "at": "2026-10-04T19:00:22.096Z",
+      "publicationCapacity": {
+        "day": "2026-10-04",
+        "slotsRemaining": 81,
+        "needed": 66,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 2,
+            "remaining": 53
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 1,
+            "remaining": 13
+          }
+        }
+      },
+      "published": 0,
+      "acceptedWaiting": 12,
+      "results": [
+        {
+          "slug": "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya",
+          "status": "accepted_waiting_release"
+        },
+        {
+          "slug": "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya",
+          "status": "accepted_waiting_release"
+        },
+        {
+          "slug": "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+          "status": "accepted_waiting_release"
+        }
+      ]
+    },
+    "built": {
+      "at": "2026-10-04T19:00:22.095Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "f1cdc3032df386a096826ce8ed5e90a5569314fa15b6b9f80db4043ea055525f",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-04T18:39:57.290Z"
+    },
+    {
+      "stage": "written",
+      "at": "2026-10-04T18:59:37.796Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-04T19:00:22.096Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-04T19:00:22.132Z"
+    }
+  ],
+  "meta": {}
+}

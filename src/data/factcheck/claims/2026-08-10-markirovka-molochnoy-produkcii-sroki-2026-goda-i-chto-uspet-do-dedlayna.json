@@ -1,0 +1,215 @@
+{
+  "slug": "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "DATE_TEXT",
+      "raw": "1 ноября 2026 года",
+      "groups": [
+        "1",
+        "2026"
+      ],
+      "offset": 106,
+      "line": 5,
+      "context": "../../components/CpaCallout.astro'; Ближайший дедлайн для молочной продукции — 1 ноября 2026 года: для продукции со сроком годности более 40 суток меняется состав сведений об об"
+    },
+    {
+      "id": "c7",
+      "type": "DATE_YEAR",
+      "raw": "2026 года",
+      "groups": [
+        "2026"
+      ],
+      "offset": 115,
+      "line": 5,
+      "context": "ponents/CpaCallout.astro'; Ближайший дедлайн для молочной продукции — 1 ноября 2026 года: для продукции со сроком годности более 40 суток меняется состав сведений об об"
+    },
+    {
+      "id": "c13",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 312,
+      "line": 5,
+      "context": "изводственной партии, что закреплено в [действующих правилах передачи сведений](https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/). Магазину и поставщику нужно проверить документы и учёт остатков по партиям. П",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c2",
+      "type": "DATE_TEXT",
+      "raw": "1 марта 2027 года",
+      "groups": [
+        "1",
+        "2027"
+      ],
+      "offset": 1411,
+      "line": 13,
+      "context": "передача номера производственной партии в сведениях об обороте предусмотрена с 1 марта 2027 года по [действующей редакции правил](https://www.consultant.ru/document/cons_doc_LA"
+    },
+    {
+      "id": "c8",
+      "type": "DATE_YEAR",
+      "raw": "2027 года",
+      "groups": [
+        "2027"
+      ],
+      "offset": 1419,
+      "line": 13,
+      "context": "а номера производственной партии в сведениях об обороте предусмотрена с 1 марта 2027 года по [действующей редакции правил](https://www.consultant.ru/document/cons_doc_LA"
+    },
+    {
+      "id": "c14",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 1462,
+      "line": 13,
+      "context": "х об обороте предусмотрена с 1 марта 2027 года по [действующей редакции правил](https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/). Граничное значение относится к этой группе: смотрите срок, установленный для",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c3",
+      "type": "DATE_TEXT",
+      "raw": "1 ноября 2026 года",
+      "groups": [
+        "1",
+        "2026"
+      ],
+      "offset": 1865,
+      "line": 15,
+      "context": "ение средств идентификации и передача сведений о вводе в оборот предусмотрены с 1 ноября 2026 года, а сведения об обороте и выводе из оборота, включая розничную продажу, — с 1 фе"
+    },
+    {
+      "id": "c9",
+      "type": "DATE_YEAR",
+      "raw": "2026 года",
+      "groups": [
+        "2026"
+      ],
+      "offset": 1874,
+      "line": 15,
+      "context": "ств идентификации и передача сведений о вводе в оборот предусмотрены с 1 ноября 2026 года, а сведения об обороте и выводе из оборота, включая розничную продажу, — с 1 фе"
+    },
+    {
+      "id": "c4",
+      "type": "DATE_TEXT",
+      "raw": "1 февраля 2027 года",
+      "groups": [
+        "1",
+        "2027"
+      ],
+      "offset": 1959,
+      "line": 15,
+      "context": "года, а сведения об обороте и выводе из оборота, включая розничную продажу, — с 1 февраля 2027 года согласно [изменениям правил маркировки](https://www.consultant.ru/document/cons"
+    },
+    {
+      "id": "c10",
+      "type": "DATE_YEAR",
+      "raw": "2027 года",
+      "groups": [
+        "2027"
+      ],
+      "offset": 1969,
+      "line": 15,
+      "context": "едения об обороте и выводе из оборота, включая розничную продажу, — с 1 февраля 2027 года согласно [изменениям правил маркировки](https://www.consultant.ru/document/cons"
+    },
+    {
+      "id": "c15",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 2019,
+      "line": 15,
+      "context": "ничную продажу, — с 1 февраля 2027 года согласно [изменениям правил маркировки](https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/). Отдельный этап касается молочной продукции из кодов ТН ВЭД 1704, 1806 и из к",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c5",
+      "type": "DATE_TEXT",
+      "raw": "1 сентября 2026 года",
+      "groups": [
+        "1",
+        "2026"
+      ],
+      "offset": 2266,
+      "line": 17,
+      "context": "06 и из кода ОКПД-2 10.51: нанесение маркировки и ввод в оборот предусмотрены с 1 сентября 2026 года, а передача сведений об обороте и выводе, включая розничную продажу, — с 1 март"
+    },
+    {
+      "id": "c11",
+      "type": "DATE_YEAR",
+      "raw": "2026 года",
+      "groups": [
+        "2026"
+      ],
+      "offset": 2277,
+      "line": 17,
+      "context": "а ОКПД-2 10.51: нанесение маркировки и ввод в оборот предусмотрены с 1 сентября 2026 года, а передача сведений об обороте и выводе, включая розничную продажу, — с 1 март"
+    },
+    {
+      "id": "c6",
+      "type": "DATE_TEXT",
+      "raw": "1 марта 2027 года",
+      "groups": [
+        "1",
+        "2027"
+      ],
+      "offset": 2360,
+      "line": 17,
+      "context": "6 года, а передача сведений об обороте и выводе, включая розничную продажу, — с 1 марта 2027 года по [тексту изменений](https://www.consultant.ru/document/cons_doc_LAW_536813/cb"
+    },
+    {
+      "id": "c12",
+      "type": "DATE_YEAR",
+      "raw": "2027 года",
+      "groups": [
+        "2027"
+      ],
+      "offset": 2368,
+      "line": 17,
+      "context": "а передача сведений об обороте и выводе, включая розничную продажу, — с 1 марта 2027 года по [тексту изменений](https://www.consultant.ru/document/cons_doc_LAW_536813/cb"
+    },
+    {
+      "id": "c16",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 2400,
+      "line": 17,
+      "context": "выводе, включая розничную продажу, — с 1 марта 2027 года по [тексту изменений](https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/). Не относите к этой категории весь шоколад или все конфеты по названию: провер",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c17",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 3087,
+      "line": 23,
+      "context": "правила предусматривают код товара, количество и номер производственной партии](https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/), а для продукции с различающимся весом — также соответствующие сведения о весе",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c18",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 3619,
+      "line": 25,
+      "context": "ые сведения с производственной партией. В [определении производственной партии](https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/) объединение связано с кодом товара, датой производства и одним производителем",
+      "expected_source": "consultant.ru"
+    }
+  ]
+}

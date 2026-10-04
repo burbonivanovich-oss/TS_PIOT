@@ -83,6 +83,27 @@
       "sha256": "59c6e03680df6d526fcc1f2dbb0571b7c3ccbb32f380637f1d2dde64bb46fd03",
       "runId": "2026-10-04-2bcf9cda",
       "at": "2026-10-04T17:46:38.083Z"
+    },
+    "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya": {
+      "kind": "new",
+      "attempt": "2026-10-04T18:39:57.204Z/0/0",
+      "sha256": "a2a2d77af559dd6c2b0eb0c7d90922e346fec5719dd8db3bb02393b20b72af59",
+      "runId": "2026-10-04-e97f63b2",
+      "at": "2026-10-04T18:45:57.167Z"
+    },
+    "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya": {
+      "kind": "new",
+      "attempt": "2026-10-04T18:39:57.228Z/0/0",
+      "sha256": "72e8c272772bc8bc13eb65bd18a720ec0843146af54103603746b822bf85635a",
+      "runId": "2026-10-04-e97f63b2",
+      "at": "2026-10-04T18:52:50.611Z"
+    },
+    "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna": {
+      "kind": "new",
+      "attempt": "2026-10-04T18:39:57.249Z/0/0",
+      "sha256": "07efdca9f5b9d5e1c33b4fa50273cb58d5dba8b59773ebb04d0df5fce7ae3442",
+      "runId": "2026-10-04-e97f63b2",
+      "at": "2026-10-04T18:59:37.772Z"
     }
   }
 }

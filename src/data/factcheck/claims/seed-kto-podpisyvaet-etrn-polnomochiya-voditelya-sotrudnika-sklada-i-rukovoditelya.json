@@ -1,0 +1,65 @@
+{
+  "slug": "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "LINK",
+      "raw": "https://base.garant.ru/404741819/",
+      "groups": [
+        "base.garant.ru"
+      ],
+      "offset": 686,
+      "line": 9,
+      "context": "разными сведениями. В [правилах обмена электронными перевозочными документами](https://base.garant.ru/404741819/) отдельно описаны сведения отправителя, приём груза перевозчиком, приём получат",
+      "expected_source": "base.garant.ru"
+    },
+    {
+      "id": "c2",
+      "type": "LINK",
+      "raw": "https://base.garant.ru/404741819/",
+      "groups": [
+        "base.garant.ru"
+      ],
+      "offset": 1294,
+      "line": 11,
+      "context": "уза сам либо через уполномоченное лицо. Эти роли установлены [правилами обмена](https://base.garant.ru/404741819/); не переносите полномочие со стороны отправителя на сторону получателя автомат",
+      "expected_source": "base.garant.ru"
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://base.garant.ru/404741819/",
+      "groups": [
+        "base.garant.ru"
+      ],
+      "offset": 2627,
+      "line": 26,
+      "context": "приложении не обязательно завершает подписание от перевозчика. [Правила обмена](https://base.garant.ru/404741819/) допускают дополнительную простую электронную подпись (ПЭП) или усиленную неква",
+      "expected_source": "base.garant.ru"
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/related_activities/el_doc/el_bus_entities/edotransp/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 4470,
+      "line": 38,
+      "context": "отому, что получил доступ к его накладным. [ФНС в алгоритме транспортного ЭДО](https://www.nalog.gov.ru/rn77/related_activities/el_doc/el_bus_entities/edotransp/) поясняет: сотрудник, который подписывает вместо руководителя или ИП с помощью",
+      "expected_source": "nalog.gov.ru"
+    },
+    {
+      "id": "c5",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 6575,
+      "line": 57,
+      "context": "равило вида подписи закреплено в [статье 18.1 Устава автомобильного транспорта](https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/): участники используют КЭП либо усиленную неквалифицированную подпись физлица с",
+      "expected_source": "consultant.ru"
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "slug": "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/f6b53d1b0f22ceb61c6218ed5d33b5e60c33804f/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 1448,
+      "line": 13,
+      "context": "всех организаций в сети. [Требования к участникам оборота молочной продукции](https://www.consultant.ru/document/cons_doc_LAW_371342/f6b53d1b0f22ceb61c6218ed5d33b5e60c33804f/) предусматривают квалифицированную электронную подпись и средства для подписани",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c2",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/f6b53d1b0f22ceb61c6218ed5d33b5e60c33804f/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 2899,
+      "line": 21,
+      "context": "остику рабочего места и проверьте реквизиты заявителя. По [порядку регистрации](https://www.consultant.ru/document/cons_doc_LAW_371342/f6b53d1b0f22ceb61c6218ed5d33b5e60c33804f/) заявление направляется в систему мониторинга и подписывается усиленной электро",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/f6b53d1b0f22ceb61c6218ed5d33b5e60c33804f/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 3363,
+      "line": 23,
+      "context": ". Для ранее зарегистрированного участника [правила подключения молочной группы](https://www.consultant.ru/document/cons_doc_LAW_371342/f6b53d1b0f22ceb61c6218ed5d33b5e60c33804f/) предусматривают уведомление с ИНН, наименованием группы «молочная продукция» и",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/f6b53d1b0f22ceb61c6218ed5d33b5e60c33804f/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 3918,
+      "line": 25,
+      "context": "отклонена, прочитайте причину целиком. В [действующих требованиях регистрации](https://www.consultant.ru/document/cons_doc_LAW_371342/f6b53d1b0f22ceb61c6218ed5d33b5e60c33804f/) предусмотрены отказы из-за отсутствия или несоответствия уведомления о начале",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c5",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 4936,
+      "line": 33,
+      "context": "ряет поддержку маркированной молочки. В [правилах передачи молочной продукции](https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/) предусмотрено уведомление в формате УПД, подписанное обеими сторонами, которое",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c6",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 5794,
+      "line": 35,
+      "context": "ку номера партии и корректировочных документов по [актуальным правилам оборота](https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/), включая переходные условия. Не считайте индивидуальный кассовый код доказател",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c7",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 7248,
+      "line": 45,
+      "context": "результат обработки сведений в системе маркировки. [Правила отражения передачи](https://www.consultant.ru/document/cons_doc_LAW_371342/010d83351722dcebde292082e68bf8201f3716fd/) связывают её с получением уведомления оператором системы от оператора ЭДО. Поэ",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c8",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_371342/f6b53d1b0f22ceb61c6218ed5d33b5e60c33804f/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 8074,
+      "line": 51,
+      "context": "тказе Для магазина с онлайн-передачей данных [требования к розничному обороту](https://www.consultant.ru/document/cons_doc_LAW_371342/f6b53d1b0f22ceb61c6218ed5d33b5e60c33804f/) предусматривают средства распознавания маркировки, сопряжённые с ККТ, и догово",
+      "expected_source": "consultant.ru"
+    }
+  ]
+}
