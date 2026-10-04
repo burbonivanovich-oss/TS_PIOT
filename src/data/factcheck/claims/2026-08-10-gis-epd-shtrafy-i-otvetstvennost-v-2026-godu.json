@@ -1,0 +1,100 @@
+{
+  "slug": "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "DATE_TEXT",
+      "raw": "1 марта 2027 года",
+      "groups": [
+        "1",
+        "2027"
+      ],
+      "offset": 2073,
+      "line": 25,
+      "context": "и объявленный нештрафуемый период [Минтранс сообщил о нештрафуемом периоде до 1 марта 2027 года](https://www.mintrans.gov.ru/eye/press-center/news/12933) для участников, оформ"
+    },
+    {
+      "id": "c2",
+      "type": "DATE_YEAR",
+      "raw": "2027 года",
+      "groups": [
+        "2027"
+      ],
+      "offset": 2081,
+      "line": 25,
+      "context": "ленный нештрафуемый период [Минтранс сообщил о нештрафуемом периоде до 1 марта 2027 года](https://www.mintrans.gov.ru/eye/press-center/news/12933) для участников, оформ"
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://www.mintrans.gov.ru/eye/press-center/news/12933",
+      "groups": [
+        "mintrans.gov.ru"
+      ],
+      "offset": 2092,
+      "line": 25,
+      "context": "рафуемый период [Минтранс сообщил о нештрафуемом периоде до 1 марта 2027 года](https://www.mintrans.gov.ru/eye/press-center/news/12933) для участников, оформивших документы на бумажном носителе вместо электронного",
+      "expected_source": "mintrans.gov.ru"
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_34661/8e60664b7729e9447c11234f41d1ad88572d046a/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 3441,
+      "line": 35,
+      "context": "ю. ## Ответственность экспедитора: отдельные составы [Статья 11.14.3 КоАП РФ](https://www.consultant.ru/document/cons_doc_LAW_34661/8e60664b7729e9447c11234f41d1ad88572d046a/) посвящена невыполнению обязанностей в транспортно-экспедиционной деятельности.",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c5",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_34661/8e60664b7729e9447c11234f41d1ad88572d046a/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 3976,
+      "line": 37,
+      "context": "твах груза и условиях перевозки; содержание состава приведено в [тексте статьи](https://www.consultant.ru/document/cons_doc_LAW_34661/8e60664b7729e9447c11234f41d1ad88572d046a/). Сам факт технического сбоя в кабинете оператора ещё не описывает такое наруше",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c6",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_34661/8e60664b7729e9447c11234f41d1ad88572d046a/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 4471,
+      "line": 39,
+      "context": "ста тысяч до трёхсот тысяч рублей; основание — [часть 3 статьи 11.14.3 КоАП РФ](https://www.consultant.ru/document/cons_doc_LAW_34661/8e60664b7729e9447c11234f41d1ad88572d046a/). Это пример санкции за самостоятельное нарушение в экспедиции, а не универсаль",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c7",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_34661/8e60664b7729e9447c11234f41d1ad88572d046a/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 4828,
+      "line": 41,
+      "context": "оставляет от пятисот тысяч до одного миллиона рублей по [части 4 той же статьи](https://www.consultant.ru/document/cons_doc_LAW_34661/8e60664b7729e9447c11234f41d1ad88572d046a/). Не переносите эту вилку на первую претензию и не называйте повторностью прост",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c8",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_34661/0486252c9b58867b61fbeadf42daad5e67b324f1/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 5440,
+      "line": 47,
+      "context": "ании. ## Водитель, документы и технический сбой [Часть 2 статьи 12.3 КоАП РФ](https://www.consultant.ru/document/cons_doc_LAW_34661/0486252c9b58867b61fbeadf42daad5e67b324f1/) предусматривает предупреждение или штраф пятьсот рублей, в том числе для водит",
+      "expected_source": "consultant.ru"
+    }
+  ]
+}

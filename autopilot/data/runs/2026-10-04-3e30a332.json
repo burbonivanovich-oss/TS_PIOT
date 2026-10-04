@@ -1,0 +1,71 @@
+{
+  "runId": "2026-10-04-3e30a332",
+  "date": "2026-10-04",
+  "kind": "day",
+  "createdAt": "2026-10-04T14:00:11.875Z",
+  "updatedAt": "2026-10-04T14:21:19.846Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-04T14:00:11.970Z",
+      "orderCount": 3,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 3,
+        "todayTarget": 4,
+        "debt": 5
+      }
+    },
+    "written": {
+      "at": "2026-10-04T14:20:55.179Z",
+      "delivered": 3,
+      "meaning": "bytes delivered; gates not passed yet"
+    },
+    "gated": {
+      "at": "2026-10-04T14:21:19.823Z",
+      "published": 0,
+      "acceptedWaiting": 3,
+      "results": [
+        {
+          "slug": "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
+          "status": "accepted_waiting_release"
+        },
+        {
+          "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
+          "status": "accepted_waiting_release"
+        },
+        {
+          "slug": "2026-05-01-ofd-dlya-ts-piot",
+          "status": "accepted_waiting_release"
+        }
+      ]
+    },
+    "built": {
+      "at": "2026-10-04T14:21:19.823Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "7ef96c50562ae6545abf0a315b33ccbc68e1bff15c7d0fd99b6c70ec1c35f819",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-04T14:00:11.970Z"
+    },
+    {
+      "stage": "written",
+      "at": "2026-10-04T14:20:55.179Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-04T14:21:19.823Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-04T14:21:19.846Z"
+    }
+  ],
+  "meta": {}
+}
