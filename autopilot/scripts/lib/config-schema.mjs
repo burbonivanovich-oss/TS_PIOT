@@ -26,7 +26,7 @@ export const SECTIONS = {
 export const OPTIONAL = {
   backlog: ['demandMaxBoost', 'demandMaxAgeDays', 'demandRegion', 'pilotSlotsPerBatch'],
   publish: ['calendar'],
-  throughput: ['monthlyRewriteTarget'],
+  throughput: ['monthlyRewriteTarget', 'maxAcceptedBuffer'],
   rewrite: ['sourceCheckIntervalDays', 'sourceObservationMaxAgeDays', 'sourceChecksPerRun'],
   gates: ['sourceMaxAgeDays', 'infraRetryLimit', 'requireClaimEvidence', 'requireHeroImage', 'requireWritingReceipt'],
 };
@@ -104,6 +104,7 @@ export function validateConfig(cfg) {
   }
 
   const t = cfg.throughput || {};
+  if ('maxAcceptedBuffer' in t && !(isInt(t.maxAcceptedBuffer) && t.maxAcceptedBuffer >= 1)) errors.push('throughput.maxAcceptedBuffer должен быть положительным целым');
   if (isNum(t.monthlyTarget) && !(isInt(t.monthlyTarget) && t.monthlyTarget > 0)) errors.push('throughput.monthlyTarget должен быть положительным целым');
   if ('monthlyRewriteTarget' in t && !(Number.isInteger(t.monthlyRewriteTarget) && t.monthlyRewriteTarget >= 0)) errors.push('throughput.monthlyRewriteTarget должен быть неотрицательным целым');
   if (isNum(t.batchesPerDay) && !(isInt(t.batchesPerDay) && t.batchesPerDay >= 1)) errors.push('throughput.batchesPerDay должен быть ≥1');

@@ -23,7 +23,8 @@
     "batchesPerDay": 1,
     "maxBatchSize": 3,
     "maxParallelWriting": 4,
-    "catchUpFactor": 1.35
+    "catchUpFactor": 1.35,
+    "maxAcceptedBuffer": 14
   },
   "mix": {
     "new": 0.75,

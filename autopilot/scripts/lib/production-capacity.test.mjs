@@ -93,3 +93,18 @@ test('urgent repair cannot exceed batch, active slots or monthly rewrite budget'
  const many=cap(state(9,3),{urgentRewrites:100});assert.equal(many.takeByKind.rewrite,many.canTake);
  for(const value of [-1,0.5,Infinity,NaN])assert.throws(()=>cap(state(),{urgentRewrites:value}),/Invalid urgent/);
 });
+
+test('accepted buffer reserves active work and pauses normal writing without spending month budget',()=>{
+ const waiting=Array.from({length:13},(_,i)=>({kind:'new',slug:'queued-'+i,acceptedAt:'2026-10-04'}));
+ const s=state(12,4);let c=cap(s,{waiting});assert.equal(c.canTake,1);
+ s.inFlight=[{kind:'new',slug:'active'}];c=cap(s,{waiting});assert.equal(c.canTake,0);assert.equal(c.buffer.paused,true);assert.equal(c.byKind.new.remaining,42);
+ s.inFlight=[];waiting.push({kind:'rewrite',acceptedAt:'2026-10-04'});assert.equal(cap(s,{waiting}).canTake,0);
+ waiting.splice(0,3);assert.equal(cap(s,{waiting}).canTake,3,'publication frees buffer for refill');
+});
+test('full buffer allows only urgent correction slots and keeps all hard budgets',()=>{
+ const waiting=Array.from({length:14},()=>({kind:'new',acceptedAt:'2026-10-04'}));
+ let c=cap(state(12,4),{waiting,urgentRewrites:1});assert.equal(c.canTake,1);assert.deepEqual(c.takeByKind,{new:0,rewrite:1});
+ assert.equal(cap(state(12,14),{waiting,urgentRewrites:1}).canTake,0);
+ assert.equal(cap(state(12,4),{waiting,urgentRewrites:20}).canTake,config.throughput.maxBatchSize);
+ for(const limit of [0,-1,1.5,NaN])assert.throws(()=>cap(state(),{config:{...config,throughput:{...config.throughput,maxAcceptedBuffer:limit}}}),/buffer/);
+});
