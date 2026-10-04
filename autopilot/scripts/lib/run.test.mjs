@@ -78,3 +78,16 @@ test('model ledger retains interrupted calls, strips transcripts and refuses com
   setStage(run.runId,'gated',{}, {dir:d});
   assert.throws(()=>recordModelInvocation(run.runId,{...call,id:randomUUID()},{dir:d}),/открытого/);
 });
+
+test('model ledger uses same-run orders.json when planner-created manifest has no orders', async () => {
+  const { recordModelInvocation } = await import('./run.mjs');
+  const { randomUUID } = await import('node:crypto');
+  const { writeFileSync } = await import('node:fs');
+  const d=dir(),run=createRun({dir:d}),file=path.join(d,'orders.json');
+  const entry={id:randomUUID(),slug:'article',attempt:'a',startedAt:new Date().toISOString(),status:'started'};
+  writeFileSync(file,JSON.stringify({runId:run.runId,orders:[{slug:'article',kind:'rewrite'}]}));
+  recordModelInvocation(run.runId,entry,{dir:d});
+  assert.equal(readRun(run.runId,{dir:d}).meta.modelInvocations.length,1);
+  writeFileSync(file,JSON.stringify({runId:'other-run',orders:[{slug:'article'}]}));
+  assert.throws(()=>recordModelInvocation(run.runId,{...entry,id:randomUUID()},{dir:d}),/Неверная/);
+});

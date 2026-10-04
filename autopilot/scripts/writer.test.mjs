@@ -41,7 +41,7 @@ test('real writer/receipt path skips delivered order on repeat without model cal
     mkdirSync(blog, { recursive: true }); mkdirSync(data);
     const config = JSON.parse(readFileSync(path.join(engine, 'config/autopilot.config.json'), 'utf8')); config.security.strictContentRoot = false;
     const configFile = path.join(root, 'config.json'); writeFileSync(configFile, JSON.stringify(config));
-    const run = createRun({ dir: data, orders: ['article'] }); setStage(run.runId, 'planned', {}, { dir: data });
+    const run = createRun({ dir: data }); // production planner fills orders.json after creating an empty manifest setStage(run.runId, 'planned', {}, { dir: data });
     writeFileSync(path.join(data, 'orders.json'), JSON.stringify({ runId: run.runId, orders: [{ slug: 'article', kind: 'new' }] }));
     writeFileSync(path.join(data, 'autopilot.json'), JSON.stringify({ inFlight: [{ slug: 'article', kind: 'new', claimedAt: 'now', failures: 0, infraFailures: 0 }] }));
     const script = `import { writeOrders } from './scripts/writer.mjs'; import { writeFileSync, readFileSync, existsSync } from 'node:fs'; import { createHash } from 'node:crypto';

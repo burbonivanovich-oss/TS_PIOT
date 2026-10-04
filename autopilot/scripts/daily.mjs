@@ -4,6 +4,7 @@
 import path from 'node:path';
 import { existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
+import { isolatedTestEnv } from './lib/test-env.mjs';
 import { loadConfig, assertContentRoot, ROOT } from './lib/config.mjs';
 import { readJson, writeJson, loadArticles, isMain, parseArgs } from './lib/content.mjs';
 import { acquireLock, releaseLock } from './lib/lock.mjs';
@@ -112,7 +113,7 @@ if (isMain(import.meta.url)) {
   try {
     recoverWriting();
     for (const args of [[path.join(ROOT, 'scripts/preflight.mjs')], ['--test', 'scripts/*.test.mjs', 'scripts/lib/*.test.mjs']]) {
-      const check = spawnSync(process.execPath, args, { cwd: ROOT, stdio: 'inherit' });
+      const check = spawnSync(process.execPath, args, { cwd: ROOT, stdio: 'inherit', env: args.includes('--test') ? isolatedTestEnv() : process.env });
       if (check.error || check.status !== 0) throw new Error('Preflight/тесты не пройдены; цикл не запускается');
     }
     const args = parseArgs(process.argv.slice(2));
