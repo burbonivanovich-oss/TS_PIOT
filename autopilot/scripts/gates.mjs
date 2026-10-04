@@ -156,7 +156,7 @@ export function extractCriticalClaims(body, sourceEvidence = null) {
   );
 }
 
-export function runGates({ file, source, knownSlugs = null, sourceEvidence = null, siteQuality = runSiteQuality, claimEvidence = undefined, claimVerifier = checkClaimEvidence, assetVerifier = checkHeroAssets }) {
+export function runGates({ file, source, requiredPubDate = null, knownSlugs = null, sourceEvidence = null, siteQuality = runSiteQuality, claimEvidence = undefined, claimVerifier = checkClaimEvidence, assetVerifier = checkHeroAssets }) {
   const raw = source ?? readFileSync(file, 'utf8');
   const { data, body } = parseFrontmatter(raw);
   const checks = [];
@@ -179,6 +179,10 @@ export function runGates({ file, source, knownSlugs = null, sourceEvidence = nul
   // `2026-02-30` не должен «съезжать» на март и молча проходить дальше.
   const dateProblems = [];
   let dateOk = true;
+  if (requiredPubDate !== null && (!parseIsoDate(requiredPubDate).ok || String(data.pubDate) !== requiredPubDate)) {
+    dateOk = false;
+    dateProblems.push(`pubDate нового материала должен совпадать с датой прохода: ${requiredPubDate}`);
+  }
   let reviewOverdue = false;
   if ('pubDate' in data && data.pubDate !== '' && data.pubDate !== null && data.pubDate !== undefined) {
     const pub = parseIsoDate(data.pubDate);
@@ -374,7 +378,7 @@ function main() {
   const args = parseArgs(process.argv.slice(3));
   const cmd = process.argv[2];
   if (cmd !== 'check') {
-    console.log('Использование: gates.mjs check --file <path> | --slug <slug> [--json]');
+    console.log('Использование: gates.mjs check --file <path> | --slug <slug> [--required-pub-date YYYY-MM-DD] [--json]');
     process.exit(1);
   }
 
@@ -390,7 +394,7 @@ function main() {
     process.exit(1);
   }
 
-  const result = runGates({ file, sourceEvidence: readSourceEvidence().entries });
+  const result = runGates({ file, sourceEvidence: readSourceEvidence().entries, requiredPubDate: args['required-pub-date'] ?? null });
   const dupe = bodyDuplication({ file });
   const passed = result.passed && dupe.verdict === 'ok';
 

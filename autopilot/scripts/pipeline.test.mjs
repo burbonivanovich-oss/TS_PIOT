@@ -343,3 +343,19 @@ test('mandatory delivery receipt: matching delivery still goes through quality g
   assert.equal(report.published, 0);
   assert.equal(readState(fx).inFlight[0].failures, 1);
 });
+test('receipt-backed NEW with a legacy date is held; matching run date publishes', async () => {
+  const { writingStatus } = await import('./writing-checkpoint.mjs');
+  for (const [pubDate, expectedPublished] of [['2026-01-01', 0], ['2026-09-13', 1]]) {
+    const fx = fixture(); const config = JSON.parse(readFileSync(fx.configFile, 'utf8'));
+    config.gates.requireWritingReceipt = true; writeFileSync(fx.configFile, JSON.stringify(config));
+    const blog = path.join(fx.root, 'src/content/blog'); addReferenceArticles(blog);
+    const article = path.join(blog, `${SLUG}.md`);
+    writeFileSync(article, validWaitingArticle('Дата нового материала').replace('pubDate: "2026-01-01"', `pubDate: "${pubDate}"`));
+    const state = readState(fx); const orders = JSON.parse(readFileSync(path.join(fx.dataDir, 'orders.json'), 'utf8'));
+    const status = writingStatus({ orders, state, blog })[0];
+    writeFileSync(path.join(fx.dataDir, 'writing-receipts.json'), JSON.stringify({ items: { [SLUG]: { kind: 'new', attempt: status.attempt, sha256: status.sha256 } } }));
+    const report = settle(fx); assert.equal(report.infraMissing, 0); assert.equal(report.published, expectedPublished, JSON.stringify(report));
+    assert.equal(report.rejected, 1 - expectedPublished);
+    if (!expectedPublished) { assert.match(report.results[0].detail, /dates/); assert.match(readFileSync(article, 'utf8'), /autopilotHold: true/); assert.equal(readState(fx).counters.new, 0); }
+  }
+});

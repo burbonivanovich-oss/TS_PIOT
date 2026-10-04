@@ -275,7 +275,7 @@ function settleInner({ dry = false } = {}) {
       continue;
     }
 
-    const gates = runGates({ file, sourceEvidence });
+    const gates = runGates({ file, sourceEvidence, requiredPubDate: cfg.gates.requireWritingReceipt && order.kind === 'new' ? (orders.date || '') : null });
     const dupe = bodyDuplication({ file });
     const passed = gates.passed && dupe.verdict === 'ok';
 
@@ -310,7 +310,7 @@ function settleInner({ dry = false } = {}) {
       results.push({ slug: item.slug, status: 'release_missing', detail: 'ожидающая статья отсутствует' });
       continue;
     }
-    const gates = runGates({ file, sourceEvidence });
+    const gates = runGates({ file, sourceEvidence, requiredPubDate: cfg.gates.requireWritingReceipt && item.kind === 'new' ? String(item.acceptedAt || '').slice(0, 10) : null });
     const dupe = bodyDuplication({ file });
     if (!gates.passed || dupe.verdict !== 'ok') {
       if (!dry) hold(file, 'waiting_recheck_failed');

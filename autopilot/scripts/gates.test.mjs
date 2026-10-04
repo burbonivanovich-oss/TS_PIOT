@@ -42,6 +42,12 @@ test('нормальная статья проходит гейты', () => {
   const result = runGates({ file: null, source: good(), knownSlugs: KNOWN });
   assert.equal(result.passed, true, JSON.stringify(result.checks.filter((c) => !c.ok), null, 2));
 });
+test('NEW date mismatch is a blocker even when the weighted score passes', () => {
+  const r = runGates({ file: null, source: good(), knownSlugs: KNOWN, requiredPubDate: '2026-10-04' });
+  assert.ok(r.score >= 70); assert.equal(r.passed, false); assert.ok(r.blockers.includes('dates'));
+  assert.equal(runGates({ file: null, source: good(), knownSlugs: KNOWN, requiredPubDate: '2026-08-10' }).passed, true);
+  assert.equal(runGates({ file: null, source: good(), knownSlugs: KNOWN, requiredPubDate: '' }).passed, false);
+});
 
 test('утверждение о сроке без первоисточника — блокер', () => {
   // Скобки экранированы: без этого `[закону]` читается как класс символов.
