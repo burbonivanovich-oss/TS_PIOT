@@ -17,6 +17,7 @@
 import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildPayload, declaredKey, remoteKey } from './goal-contract.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const GOALS_FILE = join(ROOT, 'src', 'data', 'metrika', 'goals.json');
@@ -56,57 +57,6 @@ async function api(path, { method = 'GET', body } = {}) {
     throw new Error(`${method} ${path} → ${res.status}: ${text.slice(0, 400)}`);
   }
   return text ? JSON.parse(text) : null;
-}
-
-// Payload для разных типов целей:
-//   action: JavaScript-событие через reachGoal.
-//           conditions[0]: { type: 'exact', url: <id> }
-//   number: количество просмотров за визит.
-//           conditions[0]: { type: <operator>, url: <число> }
-//   time:   время на сайте, в секундах.
-//           conditions[0]: { type: <operator>, url: <секунды> }
-function buildPayload(g) {
-  if (g.type === 'action') {
-    return {
-      goal: {
-        name: g.name,
-        type: 'action',
-        conditions: [{ type: 'exact', url: g.id }],
-      },
-    };
-  }
-  if (g.type === 'number' || g.type === 'time') {
-    if (!g.operator || !g.value) {
-      throw new Error(`Цель ${g.id} типа ${g.type} требует operator и value`);
-    }
-    return {
-      goal: {
-        name: g.name,
-        type: g.type,
-        conditions: [{ type: g.operator, url: String(g.value) }],
-      },
-    };
-  }
-  throw new Error(`Неподдерживаемый тип цели: ${g.type} (id=${g.id})`);
-}
-
-// Ключ идентификации, по которому сравниваем декларацию и существующее.
-// Для action — стабильный id из reachGoal.
-// Для number/time — комбинация type+operator+value (это уникально для цели,
-// и id в Метрике мы при этом сохраняем для PUT при изменении name).
-function declaredKey(g) {
-  if (g.type === 'action') return `action:${g.id}`;
-  return `${g.type}:${g.operator}:${g.value}`;
-}
-
-function remoteKey(r) {
-  const cond = (r.conditions || [])[0];
-  if (!cond) return null;
-  if (r.type === 'action') return `action:${cond.url}`;
-  if (r.type === 'number' || r.type === 'time') {
-    return `${r.type}:${cond.type}:${cond.url}`;
-  }
-  return null;
 }
 
 console.log(`Счётчик: ${counterId}`);

@@ -24,6 +24,7 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       ASTRO_SITE: https://etiketka-media.ru
       ASTRO_BASE: /
+      PUBLIC_COMMERCIAL_EVENTS_ENABLED: 'true'
 
     steps:
       - uses: actions/checkout@v4
