@@ -42,11 +42,16 @@ checkout, пока владелец не завершился и его проц
 
 `draft: false`, зелёная сборка и push ещё не подтверждают публикацию.
 После успешного push дождаться завершения деплоя, затем проверить
-`/release.json` и страницы выпущенного прохода командой:
+`/release.json` и страницы выпущенного прохода командой. Ожидаемый SHA —
+`result.delivery.publication.commit` для обычного прохода или
+`result.publication.commit` для восстановления push. Это фактически
+отправленный и проверенный remote SHA. После объединения Wordstat он
+отличается от исходного `metadataCommit`, который остаётся квитанцией.
+Без подтверждённого push SHA проверку публикации не считать выполненной:
 
 ```bash
 node autopilot/scripts/live-release.mjs --site https://etiketka-media.ru \
-  --commit <delivery.metadataCommit> --pages /absolute/path/pages.json
+  --commit <pushedCommit> --pages /absolute/path/pages.json
 ```
 
 Аргумент --pages — путь к JSON-файлу вне рабочего checkout. Формат массива страниц и обязательного текста посмотреть в
