@@ -1,16 +1,12 @@
 name: Картинки — пакетный прогон
 
 # Единственное, на что автопилот тратит OPENROUTER_API_KEY, — изображения.
-# Статьи пишет Claude (Routine на claude.ai/code), см. docs/autopilot.md.
+# Статьи и обязательные hero доставляет daily.mjs. Этот workflow — ручное обслуживание.
 #
 # Прогон идёт разом по всем черновикам без hero: закоммитил месячную норму
 # статей — одним запуском получил месячную норму картинок.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'src/content/blog/**'
   workflow_dispatch:
     inputs:
       force:

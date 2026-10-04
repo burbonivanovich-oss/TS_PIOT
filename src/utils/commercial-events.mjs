@@ -5,6 +5,10 @@ const TASKS = new Set(['kassa', 'ofd', 'markirovka', 'buh', 'edo', 'etrn', 'kadr
 const ROLES = new Set(['sender', 'carrier', 'recipient', 'mixed']);
 const FORMS = new Set(['ip-solo', 'ip-staff', 'ooo']);
 
+export function commercialEnabled(enabled, hostname) {
+  return enabled === 'true' && !['localhost', '127.0.0.1', '[::1]', '::1'].includes(String(hostname).toLowerCase());
+}
+
 export function commercialPayload(event, fields = {}) {
   if (!EVENTS.has(event)) return null;
   const params = {};

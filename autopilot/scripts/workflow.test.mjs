@@ -11,6 +11,20 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const WORKFLOW = readFileSync(path.join(ROOT, '.github', 'workflows', 'autopilot.yml'), 'utf8');
 
+test('legacy publisher has no scheduler or write path competing with daily owner', () => {
+  const legacy = readFileSync(path.join(ROOT, '.github', 'workflows', 'auto-publish.yml'), 'utf8');
+  assert.ok(!/^\s*schedule\s*:/m.test(legacy));
+  assert.ok(!/contents:\s*write|git (?:push|commit)|release-next-draft\.mjs/.test(legacy));
+  assert.match(legacy, /queue-status\.mjs --json/);
+});
+test('hero maintenance cannot mutate accepted article metadata automatically', () => {
+  for (const name of ['content-images-batch.yml', 'hero-backfill-daily.yml']) {
+    const workflow = readFileSync(path.join(ROOT, '.github', 'workflows', name), 'utf8');
+    assert.ok(!/^\s*(?:schedule|push)\s*:/m.test(workflow), name);
+    assert.match(workflow, /workflow_dispatch:/);
+  }
+});
+
 test('AP-P2-01: все uses зафиксированы по commit SHA', () => {
   const uses = [...WORKFLOW.matchAll(/^\s*-?\s*uses:\s*(\S+)/gm)].map((m) => m[1]);
   assert.ok(uses.length >= 3, 'ожидались шаги actions/checkout и setup-node');

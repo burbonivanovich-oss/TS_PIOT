@@ -89,6 +89,9 @@
   "backlog": {
     "targetBufferFactor": 1.3,
     "maxPerEntityShare": 0.06,
-    "maxPerEntityPerBatch": 2
+    "maxPerEntityPerBatch": 2,
+    "demandMaxBoost": 30,
+    "demandMaxAgeDays": 30,
+    "demandRegion": 225
   }
 }

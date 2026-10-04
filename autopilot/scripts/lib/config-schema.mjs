@@ -24,6 +24,7 @@ export const SECTIONS = {
 
 // Необязательные ключи, которые код умеет читать через `?? default`.
 export const OPTIONAL = {
+  backlog: ['demandMaxBoost', 'demandMaxAgeDays', 'demandRegion'],
   publish: ['calendar'],
   throughput: ['monthlyRewriteTarget'],
   rewrite: ['sourceCheckIntervalDays', 'sourceObservationMaxAgeDays', 'sourceChecksPerRun'],
@@ -175,6 +176,10 @@ export function validateConfig(cfg) {
   }
 
   const b = cfg.backlog || {};
+  if ('demandMaxBoost' in b && !(isNum(b.demandMaxBoost) && b.demandMaxBoost >= 0 && b.demandMaxBoost <= 100)) errors.push('backlog.demandMaxBoost должен быть 0–100');
+  if ('demandMaxAgeDays' in b && !(isInt(b.demandMaxAgeDays) && b.demandMaxAgeDays >= 1)) errors.push('backlog.demandMaxAgeDays должен быть положительным целым');
+  if ('demandRegion' in b && !(isInt(b.demandRegion) && b.demandRegion > 0)) errors.push('backlog.demandRegion должен быть положительным целым');
+  if (b.demandMaxBoost > 0 && (!('demandMaxAgeDays' in b) || !('demandRegion' in b))) errors.push('При включённом спросе обязательны demandMaxAgeDays и demandRegion');
   if (isNum(b.targetBufferFactor) && b.targetBufferFactor < 1) errors.push('backlog.targetBufferFactor должен быть ≥1');
   if (isNum(b.maxPerEntityShare) && !inRange(b.maxPerEntityShare, 0, 1)) errors.push('backlog.maxPerEntityShare должен быть в диапазоне 0–1');
   if ('maxPerEntityPerBatch' in b && !(isInt(b.maxPerEntityPerBatch) && b.maxPerEntityPerBatch >= 1)) errors.push('backlog.maxPerEntityPerBatch должен быть ≥1');
