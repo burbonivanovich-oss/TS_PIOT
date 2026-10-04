@@ -385,3 +385,40 @@ test('real plan reserves an urgent factual rewrite ahead of mix without reissuin
   const second=invoke();assert.equal(second.orders.filter(o=>o.slug===slug).length,1);assert.equal(readState(fx).inFlight.filter(o=>o.slug===slug).length,1);
  }
 });
+
+
+test('waiting release retains exact QA rejection and keeps the article held', () => {
+ const fx=fixture(), blog=path.join(fx.root,'src/content/blog'), slug='waiting-qa-failure';
+ addReferenceArticles(blog);
+ writeFileSync(path.join(blog,slug+'.md'),validWaitingArticle('Проверка отказа'));
+ const config=JSON.parse(readFileSync(fx.configFile));config.security={qualityCheck:true};
+ writeFileSync(fx.configFile,JSON.stringify(config));
+ const qa=path.join(fx.root,'scripts/content');mkdirSync(qa,{recursive:true});
+ writeFileSync(path.join(qa,'qa-gate.mjs'),`console.log(JSON.stringify({pass:false,blockers:['QA: missing source snapshot']}));process.exit(1);`);
+ const state=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));state.inFlight=[];
+ writeFileSync(path.join(fx.dataDir,'autopilot.json'),JSON.stringify(state));
+ writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({orders:[]}));
+ writeFileSync(path.join(fx.dataDir,'release-queue.json'),JSON.stringify({items:[{slug,kind:'new',score:100,acceptedAt:new Date().toISOString()}]}));
+ const proc=spawnSync(process.execPath,['scripts/pipeline.mjs','settle','--json'],{cwd:ROOT,encoding:'utf8',env:{...process.env,AUTOPILOT_CONFIG:fx.configFile,AUTOPILOT_DATA_DIR:fx.dataDir,AUTOPILOT_LOCK_FILE:path.join(fx.dataDir,'.autopilot.lock'),CONTENT_ROOT:fx.root}});
+ assert.equal(proc.status,0,proc.stderr);const report=JSON.parse(proc.stdout);
+ const rejected=report.results.find(r=>r.status==='release_rejected');
+ assert.deepEqual(rejected.blockers,['site-quality']);
+ assert.match(rejected.detail,/QA: missing source snapshot/);
+ assert.equal(rejected.failedChecks.find(c=>c.id==='site-quality').ok,false);
+ assert.equal(rejected.duplication.verdict,'ok');assert.ok(Date.parse(rejected.checkedAt));
+ assert.equal(report.published,0);
+ assert.match(readFileSync(path.join(blog,slug+'.md'),'utf8'),/draft: true/);
+ assert.equal(JSON.parse(readFileSync(path.join(fx.dataDir,'release-queue.json'))).items[0].slug,slug);
+ const saved=JSON.parse(readFileSync(path.join(fx.dataDir,`report-${report.date}.json`)));
+ assert.deepEqual(saved.results,report.results);
+ // A different title does not hide a duplicate body; retain the peer and score.
+ writeFileSync(path.join(qa,'qa-gate.mjs'),`console.log(JSON.stringify({pass:true,blockers:[]}));`);
+ writeFileSync(path.join(blog,'duplicate-peer.md'),validWaitingArticle('Другой заголовок').replace('draft: true','draft: false').replace('autopilotHold: true',''));
+ const repeated=spawnSync(process.execPath,['scripts/pipeline.mjs','settle','--json'],{cwd:ROOT,encoding:'utf8',env:{...process.env,AUTOPILOT_CONFIG:fx.configFile,AUTOPILOT_DATA_DIR:fx.dataDir,AUTOPILOT_LOCK_FILE:path.join(fx.dataDir,'.autopilot.lock'),CONTENT_ROOT:fx.root}});
+ assert.equal(repeated.status,0,repeated.stderr);
+ const duplicate=JSON.parse(repeated.stdout).results.find(r=>r.status==='release_rejected');
+ assert.ok(duplicate.blockers.includes('duplication'));
+ assert.equal(duplicate.duplication.slug,'duplicate-peer');
+ assert.equal(duplicate.duplication.verdict,'block');
+ assert.match(duplicate.detail,/duplication: block, duplicate-peer/);
+});
