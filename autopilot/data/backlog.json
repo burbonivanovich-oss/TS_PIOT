@@ -13,7 +13,7 @@
       "format": "howto",
       "segment": "none",
       "score": 71.5,
-      "status": "writing",
+      "status": "released",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "warn",
@@ -41,7 +41,7 @@
       "format": "news",
       "segment": "none",
       "score": 71.5,
-      "status": "writing",
+      "status": "released",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "ok",

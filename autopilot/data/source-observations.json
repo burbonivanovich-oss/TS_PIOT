@@ -1,78 +1,78 @@
 {
-  "generatedAt": "2026-10-04T07:03:32.918Z",
+  "generatedAt": "2026-10-04T07:44:26.852Z",
   "totalSources": 74,
   "checkedCount": 10,
-  "dueRemaining": 64,
+  "dueRemaining": 54,
   "checked": [
     {
-      "url": "http://publication.pravo.gov.ru/document/0001202311220011",
+      "url": "http://www.consultant.ru/document/cons_doc_LAW_34661/14adb32f65de60607dbf84e87cf74d05b5ea3bc7/",
       "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
-      "sha256": "1f26a9eb196dbf673894d10a9a251478869e18449e6525430a478e2d14c56082",
-      "finalUrl": "http://publication.pravo.gov.ru/document/0001202311220011"
-    },
-    {
-      "url": "http://publication.pravo.gov.ru/document/0001202411300011",
-      "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
-      "sha256": "e178a97ac623729c375894f478ca1e57a9131e4b71df5500e34b22a15315dd23",
-      "finalUrl": "http://publication.pravo.gov.ru/document/0001202411300011"
-    },
-    {
-      "url": "http://publication.pravo.gov.ru/document/0001202505310018",
-      "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
-      "sha256": "26c33b9d216aed29e27f85d83be9c255b3ee98b598917c3804cc6410b34642cc",
-      "finalUrl": "http://publication.pravo.gov.ru/document/0001202505310018"
-    },
-    {
-      "url": "http://publication.pravo.gov.ru/document/0001202601210006",
-      "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
-      "sha256": "473bc382f071817dfc834d1a0e61466ec01a25065df4bcaa192fefaeb8485762",
-      "finalUrl": "http://publication.pravo.gov.ru/document/0001202601210006"
-    },
-    {
-      "url": "http://publication.pravo.gov.ru/document/0001202605020005",
-      "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
-      "sha256": "aadb7588609a9e8c69ea70c14cbb2fadb5df9eecb62584f778f41c22fd024960",
-      "finalUrl": "http://publication.pravo.gov.ru/document/0001202605020005"
-    },
-    {
-      "url": "http://publication.pravo.gov.ru/document/0001202606100028",
-      "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
-      "sha256": "9541861e80220b7d24578beb6e68ebf581f4ebd253b23fb27cb0d4d108aa2220",
-      "finalUrl": "http://publication.pravo.gov.ru/document/0001202606100028"
-    },
-    {
-      "url": "http://publication.pravo.gov.ru/Document/View/0001201507130017",
-      "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
-      "sha256": "a4a060c388faecb6ffb24e2a8ae158ce778f59716b4954eb70c9b77363a31307",
-      "finalUrl": "http://publication.pravo.gov.ru/Document/View/0001201507130017"
-    },
-    {
-      "url": "http://publication.pravo.gov.ru/document/view/0001201811270056",
-      "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
-      "sha256": "4365e1230e1f7e4a9a73ce468ddeda7d508e0718e210e1a4fef69d7f62a237bf",
-      "finalUrl": "http://publication.pravo.gov.ru/document/view/0001201811270056"
-    },
-    {
-      "url": "http://publication.pravo.gov.ru/Document/View/0001202512290039",
-      "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
-      "sha256": "4666bc03d441ec223db371283b82e1eb7cb6d63d9591ac253c33548a97561f1a",
-      "finalUrl": "http://publication.pravo.gov.ru/Document/View/0001202512290039"
-    },
-    {
-      "url": "http://www.consultant.ru/document/cons_doc_LAW_34661/",
-      "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
       "sha256": "4191ba2391a78e4d42f7ea7fe82fac063619bd693815c283da42f0639de5b0c6",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/"
+    },
+    {
+      "url": "http://www.kremlin.ru/acts/bank/51991",
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "9fa7b95d2f8194814e1a3c5f361e272796bde9991e2a67848acd012d53b888b8",
+      "finalUrl": "http://www.kremlin.ru/acts/bank/51991"
+    },
+    {
+      "url": "http://www.kremlin.ru/acts/bank/52278",
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "1096ce59163e9f7d2ce6b8863491726634f00e6698756893f6354cf2d34c41e6",
+      "finalUrl": "http://www.kremlin.ru/acts/bank/52278"
+    },
+    {
+      "url": "http://www.kremlin.ru/acts/bank/53590",
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "2b83bd7661e21c0c059cbe25b14fbe1acb4c8aea4970019cbe17c715980cf827",
+      "finalUrl": "http://www.kremlin.ru/acts/bank/53590"
+    },
+    {
+      "url": "https://base.garant.ru/10108225/",
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "4ff44f96d5c9e1d294b239cfbdcdea4e12b359042e4f364cecb8df5c9b00c982",
+      "finalUrl": "https://base.garant.ru/10108225/"
+    },
+    {
+      "url": "https://base.garant.ru/12125267/",
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "f1ce8e519366b051e81b80011820f336bc215d8a924c447ca4c97d7fb9f48ee5",
+      "finalUrl": "https://base.garant.ru/12125267/"
+    },
+    {
+      "url": "https://base.garant.ru/12125267/7b8e1cd613832736ca0a22fade07f0e6/",
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "98ea59225bfeb59177887ed75d46d68fd7c82ddda40644a374cd397d28ede0ce",
+      "finalUrl": "https://base.garant.ru/12125267/7b8e1cd613832736ca0a22fade07f0e6/"
+    },
+    {
+      "url": "https://base.garant.ru/12130951/741609f9002bd54a24e5c49cb5af953b/",
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "958b67b79c963f011068ca3de1b6632bc43fb678dbffcaf5a7dde1bd66ae955e",
+      "finalUrl": "https://base.garant.ru/12130951/741609f9002bd54a24e5c49cb5af953b/"
+    },
+    {
+      "url": "https://base.garant.ru/12154854/",
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "c21d5b67fee425ecb563a509376d460a56e0f39c493d80a3f4d6fcefd29f9331",
+      "finalUrl": "https://base.garant.ru/12154854/"
+    },
+    {
+      "url": "https://base.garant.ru/12157004/",
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "2eddd586e06d153c52912bf0a9b8925f3da1be440f7240f930c2c07f14899e2d",
+      "finalUrl": "https://base.garant.ru/12157004/"
     }
   ],
   "byUrl": {
@@ -135,6 +135,66 @@
       "checkedAt": "2026-10-04T07:03:32.918Z",
       "sha256": "4191ba2391a78e4d42f7ea7fe82fac063619bd693815c283da42f0639de5b0c6",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/"
+    },
+    "http://www.consultant.ru/document/cons_doc_LAW_34661/14adb32f65de60607dbf84e87cf74d05b5ea3bc7/": {
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "4191ba2391a78e4d42f7ea7fe82fac063619bd693815c283da42f0639de5b0c6",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/"
+    },
+    "http://www.kremlin.ru/acts/bank/51991": {
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "9fa7b95d2f8194814e1a3c5f361e272796bde9991e2a67848acd012d53b888b8",
+      "finalUrl": "http://www.kremlin.ru/acts/bank/51991"
+    },
+    "http://www.kremlin.ru/acts/bank/52278": {
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "1096ce59163e9f7d2ce6b8863491726634f00e6698756893f6354cf2d34c41e6",
+      "finalUrl": "http://www.kremlin.ru/acts/bank/52278"
+    },
+    "http://www.kremlin.ru/acts/bank/53590": {
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "2b83bd7661e21c0c059cbe25b14fbe1acb4c8aea4970019cbe17c715980cf827",
+      "finalUrl": "http://www.kremlin.ru/acts/bank/53590"
+    },
+    "https://base.garant.ru/10108225/": {
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "4ff44f96d5c9e1d294b239cfbdcdea4e12b359042e4f364cecb8df5c9b00c982",
+      "finalUrl": "https://base.garant.ru/10108225/"
+    },
+    "https://base.garant.ru/12125267/": {
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "f1ce8e519366b051e81b80011820f336bc215d8a924c447ca4c97d7fb9f48ee5",
+      "finalUrl": "https://base.garant.ru/12125267/"
+    },
+    "https://base.garant.ru/12125267/7b8e1cd613832736ca0a22fade07f0e6/": {
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "98ea59225bfeb59177887ed75d46d68fd7c82ddda40644a374cd397d28ede0ce",
+      "finalUrl": "https://base.garant.ru/12125267/7b8e1cd613832736ca0a22fade07f0e6/"
+    },
+    "https://base.garant.ru/12130951/741609f9002bd54a24e5c49cb5af953b/": {
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "958b67b79c963f011068ca3de1b6632bc43fb678dbffcaf5a7dde1bd66ae955e",
+      "finalUrl": "https://base.garant.ru/12130951/741609f9002bd54a24e5c49cb5af953b/"
+    },
+    "https://base.garant.ru/12154854/": {
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "c21d5b67fee425ecb563a509376d460a56e0f39c493d80a3f4d6fcefd29f9331",
+      "finalUrl": "https://base.garant.ru/12154854/"
+    },
+    "https://base.garant.ru/12157004/": {
+      "status": "ok",
+      "checkedAt": "2026-10-04T07:44:26.852Z",
+      "sha256": "2eddd586e06d153c52912bf0a9b8925f3da1be440f7240f930c2c07f14899e2d",
+      "finalUrl": "https://base.garant.ru/12157004/"
     }
   }
 }

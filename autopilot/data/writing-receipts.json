@@ -1,0 +1,25 @@
+{
+  "items": {
+    "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya": {
+      "kind": "new",
+      "attempt": "2026-10-04T07:03:39.106Z/0/1",
+      "sha256": "da60bce76dab07d8bafcb3eb35d9a19818489c18b07914d207def28c22460392",
+      "runId": "2026-10-04-390d16a6",
+      "at": "2026-10-04T07:51:55.028Z"
+    },
+    "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna": {
+      "kind": "new",
+      "attempt": "2026-10-04T07:03:39.125Z/0/1",
+      "sha256": "ac9fd7ac5cab42f7810ab07f55316ddb04a5531cf916a510060cbd50ce8c2615",
+      "runId": "2026-10-04-390d16a6",
+      "at": "2026-10-04T08:00:01.579Z"
+    },
+    "2026-05-01-kak-vybrat-onlayn-kassu-2026": {
+      "kind": "rewrite",
+      "attempt": "2026-10-04T07:03:39.144Z/0/1",
+      "sha256": "57c3c71942e0d111864b464ba602db44ca73e84861ef7b2d0ebff7e38dbb7fe3",
+      "runId": "2026-10-04-390d16a6",
+      "at": "2026-10-04T08:08:08.308Z"
+    }
+  }
+}
