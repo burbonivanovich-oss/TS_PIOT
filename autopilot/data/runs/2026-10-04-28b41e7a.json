@@ -1,0 +1,106 @@
+{
+  "runId": "2026-10-04-28b41e7a",
+  "date": "2026-10-04",
+  "kind": "day",
+  "createdAt": "2026-10-04T19:11:33.291Z",
+  "updatedAt": "2026-10-04T19:20:15.405Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-04T19:11:33.368Z",
+      "orderCount": 1,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 1,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "written": {
+      "at": "2026-10-04T19:19:32.077Z",
+      "delivered": 1,
+      "meaning": "bytes delivered; gates not passed yet"
+    },
+    "gated": {
+      "at": "2026-10-04T19:20:15.375Z",
+      "publicationCapacity": {
+        "day": "2026-10-04",
+        "slotsRemaining": 81,
+        "needed": 66,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 2,
+            "remaining": 53
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 1,
+            "remaining": 13
+          }
+        }
+      },
+      "published": 0,
+      "acceptedWaiting": 13,
+      "results": [
+        {
+          "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
+          "status": "release_rejected"
+        },
+        {
+          "slug": "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
+          "status": "release_rejected"
+        },
+        {
+          "slug": "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena",
+          "status": "release_rejected"
+        },
+        {
+          "slug": "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki",
+          "status": "release_rejected"
+        },
+        {
+          "slug": "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke",
+          "status": "release_rejected"
+        },
+        {
+          "slug": "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya",
+          "status": "release_rejected"
+        },
+        {
+          "slug": "2026-05-03-etrn-2026",
+          "status": "accepted_waiting_release"
+        }
+      ]
+    },
+    "built": {
+      "at": "2026-10-04T19:20:15.374Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "73b7f15c32d09769093c068c9ee53bc09227f6ae4e394f4ad15744c045d640e1",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-04T19:11:33.368Z"
+    },
+    {
+      "stage": "written",
+      "at": "2026-10-04T19:19:32.077Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-04T19:20:15.375Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-04T19:20:15.405Z"
+    }
+  ],
+  "meta": {}
+}

@@ -2,16 +2,18 @@
   "generatedAt": "2026-10-04",
   "items": [
     {
+      "slug": "2026-05-03-etrn-2026",
+      "kind": "rewrite",
+      "score": 100,
+      "acceptedAt": "2026-10-04T19:19:35.268Z",
+      "factualCorrection": true,
+      "stagedFile": "release-drafts/2026-05-03-etrn-2026.mdx"
+    },
+    {
       "slug": "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
       "kind": "new",
       "score": 100,
       "acceptedAt": "2026-10-04T14:20:58.286Z"
-    },
-    {
-      "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
-      "kind": "new",
-      "score": 100,
-      "acceptedAt": "2026-10-04T14:20:58.457Z"
     },
     {
       "slug": "2026-05-01-ofd-dlya-ts-piot",
@@ -19,6 +21,37 @@
       "score": 100,
       "acceptedAt": "2026-10-04T14:20:58.629Z",
       "stagedFile": "release-drafts/2026-05-01-ofd-dlya-ts-piot.mdx"
+    },
+    {
+      "slug": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
+      "kind": "new",
+      "score": 100,
+      "acceptedAt": "2026-10-04T17:46:41.088Z"
+    },
+    {
+      "slug": "2026-05-03-markirovka-igrushek-2026",
+      "kind": "rewrite",
+      "score": 100,
+      "acceptedAt": "2026-10-04T17:46:41.258Z",
+      "stagedFile": "release-drafts/2026-05-03-markirovka-igrushek-2026.mdx"
+    },
+    {
+      "slug": "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya",
+      "kind": "new",
+      "score": 100,
+      "acceptedAt": "2026-10-04T18:59:41.482Z"
+    },
+    {
+      "slug": "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+      "kind": "new",
+      "score": 100,
+      "acceptedAt": "2026-10-04T18:59:41.825Z"
+    },
+    {
+      "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
+      "kind": "new",
+      "score": 100,
+      "acceptedAt": "2026-10-04T14:20:58.457Z"
     },
     {
       "slug": "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
@@ -45,35 +78,10 @@
       "acceptedAt": "2026-10-04T17:46:40.921Z"
     },
     {
-      "slug": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
-      "kind": "new",
-      "score": 100,
-      "acceptedAt": "2026-10-04T17:46:41.088Z"
-    },
-    {
-      "slug": "2026-05-03-markirovka-igrushek-2026",
-      "kind": "rewrite",
-      "score": 100,
-      "acceptedAt": "2026-10-04T17:46:41.258Z",
-      "stagedFile": "release-drafts/2026-05-03-markirovka-igrushek-2026.mdx"
-    },
-    {
       "slug": "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya",
       "kind": "new",
       "score": 100,
       "acceptedAt": "2026-10-04T18:59:41.141Z"
-    },
-    {
-      "slug": "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya",
-      "kind": "new",
-      "score": 100,
-      "acceptedAt": "2026-10-04T18:59:41.482Z"
-    },
-    {
-      "slug": "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",
-      "kind": "new",
-      "score": 100,
-      "acceptedAt": "2026-10-04T18:59:41.825Z"
     }
   ]
 }

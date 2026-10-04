@@ -1,29 +1,29 @@
 {
-  "generatedAt": "2026-10-04T18:39:57.306Z",
+  "generatedAt": "2026-10-04T19:11:33.383Z",
   "date": "2026-10-04",
-  "runId": "2026-10-04-e97f63b2",
+  "runId": "2026-10-04-28b41e7a",
   "capacity": {
     "month": "2026-10",
-    "done": 9,
+    "done": 12,
     "monthlyTarget": 55,
-    "totalDone": 12,
+    "totalDone": 15,
     "totalTarget": 69,
     "expectedByToday": 7,
     "debt": 0,
     "todayTarget": 3,
     "inFlight": 0,
     "freeSlots": 4,
-    "remaining": 57,
-    "canTake": 3,
+    "remaining": 54,
+    "canTake": 1,
     "byKind": {
       "new": {
         "target": 55,
-        "done": 9,
+        "done": 12,
         "active": 0,
         "carriedAccepted": 0,
         "expectedByToday": 7,
         "debt": 0,
-        "remaining": 46
+        "remaining": 43
       },
       "rewrite": {
         "target": 14,
@@ -36,75 +36,40 @@
       }
     },
     "takeByKind": {
-      "new": 3,
-      "rewrite": 0
-    }
+      "new": 0,
+      "rewrite": 1
+    },
+    "urgentRewriteSlots": 1,
+    "correctionsOnly": true
   },
   "healed": 0,
   "orders": [
     {
-      "kind": "new",
-      "slug": "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya",
-      "title": "Кто подписывает ЭТрН: полномочия водителя, сотрудника склада и руководителя",
-      "keywords": [
-        "кто подписывает этрн"
+      "kind": "rewrite",
+      "slug": "2026-05-03-etrn-2026",
+      "title": "ЭТрН с 1 сентября 2026: кто обязан оформлять электронную транспортную накладную",
+      "reasons": [
+        "Исправить подтверждённую фактическую ошибку: В статье суммы 30000 для ИП и 100000 для юридических лиц приписаны ч. 3 ст. 14.1. Прочитанная часть относится к условиям лицензии и содержит иной диапазон для юридических лиц. Она не подтверждает универсальную квалификацию отсутствия ЭТрН. Удалить этот вывод либо подтвердить конкретный применимый состав новым первоисточником. Источник: https://www.consultant.ru/document/cons_doc_LAW_34661/75bd42f831f7b882297cf0c477ced1e5dcfc89f2/",
+        " с 1 сентября 2026: нет сохранённой содержательной сверки утверждения",
+        "\nС 1 сентября 2026: нет сохранённой содержательной сверки утверждения",
+        "30 000 руб: нет сохранённой содержательной сверки утверждения",
+        "100 000 руб: нет сохранённой содержательной сверки утверждения",
+        " № 259-ФЗ: нет сохранённой содержательной сверки утверждения",
+        "(ст. 8: нет сохранённой содержательной сверки утверждения",
+        " ст. 1: нет сохранённой содержательной сверки утверждения",
+        " КоАП: нет сохранённой содержательной сверки утверждения",
+        "reviewDate просрочен на 48 дн."
       ],
-      "entity": "этрн",
-      "intent": "seed",
-      "format": "howto",
-      "segment": "none",
-      "dedupe": {
-        "verdict": "ok",
-        "advice": "",
-        "related": []
-      },
-      "targetFile": "src/content/blog/seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya.md",
-      "runId": "2026-10-04-e97f63b2"
-    },
-    {
-      "kind": "new",
-      "slug": "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Маркировка молочной продукции: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить маркировка молочной продукции",
-        "маркировка молочной продукции инструкция"
+      "score": 55,
+      "factCorrections": [
+        {
+          "claimHash": "9636845b9541d8720f35219c0d803b480d1bc6d37462a1334474cf12429657a7",
+          "source": "https://www.consultant.ru/document/cons_doc_LAW_34661/75bd42f831f7b882297cf0c477ced1e5dcfc89f2/",
+          "rationale": "В статье суммы 30000 для ИП и 100000 для юридических лиц приписаны ч. 3 ст. 14.1. Прочитанная часть относится к условиям лицензии и содержит иной диапазон для юридических лиц. Она не подтверждает универсальную квалификацию отсутствия ЭТрН. Удалить этот вывод либо подтвердить конкретный применимый состав новым первоисточником."
+        }
       ],
-      "entity": "маркировка молочной продукции",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Маркировка молочной продукции для малого бизнеса: что нужно делать в 2026». Обязательна ссылка на /blog/2026-05-01-markirovka-molochki-msb/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-markirovka-molochki-msb",
-          "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "targetFile": "src/content/blog/2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya.md",
-      "runId": "2026-10-04-e97f63b2"
-    },
-    {
-      "kind": "new",
-      "slug": "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",
-      "title": "Маркировка молочной продукции: сроки 2026 года и что успеть до дедлайна",
-      "keywords": [
-        "маркировка молочной продукции сроки",
-        "маркировка молочной продукции когда обязателен"
-      ],
-      "entity": "маркировка молочной продукции",
-      "intent": "deadline",
-      "format": "news",
-      "segment": "none",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: сроки 2026 года и что успеть до дедлайна». Обязательна ссылка на /blog/2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna"
-        ]
-      },
-      "targetFile": "src/content/blog/2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna.md",
-      "runId": "2026-10-04-e97f63b2"
+      "targetFile": "src/content/blog/2026-05-03-etrn-2026.md",
+      "runId": "2026-10-04-28b41e7a"
     }
   ],
   "skipped": []
