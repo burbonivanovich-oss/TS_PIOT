@@ -1,4 +1,5 @@
 ---
+import { createHash } from 'node:crypto';
 import type { CollectionEntry } from 'astro:content';
 import type { MarkdownHeading } from 'astro';
 import { publishedPosts } from '../utils/posts';
@@ -43,6 +44,7 @@ const {
 	wordCount,
 } = Astro.props;
 
+const commercialContentId = currentSlug ? createHash('sha256').update(currentSlug).digest('hex') : undefined;
 const allPosts = await publishedPosts();
 const sorted = allPosts.sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -173,6 +175,7 @@ const shareTitle = encodeURIComponent(title);
 		<Header />
 
 		<article
+			data-commercial-content-id={commercialContentId}
 			data-pagefind-body
 			data-pagefind-meta={`type:article${categoryMeta ? `,category:${categoryMeta.title}` : ''}`}
 			data-pagefind-filter={`type:Статья${categoryMeta ? `,category:${categoryMeta.title}` : ''}`}
@@ -274,6 +277,7 @@ const shareTitle = encodeURIComponent(title);
 								href={cpaBanner.ctaHref}
 								class="cpa-btn"
 								data-cpa-id={cpaBanner.id}
+								data-cpa-placement="article-footer"
 								target={cpaBanner.ctaHref.startsWith('http') ? '_blank' : undefined}
 								rel={cpaBanner.erid ? 'noopener noreferrer sponsored' : (cpaBanner.ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined)}
 							>
@@ -438,17 +442,9 @@ const shareTitle = encodeURIComponent(title);
 		<button id="back-to-top" aria-label="Наверх" title="Наверх">↑</button>
 
 		<script>
-			import { track } from '../utils/track';
-			/* Трекинг кликов по CPA-баннеру (подвальный + inline). Guard от двойной
-			   регистрации, если на странице есть и CpaCallout. */
-			if (!(window as any).__cpaTrackInit) {
-				(window as any).__cpaTrackInit = true;
-				document.addEventListener('click', (e) => {
-					const a = (e.target as HTMLElement)?.closest?.('a[data-cpa-id]') as HTMLElement | null;
-					if (a) track('cpa-click', { offer: a.dataset.cpaId });
-				});
-			}
-		</script>
+      import { initCpaTracking } from '../utils/track-cpa';
+      initCpaTracking();
+    </script>
 
 		<script>
 			/* Reading progress */
