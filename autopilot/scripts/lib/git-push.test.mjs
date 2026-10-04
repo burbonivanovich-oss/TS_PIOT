@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, writeFileSync, rmSync, mkdirSync } from 'node:fs';
+import { readFileSync, mkdtempSync, writeFileSync, rmSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -37,5 +37,61 @@ test('Wordstat race inspection preserves both trees without changing checkout or
   assert.equal(f.local('rev-parse','HEAD'),f.metadataCommit);assert.equal(f.local('status','--porcelain'),'');assert.equal(f.git('--git-dir',f.bare,'rev-parse','main'),remoteHead);
   writeFileSync(path.join(other,'unexpected.md'),'outside');f.git('-C',other,'add','.');f.git('-C',other,'commit','-qm','outside');f.git('-C',other,'push','-q','origin','main');f.local('fetch','-q','origin','main');
   assert.throws(()=>inspectWordstatDeliveryRace({...f,remoteHead:f.git('-C',other,'rev-parse','HEAD')}),/outside Wordstat/);
+ }finally{rmSync(f.dir,{recursive:true,force:true});}
+});
+
+function raceFixture({ brokenBuild = false } = {}) {
+ const f=fixture();
+ // A real npm build in the isolated checkout checks both delivery inputs.
+ writeFileSync(path.join(f.root,'package.json'),JSON.stringify({scripts:{build:brokenBuild ? 'node -e "process.exit(7)"' : 'node -e "const fs=require(\'fs\');if(fs.readFileSync(\'article.md\',\'utf8\')!==\'after\'||!fs.existsSync(\'src/data/wordstat/demand.json\'))process.exit(8)"'}}));
+ f.local('add','package.json'); f.local('commit','-qm','build script'); f.metadataCommit=f.local('rev-parse','HEAD');
+ const journalFile=path.join(f.root,'.git/autopilot-delivery.json');const journal=JSON.parse(readFileSync(journalFile));journal.metadataCommit=f.metadataCommit;writeFileSync(journalFile,JSON.stringify(journal));
+ const other=path.join(f.dir,'collector');f.git('clone','-q','--branch','main',f.bare,other);
+ mkdirSync(path.join(other,'src/data/wordstat'),{recursive:true});writeFileSync(path.join(other,'src/data/wordstat/demand.json'),'{}');
+ f.git('-C',other,'add','.');f.git('-C',other,'commit','-qm','collector');f.git('-C',other,'push','-q','origin','main');
+ f.foreign=f.git('-C',other,'rev-parse','HEAD');f.journalFile=journalFile;return f;
+}
+test('Wordstat recovery builds the real combined checkout and keeps original delivery identity',()=>{
+ const f=raceFixture();try {
+  const result=pushGitDelivery(f);assert.equal(result.method,'wordstat_merge');assert.equal(result.deployed,false);
+  assert.equal(f.local('show','-s','--format=%P',result.commit),`${f.foreign} ${f.metadataCommit}`);
+  assert.equal(f.local('rev-parse','HEAD'),result.commit);assert.equal(f.local('status','--porcelain'),'');
+  const journal=JSON.parse(readFileSync(f.journalFile));assert.equal(journal.metadataCommit,f.metadataCommit);assert.equal(journal.push.phase,'verified');
+  assert.equal(pushGitDelivery(f).commit,result.commit);
+ }finally{rmSync(f.dir,{recursive:true,force:true});}
+});
+test('failed combined build changes neither checkout nor remote',()=>{
+ const f=raceFixture({brokenBuild:true});try{
+  assert.throws(()=>pushGitDelivery(f),/build failed/);assert.equal(f.local('rev-parse','HEAD'),f.metadataCommit);
+  assert.equal(f.git('--git-dir',f.bare,'rev-parse','main'),f.foreign);assert.equal(f.local('status','--porcelain'),'');
+  assert.equal(JSON.parse(readFileSync(f.journalFile)).push,undefined);
+ }finally{rmSync(f.dir,{recursive:true,force:true});}
+});
+test('SIGKILL after push resumes the same merge without another build or commit',()=>{
+ const f=raceFixture();try{
+  const child=spawnSync(process.execPath,['--input-type=module','-e',`import {pushGitDelivery} from ${JSON.stringify(new URL('./git-push.mjs',import.meta.url).href)};pushGitDelivery({root:${JSON.stringify(f.root)},targetRef:${JSON.stringify(f.targetRef)},afterPush:()=>process.kill(process.pid,'SIGKILL')});`],{encoding:'utf8',timeout:60000});
+  assert.equal(child.signal,'SIGKILL',child.stderr);
+  const pushed=f.git('--git-dir',f.bare,'rev-parse','main');assert.notEqual(pushed,f.metadataCommit);assert.equal(f.local('rev-parse','HEAD'),f.metadataCommit);
+  assert.equal(JSON.parse(readFileSync(f.journalFile)).push.phase,'pending');
+  const result=pushGitDelivery({...f,build:()=>{throw new Error('must not rebuild');}});assert.equal(result.commit,pushed);
+  assert.equal(f.local('rev-parse','HEAD'),pushed);assert.equal(f.local('status','--porcelain'),'');assert.equal(f.git('--git-dir',f.bare,'rev-list','--count','main'),'5');
+ }finally{rmSync(f.dir,{recursive:true,force:true});}
+});
+
+test('another remote commit during recovery build stops without publishing candidate',()=>{
+ const f=raceFixture();try{
+  assert.throws(()=>pushGitDelivery({...f,build:()=>{
+   const other=path.join(f.dir,'collector');writeFileSync(path.join(other,'outside.md'),'third writer');
+   f.git('-C',other,'add','.');f.git('-C',other,'commit','-qm','third writer');f.git('-C',other,'push','-q','origin','main');return {ok:true,code:0};
+  }}),/changed during recovery/);
+  assert.equal(f.local('rev-parse','HEAD'),f.metadataCommit);assert.equal(f.git('--git-dir',f.bare,'show','main:outside.md'),'third writer');
+  assert.equal(JSON.parse(readFileSync(f.journalFile)).push,undefined);
+ }finally{rmSync(f.dir,{recursive:true,force:true});}
+});
+test('Wordstat symlinks cannot enter automatic delivery recovery',()=>{
+ const f=raceFixture();try{
+  const other=path.join(f.dir,'collector');f.git('-C',other,'update-index','--cacheinfo','120000,'+f.git('-C',other,'hash-object','src/data/wordstat/demand.json')+',src/data/wordstat/demand.json');
+  f.git('-C',other,'commit','-qm','symlink');f.git('-C',other,'push','-q','origin','main');
+  assert.throws(()=>pushGitDelivery(f),/regular data file/);assert.equal(f.local('rev-parse','HEAD'),f.metadataCommit);
  }finally{rmSync(f.dir,{recursive:true,force:true});}
 });
