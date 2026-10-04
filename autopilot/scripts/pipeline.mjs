@@ -17,6 +17,7 @@
 //   node scripts/pipeline.mjs settle [--dry]
 //   node scripts/pipeline.mjs report
 import path from 'node:path';
+import {preservePublishedRewrite,stageQueuedRewrite,queuedRewriteFile,promoteQueuedRewrite,forgetPublishedRewrite,retainFailedRewrite} from './lib/queued-rewrite.mjs';
 import { existsSync, readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { loadConfig, assertContentRoot } from './lib/config.mjs';
@@ -140,8 +141,9 @@ function planInner() {
     });
   }
 
-  for (const item of takeRewrites(wantRewriteAdjusted, { runId: run.runId, active: [...inFlight], excluded: state.quarantine.map(item => item.slug) })) {
+  for (const item of takeRewrites(wantRewriteAdjusted, { runId: run.runId, active: [...inFlight], excluded: [...state.quarantine.map(item => item.slug),...readJson(RELEASE_FILE,{items:[]}).items.map(item=>item.slug)] })) {
     if (carriedSlugs.has(item.slug)) continue;
+    preservePublishedRewrite({blog:cfg.resolved.blog,dataDir:cfg.resolved.dataDir,slug:item.slug});
     orders.push({
       kind: 'rewrite',
       slug: item.slug,
@@ -289,7 +291,7 @@ function settleInner({ dry = false } = {}) {
         retireTopic(order);
         if (order.kind === 'rewrite') releaseReservation(order.slug);
       }
-      if (!dry) hold(file, reason || `score ${gates.score}`);
+      if (!dry) {hold(file, reason || `score ${gates.score}`);if(order.kind==='rewrite')retainFailedRewrite({blog:cfg.resolved.blog,dataDir:cfg.resolved.dataDir,slug:order.slug,file});}
       results.push({
         slug: order.slug,
         status: res.quarantined ? 'quarantined' : 'rejected',
@@ -305,20 +307,20 @@ function settleInner({ dry = false } = {}) {
   // Распределяем квоту: ожидавшие ранее + принятые сейчас, старейшие первыми.
   const waiting = [];
   for (const item of releaseQueue.items) {
-    const file = resolveArticleFile(item.slug);
+    const file = item.stagedFile ? queuedRewriteFile({dataDir:cfg.resolved.dataDir,...item}) : resolveArticleFile(item.slug);
     if (!file) {
       results.push({ slug: item.slug, status: 'release_missing', detail: 'ожидающая статья отсутствует' });
       continue;
     }
     const gates = runGates({ file, sourceEvidence, requiredPubDate: cfg.gates.requireWritingReceipt && item.kind === 'new' ? String(item.acceptedAt || '').slice(0, 10) : null });
-    const dupe = bodyDuplication({ file });
+    const dupe = bodyDuplication({ file, excludeSlug: item.stagedFile ? item.slug : undefined });
     if (!gates.passed || dupe.verdict !== 'ok') {
       if (!dry) hold(file, 'waiting_recheck_failed');
       results.push({ slug: item.slug, status: 'release_rejected', detail: 'повторная проверка ожидающей статьи не пройдена' });
       // Сохраняем в ожидании; устаревший результат не разрешает публикацию.
       item.recheckFailed = true;
     }
-    waiting.push({ ...item, waiting: true });
+    waiting.push({ ...item, file, waiting: true });
   }
   const { release, wait } = allocateReleases({ waiting: waiting.filter(i => !i.recheckFailed), accepted, alreadyToday: todaySlugs.length, maxPerDay, calendar });
   wait.push(...waiting.filter(i => i.recheckFailed));
@@ -330,8 +332,10 @@ function settleInner({ dry = false } = {}) {
       results.push({ slug: item.slug, status: 'release_missing', detail: 'файл ожидающей статьи не найден, снято с очереди' });
       continue;
     }
-    if (!dry) publish(file, item);
+    if (!dry) {publish(file, item);if(item.stagedFile)promoteQueuedRewrite({blog:cfg.resolved.blog,dataDir:cfg.resolved.dataDir,...item});}
     releasedSlugs.push(item.slug);
+    if(!dry && item.kind==='rewrite')forgetPublishedRewrite({dataDir:cfg.resolved.dataDir,slug:item.slug});
+    if(!dry && item.waiting && item.kind==='new' && readJson(path.join(cfg.resolved.dataDir,'backlog.json'),{topics:[]}).topics.some(t=>t.slug===item.slug))setStatus(item.slug,'released');
     if (item.waiting) {
       state.counters.published += 1; // работа была закрыта ранее
       if (!String(item.acceptedAt || '').startsWith(day.slice(0, 7))) {
@@ -350,12 +354,13 @@ function settleInner({ dry = false } = {}) {
   for (const item of wait) {
     if (item.waiting) continue; // уже в очереди и уже удержан
     const file = item.file || resolveArticleFile(item.slug);
-    if (!dry && file) hold(file, 'accepted_waiting_release');
+    if (!dry && file) {hold(file, 'accepted_waiting_release');if(item.kind==='rewrite')item.stagedFile=stageQueuedRewrite({blog:cfg.resolved.blog,dataDir:cfg.resolved.dataDir,slug:item.slug,file});}
     const finished = done(state, { slug: item.slug, score: item.score, published: false });
     Object.assign(state, finished.state);
     // Работа по рерайту завершена и принята; отложен только выпуск.
     // Резервацию снимаем, иначе очередь считает его выданным навсегда.
     if (item.kind === 'rewrite') markRewritten(item.slug);
+    if (item.kind === 'new' && readJson(path.join(cfg.resolved.dataDir,'backlog.json'),{topics:[]}).topics.some(t=>t.slug===item.slug)) setStatus(item.slug,'accepted_waiting_release');
     results.push({ slug: item.slug, status: 'accepted_waiting_release', score: item.score });
   }
 
@@ -405,7 +410,7 @@ function settleInner({ dry = false } = {}) {
     publishLog.kinds = prunePublishDays(publishLog.kinds || {}, day);
     publishLog.kinds[day] = { ...(publishLog.kinds[day] || {}), ...Object.fromEntries(release.filter(item => releasedSlugs.includes(item.slug)).map(item => [item.slug, item.kind])) };
     writeJson(PUBLISH_LOG_FILE, publishLog);
-    writeJson(RELEASE_FILE, { generatedAt: day, items: wait.map((i) => ({ slug: i.slug, kind: i.kind, score: i.score, acceptedAt: i.acceptedAt })) });
+    writeJson(RELEASE_FILE, { generatedAt: day, items: wait.map((i) => ({ slug: i.slug, kind: i.kind, score: i.score, acceptedAt: i.acceptedAt, ...(i.stagedFile ? {stagedFile:i.stagedFile} : {}) })) });
     saveState(state);
   }
 
@@ -506,8 +511,9 @@ function hold(file, reason) {
 /** Публикация: снять draft и проставить даты. Больше ничего. */
 function publish(file, order) {
   const articles = loadArticles();
-  const article = articles.find((a) => a.path === file);
-  if (!article) return;
+  const parsed = parseFrontmatter(readFileSync(file, 'utf8'));
+  const article = articles.find((a) => a.path === file) || { ...parsed, path: file, fm: parsed.raw };
+  if (!article.fm) throw new Error('Missing article frontmatter');
   let fm = article.fm;
   // Со второго захода статья приходит с маркером удержания — снимаем его,
   // иначе прошедший гейты текст останется невидимым для публикатора.

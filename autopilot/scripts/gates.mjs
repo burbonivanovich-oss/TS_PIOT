@@ -342,12 +342,12 @@ export function runGates({ file, source, requiredPubDate = null, knownSlugs = nu
 }
 
 /** Проверка на дубль уже написанного текста относительно корпуса. */
-export function bodyDuplication({ file, source }) {
+export function bodyDuplication({ file, source, excludeSlug }) {
   const raw = source ?? readFileSync(file, 'utf8');
   const { data, body } = parseFrontmatter(raw);
   let articles;
   try {
-    articles = loadArticles().filter((a) => a.path !== path.resolve(file || ''));
+    articles = loadArticles().filter((a) => a.path !== path.resolve(file || '') && a.slug !== excludeSlug);
   } catch (error) {
     // Fail-closed того же класса, что AP-P0-06: нечитаемый корпус — это блок
     // публикации, а не падение CLI с кодом ошибки запуска и не «дублей нет».
