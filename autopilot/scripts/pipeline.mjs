@@ -456,7 +456,8 @@ function settleInner({ dry = false } = {}) {
       ...(cfg.throughput.monthlyRewriteTarget !== undefined ? { publicationCapacity: publicationCapacity({ config: cfg, publishLog: { ...publishLog, days: { ...publishLog.days, [day]: [...todaySlugs, ...releasedSlugs] }, kinds: { ...(publishLog.kinds || {}), [day]: { ...(publishLog.kinds?.[day] || {}), ...Object.fromEntries(release.filter(item => releasedSlugs.includes(item.slug)).map(item => [item.slug, item.kind])) } } } }) } : {}),
       published: releasedSlugs.length,
       acceptedWaiting: wait.length,
-      results: results.map((r) => ({ slug: r.slug, status: r.status })),
+      results: results.map(r=>({...r})),
+      links: {linksInserted:links.inserted,orphansBefore:links.orphansBefore,orphansAfter:links.orphansAfter},
     });
     runStage = staged.changed ? 'set' : 'already';
     if (buildEvidence.checked) setStage(orders.runId, 'built', buildEvidence);
