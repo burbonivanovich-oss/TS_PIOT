@@ -1,18 +1,107 @@
 {
-  "generatedAt": "2026-08-10T14:57:23.991Z",
-  "date": "2026-08-10",
+  "generatedAt": "2026-10-04T07:03:39.174Z",
+  "date": "2026-10-04",
+  "runId": "2026-10-04-ecc2ed48",
   "capacity": {
-    "month": "2026-08",
+    "month": "2026-10",
     "done": 0,
-    "monthlyTarget": 200,
-    "expectedByToday": 67,
-    "debt": 67,
-    "todayTarget": 19,
+    "monthlyTarget": 55,
+    "totalDone": 0,
+    "totalTarget": 69,
+    "expectedByToday": 7,
+    "debt": 7,
+    "todayTarget": 4,
     "inFlight": 0,
-    "freeSlots": 8,
-    "canTake": 8
+    "freeSlots": 4,
+    "remaining": 69,
+    "canTake": 3,
+    "byKind": {
+      "new": {
+        "target": 55,
+        "done": 0,
+        "active": 0,
+        "carriedAccepted": 0,
+        "expectedByToday": 7,
+        "debt": 7,
+        "remaining": 55
+      },
+      "rewrite": {
+        "target": 14,
+        "done": 0,
+        "active": 0,
+        "carriedAccepted": 0,
+        "expectedByToday": 2,
+        "debt": 2,
+        "remaining": 14
+      }
+    },
+    "takeByKind": {
+      "new": 2,
+      "rewrite": 1
+    }
   },
   "healed": 0,
-  "orders": [],
+  "orders": [
+    {
+      "kind": "new",
+      "slug": "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "ГИС ЭПД: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить гис эпд",
+        "гис эпд инструкция"
+      ],
+      "entity": "ГИС ЭПД",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Регистрация в «Честном знаке»: пошаговая инструкция для ИП и ООО». Обязательна ссылка на /blog/2026-05-31-chestny-znak-registraciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-31-chestny-znak-registraciya",
+          "2026-05-25-140-fz-epd-perehod-msb"
+        ]
+      },
+      "targetFile": "src/content/blog/2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya.md",
+      "runId": "2026-10-04-ecc2ed48"
+    },
+    {
+      "kind": "new",
+      "slug": "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+      "title": "ГИС ЭПД: сроки 2026 года и что успеть до дедлайна",
+      "keywords": [
+        "гис эпд сроки",
+        "гис эпд когда обязателен"
+      ],
+      "entity": "ГИС ЭПД",
+      "intent": "deadline",
+      "format": "news",
+      "segment": "none",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "targetFile": "src/content/blog/2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna.md",
+      "runId": "2026-10-04-ecc2ed48"
+    },
+    {
+      "kind": "rewrite",
+      "slug": "2026-05-01-kak-vybrat-onlayn-kassu-2026",
+      "title": "Онлайн-касса: как выбрать для бизнеса в 2026 году",
+      "reasons": [
+        " с 01.07.2026: нет сохранённой содержательной сверки утверждения",
+        " статьи 1: нет сохранённой содержательной сверки утверждения",
+        "(ст. 4: нет сохранённой содержательной сверки утверждения",
+        "reviewDate просрочен на 57 дн.",
+        "пересечение с другой статьёй корпуса",
+        "2026-10-01: закрывается временный доступ по старой схеме",
+        "2027-01-01: новые товарные группы"
+      ],
+      "score": 132,
+      "targetFile": "src/content/blog/2026-05-01-kak-vybrat-onlayn-kassu-2026.md",
+      "runId": "2026-10-04-ecc2ed48"
+    }
+  ],
   "skipped": []
 }
