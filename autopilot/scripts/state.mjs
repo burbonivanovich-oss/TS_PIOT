@@ -72,9 +72,9 @@ export function saveState(state) {
  * семантику производственного календаря. `now` инъектируется для контрольных
  * дат в тестах.
  */
-export function capacity(state = readState(), now = new Date(), config = cfg, waiting = []) {
+export function capacity(state = readState(), now = new Date(), config = cfg, waiting = [], { urgentRewrites = 0 } = {}) {
   if (config.throughput.monthlyRewriteTarget !== undefined) {
-    return productionCapacity({ state, now, config, waiting });
+    return productionCapacity({ state, now, config, waiting, urgentRewrites });
   }
   const T = config.throughput;
   const done = state.counters.new + state.counters.rewrite;

@@ -1,7 +1,8 @@
 // Раздельные бюджеты новых материалов и обновлений. Принятые материалы
 // текущего месяца уже включены в counters; перенесённая очередь резервирует
 // бюджет нового месяца отдельно. Эта арифметика не доказывает live-выпуск.
-export function productionCapacity({ state, now, config, waiting = [] }) {
+export function productionCapacity({ state, now, config, waiting = [], urgentRewrites = 0 }) {
+  if (!Number.isInteger(urgentRewrites) || urgentRewrites < 0) throw new Error('Invalid urgent rewrite count');
   const T = config.throughput;
   const month = now.toISOString().slice(0, 7);
   const day = now.getUTCDate();
@@ -27,10 +28,11 @@ export function productionCapacity({ state, now, config, waiting = [] }) {
   const freeSlots = Math.max(0, T.maxParallelWriting - state.inFlight.length);
   const remaining = byKind.new.remaining + byKind.rewrite.remaining;
   const canTake = Math.min(freeSlots, remaining, todayTarget, Math.max(0, T.maxBatchSize - state.inFlight.length));
-  const takeByKind = { new: 0, rewrite: 0 };
+  const urgentRewriteSlots = Math.min(urgentRewrites, byKind.rewrite.remaining, canTake);
+  const takeByKind = { new: 0, rewrite: urgentRewriteSlots };
   // Следующий слот получает вид с наименьшей долей зарезервированной нормы.
   // Это сохраняет рерайты даже при батчах по одному материалу.
-  for (let i = 0; i < canTake; i++) {
+  for (let i = urgentRewriteSlots; i < canTake; i++) {
     const eligible = ['new', 'rewrite'].filter(k => takeByKind[k] < byKind[k].remaining);
     eligible.sort((a, b) => {
       const progress = k => (byKind[k].done + byKind[k].active + byKind[k].carriedAccepted + takeByKind[k]) / byKind[k].target;
@@ -42,6 +44,6 @@ export function productionCapacity({ state, now, config, waiting = [] }) {
     month, done: byKind.new.done, monthlyTarget: T.monthlyTarget,
     totalDone, totalTarget, expectedByToday: byKind.new.expectedByToday,
     debt: byKind.new.debt, todayTarget, inFlight: state.inFlight.length,
-    freeSlots, remaining, canTake, byKind, takeByKind,
+    freeSlots, remaining, canTake, byKind, takeByKind, urgentRewriteSlots,
   };
 }

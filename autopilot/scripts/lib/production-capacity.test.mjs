@@ -77,3 +77,19 @@ test('PUB-03: незавершённые наряды занимают и сло
   assert.equal(cap(s).freeSlots, 1);
   assert.equal(cap(s).canTake, 0);
 });
+
+test('confirmed factual corrections reserve rewrite slots even when ordinary mix favors only new content',()=>{
+ const current=state(9,3);const date=new Date('2026-10-04T18:00:00Z');
+ const ordinary=cap(current,{now:date});assert.equal(ordinary.takeByKind.rewrite,0);
+ const urgent=cap(current,{now:date,urgentRewrites:1});assert.equal(urgent.takeByKind.rewrite,1);assert.equal(urgent.takeByKind.new,2);
+ assert.equal(urgent.canTake,ordinary.canTake);assert.equal(urgent.urgentRewriteSlots,1);
+});
+test('urgent repair cannot exceed batch, active slots or monthly rewrite budget',()=>{
+ const bounded=cap(state(9,13),{urgentRewrites:100});assert.equal(bounded.takeByKind.rewrite,1);assert.equal(bounded.urgentRewriteSlots,1);
+ const exhausted=cap(state(9,14),{urgentRewrites:1});assert.equal(exhausted.takeByKind.rewrite,0);
+ const busy=state(9,13);busy.inFlight.push({kind:'rewrite',slug:'already'});assert.equal(cap(busy,{urgentRewrites:1}).urgentRewriteSlots,0);
+ const full=state(9,3);for(let i=0;i<config.throughput.maxBatchSize;i++)full.inFlight.push({kind:'new',slug:'active'+i});
+ assert.equal(cap(full,{urgentRewrites:1}).canTake,0);
+ const many=cap(state(9,3),{urgentRewrites:100});assert.equal(many.takeByKind.rewrite,many.canTake);
+ for(const value of [-1,0.5,Infinity,NaN])assert.throws(()=>cap(state(),{urgentRewrites:value}),/Invalid urgent/);
+});
