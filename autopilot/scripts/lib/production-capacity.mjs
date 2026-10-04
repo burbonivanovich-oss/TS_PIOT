@@ -27,8 +27,15 @@ export function productionCapacity({ state, now, config, waiting = [], urgentRew
   const todayTarget = Math.min(ceil(totalTarget / days + totalDebt * (T.catchUpFactor - 1)), ceil(totalTarget / days * T.catchUpFactor * T.batchesPerDay));
   const freeSlots = Math.max(0, T.maxParallelWriting - state.inFlight.length);
   const remaining = byKind.new.remaining + byKind.rewrite.remaining;
-  const canTake = Math.min(freeSlots, remaining, todayTarget, Math.max(0, T.maxBatchSize - state.inFlight.length));
-  const urgentRewriteSlots = Math.min(urgentRewrites, byKind.rewrite.remaining, canTake);
+  const baseCapacity = Math.min(freeSlots, remaining, todayTarget, Math.max(0, T.maxBatchSize - state.inFlight.length));
+  const urgentRewriteSlots = Math.min(urgentRewrites, byKind.rewrite.remaining, baseCapacity);
+  const bufferLimit = T.maxAcceptedBuffer ?? null;
+  if (bufferLimit !== null && (!Number.isInteger(bufferLimit) || bufferLimit < 1)) throw new Error('Invalid accepted buffer limit');
+  const bufferReserved = waiting.length + state.inFlight.length;
+  const bufferFree = bufferLimit === null ? baseCapacity : Math.max(0, bufferLimit - bufferReserved);
+  // Only confirmed factual corrections may exceed the ordinary buffer;
+  // monthly, active-slot and batch budgets still bind.
+  const canTake = Math.min(baseCapacity, Math.max(bufferFree, urgentRewriteSlots));
   const takeByKind = { new: 0, rewrite: urgentRewriteSlots };
   // Следующий слот получает вид с наименьшей долей зарезервированной нормы.
   // Это сохраняет рерайты даже при батчах по одному материалу.
@@ -45,5 +52,6 @@ export function productionCapacity({ state, now, config, waiting = [], urgentRew
     totalDone, totalTarget, expectedByToday: byKind.new.expectedByToday,
     debt: byKind.new.debt, todayTarget, inFlight: state.inFlight.length,
     freeSlots, remaining, canTake, byKind, takeByKind, urgentRewriteSlots,
+    buffer: { limit: bufferLimit, waiting: waiting.length, reserved: bufferReserved, free: bufferFree, paused: baseCapacity > 0 && canTake === 0 },
   };
 }
