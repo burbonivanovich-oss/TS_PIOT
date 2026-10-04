@@ -92,10 +92,16 @@ export function formatMetric(m, kind = 'int') {
 // русская подпись, вид форматирования.
 const TELEMETRY_DEFS = [
   { key: 'users', names: ['users', 'usersCount'], label: 'пользователи', kind: 'int' },
+  { key: 'siteVisits', names: ['siteVisits'], label: 'визиты сайта', kind: 'int' },
   { key: 'offerImpressions', names: ['offerImpressions', 'offer_impressions'], label: 'показы оффера (offer impressions)', kind: 'int' },
   { key: 'ctaCtr', names: ['ctaCtr', 'cta_ctr', 'ctr'], label: 'CTA CTR', kind: 'ratio' },
   { key: 'productViews', names: ['productViews', 'product_views'], label: 'просмотры карточек (product views)', kind: 'int' },
+  { key: 'ctaClicks', names: ['ctaClicks'], label: 'переходы к подключению', kind: 'int' },
+  { key: 'selectorTasks', names: ['selectorTasks'], label: 'выбор задачи подбора', kind: 'int' },
+  { key: 'selectorResults', names: ['selectorResults'], label: 'результаты подбора', kind: 'int' },
+  { key: 'selectorProductClicks', names: ['selectorProductClicks'], label: 'переходы из подбора к продукту', kind: 'int' },
   { key: 'formStarts', names: ['formStarts', 'form_starts'], label: 'начала форм (form starts)', kind: 'int' },
+  { key: 'formSubmitAttempts', names: ['formSubmitAttempts'], label: 'попытки отправки формы (не лиды)', kind: 'int' },
   { key: 'validLeads', names: ['validLeads', 'valid_leads'], label: 'валидные лиды (valid leads)', kind: 'int' },
   { key: 'paymentClicks', names: ['paymentClicks', 'payment_clicks'], label: 'клики на оплату (payment clicks)', kind: 'int' },
 ];
@@ -103,6 +109,9 @@ const TELEMETRY_DEFS = [
 // CR стадий: числитель/знаменатель по ключам metrics. Деньги сюда не входят:
 // CR требует одинаковые уникальные единицы, период и явно связанную когорту.
 const CR_DEFS = [
+  { key: 'productReach', label: 'Доля посетителей с просмотром продукта', num: 'productViews', den: 'users' },
+  { key: 'ctaReach', label: 'Доля посетителей с переходом к подключению', num: 'ctaClicks', den: 'users' },
+  { key: 'formReach', label: 'Доля посетителей, начавших форму', num: 'formStarts', den: 'users' },
   { key: 'offerReach', label: 'CR: пользователи с показом / пользователи', num: 'offerImpressions', den: 'users' },
   { key: 'productInterest', label: 'CR: просмотры / показы', num: 'productViews', den: 'offerImpressions' },
   { key: 'formStart', label: 'CR: формы / просмотры', num: 'formStarts', den: 'productViews' },
@@ -160,6 +169,7 @@ function readAnalytics(dir, now, period) {
   if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
     throw new Error(`Выгрузка ${file} должна содержать объект с метриками`);
   }
+  if (parsed.status === 'error') return empty('ошибка получения данных источника; прежние значения не подставлены');
   const fetchedAt = parsed.fetchedAt ?? null;
   const problem = sourceProblem(parsed, { period, now, maxAgeMs: ANALYTICS_FRESHNESS_MS });
   if (problem) return { ...empty(problem), fetchedAt };
@@ -334,7 +344,8 @@ export function computeCommercialReport({ dir = resolveDataDir(), days = 7, now 
 
 function sourceSuffix(m) {
   if (!m.source) return '';
-  return ` [${m.source}${m.fetchedAt ? ` · выгрузка ${m.fetchedAt}` : ''}]`;
+  const units = {visitors:'посетители',visits:'визиты',events:'события',leads:'лиды',invoices:'счета',rub:'рубли',ratio:'доля'};
+  return ` [${m.source}${m.basis ? ` · единица: ${units[m.basis.unit]}${m.basis.complete ? '' : ' · неполное покрытие среза'}` : ''}${m.fetchedAt ? ` · выгрузка ${m.fetchedAt}` : ''}]`;
 }
 
 // Единица измерения задаётся вместе с меткой: счета и лиды — это штуки, а не
