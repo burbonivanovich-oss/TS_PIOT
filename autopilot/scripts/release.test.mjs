@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -132,7 +132,9 @@ test('PUB-04: изменение принятой статьи требует п
   assert.ok(report.results.some(r => r.slug === 'w1' && r.status === 'release_rejected'));
   assert.match(readFileSync(path.join(fx.blog, 'w1.md'), 'utf8'), /draft: true/);
   const queue = JSON.parse(readFileSync(path.join(fx.dataDir, 'release-queue.json')));
-  assert.ok(queue.items.some(i => i.slug === 'w1'));
+  assert.ok(!queue.items.some(i => i.slug === 'w1'));
+  const state = JSON.parse(readFileSync(path.join(fx.dataDir, 'autopilot.json')));
+  assert.ok(state.inFlight.some(i=>i.slug==='w1' && i.acceptedRepair && i.failures===1));
   const log = JSON.parse(readFileSync(path.join(fx.dataDir, 'publish-log.json')));
   assert.ok(!log.days[fx.day].includes('w1'));
 });
@@ -285,4 +287,11 @@ test('accepted factual correction goes first while daily and rewrite calendar li
  result=allocateReleases({waiting,accepted,alreadyToday:0,maxPerDay:1,calendar:{byKind:{new:{remaining:1},rewrite:{remaining:0}}}});
  assert.deepEqual(result.release.map(i=>i.slug),['new']);assert.ok(result.wait.some(i=>i.slug==='correction'));
  result=allocateReleases({waiting,accepted,alreadyToday:1,maxPerDay:1});assert.equal(result.release.length,0);
+});
+
+test('missing accepted file stays held in release queue instead of silently disappearing',()=>{
+ const fx=fixture();unlinkSync(path.join(fx.blog,'w1.md'));const report=settle(fx);
+ assert.ok(report.results.some(r=>r.slug==='w1'&&r.status==='release_missing'));
+ assert.ok(JSON.parse(readFileSync(path.join(fx.dataDir,'release-queue.json'))).items.some(i=>i.slug==='w1'));
+ assert.ok(!JSON.parse(readFileSync(path.join(fx.dataDir,'publish-log.json'))).days[fx.day].includes('w1'));
 });

@@ -146,14 +146,14 @@ export function healthCheck() {
       const openOrders = new Set(orders.orders.filter(o => !closed.has(o.slug) || inFlight.has(o.slug)).map(o => o.slug));
       const problems = [];
 
-      const slotsNoOrder = [...inFlight].filter((s) => !openOrders.has(s));
+      const slotsNoOrder = [...inFlight].filter((s) => !openOrders.has(s) && !state.inFlight.some(t=>t.slug===s && t.acceptedRepair && !t.acceptedRepair.plannedRunId));
       const ordersNoSlot = [...openOrders].filter((s) => !inFlight.has(s));
       if (slotsNoOrder.length) problems.push(`слоты без наряда: ${slotsNoOrder.join(', ')}`);
       if (ordersNoSlot.length) problems.push(`наряды без слота: ${ordersNoSlot.join(', ')}`);
 
       const writingNoSlot = [...writing].filter((s) => !newInFlight.has(s));
       if (writingNoSlot.length) problems.push(`writing без активного слота (${writingNoSlot.length}): ${writingNoSlot.join(', ')}`);
-      const slotNoWriting = [...newInFlight].filter((s) => !writing.has(s));
+      const slotNoWriting = [...newInFlight].filter((s) => !writing.has(s) && !state.inFlight.some(t=>t.slug===s && t.acceptedRepair && !backlog.topics.some(topic=>topic.slug===s)));
       if (slotNoWriting.length) problems.push(`новый наряд без статуса writing: ${slotNoWriting.join(', ')}`);
 
       const releasedMissing = backlog.topics

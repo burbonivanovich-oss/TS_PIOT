@@ -127,11 +127,29 @@ export function claim(state, { slug, kind, title = '' }) {
   return state;
 }
 
+/** Reserve a retry of already accepted work without treating it as new output. */
+export function claimAcceptedRepair(state, { item, reason, maxSlots = cfg.throughput.maxParallelWriting }) {
+  if (!item || !['new','rewrite'].includes(item.kind) || !/^[a-z0-9-]+$/.test(item.slug || '') || !Number.isFinite(Date.parse(item.acceptedAt))) throw new Error('Invalid accepted repair');
+  if (!Number.isInteger(maxSlots) || maxSlots < 1) throw new Error('Invalid repair slot limit');
+  if (Date.parse(item.acceptedAt) > Date.now()) throw new Error('Invalid future acceptance');
+  if (state.inFlight.length >= maxSlots) return {state, claimed:false};
+  const countedMonth=item.acceptedAt.slice(0,7);
+  const target=item.kind==='new' ? cfg.throughput.monthlyTarget : cfg.throughput.monthlyRewriteTarget;
+  const reserved=state.inFlight.filter(t=>t.kind===item.kind && t.acceptedRepair?.countedMonth!==state.month).length;
+  if (countedMonth!==state.month && target!==undefined && state.counters[item.kind]+reserved>=target) return {state,claimed:false};
+  claim(state, {slug:item.slug,kind:item.kind,title:item.title || ''});
+  const task=state.inFlight.find(t=>t.slug===item.slug);
+  task.acceptedRepair={...item,countedMonth:item.acceptedAt.slice(0,7)};
+  task.failures=1; // The failed release recheck is the first content failure.
+  task.lastFailure=reason;
+  return {state,claimed:true,task};
+}
+
 export function done(state, { slug, score = null, published = false }) {
   const idx = state.inFlight.findIndex((t) => t.slug === slug);
   if (idx === -1) throw new Error(`Не в работе: ${slug}`);
   const [task] = state.inFlight.splice(idx, 1);
-  state.counters[task.kind === 'rewrite' ? 'rewrite' : 'new'] += 1;
+  if (task.acceptedRepair?.countedMonth !== state.month) state.counters[task.kind === 'rewrite' ? 'rewrite' : 'new'] += 1;
   if (published) state.counters.published += 1;
   return { state, task, score };
 }
@@ -167,6 +185,11 @@ export function fail(state, { slug, reason, kind = 'gate' }) {
   task.failures += 1;
   if (task.failures >= cfg.gates.quarantineAfterFailures) {
     state.inFlight = state.inFlight.filter((t) => t.slug !== slug);
+    if(task.acceptedRepair?.countedMonth===state.month) {
+      const counter=task.kind==='rewrite'?'rewrite':'new';
+      state.counters[counter]=Math.max(0,state.counters[counter]-1);
+      task.acceptedRepair.acceptanceRevoked=true;
+    }
     state.quarantine.push({ ...task, quarantinedAt: today(), reason });
     state.counters.quarantined += 1;
     return { state, quarantined: true, released: false, infra: false };

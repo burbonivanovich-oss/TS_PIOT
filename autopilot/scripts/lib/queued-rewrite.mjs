@@ -54,3 +54,18 @@ export function publishedRewriteTargets({dataDir,articles,now=new Date()}) {
  }
  return targets;
 }
+
+export function retainRepairCandidate({dataDir,slug,file,stagedFile}) {
+ if(stagedFile){queuedRewriteFile({dataDir,slug,stagedFile});return stagedFile;}
+ valid(slug);const dir=folder(dataDir,'release-drafts'),backup=path.join(dir,path.basename(regular(file)));
+ writeFileSync(backup,readFileSync(file),{flag:'wx'});return `release-drafts/${path.basename(backup)}`;
+}
+export function activateRepairCandidate({blog,dataDir,slug,backupFile,kind}) {
+ const backup=queuedRewriteFile({dataDir,slug,stagedFile:backupFile});
+ if(kind==='rewrite'&&!find(folder(dataDir,'published-rewrites'),slug))throw new Error('Missing published rewrite baseline');
+ const current=find(blog,slug),target=path.join(blog,path.basename(backup));
+ if(current&&current!==target)unlinkSync(current);copyFileSync(backup,target);return target;
+}
+export function forgetRepairCandidate({dataDir,slug,backupFile}) {
+ const backup=queuedRewriteFile({dataDir,slug,stagedFile:backupFile});unlinkSync(backup);
+}
