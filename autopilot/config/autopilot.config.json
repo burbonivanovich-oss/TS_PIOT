@@ -92,6 +92,7 @@
     "maxPerEntityPerBatch": 2,
     "demandMaxBoost": 30,
     "demandMaxAgeDays": 30,
-    "demandRegion": 225
+    "demandRegion": 225,
+    "pilotSlotsPerBatch": 1
   }
 }

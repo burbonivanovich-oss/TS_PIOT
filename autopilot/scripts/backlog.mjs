@@ -335,7 +335,7 @@ export function take(count) {
   try {
     const backlog = readBacklog();
     const planned = rankTopics(backlog.topics.filter((t) => t.status === 'planned'));
-    const picked = selectDiverse(planned, count, cfg.backlog.maxPerEntityPerBatch ?? count);
+    const picked = selectDiverse(planned, count, cfg.backlog.maxPerEntityPerBatch ?? count, cfg.backlog.pilotSlotsPerBatch ?? 0);
     writeBacklog(backlog);
     return picked;
   } finally {
@@ -347,7 +347,11 @@ export function take(count) {
  * Отбор с потолком на сущность. Вынесен отдельно от чтения файлов, чтобы
  * поведение проверялось тестом, а не только на живом бэклоге.
  */
-export function selectDiverse(planned, count, cap) {
+export function selectDiverse(planned, count, cap, pilotSlots = 0) {
+  // A bounded commercial pilot slot; generic ranking stays intact elsewhere.
+  const pilot = planned.filter(t=>t.intent==='seed' && t.demand?.status==='collected' && t.demand.count>0).slice(0,Math.min(count,pilotSlots));
+  const selectedPilot = new Set(pilot);
+  planned = [...pilot,...planned.filter(t=>!selectedPilot.has(t))];
   const limit = Math.max(1, cap);
   const perEntity = new Map();
   const picked = [];
