@@ -102,7 +102,9 @@ export function setStage(runId, stage, payload = {}, { dir = dataDir() } = {}) {
 export function recordModelInvocation(runId, observation, { dir = dataDir() } = {}) {
   const manifest = readRun(runId, { dir });
   if (!manifest || manifest.stages.gated || manifest.stages.built || manifest.stages.committed) throw new Error('Нет открытого прохода для учёта модели');
-  if (!manifest.orders.includes(observation.slug) || !/^[a-z0-9-]{36}$/.test(observation.id) || !['started', 'delivered', 'failed'].includes(observation.status)) throw new Error('Неверная запись вызова модели');
+  const currentOrders = readJson(path.join(dir, 'orders.json'), null);
+  const ownedSlugs = currentOrders ? (currentOrders.runId === runId ? currentOrders.orders.map(order => order.slug) : []) : manifest.orders;
+  if (!ownedSlugs.includes(observation.slug) || !/^[a-z0-9-]{36}$/.test(observation.id) || !['started', 'delivered', 'failed'].includes(observation.status)) throw new Error('Неверная запись вызова модели');
   const entry = { id: observation.id, slug: observation.slug, attempt: observation.attempt,
     startedAt: observation.startedAt, finishedAt: observation.finishedAt || null,
     durationMs: Number.isFinite(observation.durationMs) && observation.durationMs >= 0 ? observation.durationMs : null,
