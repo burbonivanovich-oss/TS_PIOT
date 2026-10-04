@@ -136,7 +136,9 @@ function planInner({ correctionsOnly = false } = {}) {
     const repair=task.acceptedRepair;
     const file=repair.plannedRunId===run.runId ? (resolveArticleFile(task.slug) || activateRepairCandidate({blog:cfg.resolved.blog,dataDir:cfg.resolved.dataDir,slug:task.slug,backupFile:repair.backupFile,kind:task.kind})) : activateRepairCandidate({blog:cfg.resolved.blog,dataDir:cfg.resolved.dataDir,slug:task.slug,backupFile:repair.backupFile,kind:task.kind});
     repair.plannedRunId=run.runId;
-    orders.push({kind:task.kind,slug:task.slug,title:task.title,reasons:[task.lastFailure],acceptedRepair:repair,targetFile:path.relative(cfg.resolved.contentRoot,file),retry:true,runId:run.runId});
+    const topic=readJson(path.join(cfg.resolved.dataDir,'backlog.json'),{topics:[]}).topics.find(t=>t.slug===task.slug)||{};
+    const frontmatter=parseFrontmatter(readFileSync(file,'utf8')).data;
+    orders.push({kind:task.kind,slug:task.slug,title:task.title,keywords:topic.keywords||frontmatter.seo?.keywords||[],entity:topic.entity,intent:topic.intent,format:topic.format,segment:topic.segment,dedupe:topic.dedupe,reasons:[task.lastFailure],acceptedRepair:repair,targetFile:path.relative(cfg.resolved.contentRoot,file),retry:true,runId:run.runId});
     carriedSlugs.add(task.slug);
   }
 
