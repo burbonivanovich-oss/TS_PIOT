@@ -11,10 +11,11 @@
 //   node scripts/backlog.mjs drop --slug s --reason "..."
 //   node scripts/backlog.mjs stats
 import path from 'node:path';
+import { rebalancePlanned } from './lib/backlog-refresh.mjs';
 import { loadConfig, assertContentRoot } from './lib/config.mjs';
 import { loadArticles, readJson, writeJson, today, isMain, parseArgs } from './lib/content.mjs';
 import { acquireLock, releaseLock } from './lib/lock.mjs';
-import { slugify, tokenize } from './lib/text.mjs';
+import { slugify, tokenize, canonicalKey } from './lib/text.mjs';
 import { buildIndex, checkTopic } from './dedupe.mjs';
 import { rankByDemand } from './lib/demand.mjs';
 
@@ -151,6 +152,23 @@ function refillInner({ target } = {}) {
   // Запас считается от коэффициента конфига, а не от магической 1.3: порог
   // должен иметь одного владельца и проверяться схемой (AP-P0-03).
   const want = target || Math.ceil(cfg.throughput.monthlyTarget * (cfg.backlog.targetBufferFactor ?? 1.3));
+  // Even a full legacy queue must compete with fresh curated seed topics.
+  const seedTopics = seeds.topicSeeds || [];
+  if (!Array.isArray(seedTopics)) throw new Error('topicSeeds must be an array');
+  const offers = seedTopics.map(t => {
+    if (!t || typeof t.title !== 'string' || !t.title.trim() || typeof t.entity !== 'string' || !t.entity.trim() || !Array.isArray(t.keywords) || !t.keywords.length || t.keywords.some(k=>typeof k!=='string'||!k.trim())) throw new Error('Invalid topic seed');
+    const coverage = entitiesFromCorpus(articles,seeds).find(e=>e.entity.toLowerCase()===t.entity.toLowerCase())?.coverage || 0;
+    return {slug:`seed-${slugify(t.title)}`.slice(0,90),title:t.title,entity:t.entity,keywords:t.keywords,intent:'seed',segment:'none',format:t.format||'howto',score:scoreTopic({entity:t.entity,coverage,intentWeight:1,segmentWeight:1},seeds)};
+  });
+  const freshOffers = rankTopics(offers).filter(t=>t.demand.status==='collected');
+  const baseIndex=buildIndex();
+  const refreshed=rebalancePlanned(backlog.topics,freshOffers,{target:want,maxShare:cfg.backlog.maxPerEntityShare,rank:rankTopics,day:today(),check:(offer, peers)=>{
+    const index=baseIndex.slice();index.idf=baseIndex.idf;
+    for(const t of peers) if(!baseIndex.some(e=>e.slug===t.slug))index.push({kind:'planned',slug:t.slug,title:t.title,keywords:t.keywords||[],canonical:canonicalKey(t.title),titleTokens:tokenize(t.title),keywordTokens:tokenize((t.keywords||[]).join(' ')),allTokens:tokenize([t.title,...(t.keywords||[])].join(' '))});
+    return checkTopic(offer,index);
+  }});
+  backlog.topics=refreshed.topics;
+  writeBacklog(backlog);
   const alive = backlog.topics.filter((t) => ['planned', 'writing'].includes(t.status));
   const need = Math.max(0, want - alive.length);
 
