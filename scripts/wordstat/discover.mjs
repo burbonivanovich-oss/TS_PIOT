@@ -28,6 +28,8 @@ import {
 import { join, dirname, isAbsolute } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { topRows, topScope } from "./source-contract.mjs";
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const DISC_DIR = join(ROOT, "src", "data", "wordstat", "discoveries");
 // SEEDS_FILE — имя файла в discoveries/ или абсолютный путь (по умолчанию seeds.json).
@@ -110,12 +112,7 @@ async function callTopRequests(phrase, attempt = 1) {
     }
     throw new Error(`code ${code}: ${msg}`);
   }
-  // count приходит строкой — нормализуем к числу.
-  const arr = Array.isArray(data?.results) ? data.results : [];
-  return arr.map((r) => ({
-    phrase: String(r.phrase || ""),
-    count: parseInt(r.count, 10) || 0,
-  }));
+  return topRows(data);
 }
 
 async function main() {
@@ -182,6 +179,7 @@ async function main() {
             category: s.category,
             cluster: s.cluster,
             fetchedAt: new Date().toISOString(),
+            scope: topScope(REGION_ID),
             count: phrases.length,
             phrases,
           },
