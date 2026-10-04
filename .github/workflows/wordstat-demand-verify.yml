@@ -1,0 +1,56 @@
+name: Wordstat — проверка импорта спроса
+on:
+  workflow_dispatch:
+  push:
+    branches: [codex/demand-source-contract]
+    paths:
+      - '.github/workflows/wordstat-demand-verify.yml'
+permissions:
+  contents: read
+concurrency:
+  group: wordstat-demand-verify
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare isolated two-query collection
+        run: |
+          TASK_ROOT="$RUNNER_TEMP/wordstat-demand"
+          mkdir -p "$TASK_ROOT/scripts/wordstat" "$TASK_ROOT/autopilot/data" "$TASK_ROOT/src/data/wordstat/discoveries"
+          cp scripts/wordstat/{discover,source-contract,export-autopilot-demand}.mjs "$TASK_ROOT/scripts/wordstat/"
+          cp autopilot/data/demand.json "$TASK_ROOT/autopilot/data/"
+          node -e 'require("fs").writeFileSync(process.argv[1],JSON.stringify({seeds:[{phrase:"этрн",category:"entity",cluster:"etrn"},{phrase:"гис эпд",category:"system",cluster:"etrn"}]}))' "$TASK_ROOT/src/data/wordstat/discoveries/seeds.json"
+      - name: Collect two real queries
+        env:
+          YC_API_KEY: ${{ secrets.YC_API_KEY }}
+          YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
+          REGION_ID: '225'
+          NUM_PHRASES: '50'
+          MAX_REQUESTS: '2'
+        run: node "$RUNNER_TEMP/wordstat-demand/scripts/wordstat/discover.mjs"
+      - name: Export and verify real scoped evidence
+        run: |
+          node "$RUNNER_TEMP/wordstat-demand/scripts/wordstat/export-autopilot-demand.mjs"
+          node --input-type=module - "$RUNNER_TEMP/wordstat-demand/autopilot/data/demand.json" <<'JS'
+          import {readFileSync} from 'node:fs';
+          import {rankByDemand} from './autopilot/scripts/lib/demand.mjs';
+          const evidence=JSON.parse(readFileSync(process.argv[2],'utf8'));
+          const real=evidence.snapshots.filter(s=>s.source==='Yandex Cloud Wordstat GetTop');
+          if(real.length!==2 || real.some(s=>!s.rows.length))throw new Error('Two real scoped snapshots required');
+          const topics=real.map(s=>({score:10,keywords:[s.rows[0].phrase]}));
+          const ranked=rankByDemand(topics,{schemaVersion:1,snapshots:real},{demandMaxBoost:30,demandMaxAgeDays:30,demandRegion:225});
+          if(ranked.some(t=>t.demand.status!=='collected'))throw new Error('Real demand did not reach ranking');
+          console.log('Verified: real API -> scoped export -> ranking; no content writes');
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wordstat-demand-verification
+          path: ${{ runner.temp }}/wordstat-demand/autopilot/data/demand.json
+          retention-days: 3

@@ -124,8 +124,7 @@ async function main() {
   }
   if (!DRY_RUN) {
     console.log(
-      `[WORDSTAT] folder_id=${FOLDER_ID} api_key_len=${API_KEY.length} ` +
-        `api_key_tail=${API_KEY.slice(-4)}`,
+      "[WORDSTAT] credentials available; values are not logged",
     );
   }
 
