@@ -37,6 +37,25 @@
       "kind": "new",
       "score": 100,
       "acceptedAt": "2026-10-04T15:34:55.915Z"
+    },
+    {
+      "slug": "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke",
+      "kind": "new",
+      "score": 100,
+      "acceptedAt": "2026-10-04T17:46:40.921Z"
+    },
+    {
+      "slug": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
+      "kind": "new",
+      "score": 100,
+      "acceptedAt": "2026-10-04T17:46:41.088Z"
+    },
+    {
+      "slug": "2026-05-03-markirovka-igrushek-2026",
+      "kind": "rewrite",
+      "score": 100,
+      "acceptedAt": "2026-10-04T17:46:41.258Z",
+      "stagedFile": "release-drafts/2026-05-03-markirovka-igrushek-2026.mdx"
     }
   ]
 }

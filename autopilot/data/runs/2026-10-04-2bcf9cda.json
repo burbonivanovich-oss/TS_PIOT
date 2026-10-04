@@ -1,0 +1,100 @@
+{
+  "runId": "2026-10-04-2bcf9cda",
+  "date": "2026-10-04",
+  "kind": "day",
+  "createdAt": "2026-10-04T17:24:13.709Z",
+  "updatedAt": "2026-10-04T17:47:20.376Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-04T17:24:13.821Z",
+      "orderCount": 3,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 3,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "written": {
+      "at": "2026-10-04T17:46:38.108Z",
+      "delivered": 3,
+      "meaning": "bytes delivered; gates not passed yet"
+    },
+    "gated": {
+      "at": "2026-10-04T17:47:02.001Z",
+      "publicationCapacity": {
+        "day": "2026-10-04",
+        "slotsRemaining": 81,
+        "needed": 66,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 2,
+            "remaining": 53
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 1,
+            "remaining": 13
+          }
+        }
+      },
+      "published": 0,
+      "acceptedWaiting": 9,
+      "results": [
+        {
+          "slug": "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke",
+          "status": "accepted_waiting_release"
+        },
+        {
+          "slug": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
+          "status": "accepted_waiting_release"
+        },
+        {
+          "slug": "2026-05-03-markirovka-igrushek-2026",
+          "status": "accepted_waiting_release"
+        }
+      ]
+    },
+    "built": {
+      "at": "2026-10-04T17:47:02.001Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "b3015db45b99c2fbafd776247e6972701c04e676736d2939680fb5c160eab66f",
+      "scope": "blog Markdown/MDX bytes at build start"
+    },
+    "committed": {
+      "at": "2026-10-04T17:47:20.376Z",
+      "commit": "400ae1e3f897dc91776f822e7783898e121221b0",
+      "tree": "5678d9b5f3cd5bae113dd7f0baefdd8f10f2682f",
+      "stateOnly": false
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-04T17:24:13.821Z"
+    },
+    {
+      "stage": "written",
+      "at": "2026-10-04T17:46:38.108Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-04T17:47:02.001Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-04T17:47:02.030Z"
+    },
+    {
+      "stage": "committed",
+      "at": "2026-10-04T17:47:20.376Z"
+    }
+  ],
+  "meta": {}
+}

@@ -1,0 +1,87 @@
+{
+  "slug": "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke",
+  "claims": [
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/related_activities/el_doc/el_bus_entities/edotransp/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 1855,
+      "line": 15,
+      "context": "П, ФНС указывает на необходимость МЧД в [алгоритме внедрения транспортного ЭДО](https://www.nalog.gov.ru/rn77/related_activities/el_doc/el_bus_entities/edotransp/). Организационную подготовку можно начать с [разбора машиночитаемой доверенност",
+      "expected_source": "nalog.gov.ru"
+    },
+    {
+      "id": "c2",
+      "type": "NPA_FZ_FULL",
+      "raw": "Федерального закона № 259",
+      "groups": [
+        "259"
+      ],
+      "offset": 2483,
+      "line": 21,
+      "context": "лектронной подписи Общее правило для участников обмена закрепляет [статья 18.1 Федерального закона № 259-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7"
+    },
+    {
+      "id": "c1",
+      "type": "NPA_FZ",
+      "raw": "259-ФЗ",
+      "groups": [
+        "259"
+      ],
+      "offset": 2505,
+      "line": 21,
+      "context": "щее правило для участников обмена закрепляет [статья 18.1 Федерального закона № 259-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a99"
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 2513,
+      "line": 21,
+      "context": "ило для участников обмена закрепляет [статья 18.1 Федерального закона № 259-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/): предусмотрены КЭП либо усиленная неквалифицированная подпись физлица с сертиф",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c5",
+      "type": "LINK",
+      "raw": "https://base.garant.ru/404741819/",
+      "groups": [
+        "base.garant.ru"
+      ],
+      "offset": 2948,
+      "line": 23,
+      "context": "го названия. Для приёма и выдачи груза [правила обмена по постановлению № 931](https://base.garant.ru/404741819/) допускают дополнительную ПЭП или усиленную НЭП водителя при последующем подпис",
+      "expected_source": "base.garant.ru"
+    },
+    {
+      "id": "c6",
+      "type": "LINK",
+      "raw": "https://kontur.ru/logistika",
+      "groups": [
+        "kontur.ru"
+      ],
+      "offset": 3512,
+      "line": 25,
+      "context": "завершает подписание от перевозчика. На [официальной странице Контур.Логистики](https://kontur.ru/logistika) описана работа водителя с ПЭП. Согласуйте реализацию выбранной схемы в сервисе",
+      "expected_source": "kontur.ru"
+    },
+    {
+      "id": "c7",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 6153,
+      "line": 50,
+      "context": "ых документов — это установлено [статьёй 18.1 Устава автомобильного транспорта](https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/). ФНС поясняет, что передачу выполняет оператор, а участнику не требуется самос",
+      "expected_source": "consultant.ru"
+    }
+  ]
+}
