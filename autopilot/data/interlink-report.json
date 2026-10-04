@@ -1,204 +1,664 @@
 {
   "generatedAt": "2026-10-04",
   "dry": false,
-  "inserted": 14,
-  "touched": 14,
-  "orphansBefore": 35,
-  "orphansAfter": 35,
+  "inserted": 52,
+  "touched": 40,
+  "orphansBefore": 41,
+  "orphansAfter": 33,
   "plan": [
     {
-      "slug": "2026-05-03-markirovka-igrushek-2026",
-      "outboundBefore": 6,
+      "slug": "2026-01-15-chto-takoe-ts-piot",
+      "outboundBefore": 5,
       "additions": [
         {
           "target": "2026-06-17-poexzemplyarnyj-uchet",
           "anchor": "поэкземплярный учёт",
-          "relevance": 0.52,
-          "offset": 6597,
+          "relevance": 0.79,
+          "offset": 11361,
           "length": 19,
-          "line": "Маркировка игрушек с 1 сентября 2026 вводит поэкземплярный учёт — наиболее строгий формат прослежива"
+          "line": "вводят поэкземплярный учёт, добавляют новые категории товаров, ужесточают"
         }
       ]
     },
     {
-      "slug": "2026-05-03-mspos-f20-obzor",
-      "outboundBefore": 7,
+      "slug": "2026-03-05-nalogi-msb-2026",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-06-09-kedo-vnedrenie-msb",
+          "anchor": "КЭДО для малого бизнеса",
+          "relevance": 0.62,
+          "offset": 5120,
+          "length": 23,
+          "line": "Главный плюс КЭДО для малого бизнеса — не экономия, а **меньше проблем с"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-01-chto-takoe-fn",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-05-03-srok-fn-15-36",
+          "anchor": "Срок действия фискального накопителя",
+          "relevance": 1,
+          "offset": 4463,
+          "length": 36,
+          "line": "Срок действия фискального накопителя — один из ключевых параметров при покупке. Федеральный закон № "
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-01-gashenie-vsd-merkuriy",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-06-15-vetdokumenty-kak-poluchit",
+          "anchor": "Гашение ВСД",
+          "relevance": 0.7,
+          "offset": 511,
+          "length": 11,
+          "line": "Гашение ВСД — это действие в системе «Меркурий», которым получатель подтверждает фактическую приёмку"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-01-kak-vybrat-onlayn-kassu-2026",
+      "outboundBefore": 6,
+      "additions": [
+        {
+          "target": "2026-05-03-atol-27f-obzor",
+          "anchor": "бюджетный фискальный регистратор",
+          "relevance": 0.58,
+          "offset": 4600,
+          "length": 32,
+          "line": "**Небольшой розничный магазин, павильон, киоск.** Оптимальный выбор — смарт-терминал или бюджетный ф"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-01-markirovka-molochki-msb",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-06-17-poexzemplyarnyj-uchet",
+          "anchor": "поэкземплярный учёт",
+          "relevance": 0.79,
+          "offset": 241,
+          "length": 19,
+          "line": "К 2026 году маркировка молочной продукции прошла все ключевые этапы внедрения: от регистрации произв"
+        },
+        {
+          "target": "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj",
+          "anchor": "объёмно-сортовой учёт",
+          "relevance": 0.69,
+          "offset": 2707,
+          "length": 21,
+          "line": "До 1 ноября 2026 года для молочной продукции со сроком хранения более 40 дней действует объёмно-сорт"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-01-markirovka-piva-roznica",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-06-17-poexzemplyarnyj-uchet",
+          "anchor": "Поэкземплярный учёт",
+          "relevance": 0.79,
+          "offset": 244,
+          "length": 19,
+          "line": "С апреля 2026 года маркировка пива и слабоалкогольных напитков переходит на новую схему: данные о вы"
+        },
+        {
+          "target": "2026-05-03-uchyot-razlivnogo-piva",
+          "anchor": "Учёт разливного пива",
+          "relevance": 0.52,
+          "offset": 3934,
+          "length": 20,
+          "line": "Учёт разливного пива в кегах принципиально отличается от учёта бутылочного."
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-01-ofd-dlya-ts-piot",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-06-27-smena-ofd-instrukciya",
+          "anchor": "Смена оператора фискальных данных",
+          "relevance": 0.8,
+          "offset": 4915,
+          "length": 33,
+          "line": "Важно: ТС ПИоТ — это отдельный программный модуль, который устанавливают независимо от ОФД. Смена оп"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-01-razreshitelnyj-rezhim-markirovka",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-06-17-poexzemplyarnyj-uchet",
+          "anchor": "Поэкземплярный учёт",
+          "relevance": 0.79,
+          "offset": 7196,
+          "length": 19,
+          "line": "В разрешительном режиме сканируется каждая единица товара. Поэкземплярный учёт — принципиальное треб"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
+      "outboundBefore": 4,
       "additions": [
         {
           "target": "2026-05-03-atol-30f-obzor",
           "anchor": "АТОЛ 30Ф",
-          "relevance": 0.75,
-          "offset": 3711,
+          "relevance": 1,
+          "offset": 8228,
           "length": 8,
-          "line": "Если нагрузка высокая или нужен большой экран — рассмотрите [MSPOS T D3 Mini](/blog/2026-05-03-mspos"
+          "line": "**Фискальный регистратор (пример на базе АТОЛ 30Ф + планшет):**"
         }
       ]
     },
     {
-      "slug": "2026-05-03-mspos-t-d3-mini-obzor",
-      "outboundBefore": 6,
-      "additions": [
-        {
-          "target": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
-          "anchor": "смарт-терминал",
-          "relevance": 0.64,
-          "offset": 32,
-          "length": 14,
-          "line": "MSPOS T D3 Mini — стационарный смарт-терминал с сенсорным экраном 10 дюймов, разработанный «МультиСо"
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-03-uchyot-razlivnogo-piva",
+      "slug": "2026-05-01-ts-piot-evotor-atol-shtrih",
       "outboundBefore": 4,
-      "additions": [
-        {
-          "target": "2026-06-17-poexzemplyarnyj-uchet",
-          "anchor": "поэкземплярный учёт",
-          "relevance": 0.52,
-          "offset": 1110,
-          "length": 19,
-          "line": "С 01.03.2025 для кег действует поэкземплярный учёт в системе «Честный знак» (код DataMatrix на каждо"
-        }
-      ]
-    },
-    {
-      "slug": "2026-05-21-kassa-dlya-internet-magazina",
-      "outboundBefore": 3,
-      "additions": [
-        {
-          "target": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
-          "anchor": "смарт-терминал или фискальный регистратор",
-          "relevance": 0.58,
-          "offset": 2043,
-          "length": 41,
-          "line": "**Кому подходит:** если принимаете наличные при самовывозе, есть физическая точка продаж, или объём "
-        }
-      ]
-    },
-    {
-      "slug": "2026-06-09-kassa-dlya-kafe-2026",
-      "outboundBefore": 6,
-      "additions": [
-        {
-          "target": "2026-01-15-chto-takoe-ts-piot",
-          "anchor": "ТС ПИоТ обязателен",
-          "relevance": 0.81,
-          "offset": 6693,
-          "length": 18,
-          "line": "01.07.2026 — дата, с которой ТС ПИоТ обязателен на кассе при продаже маркированных пива, молочной и "
-        }
-      ]
-    },
-    {
-      "slug": "2026-06-09-kto-ne-nuzhen-ts-piot",
-      "outboundBefore": 5,
-      "additions": [
-        {
-          "target": "2026-06-17-poexzemplyarnyj-uchet",
-          "anchor": "поэкземплярный учёт",
-          "relevance": 0.52,
-          "offset": 5799,
-          "length": 19,
-          "line": "Второй случай — временный. Разрешительный режим разворачивается по графику: сначала ввод кодов и поэ"
-        }
-      ]
-    },
-    {
-      "slug": "2026-06-09-markirovka-tabaka-2026",
-      "outboundBefore": 6,
-      "additions": [
-        {
-          "target": "2026-06-17-poexzemplyarnyj-uchet",
-          "anchor": "поэкземплярный учёт",
-          "relevance": 0.52,
-          "offset": 1653,
-          "length": 19,
-          "line": "**Производители, импортёры и оптовое звено.** Они регистрируются в ГИС МТ, ведут поэкземплярный учёт"
-        }
-      ]
-    },
-    {
-      "slug": "2026-06-19-ts-piot-dlya-obschepita",
-      "outboundBefore": 6,
-      "additions": [
-        {
-          "target": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
-          "anchor": "смарт-терминал",
-          "relevance": 0.4,
-          "offset": 752,
-          "length": 14,
-          "line": "Технические средства проверки информации о товаре (ТС ПИоТ) — программный модуль, встроенный в кассо"
-        }
-      ]
-    },
-    {
-      "slug": "2026-06-26-markirovka-bad-2026",
-      "outboundBefore": 5,
       "additions": [
         {
           "target": "2026-01-15-chto-takoe-ts-piot",
           "anchor": "модуль ТС ПИоТ",
           "relevance": 0.67,
-          "offset": 3699,
+          "offset": 7435,
           "length": 14,
-          "line": "**3. 2D-сканер DataMatrix и ТС ПИоТ на кассе.** Для розницы — обязательны оба. Обычный 1D-сканер штр"
+          "line": "Если ОФД уже поддерживает шлюзовую проверку маркировки — возможно, модуль ТС ПИоТ уже доступен в ваш"
         }
       ]
     },
     {
-      "slug": "2026-06-29-markirovka-vody-2026",
+      "slug": "2026-05-01-ts-piot-shtrafy",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-05-30-ts-piot-provajdery-sravnenie",
+          "anchor": "провайдер ТС ПИоТ",
+          "relevance": 0.4,
+          "offset": 5635,
+          "length": 17,
+          "line": "**Будут ли штрафовать, если провайдер ТС ПИоТ есть в реестре, но у меня он ещё не установлен?**"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-01-zamena-fn-poshagovo",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-06-27-smena-ofd-instrukciya",
+          "anchor": "Смена оператора фискальных данных",
+          "relevance": 0.69,
+          "offset": 1569,
+          "length": 33,
+          "line": "**Смена оператора фискальных данных (ОФД).** При смене ОФД закрытие архива ФН и перерегистрация касс"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-atol-30f-obzor",
+      "outboundBefore": 5,
+      "additions": [
+        {
+          "target": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
+          "anchor": "смарт-терминал",
+          "relevance": 0.6,
+          "offset": 3243,
+          "length": 14,
+          "line": "Совокупная стоимость рабочего места (ПК + АТОЛ 30Ф + ПО + сканер) выше, чем смарт-терминал «под ключ"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-atol-30f-vs-27f",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
+          "anchor": "смарт-терминал",
+          "relevance": 0.4,
+          "offset": 3034,
+          "length": 14,
+          "line": "Если бюджет ограничен и нет смысла покупать отдельный компьютер, рассмотрите смарт-терминал — он объ"
+        },
+        {
+          "target": "2026-05-03-atol-27f-obzor",
+          "anchor": "АТОЛ 27Ф",
+          "relevance": 0.6,
+          "offset": 12,
+          "length": 8,
+          "line": "АТОЛ 30Ф и АТОЛ 27Ф — два популярных фискальных регистратора одного производителя, которые часто сра"
+        },
+        {
+          "target": "2026-05-03-atol-30f-obzor",
+          "anchor": "АТОЛ 30Ф",
+          "relevance": 0.56,
+          "offset": 750,
+          "length": 8,
+          "line": "Скорость 200 мм/с у АТОЛ 30Ф означает, что чек из 10 строк печатается за 1–2 секунды. Скорость 75 мм"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-etrn-2026",
+      "outboundBefore": 2,
+      "additions": [
+        {
+          "target": "2026-05-25-140-fz-epd-perehod-msb",
+          "anchor": "ЭТрН обязательна",
+          "relevance": 0.52,
+          "offset": 6944,
+          "length": 16,
+          "line": "С 1 сентября 2026 года ЭТрН обязательна для всех участников коммерческих автомобильных перевозок. Дл"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-kak-vybrat-ofd-2026",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-06-27-smena-ofd-instrukciya",
+          "anchor": "Смена ОФД",
+          "relevance": 0.64,
+          "offset": 3481,
+          "length": 9,
+          "line": "Смена ОФД не требует физических действий с кассой — только перерегистрация в личном кабинете ФНС. По"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-markirovka-bytovoy-himii-2026",
+      "outboundBefore": 5,
+      "additions": [
+        {
+          "target": "2026-01-15-chto-takoe-ts-piot",
+          "anchor": "ТС ПИоТ обязателен",
+          "relevance": 0.62,
+          "offset": 2337,
+          "length": 18,
+          "line": "**Шаг 3.** Убедиться, что онлайн-касса поддерживает ФФД 1.2 и оснащена ТС ПИоТ. С 1 июля 2026 года Т"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-markirovka-igrushek-2026",
+      "outboundBefore": 5,
+      "additions": [
+        {
+          "target": "2026-06-16-markirovka-ostatkov",
+          "anchor": "маркировка остатков",
+          "relevance": 0.67,
+          "offset": 4226,
+          "length": 19,
+          "line": "Магазин с сотнями наименований игрушек должен учитывать, что маркировка остатков — это не просто рас"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-merkuriy-i-chestnyj-znak",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-06-15-vetdokumenty-kak-poluchit",
+          "anchor": "гашение ВСД",
+          "relevance": 0.7,
+          "offset": 6960,
+          "length": 11,
+          "line": "Параллельная работа с Меркурием и «Честным знаком» требует двух отдельных действий при каждой постав"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-mspos-f20-obzor",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-05-03-mspos-t-d3-mini-obzor",
+          "anchor": "MSPOS T D3 Mini",
+          "relevance": 0.68,
+          "offset": 3549,
+          "length": 15,
+          "line": "Если нагрузка высокая или нужен большой экран — рассмотрите MSPOS T D3 Mini с 10\" дисплеем или фиска"
+        },
+        {
+          "target": "2026-05-03-srok-fn-15-36",
+          "anchor": "Срок действия ФН",
+          "relevance": 0.83,
+          "offset": 4483,
+          "length": 16,
+          "line": "Устройство поддерживает ФН форматов 1.1 и 1.2. Для работы с маркированными товарами необходим ФН, со"
+        },
+        {
+          "target": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
+          "anchor": "смарт-терминал",
+          "relevance": 0.67,
+          "offset": 13,
+          "length": 14,
+          "line": "MSPOS F20 — смарт-терминал российского производителя «МультиСофт Системз», включённый в реестр контр"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-mspos-f20-vs-d3-mini",
+      "outboundBefore": 5,
+      "additions": [
+        {
+          "target": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
+          "anchor": "смарт-терминал",
+          "relevance": 0.52,
+          "offset": 5401,
+          "length": 14,
+          "line": "MSPOS F20 и MSPOS T D3 Mini занимают разные ниши. F20 — выбор для мобильной и небольшой стационарной"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-mspos-t-d3-mini-obzor",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-05-03-mspos-f20-obzor",
+          "anchor": "MSPOS F20",
+          "relevance": 0.72,
+          "offset": 206,
+          "length": 9,
+          "line": "MSPOS T D3 Mini — стационарный смарт-терминал с сенсорным экраном 10 дюймов, разработанный «МультиСо"
+        },
+        {
+          "target": "2026-06-12-ts-piot-cheklist-uspet",
+          "anchor": "ТС ПИоТ с 1 июля 2026",
+          "relevance": 0.52,
+          "offset": 1361,
+          "length": 21,
+          "line": "MSPOS T D3 Mini оснащён встроенным 2D-сканером, читающим коды DataMatrix без дополнительных устройст"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-registraciya-v-merkurii",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-06-15-vetdokumenty-kak-poluchit",
+          "anchor": "гашение ВСД",
+          "relevance": 0.81,
+          "offset": 3901,
+          "length": 11,
+          "line": "Для автоматизации — при большом объёме поставок — подключите учётную систему (1С, iiko, МойСклад, СБ"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-strahovye-vznosy-msp-2026",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-09-22-reestr-msp-lgoty-2026",
+          "anchor": "реестр МСП",
+          "relevance": 0.51,
+          "offset": 5863,
+          "length": 10,
+          "line": "**Когда реестр МСП обновляется и что делать, если компания не включена?**"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-vidy-kkt",
+      "outboundBefore": 6,
+      "additions": [
+        {
+          "target": "2026-05-03-atol-30f-obzor",
+          "anchor": "АТОЛ 30Ф",
+          "relevance": 0.77,
+          "offset": 2500,
+          "length": 8,
+          "line": "Популярные модели: АТОЛ 30Ф, АТОЛ 27Ф, Штрих-М. Диапазон цен на сам регистратор — от 12 000 до 35 00"
+        },
+        {
+          "target": "2026-05-03-mspos-t-d3-mini-obzor",
+          "anchor": "MSPOS T D3 Mini",
+          "relevance": 0.74,
+          "offset": 1856,
+          "length": 15,
+          "line": "Популярные модели в России: Эвотор, MSPOS F20, MSPOS T D3 Mini. Диапазон цен — от 16 000 до 45 000 р"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-20-kak-otkryt-kafe-cheklis",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-05-03-markirovka-bezalk-napitkov-2026",
+          "anchor": "безалкогольные напитки",
+          "relevance": 0.75,
+          "offset": 3205,
+          "length": 22,
+          "line": "**С 01.07.2026** — кассы с маркированными товарами (безалкогольные напитки, вода, некоторые продукты"
+        },
+        {
+          "target": "2026-01-15-chto-takoe-ts-piot",
+          "anchor": "модуль ТС ПИоТ",
+          "relevance": 0.79,
+          "offset": 6467,
+          "length": 14,
+          "line": "Касса для общепита — отдельный блок со своими требованиями: какой формат ФФД, срок ФН и модуль ТС ПИ"
+        },
+        {
+          "target": "2026-07-01-licenziya-na-alkogol",
+          "anchor": "лицензия на алкоголь",
+          "relevance": 0.52,
+          "offset": 6059,
+          "length": 20,
+          "line": "При параллельной работе по всем направлениям — 2–4 недели. Самый долгий этап — лицензия на алкоголь "
+        },
+        {
+          "target": "2026-05-03-mspos-t-d3-mini-obzor",
+          "anchor": "MSPOS T D3 Mini",
+          "relevance": 0.44,
+          "offset": 2993,
+          "length": 15,
+          "line": "**Для общепита рекомендуются** кассы с поддержкой меню, весового товара и дробных порций: MSPOS T D3"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-26-ts-piot-vs-ofd",
       "outboundBefore": 3,
       "additions": [
         {
           "target": "2026-01-15-chto-takoe-ts-piot",
           "anchor": "ТС ПИоТ обязателен",
-          "relevance": 0.75,
-          "offset": 4047,
+          "relevance": 0.81,
+          "offset": 6425,
           "length": 18,
-          "line": "ТС ПИоТ обязателен с 01.07.2026 для всех розничных продавцов маркированных товаров, включая воду. Пр"
+          "line": "Если работаете в режиме общественного питания (HoReCa, тег 1265 в чеке), разрешительный режим маркир"
+        },
+        {
+          "target": "2026-05-30-ts-piot-provajdery-sravnenie",
+          "anchor": "провайдер ТС ПИоТ",
+          "relevance": 0.74,
+          "offset": 4752,
+          "length": 17,
+          "line": "Это удобно: один договор, один личный кабинет, одна служба поддержки. Но сначала убедитесь, что выбр"
         }
       ]
     },
     {
-      "slug": "2026-07-04-markirovka-odezhdy-2026",
+      "slug": "2026-05-30-ts-piot-provajdery-sravnenie",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-05-01-chto-takoe-fn",
+          "anchor": "фискальный накопитель",
+          "relevance": 0.48,
+          "offset": 6171,
+          "length": 21,
+          "line": "Да. Лицензия ЕСМ и Инвенты оформляется на одну кассу (один фискальный накопитель). При расширении па"
+        }
+      ]
+    },
+    {
+      "slug": "2026-06-09-markirovka-tabaka-2026",
+      "outboundBefore": 5,
+      "additions": [
+        {
+          "target": "2026-09-07-markirovka-tabaka-novye-proverki-2026",
+          "anchor": "Маркировка табака 2026",
+          "relevance": 0.79,
+          "offset": 62,
+          "length": 22,
+          "line": "Маркировка табака 2026 — это уже не просто нанесение кода DataMatrix на пачку. К июню 2026 года розн"
+        }
+      ]
+    },
+    {
+      "slug": "2026-06-16-markirovka-ostatkov",
       "outboundBefore": 4,
       "additions": [
         {
-          "target": "2026-01-15-chto-takoe-ts-piot",
-          "anchor": "ТС ПИоТ обязателен",
-          "relevance": 0.75,
-          "offset": 8343,
-          "length": 18,
-          "line": "ТС ПИоТ нужен тем, кто пробивает чеки через кассу — то есть розничным продавцам. Оптовик работает че"
+          "target": "2026-09-28-gis-mt-kak-rabotaet",
+          "anchor": "государственная информационная система мониторинга товаров",
+          "relevance": 0.85,
+          "offset": 871,
+          "length": 58,
+          "line": "Ввод остатков — регистрация в системе «Честный знак» товарных единиц, которые физически есть на скла"
         }
       ]
     },
     {
-      "slug": "2026-09-30-fn-dlya-markirovki",
-      "outboundBefore": 6,
+      "slug": "2026-06-19-ts-piot-dlya-obschepita",
+      "outboundBefore": 5,
+      "additions": [
+        {
+          "target": "2026-05-03-markirovka-bezalk-napitkov-2026",
+          "anchor": "Безалкогольные напитки",
+          "relevance": 0.75,
+          "offset": 2052,
+          "length": 22,
+          "line": "**Безалкогольные напитки в заводской упаковке.** Бутилированная вода, лимонады, соки в упаковке прои"
+        }
+      ]
+    },
+    {
+      "slug": "2026-06-24-snyatie-kkt-s-ucheta",
+      "outboundBefore": 5,
       "additions": [
         {
           "target": "2026-05-01-chto-takoe-fn",
           "anchor": "фискальный накопитель",
           "relevance": 1,
-          "offset": 79,
+          "offset": 230,
           "length": 21,
-          "line": "Продавец покупает фискальный накопитель по цене, ставит на кассу — а при первой продаже маркированно"
+          "line": "Снятие ККТ с учёта — обязательная процедура при закрытии бизнеса, продаже кассы или замене оборудова"
         }
       ]
     },
     {
-      "slug": "2026-10-02-atol-podklyuchenie-1c",
+      "slug": "2026-06-26-markirovka-bad-2026",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-09-28-gis-mt-kak-rabotaet",
+          "anchor": "государственная информационная система мониторинга товаров",
+          "relevance": 0.67,
+          "offset": 974,
+          "length": 58,
+          "line": "**С 01.10.2023** производители и импортёры начали наносить коды DataMatrix на упаковку БАД. Каждый к"
+        }
+      ]
+    },
+    {
+      "slug": "2026-06-30-pereregistraciya-kkt",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-05-01-chto-takoe-fn",
+          "anchor": "Фискальный накопитель",
+          "relevance": 0.77,
+          "offset": 641,
+          "length": 21,
+          "line": "Фискальный накопитель (ФН) при этих изменениях остаётся прежним — вы только обновляете сведения в ка"
+        }
+      ]
+    },
+    {
+      "slug": "2026-07-04-markirovka-odezhdy-2026",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-09-28-gis-mt-kak-rabotaet",
+          "anchor": "государственная информационная система мониторинга товаров",
+          "relevance": 0.78,
+          "offset": 340,
+          "length": 58,
+          "line": "С 01.07.2026 розничная торговля маркированной одеждой и текстилем перешла в режим жёсткого контроля:"
+        }
+      ]
+    },
+    {
+      "slug": "2026-07-05-egais-registraciya-nachalo",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-05-01-uchyot-alkogolya-v-obschepite",
+          "anchor": "учёт алкоголя",
+          "relevance": 0.62,
+          "offset": 4615,
+          "length": 13,
+          "line": "Если разбираться с настройкой кассы и интеграцией с ЕГАИС нет времени, проще взять готовое решение. "
+        }
+      ]
+    },
+    {
+      "slug": "2026-09-08-subsidii-msb-2026",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-09-22-reestr-msp-lgoty-2026",
+          "anchor": "реестр МСП",
+          "relevance": 0.6,
+          "offset": 11239,
+          "length": 10,
+          "line": "Частые причины отказа: заявитель не входит в реестр МСП на дату подачи, есть налоговая задолженность"
+        }
+      ]
+    },
+    {
+      "slug": "2026-09-23-ofd-shtrafy",
       "outboundBefore": 6,
       "additions": [
         {
           "target": "2026-05-01-chto-takoe-fn",
-          "anchor": "фискальный накопитель",
-          "relevance": 0.71,
-          "offset": 1204,
+          "anchor": "Фискальный накопитель",
+          "relevance": 1,
+          "offset": 1274,
           "length": 21,
-          "line": "Фискальный регистратор в отличие от простого чекопечатающего устройства обязан работать в связке с ф"
+          "line": "Когда договор истекает или не заключён, касса технически продолжает пробивать чеки, но перестаёт пол"
+        }
+      ]
+    },
+    {
+      "slug": "2026-09-24-merkuriy-1c",
+      "outboundBefore": 6,
+      "additions": [
+        {
+          "target": "2026-05-01-chto-takoe-merkuriy",
+          "anchor": "ФГИС Меркурий",
+          "relevance": 0.63,
+          "offset": 4829,
+          "length": 13,
+          "line": "В типовых конфигурациях — «1С:Розница», «1С:Управление торговлей», «1С:УНФ», «1С:Общепит», «1С:ERP» "
         }
       ]
     }
