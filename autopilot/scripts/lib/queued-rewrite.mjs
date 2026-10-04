@@ -35,3 +35,22 @@ export function retainFailedRewrite({blog,dataDir,slug,file}){
  const original=find(folder(dataDir,'published-rewrites'),slug);if(!original)return false;
  const failed=path.join(folder(dataDir,'failed-rewrites'),path.basename(regular(file)));writeFileSync(failed,readFileSync(file));restorePublishedRewrite({blog,dataDir,slug});return true;
 }
+
+// A writer candidate temporarily replaces a live article. Only an active rewrite
+// with a regular, genuinely published baseline can retain that URL as a target.
+export function publishedRewriteTargets({dataDir,articles,now=new Date()}) {
+ const stateFile=path.join(dataDir,'autopilot.json');if(!existsSync(stateFile))return new Set();
+ const state=JSON.parse(readFileSync(regular(stateFile),'utf8'));
+ const active=new Set((state.inFlight||[]).filter(i=>i.kind==='rewrite').map(i=>i.slug));
+ const dir=path.join(dataDir,'published-rewrites');if(!existsSync(dir))return new Set();
+ if(lstatSync(dir).isSymbolicLink()||!lstatSync(dir).isDirectory())throw new Error('Unsafe published rewrite directory');
+ const targets=new Set();
+ for(const article of articles) {
+  if(!active.has(article.slug))continue;
+  const original=find(dir,article.slug);if(!original)continue;
+  const {data}=parseFrontmatter(readFileSync(original,'utf8'));
+  const date=new Date(data.pubDate);
+  if(data.draft===false&&data.autopilotHold!==true&&Number.isFinite(date.getTime())&&date<=now)targets.add(article.slug);
+ }
+ return targets;
+}

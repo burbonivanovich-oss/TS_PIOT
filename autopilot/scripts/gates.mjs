@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { publishedRewriteTargets } from './lib/queued-rewrite.mjs';
 import { checkHeroAssets } from './lib/hero-assets.mjs';
 // Гейты качества. Это замена редактора-человека, а не «дополнительная
 // проверка»: если гейт пропустил текст — текст выйдет в публикацию без
@@ -314,6 +315,7 @@ export function runGates({ file, source, requiredPubDate = null, knownSlugs = nu
       const articles = loadArticles();
       known = new Set(articles.map((a) => a.slug));
       for (const slug of unpublishedSlugs(articles)) known.delete(slug);
+      for (const slug of publishedRewriteTargets({dataDir:cfg.resolved.dataDir,articles})) known.add(slug);
     }
     const broken = [...outbound].filter((slug) => !known.has(slug));
     brokenOk = broken.length === 0;
