@@ -1,0 +1,26 @@
+{
+  "slug": "2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "LINK",
+      "raw": "https://www.mintrans.gov.ru/activities/376/377",
+      "expected_source": "www.mintrans.gov.ru",
+      "context": "Подтверждён маршрут передачи через операторов; диагноз конкретного сбоя не выводится из общей схемы."
+    },
+    {
+      "id": "c2",
+      "type": "LINK",
+      "raw": "https://kontur.ru/logistika",
+      "expected_source": "kontur.ru",
+      "context": "Подтверждено наличие роуминга у указанного сервиса; сроки, цены и универсальность не утверждаются."
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://kontur.ru/logistika",
+      "expected_source": "kontur.ru",
+      "context": "Подтверждена возможность мобильной работы конкретного сервиса; в статье требуется отдельно уточнять границы офлайн-работы."
+    }
+  ]
+}

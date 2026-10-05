@@ -424,6 +424,37 @@
       "updatedAt": "2026-10-04"
     },
     {
+      "slug": "seed-etrn-dlya-gruzopoluchatelya-priemka-gruza-rashozhdeniya-i-podpisanie",
+      "title": "ЭТрН для грузополучателя: приёмка груза, расхождения и подписание",
+      "entity": "этрн",
+      "keywords": [
+        "этрн для грузополучателя"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 8,
+      "demand": {
+        "status": "collected",
+        "phrase": "этрн для грузополучателя",
+        "count": 3561,
+        "match": "broad",
+        "region": "225",
+        "periodStart": "2026-09-02",
+        "periodEnd": "2026-10-01",
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD"
+      },
+      "priorityScore": 29.3,
+      "status": "accepted_waiting_release",
+      "createdAt": "2026-10-04",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "updatedAt": "2026-10-05"
+    },
+    {
       "slug": "2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya",
       "title": "ГИС ЭПД: частые ошибки и чем они заканчиваются",
       "keywords": [
@@ -435,7 +466,7 @@
       "format": "explainer",
       "segment": "none",
       "score": 50.1,
-      "status": "writing",
+      "status": "accepted_waiting_release",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "ok",
@@ -2045,37 +2076,6 @@
       "priorityScore": 30.6
     },
     {
-      "slug": "seed-etrn-dlya-gruzopoluchatelya-priemka-gruza-rashozhdeniya-i-podpisanie",
-      "title": "ЭТрН для грузополучателя: приёмка груза, расхождения и подписание",
-      "entity": "этрн",
-      "keywords": [
-        "этрн для грузополучателя"
-      ],
-      "intent": "seed",
-      "segment": "none",
-      "format": "howto",
-      "score": 8,
-      "demand": {
-        "status": "collected",
-        "phrase": "этрн для грузополучателя",
-        "count": 3561,
-        "match": "broad",
-        "region": "225",
-        "periodStart": "2026-09-02",
-        "periodEnd": "2026-10-01",
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD"
-      },
-      "priorityScore": 29.3,
-      "status": "accepted_waiting_release",
-      "createdAt": "2026-10-04",
-      "dedupe": {
-        "verdict": "ok",
-        "advice": "",
-        "related": []
-      },
-      "updatedAt": "2026-10-05"
-    },
-    {
       "slug": "2026-08-10-razreshitelnyy-rezhim-kak-vybrat-obschepitu-kriterii-i-tipichnye-oshibki",
       "title": "Разрешительный режим: как выбрать общепиту — критерии и типичные ошибки",
       "keywords": [
@@ -2582,6 +2582,36 @@
         "verdict": "ok",
         "advice": "",
         "related": []
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 13.3
+    },
+    {
+      "slug": "2026-08-10-administrativnaya-otvetstvennost-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+      "title": "Административная-ответственность: сроки 2026 года и что успеть до дедлайна",
+      "keywords": [
+        "административная-ответственность сроки",
+        "административная-ответственность когда обязателен"
+      ],
+      "entity": "административная-ответственность",
+      "intent": "deadline",
+      "format": "news",
+      "segment": "none",
+      "score": 13.3,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: сроки 2026 года и что успеть до дедлайна». Обязательна ссылка на /blog/2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+          "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+          "2026-08-10-markirovka-vody-sroki-2026-goda-i-chto-uspet-do-dedlayna"
+        ]
       },
       "demand": {
         "status": "not_collected",
@@ -3645,38 +3675,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 14.4,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
-      "slug": "2026-08-10-administrativnaya-otvetstvennost-sroki-2026-goda-i-chto-uspet-do-dedlayna",
-      "title": "Административная-ответственность: сроки 2026 года и что успеть до дедлайна",
-      "keywords": [
-        "административная-ответственность сроки",
-        "административная-ответственность когда обязателен"
-      ],
-      "entity": "административная-ответственность",
-      "intent": "deadline",
-      "format": "news",
-      "segment": "none",
-      "score": 13.3,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: сроки 2026 года и что успеть до дедлайна». Обязательна ссылка на /blog/2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna",
-          "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",
-          "2026-08-10-markirovka-vody-sroki-2026-goda-i-chto-uspet-do-dedlayna"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 13.3,
       "deferredAt": "2026-10-04",
       "deferredReason": "buffer-rebalanced"
     },

@@ -1,25 +1,10 @@
 {
-  "generatedAt": "2026-10-05T04:53:05.365Z",
+  "generatedAt": "2026-10-05T05:16:03.230Z",
   "totalSources": 78,
   "checkBudget": 13,
-  "checkedCount": 2,
+  "checkedCount": 0,
   "dueRemaining": 0,
-  "checked": [
-    {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/",
-      "status": "ok",
-      "checkedAt": "2026-10-05T04:53:05.365Z",
-      "sha256": "d0f1b78f2e11655c64c31ed39f064dead8324844f7b1e4a963a6fd56e77002e4",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/"
-    },
-    {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/",
-      "status": "ok",
-      "checkedAt": "2026-10-05T04:53:05.365Z",
-      "sha256": "fd8a9d70befa075f0f54a0e510982b674290a40b07cea4a3cc80e11ab4f24008",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/"
-    }
-  ],
+  "checked": [],
   "byUrl": {
     "http://publication.pravo.gov.ru/document/0001202311220011": {
       "status": "ok",
