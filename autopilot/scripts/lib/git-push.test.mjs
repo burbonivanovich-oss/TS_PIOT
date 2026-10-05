@@ -4,7 +4,7 @@ import { readFileSync, mkdtempSync, writeFileSync, rmSync, mkdirSync } from 'nod
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { pushGitDelivery, inspectWordstatDeliveryRace } from './git-push.mjs';
+import { pushGitDelivery, inspectWordstatDeliveryRace, readRemoteRef, gitFailureCategory } from './git-push.mjs';
 
 function fixture() {
   const dir = mkdtempSync(path.join(tmpdir(), 'autopilot-push-')); const root = path.join(dir, 'work'); const bare = path.join(dir, 'remote.git');
@@ -94,4 +94,23 @@ test('Wordstat symlinks cannot enter automatic delivery recovery',()=>{
   f.git('-C',other,'commit','-qm','symlink');f.git('-C',other,'push','-q','origin','main');
   assert.throws(()=>pushGitDelivery(f),/regular data file/);assert.equal(f.local('rev-parse','HEAD'),f.metadataCommit);
  }finally{rmSync(f.dir,{recursive:true,force:true});}
+});
+
+
+test('remote lookup retries only bounded read failures and returns current response', () => {
+  let calls = 0; const waits = [];
+  const response = readRemoteRef({ read: () => { if (++calls < 3) throw Object.assign(new Error('safe'), { category: 'transport' }); return 'current-ref'; }, pause: ms => waits.push(ms) });
+  assert.equal(response, 'current-ref'); assert.equal(calls, 3); assert.deepEqual(waits, [250, 500]);
+  calls = 0;
+  assert.throws(() => readRemoteRef({ read: () => { calls++; throw Object.assign(new Error('safe'), { category: 'unknown' }); }, pause: () => {} }), /safe/);
+  assert.equal(calls, 3);
+  for (const category of ['access_denied', undefined]) {
+    calls = 0;
+    assert.throws(() => readRemoteRef({ read: () => { calls++; throw Object.assign(new Error('safe'), { category }); }, pause: () => assert.fail('unexpected delay') }), /safe/);
+    assert.equal(calls, 1);
+  }
+});
+test('Git failure diagnostics export safe categories instead of raw messages', () => {
+  for (const [stderr, expected] of [['Authentication failed: private URL', 'access_denied'], ['Could not resolve host: private URL', 'dns'], ['HTTP/2 stream error', 'transport'], ['SSL certificate problem', 'tls'], ['private unknown details', 'unknown']]) assert.equal(gitFailureCategory({ stderr }), expected);
+  assert.equal(gitFailureCategory({ error: { code: 'ETIMEDOUT' } }), 'timeout');
 });

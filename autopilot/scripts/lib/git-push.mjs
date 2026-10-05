@@ -11,8 +11,34 @@ function git(root, args, { input } = {}) {
   for (const key of ['GIT_DIR', 'GIT_COMMON_DIR', 'GIT_WORK_TREE', 'GIT_INDEX_FILE', 'GIT_OBJECT_DIRECTORY', 'GIT_ALTERNATE_OBJECT_DIRECTORIES']) delete env[key];
   const r = spawnSync('git', args, { cwd: root, env, input, encoding: 'utf8', timeout: 120000, maxBuffer: 1024 * 1024 });
   // Authentication failures may contain credential-bearing URLs. Do not export stderr.
-  if (r.error || r.status !== 0) throw new Error(`Git ${args[0]} failed (${r.status ?? 'timeout'})`);
+  if (r.error || r.status !== 0) {
+    const category = gitFailureCategory(r);
+    const error = new Error(`Git ${args[0]} failed (${r.status ?? 'timeout'}; ${category})`);
+    error.category = category;
+    throw error;
+  }
   return r.stdout.trim();
+}
+
+// Only allowlisted categories leave the process boundary; stderr stays private.
+export function gitFailureCategory(result) {
+  const text = String(result.stderr || '').toLowerCase();
+  if (/authentication failed|could not read username|terminal prompts disabled|permission denied|repository not found|http.*(?:401|403)/.test(text)) return 'access_denied';
+  if (result.error?.code === 'ETIMEDOUT' || /timed out/.test(text)) return 'timeout';
+  if (/could not resolve host/.test(text)) return 'dns';
+  if (/ssl|tls|certificate/.test(text)) return 'tls';
+  if (/connection reset|connection refused|http\/2|rpc failed|remote end hung up|http.*5\d\d/.test(text)) return 'transport';
+  return 'unknown';
+}
+
+export function readRemoteRef({ root, remote, targetRef, read = () => git(root, ['ls-remote', '--refs', remote, targetRef]), pause = ms => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms) }) {
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try { return read(); }
+    catch (error) {
+      if (!['timeout', 'dns', 'tls', 'transport', 'unknown'].includes(error.category) || attempt === 3) throw error;
+      pause(250 * attempt);
+    }
+  }
 }
 
 export function pushGitDelivery({ root, remote = 'origin', targetRef, build = runSiteBuild, afterPush = () => {} }) {
@@ -25,7 +51,7 @@ export function pushGitDelivery({ root, remote = 'origin', targetRef, build = ru
   if (journal.push && (journal.push.remote !== remote || journal.push.targetRef !== targetRef)) throw new Error('Push destination changed');
   git(root, ['remote', 'get-url', remote]);
   const remoteHead = () => {
-    const rows = git(root, ['ls-remote', '--refs', remote, targetRef]).split('\n').filter(Boolean);
+    const rows = readRemoteRef({ root, remote, targetRef }).split('\n').filter(Boolean);
     if (rows.length > 1) throw new Error('Ambiguous remote ref');
     if (!rows.length) return null;
     const [sha, ref] = rows[0].split(/\s+/);
