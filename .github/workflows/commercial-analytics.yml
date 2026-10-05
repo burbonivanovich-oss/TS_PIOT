@@ -26,11 +26,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Read own counter and seven goals
+      - name: Read own counter and nine goals for seven UTC days
         env:
           METRIKA_OAUTH_TOKEN: ${{ secrets.METRIKA_OAUTH_TOKEN }}
           COMMERCIAL_OUTPUT: ${{ runner.temp }}/commercial/analytics/export.json
           COMMERCIAL_DAYS: '7'
+        run: node scripts/analytics/fetch-commercial.mjs
+      - name: Read current UTC day through collection time
+        if: always()
+        env:
+          METRIKA_OAUTH_TOKEN: ${{ secrets.METRIKA_OAUTH_TOKEN }}
+          COMMERCIAL_OUTPUT: ${{ runner.temp }}/commercial-today/analytics/export.json
+          COMMERCIAL_DAYS: '1'
         run: node scripts/analytics/fetch-commercial.mjs
       - name: Save aggregate report
         if: always()
@@ -38,5 +45,13 @@ jobs:
         with:
           name: metrika-commercial-7-days
           path: ${{ runner.temp }}/commercial/
+          if-no-files-found: error
+          retention-days: 3
+      - name: Save current UTC day aggregate report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: metrika-commercial-current-utc-day
+          path: ${{ runner.temp }}/commercial-today/
           if-no-files-found: error
           retention-days: 3
