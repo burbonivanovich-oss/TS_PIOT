@@ -2,74 +2,395 @@
   "slug": "2026-06-24-snyatie-kkt-s-ucheta",
   "claims": [
     {
-      "id": "c6",
-      "type": "NPA_FZ_FULL",
-      "raw": "Федерального закона от 22.05.2003 № 54",
+      "id": "c2",
+      "type": "NPA_PUNKT",
+      "raw": "пункту 7",
+      "groups": [
+        "7"
+      ],
+      "offset": 334,
+      "line": 5,
+      "context": "/), подаёт заявление и получает карточку о снятии с регистрационного учёта. По [пункту 7 статьи 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_4235"
+    },
+    {
+      "id": "c17",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
       "groups": [
         "54"
       ],
-      "offset": 431,
+      "offset": 363,
       "line": 5,
-      "context": "ть данные придётся лично в инспекции. Порядок снятия с учёта регулирует ст. 4.2 Федерального закона от 22.05.2003 № 54-ФЗ. Процедура занимает до 10 рабочих дней и в большинстве случаев проходит чере"
+      "context": "ет карточку о снятии с регистрационного учёта. По [пункту 7 статьи 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853c"
     },
     {
-      "id": "c1",
-      "type": "DATE_DMY",
-      "raw": "22.05.2003",
+      "id": "c18",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
       "groups": [
-        "22",
-        "05",
-        "2003"
+        "consultant.ru"
       ],
-      "offset": 454,
+      "offset": 370,
       "line": 5,
-      "context": "о в инспекции. Порядок снятия с учёта регулирует ст. 4.2 Федерального закона от 22.05.2003 № 54-ФЗ. Процедура занимает до 10 рабочих дней и в большинстве случаев проходит"
+      "context": "очку о снятии с регистрационного учёта. По [пункту 7 статьи 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/) карточку выдают или направляют в течение пяти рабочих дней с даты подачи заявл",
+      "expected_source": "consultant.ru"
     },
     {
       "id": "c3",
-      "type": "NPA_FZ",
-      "raw": "54-ФЗ",
+      "type": "NPA_PUNKT",
+      "raw": "пунктом 5",
       "groups": [
-        "54"
+        "5"
       ],
-      "offset": 467,
-      "line": 5,
-      "context": ". Порядок снятия с учёта регулирует ст. 4.2 Федерального закона от 22.05.2003 № 54-ФЗ. Процедура занимает до 10 рабочих дней и в большинстве случаев проходит через л"
+      "offset": 1395,
+      "line": 17,
+      "context": "из работы. При передаче, хищении или потере срок подачи заявления установлен [пунктом 5 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c19",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 1417,
+      "line": 17,
+      "context": "аче, хищении или потере срок подачи заявления установлен [пунктом 5 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/): не позднее одного рабочего дня со дня передачи кассы, а при хищении или потер",
+      "expected_source": "consultant.ru"
     },
     {
       "id": "c4",
-      "type": "NPA_FZ",
-      "raw": "54-ФЗ",
+      "type": "NPA_PUNKT",
+      "raw": "пунктах 15",
       "groups": [
-        "54"
+        "15"
       ],
-      "offset": 3435,
-      "line": 47,
-      "context": "бочий день** для подачи заявления о снятии ККТ с учёта — это требование ст. 4.2 54-ФЗ. Заявление подаётся по форме КНД 1110062, утверждённой приказом ФНС России от 2"
+      "offset": 1977,
+      "line": 19,
+      "context": "записи о прекращении деятельности организации или ИП — основания перечислены в [пунктах 15, 16 и 18 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286"
     },
     {
-      "id": "c2",
-      "type": "DATE_DMY",
-      "raw": "29.05.2017",
+      "id": "c20",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
       "groups": [
-        "29",
-        "05",
-        "2017"
+        "consultant.ru"
       ],
-      "offset": 3519,
-      "line": 47,
-      "context": "З. Заявление подаётся по форме КНД 1110062, утверждённой приказом ФНС России от 29.05.2017 № ММВ-7-20/484@. Самый удобный способ — через личный кабинет налогоплательщика"
+      "offset": 2009,
+      "line": 19,
+      "context": "и организации или ИП — основания перечислены в [пунктах 15, 16 и 18 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Поломка кассового корпуса сама по себе не равна истечению ключа ФН. Проверьте",
+      "expected_source": "consultant.ru"
     },
     {
       "id": "c5",
-      "type": "NPA_FZ",
-      "raw": "54-ФЗ",
+      "type": "NPA_PUNKT",
+      "raw": "пунктом 8",
       "groups": [
-        "54"
+        "8"
       ],
-      "offset": 4689,
-      "line": 72,
-      "context": "приёма заявления ФНС снимает ККТ с учёта в течение **10 рабочих дней** (ст. 4.2 54-ФЗ). По истечении этого срока карточка регистрации ККТ аннулируется — касса исчеза"
+      "offset": 3161,
+      "line": 29,
+      "context": "сть сформировать отчёт и передать его сведения вместе с заявлением установлена [пунктом 8 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c21",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 3183,
+      "line": 29,
+      "context": "и передать его сведения вместе с заявлением установлена [пунктом 8 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Закрытие ФН — отдельная операция: обычный отчёт о закрытии смены её не заменя",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c6",
+      "type": "NPA_PUNKT",
+      "raw": "пунктом 14",
+      "groups": [
+        "14"
+      ],
+      "offset": 4003,
+      "line": 33,
+      "context": "из ФН и представляют в налоговый орган вместе с заявлением — это предусмотрено [пунктом 14 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c22",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 4026,
+      "line": 33,
+      "context": "налоговый орган вместе с заявлением — это предусмотрено [пунктом 14 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Поэтому инструкция «дождаться отправки через ОФД» для автономного режима не п",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c7",
+      "type": "NPA_PUNKT",
+      "raw": "пункте 10",
+      "groups": [
+        "10"
+      ],
+      "offset": 4990,
+      "line": 43,
+      "context": "тся усиленная квалифицированная электронная подпись; каналы передачи описаны в [пункте 10 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c23",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 5012,
+      "line": 43,
+      "context": "ированная электронная подпись; каналы передачи описаны в [пункте 10 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). **Порядок подачи заявления онлайн:** 1. Сверьте выбранную кассу с заводским",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c24",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_32451/99dd816add3a331f4ea95df3724b6d738bf782d6/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 5777,
+      "line": 54,
+      "context": "проверки. Актуальную форму заявления КНД 1110062 можно найти в [карточке формы](https://www.consultant.ru/document/cons_doc_LAW_32451/99dd816add3a331f4ea95df3724b6d738bf782d6/). Бумажные документы можно подать лично в любой территориальный налоговый орга",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c25",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/create_business/ip/in_progress/kkt/removal_1/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 6070,
+      "line": 56,
+      "context": "аналы через кабинет, Госуслуги, изготовителя ККТ и ОФД в [инструкции по снятию](https://www.nalog.gov.ru/create_business/ip/in_progress/kkt/removal_1/). Доступность операции у конкретного оператора проверьте заранее. Если использу",
+      "expected_source": "nalog.gov.ru"
+    },
+    {
+      "id": "c8",
+      "type": "NPA_PUNKT",
+      "raw": "пункт 7",
+      "groups": [
+        "7"
+      ],
+      "offset": 6489,
+      "line": 62,
+      "context": "подачи владельцем и срок действий инспекции. В обычной процедуре по заявлению [пункт 7 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c26",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 6509,
+      "line": 62,
+      "context": "срок действий инспекции. В обычной процедуре по заявлению [пункт 7 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/) предусматривает выдачу или направление карточки о снятии с учёта в течение пят",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c9",
+      "type": "NPA_PUNKT",
+      "raw": "пункте 11",
+      "groups": [
+        "11"
+      ],
+      "offset": 6938,
+      "line": 64,
+      "context": "не заменяют эту дату. Карточку направляют электронно по каналам, указанным в [пункте 11 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c27",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 6960,
+      "line": 64,
+      "context": "Карточку направляют электронно по каналам, указанным в [пункте 11 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Пользователь, уже получивший электронную карточку, вправе получить соответств",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c10",
+      "type": "NPA_PUNKT",
+      "raw": "пункт 12",
+      "groups": [
+        "12"
+      ],
+      "offset": 7202,
+      "line": 64,
+      "context": "ть соответствующую карточку на бумаге в налоговом органе — это прямо сохраняет [пункт 12 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c28",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 7223,
+      "line": 64,
+      "context": "рточку на бумаге в налоговом органе — это прямо сохраняет [пункт 12 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Электронный порядок не отменяет бумажную выдачу. Сохраните карточку и провер",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c11",
+      "type": "NPA_PUNKT",
+      "raw": "пункте 16",
+      "groups": [
+        "16"
+      ],
+      "offset": 8428,
+      "line": 76,
+      "context": "ы снятия; исключение и отдельные правила для сломанного накопителя приведены в [пункте 16 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c29",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 8450,
+      "line": 76,
+      "context": "отдельные правила для сломанного накопителя приведены в [пункте 16 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Не распространяйте этот срок на любое принудительное снятие: для иных основан",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c12",
+      "type": "NPA_PUNKT",
+      "raw": "пункт 10",
+      "groups": [
+        "10"
+      ],
+      "offset": 9974,
+      "line": 92,
+      "context": "Для передачи сведений электронным документом закон предусматривает УКЭП — см. [пункт 10 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c30",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 9995,
+      "line": 92,
+      "context": "й электронным документом закон предусматривает УКЭП — см. [пункт 10 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Не отправляйте вместо заявления неподписанный скан по обычной электронной поч",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c13",
+      "type": "NPA_PUNKT",
+      "raw": "пункту 8.1",
+      "groups": [
+        "8.1"
+      ],
+      "offset": 10559,
+      "line": 96,
+      "context": "я экспертизы, а заявление подают в течение пяти рабочих дней со дня поломки по [пункту 8.1 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c31",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 10582,
+      "line": 96,
+      "context": "ие подают в течение пяти рабочих дней со дня поломки по [пункту 8.1 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Исключения из передачи сведений отчёта описаны в [пункте 8 статьи 4.2](https:",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c14",
+      "type": "NPA_PUNKT",
+      "raw": "пункте 8",
+      "groups": [
+        "8"
+      ],
+      "offset": 10730,
+      "line": 96,
+      "context": "a0ced5853cd23d6af88d657a9c/). Исключения из передачи сведений отчёта описаны в [пункте 8 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c32",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 10751,
+      "line": 96,
+      "context": "57a9c/). Исключения из передачи сведений отчёта описаны в [пункте 8 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/); обычная справка сервисного центра не заменяет предусмотренное законом подтвер",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c15",
+      "type": "NPA_PUNKT",
+      "raw": "пункту 7",
+      "groups": [
+        "7"
+      ],
+      "offset": 11523,
+      "line": 104,
+      "context": "а выдачу или направление карточки; дата снятия — дата формирования карточки по [пункту 7 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c33",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 11544,
+      "line": 104,
+      "context": "ние карточки; дата снятия — дата формирования карточки по [пункту 7 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Подготовка данных и устранение неисправностей — отдельные этапы, поэтому не о",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c16",
+      "type": "NPA_PUNKT",
+      "raw": "пункт 8",
+      "groups": [
+        "8"
+      ],
+      "offset": 12087,
+      "line": 108,
+      "context": "-за обстоятельств непреодолимой силы, хищении и определённых поломках ФН — см. [пункт 8 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39e"
+    },
+    {
+      "id": "c34",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 12107,
+      "line": 108,
+      "context": "преодолимой силы, хищении и определённых поломках ФН — см. [пункт 8 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Для автономной кассы организуйте выгрузку данных, а не поиск очереди в ОФД.",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c1",
+      "type": "DATE_YEAR",
+      "raw": "2026 году",
+      "groups": [
+        "2026"
+      ],
+      "offset": 12932,
+      "line": 119,
+      "context": "eregistraciya-kkt/). Выбор замены разобран в обзоре [как выбрать онлайн-кассу в 2026 году](/blog/2026-05-01-kak-vybrat-onlayn-kassu-2026/), а постановка нового аппарата"
     }
   ]
 }

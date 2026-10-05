@@ -43,6 +43,18 @@
     "2026-05-01-zamena-fn-poshagovo": {
       "lastRewrite": "2026-10-05",
       "count": 1
+    },
+    "2026-06-27-smena-ofd-instrukciya": {
+      "lastRewrite": "2026-10-05",
+      "count": 1
+    },
+    "2026-06-24-snyatie-kkt-s-ucheta": {
+      "lastRewrite": "2026-10-05",
+      "count": 1
+    },
+    "2026-06-30-pereregistraciya-kkt": {
+      "lastRewrite": "2026-10-05",
+      "count": 1
     }
   }
 }

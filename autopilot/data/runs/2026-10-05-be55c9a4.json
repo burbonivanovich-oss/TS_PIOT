@@ -1,0 +1,137 @@
+{
+  "runId": "2026-10-05-be55c9a4",
+  "date": "2026-10-05",
+  "kind": "day",
+  "createdAt": "2026-10-05T13:17:49.874Z",
+  "updatedAt": "2026-10-05T13:49:24.473Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-05T13:17:50.010Z",
+      "orderCount": 3,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 2,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "written": {
+      "at": "2026-10-05T13:48:59.689Z",
+      "delivered": 3,
+      "meaning": "bytes delivered; gates not passed yet"
+    },
+    "gated": {
+      "at": "2026-10-05T13:49:24.453Z",
+      "publicationCapacity": {
+        "day": "2026-10-05",
+        "slotsRemaining": 78,
+        "needed": 63,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 3,
+            "remaining": 52
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 3,
+            "remaining": 11
+          }
+        }
+      },
+      "published": 0,
+      "acceptedWaiting": 23,
+      "results": [
+        {
+          "slug": "2026-06-27-smena-ofd-instrukciya",
+          "status": "accepted_waiting_release",
+          "score": 100
+        },
+        {
+          "slug": "2026-06-24-snyatie-kkt-s-ucheta",
+          "status": "accepted_waiting_release",
+          "score": 100
+        },
+        {
+          "slug": "2026-06-30-pereregistraciya-kkt",
+          "status": "accepted_waiting_release",
+          "score": 100
+        }
+      ],
+      "links": {
+        "linksInserted": 0,
+        "orphansBefore": 33,
+        "orphansAfter": 33
+      }
+    },
+    "built": {
+      "at": "2026-10-05T13:49:24.452Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "66385fad715969a09fbbb6cde7015ef62562af3482203344695d15a14051bc51",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-05T13:17:50.010Z"
+    },
+    {
+      "stage": "written",
+      "at": "2026-10-05T13:48:59.689Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-05T13:49:24.453Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-05T13:49:24.473Z"
+    }
+  ],
+  "meta": {
+    "modelInvocations": [
+      {
+        "id": "d8a9d145-bb94-45f8-bd19-95e05c66216b",
+        "slug": "2026-06-27-smena-ofd-instrukciya",
+        "attempt": "2026-10-05T13:02:33.227Z/1/0",
+        "startedAt": "2026-10-05T13:17:50.104Z",
+        "finishedAt": "2026-10-05T13:28:08.691Z",
+        "durationMs": 519644,
+        "reportedTokens": 110173,
+        "tokenSource": "codex-cli-footer",
+        "status": "delivered",
+        "failureCode": null
+      },
+      {
+        "id": "9a46d933-993d-4083-8484-4ab903b92869",
+        "slug": "2026-06-24-snyatie-kkt-s-ucheta",
+        "attempt": "2026-10-05T13:17:49.992Z/0/0",
+        "startedAt": "2026-10-05T13:28:08.816Z",
+        "finishedAt": "2026-10-05T13:37:03.703Z",
+        "durationMs": 441203,
+        "reportedTokens": 97051,
+        "tokenSource": "codex-cli-footer",
+        "status": "delivered",
+        "failureCode": null
+      },
+      {
+        "id": "b43bdb23-427d-4d6b-8a21-cfa37b36218d",
+        "slug": "2026-06-30-pereregistraciya-kkt",
+        "attempt": "2026-10-05T13:17:49.992Z/0/0",
+        "startedAt": "2026-10-05T13:37:03.807Z",
+        "finishedAt": "2026-10-05T13:49:01.307Z",
+        "durationMs": 626224,
+        "reportedTokens": 134484,
+        "tokenSource": "codex-cli-footer",
+        "status": "delivered",
+        "failureCode": null
+      }
+    ]
+  }
+}

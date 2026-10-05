@@ -184,10 +184,24 @@
     },
     "2026-06-27-smena-ofd-instrukciya": {
       "kind": "rewrite",
-      "attempt": "2026-10-05T13:02:33.227Z/0/0",
-      "sha256": "694328bbe9a93daf0b84646ae2e391b3fc7020ce2c4232ceac85caa19eb22f34",
-      "runId": "2026-10-05-9d5bf89f",
-      "at": "2026-10-05T13:13:11.185Z"
+      "attempt": "2026-10-05T13:02:33.227Z/1/0",
+      "sha256": "b95ed306a8d8790e9d1db81fdb5258af07bf51887d58049b16f821b2c69fe837",
+      "runId": "2026-10-05-be55c9a4",
+      "at": "2026-10-05T13:28:07.118Z"
+    },
+    "2026-06-24-snyatie-kkt-s-ucheta": {
+      "kind": "rewrite",
+      "attempt": "2026-10-05T13:17:49.992Z/0/0",
+      "sha256": "d1a9badd2cc9d5eee2dbbb453652ee0a4e58b5b7a8c67918fb56a81a0b62706e",
+      "runId": "2026-10-05-be55c9a4",
+      "at": "2026-10-05T13:37:00.630Z"
+    },
+    "2026-06-30-pereregistraciya-kkt": {
+      "kind": "rewrite",
+      "attempt": "2026-10-05T13:17:49.992Z/0/0",
+      "sha256": "6ce9789fcb20e0d56e90cfbd66be8926d69c4410a85661c83ae90f3ea88845e0",
+      "runId": "2026-10-05-be55c9a4",
+      "at": "2026-10-05T13:48:59.657Z"
     }
   }
 }

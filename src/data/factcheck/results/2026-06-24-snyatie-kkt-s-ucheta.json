@@ -1,67 +1,144 @@
 {
   "slug": "2026-06-24-snyatie-kkt-s-ucheta",
-  "checkedAt": "2026-06-12T00:00:00.000Z",
-  "checkedBy": "claude-sonnet-4-6+websearch",
-  "method": "batch-factcheck",
+  "checkedAt": "2026-10-05T13:34:49.919Z",
+  "method": "substantive-primary-source-review",
+  "npa": [
+    {
+      "kind": "fz",
+      "number": "54",
+      "exists": true,
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "scope": "Статья 4.2, пункты 1, 5–12, 14–18; редакция от 24.06.2025, изменения действуют с 02.09.2025"
+    }
+  ],
   "summary": {
-    "totalClaims": 6,
-    "checked": 6,
-    "match": 6,
-    "mismatch": 0,
-    "uncertain": 0,
-    "missing": 0,
     "overallStatus": "pass",
     "criticalIssues": 0,
-    "note": "Все 6 claims подтверждены. 54-ФЗ от 22.05.2003 — корректен. КНД 1110062, Приказ ФНС ММВ-7-20/484@ от 29.05.2017 — подтверждён несколькими источниками (base.garant.ru, nalog.gov.ru). Срок 10 рабочих дней (снятие) и 1 рабочий день (подача) — корректны по ст. 4.2 54-ФЗ."
+    "note": "Исправлены срок карточки и право бумажной выдачи, сроки владельца, поломка и принудительное снятие. Удалены неподтверждённые требования."
   },
   "claims": [
     {
-      "id": "c6",
-      "type": "NPA_FZ_FULL",
-      "raw": "Федерального закона от 22.05.2003 № 54",
+      "claimHash": "780b282081a213a9fc42735eb5103ca8f0427f88c3b21fc04ea81accc9b4ed12",
+      "raw": "По [пункту 7 статьи 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/) карточку выдают или направляют в течение пяти рабочих дней с даты подачи заявления, а датой снятия считается дата её формирования.",
       "status": "match",
-      "severity": "none",
-      "confidence": 0.99,
-      "expectedValue": "54-ФЗ от 22.05.2003 — подтверждён whitelist"
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "Карточка выдаётся/направляется за пять рабочих дней с подачи; дата снятия равна дате формирования карточки."
     },
     {
-      "id": "c4+c5",
-      "type": "NPA_FZ",
-      "raw": "54-ФЗ",
+      "claimHash": "9dfdf850a6c70596549826e417de1759750f48571749fba734be0438ca19e406",
+      "raw": "При передаче, хищении или потере срок подачи заявления установлен [пунктом 5 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/): не позднее одного рабочего дня со дня передачи кассы, а при хищении или потере — со дня обнаружения соответствующего факта.",
       "status": "match",
-      "severity": "none",
-      "confidence": 0.99,
-      "expectedValue": "Повторные упоминания 54-ФЗ — корректны"
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "Срок владельца относится к передаче, хищению или потере; не к закрытию ФН."
     },
     {
-      "id": "c2",
-      "type": "DATE_DMY",
-      "raw": "29.05.2017",
+      "claimHash": "7a2e581b5d2996a51e063d8eae315eb29de4e9f1e7e4c7b0254d2d023cd221e1",
+      "raw": "**Снятие без заявления пользователя** возможно, в частности, после истечения срока действия ключа фискального признака, при установленном несоответствии экземпляра кассы требованиям законодательства и после внесения записи о прекращении деятельности организации или ИП — основания перечислены в [пунктах 15, 16 и 18 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/).",
       "status": "match",
-      "severity": "none",
-      "confidence": 0.99,
-      "expectedValue": "Приказ ФНС ММВ-7-20/484@ от 29.05.2017 — подтверждён: https://www.nalog.gov.ru/rn77/about_fts/docs/6959174/ и base.garant.ru/71741220/",
-      "sources": [
-        "https://www.nalog.gov.ru/rn77/about_fts/docs/6959174/",
-        "https://base.garant.ru/71741220/f7ee959fd36b5699076b35abf4f52c5c/"
-      ]
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "Сверены основания в пунктах 15, 16 и 18: несоответствие экземпляра, истечение ключа, прекращение деятельности."
     },
     {
-      "id": "form-knd-1110062",
-      "type": "NPA_PRIKAZ",
-      "raw": "форма КНД 1110062, приказ ФНС России от 29.05.2017 № ММВ-7-20/484@",
+      "claimHash": "01f17e9d7160d9fd7a589b95c2e673ff616295db3aa6ba0e3a9ddc9f21ff4466",
+      "raw": "Обязанность сформировать отчёт и передать его сведения вместе с заявлением установлена [пунктом 8 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/).",
       "status": "match",
-      "severity": "none",
-      "confidence": 0.99,
-      "expectedValue": "КНД 1110062 — форма заявления о снятии ККТ с учёта, утверждена приказом ММВ-7-20/484@ от 29.05.2017. Подтверждено.",
-      "sources": [
-        "https://buhland.ru/zayavlenie-o-snyatii-kkt-s-ucheta-1110062/"
-      ]
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "Отчёт закрытия и его сведения обязательны; исключения ограничены описанными обстоятельствами и подтверждением изготовителя."
+    },
+    {
+      "claimHash": "93d8bd681002faa2fff61981aa9349c9190fe4b4e4d2e1f0232c617649e2fae6",
+      "raw": "Для кассы, работавшей без обязательной передачи документов через ОФД, действует особый порядок: фискальные данные всех документов считывают из ФН и представляют в налоговый орган вместе с заявлением — это предусмотрено [пунктом 14 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/).",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "Автономный режим требует выгрузки всех фискальных документов вместе с заявлением."
+    },
+    {
+      "claimHash": "4cd40a6f488f92c45ce304b068d6210fe626ada0d89ce0e95019f6236d7615a2",
+      "raw": "Для электронных сведений используется усиленная квалифицированная электронная подпись; каналы передачи описаны в [пункте 10 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/).",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "Электронный документ подписывают УКЭП, перечислены каналы передачи."
+    },
+    {
+      "claimHash": "bb43efa3c9d1bdcecb13cbba530bffceeb2de299442d67779361dfb73fb6ad23",
+      "raw": "В обычной процедуре по заявлению [пункт 7 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/) предусматривает выдачу или направление карточки о снятии с учёта в течение пяти рабочих дней с даты подачи соответствующего заявления.",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "Карточка выдаётся/направляется за пять рабочих дней с подачи; дата снятия равна дате формирования карточки."
+    },
+    {
+      "claimHash": "94e75c73980c4ef9a22fd86c1b0eb6baa03f572c57d99d9e2d77d0b79b5f145f",
+      "raw": "Карточку направляют электронно по каналам, указанным в [пункте 11 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/).",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "Карточку направляют электронным подписанным документом."
+    },
+    {
+      "claimHash": "ad02e6fe5ac65e0328a66266a60434bdd0639325b9347eaf3d4e9c4c25e87b7e",
+      "raw": "Пользователь, уже получивший электронную карточку, вправе получить соответствующую карточку на бумаге в налоговом органе — это прямо сохраняет [пункт 12 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/).",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "После электронной карточки сохранено право получить бумажную в налоговом органе."
+    },
+    {
+      "claimHash": "9cc972aa201a2c355f492463e7e6e77bad6c06bfac9102e0848a30e0bab4b1fc",
+      "raw": "После снятия из-за истечения ключа фискального признака пользователь должен представить непереданные фискальные данные в течение 60 календарных дней с даты снятия; исключение и отдельные правила для сломанного накопителя приведены в [пункте 16 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/).",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "После истечения ключа — 60 календарных дней на непереданные данные, с особыми правилами для поломки."
+    },
+    {
+      "claimHash": "0f4379e4cb1d3c534ad2d991ecfc7f7ae96f8e89f76da7e427f9b02477b32665",
+      "raw": "[пункт 10 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/).",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "Электронный документ подписывают УКЭП, перечислены каналы передачи."
+    },
+    {
+      "claimHash": "bb85389e58a86e3893e95f927cc697c6bc12e6028f9cdbf21df060e931054c0b",
+      "raw": "Если сломан сам накопитель и нельзя считать данные и сформировать отчёт, его предоставляют изготовителю для экспертизы, а заявление подают в течение пяти рабочих дней со дня поломки по [пункту 8.1 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/).",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "При невозможности чтения данных и формирования отчёта сломанный ФН передают изготовителю; заявление — в течение пяти рабочих дней со дня поломки."
+    },
+    {
+      "claimHash": "45a2eda424c561848c3141cfb913c9718e21e86336f4c82447a5a94122054892",
+      "raw": "Исключения из передачи сведений отчёта описаны в [пункте 8 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/); обычная справка сервисного центра не заменяет предусмотренное законом подтверждение изготовителя.",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "Отчёт закрытия и его сведения обязательны; исключения ограничены описанными обстоятельствами и подтверждением изготовителя."
+    },
+    {
+      "claimHash": "036a762d6f79e74bd6ad9a3ee0416daa1bfd07a70cf085da3937a17d5ee7b019",
+      "raw": "### Сколько времени занимает снятие кассы с учёта\n\nДля процедуры по заявлению предусмотрены пять рабочих дней с даты подачи на выдачу или направление карточки; дата снятия — дата формирования карточки по [пункту 7 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/).",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "Карточка выдаётся/направляется за пять рабочих дней с подачи; дата снятия равна дате формирования карточки."
+    },
+    {
+      "claimHash": "960b69a5e15fbc843ad71e54f3aa60f83300466f910bf6dbd04d06873005edd4",
+      "raw": "[пункт 8 статьи 4.2](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/).",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "rationale": "Отчёт закрытия и его сведения обязательны; исключения ограничены описанными обстоятельствами и подтверждением изготовителя."
     }
   ],
-  "recommendations": [
-    "Правки не требуются. Все НПА корректны.",
-    "Применено: updatedDate: 2026-06-12."
-  ],
-  "nextReview": "2026-12-24"
+  "additionalChecks": [
+    {
+      "claim": "КНД 1110062 — заявление о снятии ККТ с регистрационного учёта",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_32451/99dd816add3a331f4ea95df3724b6d738bf782d6/"
+    },
+    {
+      "claim": "Подача лично в любой территориальный налоговый орган и перечисленные электронные каналы",
+      "status": "match",
+      "source": "https://www.nalog.gov.ru/create_business/ip/in_progress/kkt/removal_1/"
+    },
+    {
+      "claim": "Обложка — кассовое оборудование в магазине",
+      "status": "match",
+      "method": "visual-inspection",
+      "asset": "/images/hero/2026-06-24-snyatie-kkt-s-ucheta.jpg"
+    }
+  ]
 }

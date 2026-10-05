@@ -58,6 +58,30 @@
       "stagedFile": "release-drafts/2026-05-01-zamena-fn-poshagovo.mdx"
     },
     {
+      "slug": "2026-06-27-smena-ofd-instrukciya",
+      "kind": "rewrite",
+      "score": 100,
+      "acceptedAt": "2026-10-05T13:49:01.677Z",
+      "factualCorrection": true,
+      "stagedFile": "release-drafts/2026-06-27-smena-ofd-instrukciya.mdx"
+    },
+    {
+      "slug": "2026-06-24-snyatie-kkt-s-ucheta",
+      "kind": "rewrite",
+      "score": 100,
+      "acceptedAt": "2026-10-05T13:49:01.850Z",
+      "factualCorrection": true,
+      "stagedFile": "release-drafts/2026-06-24-snyatie-kkt-s-ucheta.mdx"
+    },
+    {
+      "slug": "2026-06-30-pereregistraciya-kkt",
+      "kind": "rewrite",
+      "score": 100,
+      "acceptedAt": "2026-10-05T13:49:02.022Z",
+      "factualCorrection": true,
+      "stagedFile": "release-drafts/2026-06-30-pereregistraciya-kkt.mdx"
+    },
+    {
       "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
       "kind": "new",
       "score": 100,

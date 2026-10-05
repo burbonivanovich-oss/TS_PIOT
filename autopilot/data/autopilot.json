@@ -4,23 +4,13 @@
   "month": "2026-10",
   "counters": {
     "new": 15,
-    "rewrite": 11,
+    "rewrite": 14,
     "published": 6,
     "blockedDupes": 0,
     "quarantined": 0,
     "infraReleases": 0
   },
-  "inFlight": [
-    {
-      "slug": "2026-06-27-smena-ofd-instrukciya",
-      "kind": "rewrite",
-      "title": "Смена ОФД: пошаговая инструкция",
-      "claimedAt": "2026-10-05T13:02:33.227Z",
-      "failures": 1,
-      "infraFailures": 0,
-      "lastFailure": "site-quality"
-    }
-  ],
+  "inFlight": [],
   "quarantine": [],
   "history": [
     {
@@ -32,7 +22,7 @@
       "quarantined": 0
     }
   ],
-  "lastRunAt": "2026-10-05T13:13:33.702Z",
+  "lastRunAt": "2026-10-05T13:49:24.521Z",
   "lastMigration": {
     "at": "2026-09-13T19:07:00.147Z",
     "actions": 6,
