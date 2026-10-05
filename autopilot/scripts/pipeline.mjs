@@ -38,6 +38,7 @@ import { acquireLock, releaseLock, newRunId } from './lib/lock.mjs';
 import { refill, take as takeTopics, setStatus, reconcile } from './backlog.mjs';
 import { buildQueue, takeRewrites, markRewritten, activeRewrites, releaseReservation } from './rewrite-queue.mjs';
 import { runGates, bodyDuplication } from './gates.mjs';
+import { lateCorrectionPriority } from './lib/fact-corrections.mjs';
 import { readSourceEvidence } from './lib/sources.mjs';
 import { allocateReleases, releaseCalendar, publicationCapacity } from './lib/release.mjs';
 import { findResumableRun, createRun, setStage, readRun } from './lib/run.mjs';
@@ -338,7 +339,7 @@ function settleInner({ dry = false } = {}) {
 
   // Распределяем квоту: ожидавшие ранее + принятые сейчас, старейшие первыми.
   const waiting = [];
-  for (const item of releaseQueue.items) {
+  for (let item of releaseQueue.items) {
     const file = item.stagedFile ? queuedRewriteFile({dataDir:cfg.resolved.dataDir,...item}) : resolveArticleFile(item.slug);
     if (!file) {
       results.push({ slug: item.slug, status: 'release_missing', detail: 'ожидающая статья отсутствует; запись удержана до восстановления файла' });
@@ -372,6 +373,14 @@ function settleInner({ dry = false } = {}) {
           results.push({slug:item.slug,status:'release_repair_started',detail:'слот исправления зарезервирован; повторный отказ ведёт в карантин'});
         }
       }
+    }
+    if (!item.recheckFailed && item.kind === 'rewrite' && item.stagedFile) {
+      const publishedFile = resolveArticleFile(item.slug);
+      if (publishedFile) item = lateCorrectionPriority({ item,
+        publishedBody: parseFrontmatter(readFileSync(publishedFile, 'utf8')).body,
+        candidateBody: parseFrontmatter(readFileSync(file, 'utf8')).body,
+        evidence: readJson(path.join(cfg.resolved.dataDir, 'fact-corrections', `${item.slug}.json`), null),
+        maxAgeDays: cfg.gates.sourceMaxAgeDays ?? 180 });
     }
     if(!item.repairStarted)waiting.push({ ...item, file, waiting: true });
   }

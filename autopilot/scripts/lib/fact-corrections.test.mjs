@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { activeFactCorrections } from './fact-corrections.mjs';
+import { activeFactCorrections, lateCorrectionPriority } from './fact-corrections.mjs';
 import { claimHash } from './claim-evidence.mjs';
 const now = new Date('2026-10-04T18:00:00Z');
 const source = 'https://www.consultant.ru/document/cons_doc_LAW_34661/';
@@ -22,4 +22,12 @@ test('missing verification and invalid primary evidence cannot produce correctio
   const evidence=fixture();mutate(evidence);assert.deepEqual(check(evidence),[]);
  }
  assert.deepEqual(check(null),[]);
+});
+
+test('late verified finding promotes only a staged rewrite that removes the published contradiction',()=>{
+ const item={slug:'article',kind:'rewrite',stagedFile:'release-drafts/article.md',acceptedAt:'2026-10-01'};
+ const options={item,publishedBody:statement,candidateBody:'Исправленное утверждение.',evidence:fixture(),now};
+ assert.equal(lateCorrectionPriority(options).factualCorrection,true);
+ assert.equal(item.factualCorrection,undefined);
+ for(const changed of [{candidateBody:statement},{publishedBody:'Другая статья.'},{evidence:null},{item:{...item,kind:'new'}},{item:{...item,stagedFile:null}},{now:new Date('2027-10-04')}]) assert.equal(lateCorrectionPriority({...options,...changed}).factualCorrection,undefined);
 });
