@@ -15,8 +15,9 @@ import {
 	SITE_LOCALE,
 	SIDEBAR_BANNER,
 } from '../consts';
-import { CPA_BANNERS, CATEGORY_DEFAULT_CPA } from '../data/cpa-banners';
+import { CPA_BANNERS, CATEGORY_DEFAULT_CPA, PRODUCT_CATALOG } from '../data/cpa-banners';
 import { articleCpa } from '../utils/article-cpa.mjs';
+import { articleProductEntry } from '../utils/article-product-entry.mjs';
 import { tagSlug } from '../utils/tags';
 import { u } from '../utils/url';
 
@@ -133,6 +134,10 @@ const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
    в середине тела (вставляется content-writer'ом, см. .claude/agents/content-writer.md). */
 const cpaBannerId = articleCpa({ cpa, title, tags }, CATEGORY_DEFAULT_CPA[primaryCategory ?? ''] ?? 'default-ts-piot');
 const cpaBanner = CPA_BANNERS[cpaBannerId] ?? CPA_BANNERS['default-ts-piot'];
+/* Вторичный внутренний вход на карточку продукта витрины — только для
+   розничных офферов с действующим erid. Первичный внешний CTA не меняется;
+   ссылка без data-cpa-* не считается CPA-кликом и не шлёт событий. */
+const productPath = articleProductEntry(cpaBannerId, { catalog: PRODUCT_CATALOG, banners: CPA_BANNERS });
 
 const catAccent =
 	primaryCategory === 'ts-piot' ? '#111' :
@@ -283,6 +288,11 @@ const shareTitle = encodeURIComponent(title);
 							>
 								{cpaBanner.cta}
 							</a>
+							{productPath && (
+								<a href={u(productPath)} class="cpa-more">
+									Подробнее о продукте и условиях →
+								</a>
+							)}
 						</div>
 						{cpaBanner.erid && (
 							<div class="cpa-erid">Реклама · erid: {cpaBanner.erid}</div>
@@ -534,9 +544,12 @@ const shareTitle = encodeURIComponent(title);
 			.cpa-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #888; margin-bottom: 4px; }
 			.cpa-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: .03em; text-transform: uppercase; color: #111; line-height: 1.1; margin-bottom: 5px; }
 			.cpa-desc { font-size: .82rem; color: #555; line-height: 1.55; margin: 0; }
-			.cpa-action { padding: 0 22px; background: #fff; border-left: 1px solid rgba(0,0,0,.08); display: flex; align-items: center; }
+			.cpa-action { padding: 0 22px; background: #fff; border-left: 1px solid rgba(0,0,0,.08); display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px; }
 			.cpa-btn { display: inline-block; background: #9E2B4F; color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 12px 18px; text-decoration: none; white-space: nowrap; transition: background .15s; }
 			.cpa-btn:hover { background: #7d2240; }
+			.cpa-btn:focus-visible, .cpa-more:focus-visible { outline: 2px solid #9E2B4F; outline-offset: 2px; }
+			.cpa-more { font-size: .78rem; font-weight: 600; color: #1E4A7A; text-decoration: underline; text-underline-offset: 3px; line-height: 1.4; }
+			.cpa-more:hover { color: #9E2B4F; }
 			.cpa-erid { min-width: 0; overflow-wrap: anywhere; grid-column: 1 / -1; padding: 4px 12px; background: rgba(0,0,0,.04); font-size: .62rem; color: #999; letter-spacing: .04em; border-top: 1px solid rgba(0,0,0,.07); }
 
 			/* ── Share ── */
