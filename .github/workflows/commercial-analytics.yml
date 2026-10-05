@@ -11,6 +11,7 @@ on:
       - scripts/analytics/lib/commercial-metrika.mjs
       - scripts/analytics/probe-commercial-events.mjs
       - scripts/analytics/lib/commercial-event-probe.mjs
+      - scripts/analytics/lib/commercial-probe-summary.mjs
       - .github/workflows/commercial-analytics.yml
 
 permissions:
@@ -33,7 +34,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify commercial event probe contracts
-        run: node --test scripts/__tests__/commercial-event-probe.test.mjs scripts/__tests__/commercial-metrika.test.mjs
+        run: node --test scripts/__tests__/commercial-event-probe.test.mjs scripts/__tests__/commercial-metrika.test.mjs scripts/__tests__/commercial-probe-summary.test.mjs
       - name: Read own counter and nine goals for seven UTC days
         env:
           METRIKA_OAUTH_TOKEN: ${{ secrets.METRIKA_OAUTH_TOKEN }}
