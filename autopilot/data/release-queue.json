@@ -1,28 +1,6 @@
 {
-  "generatedAt": "2026-10-04",
+  "generatedAt": "2026-10-05",
   "items": [
-    {
-      "slug": "2026-05-03-etrn-2026",
-      "kind": "rewrite",
-      "score": 100,
-      "acceptedAt": "2026-10-04T19:19:35.268Z",
-      "factualCorrection": true,
-      "stagedFile": "release-drafts/2026-05-03-etrn-2026.mdx"
-    },
-    {
-      "slug": "2026-07-06-shtrafy-za-kkt",
-      "kind": "rewrite",
-      "score": 100,
-      "acceptedAt": "2026-10-04T20:51:59.304Z",
-      "factualCorrection": true,
-      "stagedFile": "release-drafts/2026-07-06-shtrafy-za-kkt.mdx"
-    },
-    {
-      "slug": "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
-      "kind": "new",
-      "score": 100,
-      "acceptedAt": "2026-10-04T14:20:58.286Z"
-    },
     {
       "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
       "kind": "new",

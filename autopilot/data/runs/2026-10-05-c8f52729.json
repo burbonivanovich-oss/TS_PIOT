@@ -1,0 +1,92 @@
+{
+  "runId": "2026-10-05-c8f52729",
+  "date": "2026-10-05",
+  "kind": "day",
+  "createdAt": "2026-10-05T04:46:51.675Z",
+  "updatedAt": "2026-10-05T04:47:45.172Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-05T04:46:51.756Z",
+      "orderCount": 0,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 0,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "gated": {
+      "at": "2026-10-05T04:47:45.131Z",
+      "publicationCapacity": {
+        "day": "2026-10-05",
+        "slotsRemaining": 78,
+        "needed": 63,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 3,
+            "remaining": 52
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 3,
+            "remaining": 11
+          }
+        }
+      },
+      "published": 3,
+      "acceptedWaiting": 12,
+      "results": [
+        {
+          "slug": "2026-05-03-etrn-2026",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        },
+        {
+          "slug": "2026-07-06-shtrafy-za-kkt",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        },
+        {
+          "slug": "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        }
+      ],
+      "links": {
+        "linksInserted": 0,
+        "orphansBefore": 33,
+        "orphansAfter": 33
+      }
+    },
+    "built": {
+      "at": "2026-10-05T04:47:45.130Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "1b9d5ffe1181f5ac75622162822adf4364d933a46b25b9bbdcb178923cceda04",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-05T04:46:51.756Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-05T04:47:45.131Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-05T04:47:45.172Z"
+    }
+  ],
+  "meta": {}
+}

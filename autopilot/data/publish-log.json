@@ -4,6 +4,11 @@
       "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya",
       "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna",
       "2026-05-01-kak-vybrat-onlayn-kassu-2026"
+    ],
+    "2026-10-05": [
+      "2026-05-03-etrn-2026",
+      "2026-07-06-shtrafy-za-kkt",
+      "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu"
     ]
   },
   "kinds": {
@@ -11,6 +16,11 @@
       "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya": "new",
       "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna": "new",
       "2026-05-01-kak-vybrat-onlayn-kassu-2026": "rewrite"
+    },
+    "2026-10-05": {
+      "2026-05-03-etrn-2026": "rewrite",
+      "2026-07-06-shtrafy-za-kkt": "rewrite",
+      "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu": "new"
     }
   }
 }

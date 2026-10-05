@@ -66,7 +66,7 @@
       "format": "reference",
       "segment": "none",
       "score": 64.4,
-      "status": "accepted_waiting_release",
+      "status": "released",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "warn",
@@ -77,7 +77,7 @@
           "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
         ]
       },
-      "updatedAt": "2026-10-04",
+      "updatedAt": "2026-10-05",
       "migration": {
         "at": "2026-09-13T19:07:00.110Z",
         "reason": "файла в корпусе нет — возврат в план"
