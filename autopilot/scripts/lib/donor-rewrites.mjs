@@ -2,7 +2,7 @@ import { tokenize, weightedCoverage, buildIdf } from './text.mjs';
 
 // A missing incoming link is repaired in its donor, not in the target body.
 // These are research directions for the writer; ordinary link gates still apply.
-export function donorRewriteDirections(articles, graph, rules) {
+export function donorRewriteDirections(articles, graph, rules, eligibleDonors = new Set(articles.map(a => a.slug))) {
   const topic = a => [a.title, ...(a.keywords || []), ...(a.tags || [])].join(' ');
   const model = buildIdf(articles.map(topic));
   const directions = new Map();
@@ -10,7 +10,7 @@ export function donorRewriteDirections(articles, graph, rules) {
   const targets = articles.filter(a => (graph.inbound.get(a.slug)?.size || 0) < rules.minInbound);
   for (const target of targets) {
     const need = rules.minInbound - (graph.inbound.get(target.slug)?.size || 0);
-    const donors = articles.filter(a => a.slug !== target.slug &&
+    const donors = articles.filter(a => eligibleDonors.has(a.slug) && a.slug !== target.slug &&
       !graph.outbound.get(a.slug)?.has(target.slug) &&
       (graph.outbound.get(a.slug)?.size || 0) + (given.get(a.slug) || 0) < rules.maxOutbound)
       .map(a => ({ article: a, relevance: weightedCoverage(tokenize(topic(target)), tokenize(a.body.slice(0, 12000)), model) }))

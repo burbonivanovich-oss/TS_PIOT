@@ -26,3 +26,9 @@ test('target with sufficient incoming links does not request another donor', () 
   const g = graph(); g.inbound.set('toys', new Set(['a', 'b']));
   assert.equal(donorRewriteDirections([target, donor], g, rules).size, 0);
 });
+test('ineligible best donor does not consume the opportunity of an eligible alternative', () => {
+  const alternate = article('alternate', donor.title, donor.body);
+  const directions = donorRewriteDirections([target, donor, alternate], graph(), rules, new Set(['alternate']));
+  assert.equal(directions.has('shop'), false);
+  assert.equal(directions.get('alternate')[0].slug, 'toys');
+});
