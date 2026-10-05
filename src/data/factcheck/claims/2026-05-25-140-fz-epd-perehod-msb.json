@@ -1,0 +1,146 @@
+{
+  "slug": "2026-05-25-140-fz-epd-perehod-msb",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "DATE_TEXT",
+      "raw": "1 сентября 2026 года",
+      "groups": [
+        "1",
+        "2026"
+      ],
+      "offset": 65,
+      "line": 5,
+      "context": "import CpaCallout from '../../components/CpaCallout.astro'; С 1 сентября 2026 года вступили в силу положения об электронной транспортной накладной, заказе и заявк"
+    },
+    {
+      "id": "c2",
+      "type": "DATE_YEAR",
+      "raw": "2026 года",
+      "groups": [
+        "2026"
+      ],
+      "offset": 76,
+      "line": 5,
+      "context": "import CpaCallout from '../../components/CpaCallout.astro'; С 1 сентября 2026 года вступили в силу положения об электронной транспортной накладной, заказе и заявк"
+    },
+    {
+      "id": "c3",
+      "type": "NPA_FZ",
+      "raw": "140-ФЗ",
+      "groups": [
+        "140"
+      ],
+      "offset": 189,
+      "line": 5,
+      "context": "ия об электронной транспортной накладной, заказе и заявке по [статье 5 закона № 140-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_507282/5bdc78bf7e3015a0ea0c0ea"
+    },
+    {
+      "id": "c5",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/5bdc78bf7e3015a0ea0c0ea5bef708a6c79e2f0a/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 197,
+      "line": 5,
+      "context": "ектронной транспортной накладной, заказе и заявке по [статье 5 закона № 140-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_507282/5bdc78bf7e3015a0ea0c0ea5bef708a6c79e2f0a/). Для малого бизнеса задача теперь — проверить действующие перевозки, а не отсч",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c4",
+      "type": "NPA_FZ",
+      "raw": "140-ФЗ",
+      "groups": [
+        "140"
+      ],
+      "offset": 902,
+      "line": 11,
+      "context": "олжен её оформить. ## Что меняется и кого касается переход [Статья 4 закона № 140-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb"
+    },
+    {
+      "id": "c6",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 910,
+      "line": 11,
+      "context": "оформить. ## Что меняется и кого касается переход [Статья 4 закона № 140-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/) устанавливает: заключение договора перевозки груза подтверждается транспортной",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c7",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 1420,
+      "line": 13,
+      "context": "руйте ответы до настройки кабинетов. В той же [норме о транспортной накладной](https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/) закреплена электронная форма и полномочие транспортного ведомства определять с",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c8",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 3890,
+      "line": 33,
+      "context": "а и его полномочиям. В [правиле о подписях электронных перевозочных документов](https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/) предусмотрены УКЭП либо УНЭП физического лица, в том числе действующего по дов",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c9",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 4389,
+      "line": 35,
+      "context": "ших оценку соответствия. Для грузополучателя — физического лица [тот же закон](https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/) отдельно допускает ПЭП: ключ должен быть получен при личной явке по правилам и",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c10",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 5331,
+      "line": 43,
+      "context": "нную форму Для автомобильной перевозки [поправки к правилам о заказе и заявке](https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/) предусматривают электронный заказ или электронную заявку, а также случаи бумаж",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c11",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 11365,
+      "line": 93,
+      "context": "закон прямо предусматривает случаи бумажного оформления транспортной накладной](https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/), определяемые транспортным ведомством. Для своей отправки проверьте конкретное",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c12",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 11775,
+      "line": 97,
+      "context": "всем нужна только УКЭП? Такое общее утверждение неверно: [правило о подписях](https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/) также допускает специальную УНЭП физического лица и ПЭП грузополучателя — физи",
+      "expected_source": "consultant.ru"
+    }
+  ]
+}

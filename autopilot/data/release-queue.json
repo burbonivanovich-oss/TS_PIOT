@@ -26,6 +26,14 @@
       "stagedFile": "release-drafts/2026-05-01-kalendar-markirovki-2026.mdx"
     },
     {
+      "slug": "2026-05-25-140-fz-epd-perehod-msb",
+      "kind": "rewrite",
+      "score": 100,
+      "acceptedAt": "2026-10-05T06:43:35.577Z",
+      "factualCorrection": true,
+      "stagedFile": "release-drafts/2026-05-25-140-fz-epd-perehod-msb.mdx"
+    },
+    {
       "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
       "kind": "new",
       "score": 100,

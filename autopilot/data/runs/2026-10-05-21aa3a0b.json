@@ -1,0 +1,103 @@
+{
+  "runId": "2026-10-05-21aa3a0b",
+  "date": "2026-10-05",
+  "kind": "day",
+  "createdAt": "2026-10-05T06:37:24.165Z",
+  "updatedAt": "2026-10-05T06:43:59.652Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-05T06:37:24.228Z",
+      "orderCount": 1,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 1,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "written": {
+      "at": "2026-10-05T06:43:32.089Z",
+      "delivered": 1,
+      "meaning": "bytes delivered; gates not passed yet"
+    },
+    "gated": {
+      "at": "2026-10-05T06:43:59.629Z",
+      "publicationCapacity": {
+        "day": "2026-10-05",
+        "slotsRemaining": 78,
+        "needed": 63,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 3,
+            "remaining": 52
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 3,
+            "remaining": 11
+          }
+        }
+      },
+      "published": 0,
+      "acceptedWaiting": 17,
+      "results": [
+        {
+          "slug": "2026-05-25-140-fz-epd-perehod-msb",
+          "status": "accepted_waiting_release",
+          "score": 100
+        }
+      ],
+      "links": {
+        "linksInserted": 0,
+        "orphansBefore": 33,
+        "orphansAfter": 33
+      }
+    },
+    "built": {
+      "at": "2026-10-05T06:43:59.627Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "66385fad715969a09fbbb6cde7015ef62562af3482203344695d15a14051bc51",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-05T06:37:24.228Z"
+    },
+    {
+      "stage": "written",
+      "at": "2026-10-05T06:43:32.089Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-05T06:43:59.629Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-05T06:43:59.652Z"
+    }
+  ],
+  "meta": {
+    "modelInvocations": [
+      {
+        "id": "c433b7f1-48a4-4ff1-9df9-fb6482767965",
+        "slug": "2026-05-25-140-fz-epd-perehod-msb",
+        "attempt": "2026-10-05T06:37:24.212Z/0/0",
+        "startedAt": "2026-10-05T06:37:24.336Z",
+        "finishedAt": "2026-10-05T06:43:35.236Z",
+        "durationMs": 283200,
+        "reportedTokens": 83462,
+        "tokenSource": "codex-cli-footer",
+        "status": "delivered",
+        "failureCode": null
+      }
+    ]
+  }
+}
