@@ -3,7 +3,7 @@
   "date": "2026-10-05",
   "kind": "day",
   "createdAt": "2026-10-05T07:04:57.206Z",
-  "updatedAt": "2026-10-05T07:05:04.444Z",
+  "updatedAt": "2026-10-05T07:05:05.079Z",
   "stages": {
     "planned": {
       "at": "2026-10-05T07:04:57.295Z",
@@ -44,6 +44,12 @@
         "orphansBefore": 33,
         "orphansAfter": 33
       }
+    },
+    "committed": {
+      "at": "2026-10-05T07:05:05.079Z",
+      "commit": "9af9d7e4b52adbade46ba46cc29117d5915df446",
+      "tree": "81b909033803cbd93ac9edb27aaa1ad710a666a6",
+      "stateOnly": true
     }
   },
   "orders": [],
@@ -55,6 +61,10 @@
     {
       "stage": "gated",
       "at": "2026-10-05T07:05:04.444Z"
+    },
+    {
+      "stage": "committed",
+      "at": "2026-10-05T07:05:05.079Z"
     }
   ],
   "meta": {}
