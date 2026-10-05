@@ -130,7 +130,17 @@ function anchorsFor(article, model) {
     .split(/[:—–|]/)[0]
     .replace(/["«»]/g, '')
     .trim();
-  const candidates = [...article.keywords, fromTitle]
+  const baseCandidates = [...article.keywords, fromTitle];
+  // Год часто стоит между предметом и продолжением фразы в тексте:
+  // «маркировка табака в 2026 году» не содержит SEO-якорь «маркировка табака 2026».
+  // Короткая форма допустима только как точный префикс предмета в заголовке.
+  // Побочный запрос «проверки бизнеса 2026» не становится якорем для «Налогов».
+  const titleSubject = fromTitle.toLowerCase();
+  const withoutYear = baseCandidates
+    .map((s) => String(s).replace(/\b20\d{2}\b/g, '').replace(/\s+/g, ' ').trim())
+    .filter((s, i) => s !== String(baseCandidates[i]).trim() &&
+      (titleSubject === s.toLowerCase() || titleSubject.startsWith(`${s.toLowerCase()} `)));
+  const candidates = [...baseCandidates, ...withoutYear]
     .map((s) => String(s).trim())
     .filter((s) => s.length >= L.anchorMinLength && s.split(/\s+/).length <= 6);
 

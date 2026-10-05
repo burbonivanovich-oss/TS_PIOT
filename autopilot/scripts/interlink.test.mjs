@@ -213,3 +213,64 @@ test('AP-P1-08: цитаты, списки, инлайн-код и JSX не ре
     assert.ok(line && !line.includes('/blog/'), `не должен редактироваться: ${prefix}`);
   }
 });
+
+
+function yearAnchorFixture({ title = 'Маркировка табака 2026', body, keywords = [], interlink = {} } = {}) {
+  const fixture = buildFixture();
+  let target = article(title, 'Короткое тело целевой статьи.');
+  if (keywords.length) target = target.replace('draft: false\n', `draft: false\nseo:\n  keywords:\n${keywords.map(s => `    - "${s}"`).join('\n')}\n`);
+  writeFileSync(path.join(fixture.blog, 'target-marka.md'), target);
+  writeFileSync(path.join(fixture.blog, 'new-source.md'), article('Новый источник без ссылок', body ||
+    'Маркировка табака в 2026 году требует проверки кодов и настройки кассового оборудования при продаже товаров.'));
+  writeFileSync(fixture.configFile, JSON.stringify(configFor(fixture.root, interlink), null, 2));
+  return fixture;
+}
+
+test('yearless title subject supplies the missing inbound link without changing paragraph bytes', () => {
+  const fixture = yearAnchorFixture();
+  const before = readFileSync(path.join(fixture.blog, 'new-source.md'), 'utf8');
+  runApply(fixture);
+  const after = readFileSync(path.join(fixture.blog, 'new-source.md'), 'utf8');
+  assert.equal(after, before.replace('Маркировка табака', '[Маркировка табака](/blog/target-marka/)'));
+  const report = JSON.parse(readFileSync(path.join(fixture.dataDir, 'interlink-report.json'), 'utf8'));
+  assert.equal(report.orphansBefore, 3);
+  assert.equal(report.orphansAfter, 2);
+  assert.equal(report.inserted, 1);
+  runApply(fixture);
+  assert.equal(readFileSync(path.join(fixture.blog, 'new-source.md'), 'utf8'), after);
+  assert.equal(JSON.parse(readFileSync(path.join(fixture.dataDir, 'interlink-report.json'), 'utf8')).inserted, 0);
+});
+
+test('yearless incidental keyword cannot redirect a paragraph to a different title subject', () => {
+  const fixture = yearAnchorFixture({ title: 'Налоги для бизнеса 2026', keywords: ['проверки бизнеса 2026'],
+    body: 'Проверки бизнеса в 2026 году требуют подготовки документов и внимательного изучения оснований контрольного мероприятия.' });
+  const before = readFileSync(path.join(fixture.blog, 'new-source.md'), 'utf8');
+  runApply(fixture);
+  assert.equal(readFileSync(path.join(fixture.blog, 'new-source.md'), 'utf8'), before);
+});
+
+test('yearless anchors still obey relevance and IDF thresholds', () => {
+  for (const interlink of [{ minRelevance: 1 }, { minAnchorIdf: 100, rareAnchorIdf: 100 }]) {
+    const fixture = yearAnchorFixture({ title: 'Маркировка табака требования 2026',
+      keywords: ['маркировка табака 2026'], interlink });
+    const before = readFileSync(path.join(fixture.blog, 'new-source.md'), 'utf8');
+    runApply(fixture);
+    assert.equal(readFileSync(path.join(fixture.blog, 'new-source.md'), 'utf8'), before);
+  }
+});
+
+test('yearless anchors preserve protected headings, code, tables, lists and existing links', () => {
+  const phrase = 'Маркировка табака в 2026 году требует проверки кодов и настройки оборудования при продаже товаров.';
+  const fixture = yearAnchorFixture({ body: `## ${phrase}\n\n\`\`\`\n${phrase}\n\`\`\`\n\n| ${phrase} |\n\n- ${phrase}\n\n[Маркировка табака](https://example.com/) в 2026 году требует настройки оборудования и проверки кодов перед продажей.` });
+  const before = readFileSync(path.join(fixture.blog, 'new-source.md'), 'utf8');
+  runApply(fixture);
+  assert.equal(readFileSync(path.join(fixture.blog, 'new-source.md'), 'utf8'), before);
+});
+
+test('numeric identifiers are not stripped into a yearless article subject', () => {
+  const fixture = yearAnchorFixture({ title: 'Онлайн-касса 2100',
+    body: 'Онлайн-касса требует настройки оборудования и проверки документов перед использованием в магазине.' });
+  const before = readFileSync(path.join(fixture.blog, 'new-source.md'), 'utf8');
+  runApply(fixture);
+  assert.equal(readFileSync(path.join(fixture.blog, 'new-source.md'), 'utf8'), before);
+});
