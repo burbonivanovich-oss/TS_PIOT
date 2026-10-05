@@ -19,6 +19,7 @@ import { buildLinkGraph } from './interlink.mjs';
 import { extractCriticalClaims } from './gates.mjs';
 import { factFreshness } from './lib/fact-freshness.mjs';
 import { activeFactCorrections } from './lib/fact-corrections.mjs';
+import { donorRewriteDirections } from './lib/donor-rewrites.mjs';
 
 const cfg = loadConfig();
 const R = cfg.rewrite;
@@ -146,8 +147,6 @@ function buildQueueInner() {
       reasons.push(`${item.date}: ${item.event}`);
     }
 
-    if (score <= 0 && !corrections.length) continue;
-    seen.add(article.slug);
     rows.push({
       slug: article.slug,
       title: article.title,
@@ -162,6 +161,22 @@ function buildQueueInner() {
       lastRewrite: lastRewrite ? lastRewrite.toISOString().slice(0, 10) : null,
       ...(reservations.get(article.slug) || {}),
     });
+  }
+
+  // Select donors only after normal cooldown eligibility is known. Already
+  // accepted/active texts cannot consume the orphan's donor opportunities.
+  const unavailable = new Set((readJson(path.join(cfg.resolved.dataDir, 'release-queue.json'), { items: [] }).items || []).map(a => a.slug));
+  const donorDirections = donorRewriteDirections(articles, graph, cfg.interlink,
+    new Set(rows.filter(a => !a.reservedAt && !unavailable.has(a.slug)).map(a => a.slug)));
+  for (let i = rows.length - 1; i >= 0; i--) {
+    const item = rows[i];
+    item.linkTargets = donorDirections.get(item.slug) || [];
+    if (item.linkTargets.length) {
+      item.score += 12;
+      item.reasons.push(...item.linkTargets.map(t => `Статья-донор для /blog/${t.slug}/ (${t.title}): добавьте полезный тематический абзац и точный осмысленный якорь, если связь подтверждается содержанием. Не вставлять ссылку ради нормы; сохранить лимиты и первоисточники.`));
+    }
+    if (item.score <= 0 && !item.factCorrections.length) rows.splice(i, 1);
+    else seen.add(item.slug);
   }
 
   // Зарезервированный элемент, переставший быть кандидатом (например,
