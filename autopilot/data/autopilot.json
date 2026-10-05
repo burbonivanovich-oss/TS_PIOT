@@ -3,14 +3,24 @@
   "startedAt": "2026-08-10",
   "month": "2026-10",
   "counters": {
-    "new": 13,
+    "new": 14,
     "rewrite": 5,
     "published": 6,
     "blockedDupes": 0,
     "quarantined": 0,
     "infraReleases": 0
   },
-  "inFlight": [],
+  "inFlight": [
+    {
+      "slug": "2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya",
+      "kind": "new",
+      "title": "ГИС ЭПД: частые ошибки и чем они заканчиваются",
+      "claimedAt": "2026-10-05T04:53:06.957Z",
+      "failures": 0,
+      "infraFailures": 1,
+      "lastFailure": "нет квитанции доставки текущих байтов и попытки"
+    }
+  ],
   "quarantine": [],
   "history": [
     {
@@ -22,7 +32,7 @@
       "quarantined": 0
     }
   ],
-  "lastRunAt": "2026-10-05T04:47:45.220Z",
+  "lastRunAt": "2026-10-05T05:02:04.366Z",
   "lastMigration": {
     "at": "2026-09-13T19:07:00.147Z",
     "actions": 6,

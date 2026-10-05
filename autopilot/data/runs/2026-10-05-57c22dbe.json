@@ -1,0 +1,109 @@
+{
+  "runId": "2026-10-05-57c22dbe",
+  "date": "2026-10-05",
+  "kind": "day",
+  "createdAt": "2026-10-05T04:53:06.885Z",
+  "updatedAt": "2026-10-05T05:02:04.315Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-05T04:53:06.993Z",
+      "orderCount": 2,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 2,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "gated": {
+      "at": "2026-10-05T05:02:04.276Z",
+      "publicationCapacity": {
+        "day": "2026-10-05",
+        "slotsRemaining": 78,
+        "needed": 63,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 3,
+            "remaining": 52
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 3,
+            "remaining": 11
+          }
+        }
+      },
+      "published": 0,
+      "acceptedWaiting": 13,
+      "results": [
+        {
+          "slug": "2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya",
+          "status": "infra_missing",
+          "detail": "нет квитанции доставки текущих байтов и попытки (инфраструктура, попытка 1)"
+        },
+        {
+          "slug": "seed-etrn-dlya-gruzopoluchatelya-priemka-gruza-rashozhdeniya-i-podpisanie",
+          "status": "accepted_waiting_release",
+          "score": 100
+        }
+      ],
+      "links": {
+        "linksInserted": 0,
+        "orphansBefore": 33,
+        "orphansAfter": 33
+      }
+    },
+    "built": {
+      "at": "2026-10-05T05:02:04.274Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "43f35752ab4595f560290648f2be50dc65cfc8252bd73ec964badda87c19cf03",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-05T04:53:06.993Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-05T05:02:04.276Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-05T05:02:04.315Z"
+    }
+  ],
+  "meta": {
+    "modelInvocations": [
+      {
+        "id": "659f96e0-cc9b-4106-b225-05244edb2018",
+        "slug": "seed-etrn-dlya-gruzopoluchatelya-priemka-gruza-rashozhdeniya-i-podpisanie",
+        "attempt": "2026-10-05T04:53:06.935Z/0/0",
+        "startedAt": "2026-10-05T04:53:07.095Z",
+        "finishedAt": "2026-10-05T04:59:31.732Z",
+        "durationMs": 291609,
+        "reportedTokens": 75979,
+        "tokenSource": "codex-cli-footer",
+        "status": "delivered"
+      },
+      {
+        "id": "a7d7c14c-811e-47d5-a212-d8aa4166f493",
+        "slug": "2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya",
+        "attempt": "2026-10-05T04:53:06.957Z/0/0",
+        "startedAt": "2026-10-05T04:59:31.838Z",
+        "finishedAt": "2026-10-05T05:01:13.359Z",
+        "durationMs": 16242,
+        "reportedTokens": null,
+        "tokenSource": "codex-cli-footer",
+        "status": "failed"
+      }
+    ]
+  }
+}

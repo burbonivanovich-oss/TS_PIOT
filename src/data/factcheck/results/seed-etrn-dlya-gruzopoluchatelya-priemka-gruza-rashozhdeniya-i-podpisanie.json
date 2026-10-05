@@ -1,0 +1,127 @@
+{
+  "slug": "seed-etrn-dlya-gruzopoluchatelya-priemka-gruza-rashozhdeniya-i-podpisanie",
+  "checkedAt": "2026-10-05T04:58:24.159Z",
+  "method": "manual-primary-source-snapshots",
+  "npa": [
+    {
+      "kind": "fz",
+      "number": "259",
+      "exists": true,
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/"
+    },
+    {
+      "kind": "pp",
+      "number": "931",
+      "exists": true,
+      "source": "https://base.garant.ru/404741819/"
+    }
+  ],
+  "summary": {
+    "overallStatus": "ok",
+    "criticalIssues": 0,
+    "checked": 4,
+    "note": "Сверены четыре содержательных утверждения; штрафы и сроки не заявлены. Пример количества коробок условный, рекомендации отделены от норм."
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "type": "LINK",
+      "raw": "https://base.garant.ru/404741819/",
+      "groups": [
+        "base.garant.ru"
+      ],
+      "offset": 3320,
+      "line": 34,
+      "context": "получен из документов. [Правила обмена электронными транспортными накладными](https://base.garant.ru/404741819/) предусматривают файл информации грузополучателя со сведениями о приёме груза о",
+      "expected_source": "base.garant.ru",
+      "status": "match",
+      "severity": "none",
+      "source": "https://base.garant.ru/404741819/",
+      "rationale": "Ссылка соответствует сохранённому свежему снимку; содержание и область применения сверены вручную."
+    },
+    {
+      "id": "c2",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 6928,
+      "line": 60,
+      "context": "азывает отсутствие расхождений. [Статья 18.1 Устава автомобильного транспорта](https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/) предусматривает КЭП либо усиленную неквалифицированную подпись физлица, сертиф",
+      "expected_source": "consultant.ru",
+      "status": "match",
+      "severity": "none",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/",
+      "rationale": "Ссылка соответствует сохранённому свежему снимку; содержание и область применения сверены вручную."
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 7456,
+      "line": 62,
+      "context": "с оператором до первой доставки. Для получателя-физлица [та же статья Устава](https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/) допускает ПЭП, ключ которой получен при личной явке по правилам использования",
+      "expected_source": "consultant.ru",
+      "status": "match",
+      "severity": "none",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/",
+      "rationale": "Ссылка соответствует сохранённому свежему снимку; содержание и область применения сверены вручную."
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://base.garant.ru/404741819/",
+      "groups": [
+        "base.garant.ru"
+      ],
+      "offset": 8934,
+      "line": 72,
+      "context": "бмен и проверьте результат после устранения причины. По [правилам обмена ЭТрН](https://base.garant.ru/404741819/) сведения перевозчика о выдаче груза составляют отдельный файл, дополняющий инф",
+      "expected_source": "base.garant.ru",
+      "status": "match",
+      "severity": "none",
+      "source": "https://base.garant.ru/404741819/",
+      "rationale": "Ссылка соответствует сохранённому свежему снимку; содержание и область применения сверены вручную."
+    }
+  ],
+  "semanticChecks": [
+    {
+      "claim": "[Правила обмена электронными транспортными накладными](https://base.garant.ru/404741819/) предусматривают файл информации грузополучателя со сведениями о приёме груза от перевозчика, фактических характеристиках принятого груза и обстоятельствах приёмки. Поэтому задача склада — передать проверяемые факты, на основании которых уполномоченный сотрудник заполнит этот файл.",
+      "status": "match",
+      "source": "https://base.garant.ru/404741819/",
+      "rationale": "Подтверждены сведения о фактических характеристиках и обстоятельствах приёмки; рекомендации склада не объявлены отдельными нормативными обязанностями."
+    },
+    {
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/",
+      "rationale": "КЭП либо специально предусмотренная УНЭП; произвольная НЭП не приравнена к допустимой."
+    },
+    {
+      "claim": "Для получателя-физлица [та же статья Устава](https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/) допускает ПЭП, ключ которой получен при личной явке по правилам использования ПЭП при обращении за государственными и муниципальными услугами. Не переносите это исключение автоматически на кладовщика, подписывающего документ от имени организации.",
+      "status": "match",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/",
+      "rationale": "Исключение ПЭП ограничено получателем-физлицом и личной явкой; не распространено на сотрудника организации."
+    },
+    {
+      "claim": "По [правилам обмена ЭТрН](https://base.garant.ru/404741819/) сведения перевозчика о выдаче груза составляют отдельный файл, дополняющий информацию грузополучателя. Получатель не должен подписывать этот файл за перевозчика или считать собственную подпись заменой его действия. При настройке совместной работы используйте [обзор ЭТрН и участников обмена](/blog/2026-05-03-etrn-2026/).",
+      "status": "match",
+      "source": "https://base.garant.ru/404741819/",
+      "rationale": "Выдача оформляется отдельным файлом перевозчика; подпись получателя не заменяет действие перевозчика."
+    }
+  ],
+  "assetCheck": {
+    "hero": "/images/hero/2026-05-03-etrn-2026.jpg",
+    "visuallyChecked": true,
+    "note": "Машина на складской площадке и электронная накладная. Тематическая иллюстрация, не образец формы."
+  },
+  "cpaCheck": {
+    "id": "diadoc-logistika",
+    "source": "https://kontur.ru/logistika",
+    "status": "match",
+    "note": "Официальная страница подтверждает сервис для участников перевозки и юридически значимый документооборот."
+  }
+}

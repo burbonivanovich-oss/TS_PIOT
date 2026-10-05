@@ -435,7 +435,7 @@
       "format": "explainer",
       "segment": "none",
       "score": 50.1,
-      "status": "planned",
+      "status": "writing",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "ok",
@@ -452,7 +452,8 @@
         "periodEnd": "2026-10-01",
         "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%B3%D0%B8%D1%81%20%D1%8D%D0%BF%D0%B4"
       },
-      "priorityScore": 62.2
+      "priorityScore": 62.2,
+      "updatedAt": "2026-10-05"
     },
     {
       "slug": "2026-08-10-markirovka-vody-sroki-2026-goda-i-chto-uspet-do-dedlayna",
@@ -2065,13 +2066,14 @@
         "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD"
       },
       "priorityScore": 29.3,
-      "status": "planned",
+      "status": "accepted_waiting_release",
       "createdAt": "2026-10-04",
       "dedupe": {
         "verdict": "ok",
         "advice": "",
         "related": []
-      }
+      },
+      "updatedAt": "2026-10-05"
     },
     {
       "slug": "2026-08-10-razreshitelnyy-rezhim-kak-vybrat-obschepitu-kriterii-i-tipichnye-oshibki",

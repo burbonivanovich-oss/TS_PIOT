@@ -1,0 +1,53 @@
+{
+  "slug": "seed-etrn-dlya-gruzopoluchatelya-priemka-gruza-rashozhdeniya-i-podpisanie",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "LINK",
+      "raw": "https://base.garant.ru/404741819/",
+      "groups": [
+        "base.garant.ru"
+      ],
+      "offset": 3320,
+      "line": 34,
+      "context": "получен из документов. [Правила обмена электронными транспортными накладными](https://base.garant.ru/404741819/) предусматривают файл информации грузополучателя со сведениями о приёме груза о",
+      "expected_source": "base.garant.ru"
+    },
+    {
+      "id": "c2",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 6928,
+      "line": 60,
+      "context": "азывает отсутствие расхождений. [Статья 18.1 Устава автомобильного транспорта](https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/) предусматривает КЭП либо усиленную неквалифицированную подпись физлица, сертиф",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c3",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 7456,
+      "line": 62,
+      "context": "с оператором до первой доставки. Для получателя-физлица [та же статья Устава](https://www.consultant.ru/document/cons_doc_LAW_72388/34648008e394bce6f3be7a9963e1bbaef91208b1/) допускает ПЭП, ключ которой получен при личной явке по правилам использования",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c4",
+      "type": "LINK",
+      "raw": "https://base.garant.ru/404741819/",
+      "groups": [
+        "base.garant.ru"
+      ],
+      "offset": 8934,
+      "line": 72,
+      "context": "бмен и проверьте результат после устранения причины. По [правилам обмена ЭТрН](https://base.garant.ru/404741819/) сведения перевозчика о выдаче груза составляют отдельный файл, дополняющий инф",
+      "expected_source": "base.garant.ru"
+    }
+  ]
+}

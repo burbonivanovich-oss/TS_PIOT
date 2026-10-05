@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-05T04:46:51.774Z",
+  "generatedAt": "2026-10-05T04:53:07.006Z",
   "date": "2026-10-05",
-  "runId": "2026-10-05-c8f52729",
+  "runId": "2026-10-05-57c22dbe",
   "capacity": {
     "month": "2026-10",
     "done": 13,
@@ -14,7 +14,7 @@
     "inFlight": 0,
     "freeSlots": 4,
     "remaining": 51,
-    "canTake": 0,
+    "canTake": 2,
     "byKind": {
       "new": {
         "target": 55,
@@ -36,19 +36,59 @@
       }
     },
     "takeByKind": {
-      "new": 0,
+      "new": 2,
       "rewrite": 0
     },
     "urgentRewriteSlots": 0,
     "buffer": {
       "limit": 14,
-      "waiting": 15,
-      "reserved": 15,
-      "free": 0,
-      "paused": true
+      "waiting": 12,
+      "reserved": 12,
+      "free": 2,
+      "paused": false
     }
   },
   "healed": 0,
-  "orders": [],
+  "orders": [
+    {
+      "kind": "new",
+      "slug": "seed-etrn-dlya-gruzopoluchatelya-priemka-gruza-rashozhdeniya-i-podpisanie",
+      "title": "ЭТрН для грузополучателя: приёмка груза, расхождения и подписание",
+      "keywords": [
+        "этрн для грузополучателя"
+      ],
+      "entity": "этрн",
+      "intent": "seed",
+      "format": "howto",
+      "segment": "none",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "targetFile": "src/content/blog/seed-etrn-dlya-gruzopoluchatelya-priemka-gruza-rashozhdeniya-i-podpisanie.md",
+      "runId": "2026-10-05-57c22dbe"
+    },
+    {
+      "kind": "new",
+      "slug": "2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya",
+      "title": "ГИС ЭПД: частые ошибки и чем они заканчиваются",
+      "keywords": [
+        "ошибки гис эпд",
+        "гис эпд проблемы"
+      ],
+      "entity": "ГИС ЭПД",
+      "intent": "mistakes",
+      "format": "explainer",
+      "segment": "none",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "targetFile": "src/content/blog/2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya.md",
+      "runId": "2026-10-05-57c22dbe"
+    }
+  ],
   "skipped": []
 }
