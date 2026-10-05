@@ -1,0 +1,61 @@
+{
+  "runId": "2026-10-05-ca297c37",
+  "date": "2026-10-05",
+  "kind": "day",
+  "createdAt": "2026-10-05T06:23:30.032Z",
+  "updatedAt": "2026-10-05T06:23:33.567Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-05T06:23:30.094Z",
+      "orderCount": 0,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 0,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "gated": {
+      "at": "2026-10-05T06:23:33.567Z",
+      "publicationCapacity": {
+        "day": "2026-10-05",
+        "slotsRemaining": 78,
+        "needed": 63,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 3,
+            "remaining": 52
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 3,
+            "remaining": 11
+          }
+        }
+      },
+      "published": 0,
+      "acceptedWaiting": 16,
+      "results": [],
+      "links": {
+        "linksInserted": 0,
+        "orphansBefore": 33,
+        "orphansAfter": 33
+      }
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-05T06:23:30.094Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-05T06:23:33.567Z"
+    }
+  ],
+  "meta": {}
+}

@@ -2,6 +2,14 @@
   "generatedAt": "2026-10-05",
   "items": [
     {
+      "slug": "2026-05-03-markirovka-igrushek-2026",
+      "kind": "rewrite",
+      "score": 100,
+      "acceptedAt": "2026-10-04T17:46:41.258Z",
+      "factualCorrection": true,
+      "stagedFile": "release-drafts/2026-05-03-markirovka-igrushek-2026.mdx"
+    },
+    {
       "slug": "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj",
       "kind": "rewrite",
       "score": 100,
@@ -59,13 +67,6 @@
       "kind": "new",
       "score": 100,
       "acceptedAt": "2026-10-04T17:46:41.088Z"
-    },
-    {
-      "slug": "2026-05-03-markirovka-igrushek-2026",
-      "kind": "rewrite",
-      "score": 100,
-      "acceptedAt": "2026-10-04T17:46:41.258Z",
-      "stagedFile": "release-drafts/2026-05-03-markirovka-igrushek-2026.mdx"
     },
     {
       "slug": "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya",
