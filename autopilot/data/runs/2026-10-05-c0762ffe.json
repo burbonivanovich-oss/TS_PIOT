@@ -1,0 +1,103 @@
+{
+  "runId": "2026-10-05-c0762ffe",
+  "date": "2026-10-05",
+  "kind": "day",
+  "createdAt": "2026-10-05T12:06:11.289Z",
+  "updatedAt": "2026-10-05T12:18:42.934Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-05T12:06:11.418Z",
+      "orderCount": 1,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 1,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "written": {
+      "at": "2026-10-05T12:18:16.152Z",
+      "delivered": 1,
+      "meaning": "bytes delivered; gates not passed yet"
+    },
+    "gated": {
+      "at": "2026-10-05T12:18:42.913Z",
+      "publicationCapacity": {
+        "day": "2026-10-05",
+        "slotsRemaining": 78,
+        "needed": 63,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 3,
+            "remaining": 52
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 3,
+            "remaining": 11
+          }
+        }
+      },
+      "published": 0,
+      "acceptedWaiting": 18,
+      "results": [
+        {
+          "slug": "2026-05-01-chto-takoe-fn",
+          "status": "accepted_waiting_release",
+          "score": 100
+        }
+      ],
+      "links": {
+        "linksInserted": 0,
+        "orphansBefore": 33,
+        "orphansAfter": 33
+      }
+    },
+    "built": {
+      "at": "2026-10-05T12:18:42.912Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "66385fad715969a09fbbb6cde7015ef62562af3482203344695d15a14051bc51",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-05T12:06:11.418Z"
+    },
+    {
+      "stage": "written",
+      "at": "2026-10-05T12:18:16.152Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-05T12:18:42.913Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-05T12:18:42.934Z"
+    }
+  ],
+  "meta": {
+    "modelInvocations": [
+      {
+        "id": "2b8568ab-7a1b-470f-ace4-43f974bd9e31",
+        "slug": "2026-05-01-chto-takoe-fn",
+        "attempt": "2026-10-05T12:06:11.403Z/0/0",
+        "startedAt": "2026-10-05T12:06:11.518Z",
+        "finishedAt": "2026-10-05T12:18:19.155Z",
+        "durationMs": 634139,
+        "reportedTokens": 134261,
+        "tokenSource": "codex-cli-footer",
+        "status": "delivered",
+        "failureCode": null
+      }
+    ]
+  }
+}

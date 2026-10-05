@@ -635,6 +635,45 @@
       "priorityScore": 57.3
     },
     {
+      "slug": "2026-08-10-fiskalnyy-nakopitel-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Фискальный накопитель: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить фискальный накопитель",
+        "фискальный накопитель инструкция"
+      ],
+      "entity": "фискальный накопитель",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 40,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Замена фискального накопителя: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-zamena-fn-poshagovo/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-zamena-fn-poshagovo",
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "фискальный накопитель инструкция",
+        "count": 229,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%84%D0%B8%D1%81%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9+%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 54.2
+    },
+    {
       "slug": "2026-08-10-markirovka-vody-shtrafy-i-otvetstvennost-v-2026-godu",
       "title": "Маркировка воды: штрафы и ответственность в 2026 году",
       "keywords": [
@@ -871,6 +910,45 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 50.1
+    },
+    {
+      "slug": "2026-08-10-razreshitelnyy-rezhim-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Разрешительный режим: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить разрешительный режим",
+        "разрешительный режим инструкция"
+      ],
+      "entity": "разрешительный режим",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 40,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "как подключить разрешительный режим",
+        "count": 43,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%80%D0%B0%D0%B7%D1%80%D0%B5%D1%88%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9+%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 49.9
     },
     {
       "slug": "2026-08-10-gis-epd-chastye-voprosy-i-korotkie-otvety",
@@ -1141,66 +1219,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 40.1
-    },
-    {
-      "slug": "2026-08-10-fiskalnyy-nakopitel-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Фискальный накопитель: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить фискальный накопитель",
-        "фискальный накопитель инструкция"
-      ],
-      "entity": "фискальный накопитель",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 40,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Замена фискального накопителя: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-zamena-fn-poshagovo/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-zamena-fn-poshagovo",
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 40
-    },
-    {
-      "slug": "2026-08-10-razreshitelnyy-rezhim-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Разрешительный режим: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить разрешительный режим",
-        "разрешительный режим инструкция"
-      ],
-      "entity": "разрешительный режим",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 40,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 40
     },
     {
       "slug": "2026-08-10-ekvayring-kak-podklyuchit-poshagovaya-instrukciya",
@@ -2074,6 +2092,45 @@
       "priorityScore": 32
     },
     {
+      "slug": "2026-08-10-ens-shtrafy-i-otvetstvennost-v-2026-godu",
+      "title": "Енс: штрафы и ответственность в 2026 году",
+      "keywords": [
+        "штраф енс",
+        "енс ответственность"
+      ],
+      "entity": "енс",
+      "intent": "fines",
+      "format": "reference",
+      "segment": "none",
+      "score": 12,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Штраф за работу без ТС ПИоТ в 2026: размеры, статья КоАП, как избежать». Обязательна ссылка на /blog/2026-05-01-ts-piot-shtrafy/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-shtrafy",
+          "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
+          "2026-08-10-markirovka-molochnoy-produkcii-shtrafy-i-otvetstvennost-v-2026-godu"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "штраф енс",
+        "count": 1883,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%95%D0%9D%D0%A1",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 31.7
+    },
+    {
       "slug": "2026-08-10-markirovka-tabaka-chto-eto-i-zachem-nuzhno-apteke",
       "title": "Маркировка табака: что это и зачем нужно аптеке",
       "keywords": [
@@ -2103,6 +2160,45 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 30.6
+    },
+    {
+      "slug": "2026-08-10-ozon-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Ozon: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить ozon",
+        "ozon инструкция"
+      ],
+      "entity": "ozon",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 10,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "ozon инструкция",
+        "count": 1615,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=Ozon",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 29.3
     },
     {
       "slug": "2026-08-10-razreshitelnyy-rezhim-kak-vybrat-obschepitu-kriterii-i-tipichnye-oshibki",
@@ -2196,6 +2292,123 @@
       }
     },
     {
+      "slug": "2026-08-10-kedo-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Кэдо: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить кэдо",
+        "кэдо инструкция"
+      ],
+      "entity": "кэдо",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 13.3,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "кэдо инструкция",
+        "count": 328,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%9A%D0%AD%D0%94%D0%9E",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 28.4
+    },
+    {
+      "slug": "2026-08-10-ens-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Енс: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить енс",
+        "енс инструкция"
+      ],
+      "entity": "енс",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 13.3,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "как подключить енс",
+        "count": 202,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%95%D0%9D%D0%A1",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 27.1
+    },
+    {
+      "slug": "2026-08-10-vsd-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "ВСД: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить всд",
+        "всд инструкция"
+      ],
+      "entity": "ВСД",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 13.3,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "всд инструкция",
+        "count": 151,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%92%D0%A1%D0%94",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 26.4
+    },
+    {
       "slug": "2026-08-10-fiskalnyy-nakopitel-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
       "title": "Фискальный накопитель: кого касается — разбор по видам деятельности",
       "keywords": [
@@ -2225,6 +2438,45 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 25.6
+    },
+    {
+      "slug": "2026-08-10-wildberries-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Wildberries: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить wildberries",
+        "wildberries инструкция"
+      ],
+      "entity": "wildberries",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 6.7,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "как подключить wildberries",
+        "count": 700,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=Wildberries",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 23.8
     },
     {
       "slug": "2026-08-10-razreshitelnyy-rezhim-chek-list-gotovnosti-biznesa",
@@ -2413,6 +2665,45 @@
       "priorityScore": 19.2
     },
     {
+      "slug": "2026-08-10-ofd-shtrafy-i-otvetstvennost-v-2026-godu",
+      "title": "Офд: штрафы и ответственность в 2026 году",
+      "keywords": [
+        "штраф офд",
+        "офд ответственность"
+      ],
+      "entity": "офд",
+      "intent": "fines",
+      "format": "reference",
+      "segment": "none",
+      "score": 6,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Штраф за работу без ТС ПИоТ в 2026: размеры, статья КоАП, как избежать». Обязательна ссылка на /blog/2026-05-01-ts-piot-shtrafy/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-shtrafy",
+          "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
+          "2026-08-10-markirovka-molochnoy-produkcii-shtrafy-i-otvetstvennost-v-2026-godu"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "штраф офд",
+        "count": 160,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%9E%D0%A4%D0%94",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 19.2
+    },
+    {
       "slug": "2026-08-10-samozanyatost-chek-list-gotovnosti-biznesa",
       "title": "Самозанятость: чек-лист готовности бизнеса",
       "keywords": [
@@ -2442,212 +2733,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 16.8
-    },
-    {
-      "slug": "2026-08-10-ens-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Енс: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить енс",
-        "енс инструкция"
-      ],
-      "entity": "енс",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 13.3,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 13.3
-    },
-    {
-      "slug": "2026-08-10-kedo-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Кэдо: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить кэдо",
-        "кэдо инструкция"
-      ],
-      "entity": "кэдо",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 13.3,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 13.3
-    },
-    {
-      "slug": "2026-08-10-vetis-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Ветис: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить ветис",
-        "ветис инструкция"
-      ],
-      "entity": "ветис",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 13.3,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 13.3
-    },
-    {
-      "slug": "2026-08-10-vsd-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "ВСД: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить всд",
-        "всд инструкция"
-      ],
-      "entity": "ВСД",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 13.3,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 13.3
-    },
-    {
-      "slug": "2026-08-10-uvedomlenie-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Уведомление: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить уведомление",
-        "уведомление инструкция"
-      ],
-      "entity": "уведомление",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 13.3,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 13.3
-    },
-    {
-      "slug": "2026-08-10-administrativnaya-otvetstvennost-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Административная-ответственность: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить административная-ответственность",
-        "административная-ответственность инструкция"
-      ],
-      "entity": "административная-ответственность",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 13.3,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "ok",
-        "advice": "",
-        "related": []
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 13.3
-    },
-    {
-      "slug": "2026-08-10-administrativnaya-otvetstvennost-sroki-2026-goda-i-chto-uspet-do-dedlayna",
-      "title": "Административная-ответственность: сроки 2026 года и что успеть до дедлайна",
-      "keywords": [
-        "административная-ответственность сроки",
-        "административная-ответственность когда обязателен"
-      ],
-      "entity": "административная-ответственность",
-      "intent": "deadline",
-      "format": "news",
-      "segment": "none",
-      "score": 13.3,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: сроки 2026 года и что успеть до дедлайна». Обязательна ссылка на /blog/2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna",
-          "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",
-          "2026-08-10-markirovka-vody-sroki-2026-goda-i-chto-uspet-do-dedlayna"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 13.3
     },
     {
       "slug": "2026-08-10-markirovka-molochnoy-produkcii-chek-list-gotovnosti-biznesa",
@@ -3677,6 +3762,130 @@
       "deferredReason": "buffer-rebalanced"
     },
     {
+      "slug": "2026-08-10-vetis-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Ветис: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить ветис",
+        "ветис инструкция"
+      ],
+      "entity": "ветис",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 13.3,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 13.3,
+      "deferredAt": "2026-10-05",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-uvedomlenie-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Уведомление: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить уведомление",
+        "уведомление инструкция"
+      ],
+      "entity": "уведомление",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 13.3,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 13.3,
+      "deferredAt": "2026-10-05",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-administrativnaya-otvetstvennost-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Административная-ответственность: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить административная-ответственность",
+        "административная-ответственность инструкция"
+      ],
+      "entity": "административная-ответственность",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 13.3,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 13.3,
+      "deferredAt": "2026-10-05",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-administrativnaya-otvetstvennost-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+      "title": "Административная-ответственность: сроки 2026 года и что успеть до дедлайна",
+      "keywords": [
+        "административная-ответственность сроки",
+        "административная-ответственность когда обязателен"
+      ],
+      "entity": "административная-ответственность",
+      "intent": "deadline",
+      "format": "news",
+      "segment": "none",
+      "score": 13.3,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: сроки 2026 года и что успеть до дедлайна». Обязательна ссылка на /blog/2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+          "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+          "2026-08-10-markirovka-vody-sroki-2026-goda-i-chto-uspet-do-dedlayna"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 13.3,
+      "deferredAt": "2026-10-05",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
       "slug": "2026-08-10-bar-kak-podklyuchit-poshagovaya-instrukciya",
       "title": "Бар: как подключить — пошаговая инструкция",
       "keywords": [
@@ -4121,38 +4330,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 13.3,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
-      "slug": "2026-08-10-ens-shtrafy-i-otvetstvennost-v-2026-godu",
-      "title": "Енс: штрафы и ответственность в 2026 году",
-      "keywords": [
-        "штраф енс",
-        "енс ответственность"
-      ],
-      "entity": "енс",
-      "intent": "fines",
-      "format": "reference",
-      "segment": "none",
-      "score": 12,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Штраф за работу без ТС ПИоТ в 2026: размеры, статья КоАП, как избежать». Обязательна ссылка на /blog/2026-05-01-ts-piot-shtrafy/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-shtrafy",
-          "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
-          "2026-08-10-markirovka-molochnoy-produkcii-shtrafy-i-otvetstvennost-v-2026-godu"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 12,
       "deferredAt": "2026-10-04",
       "deferredReason": "buffer-rebalanced"
     },
@@ -5115,38 +5292,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 10.7,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
-      "slug": "2026-08-10-ozon-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Ozon: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить ozon",
-        "ozon инструкция"
-      ],
-      "entity": "ozon",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 10,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 10,
       "deferredAt": "2026-10-04",
       "deferredReason": "buffer-rebalanced"
     },
@@ -7139,38 +7284,6 @@
       "deferredReason": "buffer-rebalanced"
     },
     {
-      "slug": "2026-08-10-wildberries-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Wildberries: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить wildberries",
-        "wildberries инструкция"
-      ],
-      "entity": "wildberries",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 6.7,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 6.7,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
       "slug": "2026-08-10-smart-terminal-kak-podklyuchit-poshagovaya-instrukciya",
       "title": "Смарт-терминал: как подключить — пошаговая инструкция",
       "keywords": [
@@ -8060,38 +8173,6 @@
         "wildberries ответственность"
       ],
       "entity": "wildberries",
-      "intent": "fines",
-      "format": "reference",
-      "segment": "none",
-      "score": 6,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Штраф за работу без ТС ПИоТ в 2026: размеры, статья КоАП, как избежать». Обязательна ссылка на /blog/2026-05-01-ts-piot-shtrafy/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-shtrafy",
-          "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
-          "2026-08-10-markirovka-molochnoy-produkcii-shtrafy-i-otvetstvennost-v-2026-godu"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 6,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
-      "slug": "2026-08-10-ofd-shtrafy-i-otvetstvennost-v-2026-godu",
-      "title": "Офд: штрафы и ответственность в 2026 году",
-      "keywords": [
-        "штраф офд",
-        "офд ответственность"
-      ],
-      "entity": "офд",
       "intent": "fines",
       "format": "reference",
       "segment": "none",

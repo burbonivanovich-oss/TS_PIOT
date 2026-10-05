@@ -34,6 +34,14 @@
       "stagedFile": "release-drafts/2026-05-25-140-fz-epd-perehod-msb.mdx"
     },
     {
+      "slug": "2026-05-01-chto-takoe-fn",
+      "kind": "rewrite",
+      "score": 100,
+      "acceptedAt": "2026-10-05T12:18:19.579Z",
+      "factualCorrection": true,
+      "stagedFile": "release-drafts/2026-05-01-chto-takoe-fn.mdx"
+    },
+    {
       "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
       "kind": "new",
       "score": 100,

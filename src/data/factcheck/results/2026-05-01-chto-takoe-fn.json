@@ -1,94 +1,329 @@
 {
   "slug": "2026-05-01-chto-takoe-fn",
-  "checkedAt": "2026-05-19T00:00:00.000Z",
-  "checkedBy": "claude-opus-4-7+websearch",
-  "method": "manual-with-websearch",
+  "checkedAt": "2026-10-05T12:17:03.962Z",
+  "checkedBy": "Codex",
+  "method": "manual-primary-source-content-review-with-retained-snapshots",
   "summary": {
-    "totalClaims": 21,
-    "checked": 12,
-    "match": 12,
+    "totalClaims": 17,
+    "checked": 17,
+    "match": 17,
     "mismatch": 0,
     "uncertain": 0,
     "overallStatus": "verified",
     "criticalIssues": 0,
-    "note": "Все ключевые НПА и нормы корректны: 54-ФЗ от 22.05.2003 (ст. 4.1 о сроках ФН), ФФД 1.2 с 06.08.2021 — подтверждено ФНС/ОФД источниками. Штрафы по ч.1 и ч.2 ст. 14.5 КоАП (1.5-3K / 5-10K и 25-50% / 75-100%) совпадают с КонсультантПлюс. Сроки ФН 15/36 мес и правила пересчёта при смене режима — закреплены п. 6 ст. 4.1 54-ФЗ. Цены ФН в 2026 году — ориентировочные, без жёсткой нормативной привязки."
+    "note": "Проверен текущий текст, не прежние формулировки. Штрафы и неподтверждённые цены удалены из статьи; отдельная сверка прежних утверждений сохранена в research. Результат не означает публикацию."
   },
+  "npa": [
+    {
+      "kind": "fz",
+      "number": "54",
+      "exists": true,
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "scope": "Статья 4.1, пункты 1 и 6; действующая редакция на полученной странице"
+    }
+  ],
   "claims": [
     {
-      "id": "c1",
-      "type": "DATE_DMY",
-      "raw": "22.05.2003",
+      "id": "c8",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/related_activities/registries/reestr_fiscal/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 819,
+      "line": 9,
+      "context": "т их независимо от питания, как объясняет [ФНС на странице реестра накопителей](https://www.nalog.gov.ru/rn77/related_activities/registries/reestr_fiscal/). Он устанавливается в кассу, но не заменяет ни кассовую программу, ни интернет",
+      "expected_source": "nalog.gov.ru",
       "status": "match",
-      "confidence": 0.99,
-      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_42359/"]
+      "sources": [
+        "https://www.nalog.gov.ru/rn77/related_activities/registries/reestr_fiscal/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Получен реальный документ, ссылка соответствует смыслу соседнего утверждения"
     },
     {
-      "id": "c13",
+      "id": "c7",
+      "type": "NPA_FZ_FULL",
+      "raw": "Федерального закона № 54",
+      "groups": [
+        "54"
+      ],
+      "offset": 1639,
+      "line": 17,
+      "context": "вают взаимодействие с ОФД. Требования к этим функциям установлены [статьёй 4.1 Федерального закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d94",
+      "status": "match",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Прочитаны статья 4.1 и пункт 6 действующей редакции № 54-ФЗ; scope зависит от абзаца статьи."
+    },
+    {
+      "id": "c3",
       "type": "NPA_FZ",
       "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 1661,
+      "line": 17,
+      "context": "ОФД. Требования к этим функциям установлены [статьёй 4.1 Федерального закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e",
       "status": "match",
-      "confidence": 0.99,
-      "expectedValue": "Федеральный закон от 22.05.2003 № 54-ФЗ — действующая редакция, подтверждено npaWhitelist"
-    },
-    {
-      "id": "c2",
-      "type": "DATE_TEXT",
-      "raw": "6 августа 2021 года",
-      "status": "match",
-      "confidence": 0.98,
-      "expectedValue": "С 06.08.2021 регистрация ККТ для маркированных товаров — только на ФФД 1.2",
       "sources": [
-        "https://platformaofd.ru/news/novye-pravila-dlya-kkt-i-fn-izmeneniya-s-6-avgusta-2021/",
-        "https://secrets.tinkoff.ru/novosti/s-6-avgusta-dlya-kkt-vvodyat-novyj-format-fiskalnyh-dokumentov-ffd-1-2/"
-      ]
-    },
-    {
-      "id": "c6",
-      "type": "MONEY",
-      "raw": "9 000 рублей",
-      "status": "match-informational",
-      "confidence": 0.7,
-      "expectedValue": "Ориентировочная розничная цена ФН-1.1М в 2026 г. — диапазон рыночный, нормативом не регулируется"
+        "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Прочитаны статья 4.1 и пункт 6 действующей редакции № 54-ФЗ; scope зависит от абзаца статьи."
     },
     {
       "id": "c9",
-      "type": "MONEY",
-      "raw": "3 000 рублей",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 1668,
+      "line": 17,
+      "context": "ребования к этим функциям установлены [статьёй 4.1 Федерального закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Поэтому выбирать накопитель только по цене или размеру корпуса нельзя. Даже е",
+      "expected_source": "consultant.ru",
       "status": "match",
-      "confidence": 0.99,
-      "expectedValue": "ч.2 ст. 14.5 КоАП: должн./ИП 1500-3000 руб",
-      "sources": ["https://www.consultant.ru/document/cons_doc_LAW_34661/"]
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Получен реальный документ, ссылка соответствует смыслу соседнего утверждения"
     },
     {
       "id": "c10",
-      "type": "MONEY",
-      "raw": "10 000 рублей (юрлица)",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/related_activities/registries/reestr_fiscal/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 2058,
+      "line": 19,
+      "context": "ое наименование модели, исполнение и заводской номер. На [странице реестра ФНС](https://www.nalog.gov.ru/rn77/related_activities/registries/reestr_fiscal/) есть ссылка на проверку изготовленных экземпляров. Сверяйте номер на устройств",
+      "expected_source": "nalog.gov.ru",
       "status": "match",
-      "confidence": 0.99,
-      "expectedValue": "ч.2 ст. 14.5 КоАП: юр.лица 5000-10000"
+      "sources": [
+        "https://www.nalog.gov.ru/rn77/related_activities/registries/reestr_fiscal/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Получен реальный документ, ссылка соответствует смыслу соседнего утверждения"
     },
     {
-      "id": "c18",
-      "type": "PERCENT",
-      "raw": "25%-50% (ИП без ККТ)",
+      "id": "c11",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/news/activities_fts/11134324/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 2493,
+      "line": 23,
+      "context": "семейства, а Ин15-1М и Ин36-1М — разные исполнения. В [архивной публикации ФНС](https://www.nalog.gov.ru/rn77/news/activities_fts/11134324/) для Ин15-1М указан максимальный срок ключей 15 месяцев, для Ин36-1М — 36 месяц",
+      "expected_source": "nalog.gov.ru",
       "status": "match",
-      "confidence": 0.99,
-      "expectedValue": "ч.2 ст. 14.5 КоАП: ИП 25-50% суммы расчёта, не менее 10K"
+      "sources": [
+        "https://www.nalog.gov.ru/rn77/news/activities_fts/11134324/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Получен реальный документ, ссылка соответствует смыслу соседнего утверждения"
     },
     {
-      "id": "c20",
-      "type": "PERCENT",
-      "raw": "75%-100% (юрлица без ККТ)",
+      "id": "c1",
+      "type": "DATE_DMY",
+      "raw": "10.04.2024",
+      "groups": [
+        "10",
+        "04",
+        "2024"
+      ],
+      "offset": 2797,
+      "line": 25,
+      "context": "но не полный ассортимент в продаже сегодня. В доступном [файле реестра ФНС от 10.04.2024](https://data.nalog.ru/html/sites/www.new.nalog.ru/files/related_activities/reg",
       "status": "match",
-      "confidence": 0.99,
-      "expectedValue": "ч.2 ст. 14.5 КоАП: ЮЛ 75-100%, не менее 30K"
+      "sources": [
+        "https://data.nalog.ru/html/sites/www.new.nalog.ru/files/related_activities/registries/reestr_fiscal/reeestrfn100424.doc"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Дата обозначения файла реестра в URL 100424; страница обновлена 11.04.2024. Не дата актуальности полного ассортимента."
     },
     {
       "id": "c12",
-      "type": "MONEY",
-      "raw": "30 000 рублей",
+      "type": "LINK",
+      "raw": "https://data.nalog.ru/html/sites/www.new.nalog.ru/files/related_activities/registries/reestr_fiscal/reeestrfn100424.doc",
+      "groups": [
+        "data.nalog.ru"
+      ],
+      "offset": 2809,
+      "line": 25,
+      "context": "й ассортимент в продаже сегодня. В доступном [файле реестра ФНС от 10.04.2024](https://data.nalog.ru/html/sites/www.new.nalog.ru/files/related_activities/registries/reestr_fiscal/reeestrfn100424.doc) у Ин36-1М перечислены сроки 13, 18 и 36 месяцев, а у ФН-1.2 исполнения Эв36-3",
+      "expected_source": "data.nalog.ru",
       "status": "match",
-      "confidence": 0.99
+      "sources": [
+        "https://data.nalog.ru/html/sites/www.new.nalog.ru/files/related_activities/registries/reestr_fiscal/reeestrfn100424.doc"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Получен реальный документ, ссылка соответствует смыслу соседнего утверждения"
+    },
+    {
+      "id": "c13",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn26/news/activities_fts/11585486/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 4704,
+      "line": 41,
+      "context": "аркированных товаров нужны совместимые ФН, касса и кассовое ПО. [ФНС объясняет](https://www.nalog.gov.ru/rn26/news/activities_fts/11585486/), что переход на ФФД 1.2 может требовать обновления внешнего кассового программ",
+      "expected_source": "nalog.gov.ru",
+      "status": "match",
+      "sources": [
+        "https://www.nalog.gov.ru/rn26/news/activities_fts/11585486/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Получен реальный документ, ссылка соответствует смыслу соседнего утверждения"
+    },
+    {
+      "id": "c2",
+      "type": "NPA_PUNKT",
+      "raw": "пункте 6",
+      "groups": [
+        "6"
+      ],
+      "offset": 6509,
+      "line": 53,
+      "context": "к сроку и технические ограничения выбранного исполнения проверяют отдельно. В [пункте 6 статьи 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_4235",
+      "status": "match",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Прочитаны статья 4.1 и пункт 6 действующей редакции № 54-ФЗ; scope зависит от абзаца статьи."
+    },
+    {
+      "id": "c4",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 6538,
+      "line": 53,
+      "context": "чения выбранного исполнения проверяют отдельно. В [пункте 6 статьи 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e",
+      "status": "match",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Прочитаны статья 4.1 и пункт 6 действующей редакции № 54-ФЗ; scope зависит от абзаца статьи."
+    },
+    {
+      "id": "c14",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 6545,
+      "line": 53,
+      "context": "ыбранного исполнения проверяют отдельно. В [пункте 6 статьи 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/) предусмотрено требование не менее 36 месяцев для указанных пользователей, рабо",
+      "expected_source": "consultant.ru",
+      "status": "match",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Получен реальный документ, ссылка соответствует смыслу соседнего утверждения"
+    },
+    {
+      "id": "c5",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 8204,
+      "line": 63,
+      "context": "кращать формирование фискальных признаков — это требование [статьи 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e",
+      "status": "match",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Прочитаны статья 4.1 и пункт 6 действующей редакции № 54-ФЗ; scope зависит от абзаца статьи."
+    },
+    {
+      "id": "c15",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 8211,
+      "line": 63,
+      "context": "формирование фискальных признаков — это требование [статьи 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Если касса перестала фискализировать расчёты, не рассчитывайте, что печать бу",
+      "expected_source": "consultant.ru",
+      "status": "match",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Получен реальный документ, ссылка соответствует смыслу соседнего утверждения"
+    },
+    {
+      "id": "c16",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn77/news/activities_fts/11134324/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 9444,
+      "line": 73,
+      "context": "е Ин36-1М с максимальным сроком ключей 36 месяцев, что подтверждает [архив ФНС](https://www.nalog.gov.ru/rn77/news/activities_fts/11134324/). Это не обещание одинакового срока во всех режимах. Покупателю нужно знать пол",
+      "expected_source": "nalog.gov.ru",
+      "status": "match",
+      "sources": [
+        "https://www.nalog.gov.ru/rn77/news/activities_fts/11134324/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Получен реальный документ, ссылка соответствует смыслу соседнего утверждения"
+    },
+    {
+      "id": "c6",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 10675,
+      "line": 85,
+      "context": "чение пяти лет после окончания эксплуатации предусмотрена [статьёй 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e",
+      "status": "match",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Прочитаны статья 4.1 и пункт 6 действующей редакции № 54-ФЗ; scope зависит от абзаца статьи."
+    },
+    {
+      "id": "c17",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 10682,
+      "line": 85,
+      "context": "яти лет после окончания эксплуатации предусмотрена [статьёй 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Сохраните старое устройство и документы замены; не выбрасывайте его после уст",
+      "expected_source": "consultant.ru",
+      "status": "match",
+      "sources": [
+        "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/"
+      ],
+      "checkedAt": "2026-10-05T12:17:03.962Z",
+      "expectedValue": "Получен реальный документ, ссылка соответствует смыслу соседнего утверждения"
     }
   ]
 }
