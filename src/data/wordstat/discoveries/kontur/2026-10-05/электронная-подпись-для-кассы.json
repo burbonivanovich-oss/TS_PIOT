@@ -1,0 +1,27 @@
+{
+  "seed": "электронная подпись для кассы",
+  "slug": "электронная-подпись-для-кассы",
+  "category": "entity",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-10-05T21:14:52.343Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 1,
+  "phrases": [
+    {
+      "phrase": "электронная подпись для кассы",
+      "count": 60
+    }
+  ]
+}

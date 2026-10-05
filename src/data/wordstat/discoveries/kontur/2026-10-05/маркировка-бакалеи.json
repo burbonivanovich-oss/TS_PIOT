@@ -1,0 +1,91 @@
+{
+  "seed": "маркировка бакалеи",
+  "slug": "маркировка-бакалеи",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-05T21:14:59.890Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 17,
+  "phrases": [
+    {
+      "phrase": "маркировка бакалеи",
+      "count": 2091
+    },
+    {
+      "phrase": "бакалея маркировка честный знак",
+      "count": 364
+    },
+    {
+      "phrase": "бакалея сроки маркировки",
+      "count": 208
+    },
+    {
+      "phrase": "маркировка бакалеи с 1 сентября",
+      "count": 152
+    },
+    {
+      "phrase": "обязательная маркировка бакалеи",
+      "count": 138
+    },
+    {
+      "phrase": "бакалея маркировка остатков",
+      "count": 119
+    },
+    {
+      "phrase": "бакалея маркировка что входит",
+      "count": 94
+    },
+    {
+      "phrase": "бакалея этапы маркировки",
+      "count": 87
+    },
+    {
+      "phrase": "бакалея будет ли маркировка остатков",
+      "count": 75
+    },
+    {
+      "phrase": "бакалея подлежащая маркировке",
+      "count": 68
+    },
+    {
+      "phrase": "маркировка бакалеи честный знак сроки",
+      "count": 29
+    },
+    {
+      "phrase": "маркировка бакалеи с 1 сентября 2026",
+      "count": 23
+    },
+    {
+      "phrase": "маркировка бакалеи для розницы",
+      "count": 22
+    },
+    {
+      "phrase": "честный знак бакалея этапы маркировки",
+      "count": 13
+    },
+    {
+      "phrase": "честный знак маркировка остатков бакалея",
+      "count": 6
+    },
+    {
+      "phrase": "сроки и этапы маркировки бакалеи",
+      "count": 5
+    },
+    {
+      "phrase": "детский мармелад относится к маркировке бакалея",
+      "count": 5
+    }
+  ]
+}

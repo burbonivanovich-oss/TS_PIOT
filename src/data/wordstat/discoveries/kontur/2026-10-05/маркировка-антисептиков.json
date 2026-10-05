@@ -1,0 +1,75 @@
+{
+  "seed": "маркировка антисептиков",
+  "slug": "маркировка-антисептиков",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-05T21:14:56.485Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 13,
+  "phrases": [
+    {
+      "phrase": "маркировка антисептиков",
+      "count": 481
+    },
+    {
+      "phrase": "маркировка антисептиков честный знак",
+      "count": 98
+    },
+    {
+      "phrase": "маркировка антисептиков и дезинфицирующих",
+      "count": 67
+    },
+    {
+      "phrase": "маркировка антисептиков и дезинфицирующих средств",
+      "count": 63
+    },
+    {
+      "phrase": "код маркировки антисептик",
+      "count": 46
+    },
+    {
+      "phrase": "маркировка кожных антисептиков",
+      "count": 36
+    },
+    {
+      "phrase": "обязательная маркировка антисептиков",
+      "count": 33
+    },
+    {
+      "phrase": "маркировка антисептиков и дезинфицирующих средств честный знак",
+      "count": 29
+    },
+    {
+      "phrase": "маркировка антисептика для рук",
+      "count": 25
+    },
+    {
+      "phrase": "правила маркировка антисептиков",
+      "count": 24
+    },
+    {
+      "phrase": "антисептики подлежащие маркировке",
+      "count": 16
+    },
+    {
+      "phrase": "маркировка антисептиков постановление",
+      "count": 15
+    },
+    {
+      "phrase": "антисептики сроки маркировки",
+      "count": 11
+    }
+  ]
+}

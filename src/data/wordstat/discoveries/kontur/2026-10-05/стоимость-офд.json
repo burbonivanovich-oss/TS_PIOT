@@ -1,0 +1,103 @@
+{
+  "seed": "стоимость ОФД",
+  "slug": "стоимость-офд",
+  "category": "intent",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-10-05T21:14:51.083Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 20,
+  "phrases": [
+    {
+      "phrase": "стоимость офд",
+      "count": 495
+    },
+    {
+      "phrase": "офд стоимость на год",
+      "count": 57
+    },
+    {
+      "phrase": "платформа офд стоимость",
+      "count": 54
+    },
+    {
+      "phrase": "контур офд стоимость",
+      "count": 35
+    },
+    {
+      "phrase": "такском офд стоимость",
+      "count": 31
+    },
+    {
+      "phrase": "касса офд стоимость",
+      "count": 29
+    },
+    {
+      "phrase": "услуга офд стоимость",
+      "count": 29
+    },
+    {
+      "phrase": "сбис офд стоимость",
+      "count": 29
+    },
+    {
+      "phrase": "яндекс офд стоимость",
+      "count": 24
+    },
+    {
+      "phrase": "стоимость офд на 36 месяцев",
+      "count": 23
+    },
+    {
+      "phrase": "офд стоимость на 3 года",
+      "count": 22
+    },
+    {
+      "phrase": "офд стоимость на 1 год",
+      "count": 21
+    },
+    {
+      "phrase": "стоимость офд на 12 месяцев",
+      "count": 20
+    },
+    {
+      "phrase": "1с чеки офд стоимость",
+      "count": 19
+    },
+    {
+      "phrase": "стоимость офд на 15 месяцев",
+      "count": 18
+    },
+    {
+      "phrase": "1с чеки офд сервис стоимость",
+      "count": 17
+    },
+    {
+      "phrase": "астрал офд стоимость",
+      "count": 16
+    },
+    {
+      "phrase": "первый офд стоимость",
+      "count": 8
+    },
+    {
+      "phrase": "стоимость подписки офд",
+      "count": 7
+    },
+    {
+      "phrase": "комплект фн офд 15 месяцев стоимость",
+      "count": 5
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "seed": "ТС ПИоТ стоимость",
+  "slug": "тс-пиот-стоимость",
+  "category": "intent",
+  "cluster": "ts-piot",
+  "fetchedAt": "2026-10-05T21:14:25.287Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 5,
+  "phrases": [
+    {
+      "phrase": "тс пиот стоимость",
+      "count": 213
+    },
+    {
+      "phrase": "стоимость лицензии тс пиот",
+      "count": 76
+    },
+    {
+      "phrase": "тс пиот честный знак стоимость",
+      "count": 33
+    },
+    {
+      "phrase": "стоимость установки тс пиот",
+      "count": 19
+    },
+    {
+      "phrase": "стоимость подписки тс пиот",
+      "count": 5
+    }
+  ]
+}

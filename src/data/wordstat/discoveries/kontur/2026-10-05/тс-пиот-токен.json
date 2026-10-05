@@ -1,0 +1,39 @@
+{
+  "seed": "ТС ПИоТ токен",
+  "slug": "тс-пиот-токен",
+  "category": "entity",
+  "cluster": "ts-piot",
+  "fetchedAt": "2026-10-05T21:14:25.808Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "тс пиот токен",
+      "count": 295
+    },
+    {
+      "phrase": "токен x api key тс пиот",
+      "count": 50
+    },
+    {
+      "phrase": "тс пиот продление токена",
+      "count": 32
+    },
+    {
+      "phrase": "токен тс пиот продлен",
+      "count": 29
+    }
+  ]
+}

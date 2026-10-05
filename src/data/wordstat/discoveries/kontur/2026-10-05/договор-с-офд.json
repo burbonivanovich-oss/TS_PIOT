@@ -1,0 +1,71 @@
+{
+  "seed": "договор с ОФД",
+  "slug": "договор-с-офд",
+  "category": "intent",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-10-05T21:14:50.590Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 12,
+  "phrases": [
+    {
+      "phrase": "договор с офд",
+      "count": 456
+    },
+    {
+      "phrase": "заключенный договор с офд",
+      "count": 149
+    },
+    {
+      "phrase": "заключить договор с офд",
+      "count": 149
+    },
+    {
+      "phrase": "договор с оператором фискальных данных офд",
+      "count": 43
+    },
+    {
+      "phrase": "как заключить договор с офд самостоятельно",
+      "count": 23
+    },
+    {
+      "phrase": "договор с офд цена",
+      "count": 18
+    },
+    {
+      "phrase": "сколько стоит договор с офд",
+      "count": 12
+    },
+    {
+      "phrase": "заключение договора с офд",
+      "count": 12
+    },
+    {
+      "phrase": "как продлить договор с офд",
+      "count": 10
+    },
+    {
+      "phrase": "договор с офд такском",
+      "count": 9
+    },
+    {
+      "phrase": "договор с офд на 15 месяцев цена",
+      "count": 6
+    },
+    {
+      "phrase": "договор с офд на 36 месяцев цена",
+      "count": 6
+    }
+  ]
+}

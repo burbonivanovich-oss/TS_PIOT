@@ -1,0 +1,71 @@
+{
+  "seed": "закрытие смены на кассе",
+  "slug": "закрытие-смены-на-кассе",
+  "category": "problem",
+  "cluster": "kkt",
+  "fetchedAt": "2026-10-05T21:14:40.218Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 12,
+  "phrases": [
+    {
+      "phrase": "закрытие смены на кассе",
+      "count": 897
+    },
+    {
+      "phrase": "закрытие смены на кассе эвотор",
+      "count": 101
+    },
+    {
+      "phrase": "закрытие смены на онлайн кассе",
+      "count": 74
+    },
+    {
+      "phrase": "закрытие смены на кассе атол",
+      "count": 71
+    },
+    {
+      "phrase": "закрытие смены на кассе меркурий",
+      "count": 68
+    },
+    {
+      "phrase": "закрытие смены на кассе 1с",
+      "count": 54
+    },
+    {
+      "phrase": "как сделать закрытие смены на кассе",
+      "count": 48
+    },
+    {
+      "phrase": "смена на кассе открытие и закрытие",
+      "count": 46
+    },
+    {
+      "phrase": "закрытие смены на кассе меркурий 185ф",
+      "count": 28
+    },
+    {
+      "phrase": "отчет о закрытии смены на онлайн кассе",
+      "count": 19
+    },
+    {
+      "phrase": "закрытие смены на онлайн кассе эвотор",
+      "count": 11
+    },
+    {
+      "phrase": "закрытие смены на кассе в аптеке документы",
+      "count": 6
+    }
+  ]
+}

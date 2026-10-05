@@ -1,0 +1,59 @@
+{
+  "seed": "вывод из оборота маркировки",
+  "slug": "вывод-из-оборота-маркировки",
+  "category": "intent",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-05T21:15:04.234Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 9,
+  "phrases": [
+    {
+      "phrase": "маркировка вывод из оборота",
+      "count": 2142
+    },
+    {
+      "phrase": "вывод кодов маркировки из оборота",
+      "count": 1172
+    },
+    {
+      "phrase": "маркировка честный знак вывод из оборота",
+      "count": 557
+    },
+    {
+      "phrase": "вывод из оборота кодов маркировки честный знак",
+      "count": 357
+    },
+    {
+      "phrase": "вывод из оборота кодов маркировки в 1с",
+      "count": 97
+    },
+    {
+      "phrase": "контур маркировка вывод из оборота",
+      "count": 82
+    },
+    {
+      "phrase": "сроки вывода из оборота кодов маркировки",
+      "count": 79
+    },
+    {
+      "phrase": "вывод кодов маркировки из оборота fbs",
+      "count": 73
+    },
+    {
+      "phrase": "обязательный вывод из оборота кодов маркировки",
+      "count": 25
+    }
+  ]
+}

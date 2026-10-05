@@ -1,0 +1,79 @@
+{
+  "seed": "штраф за неприменение ККТ",
+  "slug": "штраф-за-неприменение-ккт",
+  "category": "problem",
+  "cluster": "kkt",
+  "fetchedAt": "2026-10-05T21:14:41.959Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 14,
+  "phrases": [
+    {
+      "phrase": "штраф за неприменение ккт",
+      "count": 1004
+    },
+    {
+      "phrase": "штраф за неприменение ккт в 2026",
+      "count": 343
+    },
+    {
+      "phrase": "штраф ип за неприменение ккт",
+      "count": 225
+    },
+    {
+      "phrase": "14.5 коап рф штраф за неприменение ккт",
+      "count": 106
+    },
+    {
+      "phrase": "штрафы за неприменение ккт в 2026 году",
+      "count": 90
+    },
+    {
+      "phrase": "какой штраф за неприменение ккт",
+      "count": 74
+    },
+    {
+      "phrase": "штраф за неприменение ккт для ооо",
+      "count": 49
+    },
+    {
+      "phrase": "сроки штрафа за неприменение ккт",
+      "count": 46
+    },
+    {
+      "phrase": "штраф за неприменение ккт срок давности",
+      "count": 35
+    },
+    {
+      "phrase": "размер штрафа за неприменение ккт",
+      "count": 25
+    },
+    {
+      "phrase": "сумма штрафа за неприменение ккт",
+      "count": 21
+    },
+    {
+      "phrase": "административный штраф за неприменение ккт",
+      "count": 19
+    },
+    {
+      "phrase": "какие штрафы предусмотрены за неприменение ккт",
+      "count": 16
+    },
+    {
+      "phrase": "новые штрафы за неприменение ккт",
+      "count": 6
+    }
+  ]
+}
