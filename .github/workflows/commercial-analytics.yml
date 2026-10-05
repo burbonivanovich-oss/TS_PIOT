@@ -9,6 +9,8 @@ on:
     paths:
       - scripts/analytics/fetch-commercial.mjs
       - scripts/analytics/lib/commercial-metrika.mjs
+      - scripts/analytics/probe-commercial-events.mjs
+      - scripts/analytics/lib/commercial-event-probe.mjs
       - .github/workflows/commercial-analytics.yml
 
 permissions:
@@ -21,11 +23,17 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
+    env:
+      GIT_CONFIG_COUNT: '1'
+      GIT_CONFIG_KEY_0: core.precomposeunicode
+      GIT_CONFIG_VALUE_0: 'false'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Verify commercial event probe contracts
+        run: node --test scripts/__tests__/commercial-event-probe.test.mjs scripts/__tests__/commercial-metrika.test.mjs
       - name: Read own counter and nine goals for seven UTC days
         env:
           METRIKA_OAUTH_TOKEN: ${{ secrets.METRIKA_OAUTH_TOKEN }}
@@ -39,12 +47,26 @@ jobs:
           COMMERCIAL_OUTPUT: ${{ runner.temp }}/commercial-today/analytics/export.json
           COMMERCIAL_DAYS: '1'
         run: node scripts/analytics/fetch-commercial.mjs
+      - name: Read CPA event pages and article parameters for current UTC day
+        env:
+          METRIKA_OAUTH_TOKEN: ${{ secrets.METRIKA_OAUTH_TOKEN }}
+          COMMERCIAL_PROBE_OUTPUT: ${{ runner.temp }}/commercial-probe/events.json
+          COMMERCIAL_DAYS: '1'
+        run: node scripts/analytics/probe-commercial-events.mjs
       - name: Save aggregate report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: metrika-commercial-7-days
           path: ${{ runner.temp }}/commercial/
+          if-no-files-found: error
+          retention-days: 3
+      - name: Save sanitized event probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: metrika-commercial-event-probe
+          path: ${{ runner.temp }}/commercial-probe/
           if-no-files-found: error
           retention-days: 3
       - name: Save current UTC day aggregate report
