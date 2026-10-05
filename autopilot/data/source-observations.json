@@ -1,68 +1,139 @@
 {
-  "generatedAt": "2026-10-05T06:37:23.801Z",
+  "generatedAt": "2026-10-05T07:04:41.889Z",
   "totalSources": 78,
   "checkBudget": 13,
-  "checkedCount": 0,
+  "checkedCount": 10,
   "dueRemaining": 0,
-  "checked": [],
+  "checked": [
+    {
+      "url": "http://publication.pravo.gov.ru/document/0001202311220011",
+      "status": "ok",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "sha256": "1f26a9eb196dbf673894d10a9a251478869e18449e6525430a478e2d14c56082",
+      "finalUrl": "http://publication.pravo.gov.ru/document/0001202311220011"
+    },
+    {
+      "url": "http://publication.pravo.gov.ru/document/0001202411300011",
+      "status": "ok",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "sha256": "e178a97ac623729c375894f478ca1e57a9131e4b71df5500e34b22a15315dd23",
+      "finalUrl": "http://publication.pravo.gov.ru/document/0001202411300011"
+    },
+    {
+      "url": "http://publication.pravo.gov.ru/document/0001202505310018",
+      "status": "ok",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "sha256": "26c33b9d216aed29e27f85d83be9c255b3ee98b598917c3804cc6410b34642cc",
+      "finalUrl": "http://publication.pravo.gov.ru/document/0001202505310018"
+    },
+    {
+      "url": "http://publication.pravo.gov.ru/document/0001202601210006",
+      "status": "ok",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "sha256": "473bc382f071817dfc834d1a0e61466ec01a25065df4bcaa192fefaeb8485762",
+      "finalUrl": "http://publication.pravo.gov.ru/document/0001202601210006"
+    },
+    {
+      "url": "http://publication.pravo.gov.ru/document/0001202605020005",
+      "status": "ok",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "sha256": "aadb7588609a9e8c69ea70c14cbb2fadb5df9eecb62584f778f41c22fd024960",
+      "finalUrl": "http://publication.pravo.gov.ru/document/0001202605020005"
+    },
+    {
+      "url": "http://publication.pravo.gov.ru/document/0001202606100028",
+      "status": "ok",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "sha256": "9541861e80220b7d24578beb6e68ebf581f4ebd253b23fb27cb0d4d108aa2220",
+      "finalUrl": "http://publication.pravo.gov.ru/document/0001202606100028"
+    },
+    {
+      "url": "http://publication.pravo.gov.ru/Document/View/0001201507130017",
+      "status": "ok",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "sha256": "a4a060c388faecb6ffb24e2a8ae158ce778f59716b4954eb70c9b77363a31307",
+      "finalUrl": "http://publication.pravo.gov.ru/Document/View/0001201507130017"
+    },
+    {
+      "url": "http://publication.pravo.gov.ru/document/view/0001201811270056",
+      "status": "ok",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "sha256": "4365e1230e1f7e4a9a73ce468ddeda7d508e0718e210e1a4fef69d7f62a237bf",
+      "finalUrl": "http://publication.pravo.gov.ru/document/view/0001201811270056"
+    },
+    {
+      "url": "http://publication.pravo.gov.ru/Document/View/0001202512290039",
+      "status": "ok",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "sha256": "4666bc03d441ec223db371283b82e1eb7cb6d63d9591ac253c33548a97561f1a",
+      "finalUrl": "http://publication.pravo.gov.ru/Document/View/0001202512290039"
+    },
+    {
+      "url": "http://www.consultant.ru/document/cons_doc_LAW_34661/",
+      "status": "ok",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "sha256": "4191ba2391a78e4d42f7ea7fe82fac063619bd693815c283da42f0639de5b0c6",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/"
+    }
+  ],
   "byUrl": {
     "http://publication.pravo.gov.ru/document/0001202311220011": {
       "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
       "sha256": "1f26a9eb196dbf673894d10a9a251478869e18449e6525430a478e2d14c56082",
       "finalUrl": "http://publication.pravo.gov.ru/document/0001202311220011"
     },
     "http://publication.pravo.gov.ru/document/0001202411300011": {
       "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
       "sha256": "e178a97ac623729c375894f478ca1e57a9131e4b71df5500e34b22a15315dd23",
       "finalUrl": "http://publication.pravo.gov.ru/document/0001202411300011"
     },
     "http://publication.pravo.gov.ru/document/0001202505310018": {
       "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
       "sha256": "26c33b9d216aed29e27f85d83be9c255b3ee98b598917c3804cc6410b34642cc",
       "finalUrl": "http://publication.pravo.gov.ru/document/0001202505310018"
     },
     "http://publication.pravo.gov.ru/document/0001202601210006": {
       "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
       "sha256": "473bc382f071817dfc834d1a0e61466ec01a25065df4bcaa192fefaeb8485762",
       "finalUrl": "http://publication.pravo.gov.ru/document/0001202601210006"
     },
     "http://publication.pravo.gov.ru/document/0001202605020005": {
       "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
       "sha256": "aadb7588609a9e8c69ea70c14cbb2fadb5df9eecb62584f778f41c22fd024960",
       "finalUrl": "http://publication.pravo.gov.ru/document/0001202605020005"
     },
     "http://publication.pravo.gov.ru/document/0001202606100028": {
       "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
       "sha256": "9541861e80220b7d24578beb6e68ebf581f4ebd253b23fb27cb0d4d108aa2220",
       "finalUrl": "http://publication.pravo.gov.ru/document/0001202606100028"
     },
     "http://publication.pravo.gov.ru/Document/View/0001201507130017": {
       "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
       "sha256": "a4a060c388faecb6ffb24e2a8ae158ce778f59716b4954eb70c9b77363a31307",
       "finalUrl": "http://publication.pravo.gov.ru/Document/View/0001201507130017"
     },
     "http://publication.pravo.gov.ru/document/view/0001201811270056": {
       "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
       "sha256": "4365e1230e1f7e4a9a73ce468ddeda7d508e0718e210e1a4fef69d7f62a237bf",
       "finalUrl": "http://publication.pravo.gov.ru/document/view/0001201811270056"
     },
     "http://publication.pravo.gov.ru/Document/View/0001202512290039": {
       "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
       "sha256": "4666bc03d441ec223db371283b82e1eb7cb6d63d9591ac253c33548a97561f1a",
       "finalUrl": "http://publication.pravo.gov.ru/Document/View/0001202512290039"
     },
     "http://www.consultant.ru/document/cons_doc_LAW_34661/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T07:03:32.918Z",
+      "checkedAt": "2026-10-05T07:04:41.889Z",
       "sha256": "4191ba2391a78e4d42f7ea7fe82fac063619bd693815c283da42f0639de5b0c6",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/"
     },
