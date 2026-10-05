@@ -4,6 +4,7 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { u } from '../../utils/url';
 import { CATALOG_GROUPS, PRODUCT_CATALOG, CPA_BANNERS } from '../../data/cpa-banners';
+import { RETAIL_TASKS } from '../../data/product-commercial-copy';
 
 const title = 'Сервисы Контура для бизнеса';
 const description =
@@ -41,10 +42,26 @@ const groups = CATALOG_GROUPS.map(group => ({
 					Контур, договор вы заключаете с ним напрямую.
 				</p>
 				<div class="catalog-nav">
-					{groups.map(group => (
+			{groups.map(group => (
 						<a href={`#${group.id}`}>{group.title}</a>
 					))}
 				</div>
+			<!-- РОЗНИЧНЫЕ ЗАДАЧИ: статичный вход без questionnaires (вне catalog-nav, чтобы пилюли не влияли на карточки) -->
+			<section class="retail-tasks" id="retail-tasks" aria-label="Задачи розницы">
+				<div class="retail-head">
+					<h2>Если вы продаёте через кассу или маркируете товар</h2>
+					<p>Три частые задачи — сразу на нужную страницу продукта, без анкет и подбора.</p>
+				</div>
+				<div class="retail-grid">
+					{RETAIL_TASKS.map(task => (
+						<a href={u(task.href)} class="retail-card">
+							<span class="retail-title">{task.title}</span>
+							<span class="retail-who">{task.who}</span>
+							<span class="retail-cta">{task.cta} →</span>
+						</a>
+					))}
+				</div>
+			</section>
 			</header>
 
 			{groups.map(group => (
@@ -75,12 +92,11 @@ const groups = CATALOG_GROUPS.map(group => ({
 
 			<aside class="catalog-note">
 				<p>
-					Не знаете, что выбрать? Пройдите
-					<a href={u('/podbor/')}>подбор сервиса по задаче</a> или сравните
-					варианты в разделе <a href={u('/sravneniya/')}>сравнения и выбор</a>.
-					Готовность к ТС ПИоТ и набор сервисов под открытие точки — в
-					<a href={u('/instrumenty/')}>интерактивах</a>. Все материалы по темам —
-					в <a href={u('/blog/')}>статьях</a>.
+					Розница и маркировка — начните со страниц продуктов:
+					<a href={u('/produkty/kontur-market/')}>Контур.Маркет для кассы и учёта</a>,
+					<a href={u('/produkty/kontur-ofd/')}>Контур.ОФД для чеков</a>,
+					<a href={u('/produkty/kontur-markirovka/')}>Контур.Маркировка для производства и импорта</a>.
+					Заявку обрабатывает Контур, договор вы заключаете с ним напрямую.
 				</p>
 			</aside>
 		</main>
@@ -122,7 +138,7 @@ const groups = CATALOG_GROUPS.map(group => ({
 				flex-wrap: wrap;
 				gap: 0.5rem;
 			}
-			.catalog-nav a {
+			.catalog-nav > a {
 				font-size: 0.82rem;
 				font-weight: 600;
 				text-decoration: none;
@@ -132,7 +148,8 @@ const groups = CATALOG_GROUPS.map(group => ({
 				border-radius: 999px;
 				transition: border-color 0.15s ease, background 0.15s ease;
 			}
-			.catalog-nav a:hover { border-color: #111; background: #111; color: #fff; }
+			.catalog-nav > a:hover { border-color: #111; background: #111; color: #fff; }
+			.catalog-nav > a:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
 
 			.catalog-group { margin-bottom: 2.75rem; scroll-margin-top: 1.5rem; }
 			.group-head { margin-bottom: 1.25rem; }
@@ -200,10 +217,50 @@ const groups = CATALOG_GROUPS.map(group => ({
 			}
 			.catalog-note a { color: var(--pink, #9E2B4F); font-weight: 600; }
 
+			.retail-tasks {
+				margin: 2rem 0 2.75rem;
+				padding: 1.5rem 1.5rem 1.75rem;
+				background: #111;
+				border-radius: 14px;
+				color: #fff;
+				/* Якорь из главной (#retail-tasks): шапка sticky 56px, даём зазор, чтобы заголовок целиком был ниже неё. */
+				scroll-margin-top: 84px;
+			}
+			.retail-head { margin-bottom: 1.25rem; max-width: 640px; }
+			.retail-head h2 {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 1.7rem;
+				letter-spacing: 0.02em;
+				text-transform: uppercase;
+				margin: 0 0 0.4rem;
+				color: #fff;
+			}
+			.retail-head p { margin: 0; color: #E8E8E8; font-size: 0.95rem; line-height: 1.5; }
+			.retail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+			.retail-card {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+				min-width: 0;
+				padding: 1.1rem 1.2rem;
+				background: #fff;
+				border: 1px solid transparent;
+				border-radius: 10px;
+				text-decoration: none;
+				color: #111;
+				overflow-wrap: break-word;
+			}
+			.retail-card:hover { outline: 2px solid var(--lime, #AFCC00); border-color: var(--lime, #AFCC00); }
+			.retail-card:focus-visible { outline: 2px solid var(--lime, #AFCC00); outline-offset: 2px; }
+			.retail-title { font-weight: 700; font-size: 0.98rem; line-height: 1.35; color: #111; min-width: 0; }
+			.retail-who { font-size: 0.85rem; line-height: 1.45; color: #555; min-width: 0; }
+			.retail-cta { font-weight: 700; color: var(--pink, #9E2B4F); font-size: 0.88rem; margin-top: auto; min-width: 0; }
+
 			@media (max-width: 720px) {
 				.group-grid { grid-template-columns: 1fr; }
 				.product-card { grid-template-columns: 64px 1fr; gap: 1rem; }
 				.product-visual { font-size: 1.1rem; }
+				.retail-grid { grid-template-columns: 1fr; }
 			}
 		</style>
 	</body>

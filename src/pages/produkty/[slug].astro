@@ -12,6 +12,7 @@ import {
 	CPA_BANNERS,
 	resolveProductCta,
 } from '../../data/cpa-banners';
+import { PRODUCT_COMMERCIAL_OVERRIDES } from '../../data/product-commercial-copy';
 
 export function getStaticPaths() {
 	// Страницы только для офферов с erid (38-ФЗ). Продукты на регистрации
@@ -51,9 +52,12 @@ const siblings = PRODUCT_CATALOG.filter(
 const title = `${name} — сервис Контура`;
 const description = banner.description;
 
+// Decision-подсказки только для трёх розничных продуктов; остальные страницы не затрагиваем.
+const override = PRODUCT_COMMERCIAL_OVERRIDES[product.slug];
+
 // Соц-доказательство цифрами — единое для всех продуктов Контура,
 // согласовано с текстами на странице (перезвон за 15 минут, подключение от 1 дня).
-const stats = isLogistics ? [
+const stats = override ? override.stats : isLogistics ? [
 	{ n: 'Браузер', l: 'обмен ЭТРН через веб-интерфейс' },
 	{ n: '1С', l: 'работа из учётной системы' },
 	{ n: 'Телефон', l: 'приём и передача груза водителем' },
@@ -63,7 +67,11 @@ const stats = isLogistics ? [
 	{ n: 'от 1 дня', l: 'подключение и настройка' },
 ];
 // Как подключить — единый процесс для всех продуктов Контура.
-const steps = isLogistics ? [
+const steps = override ? [
+	{ t: 'Соберите вводные', d: override.prepare.join(' ') },
+	{ t: 'Контур определяет решение', d: override.determines.join(' ') },
+	{ t: 'Следующий шаг', d: override.nextAction },
+] : isLogistics ? [
 	{ t: 'Уточните сценарий', d: 'Ваша роль в перевозке, объём документов, учётная система и готовность контрагентов — основа подбора.' },
 	{ t: 'Подготовьте обмен', d: 'Согласуйте способ работы, электронные подписи уполномоченных лиц и подключение участников перевозки.' },
 	{ t: 'Проведите первый обмен', d: 'Создание, погрузка, приёмка и завершение накладной: проверьте весь маршрут документа с участниками.' },
@@ -77,7 +85,7 @@ const trust = [
 	'Заявку обрабатывает Контур, без посредников',
 	'Помощь на всех этапах подключения',
 ];
-const faq = isLogistics ? [
+const faq = override ? override.faq : isLogistics ? [
 	{ q: 'Что уточнить для расчёта стоимости?', a: 'Укажите свою роль, ожидаемый объём ЭТРН и способ работы: браузер или интеграция с учётной системой. Запросите у Контура стоимость документов, настройки и сопровождения для вашего сценария.' },
 	{ q: 'Можно ли работать из 1С?', a: 'У Логистики есть решения для обмена ЭПД из 1С. Поддержку вашей конфигурации и возможность работы в роли отправителя, перевозчика или получателя уточните при подборе.' },
 	{ q: 'Что понадобится водителю?', a: 'Водитель подтверждает приём и передачу груза простой электронной подписью в мобильном приложении. До первого обмена уточните настройку доступа и устройств.' },
@@ -149,7 +157,32 @@ const faqJsonLd = {
 								{clusters.map(c => <a href={u(`/category/${c.id}/`)}>{c.meta.title}</a>)}
 							</div>
 						)}
-						{primaryIsPurchase ? (
+						{override ? (
+							<div class="pp-hero-cta">
+								{primaryIsPurchase ? (
+									<>
+										<a
+											href={cta.primary.href}
+											class="pp-btn pp-btn-lime"
+											target="_blank"
+											rel="sponsored nofollow noopener"
+											data-cpa-id={banner.id}
+										>{cta.primary.label} →</a>
+										{cta.secondary && (
+											<a href={cta.secondary.href} class="pp-btn pp-btn-outline">Нужна консультация — оставить заявку ↓</a>
+										)}
+									</>
+								) : (
+									<>
+										<a href="#lead" class="pp-btn pp-btn-lime">Оставить заявку ↓</a>
+										{secondaryPurchase && (
+											<a href={secondaryPurchase.href} class="pp-btn pp-btn-outline" target="_blank" rel="sponsored nofollow noopener" data-cpa-id={banner.id}>{secondaryPurchase.label} →</a>
+										)}
+									</>
+								)}
+								<p class="pp-cta-note">Заявка уходит напрямую в Контур; отправка ни к чему не обязывает. Без JavaScript форма ниже не отправится — используйте прямую ссылку на сайт Контура.</p>
+							</div>
+						) : primaryIsPurchase ? (
 							<a
 								href={cta.primary.href}
 								class="pp-btn pp-btn-lime pp-btn-buy"
@@ -169,7 +202,7 @@ const faqJsonLd = {
 					</div>
 					<div class="pp-hero-form" id="lead">
 						{hasForm ? (
-							<KonturOrderWidget id={product.bannerId} heading={isLogistics ? 'Подобрать подключение ЭТРН' : primaryIsPurchase ? 'Нужна консультация — перезвоним за 15 минут' : 'Оставьте заявку — перезвоним за 15 минут'} compact />
+							<KonturOrderWidget id={product.bannerId} heading={override ? 'Оставьте заявку — специалист Контура разберёт вашу задачу' : isLogistics ? 'Подобрать подключение ЭТРН' : primaryIsPurchase ? 'Нужна консультация — перезвоним за 15 минут' : 'Оставьте заявку — перезвоним за 15 минут'} compact />
 						) : (
 							<CpaCallout id={product.bannerId} />
 						)}
@@ -207,6 +240,28 @@ const faqJsonLd = {
 						<p>{product.audience}</p>
 					</div>
 				</section>
+
+				{override && (
+					<section class="pp-section" aria-label="Как принять решение">
+						<h2 class="pp-h2">Как принять решение</h2>
+						<p class="pp-scenario">{override.scenario}</p>
+						<div class="pp-decide">
+							<div class="pp-decide-col">
+								<h3>Что подготовить</h3>
+								<ul>
+									{override.prepare.map(item => <li>{item}</li>)}
+								</ul>
+							</div>
+							<div class="pp-decide-col">
+								<h3>Что определяет Контур</h3>
+								<ul>
+									{override.determines.map(item => <li>{item}</li>)}
+								</ul>
+							</div>
+						</div>
+						<p class="pp-next">{override.nextAction}</p>
+					</section>
+				)}
 
 				{isLogistics && (
 					<section class="pp-section" aria-labelledby="transport-roles">
@@ -251,7 +306,35 @@ const faqJsonLd = {
 			<!-- ФИНАЛЬНЫЙ CTA -->
 			<section class="pp-cta">
 				<div class="pp-inner pp-cta-in">
-					{primaryIsPurchase ? (
+					{override ? (
+						<>
+							<h2>{primaryIsPurchase ? cta.primary.label : `${name}: оставьте заявку`}</h2>
+							<p>{override.nextAction} Оплата и договор — на стороне Контура.</p>
+							<div class="pp-cta-btns">
+								{primaryIsPurchase ? (
+									<>
+										<a
+											href={cta.primary.href}
+											class="pp-btn pp-btn-lime"
+											target="_blank"
+											rel="sponsored nofollow noopener"
+											data-cpa-id={banner.id}
+										>{cta.primary.label} →</a>
+										{cta.secondary && (
+											<a href={cta.secondary.href} class="pp-btn pp-btn-outline">Нужна консультация — оставить заявку ↓</a>
+										)}
+									</>
+								) : (
+									<>
+										<a href="#lead" class="pp-btn pp-btn-lime">Оставить заявку ↓</a>
+										{secondaryPurchase && (
+											<a href={secondaryPurchase.href} class="pp-btn pp-btn-outline" target="_blank" rel="sponsored nofollow noopener" data-cpa-id={banner.id}>{secondaryPurchase.label} →</a>
+										)}
+									</>
+								)}
+							</div>
+						</>
+					) : primaryIsPurchase ? (
 						<>
 							<h2>{cta.primary.label}</h2>
 							<p>Оплата и договор — на стороне Контура. Нужен подбор — оставьте заявку, специалист перезвонит.</p>
@@ -384,6 +467,27 @@ const faqJsonLd = {
 			.pp-cta-alt { display: inline-block; margin-top: .85rem; color: rgba(255,255,255,.85); font-size: .92rem; }
 			.pp-cta-alt:hover { color: var(--lime, #AFCC00); }
 
+			/* Двойной CTA для трёх розничных продуктов: консультация + прямая
+			   внешняя ссылка рядом, видны на всех ширинах, работают без JS. */
+			.pp-hero-cta { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.4rem; align-items: center; }
+			.pp-btn-outline {
+				background: transparent;
+				color: #fff;
+				border: 1.5px solid rgba(255,255,255,.5);
+			}
+			.pp-btn-outline:hover { background: transparent; border-color: var(--lime, #AFCC00); color: var(--lime, #AFCC00); box-shadow: none; }
+			.pp-cta-note { flex-basis: 100%; margin: .4rem 0 0; font-size: .82rem; line-height: 1.5; color: rgba(255,255,255,.6); }
+			.pp-cta-btns { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; }
+
+			/* Decision-блок трёх розничных продуктов */
+			.pp-scenario { font-size: 1.02rem; line-height: 1.6; color: var(--ink-2, #3a3a3a); margin: 0 0 1.1rem; max-width: 44em; }
+			.pp-decide { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.1rem; }
+			.pp-decide-col { background: #fff; border: 1px solid var(--line, #E5E1D8); border-radius: 12px; padding: 1.2rem 1.25rem; }
+			.pp-decide-col h3 { margin: 0 0 .6rem; font-size: 1rem; color: #111; }
+			.pp-decide-col ul { margin: 0; padding-left: 1.15rem; font-size: .92rem; line-height: 1.55; color: var(--ink-2, #3a3a3a); }
+			.pp-decide-col li { margin-bottom: .35rem; }
+			.pp-next { font-size: .98rem; line-height: 1.6; color: var(--ink-2, #3a3a3a); margin: 0; max-width: 44em; }
+
 			/* ─── СОЦ-ДОКАЗАТЕЛЬСТВО ───────────────────────────────── */
 			.pp-stats { background: var(--sand, #EDE8DF); border-bottom: 1px solid var(--line, #E5E1D8); }
 			.pp-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding-top: 1.6rem; padding-bottom: 1.6rem; }
@@ -454,6 +558,7 @@ const faqJsonLd = {
 				.pp-benefits { grid-template-columns: 1fr; }
 				.pp-steps { grid-template-columns: 1fr; }
 				.pp-siblings { grid-template-columns: 1fr; }
+				.pp-decide { grid-template-columns: 1fr; }
 			}
 		</style>
 	</body>
