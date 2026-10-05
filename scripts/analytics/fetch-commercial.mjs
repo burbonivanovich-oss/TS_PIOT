@@ -6,6 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { isMain } from '../../autopilot/scripts/lib/content.mjs';
 import { collectCommercialMetrika, collectionWindow, COUNTER_ID } from './lib/commercial-metrika.mjs';
 
+import { commercialLogSummary } from './lib/commercial-log.mjs';
+
 if (isMain(import.meta.url)) {
   const now=new Date(), days=Number(process.env.COMMERCIAL_DAYS || '7');
   const output=process.env.COMMERCIAL_OUTPUT;
@@ -24,6 +26,7 @@ if (isMain(import.meta.url)) {
     const temp=`${output}.${randomUUID()}.tmp`;
     try {writeFileSync(temp,JSON.stringify(result,null,2)+'\n',{mode:0o600,flag:'wx'});renameSync(temp,output);} finally {rmSync(temp,{force:true});}
     console.log(`Commercial collection: ${result.status}; counter ${COUNTER_ID}; no forms or partner mutations`);
+    console.log('Commercial aggregate: '+JSON.stringify(commercialLogSummary(result)));
     if(result.status!=='ok') process.exitCode=1;
   } catch(error) {console.error(error.message);process.exitCode=1;}
 }
