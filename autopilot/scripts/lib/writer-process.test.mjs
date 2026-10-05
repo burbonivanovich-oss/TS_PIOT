@@ -74,3 +74,14 @@ test('terminal CLI token footer is observed on real successful and failed proces
     assert.equal(reportedCliTokens('tokens used\n0\n'),0);
   } finally { rmSync(root,{recursive:true,force:true}); }
 });
+
+test('terminal CLI capacity refusal yields safe category without copying its diagnostics', async () => {
+  const root = mkdtempSync(path.join(tmpdir(), 'writer-capacity-'));
+  try {
+    await assert.rejects(supervisedProcess(process.execPath, ['-e', "process.stderr.write('ERROR: Selected model is at capacity. private diagnostic'); process.exit(1)"], { actorFile: path.join(root, '.actor') }), error => {
+      assert.equal(error.failureCode, 'model_capacity');
+      assert.ok(!error.message.includes('private diagnostic'));
+      return true;
+    });
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
