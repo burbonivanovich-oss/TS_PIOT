@@ -2,6 +2,16 @@ import { spawn } from 'node:child_process';
 import { existsSync, lstatSync, readFileSync, writeFileSync, openSync, fsyncSync, closeSync, unlinkSync, statSync, readSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
+// Persist categories only: CLI diagnostics may contain credentials or private prompts.
+export function writerFailureCode(error) {
+  if (['model_capacity', 'model_rate_limit', 'model_transport', 'writer_failure'].includes(error?.failureCode)) return error.failureCode;
+  const message = String(error?.message || '');
+  if (/selected model is at capacity/i.test(message)) return 'model_capacity';
+  if (/rate limit|quota exceeded/i.test(message)) return 'model_rate_limit';
+  if (/stream disconnected|network|ECONNRESET|ETIMEDOUT/i.test(message)) return 'model_transport';
+  return 'writer_failure';
+}
+
 export function groupAlive(pid) {
   if (!Number.isInteger(pid) || pid <= 0) throw new Error('Неверный PID исполнителя');
   try { process.kill(-pid, 0); return true; } catch (error) { if (error.code === 'ESRCH') return false; if (error.code === 'EPERM') return true; throw error; }
@@ -73,7 +83,7 @@ export async function supervisedProcess(command, args, { cwd, input = '', timeou
     writeFileSync(`${actorFile}.trace.log`, JSON.stringify({ code: result.code, signal: result.signal, failure: failure?.message || null, output, stderr }), { mode: 0o600 });
     const reportedTokens = reportedCliTokens(stderr);
     if (failure) { failure.reportedTokens = reportedTokens; throw failure; }
-    if (result.code !== 0 || result.signal) { const error = new Error(`Исполнитель завершился с ошибкой: ${result.signal || result.code}`); error.reportedTokens = reportedTokens; throw error; }
+    if (result.code !== 0 || result.signal) { const error = new Error(`Исполнитель завершился с ошибкой: ${result.signal || result.code}`); error.reportedTokens = reportedTokens; error.failureCode = writerFailureCode({ message: stderr }); throw error; }
     return { output, stderr, reportedTokens };
   } finally { clearTimeout(timer); clearInterval(sizeTimer); kill(); }
 }

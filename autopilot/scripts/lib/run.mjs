@@ -110,7 +110,8 @@ export function recordModelInvocation(runId, observation, { dir = dataDir() } = 
     durationMs: Number.isFinite(observation.durationMs) && observation.durationMs >= 0 ? observation.durationMs : null,
     reportedTokens: Number.isSafeInteger(observation.reportedTokens) && observation.reportedTokens >= 0 ? observation.reportedTokens : null,
     tokenSource: observation.tokenSource === 'codex-cli-footer' ? 'codex-cli-footer' : null,
-    status: observation.status };
+    status: observation.status,
+    failureCode: observation.status === 'failed' && ['model_capacity', 'model_rate_limit', 'model_transport', 'writer_failure'].includes(observation.failureCode) ? observation.failureCode : null };
   manifest.meta ||= {};
   manifest.meta.modelInvocations ||= [];
   const index = manifest.meta.modelInvocations.findIndex(item => item.id === entry.id);

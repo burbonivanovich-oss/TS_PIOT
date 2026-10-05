@@ -12,7 +12,9 @@ import { acquireLock, releaseLock, newRunId } from './lib/lock.mjs';
 import { checkpoint, writingStatus } from './writing-checkpoint.mjs';
 import { snapshotSettle, recoverSettle } from './lib/settle-snapshot.mjs';
 import { readRun, recordModelInvocation } from './lib/run.mjs';
-import { supervisedProcess } from './lib/writer-process.mjs';
+import { supervisedProcess, writerFailureCode } from './lib/writer-process.mjs';
+
+export { writerFailureCode };
 
 const writerScope = cfg => ({ blog: cfg.resolved.blog, dataDir: cfg.resolved.dataDir, contentRoot: cfg.resolved.contentRoot, mode: 'writer' });
 
@@ -108,6 +110,7 @@ export async function writeOrders({ cfg = loadConfig(), deliver = codexDelivery,
         results.push({ slug: before.slug, status: 'delivered', receipt });
       } catch (error) {
         transaction.restore();
+        observation.failureCode = writerFailureCode(error);
         results.push({ slug: before.slug, status: 'failed', reason: error.message });
         deliveryFailed = true;
       }

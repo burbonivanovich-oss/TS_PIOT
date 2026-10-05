@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { validateDelivery, writerPrompt, codexDelivery, validateWriterChanges } from './writer.mjs';
+import { validateDelivery, writerPrompt, codexDelivery, validateWriterChanges, writerFailureCode } from './writer.mjs';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
@@ -76,8 +76,18 @@ test('real writer/receipt path skips delivered order on repeat without model cal
     assert.deepEqual(manifest.meta.modelInvocations.map(item=>item.status), ['delivered','failed','failed','failed']);
     assert.equal(manifest.meta.modelInvocations[0].reportedTokens, 71644);
     assert.equal(manifest.meta.modelInvocations[1].reportedTokens, null);
+    assert.equal(manifest.meta.modelInvocations[1].failureCode, 'writer_failure');
+    assert.equal(manifest.meta.modelInvocations[0].failureCode, null);
+    assert.ok(!JSON.stringify(manifest).includes('runtime failed'));
     assert.ok(manifest.meta.modelInvocations.every(item=>item.durationMs >= 0 && item.finishedAt));
     assert.equal(new Set(manifest.meta.modelInvocations.map(item=>item.id)).size,4);
     assert.equal(manifest.stages.written.delivered, 1); assert.ok(manifest.stages.gated);
   } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test('failure categories preserve actionable diagnosis without raw model diagnostics', () => {
+  assert.equal(writerFailureCode(new Error('ERROR: Selected model is at capacity. Please try a different model.')), 'model_capacity');
+  assert.equal(writerFailureCode(new Error('stream disconnected: sensitive payload')), 'model_transport');
+  assert.equal(writerFailureCode(new Error('Rate limit reached')), 'model_rate_limit');
+  assert.equal(writerFailureCode(new Error('private arbitrary message')), 'writer_failure');
 });
