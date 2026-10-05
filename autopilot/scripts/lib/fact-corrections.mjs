@@ -17,3 +17,12 @@ export function activeFactCorrections({ slug, body, evidence, now = new Date(), 
       typeof finding.excerpt === 'string' && finding.excerpt.trim() && normalizeClaim(document.text).includes(normalizeClaim(finding.excerpt));
   }).map(({ claimHash, source, rationale }) => ({ claimHash, source, rationale }));
 }
+
+/** Late findings can promote a previously accepted rewrite without another model call. */
+export function lateCorrectionPriority({ item, publishedBody, candidateBody, evidence, now = new Date(), maxAgeDays = 180 }) {
+  if (item.kind !== 'rewrite' || !item.stagedFile) return item;
+  const options = { slug: item.slug, evidence, now, maxAgeDays };
+  if (!activeFactCorrections({ ...options, body: publishedBody }).length ||
+      activeFactCorrections({ ...options, body: candidateBody }).length) return item;
+  return { ...item, factualCorrection: true };
+}
