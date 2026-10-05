@@ -1,25 +1,25 @@
 {
-  "generatedAt": "2026-10-05T05:16:03.962Z",
+  "generatedAt": "2026-10-05T05:42:30.169Z",
   "date": "2026-10-05",
-  "runId": "2026-10-05-e4426d54",
+  "runId": "2026-10-05-067ecfbc",
   "capacity": {
     "month": "2026-10",
-    "done": 14,
+    "done": 15,
     "monthlyTarget": 55,
-    "totalDone": 19,
+    "totalDone": 20,
     "totalTarget": 69,
     "expectedByToday": 9,
     "debt": 0,
     "todayTarget": 3,
-    "inFlight": 1,
-    "freeSlots": 3,
+    "inFlight": 0,
+    "freeSlots": 4,
     "remaining": 49,
     "canTake": 0,
     "byKind": {
       "new": {
         "target": 55,
-        "done": 14,
-        "active": 1,
+        "done": 15,
+        "active": 0,
         "carriedAccepted": 0,
         "expectedByToday": 9,
         "debt": 0,
@@ -42,35 +42,14 @@
     "urgentRewriteSlots": 0,
     "buffer": {
       "limit": 14,
-      "waiting": 13,
+      "waiting": 14,
       "reserved": 14,
       "free": 0,
       "paused": true
-    }
+    },
+    "correctionsOnly": true
   },
   "healed": 0,
-  "orders": [
-    {
-      "kind": "new",
-      "slug": "2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya",
-      "title": "ГИС ЭПД: частые ошибки и чем они заканчиваются",
-      "keywords": [
-        "ошибки гис эпд",
-        "гис эпд проблемы"
-      ],
-      "entity": "ГИС ЭПД",
-      "intent": "mistakes",
-      "format": "explainer",
-      "segment": "none",
-      "dedupe": {
-        "verdict": "ok",
-        "advice": "",
-        "related": []
-      },
-      "targetFile": "src/content/blog/2026-08-10-gis-epd-chastye-oshibki-i-chem-oni-zakanchivayutsya.md",
-      "runId": "2026-10-05-57c22dbe",
-      "retry": true
-    }
-  ],
+  "orders": [],
   "skipped": []
 }

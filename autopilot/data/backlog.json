@@ -1409,6 +1409,35 @@
       "priorityScore": 38.6
     },
     {
+      "slug": "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-selleru-na-marketpleyse",
+      "title": "ГИС ЭПД: что это и зачем нужно селлеру на маркетплейсе",
+      "keywords": [
+        "что такое гис эпд",
+        "гис эпд",
+        "гис эпд  селлеру на маркетплейсе"
+      ],
+      "entity": "ГИС ЭПД",
+      "intent": "what",
+      "format": "explainer",
+      "segment": "marketplace",
+      "score": 38.6,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: что это и зачем нужно рознице». Обязательна ссылка на /blog/2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 38.6
+    },
+    {
       "slug": "2026-08-10-markirovka-obuvi-sroki-2026-goda-i-chto-uspet-do-dedlayna",
       "title": "Маркировка обуви: сроки 2026 года и что успеть до дедлайна",
       "keywords": [
@@ -2680,37 +2709,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 40.1,
-      "deferredAt": "2026-10-04",
-      "deferredReason": "buffer-rebalanced"
-    },
-    {
-      "slug": "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-selleru-na-marketpleyse",
-      "title": "ГИС ЭПД: что это и зачем нужно селлеру на маркетплейсе",
-      "keywords": [
-        "что такое гис эпд",
-        "гис эпд",
-        "гис эпд  селлеру на маркетплейсе"
-      ],
-      "entity": "ГИС ЭПД",
-      "intent": "what",
-      "format": "explainer",
-      "segment": "marketplace",
-      "score": 38.6,
-      "status": "deferred",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: что это и зачем нужно рознице». Обязательна ссылка на /blog/2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 38.6,
       "deferredAt": "2026-10-04",
       "deferredReason": "buffer-rebalanced"
     },
