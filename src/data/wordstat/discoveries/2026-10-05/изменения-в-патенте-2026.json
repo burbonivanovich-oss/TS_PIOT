@@ -1,0 +1,67 @@
+{
+  "seed": "изменения в патенте 2026",
+  "slug": "изменения-в-патенте-2026",
+  "category": "intent",
+  "cluster": "nalogi",
+  "fetchedAt": "2026-10-05T11:02:39.351Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 11,
+  "phrases": [
+    {
+      "phrase": "изменение в патенте 2026",
+      "count": 596
+    },
+    {
+      "phrase": "патент в 2026 году изменения",
+      "count": 411
+    },
+    {
+      "phrase": "патент для ип изменения в 2026",
+      "count": 273
+    },
+    {
+      "phrase": "ип патент в 2026 году изменения",
+      "count": 272
+    },
+    {
+      "phrase": "патент в 2026 год изменения лимит",
+      "count": 50
+    },
+    {
+      "phrase": "изменения патента в 2026 законодательство",
+      "count": 34
+    },
+    {
+      "phrase": "какие изменения по патенту в 2026 году",
+      "count": 27
+    },
+    {
+      "phrase": "налоговые изменения в 2026 патент",
+      "count": 23
+    },
+    {
+      "phrase": "налоговые изменения в 2026 году патент",
+      "count": 13
+    },
+    {
+      "phrase": "ндс в 2026 году изменения патент",
+      "count": 10
+    },
+    {
+      "phrase": "изменение стоимости патента в 2026",
+      "count": 6
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "seed": "новый закон ИП",
+  "slug": "новый-закон-ип",
+  "category": "intent",
+  "cluster": "zakonodatelstvo",
+  "fetchedAt": "2026-10-05T11:02:34.060Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 17,
+  "phrases": [
+    {
+      "phrase": "новые законы для ип",
+      "count": 491
+    },
+    {
+      "phrase": "самозанятый и ип новый закон",
+      "count": 200
+    },
+    {
+      "phrase": "новый закон для ип 2026",
+      "count": 149
+    },
+    {
+      "phrase": "новые законы для ип с 1 октября",
+      "count": 81
+    },
+    {
+      "phrase": "новый закон для самозанятых и ип",
+      "count": 62
+    },
+    {
+      "phrase": "какие новые законы для ип",
+      "count": 40
+    },
+    {
+      "phrase": "новые законы для ип с сентября",
+      "count": 36
+    },
+    {
+      "phrase": "новые законы для ип в 2026 году",
+      "count": 34
+    },
+    {
+      "phrase": "новый закон патент ип",
+      "count": 27
+    },
+    {
+      "phrase": "для ип налоги новые законы",
+      "count": 19
+    },
+    {
+      "phrase": "новый закон для ип усн",
+      "count": 18
+    },
+    {
+      "phrase": "новый закон для ип 2025",
+      "count": 14
+    },
+    {
+      "phrase": "новый закон ип ндс",
+      "count": 12
+    },
+    {
+      "phrase": "новый закон касаемый приостановке ип участнику сво",
+      "count": 8
+    },
+    {
+      "phrase": "счëт для самозанятых и ип новый закон",
+      "count": 6
+    },
+    {
+      "phrase": "новый закон по чеченским ип",
+      "count": 5
+    },
+    {
+      "phrase": "изменение новое закон ип",
+      "count": 3
+    }
+  ]
+}

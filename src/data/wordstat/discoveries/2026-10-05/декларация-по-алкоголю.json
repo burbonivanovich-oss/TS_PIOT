@@ -1,0 +1,79 @@
+{
+  "seed": "декларация по алкоголю",
+  "slug": "декларация-по-алкоголю",
+  "category": "entity",
+  "cluster": "egais",
+  "fetchedAt": "2026-10-05T11:01:57.185Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 14,
+  "phrases": [
+    {
+      "phrase": "декларация по алкоголю",
+      "count": 322
+    },
+    {
+      "phrase": "декларация по алкоголю сдать",
+      "count": 86
+    },
+    {
+      "phrase": "декларация по алкоголю в 2026",
+      "count": 65
+    },
+    {
+      "phrase": "декларация по крепкому алкоголю",
+      "count": 40
+    },
+    {
+      "phrase": "декларация по алкоголю общепит",
+      "count": 32
+    },
+    {
+      "phrase": "декларация по алкоголю нужно ли сдавать",
+      "count": 28
+    },
+    {
+      "phrase": "егаис декларация по алкоголю",
+      "count": 25
+    },
+    {
+      "phrase": "декларации по алкоголю в 2026 году",
+      "count": 19
+    },
+    {
+      "phrase": "сдача декларация по алкоголю",
+      "count": 17
+    },
+    {
+      "phrase": "декларация по алкоголю общепит 2026",
+      "count": 12
+    },
+    {
+      "phrase": "подать декларацию по алкоголю",
+      "count": 11
+    },
+    {
+      "phrase": "декларация по алкоголю сроки",
+      "count": 9
+    },
+    {
+      "phrase": "декларация по алкоголю срок сдачи",
+      "count": 8
+    },
+    {
+      "phrase": "сдача декларации по алкоголю 2026",
+      "count": 6
+    }
+  ]
+}

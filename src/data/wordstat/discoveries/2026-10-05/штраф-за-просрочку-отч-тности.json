@@ -1,0 +1,35 @@
+{
+  "seed": "штраф за просрочку отчётности",
+  "slug": "штраф-за-просрочку-отч-тности",
+  "category": "intent",
+  "cluster": "otchetnost-edo",
+  "fetchedAt": "2026-10-05T11:02:51.107Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 3,
+  "phrases": [
+    {
+      "phrase": "штраф за просрочку отчетности",
+      "count": 70
+    },
+    {
+      "phrase": "штрафы за просрочку сдачи отчетности",
+      "count": 22
+    },
+    {
+      "phrase": "отмена штрафов за просрочку налоговой отчетности",
+      "count": 12
+    }
+  ]
+}

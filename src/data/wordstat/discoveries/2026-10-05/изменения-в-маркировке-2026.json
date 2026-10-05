@@ -1,0 +1,35 @@
+{
+  "seed": "изменения в маркировке 2026",
+  "slug": "изменения-в-маркировке-2026",
+  "category": "intent",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-05T11:02:38.766Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 3,
+  "phrases": [
+    {
+      "phrase": "изменения в маркировке в 2026",
+      "count": 308
+    },
+    {
+      "phrase": "изменения в маркировке в 2026 году",
+      "count": 107
+    },
+    {
+      "phrase": "изменения в маркировке с 1 сентября 2026",
+      "count": 65
+    }
+  ]
+}

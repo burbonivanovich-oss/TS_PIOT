@@ -1,0 +1,39 @@
+{
+  "seed": "как подключить ТС ПИоТ",
+  "slug": "как-подключить-тс-пиот",
+  "category": "intent",
+  "cluster": "ts-piot",
+  "fetchedAt": "2026-10-05T11:02:45.051Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "тс пиот как подключить",
+      "count": 368
+    },
+    {
+      "phrase": "как подключить тс пиот к 1с",
+      "count": 59
+    },
+    {
+      "phrase": "как подключить тс пиот через автодилер",
+      "count": 9
+    },
+    {
+      "phrase": "как подключить тс пиот к программе фармэксперт",
+      "count": 5
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "seed": "новое в кадрах 2026",
+  "slug": "новое-в-кадрах-2026",
+  "category": "intent",
+  "cluster": "kadry",
+  "fetchedAt": "2026-10-05T11:02:41.446Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "новое в кадрах в 2026",
+      "count": 285
+    },
+    {
+      "phrase": "новое в отделе кадров в 2026",
+      "count": 54
+    },
+    {
+      "phrase": "новое в кадрах с сентября 2026",
+      "count": 30
+    },
+    {
+      "phrase": "что нового в кадрах в 2026 году",
+      "count": 27
+    }
+  ]
+}

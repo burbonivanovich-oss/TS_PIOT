@@ -1,0 +1,31 @@
+{
+  "seed": "что меняется для ИП",
+  "slug": "что-меняется-для-ип",
+  "category": "intent",
+  "cluster": "zakonodatelstvo",
+  "fetchedAt": "2026-10-05T11:02:39.969Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 2,
+  "phrases": [
+    {
+      "phrase": "что меняется для ип",
+      "count": 85
+    },
+    {
+      "phrase": "что меняется для ип с 1 октября",
+      "count": 44
+    }
+  ]
+}
