@@ -181,6 +181,13 @@
       "sha256": "e2da00a78a4e8d1471fe43e7cf8bc2b4f335e38d0a75822cd3f61445d069f2fc",
       "runId": "2026-10-05-9253b535",
       "at": "2026-10-05T12:57:56.484Z"
+    },
+    "2026-06-27-smena-ofd-instrukciya": {
+      "kind": "rewrite",
+      "attempt": "2026-10-05T13:02:33.227Z/0/0",
+      "sha256": "694328bbe9a93daf0b84646ae2e391b3fc7020ce2c4232ceac85caa19eb22f34",
+      "runId": "2026-10-05-9d5bf89f",
+      "at": "2026-10-05T13:13:11.185Z"
     }
   }
 }
