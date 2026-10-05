@@ -1,0 +1,103 @@
+{
+  "runId": "2026-10-05-0faaee7c",
+  "date": "2026-10-05",
+  "kind": "day",
+  "createdAt": "2026-10-05T12:30:22.304Z",
+  "updatedAt": "2026-10-05T12:39:29.713Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-05T12:30:22.431Z",
+      "orderCount": 1,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 1,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "written": {
+      "at": "2026-10-05T12:39:03.342Z",
+      "delivered": 1,
+      "meaning": "bytes delivered; gates not passed yet"
+    },
+    "gated": {
+      "at": "2026-10-05T12:39:29.675Z",
+      "publicationCapacity": {
+        "day": "2026-10-05",
+        "slotsRemaining": 78,
+        "needed": 63,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 3,
+            "remaining": 52
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 3,
+            "remaining": 11
+          }
+        }
+      },
+      "published": 0,
+      "acceptedWaiting": 19,
+      "results": [
+        {
+          "slug": "2026-05-03-srok-fn-15-36",
+          "status": "accepted_waiting_release",
+          "score": 100
+        }
+      ],
+      "links": {
+        "linksInserted": 0,
+        "orphansBefore": 33,
+        "orphansAfter": 33
+      }
+    },
+    "built": {
+      "at": "2026-10-05T12:39:29.673Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "66385fad715969a09fbbb6cde7015ef62562af3482203344695d15a14051bc51",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-05T12:30:22.431Z"
+    },
+    {
+      "stage": "written",
+      "at": "2026-10-05T12:39:03.342Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-05T12:39:29.675Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-05T12:39:29.713Z"
+    }
+  ],
+  "meta": {
+    "modelInvocations": [
+      {
+        "id": "38220c57-0d78-4956-ade8-742b14834657",
+        "slug": "2026-05-03-srok-fn-15-36",
+        "attempt": "2026-10-05T12:30:22.417Z/0/0",
+        "startedAt": "2026-10-05T12:30:22.523Z",
+        "finishedAt": "2026-10-05T12:39:06.319Z",
+        "durationMs": 424685,
+        "reportedTokens": 96575,
+        "tokenSource": "codex-cli-footer",
+        "status": "delivered",
+        "failureCode": null
+      }
+    ]
+  }
+}

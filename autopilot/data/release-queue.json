@@ -42,6 +42,14 @@
       "stagedFile": "release-drafts/2026-05-01-chto-takoe-fn.mdx"
     },
     {
+      "slug": "2026-05-03-srok-fn-15-36",
+      "kind": "rewrite",
+      "score": 100,
+      "acceptedAt": "2026-10-05T12:39:06.719Z",
+      "factualCorrection": true,
+      "stagedFile": "release-drafts/2026-05-03-srok-fn-15-36.mdx"
+    },
+    {
       "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
       "kind": "new",
       "score": 100,

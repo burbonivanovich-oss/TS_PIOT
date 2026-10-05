@@ -2,94 +2,280 @@
   "slug": "2026-05-03-srok-fn-15-36",
   "claims": [
     {
+      "id": "c11",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 1066,
+      "line": 11,
+      "context": "хранению, шифрованию и формированию признака закреплены в [статье 4.1 Закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e"
+    },
+    {
+      "id": "c13",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 1073,
+      "line": 11,
+      "context": "ию, шифрованию и формированию признака закреплены в [статье 4.1 Закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Срок действия ключа и вместимость памяти — разные ограничения. Календарный с",
+      "expected_source": "consultant.ru"
+    },
+    {
       "id": "c1",
-      "type": "DATE_DMY",
-      "raw": "22.05.2003",
+      "type": "NPA_PUNKT",
+      "raw": "пункт 6",
       "groups": [
-        "22",
-        "05",
-        "2003"
+        "6"
       ],
-      "offset": 1047,
-      "line": 18,
-      "context": "1-chto-takoe-fn/). ## Два вида ФН по сроку действия По Федеральному закону от 22.05.2003 № 54-ФЗ выпускаются фискальные накопители двух типов: - **ФН-1.1 на 36 месяцев"
+      "offset": 2197,
+      "line": 19,
+      "context": "я предусмотренных исключений разрешает срок менее 36, но не менее 13 месяцев — [пункт 6 статьи 4.1 Закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_4235"
     },
     {
-      "id": "c7",
+      "id": "c12",
       "type": "NPA_FZ",
       "raw": "54-ФЗ",
       "groups": [
         "54"
       ],
-      "offset": 1060,
-      "line": 18,
-      "context": "fn/). ## Два вида ФН по сроку действия По Федеральному закону от 22.05.2003 № 54-ФЗ выпускаются фискальные накопители двух типов: - **ФН-1.1 на 36 месяцев** (ФН-3"
+      "offset": 2225,
+      "line": 19,
+      "context": "разрешает срок менее 36, но не менее 13 месяцев — [пункт 6 статьи 4.1 Закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e"
     },
     {
-      "id": "c8",
-      "type": "NPA_FZ",
-      "raw": "54-ФЗ",
+      "id": "c14",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
       "groups": [
-        "54"
+        "consultant.ru"
       ],
-      "offset": 1585,
-      "line": 27,
-      "context": "ие ФН со сроком 36 месяцев запрещено. Эти случаи перечислены в ст. 4.1 Закона № 54-ФЗ: 1. **Организации и ИП на ОСНО (общей системе налогообложения).** Плательщики"
+      "offset": 2232,
+      "line": 19,
+      "context": "ает срок менее 36, но не менее 13 месяцев — [пункт 6 статьи 4.1 Закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Указание «15 месяцев» при покупке нужно проверять по паспорту выбранного исп",
+      "expected_source": "consultant.ru"
     },
     {
       "id": "c2",
-      "type": "MONEY",
-      "raw": "8 000 руб",
+      "type": "NPA_PUNKT",
+      "raw": "пункт 6",
       "groups": [
-        "8 000"
+        "6"
       ],
-      "offset": 3372,
-      "line": 54,
-      "context": "кцизные, сезонная деятельность | УСН/ЕСХН/ПСН без подакцизных | | Цена | ~6 000–8 000 руб. | ~12 000–15 000 руб. | | Ресурс операций | ~250 000 операций | ~500 000 опера"
+      "offset": 2781,
+      "line": 23,
+      "context": "о срока закон прямо задаёт отсчёт со дня регистрации ККТ в налоговых органах — [пункт 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e229"
+    },
+    {
+      "id": "c15",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 2801,
+      "line": 23,
+      "context": "задаёт отсчёт со дня регистрации ККТ в налоговых органах — [пункт 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Это не основание хранить резервный накопитель бессрочно: до покупки отдельно",
+      "expected_source": "consultant.ru"
     },
     {
       "id": "c3",
-      "type": "MONEY",
-      "raw": "15 000 руб",
+      "type": "NPA_PUNKT",
+      "raw": "пункта 6",
       "groups": [
-        "15 000"
+        "6"
       ],
-      "offset": 3393,
-      "line": 54,
-      "context": "тельность | УСН/ЕСХН/ПСН без подакцизных | | Цена | ~6 000–8 000 руб. | ~12 000–15 000 руб. | | Ресурс операций | ~250 000 операций | ~500 000 операций | | Выгода | Дешев"
+      "offset": 3427,
+      "line": 27,
+      "context": "СН, ЕСХН и ПСН с учётом указанных в законе условий и исключений — [первый абзац пункта 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e229"
     },
     {
-      "id": "c6",
-      "type": "NPA_KOAP",
-      "raw": "ст. 14.5 КоАП",
+      "id": "c16",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
       "groups": [
-        "14.5"
+        "consultant.ru"
       ],
-      "offset": 3863,
-      "line": 63,
-      "context": "вующего требованиям, квалифицируется как нарушение порядка применения ККТ (ч. 4 ст. 14.5 КоАП РФ): - Для должностных лиц: от 1 500 до 3 000 рублей. - Для юридических лиц: от"
+      "offset": 3448,
+      "line": 27,
+      "context": "ом указанных в законе условий и исключений — [первый абзац пункта 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Оказание услуг — самостоятельное основание в этой норме. Поэтому вывод «у ме",
+      "expected_source": "consultant.ru"
     },
     {
       "id": "c4",
-      "type": "MONEY",
-      "raw": "3 000 рублей",
+      "type": "NPA_PUNKT",
+      "raw": "пункте 6",
       "groups": [
-        "3 000"
+        "6"
       ],
-      "offset": 3917,
-      "line": 64,
-      "context": "ядка применения ККТ (ч. 4 ст. 14.5 КоАП РФ): - Для должностных лиц: от 1 500 до 3 000 рублей. - Для юридических лиц: от 5 000 до 10 000 рублей. Кроме того, при регистрации"
+      "offset": 4176,
+      "line": 31,
+      "context": "ется на организации и ИП, торгующих подакцизными товарами, что прямо указано в [пункте 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e229"
+    },
+    {
+      "id": "c17",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 4197,
+      "line": 31,
+      "context": "ИП, торгующих подакцизными товарами, что прямо указано в [пункте 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). НПД в этом перечне не назван. Если ваш сценарий отличается от перечисленных,",
+      "expected_source": "consultant.ru"
     },
     {
       "id": "c5",
-      "type": "MONEY",
-      "raw": "10 000 рублей",
+      "type": "NPA_PUNKT",
+      "raw": "пункта 6",
       "groups": [
-        "10 000"
+        "6"
       ],
-      "offset": 3966,
-      "line": 65,
-      "context": "я должностных лиц: от 1 500 до 3 000 рублей. - Для юридических лиц: от 5 000 до 10 000 рублей. Кроме того, при регистрации кассы в ФНС система может отклонить заявку, если"
+      "offset": 4891,
+      "line": 37,
+      "context": "предусматривает иные основания, устанавливаемые Правительством, — [второй абзац пункта 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e229"
+    },
+    {
+      "id": "c18",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 4912,
+      "line": 37,
+      "context": "основания, устанавливаемые Правительством, — [второй абзац пункта 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Это право использовать короткий срок, а не запрет длинного накопителя. Сезон",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c19",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn28/news/activities_fts/13176774/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 5853,
+      "line": 43,
+      "context": "ключение с техническим ресурсом. ФНС в [архивном разъяснении об автономной ККТ](https://www.nalog.gov.ru/rn28/news/activities_fts/13176774/) обращала внимание на сокращение фактического срока использования длинного ФН.",
+      "expected_source": "nalog.gov.ru"
+    },
+    {
+      "id": "c6",
+      "type": "NPA_PUNKT",
+      "raw": "пункт 6",
+      "groups": [
+        "6"
+      ],
+      "offset": 7002,
+      "line": 56,
+      "context": "ите обязательность короткого ФН только из названия режима | Таблица суммирует [пункт 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e229"
+    },
+    {
+      "id": "c20",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 7022,
+      "line": 56,
+      "context": "ороткого ФН только из названия режима | Таблица суммирует [пункт 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/), а не заменяет проверку конкретной кассы. Для каждой точки выпишите условия от",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c7",
+      "type": "NPA_PUNKT",
+      "raw": "пункте 3",
+      "groups": [
+        "3"
+      ],
+      "offset": 7757,
+      "line": 66,
+      "context": "ность изготовителя выдавать паспорт со сведениями о сроках ключей закреплена в [пункте 3 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e229"
+    },
+    {
+      "id": "c21",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 7778,
+      "line": 66,
+      "context": "давать паспорт со сведениями о сроках ключей закреплена в [пункте 3 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Сверяйте ответ поставщика с документом, особенно если заявленный срок сопрово",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c8",
+      "type": "NPA_PUNKT",
+      "raw": "пункта 1",
+      "groups": [
+        "1"
+      ],
+      "offset": 9397,
+      "line": 78,
+      "context": "должен исключать формирование фискального признака документов — это требование [пункта 1 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e229"
+    },
+    {
+      "id": "c22",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 9418,
+      "line": 78,
+      "context": "ирование фискального признака документов — это требование [пункта 1 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Распечатанный кассой документ сам по себе не доказывает корректную фискализац",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c9",
+      "type": "NPA_PUNKT",
+      "raw": "пункта 6",
+      "groups": [
+        "6"
+      ],
+      "offset": 10587,
+      "line": 90,
+      "context": "3 месяцев для перечисленных пользователей связано с основаниями второго абзаца [пункта 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e229"
+    },
+    {
+      "id": "c23",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 10608,
+      "line": 90,
+      "context": "ленных пользователей связано с основаниями второго абзаца [пункта 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Одного желания сэкономить для исключения недостаточно. Перед покупкой зафикси",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c10",
+      "type": "NPA_PUNKT",
+      "raw": "пункт 6",
+      "groups": [
+        "6"
+      ],
+      "offset": 11060,
+      "line": 94,
+      "context": "ередачи через ОФД позволяет использовать ключ менее 36 и не менее 13 месяцев — [пункт 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e229"
+    },
+    {
+      "id": "c24",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 11080,
+      "line": 94,
+      "context": "зволяет использовать ключ менее 36 и не менее 13 месяцев — [пункт 6 статьи 4.1](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Фактический ресурс конкретного исполнения смотрите отдельно в паспорте. Автон",
+      "expected_source": "consultant.ru"
     }
   ]
 }
