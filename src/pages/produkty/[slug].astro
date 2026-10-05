@@ -245,6 +245,20 @@ const faqJsonLd = {
 					<section class="pp-section" aria-label="Как принять решение">
 						<h2 class="pp-h2">Как принять решение</h2>
 						<p class="pp-scenario">{override.scenario}</p>
+						{override.situations && (
+							<div class="pp-situations">
+								{override.situations.map(s => (
+									<div class="pp-situation" id={`sit-${s.id}`}>
+										<h3>{s.title}</h3>
+										<p class="pp-situation-lead">{s.lead}</p>
+										<ul>
+											{s.points.map(item => <li>{item}</li>)}
+										</ul>
+										<p class="pp-situation-cta"><a href="#lead">Обсудить свою ситуацию ↓</a></p>
+									</div>
+								))}
+							</div>
+						)}
 						<div class="pp-decide">
 							<div class="pp-decide-col">
 								<h3>Что подготовить</h3>
@@ -488,11 +502,23 @@ const faqJsonLd = {
 			.pp-decide-col li { margin-bottom: .35rem; }
 			.pp-next { font-size: .98rem; line-height: 1.6; color: var(--ink-2, #3a3a3a); margin: 0; max-width: 44em; }
 
+			/* Две статичные ситуации выбора (Маркет/ОФД): без JS и полей ввода,
+			   только текст и якорная ссылка на существующую форму #lead. */
+			.pp-situations { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.1rem; }
+			.pp-situation { background: var(--sand-l, #F6F4EE); border: 1px solid var(--line, #E5E1D8); border-radius: 12px; padding: 1.2rem 1.25rem; min-width: 0; overflow-wrap: anywhere; scroll-margin-top: 80px; }
+			.pp-situation h3 { margin: 0 0 .45rem; font-size: 1rem; line-height: 1.4; color: #111; }
+			.pp-situation-lead { margin: 0 0 .6rem; font-size: .92rem; line-height: 1.55; color: var(--ink-2, #3a3a3a); }
+			.pp-situation ul { margin: 0 0 .6rem; padding-left: 1.15rem; font-size: .92rem; line-height: 1.55; color: var(--ink-2, #3a3a3a); }
+			.pp-situation li { margin-bottom: .35rem; }
+			.pp-situation-cta { margin: 0; font-size: .92rem; }
+			.pp-situation-cta a { color: var(--pink, #9E2B4F); font-weight: 600; }
+			.pp-situation-cta a:focus-visible, .pp-decide-col a:focus-visible { outline: 2px solid var(--pink, #9E2B4F); outline-offset: 2px; border-radius: 4px; }
+
 			/* ─── СОЦ-ДОКАЗАТЕЛЬСТВО ───────────────────────────────── */
 			.pp-stats { background: var(--sand, #EDE8DF); border-bottom: 1px solid var(--line, #E5E1D8); }
 			.pp-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding-top: 1.6rem; padding-bottom: 1.6rem; }
 			/* Защита от широкого min-content у детей: иначе grid item с min-width:auto растянет колонку. */
-			.pp-stats-grid > *, .pp-benefits > *, .pp-steps > *, .pp-siblings > * { min-width: 0; }
+			.pp-stats-grid > *, .pp-benefits > *, .pp-steps > *, .pp-siblings > *, .pp-situations > * { min-width: 0; }
 			.pp-stat { display: flex; flex-direction: column; gap: .2rem; text-align: center; }
 			.pp-stat-n { font-family: 'Bebas Neue', sans-serif; font-size: 2.3rem; line-height: 1; letter-spacing: .01em; color: var(--pink, #9E2B4F); }
 			.pp-stat-l { font-size: .88rem; color: var(--ink-2, #3a3a3a); line-height: 1.35; }
@@ -559,6 +585,7 @@ const faqJsonLd = {
 				.pp-steps { grid-template-columns: 1fr; }
 				.pp-siblings { grid-template-columns: 1fr; }
 				.pp-decide { grid-template-columns: 1fr; }
+				.pp-situations { grid-template-columns: 1fr; }
 			}
 		</style>
 	</body>
