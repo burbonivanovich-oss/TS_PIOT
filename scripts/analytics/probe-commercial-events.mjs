@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { loadArticles } from '../../autopilot/scripts/lib/content.mjs';
 import { collectCommercialEventProbe } from './lib/commercial-event-probe.mjs';
 import { COUNTER_ID,collectionWindow } from './lib/commercial-metrika.mjs';
+import { commercialProbeSummary } from './lib/commercial-probe-summary.mjs';
 
 const root=realpathSync(fileURLToPath(new URL('../../',import.meta.url)));
 const now=new Date(), days=Number(process.env.COMMERCIAL_DAYS||'1');
@@ -17,11 +18,12 @@ try {
   while (!existsSync(ancestor)) ancestor=path.dirname(ancestor);
   const physical=path.resolve(realpathSync(ancestor),path.relative(ancestor,path.resolve(output))), logical=path.resolve(output);
   if ([physical,logical].some(p=>p===root || p.startsWith(root+path.sep))) throw Error('Probe output must stay outside the checkout');
-  let result;
+  let result,referenceSlugs=[];
   try {
     const revision=execFileSync('git',['-c','core.precomposeunicode=false','rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
     const slugs=loadArticles({includeDrafts:false}).filter(a=>a.pubDate && a.pubDate<=now).map(a=>a.slug);
     if (!slugs.length) throw Error('source_articles_unavailable');
+    referenceSlugs=slugs;
     result=await collectCommercialEventProbe({token:process.env.METRIKA_OAUTH_TOKEN,slugs,sourceRevision:revision,now,days});
   } catch(error) {
     result={schemaVersion:1,status:'error',counterId:COUNTER_ID,period:collectionWindow(now,days),asOf:now.toISOString(),
@@ -29,7 +31,8 @@ try {
   }
   mkdirSync(path.dirname(output),{recursive:true}); const temp=`${output}.${randomUUID()}.tmp`;
   try {writeFileSync(temp,JSON.stringify(result,null,2)+'\n',{mode:0o600,flag:'wx'});renameSync(temp,output);} finally {rmSync(temp,{force:true});}
-  // No rows, URLs, parameters or raw API errors in public Actions logs.
+  // No raw API rows, URLs, parameter values or raw errors in Actions logs.
   console.log(JSON.stringify({status:result.status,counterId:COUNTER_ID,reports:Object.fromEntries(Object.entries(result.reports||{}).map(([k,r])=>[k,{status:r.status,retainedRows:r.rows?.length??null,reason:r.reason??null}]))}));
+  console.log('Commercial article event summary: '+JSON.stringify(commercialProbeSummary(result,referenceSlugs)));
   if (result.status!=='ok') process.exitCode=1;
 } catch {console.error('Commercial event probe failed before export; check output path and collection window');process.exitCode=1;}
