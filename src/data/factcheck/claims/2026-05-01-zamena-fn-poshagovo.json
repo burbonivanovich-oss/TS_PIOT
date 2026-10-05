@@ -2,6 +2,110 @@
   "slug": "2026-05-01-zamena-fn-poshagovo",
   "claims": [
     {
+      "id": "c3",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 824,
+      "line": 9,
+      "context": "перестаёт формировать фискальные признаки — это требование [статьи 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e"
+    },
+    {
+      "id": "c13",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 831,
+      "line": 9,
+      "context": "ёт формировать фискальные признаки — это требование [статьи 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). **Заполнение памяти.** Накопитель с исчерпанным ресурсом заменяют даже при о",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c4",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 2449,
+      "line": 19,
+      "context": "ь многократной записи сведений об ОФД прямо предусмотрена [статьёй 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e"
+    },
+    {
+      "id": "c14",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 2456,
+      "line": 19,
+      "context": "кратной записи сведений об ОФД прямо предусмотрена [статьёй 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Закрытие ФН при замене накопителя или снятии кассы с учёта регулирует [статья",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c15",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 2652,
+      "line": 19,
+      "context": "мене накопителя или снятии кассы с учёта регулирует [статья 4.2 того же закона](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). До смены оператора проверьте паспортный лимит изменения регистрационных пара",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c5",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 5144,
+      "line": 38,
+      "context": "ны. Обязанность сформировать отчёт при замене установлена [статьёй 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853c"
+    },
+    {
+      "id": "c16",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 5151,
+      "line": 38,
+      "context": "занность сформировать отчёт при замене установлена [статьёй 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). После закрытия вернуться к расчётам на этом накопителе нельзя. **Шаг 3. Пров",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c6",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 7024,
+      "line": 50,
+      "context": "течение пяти лет с даты окончания использования закреплена в [статье 5 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/5c5a909568a200c14a12127e"
+    },
+    {
+      "id": "c17",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/5c5a909568a200c14a12127e346d841fdc0da27e/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 7031,
+      "line": 50,
+      "context": "пяти лет с даты окончания использования закреплена в [статье 5 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/5c5a909568a200c14a12127e346d841fdc0da27e/). ## Как провести перерегистрацию кассы в ФНС после замены? С 1 марта 2025 го",
+      "expected_source": "consultant.ru"
+    },
+    {
       "id": "c1",
       "type": "DATE_TEXT",
       "raw": "1 марта 2025 года",
@@ -9,9 +113,9 @@
         "1",
         "2025"
       ],
-      "offset": 4278,
-      "line": 61,
-      "context": "готова к работе. ## Как провести перерегистрацию кассы в ФНС после замены? С 1 марта 2025 года действует упрощённый порядок перерегистрации контрольно-кассовой техники при за"
+      "offset": 7191,
+      "line": 54,
+      "context": "6d841fdc0da27e/). ## Как провести перерегистрацию кассы в ФНС после замены? С 1 марта 2025 года при замене ФН можно использовать перерегистрацию без отдельного заявления, но н"
     },
     {
       "id": "c2",
@@ -20,75 +124,79 @@
       "groups": [
         "2025"
       ],
-      "offset": 4286,
-      "line": 61,
-      "context": "к работе. ## Как провести перерегистрацию кассы в ФНС после замены? С 1 марта 2025 года действует упрощённый порядок перерегистрации контрольно-кассовой техники при за"
+      "offset": 7199,
+      "line": 54,
+      "context": "0da27e/). ## Как провести перерегистрацию кассы в ФНС после замены? С 1 марта 2025 года при замене ФН можно использовать перерегистрацию без отдельного заявления, но н"
     },
     {
-      "id": "c5",
-      "type": "MONEY",
-      "raw": "3 000 рублей",
+      "id": "c18",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn74/news/tax_doc_news/15807796/",
       "groups": [
-        "3 000"
+        "nalog.gov.ru"
       ],
-      "offset": 5595,
-      "line": 71,
-      "context": "трена ответственность по статье 14.5 КоАП: предупреждение или штраф от 1 500 до 3 000 рублей для ИП, от 5 000 до 10 000 рублей для организаций. ## Что делать, если ФН забл"
-    },
-    {
-      "id": "c6",
-      "type": "MONEY",
-      "raw": "10 000 рублей",
-      "groups": [
-        "10 000"
-      ],
-      "offset": 5628,
-      "line": 71,
-      "context": "4.5 КоАП: предупреждение или штраф от 1 500 до 3 000 рублей для ИП, от 5 000 до 10 000 рублей для организаций. ## Что делать, если ФН заблокировался? Блокировка ФН означае"
-    },
-    {
-      "id": "c3",
-      "type": "DATE_YEAR",
-      "raw": "2026 году",
-      "groups": [
-        "2026"
-      ],
-      "offset": 7676,
-      "line": 106,
-      "context": "стоит замена ФН с учётом услуг ЦТО?** Стоимость нового ФН-1.2 на 36 месяцев в 2026 году составляет от 9 000 до 14 000 рублей. Услуги ЦТО по замене — от 1 000 до 3 000"
+      "offset": 7345,
+      "line": 54,
+      "context": "ельного заявления, но не во всех случаях: условия и исключения разъясняет [ФНС](https://www.nalog.gov.ru/rn74/news/tax_doc_news/15807796/). **Через ОФД без заявления.** Для подходящей кассы, работающей с обязательной",
+      "expected_source": "nalog.gov.ru"
     },
     {
       "id": "c7",
-      "type": "MONEY",
-      "raw": "14 000 рублей",
-      "groups": [
-        "14 000"
-      ],
-      "offset": 7709,
-      "line": 106,
-      "context": "ТО?** Стоимость нового ФН-1.2 на 36 месяцев в 2026 году составляет от 9 000 до 14 000 рублей. Услуги ЦТО по замене — от 1 000 до 3 000 рублей в зависимости от региона. Пере"
-    },
-    {
-      "id": "c8",
-      "type": "MONEY",
-      "raw": "3 000 рублей",
-      "groups": [
-        "3 000"
-      ],
-      "offset": 7759,
-      "line": 106,
-      "context": "6 году составляет от 9 000 до 14 000 рублей. Услуги ЦТО по замене — от 1 000 до 3 000 рублей в зависимости от региона. Перерегистрация через ОФД или личный кабинет ФНС — бе"
-    },
-    {
-      "id": "c10",
-      "type": "NPA_FZ_FULL",
-      "raw": "Федерального закона № 54",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
       "groups": [
         "54"
       ],
-      "offset": 7920,
-      "line": 110,
-      "context": "ет ФНС — бесплатно. **Нужно ли хранить старый ФН после замены?** Да. Статья 5 Федерального закона № 54-ФЗ обязывает хранить фискальный накопитель в течение 5 лет с даты окончания его"
+      "offset": 7666,
+      "line": 56,
+      "context": "который идентифицировал пользователя. Правовое основание — [статья 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853c"
+    },
+    {
+      "id": "c19",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 7673,
+      "line": 56,
+      "context": "идентифицировал пользователя. Правовое основание — [статья 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Названия экранов и кнопок зависят от сервиса; проверяйте статус передачи обои",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c20",
+      "type": "LINK",
+      "raw": "https://www.nalog.gov.ru/rn74/news/tax_doc_news/15807796/",
+      "groups": [
+        "nalog.gov.ru"
+      ],
+      "offset": 8229,
+      "line": 58,
+      "context": "зменении параметров регистрации. Эти исключения перечислены в [разъяснении ФНС](https://www.nalog.gov.ru/rn74/news/tax_doc_news/15807796/). При совмещении замены с другими изменениями проверьте каждую причину отдельно",
+      "expected_source": "nalog.gov.ru"
+    },
+    {
+      "id": "c8",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 8741,
+      "line": 60,
+      "context": "льный срок при поломке приведён ниже — порядок установлен [статьёй 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853c"
+    },
+    {
+      "id": "c21",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 8748,
+      "line": 60,
+      "context": "рок при поломке приведён ниже — порядок установлен [статьёй 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). При подаче заявления карточку направляют в течение пяти рабочих дней с даты",
+      "expected_source": "consultant.ru"
     },
     {
       "id": "c9",
@@ -97,20 +205,102 @@
       "groups": [
         "54"
       ],
-      "offset": 7942,
-      "line": 110,
-      "context": "*Нужно ли хранить старый ФН после замены?** Да. Статья 5 Федерального закона № 54-ФЗ обязывает хранить фискальный накопитель в течение 5 лет с даты окончания его ис"
+      "offset": 9017,
+      "line": 62,
+      "context": "той перерегистрации считается дата формирования карточки — [статья 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853c"
     },
     {
-      "id": "c4",
-      "type": "DATE_YEAR",
-      "raw": "2025 года",
+      "id": "c22",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
       "groups": [
-        "2025"
+        "consultant.ru"
       ],
-      "offset": 8454,
-      "line": 114,
-      "context": "упить новый ФН и иметь под рукой доступ к личному кабинету ФНС или ОФД. С марта 2025 года упрощённый порядок перерегистрации позволяет провести всю процедуру через личны"
+      "offset": 9024,
+      "line": 62,
+      "context": "ерегистрации считается дата формирования карточки — [статья 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Проверяйте результат самостоятельно: вместо карточки может прийти отказ. Успе",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c23",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_34661/3824bbacc6e85f19f12895b0ee20f3bbae92f439/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 9398,
+      "line": 64,
+      "context": "перерегистрации может повлечь предупреждение или штраф по [статье 14.5 КоАП РФ](https://www.consultant.ru/document/cons_doc_LAW_34661/3824bbacc6e85f19f12895b0ee20f3bbae92f439/). Сумма и квалификация зависят от состава нарушения; не считайте сервисный акт",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c10",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 10133,
+      "line": 70,
+      "context": "скального признака, с исключением для автономного режима — [статья 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e"
+    },
+    {
+      "id": "c24",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 10140,
+      "line": 70,
+      "context": "го признака, с исключением для автономного режима — [статья 4.1 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/). Проверьте интернет, параметры подключения и действие договора с оператором.",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c11",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 11162,
+      "line": 74,
+      "context": "случае подают в течение пяти рабочих дней со дня поломки — [статья 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853c"
+    },
+    {
+      "id": "c25",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 11169,
+      "line": 74,
+      "context": "подают в течение пяти рабочих дней со дня поломки — [статья 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Изготовитель направляет заключение в течение 30 календарных дней после получ",
+      "expected_source": "consultant.ru"
+    },
+    {
+      "id": "c12",
+      "type": "NPA_FZ",
+      "raw": "54-ФЗ",
+      "groups": [
+        "54"
+      ],
+      "offset": 11503,
+      "line": 76,
+      "context": "ан в течение 60 календарных дней с даты подачи заявления — [статья 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853c"
+    },
+    {
+      "id": "c26",
+      "type": "LINK",
+      "raw": "https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/",
+      "groups": [
+        "consultant.ru"
+      ],
+      "offset": 11510,
+      "line": 76,
+      "context": "чение 60 календарных дней с даты подачи заявления — [статья 4.2 закона № 54-ФЗ](https://www.consultant.ru/document/cons_doc_LAW_42359/7286ba3a2f39eba0ced5853cd23d6af88d657a9c/). Сохраните документы о передаче устройства, заключение и подтверждение отправк",
+      "expected_source": "consultant.ru"
     }
   ]
 }

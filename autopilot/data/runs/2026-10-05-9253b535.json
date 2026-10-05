@@ -1,0 +1,103 @@
+{
+  "runId": "2026-10-05-9253b535",
+  "date": "2026-10-05",
+  "kind": "day",
+  "createdAt": "2026-10-05T12:46:30.465Z",
+  "updatedAt": "2026-10-05T12:58:19.654Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-05T12:46:30.600Z",
+      "orderCount": 1,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 1,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "written": {
+      "at": "2026-10-05T12:57:56.509Z",
+      "delivered": 1,
+      "meaning": "bytes delivered; gates not passed yet"
+    },
+    "gated": {
+      "at": "2026-10-05T12:58:19.605Z",
+      "publicationCapacity": {
+        "day": "2026-10-05",
+        "slotsRemaining": 78,
+        "needed": 63,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 3,
+            "remaining": 52
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 3,
+            "remaining": 11
+          }
+        }
+      },
+      "published": 0,
+      "acceptedWaiting": 20,
+      "results": [
+        {
+          "slug": "2026-05-01-zamena-fn-poshagovo",
+          "status": "accepted_waiting_release",
+          "score": 100
+        }
+      ],
+      "links": {
+        "linksInserted": 0,
+        "orphansBefore": 33,
+        "orphansAfter": 33
+      }
+    },
+    "built": {
+      "at": "2026-10-05T12:58:19.605Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "66385fad715969a09fbbb6cde7015ef62562af3482203344695d15a14051bc51",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-05T12:46:30.600Z"
+    },
+    {
+      "stage": "written",
+      "at": "2026-10-05T12:57:56.509Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-05T12:58:19.605Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-05T12:58:19.654Z"
+    }
+  ],
+  "meta": {
+    "modelInvocations": [
+      {
+        "id": "bb23d046-def8-49ae-b01a-d9c80d866409",
+        "slug": "2026-05-01-zamena-fn-poshagovo",
+        "attempt": "2026-10-05T12:46:30.586Z/0/0",
+        "startedAt": "2026-10-05T12:46:30.692Z",
+        "finishedAt": "2026-10-05T12:57:58.046Z",
+        "durationMs": 586942,
+        "reportedTokens": 130585,
+        "tokenSource": "codex-cli-footer",
+        "status": "delivered",
+        "failureCode": null
+      }
+    ]
+  }
+}
