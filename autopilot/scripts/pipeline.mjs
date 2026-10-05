@@ -44,7 +44,8 @@ import { allocateReleases, releaseCalendar, publicationCapacity } from './lib/re
 import { findResumableRun, createRun, setStage, readRun } from './lib/run.mjs';
 import { envelope, classifyError, EXIT } from './lib/outcome.mjs';
 import { runSiteBuild } from './lib/site.mjs';
-import { applyLinks } from './interlink.mjs';
+import { applyLinks, buildLinkGraph } from './interlink.mjs';
+import { newLinkDirections } from './lib/new-link-directions.mjs';
 import { snapshotSettle, recoverSettle } from './lib/settle-snapshot.mjs';
 import { writingStatus } from './writing-checkpoint.mjs';
 
@@ -146,10 +147,15 @@ function planInner({ correctionsOnly = false } = {}) {
   const wantNewAdjusted = wantNew;
   const wantRewriteAdjusted = wantRewrite;
 
+  const publishedForLinks = loadArticles({ includeDrafts: false });
+  const publishedLinkGraph = buildLinkGraph(publishedForLinks);
   for (const topic of takeTopics(wantNewAdjusted)) {
     if (carriedSlugs.has(topic.slug)) continue;
+    const linkTargets = newLinkDirections(topic, publishedForLinks, publishedLinkGraph, cfg.interlink);
     orders.push({
       kind: 'new',
+      linkTargets,
+      reasons: linkTargets.map(t => `Проверьте материал /blog/${t.slug}/ (${t.title}): мало входящих ссылок. Добавьте ссылку только если она полезна для объяснения темы; прочитайте цель и соблюдайте обычные гейты.`),
       slug: topic.slug,
       title: topic.title,
       keywords: topic.keywords,
