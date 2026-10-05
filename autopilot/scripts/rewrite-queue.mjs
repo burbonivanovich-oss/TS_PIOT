@@ -19,6 +19,7 @@ import { buildLinkGraph } from './interlink.mjs';
 import { extractCriticalClaims } from './gates.mjs';
 import { factFreshness } from './lib/fact-freshness.mjs';
 import { activeFactCorrections } from './lib/fact-corrections.mjs';
+import { donorRewriteDirections } from './lib/donor-rewrites.mjs';
 
 const cfg = loadConfig();
 const R = cfg.rewrite;
@@ -42,6 +43,7 @@ function buildQueueInner() {
   const log = readJson(LOG_FILE, { entries: {} }).entries;
   const seeds = readJson(path.join(cfg.resolved.dataDir, 'seeds.json'), { calendar: [] });
   const graph = buildLinkGraph(articles);
+  const donorDirections = donorRewriteDirections(articles, graph, cfg.interlink);
   const observations = readJson(path.join(cfg.resolved.dataDir, 'source-observations.json'), { byUrl: {} }).byUrl;
 
   // Резервации прошлой очереди (AP-P1-09): активный рерайт не должен
@@ -123,6 +125,11 @@ function buildQueueInner() {
     }
 
     const inbound = graph.inbound.get(article.slug)?.size || 0;
+    const linkTargets = donorDirections.get(article.slug) || [];
+    if (linkTargets.length) {
+      score += 12;
+      reasons.push(...linkTargets.map(t => `Статья-донор для /blog/${t.slug}/ (${t.title}): добавьте полезный тематический абзац и точный осмысленный якорь, если связь подтверждается содержанием. Не вставлять ссылку ради нормы; сохранить лимиты и первоисточники.`));
+    }
     if (inbound < cfg.interlink.minInbound) {
       score += 12;
       reasons.push(`входящих ссылок ${inbound}`);
@@ -159,6 +166,7 @@ function buildQueueInner() {
       reasons,
       factReview: facts,
       factCorrections: corrections,
+      linkTargets,
       lastRewrite: lastRewrite ? lastRewrite.toISOString().slice(0, 10) : null,
       ...(reservations.get(article.slug) || {}),
     });
