@@ -11,6 +11,17 @@ function fixture() {
  return { version:1,slug:'article',documents:[{url:source,status:200,text,sha256:createHash('sha256').update(text).digest('hex'),fetchedAt:now.toISOString()}],findings:[{statement,claimHash:claimHash(statement),source,result:'contradicted',excerpt:text,checkedAt:now.toISOString(),rationale:'Заявленная квалификация противоречит области применения нормы.'}] };
 }
 const check = evidence => activeFactCorrections({slug:'article',body:statement,evidence,now});
+test('verified URL correction survives a renamed label and clears after destination replacement',()=>{
+ const evidence=fixture();evidence.findings[0].matchUrl=source;
+ const run=body=>activeFactCorrections({slug:'article',body,evidence,now});
+ assert.equal(run(`[Закон](${source})`).length,1);
+ assert.equal(run(`[Новое название](${source})`).length,1);
+ assert.equal(run('[Закон](https://www.consultant.ru/document/cons_doc_LAW_480697/)').length,0);
+ assert.equal(run(statement).length,0);
+ for(const invalid of [null,42,'https://example.com/norm']){
+  evidence.findings[0].matchUrl=invalid;assert.equal(run(statement).length,0);
+ }
+});
 test('fresh semantic finding is active only while its exact statement is present',()=>{
  const evidence=fixture();assert.equal(check(evidence).length,1);
  assert.equal(activeFactCorrections({slug:'article',body:'Исправленное утверждение.',evidence,now}).length,0);
