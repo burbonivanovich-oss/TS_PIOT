@@ -2,6 +2,22 @@
   "generatedAt": "2026-10-05",
   "items": [
     {
+      "slug": "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj",
+      "kind": "rewrite",
+      "score": 100,
+      "acceptedAt": "2026-10-05T06:17:38.788Z",
+      "factualCorrection": true,
+      "stagedFile": "release-drafts/2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj.mdx"
+    },
+    {
+      "slug": "2026-05-01-kalendar-markirovki-2026",
+      "kind": "rewrite",
+      "score": 100,
+      "acceptedAt": "2026-10-05T06:17:38.990Z",
+      "factualCorrection": true,
+      "stagedFile": "release-drafts/2026-05-01-kalendar-markirovki-2026.mdx"
+    },
+    {
       "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
       "kind": "new",
       "score": 100,

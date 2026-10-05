@@ -139,6 +139,20 @@
       "sha256": "3e1407339df3ebbca40d817dcc5f2efd26b2f2975799fa746393ac92c7ca893b",
       "runId": "2026-10-05-e4426d54",
       "at": "2026-10-05T05:21:49.242Z"
+    },
+    "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj": {
+      "kind": "rewrite",
+      "attempt": "2026-10-05T05:56:08.465Z/0/0",
+      "sha256": "c894b80975832b5fc4c4388db0ae4feba66cac30cfca327402648e5045807203",
+      "runId": "2026-10-05-1e69e5e3",
+      "at": "2026-10-05T06:04:50.458Z"
+    },
+    "2026-05-01-kalendar-markirovki-2026": {
+      "kind": "rewrite",
+      "attempt": "2026-10-05T05:56:08.465Z/0/0",
+      "sha256": "b9a996bed10fd54b84e0744dcce779ea8f797666bf36a12d8ba37e8a5d254225",
+      "runId": "2026-10-05-1e69e5e3",
+      "at": "2026-10-05T06:17:35.300Z"
     }
   }
 }

@@ -4,7 +4,7 @@
   "month": "2026-10",
   "counters": {
     "new": 15,
-    "rewrite": 5,
+    "rewrite": 7,
     "published": 6,
     "blockedDupes": 0,
     "quarantined": 0,
@@ -22,7 +22,7 @@
       "quarantined": 0
     }
   ],
-  "lastRunAt": "2026-10-05T05:42:33.628Z",
+  "lastRunAt": "2026-10-05T06:18:02.044Z",
   "lastMigration": {
     "at": "2026-09-13T19:07:00.147Z",
     "actions": 6,
