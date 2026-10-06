@@ -440,7 +440,10 @@ if (isMain) {
     expectedPlanHash: planHash,
     readRemote: async (id) => {
       const r = await Authed(`/counter/${COUNTER_ID}/goal/${id}`);
-      return r && r.goal ? { id, ...r.goal } : null;
+      // A request ID is not a returned-record identity: malformed GET cannot
+      // fabricate an ID for the per-record safety check.
+      return r && r.goal && r.goal.id === id
+        && (r.counterId === undefined || r.counterId === COUNTER_ID) ? r.goal : null;
     },
     deleteRemote: async (id) => {
       const response = await Authed(`/counter/${COUNTER_ID}/goal/${id}`, { method: 'DELETE' });
