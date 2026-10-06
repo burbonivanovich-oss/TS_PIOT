@@ -1,5 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
-import { trackOnce } from '../../utils/track';
+import { useState, useMemo } from 'react';
 
 // Слайдер штрафа за оборот товаров без маркировки (ст. 15.12
 // КоАП ч. 4). Штрафы фиксированные, но конфискация партии
@@ -22,9 +21,7 @@ export default function MarkingFineSlider() {
 
   const batchValue = batchK * 1_000;
 
-  useEffect(() => {
-    trackOnce('calc-shtraf-markirovka-used');
-  }, [batchK, subject]);
+  // Отправка calc-* в Метрику отключена (см. src/utils/track.ts); расчёт без изменений.
 
   const fine = FINES[subject];
   const totalMin = fine.min + batchValue;

@@ -147,7 +147,7 @@ const forms = [
 
 			document.querySelectorAll<HTMLButtonElement>('[data-task]').forEach(btn => {
 				btn.addEventListener('click', () => { task = btn.dataset.task || '';
-					trackCommercial('selector-task', { task });
+					// selector-task больше не отправляем (устаревшая цель, см. src/utils/track.ts).
 					const transport = task === 'etrn';
 					document.getElementById('pb-second-title')!.textContent = transport ? 'Какова ваша роль в перевозке?' : 'Какая у вас форма бизнеса?';
 					document.querySelectorAll('[data-business-option]').forEach(el => el.classList.toggle('is-hidden', transport));
@@ -167,7 +167,7 @@ const forms = [
 						card.classList.toggle('is-hidden', !ids.includes(card.dataset.product || ''));
 					});
 					const roles: Record<string, string> = { 'Грузоотправитель': 'sender', 'Перевозчик': 'carrier', 'Грузополучатель': 'recipient', 'Совмещаю несколько ролей': 'mixed' };
-					trackCommercial('selector-result', { task, form: btn.dataset.form, role: roles[btn.dataset.transportRole || ''] });
+					// selector-result больше не отправляем (устаревшая цель); selector-product-click ниже сохранён.
 					show('result');
 				});
 			});

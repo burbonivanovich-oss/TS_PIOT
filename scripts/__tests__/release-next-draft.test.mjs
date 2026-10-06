@@ -68,20 +68,35 @@ test('AP-P0-15: будущее не публикуется, FORCE_DATE не об
 	assert.equal(selectCandidate([futureHeld], { today: TODAY, forceDate: true }), null);
 });
 
-test('AP-P0-15: настоящий корпус TS_PIOT разбирается и не содержит ложных hold', () => {
-	const articles = readCandidates();
-	assert.ok(articles.length > 100, `корпус найден: ${articles.length}`);
-	const drafts = articles.filter((a) => a.isDraft);
-	const held = drafts.filter((a) => a.isHeld);
-	assert.equal(held.length, 0, `в корпусе неожиданные hold: ${held.map((d) => d.slug).join(', ')}`);
-	// Каждый выпущенный slug существует файлом на диске.
-	for (const a of articles.slice(0, 20)) {
-		assert.ok(a.file.endsWith('.md') || a.file.endsWith('.mdx'));
-	}
+test('AP-P0-15: файловый корпус разбирается, удержанные статьи не выбираются', () => {
+	// Hold — штатное состояние контура, а не ошибка реального корпуса.
+	// Проверяем чтение MD/MDX и выбор релизера на фиксированных данных.
+	const root = mkdtempSync(path.join(tmpdir(), 'release-hold-'));
+	const fixtures = {
+		'held.md': article('held', '2026-01-01', 'draft: true\nautopilotHold: true\n').content,
+		'malformed.mdx': article('malformed', '2026-01-02', 'draft: true\nautopilotHold: yes\n').content,
+		'eligible.mdx': article('eligible', '2026-01-03', 'draft: true\nautopilotHold: false\n').content,
+		'published.md': article('published', '2025-01-01', 'draft: false\n').content,
+		'future.md': article('future', '2099-01-01', 'draft: true\n').content,
+		'future-held.mdx': article('future-held', '2099-01-01', 'draft: true\nautopilotHold: true\n').content,
+	};
+	try {
+		for (const [file, content] of Object.entries(fixtures)) writeFileSync(path.join(root, file), content);
+		writeFileSync(path.join(root, 'ignore.json'), '{}');
+		const articles = readCandidates(root);
+		assert.deepEqual(articles.map((a) => a.file).sort(), Object.keys(fixtures).sort());
+		const held = articles.filter((a) => a.isDraft && a.isHeld);
+		assert.deepEqual(held.map((a) => a.slug).sort(), ['future-held', 'held', 'malformed']);
+		assert.equal(selectCandidate(articles, { today: TODAY }).slug, 'eligible');
+		assert.equal(selectCandidate(articles, { today: TODAY, forceDate: true }).slug, 'eligible');
+		assert.equal(selectCandidate(held, { today: TODAY }), null);
+		assert.equal(selectCandidate(held, { today: TODAY, forceDate: true }), null);
+		for (const [file, content] of Object.entries(fixtures)) assert.equal(readFileSync(path.join(root, file), 'utf8'), content);
+	} finally { rmSync(root, { recursive: true, force: true }); }
 });
 
 import { spawnSync } from 'node:child_process';
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { loadConfig } from '../../autopilot/scripts/lib/config.mjs';
 

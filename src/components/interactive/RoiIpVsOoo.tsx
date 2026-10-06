@@ -1,5 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
-import { trackOnce } from '../../utils/track';
+import { useState, useMemo } from 'react';
 
 // ROI-калькулятор ИП vs ООО (УСН «Доходы» 6%). Прикидочная модель
 // для оценки порядка налоговой нагрузки и сравнения форм бизнеса.
@@ -112,9 +111,7 @@ export default function RoiIpVsOoo() {
 
   const turnover = turnoverMln * 1_000_000;
 
-  useEffect(() => {
-    trackOnce('roi-ip-ooo-used');
-  }, [turnoverMln, payrollK]);
+  // Отправка roi-ip-ooo-* в Метрику отключена (см. src/utils/track.ts); расчёт без изменений.
 
   const ip = useMemo(() => calcIp(turnover), [turnover]);
   const ooo = useMemo(() => calcOoo(turnover, payrollK * 1000), [turnover, payrollK]);
