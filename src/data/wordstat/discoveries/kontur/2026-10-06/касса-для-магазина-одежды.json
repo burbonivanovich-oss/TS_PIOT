@@ -1,0 +1,31 @@
+{
+  "seed": "касса для магазина одежды",
+  "slug": "касса-для-магазина-одежды",
+  "category": "audience",
+  "cluster": "roznica",
+  "fetchedAt": "2026-10-06T18:57:22.235Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 2,
+  "phrases": [
+    {
+      "phrase": "касса для магазина одежды",
+      "count": 72
+    },
+    {
+      "phrase": "онлайн касса для маленького магазина одежды",
+      "count": 5
+    }
+  ]
+}
