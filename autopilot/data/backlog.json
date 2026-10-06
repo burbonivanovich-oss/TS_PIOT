@@ -106,7 +106,7 @@
       "format": "explainer",
       "segment": "none",
       "score": 57.2,
-      "status": "accepted_waiting_release",
+      "status": "released",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "ok",
@@ -124,7 +124,7 @@
         "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%B3%D0%B8%D1%81%20%D1%8D%D0%BF%D0%B4"
       },
       "priorityScore": 68.3,
-      "updatedAt": "2026-10-04"
+      "updatedAt": "2026-10-06"
     },
     {
       "slug": "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena",
@@ -138,7 +138,7 @@
       "format": "reference",
       "segment": "none",
       "score": 57.2,
-      "status": "accepted_waiting_release",
+      "status": "released",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "ok",
@@ -156,7 +156,7 @@
         "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%B3%D0%B8%D1%81%20%D1%8D%D0%BF%D0%B4"
       },
       "priorityScore": 67.9,
-      "updatedAt": "2026-10-04"
+      "updatedAt": "2026-10-06"
     },
     {
       "slug": "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki",
@@ -215,14 +215,14 @@
         }
       },
       "priorityScore": 32.1,
-      "status": "accepted_waiting_release",
+      "status": "released",
       "createdAt": "2026-10-04",
       "dedupe": {
         "verdict": "ok",
         "advice": "",
         "related": []
       },
-      "updatedAt": "2026-10-04"
+      "updatedAt": "2026-10-06"
     },
     {
       "slug": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",

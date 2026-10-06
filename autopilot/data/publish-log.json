@@ -9,6 +9,11 @@
       "2026-05-03-etrn-2026",
       "2026-07-06-shtrafy-za-kkt",
       "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu"
+    ],
+    "2026-10-06": [
+      "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
+      "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
+      "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena"
     ]
   },
   "kinds": {
@@ -21,6 +26,11 @@
       "2026-05-03-etrn-2026": "rewrite",
       "2026-07-06-shtrafy-za-kkt": "rewrite",
       "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu": "new"
+    },
+    "2026-10-06": {
+      "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti": "new",
+      "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika": "new",
+      "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena": "new"
     }
   }
 }

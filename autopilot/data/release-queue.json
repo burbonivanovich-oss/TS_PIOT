@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05",
+  "generatedAt": "2026-10-06",
   "items": [
     {
       "slug": "2026-05-03-markirovka-igrushek-2026",
@@ -82,29 +82,11 @@
       "stagedFile": "release-drafts/2026-06-30-pereregistraciya-kkt.mdx"
     },
     {
-      "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
-      "kind": "new",
-      "score": 100,
-      "acceptedAt": "2026-10-04T14:20:58.457Z"
-    },
-    {
       "slug": "2026-05-01-ofd-dlya-ts-piot",
       "kind": "rewrite",
       "score": 100,
       "acceptedAt": "2026-10-04T14:20:58.629Z",
       "stagedFile": "release-drafts/2026-05-01-ofd-dlya-ts-piot.mdx"
-    },
-    {
-      "slug": "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
-      "kind": "new",
-      "score": 100,
-      "acceptedAt": "2026-10-04T15:34:55.585Z"
-    },
-    {
-      "slug": "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena",
-      "kind": "new",
-      "score": 100,
-      "acceptedAt": "2026-10-04T15:34:55.749Z"
     },
     {
       "slug": "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki",

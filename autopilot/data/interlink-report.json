@@ -1,9 +1,136 @@
 {
-  "generatedAt": "2026-10-05",
+  "generatedAt": "2026-10-06",
   "dry": false,
-  "inserted": 0,
-  "touched": 0,
-  "orphansBefore": 33,
-  "orphansAfter": 33,
-  "plan": []
+  "inserted": 9,
+  "touched": 9,
+  "orphansBefore": 36,
+  "orphansAfter": 34,
+  "plan": [
+    {
+      "slug": "2026-03-05-nalogi-msb-2026",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-06-20-limity-usn-2026",
+          "anchor": "лимиты УСН",
+          "relevance": 0.56,
+          "offset": 77,
+          "length": 10,
+          "line": "новые лимиты УСН, донастройку ЕНС, обязательный КЭДО для части работодателей,"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-atol-27f-obzor",
+      "outboundBefore": 5,
+      "additions": [
+        {
+          "target": "2026-05-27-markirovka-obuvi-2026",
+          "anchor": "Маркировка обуви",
+          "relevance": 0.41,
+          "offset": 2331,
+          "length": 16,
+          "line": "**Небольшой магазин одежды, обуви или хозтоваров.** Поток покупателей умеренный — скорость 75 мм/с с"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-atol-30f-obzor",
+      "outboundBefore": 6,
+      "additions": [
+        {
+          "target": "2026-05-27-markirovka-obuvi-2026",
+          "anchor": "Маркировка обуви",
+          "relevance": 0.49,
+          "offset": 2526,
+          "length": 16,
+          "line": "**Магазин одежды и обуви.** Маркировка обуви введена с 1 июля 2020 года, одежды — с 1 января 2021 го"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-markirovka-bezalk-napitkov-2026",
+      "outboundBefore": 3,
+      "additions": [
+        {
+          "target": "2026-05-01-kalendar-markirovki-2026",
+          "anchor": "календарь маркировки",
+          "relevance": 0.52,
+          "offset": 7031,
+          "length": 20,
+          "line": "С 1 сентября 2026 продажа безалкогольных напитков без проверки кода DataMatrix через кассу будет нар"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-markirovka-konservov-2026",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-05-01-kalendar-markirovki-2026",
+          "anchor": "календарь маркировки",
+          "relevance": 0.41,
+          "offset": 6658,
+          "length": 20,
+          "line": "Маркировка консервов с 1 октября 2026 — масштабное изменение для продовольственного ритейла. У магаз"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-markirovka-lichnoy-gigieny-2026",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-05-01-kalendar-markirovki-2026",
+          "anchor": "календарь маркировки",
+          "relevance": 0.52,
+          "offset": 7511,
+          "length": 20,
+          "line": "Маркировка средств личной гигиены с 1 июля 2026 — одна из нескольких новых категорий, вводимых в это"
+        }
+      ]
+    },
+    {
+      "slug": "2026-05-03-markirovka-sportpita-2026",
+      "outboundBefore": 5,
+      "additions": [
+        {
+          "target": "2026-05-01-kalendar-markirovki-2026",
+          "anchor": "календарь маркировки",
+          "relevance": 0.5,
+          "offset": 7436,
+          "length": 20,
+          "line": "С 1 сентября 2026 остатки немаркированного спортивного питания должны исчезнуть из оборота. Магазина"
+        }
+      ]
+    },
+    {
+      "slug": "2026-06-25-ts-piot-dlya-apteki",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-06-26-markirovka-bad-2026",
+          "anchor": "маркировка БАД",
+          "relevance": 0.59,
+          "offset": 1317,
+          "length": 14,
+          "line": "**БАД (биологически активные добавки)** маркируются через систему маркировки «Честный знак» — это от"
+        }
+      ]
+    },
+    {
+      "slug": "2026-09-07-markirovka-tabaka-novye-proverki-2026",
+      "outboundBefore": 5,
+      "additions": [
+        {
+          "target": "2026-06-09-markirovka-tabaka-2026",
+          "anchor": "Маркировка табака",
+          "relevance": 0.89,
+          "offset": 61,
+          "length": 17,
+          "line": "Маркировка табака в 2026 году живёт по новым правилам контроля цены. С 01.09.2026 вступает в силу [Ф"
+        }
+      ]
+    }
+  ]
 }

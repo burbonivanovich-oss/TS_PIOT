@@ -1,0 +1,92 @@
+{
+  "runId": "2026-10-06-ba464e79",
+  "date": "2026-10-06",
+  "kind": "day",
+  "createdAt": "2026-10-06T07:03:16.543Z",
+  "updatedAt": "2026-10-06T07:04:05.696Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-06T07:03:16.796Z",
+      "orderCount": 0,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 0,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "gated": {
+      "at": "2026-10-06T07:04:05.665Z",
+      "publicationCapacity": {
+        "day": "2026-10-06",
+        "slotsRemaining": 75,
+        "needed": 60,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 6,
+            "remaining": 49
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 3,
+            "remaining": 11
+          }
+        }
+      },
+      "published": 3,
+      "acceptedWaiting": 20,
+      "results": [
+        {
+          "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        },
+        {
+          "slug": "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        },
+        {
+          "slug": "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        }
+      ],
+      "links": {
+        "linksInserted": 9,
+        "orphansBefore": 36,
+        "orphansAfter": 34
+      }
+    },
+    "built": {
+      "at": "2026-10-06T07:04:05.661Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "c06659dc28da97eb674ee52b9e6a54323aaf083aa4de485c3f7fb89900d2365f",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-06T07:03:16.796Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-06T07:04:05.665Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-06T07:04:05.696Z"
+    }
+  ],
+  "meta": {}
+}
