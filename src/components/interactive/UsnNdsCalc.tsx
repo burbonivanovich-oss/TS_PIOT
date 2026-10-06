@@ -1,5 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
-import { trackOnce } from '../../utils/track';
+import { useState, useMemo } from 'react';
 
 // Калькулятор УСН + НДС-2026. Упрощённая модель для прикидки:
 // читатель вводит годовой оборот → видит примерные итоги при
@@ -30,9 +29,7 @@ export default function UsnNdsCalc() {
 
   const turnover = turnoverMln * 1_000_000;
 
-  useEffect(() => {
-    trackOnce('calc-usn-nds-used');
-  }, [turnoverMln, usn, marginPct]);
+  // Отправка calc-* в Метрику отключена (см. src/utils/track.ts); расчёт без изменений.
 
   const result = useMemo(() => {
     const nds = ndsRate(turnover);

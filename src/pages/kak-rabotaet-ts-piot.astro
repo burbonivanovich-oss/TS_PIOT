@@ -218,10 +218,10 @@ const description =
 		<Footer />
 
 		<script>
-			// Воронка флагмана: trackOnce при достижении каждой секции через IntersectionObserver.
-			// Импортируем clientside-only через динамический import — track.ts работает только в браузере.
-			(async () => {
-				const { trackOnce } = await import('../utils/track');
+			// Прогресс флагмана: подсветка прохождения секций через IntersectionObserver.
+			// Отправка устаревших событий flagship-ts-piot-* в Метрику отключена
+			// (централизованно подавлена в src/utils/track.ts); визуальный прогресс сохранён.
+			(() => {
 				const steps = document.querySelectorAll('.sim-step');
 				const bar = document.getElementById('sim-progress-bar');
 				const total = steps.length;
@@ -233,13 +233,9 @@ const description =
 							if (!e.isIntersecting) continue;
 							const n = parseInt(e.target.getAttribute('data-step') || '-1', 10);
 							if (n < 0) continue;
-							trackOnce(`flagship-ts-piot-step-${n}-reached`);
 							if (n > maxReached) {
 								maxReached = n;
 								if (bar) bar.style.width = `${((n + 1) / total) * 100}%`;
-							}
-							if (n === total - 1) {
-								trackOnce('flagship-ts-piot-completed');
 							}
 						}
 					},

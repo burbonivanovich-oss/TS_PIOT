@@ -1,5 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
-import { trackOnce, track } from '../../utils/track';
+import { useState, useMemo } from 'react';
 
 // Квиз «Готов ли бизнес к ТС ПИоТ». 6 вопросов с ветвящейся
 // логикой: если читатель не торгует маркированным товаром,
@@ -177,9 +176,8 @@ export default function TsPiotReadinessQuiz() {
   const [answers, setAnswers] = useState<Partial<Record<QuestionId, AnswerId>>>({});
   const [finished, setFinished] = useState(false);
 
-  useEffect(() => {
-    trackOnce('quiz-ts-piot-started');
-  }, []);
+  // Отправка quiz-ts-piot-* в Метрику отключена (см. src/utils/track.ts);
+  // логика квиза и подсчёт результата без изменений.
 
   const visibleQuestions = useMemo(
     () => QUESTIONS.filter(q => !q.show || q.show(answers as Record<QuestionId, AnswerId>)),
@@ -194,20 +192,17 @@ export default function TsPiotReadinessQuiz() {
   function selectAnswer(qId: QuestionId, aId: AnswerId) {
     const next = { ...answers, [qId]: aId };
     setAnswers(next);
-    track('quiz-ts-piot-answered', { q: qId, a: aId });
 
     const stillVisible = QUESTIONS.filter(q => !q.show || q.show(next as Record<QuestionId, AnswerId>));
     const remaining = stillVisible.findIndex(q => !next[q.id]);
     if (remaining < 0) {
       setFinished(true);
-      trackOnce('quiz-ts-piot-completed');
     }
   }
 
   function restart() {
     setAnswers({});
     setFinished(false);
-    track('quiz-ts-piot-restart');
   }
 
   const result = useMemo(() => {
