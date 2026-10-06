@@ -1,0 +1,82 @@
+name: Метрика — ручная ограниченная очистка интерактивов
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'plan = GET + readonly; execute = irreversible exact approved scope'
+        type: choice
+        options: [plan, execute]
+        default: plan
+        required: true
+      deployment_sha:
+        description: 'Exact 40-char public release revision; dispatch main must match'
+        type: string
+        required: true
+      plan_run_id:
+        description: 'Execute only: successful readonly plan run at the same SHA (valid 6h)'
+        type: string
+        required: false
+      plan_hash:
+        description: 'Execute only: exact 64-char planHash from approval artifact'
+        type: string
+        required: false
+      confirm:
+        description: 'Execute only: repeat exact planHash to confirm irreversible 68-goal deletion'
+        type: string
+        required: false
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: metrika-scoped-cleanup-109130279
+  cancel-in-progress: false
+
+jobs:
+  scoped:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && github.repository == 'burbonivanovich-oss/TS_PIOT'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CLEANUP_MODE: ${{ inputs.mode }}
+      DEPLOYMENT_SHA: ${{ inputs.deployment_sha }}
+      PLAN_RUN_ID: ${{ inputs.plan_run_id }}
+      PLAN_HASH: ${{ inputs.plan_hash }}
+      CONFIRM: ${{ inputs.confirm }}
+      GIT_CONFIG_COUNT: '1'
+      GIT_CONFIG_KEY_0: core.precomposeunicode
+      GIT_CONFIG_VALUE_0: 'false'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate fixed inputs and successful plan provenance
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/metrika/scoped-cleanup-workflow.mjs validate
+      - name: Download exact readonly approval from same workflow and SHA
+        if: inputs.mode == 'execute'
+        uses: actions/download-artifact@v4
+        with:
+          name: metrika-scoped-plan
+          path: ${{ runner.temp }}/metrika-scoped-approval
+          github-token: ${{ github.token }}
+          repository: burbonivanovich-oss/TS_PIOT
+          run-id: ${{ inputs.plan_run_id }}
+      - name: Collect readonly plan or run exactly confirmed remover with fresh readback
+        env:
+          METRIKA_OAUTH_TOKEN: ${{ secrets.METRIKA_OAUTH_TOKEN }}
+        run: node scripts/metrika/scoped-cleanup-workflow.mjs run
+      - name: Save backup, exact plan, bounded receipt and postGET (also on failure)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.mode == 'plan' && 'metrika-scoped-plan' || 'metrika-scoped-receipt' }}
+          path: ${{ runner.temp }}/metrika-scoped-cleanup/
+          if-no-files-found: warn
+          retention-days: 7
