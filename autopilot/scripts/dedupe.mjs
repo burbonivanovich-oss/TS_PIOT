@@ -149,7 +149,9 @@ function shingleJaccard(a, b) {
 /** Взаимные дубли уже опубликованного корпуса — вход для очереди рерайтов. */
 export function scanCorpus() {
   assertContentRoot(cfg);
-  const articles = loadArticles();
+  // The publication audit and rewrite ranking concern live baseline files.
+  // Topic admission keeps its broader index, including held/accepted drafts.
+  const articles = loadArticles({ includeDrafts: false });
   const model = buildIdf(articles.map((a) => [a.title, ...a.keywords].join(' ')));
   const prepared = articles.map((a) => ({
     slug: a.slug,

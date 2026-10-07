@@ -64,3 +64,27 @@ test('AP-P1-10: merge-пара объяснима: keep/rewrite, gate, inbound, 
   assert.ok(Array.isArray(pair.weakAngle));
   assert.equal(pair.remediation, 'pending');
 });
+
+
+test('publication scan excludes drafts while topic admission still reserves their themes', () => {
+  const root = mkdtempSync(path.join(tmpdir(), 'dedupe-publication-scope-'));
+  const blog = path.join(root, 'src', 'content', 'blog');
+  const dataDir = path.join(root, 'data');
+  mkdirSync(blog, { recursive: true }); mkdirSync(dataDir, { recursive: true });
+  const body = 'Проверяем одинаковое тело двух опубликованных материалов и ожидающего черновика. '.repeat(70);
+  const article = (title, draft) => `---\ntitle: "${title}"\ndescription: "Описание"\npubDate: "2026-01-01"\ndraft: ${draft}\n---\n${body}`;
+  writeFileSync(path.join(blog, 'published-a.md'), article('Опубликованный материал первый', false));
+  writeFileSync(path.join(blog, 'published-b.md'), article('Опубликованный материал второй', false));
+  writeFileSync(path.join(blog, 'held-draft.md'), article('Уникальная тема ожидающего черновика', true));
+  const configFile = path.join(root, 'config.json');
+  writeFileSync(configFile, JSON.stringify(baseConfig(root)));
+  const moduleUrl = new URL('./dedupe.mjs', import.meta.url).href;
+  const proc = spawnSync(process.execPath, ['--input-type=module', '-e',
+    `const {scanCorpus,buildIndex,checkTopic}=await import(${JSON.stringify(moduleUrl)}); const index=buildIndex(); console.log(JSON.stringify({pairs:scanCorpus(),index,topic:checkTopic({title:'Уникальная тема ожидающего черновика'},index)}));`],
+    {cwd:ROOT,env:{...process.env,AUTOPILOT_CONFIG:configFile,AUTOPILOT_DATA_DIR:dataDir,CONTENT_ROOT:root},encoding:'utf8'});
+  assert.equal(proc.status, 0, proc.stderr);
+  const result = JSON.parse(proc.stdout);
+  assert.ok(result.pairs.some(p=>p.verdict==='merge' && [p.a,p.b].includes('published-a') && [p.a,p.b].includes('published-b')), 'real published body duplicates remain blocking signals');
+  assert.ok(result.pairs.every(p=>p.a!=='held-draft' && p.b!=='held-draft'), 'draft must not count as a competing published URL');
+  assert.equal(result.topic.verdict,'block','a second topic cannot bypass the existing held draft');
+});
