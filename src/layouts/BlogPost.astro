@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import type { CollectionEntry } from 'astro:content';
 import type { MarkdownHeading } from 'astro';
 import { publishedPosts } from '../utils/posts';
+import { latestPostFirst, relatedPostFirst } from '../utils/post-order.mjs';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -47,9 +48,7 @@ const {
 
 const commercialContentId = currentSlug ? createHash('sha256').update(currentSlug).digest('hex') : undefined;
 const allPosts = await publishedPosts();
-const sorted = allPosts.sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const sorted = allPosts.sort(latestPostFirst);
 
 const candidates = sorted.filter((p) => p.id !== currentSlug);
 const scored = candidates
@@ -60,11 +59,7 @@ const scored = candidates
 			(p.data.categories ?? []).filter((c) => categories.includes(c)).length,
 	}))
 	.filter((x) => x.score > 0)
-	.sort(
-		(a, b) =>
-			b.score - a.score ||
-			b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf(),
-	);
+	.sort(relatedPostFirst);
 const related = scored.slice(0, 4).map((x) => x.post);
 
 /* Адаптивный макет «Читайте также»:
