@@ -12,7 +12,7 @@ export function donorRewriteDirections(articles, graph, rules, eligibleDonors = 
     const need = rules.minInbound - (graph.inbound.get(target.slug)?.size || 0);
     const donors = articles.filter(a => eligibleDonors.has(a.slug) && a.slug !== target.slug &&
       !graph.outbound.get(a.slug)?.has(target.slug) &&
-      (graph.outbound.get(a.slug)?.size || 0) + (given.get(a.slug) || 0) < rules.maxOutbound)
+      (a.interlinkExempt || (graph.outbound.get(a.slug)?.size || 0) + (given.get(a.slug) || 0) < rules.maxOutbound))
       .map(a => ({ article: a, relevance: weightedCoverage(tokenize(topic(target)), tokenize(a.body.slice(0, 12000)), model) }))
       .filter(a => a.relevance >= rules.minRelevance)
       .sort((a, b) => b.relevance - a.relevance || a.article.slug.localeCompare(b.article.slug));

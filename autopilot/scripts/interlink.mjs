@@ -5,6 +5,7 @@
 //
 //   node scripts/interlink.mjs graph [--json]     # состояние графа, сироты
 //   node scripts/interlink.mjs plan [--slug s]    # что предлагается вставить
+//   node scripts/interlink.mjs diagnose [--slug s] # причины дефицита, только чтение
 //   node scripts/interlink.mjs apply [--slug s] [--dry]
 //
 // Правила вставки (все — из config.interlink):
@@ -183,7 +184,7 @@ function findAnchor(spans, anchors, lineCounts, zones) {
  * Это единственный способ выравнять граф: если раздавать ссылки «по
  * релевантности», их всегда получают одни и те же флагманы.
  */
-export function planLinks({ slug = null } = {}) {
+function prepareLinkCorpus() {
   assertContentRoot(cfg);
   const articles = loadArticles({ includeDrafts: false });
   const graph = buildLinkGraph(articles);
@@ -195,6 +196,45 @@ export function planLinks({ slug = null } = {}) {
     bodyTokens: tokenize(a.body.slice(0, 12000)),
   }));
   const bySlug = new Map(prepared.map((a) => [a.slug, a]));
+  return {graph, model, prepared, bySlug};
+}
+
+/** Read-only reasons why a missing incoming link cannot be inserted. */
+export function diagnoseLinkDeficits({ slug = null } = {}) {
+  const {graph, model, prepared} = prepareLinkCorpus();
+  const zones = new Set(L.protectedZones || []);
+  const rows = [];
+  for (const target of prepared) {
+    const inbound = graph.inbound.get(target.slug)?.size || 0;
+    if (inbound >= L.minInbound || (slug && target.slug !== slug)) continue;
+    const anchors = anchorsFor(target, model);
+    const reasons = {}; const donors = [];
+    for (const source of prepared) {
+      if (source.slug === target.slug || graph.outbound.get(source.slug)?.has(target.slug)) continue;
+      const outbound = graph.outbound.get(source.slug)?.size || 0;
+      const relevance = weightedCoverage(target.tokens, source.bodyTokens, model);
+      const spans = editableSpans(source.body, zones);
+      const hit = findAnchor(spans, anchors, new Map(), zones);
+      let reason;
+      if (!source.interlinkExempt && outbound >= L.maxOutbound) reason = 'outbound-limit';
+      else if (relevance < L.minRelevance) reason = 'relevance';
+      else if (!anchors.length) reason = 'no-specific-anchor';
+      else if (!spans.length) reason = 'no-editable-text';
+      else if (hit) reason = 'eligible';
+      else if (anchors.some(a=>spans.some(span=>span.text.toLowerCase().includes(a.toLowerCase())))) reason = 'protected-or-nonword-match';
+      else if (anchors.some(a=>source.body.toLowerCase().includes(a.toLowerCase()))) reason = 'protected-zone-or-short-line';
+      else reason = 'exact-anchor-absent';
+      reasons[reason] = (reasons[reason] || 0) + 1;
+      if (relevance >= L.minRelevance) donors.push({slug:source.slug,title:source.title,relevance,outbound,exempt:source.interlinkExempt,reason,...(hit?{anchor:hit.anchor,line:hit.span.text,offset:hit.span.start+hit.at}:{})});
+    }
+    donors.sort((a,b)=>Number(b.reason==='eligible')-Number(a.reason==='eligible') || b.relevance-a.relevance || a.slug.localeCompare(b.slug));
+    rows.push({slug:target.slug,title:target.title,inbound,needed:L.minInbound-inbound,anchors,reasons,donors});
+  }
+  return {generatedAt:today(),scope:'published-baseline-files-only',articles:prepared.length,deficit:rows.reduce((n,r)=>n+r.needed,0),rows};
+}
+
+export function planLinks({ slug = null } = {}) {
+  const {graph, model, prepared, bySlug} = prepareLinkCorpus();
 
   const inboundNeed = new Map(
     prepared.map((a) => [a.slug, Math.max(0, L.minInbound - (graph.inbound.get(a.slug)?.size || 0))]),
@@ -206,7 +246,7 @@ export function planLinks({ slug = null } = {}) {
 
   for (const source of sources) {
     const already = graph.outbound.get(source.slug) || new Set();
-    let budget = Math.max(0, L.maxOutbound - already.size);
+    let budget = source.interlinkExempt ? Infinity : Math.max(0, L.maxOutbound - already.size);
     if (budget === 0) continue;
 
     const spans = editableSpans(source.body, zones);
@@ -321,6 +361,11 @@ function applyLinksInner({ slug = null, dry = false } = {}) {
 function main() {
   const [cmd, ...rest] = process.argv.slice(2);
   const args = parseArgs(rest);
+
+  if (cmd === 'diagnose') {
+    console.log(JSON.stringify(diagnoseLinkDeficits({slug:args.slug || null}), null, 2));
+    return;
+  }
 
   if (cmd === 'graph') {
     const articles = loadArticles({ includeDrafts: false });

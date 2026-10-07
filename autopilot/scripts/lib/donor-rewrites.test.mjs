@@ -32,3 +32,13 @@ test('ineligible best donor does not consume the opportunity of an eligible alte
   assert.equal(directions.has('shop'), false);
   assert.equal(directions.get('alternate')[0].slug, 'toys');
 });
+
+
+test('explicit hub exemption removes only outgoing ceiling from donor directions', () => {
+  const hub={...donor,interlinkExempt:true};const full=graph(['a','b','c']);
+  assert.equal(donorRewriteDirections([target,donor],full,rules).size,0);
+  assert.equal(donorRewriteDirections([target,hub],full,rules).get('shop')[0].slug,'toys');
+  assert.equal(donorRewriteDirections([target,hub],graph(['toys']),rules).size,0,'existing target still excluded');
+  assert.equal(donorRewriteDirections([target,{...unrelated,interlinkExempt:true}],graph(),rules).size,0,'unrelated exempt donor still rejected');
+  assert.equal(donorRewriteDirections([target,hub],full,rules,new Set()).size,0,'eligibility still binds');
+});

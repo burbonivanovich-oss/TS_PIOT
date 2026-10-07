@@ -9,7 +9,10 @@ node autopilot/scripts/state.mjs get --json
 node autopilot/scripts/run.mjs latest --json
 node autopilot/scripts/health-check.mjs --json
 node autopilot/scripts/metrics.mjs --json
+node autopilot/scripts/interlink.mjs diagnose --json
 ```
+
+`interlink diagnose` считает дефициты опубликованных файлов и причины отказа доноров: релевантность, потолок исходящих, отсутствие точного якоря, защищённые зоны. Он ничего не вставляет. Предложенный донор или dry-run не засчитываются как новая публичная входящая ссылка. Флаг interlinkExempt снимает только потолок исходящих; остальные требования сохраняются.
 
 Приёмка, журнал выпуска, push и наблюдаемая публичная версия — разные результаты. Счётчики NEW/REWRITE и покрытие публичных квитанций смотреть отдельно. Неизвестный результат не заменять нулём. Сохранённое расписание не является доказательством запуска.
 

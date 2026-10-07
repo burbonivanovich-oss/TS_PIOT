@@ -274,3 +274,29 @@ test('numeric identifiers are not stripped into a yearless article subject', () 
   runApply(fixture);
   assert.equal(readFileSync(path.join(fixture.blog, 'new-source.md'), 'utf8'), before);
 });
+
+
+test('explicit hub exemption permits links past outgoing ceiling without lifting paragraph or protected-zone rules', () => {
+  const body = 'Уже есть [справочник](/blog/reference/) с дополнительным описанием процедуры оформления документов.\n\nПоэкземплярный учёт воды требует проверки поставки и оборудования перед началом работы магазина.\n\nМаркировка молочной продукции требует проверки документов и подготовки кассового оборудования.\n\n## Поэкземплярный учёт воды';
+  for (const exempt of [false,true]) {
+    const fixture = buildTwoTargetsFixture({body,interlink:{minOutbound:1,maxOutbound:1}});
+    const file = path.join(fixture.blog,'source.md');
+    if(exempt)writeFileSync(file,readFileSync(file,'utf8').replace('draft: false','draft: false\ninterlinkExempt: true'));
+    runApply(fixture);
+    const after = readFileSync(file,'utf8');
+    assert.equal((after.match(/\]\(\/blog\/target-[ab]\/\)/g)||[]).length,exempt?2:0);
+    assert.ok(after.includes('## Поэкземплярный учёт воды'),'protected heading unchanged');
+  }
+});
+
+test('deficit diagnostics explain blocked donor candidates and do not write a report or content', () => {
+  const fixture=buildFixture();
+  writeFileSync(path.join(fixture.blog,'absent.md'),article('Другой источник','Нейтральное описание другой процедуры оформления документов и подготовки рабочего оборудования.'));
+  writeFileSync(path.join(fixture.blog,'protected.md'),article('Защищённый источник','[Маркировка поэкземплярного учёта](https://example.com/) требует внимания при подготовке документов и оборудования.'));
+  const before=readFileSync(path.join(fixture.blog,'new-source.md'),'utf8');
+  const proc=spawnSync(process.execPath,['scripts/interlink.mjs','diagnose','--slug','target-marka'],{cwd:ROOT,env:{...process.env,AUTOPILOT_CONFIG:fixture.configFile,AUTOPILOT_DATA_DIR:fixture.dataDir},encoding:'utf8'});
+  assert.equal(proc.status,0,proc.stderr);const r=JSON.parse(proc.stdout);
+  assert.equal(r.rows[0].needed,1);const reasons=new Map(r.rows[0].donors.map(d=>[d.slug,d.reason]));
+  assert.equal(reasons.get('new-source'),'eligible');assert.equal(reasons.get('absent'),'exact-anchor-absent');assert.equal(reasons.get('protected'),'protected-or-nonword-match');
+  assert.equal(readFileSync(path.join(fixture.blog,'new-source.md'),'utf8'),before);assert.equal(existsSync(path.join(fixture.dataDir,'interlink-report.json')),false);
+});
