@@ -16,7 +16,7 @@ import {claimHash} from './lib/claim-evidence.mjs';
 
 const ENGINE=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 
-test('AUD-02 receipt -> refusal -> correction -> build -> commit -> rejected push -> recovery -> HTTP readback',async()=>{
+test('AUD-02 receipt -> refusal -> correction -> build -> commit -> rejected push -> recovery -> HTTP readback',async(t)=>{
   const dir=fs.mkdtempSync(path.join(tmpdir(),'delivery-path-'));
   const root=path.join(dir,'site'),bare=path.join(dir,'remote.git');
   const dataDir=path.join(root,'autopilot/data'),blog=path.join(root,'src/content/blog');
@@ -68,5 +68,6 @@ test('AUD-02 receipt -> refusal -> correction -> build -> commit -> rejected pus
     deployed=recovered.commit;html='<html><body>Чужой материал</body></html>';await assert.rejects(verifyLiveRelease({site,expectedCommit:recovered.commit,pages}),/Expected page content missing/);
     html=builtHtml;const live=await verifyLiveRelease({site,expectedCommit:recovered.commit,pages});assert.equal(live.liveVerified,true);assert.equal(live.pages[0].contentVerified,true);
     assert.equal(pushGitDelivery({root,targetRef:'refs/heads/main'}).commit,recovered.commit);assert.equal(git('rev-list','--count','HEAD'),count);assert.deepEqual(fs.readFileSync(stateFile),state);
+    t.diagnostic(JSON.stringify({kind:'aud02-delivery-evidence',runId,baseHead,contentCommit:delivery.contentCommit,metadataCommit:delivery.metadataCommit,buildCorpusSha256:accepted.build.corpusSha256,articleSha256:createHash('sha256').update(fs.readFileSync(file)).digest('hex'),refused:{rejected:refused.rejected,published:refused.published},after:JSON.parse(state.toString()).counters,live,isolated:true,syntheticLegalSource:true}));
   }finally{server.closeAllConnections();await new Promise(resolve=>server.close(resolve));fs.rmSync(dir,{recursive:true,force:true});}
 });
