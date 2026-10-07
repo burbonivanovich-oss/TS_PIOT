@@ -1,100 +1,100 @@
 {
-  "generatedAt": "2026-10-06T07:03:08.648Z",
+  "generatedAt": "2026-10-07T07:03:06.269Z",
   "totalSources": 78,
   "checkBudget": 13,
   "checkedCount": 13,
-  "dueRemaining": 45,
+  "dueRemaining": 52,
   "checked": [
     {
-      "url": "https://base.garant.ru/12171992/595b81578ffd1ca95691883dd45ebe22/",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_19671/498ecb2931293a62685c3caece515bac9b2da7fa/",
       "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
-      "sha256": "9e929560c58f19a30b10acaaeebff30395e3a9cd6e56c376e1fa566eede3ed58",
-      "finalUrl": "https://base.garant.ru/12171992/595b81578ffd1ca95691883dd45ebe22/"
+      "checkedAt": "2026-10-07T07:03:06.269Z",
+      "sha256": "72154f198c5b6674909a24a64a5a2d06df8d59b4987dd3715767e348fcab96b4",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_19671/498ecb2931293a62685c3caece515bac9b2da7fa/"
     },
     {
-      "url": "https://base.garant.ru/406229479/",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_19671/795657fa74fe3b5dafa19383d710da465a553969/",
       "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
-      "sha256": "ca96fd114a38c021ba1c6f67e35b54911a30eee60a1fba2c36a0d731c1c3ff76",
-      "finalUrl": "https://base.garant.ru/406229479/"
+      "checkedAt": "2026-10-07T07:03:06.269Z",
+      "sha256": "b9ec6a71bc5ffdd2c5a2d61a39c0c86327956af7053941584a4217bb82ac6aaa",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_19671/795657fa74fe3b5dafa19383d710da465a553969/"
     },
     {
-      "url": "https://base.garant.ru/407029918/",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_19671/9b86d3c44e0f02e25dc7e07a78ef91232073e9d8/",
       "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
-      "sha256": "1115ce1919e98af29bf81506650522c3425fe12badc76b8bd709218ed004fa48",
-      "finalUrl": "https://base.garant.ru/407029918/"
-    },
-    {
-      "url": "https://base.garant.ru/70353464/7d6bbe1829627ce93319dc72963759a2/",
-      "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
-      "sha256": "0697c13fd054c177340fcfde3c71f74c7949ddfd6866c4f88bc01daa180b4854",
-      "finalUrl": "https://base.garant.ru/70353464/7d6bbe1829627ce93319dc72963759a2/"
-    },
-    {
-      "url": "https://base.garant.ru/70353464/f0919a1a5b9327ff53d0b0cd9f3489ec/",
-      "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
-      "sha256": "99212938a4e2df1620dd457d1df876873b4a490d30811987b6a7bb7ebb378cf6",
-      "finalUrl": "https://base.garant.ru/70353464/f0919a1a5b9327ff53d0b0cd9f3489ec/"
-    },
-    {
-      "url": "https://base.garant.ru/73219991/",
-      "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
-      "sha256": "853937e0975ac945898c5d289f4f224be4e1615e0f738a32c593bd419452d28e",
-      "finalUrl": "https://base.garant.ru/73219991/"
-    },
-    {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_10699/",
-      "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
-      "sha256": "6f6cc1392c19b835dd99b58d51d0678bc9ae795e391e49e4c6a1d7eb622d4419",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_10699/"
-    },
-    {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_10699/a53c2c91548ccb4f65ea933d514845a09be77ed5/",
-      "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
-      "sha256": "c3a6e801fbaaf8f8ddaac859a801a77144aeb07d23403c91313c15dea9b8ff7e",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_10699/a53c2c91548ccb4f65ea933d514845a09be77ed5/"
-    },
-    {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_112701/",
-      "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
-      "sha256": "9ea287c9de379e871a55fe28fe830668de9adf2404a400e53eb36411efcc4ccc",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_112701/"
-    },
-    {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_122855/d7372b9bbb772927073ce566a64848b23aa14879/",
-      "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
-      "sha256": "dadc907f44963dd3246404c73da88771d92a64c6904666cf465c64c30ad5534c",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_122855/d7372b9bbb772927073ce566a64848b23aa14879/"
-    },
-    {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_144624/",
-      "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
-      "sha256": "0a154886d04f06d13732ad0d412a69d37cfc42bec06dab416d52ce9631aca425",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_144624/"
-    },
-    {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_19671/",
-      "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "8a8c8a537ee9e9d70c82e155e28e8d889ebd2686e902f09113882a6b38de0182",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_19671/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_19671/10fdf2faa7c30851b7673ac4ca893589c88f24f7/",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_23735/",
       "status": "ok",
-      "checkedAt": "2026-10-06T07:03:08.648Z",
-      "sha256": "1284fa20c7d6997bc9ab3fc2004d652d35e7d9210b7355d800941de6994697db",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_19671/10fdf2faa7c30851b7673ac4ca893589c88f24f7/"
+      "checkedAt": "2026-10-07T07:03:06.269Z",
+      "sha256": "63861865449b34b968e8932e6af1f6cd2b2d97f453499f18874b44c1083ecbbd",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_23735/"
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_28165/",
+      "status": "ok",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
+      "sha256": "532b361d08c779e80ac336dafffb537876a6deb667b06853272e5a7d65e00385",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_28165/"
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_28165/8f399ec989074fdad875f9a672a1b091ea9bf05c/",
+      "status": "ok",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
+      "sha256": "deaf3f6256684b2a0c203e13d97841513901275e5db0fa49552bc687662bf3b2",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_28165/8f399ec989074fdad875f9a672a1b091ea9bf05c/"
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_28165/cf8ce1f96c094ce8316b91e3ee5831f20a57a4a8/",
+      "status": "ok",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
+      "sha256": "a581817c8104600ebc498de9e9f6e6fa6a78b4f2dd14ddbac1b0e8b1afc8441b",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_28165/cf8ce1f96c094ce8316b91e3ee5831f20a57a4a8/"
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_28165/d4ddf64a8dd3e5ca9a2357aabbf32bcf7abcc5f8/",
+      "status": "ok",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
+      "sha256": "4677b7b33cfb798533d7b4dab127897b052ebbaf7ea97b55f69b4d68eb4a4c2b",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_28165/d4ddf64a8dd3e5ca9a2357aabbf32bcf7abcc5f8/"
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_32834/",
+      "status": "ok",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
+      "sha256": "0c1272232ef6dda0bac2a7d69d70ba93d67eeec09349f5957b303fa9d7423309",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_32834/"
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_34661/",
+      "status": "ok",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
+      "sha256": "4191ba2391a78e4d42f7ea7fe82fac063619bd693815c283da42f0639de5b0c6",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/"
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_34661/0486252c9b58867b61fbeadf42daad5e67b324f1/",
+      "status": "ok",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
+      "sha256": "4ef6a6b62c06d617813d1a3eb0a8bed16e42beb906154d59fda4d09bb2b2c3eb",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/0486252c9b58867b61fbeadf42daad5e67b324f1/"
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_34661/12fdd1f0e787e1bed499f22e3380e3cbef25e406/",
+      "status": "ok",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
+      "sha256": "165ad3af27f43a898f7e42d202151c8d53e4d09143425dcbfa7c539758bbec3d",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/12fdd1f0e787e1bed499f22e3380e3cbef25e406/"
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_34661/3312fbb50868eeb5b0a66db39b355958c676aeac/",
+      "status": "ok",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
+      "sha256": "4191ba2391a78e4d42f7ea7fe82fac063619bd693815c283da42f0639de5b0c6",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/"
     }
   ],
   "byUrl": {
@@ -298,79 +298,79 @@
     },
     "https://www.consultant.ru/document/cons_doc_LAW_19671/498ecb2931293a62685c3caece515bac9b2da7fa/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "72154f198c5b6674909a24a64a5a2d06df8d59b4987dd3715767e348fcab96b4",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_19671/498ecb2931293a62685c3caece515bac9b2da7fa/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_19671/795657fa74fe3b5dafa19383d710da465a553969/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "b9ec6a71bc5ffdd2c5a2d61a39c0c86327956af7053941584a4217bb82ac6aaa",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_19671/795657fa74fe3b5dafa19383d710da465a553969/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_19671/9b86d3c44e0f02e25dc7e07a78ef91232073e9d8/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "8a8c8a537ee9e9d70c82e155e28e8d889ebd2686e902f09113882a6b38de0182",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_19671/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_23735/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "63861865449b34b968e8932e6af1f6cd2b2d97f453499f18874b44c1083ecbbd",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_23735/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_28165/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "532b361d08c779e80ac336dafffb537876a6deb667b06853272e5a7d65e00385",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_28165/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_28165/8f399ec989074fdad875f9a672a1b091ea9bf05c/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "deaf3f6256684b2a0c203e13d97841513901275e5db0fa49552bc687662bf3b2",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_28165/8f399ec989074fdad875f9a672a1b091ea9bf05c/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_28165/cf8ce1f96c094ce8316b91e3ee5831f20a57a4a8/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "a581817c8104600ebc498de9e9f6e6fa6a78b4f2dd14ddbac1b0e8b1afc8441b",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_28165/cf8ce1f96c094ce8316b91e3ee5831f20a57a4a8/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_28165/d4ddf64a8dd3e5ca9a2357aabbf32bcf7abcc5f8/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "4677b7b33cfb798533d7b4dab127897b052ebbaf7ea97b55f69b4d68eb4a4c2b",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_28165/d4ddf64a8dd3e5ca9a2357aabbf32bcf7abcc5f8/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_32834/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "0c1272232ef6dda0bac2a7d69d70ba93d67eeec09349f5957b303fa9d7423309",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_32834/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_34661/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "4191ba2391a78e4d42f7ea7fe82fac063619bd693815c283da42f0639de5b0c6",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_34661/0486252c9b58867b61fbeadf42daad5e67b324f1/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "4ef6a6b62c06d617813d1a3eb0a8bed16e42beb906154d59fda4d09bb2b2c3eb",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/0486252c9b58867b61fbeadf42daad5e67b324f1/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_34661/12fdd1f0e787e1bed499f22e3380e3cbef25e406/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "165ad3af27f43a898f7e42d202151c8d53e4d09143425dcbfa7c539758bbec3d",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/12fdd1f0e787e1bed499f22e3380e3cbef25e406/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_34661/3312fbb50868eeb5b0a66db39b355958c676aeac/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T15:15:18.006Z",
+      "checkedAt": "2026-10-07T07:03:06.269Z",
       "sha256": "4191ba2391a78e4d42f7ea7fe82fac063619bd693815c283da42f0639de5b0c6",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_34661/"
     },

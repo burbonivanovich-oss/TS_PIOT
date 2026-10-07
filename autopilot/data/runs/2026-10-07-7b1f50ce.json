@@ -1,0 +1,92 @@
+{
+  "runId": "2026-10-07-7b1f50ce",
+  "date": "2026-10-07",
+  "kind": "day",
+  "createdAt": "2026-10-07T07:03:17.404Z",
+  "updatedAt": "2026-10-07T07:04:15.661Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-07T07:03:17.712Z",
+      "orderCount": 0,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 0,
+        "todayTarget": 3,
+        "debt": 0
+      }
+    },
+    "gated": {
+      "at": "2026-10-07T07:04:15.635Z",
+      "publicationCapacity": {
+        "day": "2026-10-07",
+        "slotsRemaining": 72,
+        "needed": 57,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 8,
+            "remaining": 47
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 4,
+            "remaining": 10
+          }
+        }
+      },
+      "published": 3,
+      "acceptedWaiting": 17,
+      "results": [
+        {
+          "slug": "2026-05-03-markirovka-igrushek-2026",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        },
+        {
+          "slug": "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        },
+        {
+          "slug": "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        }
+      ],
+      "links": {
+        "linksInserted": 0,
+        "orphansBefore": 36,
+        "orphansAfter": 36
+      }
+    },
+    "built": {
+      "at": "2026-10-07T07:04:15.633Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "bf5fa360be0edf266214412335a0f04f38aa8ce30b50f993b60e720a563ef541",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-07T07:03:17.712Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-07T07:04:15.635Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-07T07:04:15.661Z"
+    }
+  ],
+  "meta": {}
+}

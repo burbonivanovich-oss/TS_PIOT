@@ -14,6 +14,11 @@
       "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
       "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
       "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena"
+    ],
+    "2026-10-07": [
+      "2026-05-03-markirovka-igrushek-2026",
+      "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki",
+      "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke"
     ]
   },
   "kinds": {
@@ -31,6 +36,11 @@
       "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti": "new",
       "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika": "new",
       "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena": "new"
+    },
+    "2026-10-07": {
+      "2026-05-03-markirovka-igrushek-2026": "rewrite",
+      "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki": "new",
+      "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke": "new"
     }
   }
 }

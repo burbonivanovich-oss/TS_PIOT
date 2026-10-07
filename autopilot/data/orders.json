@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-06T07:03:16.813Z",
-  "date": "2026-10-06",
-  "runId": "2026-10-06-ba464e79",
+  "generatedAt": "2026-10-07T07:03:17.728Z",
+  "date": "2026-10-07",
+  "runId": "2026-10-07-7b1f50ce",
   "capacity": {
     "month": "2026-10",
     "done": 15,
     "monthlyTarget": 55,
     "totalDone": 29,
     "totalTarget": 69,
-    "expectedByToday": 11,
+    "expectedByToday": 12,
     "debt": 0,
     "todayTarget": 3,
     "inFlight": 0,
@@ -21,7 +21,7 @@
         "done": 15,
         "active": 0,
         "carriedAccepted": 0,
-        "expectedByToday": 11,
+        "expectedByToday": 12,
         "debt": 0,
         "remaining": 40
       },
@@ -42,8 +42,8 @@
     "urgentRewriteSlots": 0,
     "buffer": {
       "limit": 14,
-      "waiting": 23,
-      "reserved": 23,
+      "waiting": 20,
+      "reserved": 20,
       "free": 0,
       "paused": true
     }

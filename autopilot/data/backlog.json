@@ -170,14 +170,14 @@
       "format": "comparison",
       "segment": "none",
       "score": 64.4,
-      "status": "accepted_waiting_release",
+      "status": "released",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "ok",
         "advice": "",
         "related": []
       },
-      "updatedAt": "2026-10-04",
+      "updatedAt": "2026-10-07",
       "migration": {
         "at": "2026-09-13T19:07:00.110Z",
         "reason": "файла в корпусе нет — возврат в план"
@@ -285,14 +285,14 @@
         }
       },
       "priorityScore": 31.5,
-      "status": "accepted_waiting_release",
+      "status": "released",
       "createdAt": "2026-10-04",
       "dedupe": {
         "verdict": "ok",
         "advice": "",
         "related": []
       },
-      "updatedAt": "2026-10-04"
+      "updatedAt": "2026-10-07"
     },
     {
       "slug": "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya",
