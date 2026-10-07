@@ -98,3 +98,30 @@ test('date evidence accepts equivalent formats and rejects a different month in 
     assert.equal(checkClaimEvidence({claims,evidence,now}).ok,ok,statement);
   }
 });
+
+
+test('legal genitive money forms preserve tens, hundreds and both bounds',()=>{
+  assert.deepEqual(monetaryValues('от пятидесяти тысяч до трехсот тысяч рублей'),[50000,300000]);
+  assert.deepEqual(monetaryValues('от ста пятидесяти тысяч до двухсот тысяч рублей'),[150000,200000]);
+  assert.deepEqual(monetaryValues('от пятисот до девятисот рублей'),[500,900]);
+  assert.deepEqual(monetaryValues('от одиннадцати до девятнадцати рублей'),[11,19]);
+  assert.deepEqual(monetaryValues('от трёхсот тысяч до четырёхсот тысяч рублей'),[300000,400000]);
+});
+
+test('a real legal amount representation confirms numeric claims but rejects other bounds',()=>{
+  const excerpt='Штраф от пятидесяти тысяч до трехсот тысяч рублей.';
+  for(const [amount,ok] of [['50 000–300 000',true],['50 000–100 000',false],['150 000–300 000',false]]){
+    const claims=extractClaims(`Штраф ${amount} рублей согласно [закону](${url}).`);
+    assert.equal(claims.length,1);
+    const evidence={documents:[{url,text:excerpt,status:200,fetchedAt:now.toISOString(),sha256:createHash('sha256').update(excerpt).digest('hex')}],claims:[{claimHash:claimHash(claims[0].sentence),source:url,excerpt,checkedAt:now.toISOString(),result:'verified',rationale:'Суммы и применимость сверены.'}]};
+    assert.equal(checkClaimEvidence({claims,evidence,now}).ok,ok);
+  }
+});
+
+test('genitive fine recognition retains source binding and does not turn a price into liability',()=>{
+  const sentence=`За нарушение штраф от пятидесяти тысяч до трехсот тысяч рублей согласно [закону](${url}).`;
+  const claims=extractClaims(sentence);
+  assert.equal(claims.length,1);assert.equal(claims[0].text,'от пятидесяти тысяч до трехсот тысяч рублей');
+  assert.equal(claims[0].sentence,sentence);assert.equal(claims[0].source,url);
+  assert.deepEqual(extractClaims('Оборудование стоит от пятидесяти тысяч до трехсот тысяч рублей.'),[]);
+});
