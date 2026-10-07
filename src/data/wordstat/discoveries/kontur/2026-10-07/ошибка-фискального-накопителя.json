@@ -1,0 +1,51 @@
+{
+  "seed": "ошибка фискального накопителя",
+  "slug": "ошибка-фискального-накопителя",
+  "category": "problem",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-10-07T18:56:34.475Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 7,
+  "phrases": [
+    {
+      "phrase": "ошибка фискального накопителя",
+      "count": 303
+    },
+    {
+      "phrase": "ошибка ресурса фискального накопителя",
+      "count": 32
+    },
+    {
+      "phrase": "коды ошибок фискального накопителя",
+      "count": 32
+    },
+    {
+      "phrase": "ошибка 234 фискального накопителя",
+      "count": 31
+    },
+    {
+      "phrase": "ошибка связи с фискальным накопителем",
+      "count": 29
+    },
+    {
+      "phrase": "фискальный накопитель выдает ошибку",
+      "count": 17
+    },
+    {
+      "phrase": "ошибка 234 фискального накопителя эвотор",
+      "count": 15
+    }
+  ]
+}

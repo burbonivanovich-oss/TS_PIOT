@@ -1,0 +1,47 @@
+{
+  "seed": "ТС ПИоТ для АТОЛ",
+  "slug": "тс-пиот-для-атол",
+  "category": "audience",
+  "cluster": "ts-piot",
+  "fetchedAt": "2026-10-07T18:56:07.384Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 6,
+  "phrases": [
+    {
+      "phrase": "тс пиот для атол",
+      "count": 239
+    },
+    {
+      "phrase": "атол прошивка для тс пиот",
+      "count": 80
+    },
+    {
+      "phrase": "тс пиот для ккт атол",
+      "count": 49
+    },
+    {
+      "phrase": "тс пиот для атол 30ф",
+      "count": 27
+    },
+    {
+      "phrase": "модуль тс пиот для касс атол",
+      "count": 16
+    },
+    {
+      "phrase": "тс пиот для атол сигма",
+      "count": 11
+    }
+  ]
+}

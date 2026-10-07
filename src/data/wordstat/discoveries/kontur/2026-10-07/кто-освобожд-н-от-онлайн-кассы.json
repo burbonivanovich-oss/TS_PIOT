@@ -1,0 +1,31 @@
+{
+  "seed": "кто освобождён от онлайн-кассы",
+  "slug": "кто-освобожд-н-от-онлайн-кассы",
+  "category": "intent",
+  "cluster": "kkt",
+  "fetchedAt": "2026-10-07T18:56:19.664Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 2,
+  "phrases": [
+    {
+      "phrase": "кто освобожден от онлайн касс",
+      "count": 21
+    },
+    {
+      "phrase": "кто освобожден от применения онлайн кассы",
+      "count": 6
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "seed": "ЭДО для маркировки",
+  "slug": "эдо-для-маркировки",
+  "category": "entity",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-07T18:56:55.520Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 2,
+  "phrases": [
+    {
+      "phrase": "эдо для маркировки",
+      "count": 501
+    },
+    {
+      "phrase": "эдо для работы с маркировкой",
+      "count": 24
+    }
+  ]
+}

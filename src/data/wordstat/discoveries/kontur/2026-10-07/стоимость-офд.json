@@ -1,0 +1,99 @@
+{
+  "seed": "стоимость ОФД",
+  "slug": "стоимость-офд",
+  "category": "intent",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-10-07T18:56:37.551Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 19,
+  "phrases": [
+    {
+      "phrase": "стоимость офд",
+      "count": 472
+    },
+    {
+      "phrase": "платформа офд стоимость",
+      "count": 52
+    },
+    {
+      "phrase": "офд стоимость на год",
+      "count": 49
+    },
+    {
+      "phrase": "контур офд стоимость",
+      "count": 34
+    },
+    {
+      "phrase": "такском офд стоимость",
+      "count": 32
+    },
+    {
+      "phrase": "услуги офд стоимость",
+      "count": 29
+    },
+    {
+      "phrase": "сбис офд стоимость",
+      "count": 29
+    },
+    {
+      "phrase": "касса офд стоимость",
+      "count": 27
+    },
+    {
+      "phrase": "яндекс офд стоимость",
+      "count": 24
+    },
+    {
+      "phrase": "стоимость офд на 36 месяцев",
+      "count": 23
+    },
+    {
+      "phrase": "офд стоимость на 1 год",
+      "count": 21
+    },
+    {
+      "phrase": "офд стоимость на 3 года",
+      "count": 20
+    },
+    {
+      "phrase": "1с чеки офд стоимость",
+      "count": 19
+    },
+    {
+      "phrase": "стоимость офд на 12 месяцев",
+      "count": 18
+    },
+    {
+      "phrase": "стоимость офд на 15 месяцев",
+      "count": 18
+    },
+    {
+      "phrase": "астрал офд стоимость",
+      "count": 17
+    },
+    {
+      "phrase": "1с чеки офд сервис стоимость",
+      "count": 17
+    },
+    {
+      "phrase": "первый офд стоимость",
+      "count": 8
+    },
+    {
+      "phrase": "подписка офд стоимость",
+      "count": 7
+    }
+  ]
+}

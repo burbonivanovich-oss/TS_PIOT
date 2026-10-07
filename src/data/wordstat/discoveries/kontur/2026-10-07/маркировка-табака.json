@@ -1,0 +1,91 @@
+{
+  "seed": "маркировка табака",
+  "slug": "маркировка-табака",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-07T18:56:45.639Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 17,
+  "phrases": [
+    {
+      "phrase": "маркировка табака",
+      "count": 514
+    },
+    {
+      "phrase": "маркировка табаков",
+      "count": 514
+    },
+    {
+      "phrase": "код маркировки табака",
+      "count": 81
+    },
+    {
+      "phrase": "маркировка табака честный",
+      "count": 78
+    },
+    {
+      "phrase": "табак маркировка честный знак",
+      "count": 76
+    },
+    {
+      "phrase": "маркировка табаков для кальяна",
+      "count": 47
+    },
+    {
+      "phrase": "табак для кальяна маркировка",
+      "count": 47
+    },
+    {
+      "phrase": "табак без маркировки",
+      "count": 46
+    },
+    {
+      "phrase": "продажа табака маркировка",
+      "count": 38
+    },
+    {
+      "phrase": "маркировка жевательного табака",
+      "count": 26
+    },
+    {
+      "phrase": "маркировка табака постановление",
+      "count": 20
+    },
+    {
+      "phrase": "постановление правительства 224 маркировка табака",
+      "count": 12
+    },
+    {
+      "phrase": "правила 224 маркировка табак",
+      "count": 11
+    },
+    {
+      "phrase": "маркировка сигарет табак",
+      "count": 11
+    },
+    {
+      "phrase": "исмет маркировка табака",
+      "count": 1
+    },
+    {
+      "phrase": "маркировка исмет кз табак",
+      "count": 1
+    },
+    {
+      "phrase": "табак маркировка кз",
+      "count": 1
+    }
+  ]
+}
