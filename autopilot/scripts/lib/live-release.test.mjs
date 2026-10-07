@@ -29,3 +29,9 @@ test('redirects and off-site paths cannot provide release proof', async t => {
   await assert.rejects(verifyLiveRelease(await fixture(t, { redirect: true })));
   await assert.rejects(verifyLiveRelease({ ...await fixture(t), pages: [{ path: 'https://other.test/', requiredText: 'article' }] }), /outside/);
 });
+test('exact rendered proof refuses an old body with the same headline',async t=>{
+ const {createHash}=await import('node:crypto');const hash=s=>createHash('sha256').update(s).digest('hex');
+ const f=await fixture(t);const page={path:'/blog/article/',requiredText:'Published article',expectedHtmlSha256:hash('<h1>Published article</h1>')};
+ const live=await verifyLiveRelease({...f,pages:[page]});assert.equal(live.pages[0].verification,'exact-rendered-html');assert.equal(live.pages[0].htmlSha256,page.expectedHtmlSha256);
+ await assert.rejects(verifyLiveRelease({...f,pages:[{...page,expectedHtmlSha256:hash('<h1>Published article</h1><p>Corrected body</p>')}]}),/hash does not match/);
+});

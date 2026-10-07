@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { publicationMetrics } from './lib/publication-metrics.mjs';
 // Метрики результата, а не только количества файлов (AP-P1-16).
 //
 // Недельный audit должен отвечать, почему темп не выполнен, не заставляя
@@ -177,6 +178,7 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
       debtNew: Math.max(0, targetNewToday - state.counters.new),
       debtRewrite: Math.max(0, targetRewriteToday - state.counters.rewrite),
     },
+    publication: publicationMetrics({state,publishLog,queue:release.items,proofs:readJson(path.join(dir,'live-verifications.json'),{checks:[]}),now,targets:{new:cfg.throughput.monthlyTarget,rewrite:cfg.throughput.monthlyRewriteTarget??null}}),
     modelUsage: modelUsage(allRuns, cutoff, to),
     cycle: { medianMinutes: median(cycles), samples: cycles.length },
     byDay: periodDays,
@@ -196,6 +198,9 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
 /** Человекочитаемый ответ «почему темп не выполнен». */
 function diagnose(m) {
   const lines = [];
+  const p=m.publication;
+  lines.push(`месяц: принято NEW ${p.accepted?.new??'неизвестно'} / REWRITE ${p.accepted?.rewrite??'неизвестно'}; журнал выпуска ${p.released.new}/${p.released.rewrite}, вид неизвестен ${p.released.unknown}; подтверждено на сайте ${p.confirmedOnSite.new}/${p.confirmedOnSite.rewrite}, проверено ${p.liveCoverage.checkedEvents}/${p.liveCoverage.ledgerEvents}`);
+  lines.push(`долг выпуска к сегодня NEW ${p.releaseDebt.new} / REWRITE ${p.releaseDebt.rewrite??'не задан'}; остаток месячной нормы выпуска ${p.remainingToRelease.new}/${p.remainingToRelease.rewrite??'не задан'}`);
   if (m.pace.debt > 0) {
     lines.push(`темп: ${m.pace.done}/${m.pace.expectedByToday} к сегодня, долг ${m.pace.debt}`);
   } else {

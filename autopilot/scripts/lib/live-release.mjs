@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 // Public HTTP evidence of the deployed build; never infer it from push alone.
 export async function verifyLiveRelease({ site, expectedCommit, pages = [], fetchImpl = fetch, now = new Date() }) {
   if (!/^[a-f0-9]{40,64}$/.test(expectedCommit)) throw new Error('Invalid expected revision');
@@ -27,7 +28,11 @@ export async function verifyLiveRelease({ site, expectedCommit, pages = [], fetc
     if (!/text\/html/i.test(pageResponse.headers.get('content-type') || '')) throw new Error('Live page is not HTML');
     const html = await pageResponse.text();
     if (!html.includes(page.requiredText)) throw new Error('Expected page content missing');
-    checkedPages.push({ path: page.path, status: 200, contentVerified: true });
+    const exact = page.expectedHtmlSha256 !== undefined;
+    const htmlSha256 = createHash('sha256').update(html).digest('hex');
+    if (exact && (!/^[a-f0-9]{64}$/.test(page.expectedHtmlSha256) || htmlSha256 !== page.expectedHtmlSha256)) throw new Error('Rendered page hash does not match built version');
+    checkedPages.push({ path: page.path, status: 200, contentVerified: true,
+      ...(exact ? { htmlSha256, verification: 'exact-rendered-html' } : {}) });
   }
   return { liveVerified: true, revision: receipt.revision, builtAt: receipt.builtAt, checkedAt, pages: checkedPages };
 }
