@@ -1,4 +1,4 @@
-import { auditSourceUrl, evaluateEvidence, urlFromMatch } from './sources.mjs';
+import { auditSourceUrl, evaluateEvidence, sourceLinks } from './sources.mjs';
 
 const EDGE = '(?<![\\p{L}\\p{N}])';
 const MONTH = '(?:января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря)';
@@ -28,7 +28,6 @@ const PATTERNS = [
   {id:'fine', re:MONEY, context:LIABILITY},
   {id:'law', re:new RegExp(`${EDGE}(?:(?:ст\\.\\s*|стать[ияию]\\s+)\\d+(?:\\.\\d+)*(?![\\d.]|-\\d)|№\\s*\\d{2,4}-ФЗ|КоАП|НК\\s+РФ)`, 'giu')},
 ];
-const SOURCE_RE = /\]\(https?:\/\/(?:[^)]*\.)?(?:consultant\.ru|garant\.ru|nalog\.gov\.ru|publication\.pravo\.gov\.ru|pravo\.gov\.ru|честныйзнак\.рф|xn--80ajghhoc2aj1c8b\.xn--p1ai|crpt\.ru|kremlin\.ru|duma\.gov\.ru|regulation\.gov\.ru)[^)]*\)/gi;
 
 /** Keep each displayed field separate, with offsets for explicit evidence bindings. */
 function articleClaimParts(article) {
@@ -181,8 +180,7 @@ export function extractClaims(input, sourceEvidence=null, {maxAgeDays=180}={}) {
     // Masking helps recognition but must not rewrite the statement bound to evidence.
     const sentence=sentenceAt(original,m.index);
     if(p.context && !p.context.test(sentence)) return [];
-    const match=sentence.match(SOURCE_RE)?.[0];
-    const source=match ? urlFromMatch(match):null;
+    const source=sourceLinks(sentence)[0] ?? null;
     let covered=Boolean(source), reason=covered?null:'нет ссылки на первоисточник в этом предложении';
     if(covered) {
       const audit=auditSourceUrl(source);

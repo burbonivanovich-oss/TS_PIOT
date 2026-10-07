@@ -8,13 +8,14 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { loadConfig } from './config.mjs';
 
-// Canonical allowlist первоисточников. Тот же набор, что в SOURCE_RE гейтов;
+// Canonical allowlist первоисточников для извлечения, отчёта гейтов и evidence;
 // домены в ASCII (punycode), потому что `new URL().hostname` нормализует
 // кириллицу именно так.
 export const SOURCE_DOMAINS = [
   'consultant.ru',
   'garant.ru',
   'nalog.gov.ru',
+  'rospotrebnadzor.ru',
   'publication.pravo.gov.ru',
   'pravo.gov.ru',
   'crpt.ru',
@@ -50,6 +51,13 @@ export function extractUrls(body) {
 export function urlFromMatch(matchText) {
   const m = matchText.match(SOURCE_EVIDENCE_RE);
   return m ? m[0].replace(/\)+$/, '') : null;
+}
+
+/** Markdown-ссылки известных доменов; пригодность проверяется auditSourceUrl. */
+export function sourceLinks(text) {
+  return [...String(text || '').matchAll(/\]\(https?:\/\/[^)]*\)/gi)]
+    .map(match => urlFromMatch(match[0]))
+    .filter(url => url && hostAllowed(hostOf(url)));
 }
 
 /**

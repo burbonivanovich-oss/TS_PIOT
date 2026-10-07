@@ -360,3 +360,12 @@ test('confirmed wrong statement is a non-compensable blocker until removed',()=>
  assert.ok(bad.blockers.includes('fact-corrections'));assert.equal(bad.passed,false);
  assert.equal(corrected.passed,true);assert.equal(bad.score,corrected.score);
 });
+
+
+test('source report and coverage use the same official-domain audit', () => {
+  for(const [url,valid] of [['https://zpp.rospotrebnadzor.ru/news/federal/575519',true],['https://rospotrebnadzor.ru.evil.example/news/1',false],['https://user@zpp.rospotrebnadzor.ru/news/1',false]]){
+    const result=runGates({source:wrap(`Тестовая норма действует с 01.10.2026 согласно [разъяснению](${url}).`+padding()),knownSlugs:KNOWN});
+    assert.equal(sourcesCheck(result).ok,valid,sourcesCheck(result).detail);
+    assert.match(sourcesCheck(result).detail,new RegExp(`ссылок на первоисточники: ${valid?1:0}`));
+  }
+});

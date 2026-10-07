@@ -155,3 +155,11 @@ test('AP-P1-02: CLI audit блокирует статью со ссылкой н
   assert.equal(out.bad, 1);
   assert.equal(out.results.find((r) => r.url === 'https://consultant.ru/').ok, false);
 });
+
+
+test('official Rospotrebnadzor pages are allowed; lookalikes and redirected evidence fail', () => {
+  const url = 'https://zpp.rospotrebnadzor.ru/news/federal/575519';
+  assert.equal(auditSourceUrl(url).ok, true);
+  for (const bad of ['https://rospotrebnadzor.ru.evil.example/news/1', 'https://notrospotrebnadzor.ru/news/1', 'https://user@zpp.rospotrebnadzor.ru/news/1', 'https://zpp.rospotrebnadzor.ru/', 'ftp://zpp.rospotrebnadzor.ru/news/1']) assert.equal(auditSourceUrl(bad).ok, false);
+  assert.equal(evaluateEvidence({url,finalUrl:'https://rospotrebnadzor.ru.evil.example/news/1',status:200,checkedAt:'2026-10-03'}, {now:new Date('2026-10-04')}).ok, false);
+});

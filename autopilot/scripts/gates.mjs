@@ -21,7 +21,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { loadConfig } from './lib/config.mjs';
 import { parseFrontmatter, loadArticles, isMain, parseArgs } from './lib/content.mjs';
 import { tokenize, shingles, buildIdf, weightedCoverage } from './lib/text.mjs';
-import { readSourceEvidence } from './lib/sources.mjs';
+import { readSourceEvidence, sourceLinks, auditSourceUrl } from './lib/sources.mjs';
 import { envelope, EXIT } from './lib/outcome.mjs';
 import { extractInternalLinks, unpublishedSlugs } from './lib/links.mjs';
 import { parseIsoDate, isFutureIso, isPastIso } from './lib/dates.mjs';
@@ -50,7 +50,6 @@ export function extractCriticalClaims(input, sourceEvidence = null, { evidence, 
   return bindMetadataSources({ claims: extractClaims(input, sourceEvidence, { maxAgeDays }), evidence, now, maxAgeDays });
 }
 
-const SOURCE_RE = /\]\(https?:\/\/(?:[^)]*\.)?(?:consultant\.ru|garant\.ru|nalog\.gov\.ru|publication\.pravo\.gov\.ru|pravo\.gov\.ru|честныйзнак\.рф|xn--80ajghhoc2aj1c8b\.xn--p1ai|crpt\.ru|kremlin\.ru|duma\.gov\.ru|regulation\.gov\.ru)[^)]*\)/gi;
 
 export function runGates({ file, source, requiredPubDate = null, knownSlugs = null, sourceEvidence = null, siteQuality = runSiteQuality, claimEvidence = undefined, claimVerifier = checkClaimEvidence, assetVerifier = checkHeroAssets, correctionEvidence = undefined }) {
   const raw = source ?? readFileSync(file, 'utf8');
@@ -153,7 +152,7 @@ export function runGates({ file, source, requiredPubDate = null, knownSlugs = nu
   }
   const claims = extractCriticalClaims({ body, fm }, sourceEvidence, { evidence });
   const uncovered = claims.filter((c) => !c.covered);
-  const sources = [...articleClaimText({ body, fm }).matchAll(SOURCE_RE)].length;
+  const sources = sourceLinks(articleClaimText({ body, fm })).filter(url => auditSourceUrl(url).ok).length;
   add(
     'sources',
     !G.requireFactcheck || claims.length === 0 || uncovered.length === 0,

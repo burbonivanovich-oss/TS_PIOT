@@ -41,3 +41,15 @@ test('PUB-05: повреждение снимка, чужой фрагмент, 
     const e = fixture(); edit(e); assert.equal(verify(e).ok, false);
   }
 });
+
+
+test('official clarification still requires an exact fresh semantic receipt and whole snapshot', () => {
+  const source = 'https://zpp.rospotrebnadzor.ru/news/federal/575519';
+  const sentence = `Тестовая норма действует с 01.10.2026 согласно [разъяснению](${source}).`;
+  const list = [{id:'date',text:'с 01.10.2026',sentence,source}];
+  const make = () => { const e=fixture(); e.documents[0].url=source; e.claims[0].source=source; e.claims[0].claimHash=claimHash(sentence); return e; };
+  const run=e=>checkClaimEvidence({claims:list,evidence:e,now});
+  assert.equal(run(make()).ok,true);
+  assert.equal(run(null).ok,false);
+  for(const mutate of [e=>e.claims[0].excerpt='Чужой фрагмент',e=>e.claims[0].checkedAt='2025-01-01',e=>e.documents[0].text+='повреждение',e=>{e.claims[0].source='https://rospotrebnadzor.ru.evil.example/news/1';e.documents[0].url=e.claims[0].source;},e=>e.claims[0].result='unverified']){const e=make();mutate(e);assert.equal(run(e).ok,false);}
+});

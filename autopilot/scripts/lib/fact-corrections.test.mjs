@@ -42,3 +42,12 @@ test('late verified finding promotes only a staged rewrite that removes the publ
  assert.equal(item.factualCorrection,undefined);
  for(const changed of [{candidateBody:statement},{publishedBody:'Другая статья.'},{evidence:null},{item:{...item,kind:'new'}},{item:{...item,stagedFile:null}},{now:new Date('2027-10-04')}]) assert.equal(lateCorrectionPriority({...options,...changed}).factualCorrection,undefined);
 });
+
+
+test('official Rospotrebnadzor correction remains exact, fresh and source-bound', () => {
+ const url='https://zpp.rospotrebnadzor.ru/news/federal/575519';
+ const make=()=>{const e=fixture();e.documents[0].url=url;e.findings[0].source=url;return e;};
+ assert.equal(check(make()).length,1);
+ assert.equal(activeFactCorrections({slug:'article',body:'Исправлено',evidence:make(),now}).length,0);
+ for(const mutate of [e=>e.findings[0].excerpt='Чужой фрагмент',e=>e.findings[0].checkedAt='2025-01-01',e=>{e.findings[0].source='https://rospotrebnadzor.ru.evil.example/news/1';e.documents[0].url=e.findings[0].source;}]){const e=make();mutate(e);assert.equal(check(e).length,0);}
+});

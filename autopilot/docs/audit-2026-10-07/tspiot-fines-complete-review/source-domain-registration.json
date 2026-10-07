@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-07T13:48:57.400Z",
+  "slug": "2026-05-01-ts-piot-shtrafy",
+  "previousFindings": 4,
+  "added": 3,
+  "currentFindings": 7,
+  "source": "https://zpp.rospotrebnadzor.ru/news/federal/575519",
+  "sourceSha256": "b6b6b53ce621ed29e5c31fe7717b8b3ce0c6921502a8e53f0af0444664013976",
+  "excerpt": "Начиная с 01.07.2026, информационная система маркировки начнет фиксировать отклонения в кассовых чеках при отсутствии проверки кода маркировки через ТС ПИоТ. Обращаем внимание: наличие отклонений не блокирует работу ККТ, однако информация о таких операциях будет автоматически передаваться в контрольно-надзорные органы как сведения, указывающие на наличие признаков нарушения обязательных требований. ",
+  "additionalCheckedExcerpt": "До момента выпуска обновления кассовый аппарат продолжит функционировать в штатном режиме, однако до момента интеграции ТС ПИоТ все чеки будут классифицироваться как содержащие отклонения с последующим направлением информации в контролирующие органы. ",
+  "semanticScope": "Three universal cash-blocking statements only; no positive verification of entire article, token deadline or actual equipment behavior",
+  "negativeControls": [
+    "fake domain",
+    "credentials and homepage",
+    "unverified receipt",
+    "foreign excerpt",
+    "stale review",
+    "corrupted source snapshot",
+    "statement removed"
+  ],
+  "operationalMutation": false,
+  "publicCorrection": false
+}
