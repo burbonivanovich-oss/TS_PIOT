@@ -538,3 +538,29 @@ test('accepted rewrite repair returns to calendar with factual priority and unch
  const saved=JSON.parse(readFileSync(path.join(fx.dataDir,'autopilot.json')));assert.equal(saved.quarantine.length,0);assert.equal(saved.inFlight.length,0);assert.equal(saved.counters.rewrite,1);assert.equal(readFileSync(file,'utf8'),original);
  const queue=JSON.parse(readFileSync(path.join(fx.dataDir,'release-queue.json')));assert.equal(queue.items[0].factualCorrection,true);assert.match(readFileSync(path.join(fx.dataDir,queue.items[0].stagedFile),'utf8'),/Исправленная статья/);
 });
+
+// Synthetic law fixtures exercise retained evidence through the real recheck.
+test('AUD-02 calendar recheck refuses stale foreign tampered evidence and changed accepted claims', async () => {
+  const {extractClaims}=await import('./lib/critical-claims.mjs');const {claimHash}=await import('./lib/claim-evidence.mjs');const {parseFlags,selectCandidate}=await import('../../scripts/release-next-draft.mjs');
+  const today=new Date().toISOString().slice(0,10),url='https://publication.pravo.gov.ru/document/test-calendar';
+  for(const variant of ['valid','stale','foreign','tampered','changed-claim']) {
+    const fx=fixture(),blog=path.join(fx.root,'src/content/blog');addReferenceArticles(blog);
+    const config=JSON.parse(readFileSync(fx.configFile));config.gates.requireClaimEvidence=true;writeFileSync(fx.configFile,JSON.stringify(config));
+    const state=readState(fx);state.inFlight=[];state.counters.new=1;writeFileSync(path.join(fx.dataDir,'autopilot.json'),JSON.stringify(state));writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({date:today,orders:[]}));writeFileSync(path.join(fx.dataDir,'release-queue.json'),JSON.stringify({generatedAt:today,items:[{slug:SLUG,kind:'new',score:100,acceptedAt:today+'T00:00:00Z'}]}));
+    const statement=`Штраф 500 рублей согласно [закону](${url}).`,raw=validWaitingArticle('Проверка очереди с источником')+'\n'+statement+'\n',file=path.join(blog,SLUG+'.md');writeFileSync(file,variant==='changed-claim'?raw.replace('Штраф 500','Штраф 700'):raw);
+    const excerpt='Штраф составляет 500 рублей. Норма применяется к тестовой категории.',stamp=variant==='stale'?'2020-01-01T00:00:00Z':new Date().toISOString();
+    const evidence={documents:[{url,text:excerpt,status:200,fetchedAt:stamp,sha256:createHash('sha256').update(excerpt).digest('hex')}],claims:extractClaims(statement).map(c=>({claimHash:claimHash(c.sentence),source:url,excerpt,result:'verified',checkedAt:stamp,rationale:'Сумма и область применения сверены в синтетическом документе.'}))};
+    if(variant==='foreign')evidence.claims[0].source='https://publication.pravo.gov.ru/document/other';if(variant==='tampered')evidence.documents[0].text=excerpt.replace('500','900');mkdirSync(path.join(fx.dataDir,'claim-evidence'));writeFileSync(path.join(fx.dataDir,'claim-evidence',SLUG+'.json'),JSON.stringify(evidence));
+    const report=settle(fx);
+    if(variant==='valid'){assert.equal(report.published,1,JSON.stringify(report));settle(fx);assert.equal(readState(fx).counters.published,1);}
+    else{assert.equal(report.published,0,variant);const refusal=report.results.find(r=>r.slug===SLUG&&r.status==='release_rejected');assert.ok(refusal,JSON.stringify(report));assert.ok(refusal.failedChecks.some(c=>c.id==='claim-evidence'),variant);assert.equal(readState(fx).counters.new,1);assert.equal(readState(fx).counters.published,0);assert.equal(selectCandidate([{slug:SLUG,...parseFlags(readFileSync(file,'utf8'))}],{today,forceDate:true}),null);settle(fx);assert.equal(readState(fx).counters.published,0);assert.equal(readState(fx).inFlight[0].failures,1);}
+  }
+});
+
+test('AUD-02 SIGKILL after refusal and gated manifest recovers exactly one rejection',()=>{
+  const fx=fixture(),blog=path.join(fx.root,'src/content/blog');addReferenceArticles(blog);const today=new Date().toISOString().slice(0,10),config=JSON.parse(readFileSync(fx.configFile));config.gates.requireWritingReceipt=true;config.gates.requireClaimEvidence=true;writeFileSync(fx.configFile,JSON.stringify(config));
+  const file=path.join(blog,SLUG+'.md'),raw=validWaitingArticle('Авария при сохранении отказа').replace('2026-01-01',today)+'\nШтраф 500 рублей.\n';writeFileSync(file,raw);const run=createRun({dir:fx.dataDir,date:today});setStage(run.runId,'planned',{orderCount:1},{dir:fx.dataDir});writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({runId:run.runId,date:today,orders:[{slug:SLUG,kind:'new'}]}));
+  const env={...process.env,AUTOPILOT_CONFIG:fx.configFile,AUTOPILOT_DATA_DIR:fx.dataDir,AUTOPILOT_LOCK_FILE:path.join(fx.dataDir,'.autopilot.lock'),CONTENT_ROOT:fx.root};const receipt=spawnSync(process.execPath,['scripts/writing-checkpoint.mjs','record','--slug',SLUG],{cwd:ROOT,env,encoding:'utf8'});assert.equal(receipt.status,0,receipt.stderr);
+  const hook=path.join(fx.root,'crash-at-ledger.mjs');writeFileSync(hook,`import fs from 'node:fs';import {syncBuiltinESMExports} from 'node:module';const original=fs.renameSync;fs.renameSync=function(from,to){if(String(to)===${JSON.stringify(path.join(fx.dataDir,'publish-log.json'))})process.kill(process.pid,'SIGKILL');return original(from,to)};syncBuiltinESMExports();`);const crashed=spawnSync(process.execPath,['--import',hook,'scripts/pipeline.mjs','settle','--json'],{cwd:ROOT,env,encoding:'utf8'});assert.equal(crashed.signal,'SIGKILL',crashed.stderr);assert.ok(readRun(run.runId,{dir:fx.dataDir}).stages.gated);assert.equal(readState(fx).inFlight[0].failures,0);
+  const recovered=settle(fx);assert.equal(recovered.published,0);assert.equal(recovered.rejected,1);assert.equal(readState(fx).inFlight[0].failures,1);assert.equal(readState(fx).counters.new,0);assert.equal(readState(fx).counters.published,0);assert.match(readFileSync(file,'utf8'),/autopilotHold: true/);settle(fx);assert.equal(readState(fx).inFlight[0].failures,1);
+});
