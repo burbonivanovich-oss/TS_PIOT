@@ -125,3 +125,72 @@ test('genitive fine recognition retains source binding and does not turn a price
   assert.equal(claims[0].sentence,sentence);assert.equal(claims[0].source,url);
   assert.deepEqual(extractClaims('Оборудование стоит от пятидесяти тысяч до трехсот тысяч рублей.'),[]);
 });
+
+test('a legal part abbreviation inside a Markdown link keeps the full source sentence',()=>{
+  const sentence=`Продажа без маркировки — [ст. 15.12 ч. 2 КоАП РФ](${url}).`;
+  const claims=extractClaims(sentence);
+  assert.equal(claims.length,2);
+  assert.ok(claims.every(c=>c.sentence===sentence && c.source===url && c.covered));
+  assert.equal(claimHash(claims[0].sentence),claimHash(sentence));
+});
+
+test('legal abbreviations preserve a sentence but a source in the next sentence does not cover it',()=>{
+  for(const abbreviation of ['ч. 2','п. 2','пп. 2','подп. 2','абз. 2']) {
+    const sentence=`По ${abbreviation} порядок обязателен с 1.9.2026 согласно [норме](${url}).`;
+    assert.equal(extractClaims(sentence).find(c=>c.id==='date').sentence,sentence);
+  }
+  const claims=extractClaims(`По [ст. 15.12 ч. 2](${url}) действует запрет. Штраф 500 рублей.`);
+  assert.equal(claims.find(c=>c.id==='fine').source,null);
+});
+
+test('a pipe in a source URL or escaped prose is not a sentence or table-cell boundary',()=>{
+  const source=url+'?part=1|2';
+  const sentence=`Штраф 500 рублей по [ст. 15.12 ч. 2](${source}).`;
+  const claims=extractClaims(sentence);
+  assert.ok(claims.every(c=>c.sentence===sentence && c.source===source));
+  const escaped=`Штраф 500 рублей \\| согласно [норме](${url}).`;
+  assert.equal(extractClaims(escaped)[0].sentence,escaped);
+});
+
+test('bare regulatory table dates are found in written, short and month-only form with exact text',()=>{
+  for(const date of ['1 сентября 2026','1.9.2026','сентября 2026']) {
+    const table=`| Дата | Требование |\n|---|---|\n| ${date} | Обязательная маркировка |`;
+    const claims=extractClaims(table);
+    assert.equal(claims.length,1,date);
+    assert.equal(claims[0].text,date);assert.equal(claims[0].sentence,` ${date} `);
+    assert.equal(claims[0].covered,false);
+  }
+});
+
+test('actual header/separator and normative row context are required for bare table dates',()=>{
+  for(const text of [
+    '| Дата | Релиз |\n|---|---|\n| 1 сентября 2026 | Версия 2.3.24.18 |',
+    '| Дата | Событие |\n|---|---|\n| 1 сентября 2026 | Публикация статьи |',
+    '| Дата | Цена |\n|---|---|\n| 1 сентября 2026 | Касса 500 рублей |',
+    '| 1 сентября 2026 | Обязательная маркировка |',
+    '```md\n| Дата | Требование |\n|---|---|\n| 1 сентября 2026 | Обязательная маркировка |\n```',
+  ]) assert.deepEqual(extractClaims(text),[],text);
+  // Adding a release mention must not hide an explicit regulatory obligation.
+  assert.equal(extractClaims('| Дата | Требование |\n|---|---|\n| 1 сентября 2026 | Обязательная маркировка; обновите релиз |').length,1);
+});
+
+test('table date evidence stays in its own sentence/cell and stale or wrong evidence still fails',()=>{
+  const outside=`| Дата | Требование | Источник |\n|---|---|---|\n| 1 сентября 2026 | Обязательная маркировка | [Норма](${url}) |`;
+  assert.equal(extractClaims(outside)[0].source,null);
+  const inside=`| Дата | Требование |\n|---|---|\n| [1 сентября 2026](${url}) | Обязательная маркировка |`;
+  const claims=extractClaims(inside);assert.equal(claims.length,1);assert.equal(claims[0].source,url);
+  const evidence={documents:[{url,text:'Порядок обязателен с 1 сентября 2026.',status:200,fetchedAt:now.toISOString(),sha256:createHash('sha256').update('Порядок обязателен с 1 сентября 2026.').digest('hex')}],claims:[{claimHash:claimHash(claims[0].sentence),source:url,excerpt:'Порядок обязателен с 1 сентября 2026.',checkedAt:now.toISOString(),result:'verified',rationale:'Дата и область применения сверены.'}]};
+  assert.equal(checkClaimEvidence({claims,evidence,now}).ok,true);
+  assert.equal(checkClaimEvidence({claims:extractClaims(inside.replace('1 сентября','2 сентября')),evidence,now}).ok,false);
+  const stale=structuredClone(evidence);stale.documents[0].fetchedAt='2025-01-01';
+  assert.equal(checkClaimEvidence({claims,evidence:stale,now}).ok,false);
+  assert.equal(extractClaims(`| Дата | Требование |\n|---|---|\n| 1 сентября 2026. [Норма](${url}) | Обязательная маркировка |`)[0].source,null);
+});
+
+test('tables without outer pipes work, prefixed dates are not duplicated, URL dates are invisible',()=>{
+  const table='Дата | Требование\n--- | ---\n1 сентября 2026 | Регистрация участников оборота в Честном знаке';
+  assert.equal(extractClaims(table).length,1);
+  assert.equal(extractClaims(table.replace('1 сентября','с 1 сентября')).length,1);
+  const hidden=`| Дата | Требование |\n|---|---|\n| [Источник](${url}?date=1.9.2026) | Обязательная маркировка |`;
+  assert.deepEqual(extractClaims(hidden),[]);
+});

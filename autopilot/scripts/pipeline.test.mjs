@@ -539,6 +539,36 @@ test('accepted rewrite repair returns to calendar with factual priority and unch
  const queue=JSON.parse(readFileSync(path.join(fx.dataDir,'release-queue.json')));assert.equal(queue.items[0].factualCorrection,true);assert.match(readFileSync(path.join(fx.dataDir,queue.items[0].stagedFile),'utf8'),/Исправленная статья/);
 });
 
+test('AUD-01 calendar release holds bare table dates without same-cell evidence and releases a verified linked law once', async () => {
+  const {extractClaims}=await import('./lib/critical-claims.mjs');
+  const {claimHash}=await import('./lib/claim-evidence.mjs');
+  const {parseFlags,selectCandidate}=await import('../../scripts/release-next-draft.mjs');
+  const today=new Date().toISOString().slice(0,10),url='https://publication.pravo.gov.ru/document/table-test';
+  for(const variant of ['missing','neighbor','stale','wrong-date','valid-link-label']) {
+    const fx=fixture(),blog=path.join(fx.root,'src/content/blog');addReferenceArticles(blog);
+    const config=JSON.parse(readFileSync(fx.configFile));config.gates.requireClaimEvidence=true;writeFileSync(fx.configFile,JSON.stringify(config));
+    const state=readState(fx);state.inFlight=[];state.counters.new=1;writeFileSync(path.join(fx.dataDir,'autopilot.json'),JSON.stringify(state));
+    writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({date:today,orders:[]}));
+    writeFileSync(path.join(fx.dataDir,'release-queue.json'),JSON.stringify({generatedAt:today,items:[{slug:SLUG,kind:'new',score:100,acceptedAt:today+'T00:00:00Z'}]}));
+    const dateCell=variant==='missing'||variant==='neighbor'?'1 сентября 2026':`1 сентября 2026 согласно [ст. 15.12 ч. 2 КоАП](${url}).`;
+    const statement=`| Обязанность | Дата | Источник |\n| --- | --- | --- |\n| Обязательная маркировка | ${dateCell} | ${variant==='neighbor'?`[Норма](${url})`:''} |`;
+    const file=path.join(blog,SLUG+'.md');writeFileSync(file,validWaitingArticle('Проверка нормативной таблицы')+'\n'+statement+'\n');
+    const excerpt=`Обязательная маркировка действует с ${variant==='wrong-date'?'1 октября':'1 сентября'} 2026 года согласно ст. 15.12 ч. 2 КоАП.`,stamp=variant==='stale'?'2020-01-01T00:00:00Z':new Date().toISOString();
+    const claims=extractClaims(statement);assert.ok(claims.some(c=>c.id==='date'),variant);
+    const evidence={documents:[{url,text:excerpt,status:200,fetchedAt:stamp,sha256:createHash('sha256').update(excerpt).digest('hex')}],claims:claims.map(c=>({claimHash:claimHash(c.sentence),source:url,excerpt,result:'verified',checkedAt:stamp,rationale:'Синтетическая норма: проверка привязки ячейки, точной даты и подписи ссылки.'}))};
+    mkdirSync(path.join(fx.dataDir,'claim-evidence'));writeFileSync(path.join(fx.dataDir,'claim-evidence',SLUG+'.json'),JSON.stringify(evidence));
+    const report=settle(fx);
+    if(variant==='valid-link-label') {
+      assert.equal(report.published,1,JSON.stringify(report));settle(fx);assert.equal(readState(fx).counters.published,1);
+    } else {
+      assert.equal(report.published,0,variant);assert.ok(report.results.some(r=>r.status==='release_rejected'),JSON.stringify(report));
+      assert.equal(readState(fx).counters.new,1);assert.equal(readState(fx).counters.published,0);
+      assert.equal(selectCandidate([{slug:SLUG,...parseFlags(readFileSync(file,'utf8'))}],{today,forceDate:true}),null);
+      settle(fx);assert.equal(readState(fx).inFlight[0].failures,1,'repeat must not count the same refusal twice');
+    }
+  }
+});
+
 // Synthetic law fixtures exercise retained evidence through the real recheck.
 test('AUD-02 calendar recheck refuses stale foreign tampered evidence and changed accepted claims', async () => {
   const {extractClaims}=await import('./lib/critical-claims.mjs');const {claimHash}=await import('./lib/claim-evidence.mjs');const {parseFlags,selectCandidate}=await import('../../scripts/release-next-draft.mjs');

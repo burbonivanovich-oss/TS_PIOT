@@ -68,8 +68,16 @@ function withoutExamples(text) {
     .replace(/<\/?[A-Za-z][\w:-]*\s*>/g, m=>' '.repeat(m.length));
 }
 
+function maskedBoundaries(text) {
+  // A Markdown link is one displayed unit. Its label and URL cannot be split
+  // at punctuation, and a pipe inside either is not a table-cell delimiter.
+  return text.replace(/\[[^\]\n]*\]\([^\s)]+\)/g, m=>m.replace(/[.!?|]/g,'\u0001'))
+    .replace(/\d{1,2}\.\d{1,2}\.\d{4}|(?:тыс|руб|ст|ч|п|пп|подп|абз)\.(?=\s*\d|\s*(?:руб|₽))/gi, m=>m.replace(/\./g,'\u0001'))
+    .replace(/\\\|/g, m=>'\u0001'.repeat(m.length));
+}
+
 function sentenceAt(text, index) {
-  const masked = text.replace(/\d{1,2}\.\d{1,2}\.\d{4}|(?:тыс|руб|ст)\.(?=\s*\d|\s*(?:руб|₽))/gi, m=>m.replace(/\./g,'\u0001'));
+  const masked = maskedBoundaries(text);
   let start = 0, end = masked.length;
   for (const m of masked.matchAll(/[.!?](?=\s|$)|\n\s*\n|\|/g)) {
     const at = m.index + m[0].length;
@@ -77,6 +85,46 @@ function sentenceAt(text, index) {
     else { end = m.index + (/^[.!?]/.test(m[0]) ? 1 : 0); break; }
   }
   return text.slice(start,end);
+}
+
+// Bare dates are critical only in an actual Markdown table row describing a
+// regulatory obligation. A date header alone does not make releases or prices
+// legal claims. Context selects the row; source coverage stays in its sentence
+// and cell, never in a neighboring requirement or source column.
+const TABLE_OBLIGATION = /обязательн|запрет|разрешительн[\s\S]{0,30}режим|поэкземплярн|объ[её]мно-сортов|(?:ввод|вывод)[\s\S]{0,30}оборот|регистрац[\s\S]{0,100}(?:участник[\s\S]{0,30}оборот|ФНС|ЕГАИС|Честн[\s\S]{0,15}знак)/i;
+const BARE_TABLE_DATE = new RegExp(`${EDGE}(?:\\d{1,2}\\.\\d{1,2}\\.\\d{4}|(?:\\d{1,2}\\s+)?${MONTH}\\s+\\d{4})(?![\\p{L}\\p{N}])`, 'giu');
+
+function tableDateMatches(text) {
+  const matches = [];
+  let offset = 0, previous = null, width = null;
+  for (const line of text.split('\n')) {
+    const masked = maskedBoundaries(line);
+    const pipes = [...masked.matchAll(/\|/g)].map(m=>m.index);
+    let cells = null;
+    if (pipes.length) {
+      const bounds = [-1, ...pipes, line.length];
+      cells = bounds.slice(0,-1).map((start,i)=>({ start:start+1, end:bounds[i+1], text:line.slice(start+1,bounds[i+1]) }));
+      if (!cells[0].text.trim()) cells.shift();
+      if (cells.length && !cells.at(-1).text.trim()) cells.pop();
+      if (cells.length < 2) cells = null;
+    }
+    if (!cells) { previous = null; width = null; }
+    else if (cells.every(c=>/^\s*:?-{3,}:?\s*$/.test(c.text))) {
+      width = previous?.length === cells.length ? cells.length : null;
+    } else if (width !== null && cells.length === width) {
+      const displayed = line.replace(/\[[^\]\n]*\]\([^\s)]+\)/g, m=>m.slice(1,m.indexOf(']')));
+      if (TABLE_OBLIGATION.test(displayed)) {
+        for (const cell of cells) {
+          // Do not discover dates hidden in URL destinations.
+          const searchable = cell.text.replace(/\]\([^\s)]+\)/g,m=>' '.repeat(m.length));
+          for (const match of searchable.matchAll(BARE_TABLE_DATE)) matches.push({ ...match, 0:match[0], index:offset+cell.start+match.index });
+        }
+      }
+    } else { width = null; }
+    previous = cells;
+    offset += line.length+1;
+  }
+  return matches;
 }
 
 /** Ruble values independent of numeric grouping, abbreviations and common number words. */
@@ -122,7 +170,14 @@ export function criticalDateValues(text) {
 export function extractClaims(input, sourceEvidence=null, {maxAgeDays=180}={}) {
   const {text:original,fields}=articleClaimParts(input);
   const text=withoutExamples(original);
-  return PATTERNS.flatMap(p=>[...text.matchAll(p.re)].flatMap(m=>{
+  return PATTERNS.flatMap(p=>{
+    const found = [...text.matchAll(p.re)];
+    if (p.id === 'date') {
+      const extra = tableDateMatches(text).filter(m=>!found.some(prior=>m.index>=prior.index && m.index+m[0].length<=prior.index+prior[0].length));
+      found.push(...extra);
+      found.sort((a,b)=>a.index-b.index);
+    }
+    return found.flatMap(m=>{
     // Masking helps recognition but must not rewrite the statement bound to evidence.
     const sentence=sentenceAt(original,m.index);
     if(p.context && !p.context.test(sentence)) return [];
@@ -139,5 +194,6 @@ export function extractClaims(input, sourceEvidence=null, {maxAgeDays=180}={}) {
     }
     const field=fields.find(f=>m.index>=f.start && m.index<f.end)?.name;
     return [{id:p.id,text:m[0],sentence,covered,source,reason,...(field ? {field} : {})}];
-  }));
+    });
+  });
 }
