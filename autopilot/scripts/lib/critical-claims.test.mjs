@@ -7,6 +7,85 @@ import { checkClaimEvidence, claimHash } from './claim-evidence.mjs';
 const url='https://publication.pravo.gov.ru/document/123';
 const now=new Date('2026-10-07T12:00:00Z');
 
+function tableAmountEvidence(claim,excerpt) {
+  return {documents:[{url,text:excerpt,status:200,fetchedAt:now.toISOString(),sha256:createHash('sha256').update(excerpt).digest('hex')}],
+    claims:[{claimHash:claimHash(claim.sentence),source:url,moneyContext:claim.moneyContext,excerpt,checkedAt:now.toISOString(),result:'verified',rationale:'Сверены диапазон, денежная единица колонки и применимость нормы.'}]};
+}
+test('bare ranges in a ruble penalty column retain the exact cell and currency context',()=>{
+  const fines=extractClaims(`| Субъект | Штраф, руб. |\n|---|---|\n| ИП | 5 000–10 000 [норма](${url}) |`).filter(c=>c.id==='fine');
+  assert.equal(fines.length,1);const [claim]=fines;
+  assert.equal(claim.text,'5 000–10 000');assert.equal(claim.moneyCurrency,'RUB');assert.equal(claim.moneyScale,1);
+  assert.equal(claim.moneyContext,'Штраф, руб.');assert.equal(claim.sentence,` 5 000–10 000 [норма](${url}) `);
+  assert.equal(checkClaimEvidence({claims:fines,evidence:tableAmountEvidence(claim,'Штраф от пяти тысяч до десяти тысяч рублей.'),now}).ok,true);
+});
+test('column scale is enforced against the full ruble amounts in the normative excerpt',()=>{
+  for(const [unit,range,correct,wrong] of [
+    ['тыс. руб.','50–300','от пятидесяти тысяч до трехсот тысяч рублей','от пятидесяти до трехсот рублей'],
+    ['млн рублей','1–2','от одного миллиона до двух миллионов рублей','от одной до двух тысяч рублей'],
+    ['млрд руб.','1–2','от одного миллиарда до двух миллиардов рублей','от одного миллиона до двух миллионов рублей'],
+  ]) {
+    const fines=extractClaims(`| Субъект | Штраф, ${unit} |\n|---|---|\n| Юридические лица | ${range} [норма](${url}) |`).filter(c=>c.id==='fine');
+    assert.equal(fines.length,1,`${unit}: header must not assert a separate fine`);
+    const [claim]=fines;
+    assert.ok(claim,unit);
+    assert.equal(checkClaimEvidence({claims:[claim],evidence:tableAmountEvidence(claim,correct),now}).ok,true,unit);
+    assert.equal(checkClaimEvidence({claims:[claim],evidence:tableAmountEvidence(claim,wrong),now}).ok,false,unit);
+  }
+});
+test('local scale is not multiplied twice and a shared final scale applies to both bounds',()=>{
+  for(const unit of ['руб.','тыс. руб.']) {
+    const claim=extractClaims(`| Субъект | Штраф, ${unit} |\n|---|---|\n| ИП | 5–10 тыс. [норма](${url}) |`).find(c=>c.id==='fine');
+    assert.equal(claim.moneyScale,1);
+    assert.equal(checkClaimEvidence({claims:[claim],evidence:tableAmountEvidence(claim,'От пяти тысяч до десяти тысяч рублей.'),now}).ok,true);
+    assert.equal(checkClaimEvidence({claims:[claim],evidence:tableAmountEvidence(claim,'От пяти до десяти тысяч рублей.'),now}).ok,true);
+    assert.equal(checkClaimEvidence({claims:[claim],evidence:tableAmountEvidence(claim,'От пяти до десяти рублей.'),now}).ok,false);
+  }
+});
+test('changing the monetary header invalidates a receipt even when both number sets occur in the excerpt',()=>{
+  const body=unit=>`| Субъект | Штраф, ${unit} |\n|---|---|\n| ИП | 5–10 [норма](${url}) |`;
+  const old=extractClaims(body('руб.')).find(c=>c.id==='fine'),current=extractClaims(body('тыс. руб.')).find(c=>c.id==='fine');
+  assert.equal(claimHash(old.sentence),claimHash(current.sentence));
+  const evidence=tableAmountEvidence(old,'От пяти до десяти рублей; в ином случае от пяти тысяч до десяти тысяч рублей.');
+  const verdict=checkClaimEvidence({claims:[current],evidence,now});assert.equal(verdict.ok,false);
+  assert.ok(verdict.problems.some(p=>p.reason.includes('денежная колонка')));
+});
+test('a body-only receipt does not approve an unreviewed inherited currency context',()=>{
+  const claim=extractClaims(`| Субъект | Штраф, руб. |\n|---|---|\n| ИП | 500 [норма](${url}) |`).find(c=>c.id==='fine');
+  const evidence=tableAmountEvidence(claim,'Штраф пятьсот рублей.');delete evidence.claims[0].moneyContext;
+  assert.equal(checkClaimEvidence({claims:[claim],evidence,now}).ok,false);
+});
+test('a currency change remains a critical claim and cannot be approved as rubles',()=>{
+  for(const unit of ['USD','евро','руб. / долл.']) {
+    const claim=extractClaims(`| Субъект | Штраф, ${unit} |\n|---|---|\n| ИП | 500 [норма](${url}) |`).find(c=>c.id==='fine');
+    assert.ok(claim,unit);
+    const verdict=checkClaimEvidence({claims:[claim],evidence:tableAmountEvidence(claim,'Штраф пятьсот рублей.'),now});
+    assert.equal(verdict.ok,false);assert.ok(verdict.problems.some(p=>p.reason.includes('единица денежной колонки')));
+  }
+});
+test('ambiguous column multipliers require review rather than silently selecting a scale',()=>{
+  const claim=extractClaims(`| Субъект | Штраф, тыс. или млн руб. |\n|---|---|\n| ИП | 5 [норма](${url}) |`).find(c=>c.id==='fine');
+  assert.equal(claim.moneyScale,null);
+  assert.equal(checkClaimEvidence({claims:[claim],evidence:tableAmountEvidence(claim,'Штраф пять тысяч рублей.'),now}).ok,false);
+});
+test('currency in a header cannot supply a source from the header or the next cell',()=>{
+  const claim=extractClaims(`| Субъект | Штраф, руб. [норма](${url}) | Источник |\n|---|---|---|\n| ИП | 500 | [норма](${url}) |`).find(c=>c.id==='fine');
+  assert.ok(claim);assert.equal(claim.source,null);assert.equal(claim.covered,false);
+});
+test('numeric source labels and linked monetary values retain the actual displayed amount',()=>{
+  for(const cell of [`500 [1](${url})`,`[500](${url})`]) {
+    const claim=extractClaims(`| Субъект | Штраф, руб. |\n|---|---|\n| ИП | ${cell} |`).find(c=>c.id==='fine');
+    assert.equal(claim.text,'500');assert.equal(claim.source,url);
+    assert.equal(checkClaimEvidence({claims:[claim],evidence:tableAmountEvidence(claim,'Штраф пятьсот рублей.'),now}).ok,true);
+  }
+});
+test('prices, dates, legal reference numbers and URL-only currency remain outside bare monetary recognition',()=>{
+  const cells=[
+    ['Цена, тыс. руб.','500'],['Штраф, руб.','01.09.2026'],['Штраф, руб.','ст. 10.8'],
+    [`Штраф [источник](${url}/тыс.руб.)`,'500'],
+  ];
+  for(const [header,cell] of cells)assert.deepEqual(extractClaims(`| Субъект | ${header} |\n|---|---|\n| ИП | ${cell} |`).filter(c=>c.id==='fine'),[],cell);
+});
+
 test('sanctions in a legal subject list are captured without borrowing the heading source',()=>{
   const body=`## Ст. 14.43 КоАП РФ [источник](${url})\n- Должностные лица: 10 000–20 000 ₽.\n- Юридические лица: 100 000–300 000 ₽.`;
   const fines=extractClaims(body).filter(c=>c.id==='fine');

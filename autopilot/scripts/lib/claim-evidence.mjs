@@ -22,6 +22,12 @@ export function checkClaimEvidence({ claims, evidence, now = new Date(), maxAgeD
     if (!entry || entry.result !== 'verified' || (typeof entry.rationale !== 'string' || !entry.rationale.trim())) {
       reject('нет сохранённой содержательной сверки утверждения'); continue;
     }
+    if (claim.moneyContext && normalizeClaim(entry.moneyContext ?? '') !== normalizeClaim(claim.moneyContext)) {
+      reject('денежная колонка не сверена или её контекст изменился'); continue;
+    }
+    if (claim.moneyContext && (claim.moneyCurrency !== 'RUB' || ![1,1000,1000000,1000000000].includes(claim.moneyScale))) {
+      reject('неподдерживаемая или неоднозначная единица денежной колонки'); continue;
+    }
     if (!fresh(entry.checkedAt)) { reject('сверка устарела или датирована будущим'); continue; }
     if (!auditSourceUrl(entry.source).ok) { reject('непригодный первоисточник'); continue; }
     const doc = (Array.isArray(evidence?.documents) ? evidence.documents : []).find(d => d.url === entry.source);
@@ -40,7 +46,9 @@ export function checkClaimEvidence({ claims, evidence, now = new Date(), maxAgeD
       }
       continue;
     }
-    const numbers = claim.id === 'fine' ? monetaryValues(claim.text) : (String(claim.text).match(/\d+/g) || []);
+    const numbers = claim.id === 'fine'
+      ? claim.moneyContext ? monetaryValues(`${claim.text} рублей`).map(n=>n*claim.moneyScale) : monetaryValues(claim.text)
+      : (String(claim.text).match(/\d+/g) || []);
     const excerptNumbers = claim.id === 'fine' ? monetaryValues(entry.excerpt) : (entry.excerpt.match(/\d+/g) || []);
     if (numbers.some(n => !excerptNumbers.includes(n))) reject('числа утверждения отсутствуют в подтверждающем фрагменте');
   }

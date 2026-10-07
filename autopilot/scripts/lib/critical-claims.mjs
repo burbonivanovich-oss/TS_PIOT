@@ -20,7 +20,7 @@ const DIGITS = '\\d+(?:[ \\u00a0\\u202f]\\d{3})*(?:[.,]\\d+)?';
 const SCALE_WORD = '(?:тыс\\.?|млн\\.?|млрд\\.?|тысяч[аиу]?|миллион(?:а|ов)?|миллиард(?:а|ов)?)';
 const AMOUNT = `(?:${DIGITS}(?:\\s*${SCALE_WORD})?|${WORD}(?:\\s+${WORD})*)`;
 const AMOUNT_RE = new RegExp(`${EDGE}${AMOUNT}(?![\\p{L}\\p{N}])`, 'giu');
-const RUBLES = '(?:₽|руб(?:\\.|ль|ля|лей|лях)?)(?![\\p{L}])';
+const RUBLES = '(?:₽|руб(?:\\.|ль|ля|лей|лях|ли)?)(?![\\p{L}])';
 const MONEY = new RegExp(`${EDGE}(?:от\\s+)?${AMOUNT}(?:\\s*(?:[-–—]|до)\\s*${AMOUNT})?\\s*${RUBLES}`, 'giu');
 const LIABILITY = /штраф|санкци|ответственн|наказ|взыска|неустойк|пен[яию]|КоАП|конфиска|предупрежден/i;
 const PATTERNS = [
@@ -168,11 +168,28 @@ export function criticalDateValues(text) {
 
 const PRICE_CONTEXT = /цен[аыуе]|стоимост|тариф|расход|оплат[аыуе]|покупк/i;
 const LIABILITY_ROLE = /^(?:для\s+)?(?:граждан|должностн|юридическ|физическ|организац|предпринимател|ИП(?:\s|:|$))/i;
+const BARE_MONEY_CELL = new RegExp(`^\\s*((?:от\\s+|до\\s+)?${AMOUNT}(?:\\s*(?:[-–—]|до)\\s*${AMOUNT})?)\\s*[.;]?\\s*$`, 'iu');
+const LOCAL_MONEY_SCALE = new RegExp(`${EDGE}${SCALE_WORD}(?![\\p{L}\\p{N}])`, 'iu');
+
+function columnMoneyUnit(header) {
+  header=header.replace(/\[([^\]\n]*)\]\([^\s)]+\)/g,'$1');
+  const currencies = [
+    ['RUB', new RegExp(RUBLES, 'iu')],
+    ['USD', /\$|(?<![\p{L}\p{N}])(?:USD|долл\.?|доллар(?:а|ов)?)(?![\p{L}\p{N}])/iu],
+    ['EUR', /€|(?<![\p{L}\p{N}])(?:EUR|евро)(?![\p{L}\p{N}])/iu],
+  ].filter(([,re]) => re.test(header)).map(([currency]) => currency);
+  if (!currencies.length) return null;
+  const scales = [...header.matchAll(new RegExp(`${EDGE}${SCALE_WORD}(?![\\p{L}\\p{N}])`, 'giu'))]
+    .map(m => SCALE[m[0].toLowerCase().replace(/\.$/, '')]);
+  const uniqueScales = [...new Set(scales)];
+  return { currency:currencies.length===1 ? currencies[0] : 'ambiguous',
+    scale:uniqueScales.length>1 ? null : uniqueScales[0] ?? 1 };
+}
 
 /** Structure can identify a sanction, but cannot supply a source from another row or heading. */
 function fineStructureSpans(text, bodyEnd) {
   const spans = [], headings = [];
-  let offset = 0, previous = null, headers = null;
+  let offset = 0, previous = null, previousOffset = 0, headers = null;
   for (const line of text.split('\n')) {
     if (offset >= bodyEnd) break;
     const heading = line.match(/^\s{0,3}(#{1,6})\s+(.+)$/);
@@ -193,13 +210,18 @@ function fineStructureSpans(text, bodyEnd) {
     if (!cells) { previous = null; headers = null; }
     else if (cells.every(c => /^\s*:?-{3,}:?\s*$/.test(c.text))) {
       headers = previous?.length === cells.length ? previous : null;
+      if (headers) headers.forEach(cell => spans.push({
+        start:previousOffset+cell.start, end:previousOffset+cell.end, header:true, liability:false,
+      }));
     } else if (headers && cells.length === headers.length) {
       const role = cells.some(c => LIABILITY_ROLE.test(c.text.trim()));
       cells.forEach((cell,i) => spans.push({ start:offset+cell.start, end:offset+cell.end,
+        moneyContext:headers[i].text.trim(), moneyUnit:columnMoneyUnit(headers[i].text),
         liability: !PRICE_CONTEXT.test(headers[i].text) &&
           (LIABILITY.test(headers[i].text) || (headingContext && role)) }));
     } else headers = null;
     previous = cells;
+    previousOffset = offset;
     if (/^\s*(?:[-*+]|\d+[.)])\s+/.test(line)) {
       const label = line.replace(/^\s*(?:[-*+]|\d+[.)])\s+/, '').trim();
       spans.push({ start:offset, end:offset+line.length, list:true,
@@ -221,9 +243,31 @@ export function extractClaims(input, sourceEvidence=null, {maxAgeDays=180}={}) {
       found.push(...extra);
       found.sort((a,b)=>a.index-b.index);
     }
+    if (p.id === 'fine') {
+      for (const span of fineSpans.filter(s => s.liability && s.moneyUnit)) {
+        // A label or destination in a source link is not a monetary value.
+        const rawCell=text.slice(span.start,span.end);
+        let cell=rawCell.replace(/\[[^\]\n]*\]\([^\s)]+\)/g,m=>' '.repeat(m.length));
+        let match=cell.match(BARE_MONEY_CELL);
+        if (!match) {
+          cell=rawCell.replace(/\[([^\]\n]*)\]\([^\s)]+\)/g,(m,label)=>BARE_MONEY_CELL.test(label)
+            ? ' '+label+' '.repeat(m.length-label.length-1) : ' '.repeat(m.length));
+          match=cell.match(BARE_MONEY_CELL);
+        }
+        if (!match) continue;
+        const index=span.start+cell.indexOf(match[1]);
+        if (found.some(m=>index>=m.index && index+match[1].length<=m.index+m[0].length)) continue;
+        found.push({0:match[1],index,moneyContext:span.moneyContext,moneyCurrency:span.moneyUnit.currency,
+          moneyScale:span.moneyUnit.scale===null ? null : LOCAL_MONEY_SCALE.test(match[1]) ? 1 : span.moneyUnit.scale});
+      }
+      found.sort((a,b)=>a.index-b.index);
+    }
     return found.flatMap(m=>{
     // Masking helps recognition but must not rewrite the statement bound to evidence.
     const span=p.id==='fine' ? fineSpans.find(s=>m.index>=s.start && m.index<s.end) : null;
+    // A validated table header declares the scale; it does not assert a fine
+    // of one million merely by saying "млн рублей".
+    if (span?.header && new RegExp(`^${SCALE_WORD}\\s*${RUBLES}$`, 'iu').test(m[0])) return [];
     const originalSentence=sentenceAt(original,m.index);
     // An introductory clause ending in ':' and its following list can be one
     // reviewed sentence. Preserve that explicit binding; a heading or another
@@ -244,7 +288,8 @@ export function extractClaims(input, sourceEvidence=null, {maxAgeDays=180}={}) {
       }
     }
     const field=fields.find(f=>m.index>=f.start && m.index<f.end)?.name;
-    return [{id:p.id,text:m[0],sentence,covered,source,reason,...(field ? {field} : {})}];
+    return [{id:p.id,text:m[0],sentence,covered,source,reason,...(field ? {field} : {}),
+      ...(m.moneyContext ? {moneyContext:m.moneyContext,moneyCurrency:m.moneyCurrency,moneyScale:m.moneyScale} : {})}];
     });
   });
 }

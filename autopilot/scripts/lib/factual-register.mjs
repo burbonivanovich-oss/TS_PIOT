@@ -20,6 +20,7 @@ export function buildFactualRegister({ articles, evidenceFor, correctionsFor = (
       const document = evidence?.documents?.find(d => d.url === claim.source);
       const status = observed.unavailable.length ? 'source-unavailable' : verdict.ok && !observed.reasons.length ? 'verified' : 'needs-review';
       return { id: claim.id, claimHash: claimHash(claim.sentence), text: claim.text, sentence: claim.sentence,
+        ...(claim.moneyContext ? { moneyContext:claim.moneyContext,moneyCurrency:claim.moneyCurrency,moneyScale:claim.moneyScale } : {}),
         source: claim.source, status, reasons: [...verdict.problems.map(p => p.reason), ...observed.reasons],
         checkedAt: status === 'verified' ? entry.checkedAt : null,
         excerpt: entry?.excerpt ?? null, rationale: entry?.rationale ?? null,
