@@ -103,9 +103,11 @@ export function criticalDateValues(text) {
 }
 
 export function extractClaims(input, sourceEvidence=null, {maxAgeDays=180}={}) {
-  const text=withoutExamples(articleClaimText(input));
+  const original=articleClaimText(input);
+  const text=withoutExamples(original);
   return PATTERNS.flatMap(p=>[...text.matchAll(p.re)].flatMap(m=>{
-    const sentence=sentenceAt(text,m.index);
+    // Masking helps recognition but must not rewrite the statement bound to evidence.
+    const sentence=sentenceAt(original,m.index);
     if(p.context && !p.context.test(sentence)) return [];
     const match=sentence.match(SOURCE_RE)?.[0];
     const source=match ? urlFromMatch(match):null;

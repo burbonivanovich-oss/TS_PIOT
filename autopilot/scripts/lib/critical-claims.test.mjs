@@ -47,6 +47,12 @@ test('a source adjacent to a short date remains in the same sentence',()=>{
   const claims=extractClaims(`Обязателен с 1.9.2026 по [закону](${url}).`);
   assert.equal(claims.length,1);assert.equal(claims[0].covered,true);assert.equal(claims[0].source,url);
 });
+test('recognition preserves the exact displayed sentence for retained evidence',()=>{
+  const sentence=`**Штраф** составляет **500** рублей согласно [закону](${url}).`;
+  const claims=extractClaims(sentence);
+  assert.equal(claims[0].sentence,sentence);
+  assert.equal(claimHash(claims[0].sentence),claimHash(sentence));
+});
 test('FAQ answers are covered by the same detector, including folded scalars',()=>{
   const article={body:'Нейтральный текст.',fm:`title: Статья\nfaq:\n  - question: "Какая санкция?"\n    answer: >\n      Штраф 500 рублей согласно\n      [закону](${url}).\n  - question: "Когда действует порядок?"\n    answer: 'Порядок обязателен с 1.9.2026.'\nseo:\n  keywords:\n    - штраф 900 рублей\n`};
   const claims=extractClaims(article);assert.equal(claims.length,2);
