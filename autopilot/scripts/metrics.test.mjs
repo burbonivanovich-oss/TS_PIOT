@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { computeMetrics } from './metrics.mjs';
@@ -175,4 +175,9 @@ test('model accounting keeps failures and unknown historical/unfinished usage di
   assert.equal(m.totalDurationMs,4000);assert.equal(m.medianDurationMs,2000);
   assert.equal(m.historicalWrittenRunsWithoutLedger,1);assert.equal(m.paidCost,null);
   const empty=modelUsage([],'2026-10-01','2026-10-04');assert.equal(empty.reportedTokens,null);assert.equal(empty.totalDurationMs,null);
+});
+
+
+test('month rollover cannot reuse last month counters as current accepted pace',()=>{
+ const dir=fixture();const old=JSON.parse(readFileSync(path.join(dir,'autopilot.json')));old.month='2020-01';writeFileSync(path.join(dir,'autopilot.json'),JSON.stringify(old));const m=computeMetrics({dir});assert.equal(m.publication.accepted,null);assert.equal(m.pace.done,null);assert.equal(m.pace.debt,null);assert.equal(m.mix.new,null);assert.equal(m.mix.debtNew,null);assert.match(m.diagnosis.join('\n'),/счётчики этого месяца не проверены/);
 });

@@ -131,7 +131,8 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
   const day = now.getUTCDate();
   const daysInMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0)).getUTCDate();
   const split = cfg.throughput.monthlyRewriteTarget !== undefined;
-  const done = split ? state.counters.new : state.counters.new + state.counters.rewrite;
+  const sameMonth=state.month===month;
+  const done = sameMonth ? (split ? state.counters.new : state.counters.new + state.counters.rewrite) : null;
   const expectedByToday = Math.round((cfg.throughput.monthlyTarget * day) / daysInMonth);
 
   // AP-P2-07: целевая доля рерайтов считается на сегодня, а не на конец месяца,
@@ -149,7 +150,7 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
       month,
       done,
       expectedByToday,
-      debt: Math.max(0, expectedByToday - done),
+      debt: done===null?null:Math.max(0, expectedByToday - done),
       target: cfg.throughput.monthlyTarget,
     },
     acceptance: {
@@ -170,13 +171,13 @@ export function computeMetrics({ dir = dataDir(), days = 30, now = new Date() } 
       orphansAfter: reports.reduce((s, r) => s + (r.orphansAfter || 0), 0),
     },
     mix: {
-      new: state.counters.new,
-      rewrite: state.counters.rewrite,
+      new: sameMonth?state.counters.new:null,
+      rewrite: sameMonth?state.counters.rewrite:null,
       target: cfg.mix,
       targetNewToday,
       targetRewriteToday,
-      debtNew: Math.max(0, targetNewToday - state.counters.new),
-      debtRewrite: Math.max(0, targetRewriteToday - state.counters.rewrite),
+      debtNew: sameMonth?Math.max(0, targetNewToday - state.counters.new):null,
+      debtRewrite: sameMonth?Math.max(0, targetRewriteToday - state.counters.rewrite):null,
     },
     publication: publicationMetrics({state,publishLog,queue:release.items,proofs:readJson(path.join(dir,'live-verifications.json'),{checks:[]}),now,targets:{new:cfg.throughput.monthlyTarget,rewrite:cfg.throughput.monthlyRewriteTarget??null}}),
     modelUsage: modelUsage(allRuns, cutoff, to),
@@ -201,7 +202,8 @@ function diagnose(m) {
   const p=m.publication;
   lines.push(`месяц: принято NEW ${p.accepted?.new??'неизвестно'} / REWRITE ${p.accepted?.rewrite??'неизвестно'}; журнал выпуска ${p.released.new}/${p.released.rewrite}, вид неизвестен ${p.released.unknown}; подтверждено на сайте ${p.confirmedOnSite.new}/${p.confirmedOnSite.rewrite}, проверено ${p.liveCoverage.checkedEvents}/${p.liveCoverage.ledgerEvents}`);
   lines.push(`долг выпуска к сегодня NEW ${p.releaseDebt.new} / REWRITE ${p.releaseDebt.rewrite??'не задан'}; остаток месячной нормы выпуска ${p.remainingToRelease.new}/${p.remainingToRelease.rewrite??'не задан'}`);
-  if (m.pace.debt > 0) {
+  if(m.pace.done===null){lines.push(`темп приёмки за ${m.pace.month}: счётчики этого месяца не проверены`);}
+  else if (m.pace.debt > 0) {
     lines.push(`темп: ${m.pace.done}/${m.pace.expectedByToday} к сегодня, долг ${m.pace.debt}`);
   } else {
     lines.push(`темп: ${m.pace.done}/${m.pace.expectedByToday}, без долга`);
