@@ -1,0 +1,166 @@
+{
+  "version": 1,
+  "checks": [
+    {
+      "liveVerified": true,
+      "revision": "0a5890eda775967dc3f9c56614aaf1126730cc88",
+      "builtAt": "2026-10-07T10:35:36.980Z",
+      "checkedAt": "2026-10-07T10:38:31.997Z",
+      "pages": [
+        {
+          "path": "/blog/2026-05-01-kak-vybrat-onlayn-kassu-2026/",
+          "status": 200,
+          "contentVerified": true,
+          "htmlSha256": "9f0b4badcf56942f2f2d65d5af27f6c175f0576cd9527ee496b554189e4b2f01",
+          "verification": "exact-rendered-html"
+        },
+        {
+          "path": "/blog/2026-05-03-etrn-2026/",
+          "status": 200,
+          "contentVerified": true,
+          "htmlSha256": "e3c01ad5a66b3c63b238e9f9f894be559b9d0fc4aada03919806c6a1023f46df",
+          "verification": "exact-rendered-html"
+        },
+        {
+          "path": "/blog/2026-07-06-shtrafy-za-kkt/",
+          "status": 200,
+          "contentVerified": true,
+          "htmlSha256": "80ec6f38e53f39d20f5b40344f5fbb3610aef6c1dce7470a4ac069eb6dcb3d32",
+          "verification": "exact-rendered-html"
+        },
+        {
+          "path": "/blog/2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu/",
+          "status": 200,
+          "contentVerified": true,
+          "htmlSha256": "39964fc92198d0f8eb6621f7c7f96085b954a2b304b61d2821fa40a0a6202dbf",
+          "verification": "exact-rendered-html"
+        },
+        {
+          "path": "/blog/2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti/",
+          "status": 200,
+          "contentVerified": true,
+          "htmlSha256": "73b2bd332c98e2198e1f22b75e3f25993a759776b2ed30e44d08b7a2f72f9324",
+          "verification": "exact-rendered-html"
+        },
+        {
+          "path": "/blog/seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika/",
+          "status": 200,
+          "contentVerified": true,
+          "htmlSha256": "b35906331152db4c097ff20443159c611db90d68df6272526e64ba6e1e144131",
+          "verification": "exact-rendered-html"
+        },
+        {
+          "path": "/blog/2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena/",
+          "status": 200,
+          "contentVerified": true,
+          "htmlSha256": "3e56cbe8d7fb20747217bcb33ba71028073ab6abdf03534befd657002ae6b308",
+          "verification": "exact-rendered-html"
+        },
+        {
+          "path": "/blog/2026-05-03-markirovka-igrushek-2026/",
+          "status": 200,
+          "contentVerified": true,
+          "htmlSha256": "913a38103ca72e71e2aadd462a157a8468d17f7da97782a60d23b0fc5061b3e8",
+          "verification": "exact-rendered-html"
+        },
+        {
+          "path": "/blog/2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki/",
+          "status": 200,
+          "contentVerified": true,
+          "htmlSha256": "4495acdce38ef436893bfe501c13a0c24036bc968f5c04e2d975bdd800c8e0f4",
+          "verification": "exact-rendered-html"
+        },
+        {
+          "path": "/blog/seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke/",
+          "status": 200,
+          "contentVerified": true,
+          "htmlSha256": "3a60dcdac73f6b680b50afa3eaaee917f7f0160b945f576b59f296ce971a51a3",
+          "verification": "exact-rendered-html"
+        }
+      ],
+      "items": [
+        {
+          "date": "2026-10-04",
+          "slug": "2026-05-01-kak-vybrat-onlayn-kassu-2026",
+          "kind": "rewrite",
+          "releaseCommit": "4efcaa7c937e51718ab02f116bff7d497d9157f7",
+          "sourceSha256": "ae99d682c61464b2ab22bdc045fd1b87cda0022e2c0b211305c4c577d3b72a5e",
+          "expectedHtmlSha256": "9f0b4badcf56942f2f2d65d5af27f6c175f0576cd9527ee496b554189e4b2f01"
+        },
+        {
+          "date": "2026-10-05",
+          "slug": "2026-05-03-etrn-2026",
+          "kind": "rewrite",
+          "releaseCommit": "ee4a171bdbf43dfd54a0f1944243414f875cedda",
+          "sourceSha256": "c936bd4decf307560f5f7a1fff66bb843ab49f71be470ebf1ebe10f4d74b7cdd",
+          "expectedHtmlSha256": "e3c01ad5a66b3c63b238e9f9f894be559b9d0fc4aada03919806c6a1023f46df"
+        },
+        {
+          "date": "2026-10-05",
+          "slug": "2026-07-06-shtrafy-za-kkt",
+          "kind": "rewrite",
+          "releaseCommit": "ee4a171bdbf43dfd54a0f1944243414f875cedda",
+          "sourceSha256": "a553cace559d73d8c92cf1dd04a60248177f828d8461eecd01324ab1546253c8",
+          "expectedHtmlSha256": "80ec6f38e53f39d20f5b40344f5fbb3610aef6c1dce7470a4ac069eb6dcb3d32"
+        },
+        {
+          "date": "2026-10-05",
+          "slug": "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
+          "kind": "new",
+          "releaseCommit": "ee4a171bdbf43dfd54a0f1944243414f875cedda",
+          "sourceSha256": "951ee25eac264e10e3465ae0113d2e2f9ea8d475670a40fb9715abf752741ed1",
+          "expectedHtmlSha256": "39964fc92198d0f8eb6621f7c7f96085b954a2b304b61d2821fa40a0a6202dbf"
+        },
+        {
+          "date": "2026-10-06",
+          "slug": "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
+          "kind": "new",
+          "releaseCommit": "2b5108a776ca2a5dc0a172aa71f90f815a98a804",
+          "sourceSha256": "537ba10f9c6b68ce605e25b16303a53263d636fd0f70149e77768a025c619cca",
+          "expectedHtmlSha256": "73b2bd332c98e2198e1f22b75e3f25993a759776b2ed30e44d08b7a2f72f9324"
+        },
+        {
+          "date": "2026-10-06",
+          "slug": "seed-etrn-pri-samovyvoze-kak-razobrat-roli-pokupatelya-i-perevozchika",
+          "kind": "new",
+          "releaseCommit": "2b5108a776ca2a5dc0a172aa71f90f815a98a804",
+          "sourceSha256": "91e131bfd18cad1375e6c53654c83277ccf0bdfa4dd9dd9c6933b9322249f746",
+          "expectedHtmlSha256": "b35906331152db4c097ff20443159c611db90d68df6272526e64ba6e1e144131"
+        },
+        {
+          "date": "2026-10-06",
+          "slug": "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena",
+          "kind": "new",
+          "releaseCommit": "2b5108a776ca2a5dc0a172aa71f90f815a98a804",
+          "sourceSha256": "cac8aa9fbc30a31dc11037cc3ad9ed128663685588f5a4459be351e56489d21e",
+          "expectedHtmlSha256": "3e56cbe8d7fb20747217bcb33ba71028073ab6abdf03534befd657002ae6b308"
+        },
+        {
+          "date": "2026-10-07",
+          "slug": "2026-05-03-markirovka-igrushek-2026",
+          "kind": "rewrite",
+          "releaseCommit": "388d7de136505c3e6ebc1a3cd9c6ccbc875402b0",
+          "sourceSha256": "af9dae2fb0af78e84d755e5c45f27364ca812d3b3e5d6defb44537171d8b425f",
+          "expectedHtmlSha256": "913a38103ca72e71e2aadd462a157a8468d17f7da97782a60d23b0fc5061b3e8"
+        },
+        {
+          "date": "2026-10-07",
+          "slug": "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki",
+          "kind": "new",
+          "releaseCommit": "388d7de136505c3e6ebc1a3cd9c6ccbc875402b0",
+          "sourceSha256": "c05f42442af42d68c493e4e50a630c1f3b37373d6d4b87e759a10a9eb9889d47",
+          "expectedHtmlSha256": "4495acdce38ef436893bfe501c13a0c24036bc968f5c04e2d975bdd800c8e0f4"
+        },
+        {
+          "date": "2026-10-07",
+          "slug": "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke",
+          "kind": "new",
+          "releaseCommit": "388d7de136505c3e6ebc1a3cd9c6ccbc875402b0",
+          "sourceSha256": "667423b5eea7505cc374d53d6a553240fe1523f55954843f57d1632568cde081",
+          "expectedHtmlSha256": "3a60dcdac73f6b680b50afa3eaaee917f7f0160b945f576b59f296ce971a51a3"
+        }
+      ],
+      "ledgerSha256": "9aa98c520941ed7e03870c0f89f9d57f86b5b45f01de2ea077564ef79b5e9c93"
+    }
+  ]
+}
