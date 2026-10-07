@@ -6,6 +6,57 @@ import { checkClaimEvidence, claimHash } from './claim-evidence.mjs';
 
 const url='https://publication.pravo.gov.ru/document/123';
 const now=new Date('2026-10-07T12:00:00Z');
+
+test('sanctions in a legal subject list are captured without borrowing the heading source',()=>{
+  const body=`## Ст. 14.43 КоАП РФ [источник](${url})\n- Должностные лица: 10 000–20 000 ₽.\n- Юридические лица: 100 000–300 000 ₽.`;
+  const fines=extractClaims(body).filter(c=>c.id==='fine');
+  assert.equal(fines.length,2);
+  assert.equal(fines[0].sentence,'- Должностные лица: 10 000–20 000 ₽.');
+  assert.ok(fines.every(c=>c.source===null && !c.covered));
+});
+test('bold subject labels and word amounts retain the original list-item text',()=>{
+  const body='## Размеры штрафов\n\n- **ИП**: от пяти до десяти тысяч рублей.';
+  const fine=extractClaims(body).find(c=>c.id==='fine');
+  assert.ok(fine);assert.equal(fine.sentence,'- **ИП**: от пяти до десяти тысяч рублей.');
+  assert.deepEqual(monetaryValues(fine.text),[5000,10000]);assert.equal(fine.source,null);
+});
+test('fine column headers identify amounts but do not supply source coverage',()=>{
+  const body=`| Субъект | Размер штрафа [норма](${url}) | Источник |\n|---|---|---|\n| Граждане | 4 000–5 000 ₽ | [норма](${url}) |\n| Юридические лица | 500 000–700 000 ₽ | — |`;
+  const fines=extractClaims(body).filter(c=>c.id==='fine');
+  assert.equal(fines.length,2);assert.equal(fines[0].sentence,' 4 000–5 000 ₽ ');
+  assert.ok(fines.every(c=>c.source===null && !c.covered));
+});
+test('a source inside the actual monetary cell covers only that cell',()=>{
+  const fines=extractClaims(`| Субъект | Штраф |\n|---|---|\n| ИП | 5–10 тыс. рублей [норма](${url}) |\n| Организации | пять тысяч рублей |`).filter(c=>c.id==='fine');
+  assert.equal(fines.length,2);assert.equal(fines[0].source,url);assert.equal(fines[1].source,null);
+  assert.deepEqual(monetaryValues(fines[0].text),[5000,10000]);
+});
+test('prices and nonliability sections stay outside inherited sanction context',()=>{
+  const bodies=[
+    '## Ст. 14.43 КоАП РФ\n\n| Субъект | Стоимость услуги |\n|---|---|\n| ИП | 500 рублей |',
+    '## Штрафы\n\n### Стоимость\n\n- ИП: 500 рублей.',
+    '## Штрафы\n\n- ИП: цена кассы 500 рублей.',
+    '## Цены\n\n- Юридические лица: 500 рублей.',
+    '```md\n## Штрафы\n```\n\n- ИП: 500 рублей.',
+    '| Субъект | Цена |\n|---|---|\n| Граждане | 500 рублей |',
+  ];
+  for(const body of bodies)assert.deepEqual(extractClaims(body).filter(c=>c.id==='fine'),[],body);
+});
+test('a list item cannot borrow a source from a preceding monetary item',()=>{
+  const fines=extractClaims(`## Штрафы\n- ИП: 500 рублей [норма](${url})\n- Юридические лица: 900 рублей`).filter(c=>c.id==='fine');
+  assert.equal(fines.length,2);assert.equal(fines[0].source,url);assert.equal(fines[1].source,null);
+});
+test('a cited normative introductory clause and colon list preserve the reviewed whole sentence',()=>{
+  const body=`Продажа немаркированного товара — [ст. 15.12 ч. 2 КоАП РФ](${url}):\n- должностные лица и ИП — 5 000–10 000 ₽ с конфискацией;\n- организации — 50 000–300 000 ₽ с конфискацией.`;
+  const fines=extractClaims(body).filter(c=>c.id==='fine');
+  assert.equal(fines.length,2);
+  assert.ok(fines.every(c=>c.sentence===body && c.source===url));
+  assert.ok(fines.every(c=>claimHash(c.sentence)===claimHash(body)));
+});
+test('liability headings in the body do not supply context to metadata',()=>{
+  const claims=extractClaims({body:'## Штрафы\n\nНейтральный текст.',fm:'description: "- ИП: 500 рублей."'});
+  assert.deepEqual(claims.filter(c=>c.id==='fine'),[]);
+});
 const cases=[
   ['Новый порядок обязателен с 1.9.2026.','date'],
   ['Новый порядок обязателен с 01.9.2026.','date'],

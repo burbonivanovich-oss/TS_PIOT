@@ -166,9 +166,54 @@ export function criticalDateValues(text) {
     : { year:Number(m[6]), month:MONTHS.indexOf(m[5].toLowerCase())+1, day:m[4] ? Number(m[4]) : null });
 }
 
+const PRICE_CONTEXT = /цен[аыуе]|стоимост|тариф|расход|оплат[аыуе]|покупк/i;
+const LIABILITY_ROLE = /^(?:для\s+)?(?:граждан|должностн|юридическ|физическ|организац|предпринимател|ИП(?:\s|:|$))/i;
+
+/** Structure can identify a sanction, but cannot supply a source from another row or heading. */
+function fineStructureSpans(text, bodyEnd) {
+  const spans = [], headings = [];
+  let offset = 0, previous = null, headers = null;
+  for (const line of text.split('\n')) {
+    if (offset >= bodyEnd) break;
+    const heading = line.match(/^\s{0,3}(#{1,6})\s+(.+)$/);
+    if (heading) {
+      while (headings.length && headings.at(-1).level >= heading[1].length) headings.pop();
+      headings.push({ level: heading[1].length, text: heading[2] });
+    }
+    const headingContext = headings.some(h => LIABILITY.test(h.text)) && !headings.some(h => PRICE_CONTEXT.test(h.text));
+    const masked = maskedBoundaries(line), pipes = [...masked.matchAll(/\|/g)].map(m => m.index);
+    let cells = null;
+    if (pipes.length) {
+      const bounds = [-1, ...pipes, line.length];
+      cells = bounds.slice(0,-1).map((start,i) => ({ start:start+1, end:bounds[i+1], text:line.slice(start+1,bounds[i+1]) }));
+      if (!cells[0].text.trim()) cells.shift();
+      if (cells.length && !cells.at(-1).text.trim()) cells.pop();
+      if (cells.length < 2) cells = null;
+    }
+    if (!cells) { previous = null; headers = null; }
+    else if (cells.every(c => /^\s*:?-{3,}:?\s*$/.test(c.text))) {
+      headers = previous?.length === cells.length ? previous : null;
+    } else if (headers && cells.length === headers.length) {
+      const role = cells.some(c => LIABILITY_ROLE.test(c.text.trim()));
+      cells.forEach((cell,i) => spans.push({ start:offset+cell.start, end:offset+cell.end,
+        liability: !PRICE_CONTEXT.test(headers[i].text) &&
+          (LIABILITY.test(headers[i].text) || (headingContext && role)) }));
+    } else headers = null;
+    previous = cells;
+    if (/^\s*(?:[-*+]|\d+[.)])\s+/.test(line)) {
+      const label = line.replace(/^\s*(?:[-*+]|\d+[.)])\s+/, '').trim();
+      spans.push({ start:offset, end:offset+line.length, list:true,
+        liability:headingContext && LIABILITY_ROLE.test(label) && !PRICE_CONTEXT.test(label) });
+    }
+    offset += line.length + 1;
+  }
+  return spans;
+}
+
 export function extractClaims(input, sourceEvidence=null, {maxAgeDays=180}={}) {
   const {text:original,fields}=articleClaimParts(input);
   const text=withoutExamples(original);
+  const fineSpans=fineStructureSpans(text,fields[0]?.start ?? text.length);
   return PATTERNS.flatMap(p=>{
     const found = [...text.matchAll(p.re)];
     if (p.id === 'date') {
@@ -178,8 +223,16 @@ export function extractClaims(input, sourceEvidence=null, {maxAgeDays=180}={}) {
     }
     return found.flatMap(m=>{
     // Masking helps recognition but must not rewrite the statement bound to evidence.
-    const sentence=sentenceAt(original,m.index);
-    if(p.context && !p.context.test(sentence)) return [];
+    const span=p.id==='fine' ? fineSpans.find(s=>m.index>=s.start && m.index<s.end) : null;
+    const originalSentence=sentenceAt(original,m.index);
+    // An introductory clause ending in ':' and its following list can be one
+    // reviewed sentence. Preserve that explicit binding; a heading or another
+    // list item's source is not an introductory clause.
+    const intro=originalSentence.split('\n')[0].trim();
+    const continuedList=span?.list && intro.endsWith(':') && !/^(?:#|[-*+]|\d+[.)])/.test(intro)
+      && LIABILITY.test(intro) && sourceLinks(intro).length>0;
+    const sentence=span && !continuedList ? original.slice(span.start,span.end) : originalSentence;
+    if(p.context && !p.context.test(sentence) && !span?.liability) return [];
     const source=sourceLinks(sentence)[0] ?? null;
     let covered=Boolean(source), reason=covered?null:'нет ссылки на первоисточник в этом предложении';
     if(covered) {

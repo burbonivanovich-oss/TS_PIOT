@@ -1,0 +1,28 @@
+{
+  "before": {
+    "articles": 142,
+    "claims": 2325,
+    "unverifiedClaims": 2301,
+    "statuses": {
+      "verified": 1,
+      "needs-review": 105,
+      "confirmed-error": 31,
+      "source-unavailable": 0,
+      "no-critical-claims": 5
+    }
+  },
+  "after": {
+    "articles": 142,
+    "claims": 2353,
+    "unverifiedClaims": 2329,
+    "statuses": {
+      "verified": 1,
+      "needs-review": 105,
+      "confirmed-error": 31,
+      "source-unavailable": 0,
+      "no-critical-claims": 5
+    }
+  },
+  "verifiedSignalsPreserved": 24,
+  "changedArticles": 26
+}
