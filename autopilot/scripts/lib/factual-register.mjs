@@ -7,7 +7,7 @@ import { observedSourceChanges } from './fact-freshness.mjs';
 /** Read-only inventory: missing evidence is a review task, never a proven error. */
 export function buildFactualRegister({ articles, evidenceFor, correctionsFor = () => null,
   observations = {}, sourceFor, trafficFor = () => null, now = new Date(),
-  maxAgeDays = 180, observationMaxAgeDays = 7 }) {
+  maxAgeDays = 180, observationMaxAgeDays = 7, trafficEvidence = null }) {
   const rows = articles.filter(a => !a.draft).map(article => {
     const evidence = evidenceFor(article.slug);
     const claims = bindMetadataSources({ claims: extractClaims(article, null, { maxAgeDays }), evidence, now, maxAgeDays });
@@ -32,9 +32,12 @@ export function buildFactualRegister({ articles, evidenceFor, correctionsFor = (
       sourceSha256: createHash('sha256').update(sourceFor(article)).digest('hex'), status,
       traffic: trafficFor(article.slug), confirmedErrors, unverifiedClaims: unverified, claims: details };
   });
-  rows.sort((a,b) => b.confirmedErrors.length - a.confirmedErrors.length || b.unverifiedClaims - a.unverifiedClaims || a.slug.localeCompare(b.slug));
+  const tier=row=>row.confirmedErrors.length?0:row.unverifiedClaims?1:2;
+  const views=row=>typeof row.traffic?.pageviews==='number'?row.traffic.pageviews:-1;
+  rows.sort((a,b) => tier(a)-tier(b) || views(b)-views(a) || b.confirmedErrors.length-a.confirmedErrors.length || b.unverifiedClaims-a.unverifiedClaims || a.slug.localeCompare(b.slug));
   const statuses = Object.fromEntries(['verified','needs-review','confirmed-error','source-unavailable','no-critical-claims'].map(status => [status,rows.filter(r => r.status === status).length]));
   return { version: 1, generatedAt: now.toISOString(), scope: 'current published files; no-critical-claims means detector found none, not semantic verification',
+    reviewPriority: { order: 'confirmed errors, then missing verification, then measured pageviews within each tier; unknown traffic is not zero', trafficEvidence },
     summary: { articles: rows.length, claims: rows.reduce((n,r) => n+r.claims.length,0),
       unverifiedClaims: rows.reduce((n,r) => n+r.unverifiedClaims,0), statuses }, articles: rows };
 }

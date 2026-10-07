@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Тянет данные Яндекс.Метрики (Stat API) по трафику страниц за N
-// последних дней. Возвращает по каждому URL: визиты, просмотры,
+// дней назад по сегодня включительно. Возвращает по каждому URL: просмотры,
 // уникальных пользователей, среднюю длительность визита.
 //
 // Окружение:
@@ -82,7 +82,8 @@ writeFileSync(
   JSON.stringify(
     {
       fetchedAt: today.toISOString(),
-      days: DAYS,
+      days: DAYS, // legacy lookback; inclusive report contains DAYS + 1 calendar dates
+      period: { date1: params.get('date1'), date2: params.get('date2'), inclusiveDays: DAYS + 1 },
       counterId: COUNTER,
       totals,
       coverage,
