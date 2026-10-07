@@ -38,7 +38,7 @@ startDate.setDate(startDate.getDate() - DAYS);
 const fmt = (d) => d.toISOString().slice(0, 10);
 
 console.log(`Метрика: счётчик ${COUNTER}`);
-console.log(`Окно: ${fmt(startDate)} → ${fmt(today)} (${DAYS} дней)`);
+console.log(`Окно: ${fmt(startDate)} → ${fmt(today)} (${DAYS + 1} календарных дат, обе границы включены)`);
 console.log(`Режим: ${DRY_RUN ? 'DRY_RUN' : 'боевой'}\n`);
 
 if (DRY_RUN) {
