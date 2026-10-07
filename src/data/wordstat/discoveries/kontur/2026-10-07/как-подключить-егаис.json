@@ -1,0 +1,59 @@
+{
+  "seed": "как подключить ЕГАИС",
+  "slug": "как-подключить-егаис",
+  "category": "intent",
+  "cluster": "egais",
+  "fetchedAt": "2026-10-07T19:24:03.904Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 9,
+  "phrases": [
+    {
+      "phrase": "как подключить егаис",
+      "count": 216
+    },
+    {
+      "phrase": "как подключить егаис для ип",
+      "count": 51
+    },
+    {
+      "phrase": "как подключить егаис пиво",
+      "count": 48
+    },
+    {
+      "phrase": "как подключить егаис для пива ип",
+      "count": 35
+    },
+    {
+      "phrase": "как подключить егаис для ооо",
+      "count": 7
+    },
+    {
+      "phrase": "как подключить егаис для пива ип инструкция",
+      "count": 6
+    },
+    {
+      "phrase": "как подключить егаис ип инструкция",
+      "count": 6
+    },
+    {
+      "phrase": "как подключить егаис и честный знак",
+      "count": 6
+    },
+    {
+      "phrase": "как подключить ключ егаис",
+      "count": 5
+    }
+  ]
+}

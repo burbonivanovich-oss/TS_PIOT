@@ -1,0 +1,59 @@
+{
+  "seed": "списание алкоголя в ЕГАИС",
+  "slug": "списание-алкоголя-в-егаис",
+  "category": "intent",
+  "cluster": "egais",
+  "fetchedAt": "2026-10-07T19:24:08.252Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 9,
+  "phrases": [
+    {
+      "phrase": "списание алкоголя в егаис",
+      "count": 242
+    },
+    {
+      "phrase": "акт списания алкоголя в егаис",
+      "count": 53
+    },
+    {
+      "phrase": "списание алкоголя в егаис общепит",
+      "count": 31
+    },
+    {
+      "phrase": "списание остатков алкоголя в егаис",
+      "count": 29
+    },
+    {
+      "phrase": "списание крепкого алкоголя в егаис",
+      "count": 28
+    },
+    {
+      "phrase": "списание алкоголя в егаис 1с",
+      "count": 19
+    },
+    {
+      "phrase": "причины списания алкоголя в егаис",
+      "count": 17
+    },
+    {
+      "phrase": "порционное списание алкоголя в егаис общепит",
+      "count": 8
+    },
+    {
+      "phrase": "списание алкоголя в егаис 1с розница",
+      "count": 7
+    }
+  ]
+}
