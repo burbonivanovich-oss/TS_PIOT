@@ -20,28 +20,35 @@ const PATTERNS = [
 ];
 const SOURCE_RE = /\]\(https?:\/\/(?:[^)]*\.)?(?:consultant\.ru|garant\.ru|nalog\.gov\.ru|publication\.pravo\.gov\.ru|pravo\.gov\.ru|честныйзнак\.рф|xn--80ajghhoc2aj1c8b\.xn--p1ai|crpt\.ru|kremlin\.ru|duma\.gov\.ru|regulation\.gov\.ru)[^)]*\)/gi;
 
-/** The displayed FAQ is read from raw YAML; the scalar parser cannot represent its object lists. */
-export function articleClaimText(article) {
-  if (typeof article === 'string') return article;
+/** Keep each displayed field separate, with offsets for explicit evidence bindings. */
+function articleClaimParts(article) {
+  if (typeof article === 'string') return { text: article, fields: [] };
   const visible = [];
-  let selected = false;
-  let field = null;
+  let selected = false, selectedName = null, field = null;
   for (const line of String(article.fm ?? article.raw ?? '').split(/\r?\n/)) {
     const root = line.match(/^([\w-]+):\s*(.*)$/);
-    if (root) { selected = ['title','description','faq','lead','summary'].includes(root[1]); field = null; }
+    if (root) { selectedName = root[1]; selected = ['title','description','faq','lead','summary'].includes(selectedName); field = null; }
     if (!selected || /^\s*#/.test(line)) continue;
     const key = line.match(/^\s*(?:-\s*)?[\w-]+:\s*(.*)$/);
-    if (key) { visible.push(''); field = visible.length - 1; }
+    if (key) { visible.push({ name: selectedName, text: '' }); field = visible.length - 1; }
     let text = line.replace(/^\s*(?:-\s*)?(?:[\w-]+:\s*)?/, '').trim();
     if (!text || /^[>|][+-]?$/.test(text)) continue;
     text = text.replace(/^(["'])(.*)\1$/, '$2').replace(/\\"/g, '"');
-    if (field === null) { visible.push(text); field = visible.length - 1; }
-    else visible[field] += (visible[field] ? ' ' : '') + text;
+    if (field === null) { visible.push({ name: selectedName, text }); field = visible.length - 1; }
+    else visible[field].text += (visible[field].text ? ' ' : '') + text;
   }
-  // Separate displayed metadata fields so a source in one cannot cover another.
-  const fields = visible.filter(Boolean);
-  return String(article.body ?? '') + (fields.length ? '\n\n' + fields.join('.\n\n') : '');
+  let text = String(article.body ?? '');
+  const fields = [];
+  for (const value of visible.filter(v => v.text)) {
+    text += fields.length ? '.\n\n' : '\n\n';
+    const start = text.length;
+    text += value.text;
+    fields.push({ name: value.name, start, end: text.length });
+  }
+  return { text, fields };
 }
+
+export function articleClaimText(article) { return articleClaimParts(article).text; }
 
 function withoutExamples(text) {
   // Mask fenced examples; inline formatting must not hide normative prose.
@@ -103,7 +110,7 @@ export function criticalDateValues(text) {
 }
 
 export function extractClaims(input, sourceEvidence=null, {maxAgeDays=180}={}) {
-  const original=articleClaimText(input);
+  const {text:original,fields}=articleClaimParts(input);
   const text=withoutExamples(original);
   return PATTERNS.flatMap(p=>[...text.matchAll(p.re)].flatMap(m=>{
     // Masking helps recognition but must not rewrite the statement bound to evidence.
@@ -120,6 +127,7 @@ export function extractClaims(input, sourceEvidence=null, {maxAgeDays=180}={}) {
         if(!verdict.ok) {covered=false;reason=verdict.reason;}
       }
     }
-    return [{id:p.id,text:m[0],sentence,covered,source,reason}];
+    const field=fields.find(f=>m.index>=f.start && m.index<f.end)?.name;
+    return [{id:p.id,text:m[0],sentence,covered,source,reason,...(field ? {field} : {})}];
   }));
 }

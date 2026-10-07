@@ -13,7 +13,7 @@ import { checkHeroAssets } from './lib/hero-assets.mjs';
 // Код выхода: 0 — прошло, 1 — ошибка запуска, 2 — не прошло.
 import path from 'node:path';
 import { activeFactCorrections } from './lib/fact-corrections.mjs';
-import { checkClaimEvidence } from './lib/claim-evidence.mjs';
+import { checkClaimEvidence, bindMetadataSources } from './lib/claim-evidence.mjs';
 import { observedSourceChanges } from './lib/fact-freshness.mjs';
 import { readJson } from './lib/content.mjs';
 import { runSiteQuality } from './lib/site.mjs';
@@ -45,8 +45,9 @@ const AI_MARKERS = [
 ];
 
 // One detector feeds acceptance, source monitoring and the published-corpus audit.
-export function extractCriticalClaims(input, sourceEvidence = null) {
-  return extractClaims(input, sourceEvidence, { maxAgeDays: G.sourceMaxAgeDays ?? 180 });
+export function extractCriticalClaims(input, sourceEvidence = null, { evidence, now = new Date(), maxAgeDays = G.sourceMaxAgeDays ?? 180 } = {}) {
+  if (evidence === undefined && input?.slug) evidence = readJson(path.join(cfg.resolved.dataDir, 'claim-evidence', input.slug + '.json'), null);
+  return bindMetadataSources({ claims: extractClaims(input, sourceEvidence, { maxAgeDays }), evidence, now, maxAgeDays });
 }
 
 const SOURCE_RE = /\]\(https?:\/\/(?:[^)]*\.)?(?:consultant\.ru|garant\.ru|nalog\.gov\.ru|publication\.pravo\.gov\.ru|pravo\.gov\.ru|честныйзнак\.рф|xn--80ajghhoc2aj1c8b\.xn--p1ai|crpt\.ru|kremlin\.ru|duma\.gov\.ru|regulation\.gov\.ru)[^)]*\)/gi;
@@ -141,26 +142,28 @@ export function runGates({ file, source, requiredPubDate = null, knownSlugs = nu
   // Сравнивать общее число утверждений и ссылок по всей статье нельзя: одна
   // случайная ссылка формально «подтверждала» любые несвязанные даты и штрафы
   // (AP-P0-24). Теперь каждое утверждение считается покрытым, только если
-  // первоисточник стоит в том же предложении. Формируется манифест claims —
+  // первоисточник стоит в том же предложении; для plain metadata требуется
+  // отдельная точная сверка поля с целым снимком. Формируется манифест claims —
   // его можно сохранять и перепроверять отдельным сетевым этапом.
-  const claims = extractCriticalClaims({ body, fm }, sourceEvidence);
+  let evidence = claimEvidence;
+  let evidenceError = null;
+  if (evidence === undefined && file) {
+    try { evidence = readJson(path.join(cfg.resolved.dataDir, 'claim-evidence', path.basename(file).replace(/\.mdx?$/, '') + '.json'), null); }
+    catch (e) { evidenceError = e.message; }
+  }
+  const claims = extractCriticalClaims({ body, fm }, sourceEvidence, { evidence });
   const uncovered = claims.filter((c) => !c.covered);
   const sources = [...articleClaimText({ body, fm }).matchAll(SOURCE_RE)].length;
   add(
     'sources',
     !G.requireFactcheck || claims.length === 0 || uncovered.length === 0,
     20,
-    `утверждений с датами/штрафами/НПА: ${claims.length}, без пригодного источника в том же предложении: ${uncovered.length}, ссылок на первоисточники: ${sources}` +
+    `утверждений с датами/штрафами/НПА: ${claims.length}, без пригодной привязки первоисточника: ${uncovered.length}, ссылок на первоисточники: ${sources}` +
       (uncovered.length ? ` (напр. «${uncovered[0].text}»: ${uncovered[0].reason})` : ''),
   );
 
   if (G.requireClaimEvidence) {
-    let evidence = claimEvidence;
-    let error = null;
-    if (evidence === undefined && file) {
-      try { evidence = readJson(path.join(cfg.resolved.dataDir, 'claim-evidence', path.basename(file).replace(/\.mdx?$/, '') + '.json'), null); }
-      catch (e) { error = e.message; }
-    }
+    let error = evidenceError;
     let observations = {};
     try { observations = readJson(path.join(cfg.resolved.dataDir, 'source-observations.json'), { byUrl: {} }).byUrl; }
     catch (e) { error = e.message; }

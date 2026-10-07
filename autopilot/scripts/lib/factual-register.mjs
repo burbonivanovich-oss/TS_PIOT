@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { extractClaims, articleClaimText } from './critical-claims.mjs';
-import { checkClaimEvidence, claimHash } from './claim-evidence.mjs';
+import { checkClaimEvidence, claimHash, bindMetadataSources } from './claim-evidence.mjs';
 import { activeFactCorrections } from './fact-corrections.mjs';
 import { observedSourceChanges } from './fact-freshness.mjs';
 
@@ -10,13 +10,13 @@ export function buildFactualRegister({ articles, evidenceFor, correctionsFor = (
   maxAgeDays = 180, observationMaxAgeDays = 7 }) {
   const rows = articles.filter(a => !a.draft).map(article => {
     const evidence = evidenceFor(article.slug);
-    const claims = extractClaims(article, null, { maxAgeDays });
+    const claims = bindMetadataSources({ claims: extractClaims(article, null, { maxAgeDays }), evidence, now, maxAgeDays });
     const confirmedErrors = activeFactCorrections({ slug: article.slug, body: articleClaimText(article),
       evidence: correctionsFor(article.slug), now, maxAgeDays });
     const details = claims.map(claim => {
       const verdict = checkClaimEvidence({ claims: [claim], evidence, now, maxAgeDays });
       const observed = observedSourceChanges({ claims: [claim], evidence, observations, now, observationMaxAgeDays });
-      const entry = evidence?.claims?.find(e => e.claimHash === claimHash(claim.sentence) && e.source === claim.source);
+      const entry = evidence?.claims?.find(e => e.claimHash === claimHash(claim.sentence) && e.source === claim.source && (claim.sourceBinding !== 'retained-evidence' || e.field === claim.field));
       const document = evidence?.documents?.find(d => d.url === claim.source);
       const status = observed.unavailable.length ? 'source-unavailable' : verdict.ok && !observed.reasons.length ? 'verified' : 'needs-review';
       return { id: claim.id, claimHash: claimHash(claim.sentence), text: claim.text, sentence: claim.sentence,

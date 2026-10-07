@@ -17,7 +17,7 @@ export function checkClaimEvidence({ claims, evidence, now = new Date(), maxAgeD
   };
   for (const claim of claims) {
     const id = claimHash(claim.sentence);
-    const entry = (Array.isArray(evidence?.claims) ? evidence.claims : []).find(c => c.claimHash === id && c.source === claim.source);
+    const entry = (Array.isArray(evidence?.claims) ? evidence.claims : []).find(c => c.claimHash === id && c.source === claim.source && (claim.sourceBinding !== 'retained-evidence' || c.field === claim.field));
     const reject = reason => problems.push({ claimHash: id, text: claim.text, reason });
     if (!entry || entry.result !== 'verified' || (typeof entry.rationale !== 'string' || !entry.rationale.trim())) {
       reject('нет сохранённой содержательной сверки утверждения'); continue;
@@ -45,4 +45,20 @@ export function checkClaimEvidence({ claims, evidence, now = new Date(), maxAgeD
     if (numbers.some(n => !excerptNumbers.includes(n))) reject('числа утверждения отсутствуют в подтверждающем фрагменте');
   }
   return { ok: problems.length === 0, problems };
+}
+
+
+/** Plain metadata cannot display a Markdown source link; bind only an explicit exact-field receipt. */
+export function bindMetadataSources({ claims, evidence, now = new Date(), maxAgeDays = 180 }) {
+  return claims.map(claim => {
+    if (claim.source || !['title','description','lead','summary'].includes(claim.field)) return claim;
+    const id = claimHash(claim.sentence);
+    const entries = (Array.isArray(evidence?.claims) ? evidence.claims : [])
+      .filter(e => e.claimHash === id && e.field === claim.field && auditSourceUrl(e.source).ok);
+    // An ambiguous receipt must be reviewed instead of silently choosing a source.
+    if (new Set(entries.map(e => e.source)).size !== 1) return claim;
+    const bound = { ...claim, source: entries[0].source, sourceBinding: 'retained-evidence' };
+    const verdict = checkClaimEvidence({ claims: [bound], evidence, now, maxAgeDays });
+    return { ...bound, covered: verdict.ok, reason: verdict.ok ? null : verdict.problems[0].reason };
+  });
 }

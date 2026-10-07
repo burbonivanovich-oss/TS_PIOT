@@ -6,12 +6,13 @@ export function factualCoverage({articles, observations = {}, evidenceFor, now =
   const urls = new Set();
   let claimsWithoutSource = 0, articlesWithUnlinkedClaims = 0, reviewRequired = 0;
   for (const article of articles) {
-    const claims = extractCriticalClaims(article);
+    const evidence = evidenceFor(article.slug);
+    const claims = extractCriticalClaims(article, null, { evidence, now, maxAgeDays });
     const unlinked = claims.filter(c => !c.source || !auditSourceUrl(c.source).ok).length;
     claimsWithoutSource += unlinked;
     articlesWithUnlinkedClaims += Number(unlinked > 0);
     for (const c of claims) if (c.source && auditSourceUrl(c.source).ok) urls.add(c.source);
-    if (factFreshness({claims, evidence:evidenceFor(article.slug), observations, now, maxAgeDays, observationMaxAgeDays}).needsReview) reviewRequired++;
+    if (factFreshness({claims, evidence, observations, now, maxAgeDays, observationMaxAgeDays}).needsReview) reviewRequired++;
   }
   let freshSources = 0, unavailableSources = 0, missingOrExpiredSources = 0;
   for (const url of urls) {

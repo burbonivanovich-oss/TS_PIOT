@@ -82,9 +82,10 @@ function buildQueueInner() {
 
     // Свежепереписанное не берём повторно, даже если формально «старое»:
     // иначе очередь начинает крутить одни и те же статьи каждый месяц.
+    const evidence = readJson(path.join(cfg.resolved.dataDir, 'claim-evidence', article.slug + '.json'), null);
     const facts = factFreshness({
-      claims: extractCriticalClaims(article),
-      evidence: readJson(path.join(cfg.resolved.dataDir, 'claim-evidence', article.slug + '.json'), null),
+      claims: extractCriticalClaims(article, null, { evidence, now }),
+      evidence,
       observations,
       now,
       maxAgeDays: cfg.gates.sourceMaxAgeDays ?? 180,

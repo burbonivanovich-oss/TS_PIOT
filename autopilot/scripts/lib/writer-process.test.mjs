@@ -27,8 +27,10 @@ test('log size cap rejects completed oversized output', { skip: process.platform
 test('successful leader exit kills its still-writing descendant before delivery', { skip: process.platform === 'win32' }, async () => {
   const root = mkdtempSync(path.join(tmpdir(), 'writer-descendant-')); const output = path.join(root, 'ticks'); const actorFile = path.join(root, '.actor');
   try {
-    const descendant = `const fs=require('node:fs');fs.appendFileSync(${JSON.stringify(output)},'x');setInterval(()=>fs.appendFileSync(${JSON.stringify(output)},'x'),20);`;
-    const leader = `require('node:child_process').spawn(process.execPath,['-e',${JSON.stringify(descendant)}],{stdio:'ignore'});setTimeout(()=>process.exit(0),250);`;
+    const descendant = `const fs=require('node:fs');fs.appendFileSync(${JSON.stringify(output)},'x');setInterval(()=>fs.appendFileSync(${JSON.stringify(output)},'x'),20);process.send('writing');`;
+    // Exit only once the descendant has actually written; a fixed startup delay
+    // could kill it before launch under the full suite's parallel process load.
+    const leader = `const child=require('node:child_process').spawn(process.execPath,['-e',${JSON.stringify(descendant)}],{stdio:['ignore','ignore','ignore','ipc']});child.once('message',()=>process.exit(0));`;
     await supervisedProcess(process.execPath, ['-e', leader], { actorFile, timeout: 5000 });
     assert.equal(existsSync(actorFile), false); const bytes = readFileSync(output, 'utf8'); assert.ok(bytes.length > 0);
     await pause(150); assert.equal(readFileSync(output, 'utf8'), bytes, 'descendant must stop before receipt or rollback');
