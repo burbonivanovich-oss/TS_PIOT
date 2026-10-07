@@ -1,0 +1,54 @@
+{
+  "checkedAt": "2026-10-07T14:51:31.243Z",
+  "slug": "2026-06-24-snyatie-kkt-s-ucheta",
+  "sourceSha256": "8ea04668c464307c5be9e4e269fa3a9231a2a395f099f8a3bcef8b49ebcd541b",
+  "candidateSha256": "91674676de63d002b41fda5f2fa35950ed8a8f092cfca0312b4f257aa105ae6d",
+  "publishedSha256": "8bb86ae770f1d867f92b2458199d178cc0a0ab998895917c55c36b6b53265eb3",
+  "candidateSignals": 16,
+  "distinctCandidateSentences": 15,
+  "refreshedReceipts": 15,
+  "obsoleteReceiptsRemoved": 1,
+  "sourceSections": [
+    "7",
+    "5",
+    "15",
+    "16",
+    "18",
+    "8",
+    "14",
+    "10",
+    "11",
+    "12",
+    "8.1"
+  ],
+  "publicSignals": 4,
+  "publicDistinctSentences": 3,
+  "publicDecisions": [
+    {
+      "claimHash": "94b168ea66c2d1a6c8b27d3a883b63fe8d9d1f0d810d7e6588fe4c5ffee6ec83",
+      "sentence": " Порядок снятия с учёта регулирует ст. 4.2 Федерального закона от 22.05.2003 № 54-ФЗ.",
+      "semanticResult": "verified",
+      "publicationGateResult": "needs-review; no visible source binding"
+    },
+    {
+      "claimHash": "94b168ea66c2d1a6c8b27d3a883b63fe8d9d1f0d810d7e6588fe4c5ffee6ec83",
+      "sentence": " Порядок снятия с учёта регулирует ст. 4.2 Федерального закона от 22.05.2003 № 54-ФЗ.",
+      "semanticResult": "verified",
+      "publicationGateResult": "needs-review; no visible source binding"
+    },
+    {
+      "claimHash": "7dbe1de184170106c5ba47370cff01367714c8a180e6e2505eeffe0855c2c673",
+      "sentence": "После закрытия ФН у вас есть **1 рабочий день** для подачи заявления о снятии ККТ с учёта — это требование ст. 4.2 54-ФЗ.",
+      "semanticResult": "contradicted; existing correction",
+      "publicationGateResult": "needs-review; no visible source binding"
+    },
+    {
+      "claimHash": "a1f70d26ce65ce9e4fe1cc8c93c610c6e5c82a07e42bd8de72d04e0b7727f94d",
+      "sentence": "После приёма заявления ФНС снимает ККТ с учёта в течение **10 рабочих дней** (ст. 4.2 54-ФЗ).",
+      "semanticResult": "contradicted; existing correction",
+      "publicationGateResult": "needs-review; no visible source binding"
+    }
+  ],
+  "protectedArticlesUnchanged": true,
+  "publicCorrection": false
+}
