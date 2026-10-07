@@ -6,7 +6,7 @@ export function factualCoverage({articles, observations = {}, evidenceFor, now =
   const urls = new Set();
   let claimsWithoutSource = 0, articlesWithUnlinkedClaims = 0, reviewRequired = 0;
   for (const article of articles) {
-    const claims = extractCriticalClaims(article.body);
+    const claims = extractCriticalClaims(article);
     const unlinked = claims.filter(c => !c.source || !auditSourceUrl(c.source).ok).length;
     claimsWithoutSource += unlinked;
     articlesWithUnlinkedClaims += Number(unlinked > 0);

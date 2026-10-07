@@ -80,6 +80,50 @@ function settle(fx) {
 
 const readState = (fx) => JSON.parse(readFileSync(path.join(fx.dataDir, 'autopilot.json'), 'utf8'));
 
+test('AUD-02 real receipt and settle hold unsupported dates, small fines and FAQ; verified correction publishes once', async () => {
+  const { extractClaims } = await import('./lib/critical-claims.mjs');
+  const { claimHash } = await import('./lib/claim-evidence.mjs');
+  const { parseFlags, selectCandidate } = await import('../../scripts/release-next-draft.mjs');
+  const today = new Date().toISOString().slice(0,10);
+  const sourceUrl = 'https://publication.pravo.gov.ru/document/123';
+  for (const unsupported of ['Штраф 500 рублей.', 'Порядок обязателен с 1.9.2026.', 'Порядок обязателен с сентября 2026 года.', 'faq']) {
+    const fx = fixture(), blog = path.join(fx.root,'src/content/blog'); addReferenceArticles(blog);
+    const config = JSON.parse(readFileSync(fx.configFile));
+    config.gates.requireWritingReceipt = true; config.gates.requireClaimEvidence = true;
+    writeFileSync(fx.configFile,JSON.stringify(config));
+    const file = path.join(blog,SLUG+'.md');
+    let raw = validWaitingArticle('Проверка критического утверждения').replace('2026-01-01',today);
+    raw = unsupported === 'faq' ? raw.replace('draft: true', 'faq:\n  - question: Какая санкция?\n    answer: Штраф 500 рублей.\ndraft: true') : raw+'\n'+unsupported+'\n';
+    writeFileSync(file,raw);
+    const env = {...process.env,AUTOPILOT_CONFIG:fx.configFile,AUTOPILOT_DATA_DIR:fx.dataDir,AUTOPILOT_LOCK_FILE:path.join(fx.dataDir,'.autopilot.lock'),CONTENT_ROOT:fx.root};
+    const cli = (...args) => spawnSync(process.execPath,args,{cwd:ROOT,env,encoding:'utf8'});
+    const issue = () => {
+      const run = createRun({dir:fx.dataDir,date:today}); setStage(run.runId,'planned',{orderCount:1},{dir:fx.dataDir});
+      writeFileSync(path.join(fx.dataDir,'orders.json'),JSON.stringify({runId:run.runId,date:today,orders:[{slug:SLUG,kind:'new'}]}));
+      const receipt = cli('scripts/writing-checkpoint.mjs','record','--slug',SLUG);
+      assert.equal(receipt.status,0,receipt.stderr); return run.runId;
+    };
+    issue();
+    const first = settle(fx); assert.equal(first.infraMissing,0); assert.equal(first.rejected,1,unsupported);
+    assert.equal(first.published,0); assert.match(first.results[0].detail,/sources/);
+    assert.equal(readState(fx).counters.new,0); assert.equal(readState(fx).counters.published,0);
+    assert.match(readFileSync(file,'utf8'),/autopilotHold: true/);
+    assert.equal(selectCandidate([{slug:SLUG,...parseFlags(readFileSync(file,'utf8'))}],{today,forceDate:true}),null);
+    settle(fx); assert.equal(readState(fx).inFlight[0].failures,1,'same run must not add another failure');
+    const corrected = validWaitingArticle('Проверка критического утверждения').replace('2026-01-01',today)+`\nШтраф 500 рублей согласно [закону](${sourceUrl}).\n`;
+    writeFileSync(file,corrected);
+    const claims = extractClaims(corrected.split('\n---\n')[1]);
+    const excerpt = 'Штраф составляет 500 рублей. Документ применяется к указанной категории.';
+    const stamp = new Date().toISOString();
+    mkdirSync(path.join(fx.dataDir,'claim-evidence'),{recursive:true});
+    writeFileSync(path.join(fx.dataDir,'claim-evidence',SLUG+'.json'),JSON.stringify({documents:[{url:sourceUrl,text:excerpt,status:200,fetchedAt:stamp,sha256:createHash('sha256').update(excerpt).digest('hex')}],claims:claims.map(c=>({claimHash:claimHash(c.sentence),source:sourceUrl,excerpt,result:'verified',checkedAt:stamp,rationale:'Сумма и применимость сверены в изолированном примере.'}))}));
+    issue(); const fixed = settle(fx); assert.equal(fixed.published,1,JSON.stringify(fixed.results));
+    assert.equal(readState(fx).counters.new,1); assert.equal(readState(fx).counters.published,1);
+    assert.match(readFileSync(file,'utf8'),/draft: false/); assert.doesNotMatch(readFileSync(file,'utf8'),/autopilotHold: true/);
+    settle(fx); assert.equal(readState(fx).counters.published,1);
+  }
+});
+
 test('AP-P0-12: два settle без файла не карантинят тему и не считают редакционный провал', () => {
   const fx = fixture();
   const first = settle(fx);

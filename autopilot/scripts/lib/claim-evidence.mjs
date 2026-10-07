@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { auditSourceUrl } from './sources.mjs';
+import { monetaryValues, criticalDateValues } from './critical-claims.mjs';
 
 // Точный текст утверждения связывает результат сверки с конкретной версией.
 // Перелинковка сохраняет слова якоря и не меняет идентификатор утверждения.
@@ -32,8 +33,15 @@ export function checkClaimEvidence({ claims, evidence, now = new Date(), maxAgeD
     }
     // Детерминированная сверка числовой части не заменяет смысловую проверку
     // исполнителем. Она ловит перенос evidence от другой даты или суммы.
-    const numbers = String(claim.text).match(/\d+/g) || [];
-    const excerptNumbers = entry.excerpt.match(/\d+/g) || [];
+    if (claim.id === 'date') {
+      const dates = criticalDateValues(claim.text), excerptDates = criticalDateValues(entry.excerpt);
+      if (!dates.length || dates.some(d=>!excerptDates.some(e=>e.year===d.year && e.month===d.month && (d.day===null || e.day===d.day)))) {
+        reject('дата утверждения отсутствует в подтверждающем фрагменте');
+      }
+      continue;
+    }
+    const numbers = claim.id === 'fine' ? monetaryValues(claim.text) : (String(claim.text).match(/\d+/g) || []);
+    const excerptNumbers = claim.id === 'fine' ? monetaryValues(entry.excerpt) : (entry.excerpt.match(/\d+/g) || []);
     if (numbers.some(n => !excerptNumbers.includes(n))) reject('числа утверждения отсутствуют в подтверждающем фрагменте');
   }
   return { ok: problems.length === 0, problems };

@@ -33,6 +33,7 @@ node autopilot/scripts/interlink.mjs graph             # сироты и туп�
 node autopilot/scripts/interlink.mjs apply             # расставить ссылки
 node autopilot/scripts/gates.mjs check --slug <slug>   # проверить статью
 node autopilot/scripts/source-check.mjs status         # свежесть evidence первоисточников
+node autopilot/scripts/factual-register.mjs            # реестр сверки опубликованного корпуса, JSON в stdout
 node autopilot/scripts/audit-drafts.mjs --json         # read-only аудит всех черновиков
 node autopilot/scripts/source-snapshot.mjs --url <URL> # снимок текстового первоисточника
 node autopilot/scripts/metrics.mjs                     # почему темп не выполнен

@@ -17,6 +17,7 @@ import { loadArticles, readJson, writeJson, today, daysBetween, isMain, parseArg
 import { acquireLock, releaseLock } from './lib/lock.mjs';
 import { buildLinkGraph } from './interlink.mjs';
 import { extractCriticalClaims } from './gates.mjs';
+import { articleClaimText } from './lib/critical-claims.mjs';
 import { factFreshness } from './lib/fact-freshness.mjs';
 import { activeFactCorrections } from './lib/fact-corrections.mjs';
 import { donorRewriteDirections } from './lib/donor-rewrites.mjs';
@@ -82,14 +83,14 @@ function buildQueueInner() {
     // Свежепереписанное не берём повторно, даже если формально «старое»:
     // иначе очередь начинает крутить одни и те же статьи каждый месяц.
     const facts = factFreshness({
-      claims: extractCriticalClaims(article.body),
+      claims: extractCriticalClaims(article),
       evidence: readJson(path.join(cfg.resolved.dataDir, 'claim-evidence', article.slug + '.json'), null),
       observations,
       now,
       maxAgeDays: cfg.gates.sourceMaxAgeDays ?? 180,
       observationMaxAgeDays: R.sourceObservationMaxAgeDays ?? 7,
     });
-    const corrections = activeFactCorrections({ slug: article.slug, body: article.body, evidence: readJson(path.join(cfg.resolved.dataDir, 'fact-corrections', article.slug + '.json'), null), now, maxAgeDays: cfg.gates.sourceMaxAgeDays ?? 180 });
+    const corrections = activeFactCorrections({ slug: article.slug, body: articleClaimText(article), evidence: readJson(path.join(cfg.resolved.dataDir, 'fact-corrections', article.slug + '.json'), null), now, maxAgeDays: cfg.gates.sourceMaxAgeDays ?? 180 });
     if (sinceRewrite !== null && sinceRewrite < R.minDaysBetweenRewrites && !facts.needsReview && !corrections.length) continue;
 
     const reasons = corrections.map(c => `Исправить подтверждённую фактическую ошибку: ${c.rationale} Источник: ${c.source}`);

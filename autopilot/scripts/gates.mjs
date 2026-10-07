@@ -21,11 +21,13 @@ import { readFileSync, existsSync } from 'node:fs';
 import { loadConfig } from './lib/config.mjs';
 import { parseFrontmatter, loadArticles, isMain, parseArgs } from './lib/content.mjs';
 import { tokenize, shingles, buildIdf, weightedCoverage } from './lib/text.mjs';
-import { auditSourceUrl, evaluateEvidence, urlFromMatch, readSourceEvidence } from './lib/sources.mjs';
+import { readSourceEvidence } from './lib/sources.mjs';
 import { envelope, EXIT } from './lib/outcome.mjs';
 import { extractInternalLinks, unpublishedSlugs } from './lib/links.mjs';
 import { parseIsoDate, isFutureIso, isPastIso } from './lib/dates.mjs';
 import { buildLinkGraph } from './interlink.mjs';
+
+import { extractClaims, articleClaimText } from './lib/critical-claims.mjs';
 
 const cfg = loadConfig();
 const G = cfg.gates;
@@ -42,130 +44,21 @@ const AI_MARKERS = [
   'мир бизнеса', 'давайте разберёмся', 'давайте разберемся', 'погрузимся в',
 ];
 
-// Утверждения, которые обязаны опираться на источник: даты вступления в силу,
-// суммы штрафов, номера статей. Без ссылки рядом это выдумка до доказательства
-// обратного — проверять её постфактум будет некому.
-// Границы слова здесь заданы явным классом, а не \b: в JS \b работает по
-// ASCII, и между пробелом и кириллической буквой границы не возникает — с
-// \b эти шаблоны молча не находили ничего, а гейт источников считался
-// пройденным на любом тексте.
-const EDGE = '(?:^|[\\s(«„"\'-])';
-const CLAIM_PATTERNS = [
-  {
-    id: 'date',
-    re: new RegExp(
-      `${EDGE}с\\s+(?:\\d{2}\\.\\d{2}\\.\\d{4}|\\d{1,2}\\s+(?:января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря)\\s+\\d{4})`,
-      'gi',
-    ),
-  },
-  {
-    id: 'fine',
-    re: /\d{1,3}(?:[\s\u00a0]?\d{3})+\s*(?:₽|руб)/gi,
-    // Денежная сумма сама по себе утверждением о норме не является. В обзоре
-    // оборудования «касса от 20 000 рублей» — это ценник, а не санкция, и
-    // требовать под него ссылку на КоАП бессмысленно: гейт насчитывает
-    // десяток «утверждений» там, где их три, и заворачивает нормальный текст.
-    // Поэтому сумма учитывается, только если предложение вокруг неё говорит
-    // об ответственности.
-    context: /штраф|санкци|ответственн|наказ|взыска|неустойк|пен[яию]|КоАП|конфиска|предупрежден/i,
-  },
-  {
-    id: 'law',
-    // Обязателен номер рядом: иначе шаблон ловит обычное слово «статьи»
-    // («в тексте статьи»), и любой текст выглядит напичканным ссылками на НПА.
-    re: new RegExp(
-      `${EDGE}(?:ст\\.\\s*\\d|стать[ияию]\\s+\\d|№\\s*\\d{2,4}-ФЗ|КоАП|НК\\s+РФ)`,
-      'gi',
-    ),
-  },
-];
+// One detector feeds acceptance, source monitoring and the published-corpus audit.
+export function extractCriticalClaims(input, sourceEvidence = null) {
+  return extractClaims(input, sourceEvidence, { maxAgeDays: G.sourceMaxAgeDays ?? 180 });
+}
 
 const SOURCE_RE = /\]\(https?:\/\/(?:[^)]*\.)?(?:consultant\.ru|garant\.ru|nalog\.gov\.ru|publication\.pravo\.gov\.ru|pravo\.gov\.ru|честныйзнак\.рф|xn--80ajghhoc2aj1c8b\.xn--p1ai|crpt\.ru|kremlin\.ru|duma\.gov\.ru|regulation\.gov\.ru)[^)]*\)/gi;
 
-/**
- * Предложение, внутри которого стоит найденная позиция.
- *
- * Точки внутри даты (`01.09.2026`) и десятичных чисел не являются концом
- * предложения — иначе утверждение о сроке и ссылка на закон рядом с ним
- * попадали бы в разные «предложения», и гейт источников заворачивал бы
- * корректно оформленный текст. Поэтому даты предварительно маскируются
- * символом той же длины: смещения сохраняются, а ложные границы исчезают.
- */
-const DATE_MASK = /\b\d{1,2}\.\d{1,2}\.\d{4}\b/g;
-const SENTENCE_END = /[.!?](?=\s|$)/g;
-
-function sentenceAt(text, index) {
-  const masked = text.replace(DATE_MASK, (m) => m.replace(/\./g, '\u0001'));
-  let start = 0;
-  let end = masked.length;
-  for (const m of masked.matchAll(SENTENCE_END)) {
-    const at = m.index + 1;
-    if (at <= index) start = at;
-    else {
-      end = at;
-      break;
-    }
-  }
-  return text.slice(start, end);
-}
-
-/** URL первоисточника, стоящего в том же предложении, что и утверждение. */
-function sourceInSentence(sentence) {
-  const matches = sentence.match(SOURCE_RE);
-  if (!matches || !matches.length) return null;
-  return urlFromMatch(matches[0]);
-}
-
-/**
- * @param sourceEvidence — сохранённый evidence сетевой проверки (url → запись).
- * null означает «сеть не учитывать»: используется в юнит-тестах и там, где
- * evidence ещё не собран. Гейт при этом всё равно проверяет URL
- * детерминированно (схема, allowlist, не главная страница).
- */
-/** Один детектор критических утверждений для приёмки и перепроверки корпуса. */
-export function extractCriticalClaims(body, sourceEvidence = null) {
-  return CLAIM_PATTERNS.flatMap((p) =>
-    [...body.matchAll(p.re)]
-      .filter((m) => !p.context || p.context.test(sentenceAt(body, m.index)))
-      .map((m) => {
-        const sentence = sentenceAt(body, m.index);
-        const sourceUrl = sourceInSentence(sentence);
-        let covered = Boolean(sourceUrl);
-        let reason = covered ? null : 'нет ссылки на первоисточник в этом предложении';
-        if (covered) {
-          const audit = auditSourceUrl(sourceUrl);
-          if (!audit.ok) {
-            covered = false;
-            reason = audit.reason;
-          } else if (sourceEvidence) {
-            // Evidence — отдельный сетевой этап. Пустая карта (файла ещё нет)
-            // не блокирует: непроверенное не значит опровергнутое. Блокирует
-            // только запись, которая говорит «404/редирект/устарело».
-            const entry = sourceEvidence[sourceUrl];
-            if (entry) {
-              const verdict = evaluateEvidence(entry, {
-                maxAgeDays: cfg.gates.sourceMaxAgeDays ?? 180,
-              });
-              if (!verdict.ok) {
-                covered = false;
-                reason = verdict.reason;
-              }
-            }
-          }
-        }
-        return { id: p.id, text: m[0], sentence, covered, source: sourceUrl, reason };
-      }),
-  );
-}
-
 export function runGates({ file, source, requiredPubDate = null, knownSlugs = null, sourceEvidence = null, siteQuality = runSiteQuality, claimEvidence = undefined, claimVerifier = checkClaimEvidence, assetVerifier = checkHeroAssets, correctionEvidence = undefined }) {
   const raw = source ?? readFileSync(file, 'utf8');
-  const { data, body } = parseFrontmatter(raw);
+  const { data, body, raw: fm } = parseFrontmatter(raw);
   const checks = [];
   const add = (id, ok, weight, detail) => checks.push({ id, ok, weight, detail });
 
   const correctionSlug = file ? path.basename(file).replace(/\.mdx?$/, '') : String(data.slug || '');
-  const unresolvedCorrections = activeFactCorrections({ slug: correctionSlug, body, evidence: correctionEvidence ?? (correctionSlug ? readJson(path.join(cfg.resolved.dataDir, 'fact-corrections', correctionSlug + '.json'), null) : null), maxAgeDays: G.sourceMaxAgeDays ?? 180 });
+  const unresolvedCorrections = activeFactCorrections({ slug: correctionSlug, body: articleClaimText({ body, fm }), evidence: correctionEvidence ?? (correctionSlug ? readJson(path.join(cfg.resolved.dataDir, 'fact-corrections', correctionSlug + '.json'), null) : null), maxAgeDays: G.sourceMaxAgeDays ?? 180 });
   add('fact-corrections', unresolvedCorrections.length === 0, 0, unresolvedCorrections.length ? unresolvedCorrections.map(c => c.rationale).join('; ') : 'подтверждённых неисправленных ошибок нет');
 
   // 1. Frontmatter: без него статья не соберётся у принимающего проекта.
@@ -250,9 +143,9 @@ export function runGates({ file, source, requiredPubDate = null, knownSlugs = nu
   // (AP-P0-24). Теперь каждое утверждение считается покрытым, только если
   // первоисточник стоит в том же предложении. Формируется манифест claims —
   // его можно сохранять и перепроверять отдельным сетевым этапом.
-  const claims = extractCriticalClaims(body, sourceEvidence);
+  const claims = extractCriticalClaims({ body, fm }, sourceEvidence);
   const uncovered = claims.filter((c) => !c.covered);
-  const sources = [...body.matchAll(SOURCE_RE)].length;
+  const sources = [...articleClaimText({ body, fm }).matchAll(SOURCE_RE)].length;
   add(
     'sources',
     !G.requireFactcheck || claims.length === 0 || uncovered.length === 0,
@@ -351,7 +244,7 @@ export function runGates({ file, source, requiredPubDate = null, knownSlugs = nu
 /** Проверка на дубль уже написанного текста относительно корпуса. */
 export function bodyDuplication({ file, source, excludeSlug }) {
   const raw = source ?? readFileSync(file, 'utf8');
-  const { data, body } = parseFrontmatter(raw);
+  const { data, body, raw: fm } = parseFrontmatter(raw);
   let articles;
   try {
     articles = loadArticles().filter((a) => a.path !== path.resolve(file || '') && a.slug !== excludeSlug);

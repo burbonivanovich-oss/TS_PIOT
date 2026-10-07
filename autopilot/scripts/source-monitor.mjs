@@ -17,7 +17,7 @@ export function sourceCheckBudget(totalSources, minimum, coverageDays) {
 export async function monitorSources({ articles, previous = { byUrl: {} }, limit = 10, intervalDays = 1, coverageDays = null, now = new Date(), capture = captureSource }) {
   if (!Number.isInteger(limit) || limit < 1 || limit > 50) throw new Error('limit должен быть целым числом 1–50');
   const byUrl = { ...previous.byUrl };
-  const urls = [...new Set(articles.flatMap(article => extractCriticalClaims(article.body).map(c => c.source)).filter(url => url && auditSourceUrl(url).ok))];
+  const urls = [...new Set(articles.flatMap(article => extractCriticalClaims(article).map(c => c.source)).filter(url => url && auditSourceUrl(url).ok))];
   const effectiveLimit = coverageDays === null ? limit : sourceCheckBudget(urls.length, limit, coverageDays);
   // A future or malformed timestamp is not a valid successful observation.
   // Prioritize its recovery instead of letting every normally due URL pass it.
