@@ -40,14 +40,14 @@ export function publicationInputs({root,dataDir,month,dist=path.join(root,'dist'
  return{revision,build,items,pages,skipped,ledgerSha256:hash(fs.readFileSync(path.join(dataDir,'publish-log.json')))};
 }
 
-export async function verifyPublications({site,now=new Date()}={}) {
+export async function verifyPublications({site,now=new Date(),dist}={}) {
  const cfg=loadConfig();assertContentRoot(cfg);const root=cfg.resolved.contentRoot,dataDir=cfg.resolved.dataDir;
  acquireLock({cmd:'verify-publications'});
  try{
-  const inputs=publicationInputs({root,dataDir,month:now.toISOString().slice(0,7)});
+  const inputs=publicationInputs({root,dataDir,month:now.toISOString().slice(0,7),dist});
   const proof=await verifyLiveRelease({site,expectedCommit:inputs.revision,pages:inputs.pages,now:new Date()});
   if(git(root,['rev-parse','HEAD']).toString().trim()!==inputs.revision||hash(fs.readFileSync(path.join(dataDir,'publish-log.json')))!==inputs.ledgerSha256)throw Error('Publication inputs changed during verification');
-  for(const item of inputs.items){const files=['md','mdx'].map(ext=>path.join(root,'src/content/blog',`${item.slug}.${ext}`)).filter(f=>fs.existsSync(f));if(files.length!==1||hash(fs.readFileSync(files[0]))!==item.sourceSha256||hash(fs.readFileSync(path.join(root,'dist/blog',item.slug,'index.html')))!==item.expectedHtmlSha256)throw Error('Verified bytes changed before recording');}
+  for(const item of inputs.items){const files=['md','mdx'].map(ext=>path.join(root,'src/content/blog',`${item.slug}.${ext}`)).filter(f=>fs.existsSync(f));if(files.length!==1||hash(fs.readFileSync(files[0]))!==item.sourceSha256||hash(fs.readFileSync(path.join(dist||path.join(root,'dist'),'blog',item.slug,'index.html')))!==item.expectedHtmlSha256)throw Error('Verified bytes changed before recording');}
   const file=path.join(dataDir,'live-verifications.json'),previous=readJson(file,{version:1,checks:[]});
   const check={...proof,items:inputs.items,ledgerSha256:inputs.ledgerSha256};
   writeJson(file,{version:1,checks:[...(previous.checks||[]).filter(x=>x.revision!==proof.revision),check]});
@@ -55,6 +55,6 @@ export async function verifyPublications({site,now=new Date()}={}) {
  }finally{releaseLock();}
 }
 if(isMain(import.meta.url)){
- try{const args=parseArgs(process.argv.slice(2));console.log(JSON.stringify(await verifyPublications({site:args.site}),null,2));}
+ try{const args=parseArgs(process.argv.slice(2));console.log(JSON.stringify(await verifyPublications({site:args.site,dist:args.dist}),null,2));}
  catch(error){console.error(error.message);process.exitCode=1;}
 }
