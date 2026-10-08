@@ -1,0 +1,63 @@
+{
+  "seed": "виды ККТ",
+  "slug": "виды-ккт",
+  "category": "intent",
+  "cluster": "kkt",
+  "fetchedAt": "2026-10-08T18:50:05.047Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 10,
+  "phrases": [
+    {
+      "phrase": "виды ккт",
+      "count": 719
+    },
+    {
+      "phrase": "виды применения ккт",
+      "count": 93
+    },
+    {
+      "phrase": "виды чеков ккт",
+      "count": 75
+    },
+    {
+      "phrase": "виды деятельности не применяющие ккт",
+      "count": 50
+    },
+    {
+      "phrase": "вид деятельности без ккт",
+      "count": 41
+    },
+    {
+      "phrase": "виды деятельности освобожденные от ккт",
+      "count": 38
+    },
+    {
+      "phrase": "основные виды ккт",
+      "count": 36
+    },
+    {
+      "phrase": "вид оплаты ккт",
+      "count": 31
+    },
+    {
+      "phrase": "видами деятельности освобожденными от применения ккт",
+      "count": 23
+    },
+    {
+      "phrase": "какие виды деятельности освобождены от ккт",
+      "count": 9
+    }
+  ]
+}

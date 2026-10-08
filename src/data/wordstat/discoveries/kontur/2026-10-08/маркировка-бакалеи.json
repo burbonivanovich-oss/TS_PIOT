@@ -1,0 +1,87 @@
+{
+  "seed": "маркировка бакалеи",
+  "slug": "маркировка-бакалеи",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-08T18:50:40.970Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 16,
+  "phrases": [
+    {
+      "phrase": "маркировка бакалеи",
+      "count": 2012
+    },
+    {
+      "phrase": "бакалея маркировка честный знак",
+      "count": 355
+    },
+    {
+      "phrase": "бакалея маркировка сроки",
+      "count": 199
+    },
+    {
+      "phrase": "маркировка бакалеи с 1 сентября",
+      "count": 139
+    },
+    {
+      "phrase": "обязательная маркировка бакалеи",
+      "count": 137
+    },
+    {
+      "phrase": "бакалея маркировка остатков",
+      "count": 117
+    },
+    {
+      "phrase": "бакалея маркировка что входит",
+      "count": 88
+    },
+    {
+      "phrase": "бакалея этапы маркировки",
+      "count": 83
+    },
+    {
+      "phrase": "бакалея будет ли маркировка остатков",
+      "count": 75
+    },
+    {
+      "phrase": "бакалея подлежащая маркировке",
+      "count": 65
+    },
+    {
+      "phrase": "маркировка бакалеи честный знак сроки",
+      "count": 29
+    },
+    {
+      "phrase": "маркировка бакалеи для розницы",
+      "count": 22
+    },
+    {
+      "phrase": "маркировка бакалеи с 1 сентября 2026",
+      "count": 18
+    },
+    {
+      "phrase": "честный знак бакалея этапы маркировки",
+      "count": 13
+    },
+    {
+      "phrase": "честный знак маркировка остатков бакалея",
+      "count": 6
+    },
+    {
+      "phrase": "детский мармелад относится к маркировке бакалея",
+      "count": 5
+    }
+  ]
+}

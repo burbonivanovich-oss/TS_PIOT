@@ -1,0 +1,51 @@
+{
+  "seed": "маркировка медизделий",
+  "slug": "маркировка-медизделий",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-08T18:50:43.659Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 7,
+  "phrases": [
+    {
+      "phrase": "маркировка медизделий",
+      "count": 375
+    },
+    {
+      "phrase": "маркировка медизделий честный знак",
+      "count": 77
+    },
+    {
+      "phrase": "маркировка медизделий 2026",
+      "count": 45
+    },
+    {
+      "phrase": "обязательная маркировка медизделий",
+      "count": 42
+    },
+    {
+      "phrase": "медизделия подлежащие маркировке",
+      "count": 34
+    },
+    {
+      "phrase": "маркировка медизделий с 1 сентября 2026",
+      "count": 21
+    },
+    {
+      "phrase": "для маркировки медизделий таможенному складу нужна лицензия",
+      "count": 6
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "seed": "нужна ли касса для ИП",
+  "slug": "нужна-ли-касса-для-ип",
+  "category": "intent",
+  "cluster": "kkt",
+  "fetchedAt": "2026-10-08T18:50:12.546Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 11,
+  "phrases": [
+    {
+      "phrase": "нужна ли касса для ип",
+      "count": 794
+    },
+    {
+      "phrase": "нужна ли онлайн касса для ип",
+      "count": 258
+    },
+    {
+      "phrase": "нужна ли касса для ип на патенте",
+      "count": 147
+    },
+    {
+      "phrase": "нужна ли касса для ип усн",
+      "count": 140
+    },
+    {
+      "phrase": "нужна ли касса для ип на аусн",
+      "count": 52
+    },
+    {
+      "phrase": "нужна ли касса для ип услуги",
+      "count": 49
+    },
+    {
+      "phrase": "нужна ли онлайн касса для ип такси",
+      "count": 44
+    },
+    {
+      "phrase": "нужна ли касса для ип на нпд",
+      "count": 43
+    },
+    {
+      "phrase": "нужна ли касса для ип в такси",
+      "count": 30
+    },
+    {
+      "phrase": "обязательно ли нужна касса для ип",
+      "count": 24
+    },
+    {
+      "phrase": "нужна ли касса для ип на упрощенке",
+      "count": 7
+    }
+  ]
+}
