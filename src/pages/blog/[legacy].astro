@@ -24,7 +24,10 @@ export async function getStaticPaths() {
 		}
 	}
 
-	return Array.from(aliasMap.entries()).map(([short, { full }]) => ({
+	// Новые статьи публикуются без даты в адресе: если такой адрес совпал с
+	// коротким псевдонимом старой статьи, страница статьи важнее редиректа.
+	const realIds = new Set(posts.map((p) => p.id));
+	return Array.from(aliasMap.entries()).filter(([short]) => !realIds.has(short)).map(([short, { full }]) => ({
 		params: { legacy: short },
 		props: { fullSlug: full },
 	}));

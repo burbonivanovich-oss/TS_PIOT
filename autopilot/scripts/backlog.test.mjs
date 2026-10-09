@@ -143,6 +143,14 @@ test('AP-P2-08: новая сущность принимается, исчерп
   assert.ok(result.stats.byEntity['совершенно новая сущность'].accepted === 1);
 });
 
+test('новая тема получает адрес без даты пополнения: дата в адресе не совпала бы с датой выхода', () => {
+  const fx = refillFixture(['совершенно новая сущность']);
+  const result = runRefill(fx, 1);
+  assert.equal(result.added.length, 1);
+  const slug = result.added[0].slug ?? result.added[0];
+  assert.equal(slug, 'chto-takoe-sovershenno-novaya-suschnost');
+});
+
 test('AP-P1-05: maxPerEntityShare ограничивает долю одной сущности', () => {
   // Пять намерений одной сущности: квота 6% от 10 → не больше двух тем.
   const intents = [

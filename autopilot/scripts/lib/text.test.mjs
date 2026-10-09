@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { tokenize, canonicalKey, jaccard, weightedJaccard, weightedCoverage, buildIdf, shingles, slugify } from './text.mjs';
+import { tokenize, canonicalKey, jaccard, weightedJaccard, weightedCoverage, buildIdf, shingles, slugify, articleSlug } from './text.mjs';
 
 test('tokenize убирает стоп-слова и стеммирует', () => {
   const t = tokenize('Что такое маркировка и кому она нужна');
@@ -54,4 +54,13 @@ test('shingles пустеют на коротком тексте, а не пад
 
 test('slugify транслитерирует и чистит', () => {
   assert.equal(slugify('ГИС ЭПД: как подключить — инструкция'), 'gis-epd-kak-podklyuchit-instrukciya');
+});
+
+test('articleSlug: без даты и приставок, не длиннее 60 знаков, по границе слова', () => {
+  assert.equal(articleSlug('ГИС ЭПД: как выбрать — критерии и типичные ошибки'), 'gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki');
+  const long = articleSlug('Кто подписывает ЭТрН: полномочия водителя, сотрудника склада и руководителя');
+  assert.ok(long.length <= 60, long);
+  assert.ok(!long.endsWith('-'));
+  assert.ok(slugify('Кто подписывает ЭТрН: полномочия водителя, сотрудника склада и руководителя').startsWith(long));
+  assert.doesNotMatch(long, /^\d{4}-\d{2}-\d{2}-|^seed-/);
 });

@@ -102,6 +102,19 @@ export function slugify(text) {
 }
 
 /**
+ * Адрес новой статьи: транслит заголовка без даты и служебных приставок,
+ * не длиннее max знаков, обрезка по границе слова. Дата в адресе устаревает
+ * при каждом рерайте и не совпадает с датой выхода (тема ждёт в очереди).
+ */
+export function articleSlug(title, max = 60) {
+  const full = slugify(title);
+  if (full.length <= max) return full;
+  const cut = full.slice(0, max + 1);
+  const boundary = cut.lastIndexOf('-');
+  return (boundary > 0 ? cut.slice(0, boundary) : full.slice(0, max)).replace(/-+$/, '');
+}
+
+/**
  * IDF по корпусу. Без него сравнение заголовков в узкой тематике врёт: слова
  * «маркировка», «касса», «2026» встречаются почти в каждом заголовке, и
  * «маркировка игрушек» с «маркировкой косметики» дают jaccard 0.71 — то есть

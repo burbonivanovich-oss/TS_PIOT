@@ -15,7 +15,7 @@ import { rebalancePlanned } from './lib/backlog-refresh.mjs';
 import { loadConfig, assertContentRoot } from './lib/config.mjs';
 import { loadArticles, readJson, writeJson, today, isMain, parseArgs } from './lib/content.mjs';
 import { acquireLock, releaseLock } from './lib/lock.mjs';
-import { slugify, tokenize, canonicalKey } from './lib/text.mjs';
+import { slugify, articleSlug, tokenize, canonicalKey } from './lib/text.mjs';
 import { buildIndex, checkTopic } from './dedupe.mjs';
 import { rankByDemand } from './lib/demand.mjs';
 
@@ -155,10 +155,17 @@ function refillInner({ target } = {}) {
   // Even a full legacy queue must compete with fresh curated seed topics.
   const seedTopics = seeds.topicSeeds || [];
   if (!Array.isArray(seedTopics)) throw new Error('topicSeeds must be an array');
+  // Темы, уже стоящие в очереди со старым адресом `seed-…`, сохраняют его:
+  // иначе одна тема получила бы второй адрес. Новые — без приставки.
+  const knownSlugs = new Set((backlog.topics || []).map(t => t.slug));
+  const seedSlug = title => {
+    const legacy = `seed-${slugify(title)}`.slice(0, 90);
+    return knownSlugs.has(legacy) ? legacy : articleSlug(title);
+  };
   const offers = seedTopics.map(t => {
     if (!t || typeof t.title !== 'string' || !t.title.trim() || typeof t.entity !== 'string' || !t.entity.trim() || !Array.isArray(t.keywords) || !t.keywords.length || t.keywords.some(k=>typeof k!=='string'||!k.trim())) throw new Error('Invalid topic seed');
     const coverage = entitiesFromCorpus(articles,seeds).find(e=>e.entity.toLowerCase()===t.entity.toLowerCase())?.coverage || 0;
-    return {slug:`seed-${slugify(t.title)}`.slice(0,90),title:t.title,entity:t.entity,keywords:t.keywords,intent:'seed',segment:'none',format:t.format||'howto',score:scoreTopic({entity:t.entity,coverage,intentWeight:1,segmentWeight:1},seeds)};
+    return {slug:seedSlug(t.title),title:t.title,entity:t.entity,keywords:t.keywords,intent:'seed',segment:'none',format:t.format||'howto',score:scoreTopic({entity:t.entity,coverage,intentWeight:1,segmentWeight:1},seeds)};
   });
   const freshOffers = rankTopics(offers).filter(t=>t.demand.status==='collected');
   const baseIndex=buildIndex();
@@ -216,9 +223,9 @@ function refillInner({ target } = {}) {
       continue;
     }
 
-    const slug = `${today()}-${slugify(candidate.title)}`.slice(0, 90);
+    const slug = articleSlug(candidate.title);
     const slugKey = slugify(candidate.title);
-    if (seen.has(slug) || [...seen].some((s) => s.endsWith(slugKey))) {
+    if (seen.has(slug) || [...seen].some((s) => s.endsWith(slugKey)) || articles.some((a) => a.slug === slug)) {
       stats.duplicateSlug++;
       bump(stats.byEntity, candidate.entity, 'duplicateSlug');
       continue;
