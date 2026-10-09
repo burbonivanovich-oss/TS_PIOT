@@ -24,8 +24,9 @@ import {
   writeFileSync,
   mkdirSync,
   existsSync,
+  readdirSync,
 } from "node:fs";
-import { join, dirname, isAbsolute } from "node:path";
+import { join, dirname, isAbsolute, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { topRows, topScope } from "./source-contract.mjs";
@@ -50,6 +51,11 @@ const ONLY_CATEGORY = process.env.ONLY_CATEGORY || "";
 // Search API даёт 100 запросов Wordstat в час. Лимит на прогон — держимся под квотой;
 // уже собранные сиды пропускаются (existsSync), остаток добирается следующим прогоном.
 const MAX_REQUESTS = parseInt(process.env.MAX_REQUESTS || "90", 10);
+// Каждый прогон пишет в новый каталог даты, поэтому «пропуск уже собранных»
+// работает только внутри одного дня. Еженедельный прогон неделю за неделей
+// брал первые MAX_REQUESTS сидов, а хвост списка не собирался ни разу.
+// ROTATE_STALE=1 ставит вперёд сиды без выгрузки, затем самые старые.
+const ROTATE_STALE = process.env.ROTATE_STALE === "1";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -69,6 +75,29 @@ function slugify(s) {
     .replace(/[^a-zа-я0-9]+/giu, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 80);
+}
+
+/** Дата последней выгрузки каждого сида по каталогам дат в outBase. */
+export function lastCollected(outBase) {
+  const last = new Map();
+  if (!existsSync(outBase)) return last;
+  for (const e of readdirSync(outBase, { withFileTypes: true })) {
+    if (!e.isDirectory() || !/^\d{4}-\d{2}-\d{2}$/.test(e.name)) continue;
+    for (const f of readdirSync(join(outBase, e.name))) {
+      if (!f.endsWith(".json")) continue;
+      const slug = f.slice(0, -5);
+      if ((last.get(slug) || "") < e.name) last.set(slug, e.name);
+    }
+  }
+  return last;
+}
+
+/** Несобранные сиды первыми, затем самые старые; при равенстве — порядок файла. */
+export function orderByStaleness(seeds, last) {
+  return seeds
+    .map((seed, i) => ({ seed, i, at: last.get(slugify(seed.phrase)) || "" }))
+    .sort((a, b) => a.at.localeCompare(b.at) || a.i - b.i)
+    .map((x) => x.seed);
 }
 
 async function callTopRequests(phrase, attempt = 1) {
@@ -129,9 +158,12 @@ async function main() {
   }
 
   const { seeds } = JSON.parse(readFileSync(SEEDS_FILE, "utf8"));
-  const filtered = ONLY_CATEGORY
+  const selected = ONLY_CATEGORY
     ? seeds.filter((s) => s.category === ONLY_CATEGORY)
     : seeds;
+  const filtered = ROTATE_STALE
+    ? orderByStaleness(selected, lastCollected(OUT_BASE))
+    : selected;
 
   const today = todayISO();
   const outDir = join(OUT_BASE, today);
@@ -209,7 +241,9 @@ async function main() {
   );
 }
 
-main().catch((err) => {
-  console.error(err.stack || err.message);
-  process.exit(1);
-});
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((err) => {
+    console.error(err.stack || err.message);
+    process.exit(1);
+  });
+}

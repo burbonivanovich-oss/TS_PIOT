@@ -51,6 +51,8 @@ jobs:
           YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
           REGION_ID: "225"
           NUM_PHRASES: "2000"
+          # Без ротации каждый прогон брал одни и те же первые 90 сидов.
+          ROTATE_STALE: "1"
         run: node scripts/wordstat/discover.mjs
 
       - name: Diff vs previous snapshot
