@@ -72,7 +72,6 @@
 | `src/components/BlogFilter.tsx` | React-компонент фильтрации/поиска карточек блога |
 | `src/components/MarkingCalendar.tsx` | React-компонент календаря маркировки |
 | `src/components/PenaltyCalculator.tsx` | React-компонент калькулятора штрафов |
-| `src/components/Quiz.tsx` | Ветвящийся квиз для подбора продуктов (ОФД/Эльба/Бухгалтерия/Диадок/Экстерн) — 3–4 вопроса с условным шагом для ИП+Бухгалтерия, открывается из hero на главной |
 | `src/components/PopupBanner.tsx` | Всплывающий баннер подписки. Появляется через 60 с после загрузки, закрывается крестиком/оверлеем/CTA. Флаг закрытия — `localStorage.popup_dismissed_v1`. Подключается с `client:load` на `/` |
 | `src/components/interactive/` | Интерактивные блоки для встраивания в статьи и лонгриды (F26 из roadmap'а контент-форматов). Цели в Метрике отправляются через `src/utils/track.ts`. |
 | `src/components/interactive/DataMatrixDissector.tsx` | Шаг 1 флагмана-симулятора. Разбор кода маркировки DataMatrix на части (GTIN / серийник / GS-разделитель / криптохвост) с интерактивной подсветкой |
