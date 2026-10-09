@@ -278,6 +278,36 @@ const shareTitle = encodeURIComponent(title);
 						<slot />
 					</div>
 
+					<!-- Врезка в середину текста: тот же платный оффер. Переносится
+					     скриптом (utils/inline-offer.mjs), если в статье нет своей. -->
+					{cpaBanner.erid && (
+						<template id="inline-offer">
+							<div class="cpa-block cpa-block--inline" data-pagefind-ignore data-cpa-placement="inline">
+								<div class="cpa-visual" style={`background:${cpaBanner.visual.bg}`}>
+									<span class:list={["cpa-visual-letter", { "is-long": cpaBanner.visual.abbrev.length >= 4 }]}>{cpaBanner.visual.abbrev}</span>
+								</div>
+								<div class="cpa-body">
+									<div class="cpa-eyebrow">{cpaBanner.eyebrow}</div>
+									<div class="cpa-title">{cpaBanner.title}</div>
+									<p class="cpa-desc">{cpaBanner.description}</p>
+								</div>
+								<div class="cpa-action">
+									<a
+										href={cpaBanner.ctaHref}
+										class="cpa-btn"
+										data-cpa-id={cpaBanner.id}
+										data-cpa-placement="inline"
+										target="_blank"
+										rel="noopener noreferrer sponsored"
+									>
+										{cpaBanner.cta}
+									</a>
+								</div>
+								<div class="cpa-erid">Реклама · erid: {cpaBanner.erid}</div>
+							</div>
+						</template>
+					)}
+
 					<!-- CPA врезка -->
 					<div class="cpa-block" data-pagefind-ignore>
 						<div class="cpa-visual" style={`background:${cpaBanner.visual.bg}`}>
@@ -464,6 +494,9 @@ const shareTitle = encodeURIComponent(title);
 
 		<script>
       import { initCpaTracking } from '../utils/track-cpa';
+      import { placeInlineOffer } from '../utils/inline-offer.mjs';
+      // До регистрации учёта: показы врезки считаются вместе с остальными.
+      placeInlineOffer(document);
       initCpaTracking();
     </script>
 
