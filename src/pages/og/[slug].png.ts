@@ -55,6 +55,10 @@ const CAT_STRIPE: Record<string, string> = {
 	'zakonodatelstvo': '#AFCC00',
 	'kkt':             '#AFCC00',
 	'egais':           '#AFCC00',
+	'nalogi':          '#AFCC00',
+	'biznes':          '#AFCC00',
+	'sotrudniki':      '#AFCC00',
+	'dokumenty':       '#AFCC00',
 };
 const CAT_BADGE_BG: Record<string, string> = {
 	'ts-piot':         '#AFCC00',
@@ -62,6 +66,10 @@ const CAT_BADGE_BG: Record<string, string> = {
 	'zakonodatelstvo': '#AFCC00',
 	'kkt':             '#AFCC00',
 	'egais':           '#AFCC00',
+	'nalogi':          '#AFCC00',
+	'biznes':          '#AFCC00',
+	'sotrudniki':      '#AFCC00',
+	'dokumenty':       '#AFCC00',
 };
 const CAT_BADGE_COLOR: Record<string, string> = {
 	'ts-piot':         '#111',
@@ -69,6 +77,10 @@ const CAT_BADGE_COLOR: Record<string, string> = {
 	'zakonodatelstvo': '#111',
 	'kkt':             '#111',
 	'egais':           '#111',
+	'nalogi':          '#111',
+	'biznes':          '#111',
+	'sotrudniki':      '#111',
+	'dokumenty':       '#111',
 };
 
 export async function GET({ props }: { props: Props }) {

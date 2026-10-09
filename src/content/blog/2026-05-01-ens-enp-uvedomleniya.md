@@ -12,7 +12,7 @@ tags:
   - усн
   - мсб
 categories:
-  - zakonodatelstvo
+  - nalogi
 cpa: 'online-buh'
 draft: false
 seo:

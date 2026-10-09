@@ -13,7 +13,7 @@ tags:
   - рыба
   - всд
 categories:
-  - egais
+  - markirovka
 draft: false
 seo:
   keywords:

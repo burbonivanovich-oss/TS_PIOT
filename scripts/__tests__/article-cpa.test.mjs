@@ -15,7 +15,7 @@ test('cash register/delivery/tax topics keep their offers; explicit assignment w
   assert.equal(articleCpa({ title: 'ЭТРН', cpa: 'kontur-diadoc' }, 'kontur-ofd'), 'kontur-diadoc');
 });
 
-const PAID = new Set(['ts-piot-provider', 'kontur-ofd', 'kontur-market', 'kontur-elba', 'kontur-markirovka', 'diadoc-kedo', 'kontur-mchd', 'kontur-focus', 'kontur-extern', 'diadoc-logistika']);
+const PAID = new Set(['kontur-merkuriy', 'ts-piot-provider', 'kontur-ofd', 'kontur-market', 'kontur-elba', 'kontur-markirovka', 'diadoc-kedo', 'kontur-mchd', 'kontur-focus', 'kontur-extern', 'diadoc-logistika']);
 const isPaid = (id) => PAID.has(id);
 
 test('free button is replaced by a paid offer matching the topic', () => {
@@ -45,4 +45,11 @@ test('every topical offer is a registered paid banner', async () => {
   const fs = await import('node:fs');
   const erids = JSON.parse(fs.readFileSync(new URL('../../src/data/ord-erids.json', import.meta.url), 'utf8'));
   for (const { id } of ARTICLE_TOPIC_OFFERS) assert.ok(erids[id], `${id} без erid`);
+});
+
+test('Mercury beats the paid section default unless the editor chose a button', () => {
+  assert.equal(articleCpa({ title: 'ФГИС Меркурий: что это и кому обязателен' }, 'kontur-markirovka', { isPaid }), 'kontur-merkuriy');
+  assert.equal(articleCpa({ title: 'Гашение ВСД: сроки' }, 'kontur-markirovka', { isPaid }), 'kontur-merkuriy');
+  assert.equal(articleCpa({ title: 'Меркурий розница', cpa: 'kontur-market' }, 'kontur-markirovka', { isPaid }), 'kontur-market');
+  assert.equal(articleCpa({ title: 'Маркировка воды' }, 'kontur-markirovka', { isPaid }), 'kontur-markirovka');
 });

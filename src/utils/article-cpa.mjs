@@ -11,7 +11,10 @@ const lower = (value) => String(value ?? '').toLocaleLowerCase('ru-RU');
 
 // Порядок важен: от узкого продукта к широкому. «ОФД для ТС ПИоТ» — про
 // ОФД, «Маркировка воды: что требуется от розницы» — про кассу магазина.
+// strong: узкий продукт важнее платной кнопки раздела, если редакция не
+// выбрала кнопку сама («Меркурий» в разделе маркировки — не «Маркировка под ключ»).
 export const ARTICLE_TOPIC_OFFERS = Object.freeze([
+  { id: 'kontur-merkuriy', strong: true, re: /меркури|(?:^|[^а-яёa-z])(?:всд|ветис)(?:$|[^а-яёa-z])|ветеринарн/u },
   { id: 'kontur-ofd', re: /(?:^|[^а-яёa-z])офд(?:$|[^а-яёa-z])|оператор[а-яё]*\s+фискальн/u },
   { id: 'kontur-mchd', re: /(?:^|[^а-яёa-z])мчд(?:$|[^а-яёa-z])|машиночитаем/u },
   { id: 'diadoc-kedo', re: /(?:^|[^а-яёa-z])кэдо(?:$|[^а-яёa-z])|кадров[а-яё]*\s+(?:электронн|документ)/u },
@@ -23,9 +26,9 @@ export const ARTICLE_TOPIC_OFFERS = Object.freeze([
   { id: 'kontur-markirovka', re: /маркировк|честн[а-яё]*\s+знак|data\s+matrix|гис\s+мт/u },
 ]);
 
-export function articleTopicOffer({ title = '', tags = [] } = {}) {
+export function articleTopicOffer({ title = '', tags = [] } = {}, { strongOnly = false } = {}) {
   const text = [title, ...tags].map(lower).join(' · ');
-  return ARTICLE_TOPIC_OFFERS.find((offer) => offer.re.test(text))?.id ?? null;
+  return ARTICLE_TOPIC_OFFERS.find((offer) => (!strongOnly || offer.strong) && offer.re.test(text))?.id ?? null;
 }
 
 export function articleCpa({ cpa, title = '', tags = [] }, fallback, { isPaid, categoryOffer } = {}) {
@@ -36,7 +39,8 @@ export function articleCpa({ cpa, title = '', tags = [] }, fallback, { isPaid, c
     const titleText = lower(title);
     const transportTitle = /(?:^|[^а-яёa-z])(?:этрн|эпд)(?:$|[^а-яёa-z])|электронн[а-яё]*\s+транспортн[а-яё]*\s+накладн[а-яё]*/iu.test(titleText);
     const transportTag = tags.some(tag => ['этрн', 'эпд', 'гис эпд', 'электронная транспортная накладная'].includes(String(tag).trim().toLocaleLowerCase('ru-RU')));
-    chosen = transportTitle || transportTag ? 'diadoc-logistika' : fallback;
+    const strong = typeof isPaid === 'function' ? articleTopicOffer({ title, tags }, { strongOnly: true }) : null;
+    chosen = transportTitle || transportTag ? 'diadoc-logistika' : strong && isPaid(strong) ? strong : fallback;
   }
   if (typeof isPaid !== 'function' || isPaid(chosen)) return chosen;
   const topical = articleTopicOffer({ title, tags });

@@ -11,7 +11,7 @@ tags:
   - общепит
   - розница
 categories:
-  - egais
+  - markirovka
 draft: false
 seo:
   keywords:

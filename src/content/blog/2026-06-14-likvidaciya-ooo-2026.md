@@ -11,7 +11,7 @@ tags:
   - закрытие бизнеса
   - фнс
 categories:
-  - zakonodatelstvo
+  - biznes
 draft: false
 cpa: "online-buh"
 seo:

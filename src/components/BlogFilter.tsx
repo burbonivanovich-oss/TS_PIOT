@@ -31,14 +31,22 @@ const CAT_COLOR: Record<string, string> = {
 	'zakonodatelstvo': '#1E4A7A',
 	'kkt':             '#5A3E7A',
 	'egais':           '#1A5C3A',
+	'nalogi':          '#1E4A7A',
+	'biznes':          '#2D6A4F',
+	'sotrudniki':      '#7A4A1E',
+	'dokumenty':       '#007A6E',
 };
 
 const CAT_NAMES: Record<string, string> = {
 	'ts-piot': 'ТС ПИоТ',
 	'markirovka': 'Маркировка',
-	'zakonodatelstvo': 'Законодательство',
+	'zakonodatelstvo': 'Законы и проверки',
 	'kkt': 'ККТ',
 	'egais': 'ЕГАИС',
+	'nalogi': 'Налоги и отчётность',
+	'biznes': 'Открытие бизнеса',
+	'sotrudniki': 'Сотрудники',
+	'dokumenty': 'Документы и ЭДО',
 };
 
 function postImage(post: PostData): string | null {

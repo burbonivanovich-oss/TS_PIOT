@@ -11,7 +11,7 @@ tags:
   - налоги
   - финансы
 categories:
-  - zakonodatelstvo
+  - nalogi
 draft: false
 cpa: "bank-elba"
 seo:

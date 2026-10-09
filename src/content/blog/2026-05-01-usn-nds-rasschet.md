@@ -12,7 +12,7 @@ tags:
   - мсб
   - "2026"
 categories:
-  - zakonodatelstvo
+  - nalogi
 draft: false
 seo:
   keywords:

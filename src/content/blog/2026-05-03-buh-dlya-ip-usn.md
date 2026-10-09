@@ -12,7 +12,7 @@ tags:
   - налоги
   - автоматизация
 categories:
-  - zakonodatelstvo
+  - nalogi
 cpa: 'kontur-elba'
 draft: false
 seo:

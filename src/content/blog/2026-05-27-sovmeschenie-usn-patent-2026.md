@@ -12,7 +12,7 @@ tags:
   - ип
   - раздельный-учёт
 categories:
-  - zakonodatelstvo
+  - nalogi
 draft: false
 cpa: "kontur-elba"
 seo:

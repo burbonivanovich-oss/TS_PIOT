@@ -12,7 +12,7 @@ tags:
   - налоги
   - старт-бизнеса
 categories:
-  - zakonodatelstvo
+  - biznes
 draft: false
 cpa: "bank-elba"
 seo:

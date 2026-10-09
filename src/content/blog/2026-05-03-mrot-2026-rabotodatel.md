@@ -13,7 +13,7 @@ tags:
   - "2026"
   - трудовое право
 categories:
-  - zakonodatelstvo
+  - sotrudniki
 cpa: 'online-buh'
 draft: false
 seo:

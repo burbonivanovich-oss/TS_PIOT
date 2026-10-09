@@ -6,7 +6,7 @@ heroImage: "/images/hero/2026-06-13-kak-umenshit-nalog-usn-2026.jpg"
 updatedDate: "2026-06-29"
 reviewDate: "2026-12-13"
 tags: [усн, налоги, страховые взносы, ип, оптимизация]
-categories: [zakonodatelstvo]
+categories: [nalogi]
 draft: false
 cpa: "online-buh"
 seo:

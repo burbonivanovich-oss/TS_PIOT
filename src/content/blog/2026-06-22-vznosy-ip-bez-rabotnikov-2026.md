@@ -12,7 +12,7 @@ tags:
   - налоги
   - ЕНС
 categories:
-  - zakonodatelstvo
+  - nalogi
 draft: false
 cpa: 'online-buh'
 seo:

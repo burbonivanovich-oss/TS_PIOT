@@ -12,7 +12,7 @@ tags:
   - усн
   - онлайн-торговля
 categories:
-  - zakonodatelstvo
+  - nalogi
 draft: false
 cpa: "kontur-elba"
 seo:

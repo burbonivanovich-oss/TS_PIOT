@@ -12,7 +12,7 @@ tags:
   - ветеринарные документы
   - общепит
 categories:
-  - egais
+  - markirovka
 draft: false
 seo:
   keywords:

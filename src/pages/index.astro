@@ -43,12 +43,17 @@ function pluralMaterials(n: number): string {
 }
 
 const categoryNav = [
-	{ slug: 'ts-piot',         cls: 'k-ts', num: '01', name: 'ТС ПИоТ' },
-	{ slug: 'markirovka',      cls: 'k-mk', num: '02', name: 'Маркировка' },
-	{ slug: 'zakonodatelstvo', cls: 'k-zk', num: '03', name: 'Законы' },
-	{ slug: 'kkt',             cls: 'k-kk', num: '04', name: 'Кассы' },
-	{ slug: 'egais',           cls: 'k-eg', num: '05', name: 'ЕГАИС' },
-].map(c => ({
+	{ slug: 'nalogi',          cls: 'k-zk', name: 'Налоги и отчётность' },
+	{ slug: 'kkt',             cls: 'k-kk', name: 'Кассы' },
+	{ slug: 'markirovka',      cls: 'k-mk', name: 'Маркировка' },
+	{ slug: 'egais',           cls: 'k-eg', name: 'ЕГАИС' },
+	{ slug: 'sotrudniki',      cls: 'k-st', name: 'Сотрудники' },
+	{ slug: 'dokumenty',       cls: 'k-dk', name: 'Документы и ЭДО' },
+	{ slug: 'biznes',          cls: 'k-bz', name: 'Открытие бизнеса' },
+	{ slug: 'ts-piot',         cls: 'k-ts', name: 'ТС ПИоТ' },
+	{ slug: 'zakonodatelstvo', cls: 'k-zk', name: 'Законы и проверки' },
+].map((c, i) => ({
+	num: String(i + 1).padStart(2, '0'),
 	...c,
 	count: posts.filter(p => p.data.categories?.includes(c.slug as keyof typeof CATEGORIES)).length,
 }));
@@ -59,6 +64,10 @@ const tagCls: Record<string, string> = {
 	'zakonodatelstvo': 'zk',
 	'kkt': 'kk',
 	'egais': 'eg',
+	'nalogi': 'zk',
+	'biznes': 'zk',
+	'sotrudniki': 'zk',
+	'dokumenty': 'zk',
 };
 
 const featuredCat = featured?.data.categories?.[0] as string | undefined;
@@ -454,6 +463,9 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 			.cat-card.k-mk { background: var(--pink, #9E2B4F); }
 			.cat-card.k-zk { background: var(--blue, #1E4A7A); }
 			.cat-card.k-kk { background: #5A3E7A; }
+			.cat-card.k-st { background: #7A4A1E; }
+			.cat-card.k-dk { background: #007A6E; }
+			.cat-card.k-bz { background: #2D6A4F; }
 			.cat-card.k-eg { background: var(--lime, #AFCC00); color: #111; }
 			.cat-card.k-eg .cc-num { color: rgba(0,0,0,.2); }
 			.cat-card.k-eg .cc-eyebrow { color: rgba(0,0,0,.6); }

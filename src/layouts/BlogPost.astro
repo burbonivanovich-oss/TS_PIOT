@@ -138,7 +138,7 @@ const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
    в середине тела (вставляется content-writer'ом, см. .claude/agents/content-writer.md). */
 const cpaBannerId = articleCpa(
 	{ cpa, title, tags },
-	CATEGORY_DEFAULT_CPA[primaryCategory ?? ''] ?? 'default-ts-piot',
+	CATEGORY_DEFAULT_CPA[primaryCategory ?? ''] ?? 'default-zakonodatelstvo',
 	{
 		isPaid: (id: string) => Boolean(CPA_BANNERS[id]?.erid),
 		categoryOffer: ARTICLE_PAID_FALLBACK[primaryCategory ?? ''],
@@ -153,7 +153,10 @@ const productPath = articleProductEntry(cpaBannerId, { catalog: PRODUCT_CATALOG,
 const catAccent =
 	primaryCategory === 'ts-piot' ? '#111' :
 	primaryCategory === 'markirovka' ? '#9E2B4F' :
-	primaryCategory === 'zakonodatelstvo' ? '#1E4A7A' : '#111';
+	primaryCategory === 'zakonodatelstvo' || primaryCategory === 'nalogi' ? '#1E4A7A' :
+	primaryCategory === 'biznes' ? '#2D6A4F' :
+	primaryCategory === 'sotrudniki' ? '#7A4A1E' :
+	primaryCategory === 'dokumenty' ? '#007A6E' : '#111';
 const catAccentText = '#fff';
 
 /* Background letter from title abbreviation */

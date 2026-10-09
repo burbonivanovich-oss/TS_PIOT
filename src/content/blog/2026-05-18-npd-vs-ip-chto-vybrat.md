@@ -12,7 +12,7 @@ tags:
   - налоги
   - старт-бизнеса
 categories:
-  - zakonodatelstvo
+  - nalogi
 draft: false
 cpa: "kontur-elba"
 seo:

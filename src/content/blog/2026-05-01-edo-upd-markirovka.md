@@ -12,7 +12,7 @@ tags:
   - честный знак
   - документооборот
 categories:
-  - zakonodatelstvo
+  - dokumenty
 cpa: 'edo-operator'
 draft: false
 seo:

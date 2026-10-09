@@ -11,7 +11,7 @@ tags:
   - оквэд
   - усн
 categories:
-  - zakonodatelstvo
+  - biznes
 draft: false
 cpa: "bank-elba"
 seo:

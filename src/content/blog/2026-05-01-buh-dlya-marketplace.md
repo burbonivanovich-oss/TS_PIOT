@@ -11,7 +11,7 @@ tags:
   - ozon
   - усн
 categories:
-  - zakonodatelstvo
+  - nalogi
 cpa: 'kontur-elba'
 draft: false
 seo:

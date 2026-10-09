@@ -12,7 +12,7 @@ tags:
   - "2026"
   - налоговые риски
 categories:
-  - zakonodatelstvo
+  - sotrudniki
 draft: false
 seo:
   keywords:

@@ -11,6 +11,7 @@ tags:
   - открытие-бизнеса
   - касса
 categories:
+  - biznes
   - egais
 draft: false
 cpa: "kontur-market"

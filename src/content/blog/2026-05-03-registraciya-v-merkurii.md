@@ -12,7 +12,7 @@ tags:
   - продукты питания
   - регистрация
 categories:
-  - egais
+  - markirovka
 draft: false
 seo:
   keywords:

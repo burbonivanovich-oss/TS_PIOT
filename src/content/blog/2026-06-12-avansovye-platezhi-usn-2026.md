@@ -6,7 +6,7 @@ heroImage: "/images/hero/2026-06-12-avansovye-platezhi-usn-2026.jpg"
 updatedDate: "2026-06-29"
 reviewDate: "2026-12-12"
 tags: [усн, авансовые платежи, налоги, ип, ооо]
-categories: [zakonodatelstvo]
+categories: [nalogi]
 draft: false
 cpa: "online-buh"
 seo:

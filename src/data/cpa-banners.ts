@@ -457,6 +457,23 @@ export const ARTICLE_PAID_FALLBACK: Record<string, string> = {
 	'markirovka': 'kontur-markirovka',
 	'kkt': 'kontur-ofd',
 	'egais': 'kontur-market',
+	'nalogi': 'kontur-elba',
+	'biznes': 'bank-elba',
+	'sotrudniki': 'diadoc-kedo',
+	'dokumenty': 'kontur-diadoc',
+};
+
+/**
+ * Врезка на странице раздела. Для статей новых разделов прямой дефолт не
+ * задан намеренно: сначала решает тема статьи (articleCpa), и только потом —
+ * ARTICLE_PAID_FALLBACK раздела.
+ */
+export const CATEGORY_PAGE_CPA: Record<string, string> = {
+	...CATEGORY_DEFAULT_CPA,
+	'nalogi': 'kontur-elba',
+	'biznes': 'bank-elba',
+	'sotrudniki': 'diadoc-kedo',
+	'dokumenty': 'kontur-diadoc',
 };
 
 /** Второй CPA-баннер по категории (необязательный). */

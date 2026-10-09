@@ -11,7 +11,7 @@ tags:
   - общепит
   - животноводство
 categories:
-  - egais
+  - markirovka
 draft: false
 seo:
   keywords:

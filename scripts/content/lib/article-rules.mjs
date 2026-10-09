@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.resolve(__dirname, '../../..');
 
-export const CATEGORIES = ['ts-piot', 'markirovka', 'zakonodatelstvo', 'kkt', 'egais'];
+export const CATEGORIES = ['ts-piot', 'markirovka', 'zakonodatelstvo', 'kkt', 'egais', 'nalogi', 'biznes', 'sotrudniki', 'dokumenty'];
 
 export const LIMITS = {
 	titleMin: 40,

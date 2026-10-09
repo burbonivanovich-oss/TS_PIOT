@@ -11,7 +11,7 @@ tags:
   - взносы
   - ндфл
 categories:
-  - zakonodatelstvo
+  - sotrudniki
 draft: false
 cpa: "kontur-extern"
 seo:

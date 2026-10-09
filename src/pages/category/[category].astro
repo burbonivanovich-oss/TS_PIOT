@@ -9,7 +9,7 @@ import { CATEGORIES, SITE_TITLE } from '../../consts';
 import { u } from '../../utils/url';
 import FlagshipTeaser from '../../components/FlagshipTeaser.astro';
 import CpaCallout from '../../components/CpaCallout.astro';
-import { CATEGORY_DEFAULT_CPA, CATEGORY_DEFAULT_CPA2 } from '../../data/cpa-banners';
+import { CATEGORY_PAGE_CPA, CATEGORY_DEFAULT_CPA2 } from '../../data/cpa-banners';
 
 export async function getStaticPaths() {
 	return Object.entries(CATEGORIES).map(([slug, meta]) => ({
@@ -42,10 +42,14 @@ const CAT_COLOR: Record<string, string> = {
 	'zakonodatelstvo': '#1E4A7A',
 	'kkt':             '#5A3E7A',
 	'egais':           '#1A5C3A',
+	'nalogi':          '#1E4A7A',
+	'biznes':          '#2D6A4F',
+	'sotrudniki':      '#7A4A1E',
+	'dokumenty':       '#007A6E',
 };
 const accentColor = CAT_COLOR[slug] ?? '#111';
 
-const cpaId = CATEGORY_DEFAULT_CPA[slug];
+const cpaId = CATEGORY_PAGE_CPA[slug];
 const cpaId2 = CATEGORY_DEFAULT_CPA2[slug];
 
 function fmtDate(d: Date): string {

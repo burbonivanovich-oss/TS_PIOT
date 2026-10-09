@@ -11,7 +11,7 @@ tags:
   - налоги
   - отчётность
 categories:
-  - zakonodatelstvo
+  - nalogi
 cpa: 'online-buh'
 draft: false
 seo:
