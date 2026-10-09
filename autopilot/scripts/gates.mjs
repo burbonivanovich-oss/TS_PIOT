@@ -114,6 +114,15 @@ export function runGates({ file, source, requiredPubDate = null, knownSlugs = nu
     dateProblems.length ? dateProblems.join('; ') : `даты корректны${reviewOverdue ? ', reviewDate просрочен (не блокер)' : ''}`,
   );
 
+  // 1c. Обещание заголовка. «Сколько стоит» без единой суммы — статья не
+  // отвечает на запрос, ради которого её открыли (ГИС ЭПД, 04.10.2026).
+  // Вес 0: на балл не влияет, но блокирует — как и прочие обещания факта.
+  const promisesPrice = /сколько\s+стоит|стоимост|(?:^|[^а-яё])(?:цена|цены|цену|тариф[а-яё]*|прайс)(?:$|[^а-яё])/iu.test(String(data.title || ''));
+  if (promisesPrice) {
+    const hasAmount = /\d[\d\s\u00a0]*(?:[.,]\d+)?\s?(?:₽|руб)/u.test(body);
+    add('search-intent', hasAmount, 0, hasAmount ? 'заголовок обещает цену, суммы в тексте есть' : 'заголовок обещает цену, но в тексте нет ни одной суммы в рублях');
+  }
+
   // 2. Объём.
   add(
     'length',
@@ -231,7 +240,7 @@ export function runGates({ file, source, requiredPubDate = null, knownSlugs = nu
   const score = Math.round((gained / total) * 100);
 
   // Блокеры — то, что нельзя компенсировать баллами в других проверках.
-  const blockers = checks.filter((c) => !c.ok && ['frontmatter', 'length', 'sources', 'links-valid', 'dates', 'site-quality', 'claim-evidence', 'hero-assets', 'fact-corrections'].includes(c.id));
+  const blockers = checks.filter((c) => !c.ok && ['frontmatter', 'length', 'sources', 'links-valid', 'dates', 'site-quality', 'claim-evidence', 'hero-assets', 'fact-corrections', 'search-intent'].includes(c.id));
 
   return {
     file: file || null,

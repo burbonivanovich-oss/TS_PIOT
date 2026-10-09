@@ -369,3 +369,16 @@ test('source report and coverage use the same official-domain audit', () => {
     assert.match(sourcesCheck(result).detail,new RegExp(`ссылок на первоисточники: ${valid?1:0}`));
   }
 });
+
+test('заголовок обещает цену — без суммы в тексте блокер, с суммой проходит', () => {
+  const priceless = runGates({ file: null, source: good({ title: 'ГИС ЭПД: сколько стоит и из чего складывается цена' }), knownSlugs: KNOWN });
+  assert.equal(priceless.passed, false);
+  assert.ok(priceless.blockers.includes('search-intent'));
+  const priced = good({ title: 'ГИС ЭПД: сколько стоит и из чего складывается цена' }).replace(
+    'Вводный абзац',
+    'Пакет документов у оператора стоит от 1 500 ₽ в месяц по [тарифу](https://publication.pravo.gov.ru/document/1). Вводный абзац',
+  );
+  assert.ok(!runGates({ file: null, source: priced, knownSlugs: KNOWN }).blockers.includes('search-intent'));
+  const plain = runGates({ file: null, source: good(), knownSlugs: KNOWN });
+  assert.ok(!plain.checks.some((c) => c.id === 'search-intent'), 'обычный заголовок не проверяется');
+});
