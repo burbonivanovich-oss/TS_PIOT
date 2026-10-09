@@ -447,6 +447,18 @@ export const CATEGORY_DEFAULT_CPA: Record<string, string> = {
 	'egais': 'kontur-market',
 };
 
+/**
+ * Платное предложение раздела для статьи, когда выбранная кнопка бесплатная
+ * и тема статьи не подсказала продукт (см. articleCpa). Только офферы с erid.
+ * Для «Законодательства» общего платного предложения нет: решает тема.
+ */
+export const ARTICLE_PAID_FALLBACK: Record<string, string> = {
+	'ts-piot': 'ts-piot-provider',
+	'markirovka': 'kontur-markirovka',
+	'kkt': 'kontur-ofd',
+	'egais': 'kontur-market',
+};
+
 /** Второй CPA-баннер по категории (необязательный). */
 export const CATEGORY_DEFAULT_CPA2: Record<string, string> = {
 	'ts-piot': 'ts-piot-provider',

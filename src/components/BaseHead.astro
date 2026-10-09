@@ -15,6 +15,8 @@ interface Props {
 	modifiedTime?: string;
 	keywords?: string[];
 	noindex?: boolean;
+	/** При noindex: разрешить проход по ссылкам страницы (noindex,follow). */
+	follow?: boolean;
 	jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
@@ -29,10 +31,16 @@ const {
 	modifiedTime,
 	keywords,
 	noindex = false,
+	follow = false,
 	jsonLd,
 } = Astro.props;
 
-const fullTitle = title === SITE_TITLE ? title : `${title} — ${SITE_TITLE}`;
+// Приставка с названием сайта — только если влезает в 70 знаков выдачи и
+// названия ещё нет в заголовке: иначе поисковик обрежет смысловую часть.
+const TITLE_MAX = 70;
+const brandedTitle = `${title} — ${SITE_TITLE}`;
+const fullTitle =
+	title.includes(SITE_TITLE) || brandedTitle.length > TITLE_MAX ? title : brandedTitle;
 // PNG default обязателен: Telegram игнорирует SVG для og:image.
 const imageSrc =
 	typeof image === 'string' ? image : image?.src ?? '/og-default.png';
@@ -51,7 +59,7 @@ const orgJsonLd = {
 	'@type': 'Organization',
 	name: SITE_TITLE,
 	url: Astro.site?.toString(),
-	logo: new URL('/favicon.svg', Astro.site).toString(),
+	logo: new URL('/logo.png', Astro.site).toString(),
 };
 
 const websiteJsonLd = {
@@ -88,7 +96,7 @@ const extraJsonLd = jsonLd
 <link rel="preload" href={u('/fonts/bebas-neue-400-latin.woff2')} as="font" type="font/woff2" crossorigin />
 
 {noindex ? (
-	<meta name="robots" content="noindex,nofollow" />
+	<meta name="robots" content={follow ? 'noindex,follow' : 'noindex,nofollow'} />
 ) : (
 	<meta name="robots" content="index,follow" />
 )}

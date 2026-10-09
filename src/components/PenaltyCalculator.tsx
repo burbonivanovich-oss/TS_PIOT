@@ -25,7 +25,31 @@ function calcFine(scenario: Scenario, subject: Subject, amount: number) {
 	};
 }
 
-export default function PenaltyCalculator() {
+/** Рекламное предложение под нарушение. Передаётся со страницы: только офферы с erid. */
+export interface CalculatorOffer {
+	id: string;
+	eyebrow: string;
+	title: string;
+	cta: string;
+	ctaHref: string;
+	erid: string;
+}
+
+/** Бесплатная инструкция по группе нарушений — вторичный выход. */
+const GROUP_GUIDES: Record<ScenarioGroup, { href: string; label: string }> = {
+	kkt: { href: '/blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/', label: 'Инструкция: подключение ТС ПИоТ к кассе →' },
+	markirovka: { href: '/blog/2026-05-31-chestny-znak-registraciya/', label: 'Инструкция: регистрация в «Честном знаке» →' },
+	egais: { href: '/blog/2026-07-05-egais-registraciya-nachalo/', label: 'Инструкция: подключение к ЕГАИС →' },
+	merkuriy: { href: '/blog/2026-05-03-registraciya-v-merkurii/', label: 'Инструкция: регистрация в Меркурии →' },
+};
+
+interface Props {
+	/** Предложение по id сценария (приоритет) или по группе. */
+	offers?: Record<string, CalculatorOffer>;
+	base?: string;
+}
+
+export default function PenaltyCalculator({ offers = {}, base = '/' }: Props) {
 	const [group, setGroup] = useState<ScenarioGroup>('kkt');
 	const [scenarioId, setScenarioId] = useState('no-kkt');
 	const [subject, setSubject] = useState<Subject>('ip');
@@ -160,17 +184,34 @@ export default function PenaltyCalculator() {
 				</div>
 			)}
 
-			{result && scenario && (
-				<div className="rcalc-cta">
-					<span className="rcalc-cta-label">Как избежать:</span>
-					<a href="/" className="rcalc-cta-link">
-						{group === 'kkt' && 'Подключить ТС ПИоТ и настроить кассу →'}
-						{group === 'markirovka' && 'Зарегистрироваться в «Честном знаке» →'}
-						{group === 'egais' && 'Как настроить ЕГАИС для вашей кассы →'}
-						{group === 'merkuriy' && 'Как подключиться к системе Меркурий →'}
-					</a>
-				</div>
-			)}
+			{result && scenario && (() => {
+				const offer = offers[scenario.id] ?? offers[group];
+				const guide = GROUP_GUIDES[group];
+				const guideHref = `${base.replace(/\/$/, '')}${guide.href}`;
+				return (
+					<div className="rcalc-cta" data-cpa-placement="calculator">
+						<span className="rcalc-cta-label">Как избежать:</span>
+						{offer && (
+							<div className="rcalc-offer">
+								<span className="rcalc-offer-eyebrow">{offer.eyebrow}</span>
+								<span className="rcalc-offer-title">{offer.title}</span>
+								<a
+									href={offer.ctaHref}
+									className="rcalc-offer-btn"
+									data-cpa-id={offer.id}
+									data-cpa-placement="calculator"
+									target="_blank"
+									rel="noopener noreferrer sponsored"
+								>
+									{offer.cta}
+								</a>
+								<span className="rcalc-offer-erid">Реклама · erid: {offer.erid}</span>
+							</div>
+						)}
+						<a href={guideHref} className="rcalc-cta-link">{guide.label}</a>
+					</div>
+				);
+			})()}
 
 			<style>{`
 				.rcalc {
@@ -315,6 +356,43 @@ export default function PenaltyCalculator() {
 				.rcalc-cta-link:hover {
 					color: #15803d;
 					text-decoration: underline;
+				}
+				.rcalc-offer {
+					flex-basis: 100%;
+					display: flex;
+					flex-direction: column;
+					align-items: flex-start;
+					gap: 0.35rem;
+					padding: 0.2rem 0 0.4rem;
+				}
+				.rcalc-offer-eyebrow {
+					font-size: 0.72rem;
+					text-transform: uppercase;
+					letter-spacing: 0.04em;
+					color: #4b5563;
+				}
+				.rcalc-offer-title {
+					font-size: 1rem;
+					font-weight: 700;
+					color: #111;
+				}
+				.rcalc-offer-btn {
+					display: inline-block;
+					background: #16a34a;
+					color: #fff;
+					font-weight: 600;
+					font-size: 0.9rem;
+					padding: 0.55rem 1rem;
+					text-decoration: none;
+					max-width: 100%;
+				}
+				.rcalc-offer-btn:hover {
+					background: #15803d;
+				}
+				.rcalc-offer-erid {
+					font-size: 0.7rem;
+					color: #6b7280;
+					overflow-wrap: anywhere;
 				}
 			`}</style>
 		</div>

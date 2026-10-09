@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { CATEGORIES, SITE_URL } from '../consts';
-import { collectTags } from '../utils/tags';
+import { collectTags, TAG_MIN_INDEXED } from '../utils/tags';
 import { publishedPosts } from '../utils/posts';
 import { PRODUCT_CATALOG, CPA_BANNERS } from '../data/cpa-banners';
 
@@ -33,7 +33,10 @@ export const GET: APIRoute = async () => {
 	const blogPageEntries: SitemapEntry[] = [entry('/blog/', '0.7', 'daily')];
 
 	// Tag pages
-	const tagSlugs = Object.keys(collectTags(posts));
+	// Тонкие теги закрыты от индекса — в карте сайта им не место.
+	const tagSlugs = Object.entries(collectTags(posts))
+		.filter(([, info]) => info.posts.length >= TAG_MIN_INDEXED)
+		.map(([slug]) => slug);
 	const tagEntries: SitemapEntry[] = tagSlugs.map((slug) =>
 		entry(`/tag/${slug}/`, '0.4', 'weekly'),
 	);
@@ -87,7 +90,7 @@ export const GET: APIRoute = async () => {
 ${all
 	.map(
 		(e) => `  <url>
-    <loc>${e.url}</loc>${e.lastmod ? `\n    <lastmod>${e.lastmod}</lastmod>` : ''}
+    <loc>${encodeURI(e.url)}</loc>${e.lastmod ? `\n    <lastmod>${e.lastmod}</lastmod>` : ''}
     <changefreq>${e.changefreq}</changefreq>
     <priority>${e.priority}</priority>
   </url>`,

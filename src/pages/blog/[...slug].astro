@@ -2,6 +2,7 @@
 import { type CollectionEntry, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { publishedPosts } from '../../utils/posts';
+import { extractArticleFaq } from '../../utils/article-faq.mjs';
 
 export async function getStaticPaths() {
 	const posts = await publishedPosts();
@@ -17,8 +18,10 @@ const { Content, headings } = await render(post);
 
 const wordCount = post.body?.trim().split(/\s+/).filter(Boolean).length ?? 0;
 const readingTime = Math.max(1, Math.ceil(wordCount / 180));
+// Разметка FAQPage: frontmatter faq важнее разбора блока «Частые вопросы».
+const faqItems = post.data.faq?.length ? post.data.faq : extractArticleFaq(post.body);
 ---
 
-<BlogPost {...post.data} slug={post.id} headings={headings} readingTime={readingTime} wordCount={wordCount}>
+<BlogPost {...post.data} slug={post.id} headings={headings} readingTime={readingTime} wordCount={wordCount} faqItems={faqItems}>
 	<Content />
 </BlogPost>

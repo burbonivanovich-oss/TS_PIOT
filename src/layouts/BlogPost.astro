@@ -16,8 +16,9 @@ import {
 	SITE_LOCALE,
 	SIDEBAR_BANNER,
 } from '../consts';
-import { CPA_BANNERS, CATEGORY_DEFAULT_CPA, PRODUCT_CATALOG } from '../data/cpa-banners';
+import { CPA_BANNERS, CATEGORY_DEFAULT_CPA, ARTICLE_PAID_FALLBACK, PRODUCT_CATALOG } from '../data/cpa-banners';
 import { articleCpa } from '../utils/article-cpa.mjs';
+import { faqPageJsonLd } from '../utils/article-faq.mjs';
 import { articleProductEntry } from '../utils/article-product-entry.mjs';
 import { tagSlug } from '../utils/tags';
 import { u } from '../utils/url';
@@ -27,6 +28,7 @@ type Props = CollectionEntry<'blog'>['data'] & {
 	headings?: MarkdownHeading[];
 	readingTime?: number;
 	wordCount?: number;
+	faqItems?: { question: string; answer: string }[];
 };
 
 const {
@@ -44,6 +46,7 @@ const {
 	headings = [],
 	readingTime,
 	wordCount,
+	faqItems = [],
 } = Astro.props;
 
 const commercialContentId = currentSlug ? createHash('sha256').update(currentSlug).digest('hex') : undefined;
@@ -100,7 +103,7 @@ const articleJsonLd = {
 	publisher: {
 		'@type': 'Organization',
 		name: SITE_TITLE,
-		logo: { '@type': 'ImageObject', url: new URL('/favicon.svg', Astro.site).toString() },
+		logo: { '@type': 'ImageObject', url: new URL('/logo.png', Astro.site).toString(), width: 512, height: 512 },
 	},
 	datePublished: pubDate.toISOString(),
 	dateModified: (updatedDate ?? pubDate).toISOString(),
@@ -111,14 +114,20 @@ const articleJsonLd = {
 	),
 };
 
+// Раздел — как в видимых хлебных крошках статьи.
+const crumbCategory = CATEGORIES[categories[0] as keyof typeof CATEGORIES];
+const breadcrumbItems = [
+	{ name: 'Главная', item: new URL('/', Astro.site).toString() },
+	{ name: 'Статьи', item: new URL('/blog/', Astro.site).toString() },
+	...(crumbCategory
+		? [{ name: crumbCategory.title, item: new URL(`/category/${categories[0]}/`, Astro.site).toString() }]
+		: []),
+	{ name: title, item: canonical },
+];
 const breadcrumbsJsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'BreadcrumbList',
-	itemListElement: [
-		{ '@type': 'ListItem', position: 1, name: 'Главная', item: new URL('/', Astro.site).toString() },
-		{ '@type': 'ListItem', position: 2, name: 'Статьи', item: new URL('/blog/', Astro.site).toString() },
-		{ '@type': 'ListItem', position: 3, name: title, item: canonical },
-	],
+	itemListElement: breadcrumbItems.map((crumb, i) => ({ '@type': 'ListItem', position: i + 1, ...crumb })),
 };
 
 const primaryCategory = categories[0] as keyof typeof CATEGORIES | undefined;
@@ -127,7 +136,14 @@ const categoryMeta = primaryCategory ? CATEGORIES[primaryCategory] : null;
 /* CPA-баннер в подвале статьи: из frontmatter или дефолт по категории.
    Второй CPA-блок убран — теперь его роль играет inline <CpaCallout>
    в середине тела (вставляется content-writer'ом, см. .claude/agents/content-writer.md). */
-const cpaBannerId = articleCpa({ cpa, title, tags }, CATEGORY_DEFAULT_CPA[primaryCategory ?? ''] ?? 'default-ts-piot');
+const cpaBannerId = articleCpa(
+	{ cpa, title, tags },
+	CATEGORY_DEFAULT_CPA[primaryCategory ?? ''] ?? 'default-ts-piot',
+	{
+		isPaid: (id: string) => Boolean(CPA_BANNERS[id]?.erid),
+		categoryOffer: ARTICLE_PAID_FALLBACK[primaryCategory ?? ''],
+	},
+);
 const cpaBanner = CPA_BANNERS[cpaBannerId] ?? CPA_BANNERS['default-ts-piot'];
 /* Вторичный внутренний вход на карточку продукта витрины — только для
    розничных офферов с действующим erid. Первичный внешний CTA не меняется;
@@ -164,7 +180,7 @@ const shareTitle = encodeURIComponent(title);
 			modifiedTime={updatedDate?.toISOString()}
 			keywords={keywords}
 			noindex={seo?.noindex}
-			jsonLd={[articleJsonLd, breadcrumbsJsonLd]}
+			jsonLd={[articleJsonLd, breadcrumbsJsonLd, faqPageJsonLd(faqItems)].filter(Boolean)}
 		/>
 	</head>
 

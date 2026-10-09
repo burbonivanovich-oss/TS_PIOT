@@ -7,6 +7,12 @@ export function tagSlug(tag: string): string {
 		.replace(/^-+|-+$/g, '');
 }
 
+/**
+ * Страница тега с меньшим числом статей — тонкая копия статьи: закрыта от
+ * индекса (ссылки по ней поисковик проходит) и не попадает в карту сайта.
+ */
+export const TAG_MIN_INDEXED = 3;
+
 export type TagInfo = {
 	name: string;
 	posts: CollectionEntry<'blog'>[];

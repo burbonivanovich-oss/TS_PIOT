@@ -4,7 +4,7 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Picture from '../components/Picture.astro';
 import PopupBanner from '../components/PopupBanner';
-import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { CATEGORIES, SITE_DESCRIPTION, SITE_HOME_TITLE, SITE_TITLE } from '../consts';
 import { u } from '../utils/url';
 import { publishedPosts } from '../utils/posts';
 import { PRODUCT_CATALOG, CPA_BANNERS } from '../data/cpa-banners';
@@ -69,7 +69,7 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 <!doctype html>
 <html lang="ru">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={SITE_HOME_TITLE} description={SITE_DESCRIPTION} />
 		<meta name="mitgo-verification" content="c8e0a023-7045-45d9-8c7e-d1cdc83fab93" />
 	</head>
 	<body>
@@ -82,8 +82,8 @@ const featuredCatTitle = featuredCat ? CATEGORIES[featuredCat as keyof typeof CA
 					<div class="hero-eyebrow">Медиа для малого и среднего бизнеса · с 2025</div>
 					<h1 class="hero-title">Разбираем требования,<br />которые догоняют бизнес</h1>
 					<p class="hero-lead">
-						ТС ПИоТ для онлайн-касс, маркировка «Честного знака», налоги, ЭДО
-						и трудовое законодательство — понятно, без паники и со ссылками
+						Налоги и отчётность, онлайн-кассы, маркировка «Честного знака», ЕГАИС,
+						сотрудники и ЭДО — понятно, без паники и со ссылками
 						на первоисточники.
 					</p>
 					<div class="hero-cta">

@@ -87,6 +87,26 @@ const faqJsonLd = {
 	})),
 };
 import { u } from '../utils/url';
+import { CPA_BANNERS } from '../data/cpa-banners';
+
+// Предложение после расчёта: сценарий точнее группы. Только офферы с erid —
+// без него показывать рекламу нельзя (38-ФЗ).
+const CALCULATOR_OFFER_IDS: Record<string, string> = {
+	kkt: 'kontur-market',
+	'no-electronic-receipt': 'kontur-ofd',
+	markirovka: 'kontur-markirovka',
+	'unmarked-sale': 'kontur-market',
+	egais: 'kontur-market',
+	merkuriy: 'kontur-merkuriy',
+};
+const calculatorOffers = Object.fromEntries(
+	Object.entries(CALCULATOR_OFFER_IDS).flatMap(([key, id]) => {
+		const b = CPA_BANNERS[id];
+		return b?.erid
+			? [[key, { id: b.id, eyebrow: b.eyebrow, title: b.title, cta: b.cta, ctaHref: b.ctaHref, erid: b.erid }]]
+			: [];
+	}),
+);
 ---
 
 <!doctype html>
@@ -141,7 +161,7 @@ import { u } from '../utils/url';
 				</div>
 			</header>
 
-			<PenaltyCalculator client:load />
+			<PenaltyCalculator client:load offers={calculatorOffers} base={import.meta.env.BASE_URL} />
 
 			<section class="how-to">
 				<h2>Как пользоваться калькулятором</h2>
@@ -386,5 +406,9 @@ import { u } from '../utils/url';
 				line-height: 1.6;
 			}
 		</style>
+		<script>
+			import { initCpaTracking } from '../utils/track-cpa';
+			initCpaTracking();
+		</script>
 	</body>
 </html>

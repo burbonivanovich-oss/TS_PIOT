@@ -5,7 +5,7 @@ import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { CATEGORIES, SITE_TITLE } from '../../consts';
-import { collectTags, pluralPosts } from '../../utils/tags';
+import { collectTags, pluralPosts, TAG_MIN_INDEXED } from '../../utils/tags';
 import { publishedPosts } from '../../utils/posts';
 
 export async function getStaticPaths() {
@@ -73,6 +73,8 @@ import { u } from '../../utils/url';
 		<BaseHead
 			title={title}
 			description={description}
+			noindex={sortedPosts.length < TAG_MIN_INDEXED}
+			follow
 			jsonLd={[collectionJsonLd, breadcrumbsJsonLd]}
 		/>
 	</head>

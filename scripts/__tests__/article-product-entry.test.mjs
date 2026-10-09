@@ -162,7 +162,8 @@ test('SSR: three built articles expose exact secondary href with protected prima
 });
 
 test('SSR: transport and non-retail articles gain no retail secondary link', () => {
-  for (const slug of ['2026-05-25-140-fz-epd-perehod-msb', '2026-05-31-chestny-znak-registraciya']) {
+  // 152-ФЗ: подходящего платного предложения нет, кнопка остаётся бесплатной.
+  for (const slug of ['2026-05-25-140-fz-epd-perehod-msb', '2026-09-17-152-fz-personalnye-dannye']) {
     const file = join(root, 'dist/blog', slug, 'index.html');
     assert.ok(existsSync(file), `built ${slug}`);
     const block = cpaBlock(readFileSync(file, 'utf8'));
@@ -170,5 +171,20 @@ test('SSR: transport and non-retail articles gain no retail secondary link', () 
     for (const p of ['/produkty/kontur-market/', '/produkty/kontur-ofd/', '/produkty/kontur-markirovka/']) {
       assert.ok(!block.includes(`href="${p}"`), `${slug} no ${p}`);
     }
+  }
+});
+
+test('SSR: a free footer button is replaced by the topical paid offer with erid', () => {
+  const cases = [
+    ['2026-05-31-chestny-znak-registraciya', 'kontur-markirovka'],
+    ['2026-05-01-ofd-dlya-ts-piot', 'kontur-ofd'],
+    ['2026-01-15-chto-takoe-ts-piot', 'ts-piot-provider'],
+  ];
+  for (const [slug, offer] of cases) {
+    const file = join(root, 'dist/blog', slug, 'index.html');
+    assert.ok(existsSync(file), `built ${slug}`);
+    const block = cpaBlock(readFileSync(file, 'utf8'));
+    assert.ok(block.includes(`data-cpa-id="${offer}"`), `${slug} → ${offer}`);
+    assert.ok(block.includes('erid:'), `${slug} has erid`);
   }
 });
