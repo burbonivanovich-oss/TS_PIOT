@@ -163,3 +163,9 @@ test('official Rospotrebnadzor pages are allowed; lookalikes and redirected evid
   for (const bad of ['https://rospotrebnadzor.ru.evil.example/news/1', 'https://notrospotrebnadzor.ru/news/1', 'https://user@zpp.rospotrebnadzor.ru/news/1', 'https://zpp.rospotrebnadzor.ru/', 'ftp://zpp.rospotrebnadzor.ru/news/1']) assert.equal(auditSourceUrl(bad).ok, false);
   assert.equal(evaluateEvidence({url,finalUrl:'https://rospotrebnadzor.ru.evil.example/news/1',status:200,checkedAt:'2026-10-03'}, {now:new Date('2026-10-04')}).ok, false);
 });
+
+test('markirovka.ru: первоисточник только база знаний оператора, не сообщество', () => {
+  assert.equal(auditSourceUrl('https://markirovka.ru/knowledge/tovarnye-gruppy/bezalcohol-napitki/rezhim-proverok-na-kassakh-ba-napitki').ok, true);
+  assert.equal(auditSourceUrl('https://markirovka.ru/community/best-practics/kak-podgotovitsya').ok, false);
+  assert.equal(auditSourceUrl('https://markirovka.ru/').ok, false);
+});

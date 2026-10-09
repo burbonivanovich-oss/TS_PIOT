@@ -23,7 +23,12 @@ export const SOURCE_DOMAINS = [
   'duma.gov.ru',
   'regulation.gov.ru',
   'xn--80ajghhoc2aj1c8b.xn--p1ai',
+  'markirovka.ru',
 ];
+
+// Сайт «Честного знака» markirovka.ru: первоисточник — только база знаний
+// оператора. Раздел /community/ публикует партнёров и пользователей.
+const PATH_RULES = { 'markirovka.ru': /^\/knowledge\// };
 
 const GENERAL_URL_RE = /https?:\/\/[^\s)\]}"'<>]+/gi;
 const SOURCE_EVIDENCE_RE = /https?:\/\/[^\s)\]}"'<>]+/i;
@@ -84,6 +89,10 @@ export function auditSourceUrl(raw) {
   }
   if (parsed.pathname === '' || parsed.pathname === '/') {
     return { ok: false, reason: 'ссылка на главную страницу, а не на норму' };
+  }
+  const rule = Object.entries(PATH_RULES).find(([domain]) => host === domain || host.endsWith(`.${domain}`));
+  if (rule && !rule[1].test(parsed.pathname)) {
+    return { ok: false, reason: `раздел сайта не является первоисточником: ${host}${parsed.pathname}` };
   }
   return { ok: true, reason: null, host };
 }
