@@ -382,3 +382,10 @@ test('заголовок обещает цену — без суммы в тек
   const plain = runGates({ file: null, source: good(), knownSlugs: KNOWN });
   assert.ok(!plain.checks.some((c) => c.id === 'search-intent'), 'обычный заголовок не проверяется');
 });
+
+test('пометка VERIFY в тексте — блокер: непроверенный факт не уходит в выдачу', () => {
+  const marked = good().replace('Вводный абзац', 'На бумаге — 800 ₽ <!-- VERIFY: размер госпошлины -->. Вводный абзац');
+  const result = runGates({ file: null, source: marked, knownSlugs: KNOWN });
+  assert.ok(result.blockers.includes('unverified-markers'));
+  assert.ok(!runGates({ file: null, source: good(), knownSlugs: KNOWN }).blockers.includes('unverified-markers'));
+});

@@ -123,6 +123,11 @@ export function runGates({ file, source, requiredPubDate = null, knownSlugs = nu
     add('search-intent', hasAmount, 0, hasAmount ? 'заголовок обещает цену, суммы в тексте есть' : 'заголовок обещает цену, но в тексте нет ни одной суммы в рублях');
   }
 
+  // 1d. Пометки «проверить» в тексте: факт не сверен, а статья ушла бы в
+  // выдачу. В корпусе так опубликованы размер госпошлины и сроки УСН.
+  const unverified = body.match(/\b(?:VERIFY|TODO|FIXME)\b/g) || [];
+  add('unverified-markers', unverified.length === 0, 0, unverified.length ? `пометок непроверенного факта: ${unverified.length}` : 'пометок непроверенного факта нет');
+
   // 2. Объём.
   add(
     'length',
@@ -240,7 +245,7 @@ export function runGates({ file, source, requiredPubDate = null, knownSlugs = nu
   const score = Math.round((gained / total) * 100);
 
   // Блокеры — то, что нельзя компенсировать баллами в других проверках.
-  const blockers = checks.filter((c) => !c.ok && ['frontmatter', 'length', 'sources', 'links-valid', 'dates', 'site-quality', 'claim-evidence', 'hero-assets', 'fact-corrections', 'search-intent'].includes(c.id));
+  const blockers = checks.filter((c) => !c.ok && ['frontmatter', 'length', 'sources', 'links-valid', 'dates', 'site-quality', 'claim-evidence', 'hero-assets', 'fact-corrections', 'search-intent', 'unverified-markers'].includes(c.id));
 
   return {
     file: file || null,
