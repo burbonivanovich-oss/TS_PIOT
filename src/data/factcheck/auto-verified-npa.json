@@ -39,6 +39,14 @@
       "url": "https://normativ.kontur.ru/document?documentId=297459&moduleId=1",
       "verifiedAt": "2026-09-03",
       "verifiedIn": "2026-09-11-proverka-kontragenta-pered-sdelkoy"
+    },
+    "15": {
+      "title": "Об охране здоровья граждан от воздействия окружающего табачного дыма, последствий потребления табака или потребления никотинсодержащей продукции (ч. 8 ст. 19 — запрет торговли сосательным табаком)",
+      "date": "2013-02-23",
+      "topic": "markirovka",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_142515/fa5bef43e6be9f36d6364b63f3d473e5218db6ae/",
+      "verifiedAt": "2026-10-07",
+      "verifiedIn": "2026-06-19-ts-piot-dlya-obschepita"
     }
   },
   "pp": {
@@ -54,6 +62,22 @@
       "url": "https://normativ.kontur.ru/document?documentId=500141&moduleId=1",
       "verifiedAt": "2026-09-03",
       "verifiedIn": "2026-09-11-proverka-kontragenta-pered-sdelkoy"
+    },
+    "515": {
+      "title": "О системе маркировки товаров средствами идентификации и прослеживаемости их движения",
+      "date": "2019-04-26",
+      "topic": "markirovka",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_323818/",
+      "verifiedAt": "2026-10-07",
+      "verifiedIn": "2026-01-15-chto-takoe-ts-piot"
+    },
+    "303": {
+      "title": "Об утверждении требований к техническим средствам, используемым участниками оборота маркированных товаров для взаимодействия с ГИС МТ, включая средства проверки кода маркировки",
+      "date": "2020-03-19",
+      "topic": "ts-piot",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_348262/66a408833c673af4adcd00314cca4ff5ab4837c3/",
+      "verifiedAt": "2026-10-07",
+      "verifiedIn": "2026-06-19-ts-piot-dlya-obschepita"
     }
   },
   "prikaz": {}
