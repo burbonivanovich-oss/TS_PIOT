@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import {readdirSync,readFileSync,writeFileSync,renameSync,rmSync} from 'node:fs';
+import {readdirSync,readFileSync,writeFileSync,renameSync,rmSync,realpathSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {randomUUID} from 'node:crypto';
@@ -27,7 +27,8 @@ export function collectSnapshots(root) {
   }
   return {snapshots,rejected};
 }
-if(process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
+// realpath: на macOS /var → /private/var, и путь запуска не совпадал бы с import.meta.url.
+if(process.argv[1] && realpathSync(path.resolve(process.argv[1]))===realpathSync(fileURLToPath(import.meta.url))) {
   const root=path.resolve(fileURLToPath(new URL('../../',import.meta.url)));
   const output=path.join(root,'autopilot/data/demand.json');
   const old=JSON.parse(readFileSync(output,'utf8'));
