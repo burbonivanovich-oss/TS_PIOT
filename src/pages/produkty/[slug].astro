@@ -1,4 +1,5 @@
 ---
+import { freshPrice, priceDateLabel } from '../../data/product-prices.mjs';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
@@ -67,6 +68,8 @@ const description = banner.description;
 
 // Decision-подсказки только для трёх розничных продуктов; остальные страницы не затрагиваем.
 const override = PRODUCT_COMMERCIAL_OVERRIDES[product.slug];
+// Публичные цены с официальной страницы — только при свежей проверке (COM-05).
+const price = freshPrice(product.bannerId);
 
 // Соц-доказательство — единое для всех продуктов Контура. Только то, что
 // следует из условий партнёрства: без обещаний скорости звонка и
@@ -320,6 +323,17 @@ const faqJsonLd = {
 					</ol>
 				</section>
 
+				{price && (
+					<section class="pp-section pp-price">
+						<h2 class="pp-h2">Сколько стоит</h2>
+						<ul class="pp-price-list">
+							{price.lines.map(l => <li>{l}</li>)}
+						</ul>
+						{price.note && <p class="pp-price-note">{price.note}</p>}
+						<p class="pp-price-note">По данным <a href={price.url} target="_blank" rel="noopener noreferrer">страницы тарифов Контура</a> на {priceDateLabel(price.checkedAt)}. Точную стоимость под вашу задачу назовёт специалист Контура.</p>
+					</section>
+				)}
+
 				<!-- FAQ -->
 				<section class="pp-section">
 					<h2 class="pp-h2">Частые вопросы</h2>
@@ -558,6 +572,8 @@ const faqJsonLd = {
 			.pp-step-b p { margin: 0; font-size: .92rem; line-height: 1.5; color: var(--ink-3, #666); }
 
 			.pp-faq { display: flex; flex-direction: column; gap: 10px; }
+			.pp-price-list { margin: 0 0 .75rem; padding-left: 1.2rem; font-size: 1.05rem; line-height: 1.6; color: #111; }
+			.pp-price-note { font-size: .88rem; color: #555; margin: .3rem 0 0; }
 			.pp-faq-item { background: #fff; border: 1px solid var(--line, #E5E1D8); border-radius: 10px; padding: 2px 18px; transition: border-color .15s; }
 			.pp-faq-item[open] { border-color: var(--line-2, #D9D4C6); }
 			.pp-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-weight: 600; color: #111; cursor: pointer; font-size: 1rem; padding: 14px 0; list-style: none; }
