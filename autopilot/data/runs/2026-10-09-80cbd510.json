@@ -1,0 +1,92 @@
+{
+  "runId": "2026-10-09-80cbd510",
+  "date": "2026-10-09",
+  "kind": "day",
+  "createdAt": "2026-10-09T07:05:46.062Z",
+  "updatedAt": "2026-10-09T07:06:50.877Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-09T07:05:46.415Z",
+      "orderCount": 0,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 0,
+        "todayTarget": 3,
+        "debt": 1
+      }
+    },
+    "gated": {
+      "at": "2026-10-09T07:06:50.833Z",
+      "publicationCapacity": {
+        "day": "2026-10-09",
+        "slotsRemaining": 66,
+        "needed": 54,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 10,
+            "remaining": 45
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 5,
+            "remaining": 9
+          }
+        }
+      },
+      "published": 3,
+      "acceptedWaiting": 14,
+      "results": [
+        {
+          "slug": "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        },
+        {
+          "slug": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        },
+        {
+          "slug": "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        }
+      ],
+      "links": {
+        "linksInserted": 2,
+        "orphansBefore": 38,
+        "orphansAfter": 38
+      }
+    },
+    "built": {
+      "at": "2026-10-09T07:06:50.831Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "bd8824653a193787c7f332ea5c6520fda4122db8e686d9d8879ac8d65680cf01",
+      "scope": "blog Markdown/MDX bytes at build start"
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-09T07:05:46.415Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-09T07:06:50.833Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-09T07:06:50.876Z"
+    }
+  ],
+  "meta": {}
+}

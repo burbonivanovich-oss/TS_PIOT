@@ -1,9 +1,38 @@
 {
-  "generatedAt": "2026-10-07",
+  "generatedAt": "2026-10-09",
   "dry": false,
-  "inserted": 0,
-  "touched": 0,
-  "orphansBefore": 36,
-  "orphansAfter": 36,
-  "plan": []
+  "inserted": 2,
+  "touched": 2,
+  "orphansBefore": 38,
+  "orphansAfter": 38,
+  "plan": [
+    {
+      "slug": "2026-05-01-kalendar-markirovki-2026",
+      "outboundBefore": 18,
+      "additions": [
+        {
+          "target": "2026-06-17-poexzemplyarnyj-uchet",
+          "anchor": "поэкземплярный учёт",
+          "relevance": 0.52,
+          "offset": 114,
+          "length": 19,
+          "line": "2026 год — самый плотный по изменениям в системе маркировки «Честный знак»: новые категории товаров,"
+        }
+      ]
+    },
+    {
+      "slug": "2026-06-29-markirovka-vody-2026",
+      "outboundBefore": 4,
+      "additions": [
+        {
+          "target": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
+          "anchor": "Маркировка воды",
+          "relevance": 1,
+          "offset": 62,
+          "length": 15,
+          "line": "Маркировка воды в 2026 году — один из самых широких по охвату разделов системы «Честный знак». Под т"
+        }
+      ]
+    }
+  ]
 }

@@ -19,6 +19,11 @@
       "2026-05-03-markirovka-igrushek-2026",
       "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki",
       "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke"
+    ],
+    "2026-10-09": [
+      "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj",
+      "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
+      "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya"
     ]
   },
   "kinds": {
@@ -41,6 +46,11 @@
       "2026-05-03-markirovka-igrushek-2026": "rewrite",
       "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki": "new",
       "seed-etrn-dlya-perevozchika-podpisanie-voditelem-i-peredacha-svedeniy-o-perevozke": "new"
+    },
+    "2026-10-09": {
+      "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj": "rewrite",
+      "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya": "new",
+      "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya": "new"
     }
   }
 }

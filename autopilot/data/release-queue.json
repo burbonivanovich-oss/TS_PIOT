@@ -1,14 +1,6 @@
 {
-  "generatedAt": "2026-10-07",
+  "generatedAt": "2026-10-09",
   "items": [
-    {
-      "slug": "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj",
-      "kind": "rewrite",
-      "score": 100,
-      "acceptedAt": "2026-10-05T06:17:38.788Z",
-      "factualCorrection": true,
-      "stagedFile": "release-drafts/2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj.mdx"
-    },
     {
       "slug": "2026-05-01-kalendar-markirovki-2026",
       "kind": "rewrite",
@@ -79,18 +71,6 @@
       "score": 100,
       "acceptedAt": "2026-10-04T14:20:58.629Z",
       "stagedFile": "release-drafts/2026-05-01-ofd-dlya-ts-piot.mdx"
-    },
-    {
-      "slug": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
-      "kind": "new",
-      "score": 100,
-      "acceptedAt": "2026-10-04T17:46:41.088Z"
-    },
-    {
-      "slug": "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya",
-      "kind": "new",
-      "score": 100,
-      "acceptedAt": "2026-10-04T18:59:41.141Z"
     },
     {
       "slug": "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya",
