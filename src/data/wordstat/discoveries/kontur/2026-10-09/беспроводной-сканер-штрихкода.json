@@ -1,0 +1,83 @@
+{
+  "seed": "беспроводной сканер штрихкода",
+  "slug": "беспроводной-сканер-штрихкода",
+  "category": "entity",
+  "cluster": "oborudovanie",
+  "fetchedAt": "2026-10-09T18:52:44.754Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 15,
+  "phrases": [
+    {
+      "phrase": "беспроводной сканер штрихкодов",
+      "count": 528
+    },
+    {
+      "phrase": "беспроводной 2d сканер штрихкодов",
+      "count": 298
+    },
+    {
+      "phrase": "сканер штрихкодов беспроводной для пвз",
+      "count": 94
+    },
+    {
+      "phrase": "сканер штрихкодов и qr кодов беспроводной",
+      "count": 69
+    },
+    {
+      "phrase": "сканер штрихкодов беспроводной для пвз qr 1d",
+      "count": 62
+    },
+    {
+      "phrase": "сканер штрихкодов беспроводной купить",
+      "count": 56
+    },
+    {
+      "phrase": "сканер беспроводной 2d штрихкодов и qr кодов",
+      "count": 54
+    },
+    {
+      "phrase": "сканер штрихкодов беспроводной честный знак",
+      "count": 46
+    },
+    {
+      "phrase": "сканер штрихкодов для 1с купить беспроводной",
+      "count": 30
+    },
+    {
+      "phrase": "bestson сканер штрихкодов 2d беспроводной",
+      "count": 14
+    },
+    {
+      "phrase": "bestson сканер штрихкодов 2d беспроводной qr",
+      "count": 14
+    },
+    {
+      "phrase": "сканер штрихкодов высокоскоростной cswur t69s беспроводной инструкция",
+      "count": 12
+    },
+    {
+      "phrase": "беспроводной сканер штрихкодов netum c750",
+      "count": 9
+    },
+    {
+      "phrase": "сканер штрихкодов asens беспроводной",
+      "count": 9
+    },
+    {
+      "phrase": "сканер штрихкодов asens беспроводной для пвз 2d",
+      "count": 7
+    }
+  ]
+}
