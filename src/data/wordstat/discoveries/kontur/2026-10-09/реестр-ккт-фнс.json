@@ -1,0 +1,43 @@
+{
+  "seed": "реестр ККТ ФНС",
+  "slug": "реестр-ккт-фнс",
+  "category": "entity",
+  "cluster": "kkt",
+  "fetchedAt": "2026-10-09T18:20:48.621Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 5,
+  "phrases": [
+    {
+      "phrase": "реестр ккт фнс",
+      "count": 425
+    },
+    {
+      "phrase": "реестр ккт на сайте фнс",
+      "count": 207
+    },
+    {
+      "phrase": "ккт реестр фнс проверить на сайте",
+      "count": 78
+    },
+    {
+      "phrase": "проверить ккт в реестре фнс",
+      "count": 24
+    },
+    {
+      "phrase": "проверка ккт в реестре фнс",
+      "count": 16
+    }
+  ]
+}

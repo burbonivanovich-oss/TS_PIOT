@@ -1,0 +1,39 @@
+{
+  "seed": "проверка ККТ налоговой",
+  "slug": "проверка-ккт-налоговой",
+  "category": "intent",
+  "cluster": "kkt",
+  "fetchedAt": "2026-10-09T18:20:48.147Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "проверка ккт в налоговой",
+      "count": 311
+    },
+    {
+      "phrase": "проверка ккт в налоговой по заводскому",
+      "count": 51
+    },
+    {
+      "phrase": "проверка ккт в налоговой по заводскому номеру",
+      "count": 51
+    },
+    {
+      "phrase": "проверка ккт на сайте налоговой",
+      "count": 19
+    }
+  ]
+}
