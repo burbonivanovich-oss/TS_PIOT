@@ -91,6 +91,9 @@ function checkSeeds(cfg) {
     if (typeof item?.boost !== 'number' || !Number.isFinite(item.boost)) problems.push(`calendar[${index}].boost не число`);
   }
   if (seeds.intents !== undefined && !Array.isArray(seeds.intents)) problems.push('intents должен быть массивом');
+  for (const [index, intent] of (Array.isArray(seeds.intents) ? seeds.intents : []).entries()) {
+    if (intent?.entities !== undefined && (!Array.isArray(intent.entities) || !intent.entities.length || intent.entities.some((e) => typeof e !== 'string' || !e.trim()))) problems.push(`intents[${index}].entities должен быть непустым списком строк`);
+  }
   if (seeds.segments !== undefined && !Array.isArray(seeds.segments)) problems.push('segments должен быть массивом');
   return problems.length
     ? { ok: false, detail: `seeds.json: ${problems.slice(0, 5).join('; ')}` }

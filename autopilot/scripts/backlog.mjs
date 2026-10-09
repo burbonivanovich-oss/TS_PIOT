@@ -32,11 +32,52 @@ const writeBacklog = (b) => writeJson(BACKLOG_FILE, b);
  * категории уже отражают, о чём проект пишет на самом деле. Список в seeds
  * только дополняет то, чего в корпусе ещё нет.
  */
+/**
+ * Тег-слаг → название сущности: «административная-ответственность» →
+ * «административная ответственность», «data-matrix» → «data matrix».
+ * Настоящие составные слова («онлайн-касса») не трогаем: дефис меняется на
+ * пробел, только если слева прилагательное или обе части латиницей.
+ */
+export function entityFromTag(tag) {
+  return String(tag).trim().replace(
+    /([а-яёa-z]+)-([а-яёa-z]+)/giu,
+    (whole, left, right) =>
+      /(?:ая|яя|ый|ий|ой|ое|ее|ые|ие)$/iu.test(left) || (/^[a-z]+$/i.test(left) && /^[a-z]+$/i.test(right))
+        ? `${left} ${right}`
+        : whole,
+  );
+}
+
+/** Намерение применимо к сущности: у «сколько стоит» и «как выбрать» — только из списка. */
+export function intentAllows(intent, entity) {
+  if (!Array.isArray(intent?.entities)) return true;
+  const e = String(entity).trim().toLocaleLowerCase('ru-RU');
+  return intent.entities.some((x) => String(x).trim().toLocaleLowerCase('ru-RU') === e);
+}
+
+/**
+ * Темы в запасе, которые seeds больше не допускают (намерение сузили списком
+ * сущностей), снимаются с причиной — иначе они годами ждали бы в очереди и
+ * дважды проваливали гейт. Активные и выпущенные темы не трогаются.
+ */
+export function retireDisallowed(topics, intents, day) {
+  const byId = new Map((intents || []).map((i) => [i.id, i]));
+  let retired = 0;
+  const next = topics.map((t) => {
+    if (!['planned', 'deferred'].includes(t.status)) return t;
+    const intent = byId.get(t.intent);
+    if (!intent || intentAllows(intent, entityFromTag(t.entity))) return t;
+    retired++;
+    return { ...t, status: 'dropped', droppedAt: day, dropReason: `намерение «${t.intent}» не применяется к сущности «${t.entity}» (seeds.json)` };
+  });
+  return { topics: next, retired };
+}
+
 function entitiesFromCorpus(articles, seeds) {
   const freq = new Map();
   for (const a of articles) {
     for (const tag of a.tags) {
-      const key = String(tag).trim();
+      const key = entityFromTag(tag);
       if (key.length < 3) continue;
       freq.set(key, (freq.get(key) || 0) + 1);
     }
@@ -79,6 +120,7 @@ function generateCandidates(seeds, articles) {
 
   for (const { entity, coverage } of entities) {
     for (const intent of seeds.intents) {
+      if (!intentAllows(intent, entity)) continue;
       for (const segment of seeds.segments) {
         const title = intent.template
           .replace('{entity}', capitalizeEntity(entity))
@@ -148,6 +190,8 @@ function refillInner({ target } = {}) {
   const seeds = readJson(SEEDS_FILE, { intents: [], segments: [], extraEntities: [] });
   const backlog = readBacklog();
   const articles = loadArticles();
+  const retirement = retireDisallowed(backlog.topics, seeds.intents, today());
+  backlog.topics = retirement.topics;
 
   // Запас считается от коэффициента конфига, а не от магической 1.3: порог
   // должен иметь одного владельца и проверяться схемой (AP-P0-03).
@@ -180,6 +224,7 @@ function refillInner({ target } = {}) {
   const need = Math.max(0, want - alive.length);
 
   const stats = {
+    retired: retirement.retired,
     candidates: 0,
     accepted: 0,
     blocked: 0,

@@ -5,7 +5,7 @@ import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { selectDiverse } from './backlog.mjs';
+import { selectDiverse, entityFromTag, intentAllows, retireDisallowed } from './backlog.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -186,4 +186,30 @@ test('one pilot slot selects a measured seed while preserving generic priorities
  assert.deepEqual(selectDiverse(input,2,2,0).map(t=>t.slug),['g','p']);
  for(const demand of [{status:'not_collected',count:null},{status:'collected',count:0}])assert.equal(selectDiverse([general,{...pilot,demand}],1,2,1)[0].slug,'g');
  assert.equal(selectDiverse([general],2,2,1)[0].slug,'g');
+});
+
+test('тег-слаг становится названием сущности, составные слова не ломаются', () => {
+  assert.equal(entityFromTag('административная-ответственность'), 'административная ответственность');
+  assert.equal(entityFromTag('data-matrix'), 'data matrix');
+  assert.equal(entityFromTag('онлайн-касса'), 'онлайн-касса');
+  assert.equal(entityFromTag('ТС ПИоТ'), 'ТС ПИоТ');
+});
+
+test('«сколько стоит» и «как выбрать» — только для сущностей из списка; лишние темы снимаются из запаса', () => {
+  const intents = [{ id: 'cost', entities: ['ОФД', 'онлайн-касса'] }, { id: 'what' }];
+  assert.equal(intentAllows(intents[0], 'офд'), true);
+  assert.equal(intentAllows(intents[0], 'административная ответственность'), false);
+  assert.equal(intentAllows(intents[1], 'что угодно'), true);
+  const topics = [
+    { slug: 'a', status: 'planned', intent: 'cost', entity: 'административная-ответственность' },
+    { slug: 'b', status: 'deferred', intent: 'cost', entity: 'ОФД' },
+    { slug: 'c', status: 'writing', intent: 'cost', entity: 'маркировка воды' },
+    { slug: 'd', status: 'released', intent: 'cost', entity: 'маркировка воды' },
+    { slug: 'e', status: 'planned', intent: 'what', entity: 'маркировка воды' },
+    { slug: 'f', status: 'planned', intent: 'retired-intent', entity: 'x' },
+  ];
+  const r = retireDisallowed(topics, intents, '2026-10-09');
+  assert.equal(r.retired, 1);
+  assert.deepEqual(r.topics.map((t) => t.status), ['dropped', 'deferred', 'writing', 'released', 'planned', 'planned']);
+  assert.match(r.topics[0].dropReason, /cost/);
 });
