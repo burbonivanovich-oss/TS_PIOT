@@ -40,5 +40,6 @@ export function freshPrice(bannerId, { now = new Date(), prices = PRODUCT_PRICES
 }
 
 export function priceDateLabel(iso) {
-  return new Date(`${iso}T00:00:00Z`).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+  // «9 октября 2026» без «г.», чтобы не получить двойную точку в конце фразы.
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).replace(/\s*г\.$/, '');
 }
