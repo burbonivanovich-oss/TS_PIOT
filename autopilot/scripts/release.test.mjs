@@ -279,14 +279,27 @@ test('publication stop counts distinct completed passes; recovery and month boun
  assert.equal(publicationFailureStreak([a,b,c,run('legacy','2026-10-24',undefined)],'2026-10-24'),0);
 });
 
-test('accepted factual correction goes first while daily and rewrite calendar limits remain binding',()=>{
+test('accepted factual correction goes first and skips the rewrite calendar, daily limit stays binding',()=>{
  const waiting=[{slug:'older',kind:'rewrite',acceptedAt:'2026-10-01'},{slug:'new',kind:'new',acceptedAt:'2026-10-01'}];
  const accepted=[{slug:'correction',kind:'rewrite',factualCorrection:true,acceptedAt:'2026-10-04'}];
  let result=allocateReleases({waiting,accepted,alreadyToday:0,maxPerDay:1,calendar:{byKind:{new:{remaining:1},rewrite:{remaining:1}}}});
  assert.deepEqual(result.release.map(i=>i.slug),['correction']);
  result=allocateReleases({waiting,accepted,alreadyToday:0,maxPerDay:1,calendar:{byKind:{new:{remaining:1},rewrite:{remaining:0}}}});
- assert.deepEqual(result.release.map(i=>i.slug),['new']);assert.ok(result.wait.some(i=>i.slug==='correction'));
+ assert.deepEqual(result.release.map(i=>i.slug),['correction']);assert.ok(result.wait.some(i=>i.slug==='new'));
+ result=allocateReleases({waiting,accepted,alreadyToday:1,maxPerDay:1,calendar:{byKind:{new:{remaining:1},rewrite:{remaining:0}}}});assert.equal(result.release.length,0);
  result=allocateReleases({waiting,accepted,alreadyToday:1,maxPerDay:1});assert.equal(result.release.length,0);
+});
+
+test('factual corrections spend the rewrite calendar so planned rewrites cannot overtake it',()=>{
+ const corrections=['c1','c2','c3','c4'].map((slug,i)=>({slug,kind:'rewrite',factualCorrection:true,acceptedAt:`2026-10-0${i+1}`}));
+ const waiting=[...corrections,{slug:'planned',kind:'rewrite',acceptedAt:'2026-09-01'},{slug:'n1',kind:'new',acceptedAt:'2026-09-01'}];
+ let result=allocateReleases({waiting,maxPerDay:3,calendar:{byKind:{new:{remaining:5},rewrite:{remaining:1}}}});
+ assert.deepEqual(result.release.map(i=>i.slug),['c1','c2','c3']);
+ assert.deepEqual(result.wait.map(i=>i.slug),['c4','n1','planned']);
+ result=allocateReleases({waiting:[{slug:'c4',kind:'rewrite',factualCorrection:true,acceptedAt:'2026-10-04'},{slug:'planned',kind:'rewrite',acceptedAt:'2026-09-01'},{slug:'n1',kind:'new',acceptedAt:'2026-09-01'}],maxPerDay:3,calendar:{byKind:{new:{remaining:5},rewrite:{remaining:1}}}});
+ assert.deepEqual(result.release.map(i=>i.slug),['c4','n1']);assert.deepEqual(result.wait.map(i=>i.slug),['planned']);
+ const unconfirmed=allocateReleases({waiting:[{slug:'r',kind:'rewrite',acceptedAt:'2026-10-01'},{slug:'n',kind:'new',acceptedAt:'2026-10-02'}],maxPerDay:3,calendar:{byKind:{new:{remaining:1},rewrite:{remaining:0}}}});
+ assert.deepEqual(unconfirmed.release.map(i=>i.slug),['n']);assert.deepEqual(unconfirmed.wait.map(i=>i.slug),['r']);
 });
 
 test('missing accepted file stays held in release queue instead of silently disappearing',()=>{

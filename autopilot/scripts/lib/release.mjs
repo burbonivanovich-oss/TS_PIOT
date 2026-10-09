@@ -10,9 +10,15 @@
 //   alreadyToday — сколько уже выпущено сегодня
 //   maxPerDay    — суточный лимит
 // Выход: { release, wait } — что публикуем сейчас и что остаётся в очереди.
+//
+// Подтверждённое фактическое исправление не ждёт месячного календаря: пока оно
+// в очереди, на сайте висит ошибка. Суточный лимит для него сохраняется, а
+// выпуск расходует остаток календаря рерайтов, чтобы плановые обновления не
+// обгоняли норму.
+
+const urgent = item => item.kind === 'rewrite' && item.factualCorrection === true;
 
 const byAge = (a, b) => {
-  const urgent = item => item.kind === 'rewrite' && item.factualCorrection === true;
   const priority = Number(urgent(b)) - Number(urgent(a));
   if (priority) return priority;
   const t = String(a.acceptedAt || '').localeCompare(String(b.acceptedAt || ''));
@@ -28,7 +34,7 @@ export function allocateReleases({ waiting = [], accepted = [], alreadyToday = 0
   const release = []; const wait = [];
   for (const item of pool) {
     if (!['new', 'rewrite'].includes(item.kind)) throw new Error('Неизвестный вид наряда для календаря выпуска');
-    if (release.length < room && remaining[item.kind] > 0) { release.push(item); remaining[item.kind] -= 1; }
+    if (release.length < room && (urgent(item) || remaining[item.kind] > 0)) { release.push(item); remaining[item.kind] -= 1; }
     else wait.push(item);
   }
   return { release, wait };
