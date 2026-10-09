@@ -53,3 +53,14 @@ test('Mercury beats the paid section default unless the editor chose a button', 
   assert.equal(articleCpa({ title: 'Меркурий розница', cpa: 'kontur-market' }, 'kontur-markirovka', { isPaid }), 'kontur-market');
   assert.equal(articleCpa({ title: 'Маркировка воды' }, 'kontur-markirovka', { isPaid }), 'kontur-markirovka');
 });
+
+test('ЭДО и УПД в заголовке ведут на Диадок, маркировка и КЭДО — нет', () => {
+  const paid = (id) => PAID.has(id) || id === 'kontur-diadoc' || id === 'bank-elba';
+  assert.equal(articleCpa({ title: 'ЭДО для ИП: как подключить и сколько стоит' }, 'bank-elba', { isPaid: paid }), 'kontur-diadoc');
+  assert.equal(articleCpa({ title: 'Приглашение в ЭДО: как пригласить контрагента' }, 'kontur-focus', { isPaid: paid }), 'kontur-diadoc');
+  assert.equal(articleCpa({ title: 'УПД в ЭДО: как отправить и исправить' }, 'kontur-elba', { isPaid: paid }), 'kontur-diadoc');
+  assert.equal(articleCpa({ title: 'Маркировка для импортёров: GTIN, ЭДО и таможня' }, 'kontur-markirovka', { isPaid: paid }), 'kontur-markirovka');
+  assert.equal(articleCpa({ title: 'КЭДО для малого бизнеса' }, 'diadoc-kedo', { isPaid: paid }), 'diadoc-kedo');
+  assert.equal(articleCpa({ title: 'ЭТрН в ЭДО: подписание' }, 'kontur-diadoc', { isPaid: paid }), 'diadoc-logistika');
+  assert.equal(articleCpa({ title: 'ЭДО для ИП' }, 'bank-elba', { isPaid: (id) => id === 'bank-elba' }), 'bank-elba');
+});

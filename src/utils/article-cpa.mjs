@@ -39,8 +39,14 @@ export function articleCpa({ cpa, title = '', tags = [] }, fallback, { isPaid, c
     const titleText = lower(title);
     const transportTitle = /(?:^|[^а-яёa-z])(?:этрн|эпд)(?:$|[^а-яёa-z])|электронн[а-яё]*\s+транспортн[а-яё]*\s+накладн[а-яё]*/iu.test(titleText);
     const transportTag = tags.some(tag => ['этрн', 'эпд', 'гис эпд', 'электронная транспортная накладная'].includes(String(tag).trim().toLocaleLowerCase('ru-RU')));
+    // ЭДО и УПД в заголовке — тема Диадока, в каком бы разделе ни лежала
+    // статья (акцент владельца с 09.10.2026). Только по заголовку: тег «ЭДО»
+    // стоит и на статьях о маркировке, у них своя кнопка. КЭДО — отдельный продукт.
+    const edoTitle = /(?:^|[^а-яёa-z])(?:эдо|упд)(?:$|[^а-яёa-z])|электронн[а-яё]*\s+документооборот/u.test(titleText) && !/маркир/u.test(titleText);
     const strong = typeof isPaid === 'function' ? articleTopicOffer({ title, tags }, { strongOnly: true }) : null;
-    chosen = transportTitle || transportTag ? 'diadoc-logistika' : strong && isPaid(strong) ? strong : fallback;
+    chosen = transportTitle || transportTag ? 'diadoc-logistika'
+      : edoTitle && typeof isPaid === 'function' && isPaid('kontur-diadoc') ? 'kontur-diadoc'
+      : strong && isPaid(strong) ? strong : fallback;
   }
   if (typeof isPaid !== 'function' || isPaid(chosen)) return chosen;
   const topical = articleTopicOffer({ title, tags });

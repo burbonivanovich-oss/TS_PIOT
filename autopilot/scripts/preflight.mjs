@@ -95,6 +95,11 @@ function checkSeeds(cfg) {
     if (intent?.entities !== undefined && (!Array.isArray(intent.entities) || !intent.entities.length || intent.entities.some((e) => typeof e !== 'string' || !e.trim()))) problems.push(`intents[${index}].entities должен быть непустым списком строк`);
   }
   if (seeds.segments !== undefined && !Array.isArray(seeds.segments)) problems.push('segments должен быть массивом');
+  if (seeds.focus !== undefined && !Array.isArray(seeds.focus)) problems.push('focus должен быть массивом');
+  for (const [index, item] of (Array.isArray(seeds.focus) ? seeds.focus : []).entries()) {
+    if (!item || typeof item.entity !== 'string' || item.entity.trim() === '') problems.push(`focus[${index}].entity пуст`);
+    if (typeof item?.boost !== 'number' || !Number.isFinite(item.boost) || item.boost < 0) problems.push(`focus[${index}].boost должен быть неотрицательным числом`);
+  }
   return problems.length
     ? { ok: false, detail: `seeds.json: ${problems.slice(0, 5).join('; ')}` }
     : { ok: true, detail: `seeds: ${(seeds.calendar || []).length} дат календаря` };

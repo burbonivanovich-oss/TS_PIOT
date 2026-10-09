@@ -5,7 +5,7 @@ import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { selectDiverse, entityFromTag, intentAllows, retireDisallowed } from './backlog.mjs';
+import { selectDiverse, entityFromTag, intentAllows, retireDisallowed, focusBoost } from './backlog.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -212,4 +212,16 @@ test('«сколько стоит» и «как выбрать» — тольк�
   assert.equal(r.retired, 1);
   assert.deepEqual(r.topics.map((t) => t.status), ['dropped', 'deferred', 'writing', 'released', 'planned', 'planned']);
   assert.match(r.topics[0].dropReason, /cost/);
+});
+
+test('акцент редакции: надбавка целым словом, КЭДО не получает акцент ЭДО', () => {
+  const focus = [{ entity: 'ЭДО', boost: 20 }, { entity: 'ЭТрН', boost: 20 }, { entity: 'ЭПД', boost: 15 }];
+  assert.equal(focusBoost('ЭДО', focus), 20);
+  assert.equal(focusBoost('эдо для ип', focus), 20);
+  assert.equal(focusBoost('этрн', focus), 20);
+  assert.equal(focusBoost('гис эпд', focus), 15);
+  assert.equal(focusBoost('КЭДО', focus), 0);
+  assert.equal(focusBoost('онлайн-касса', focus), 0);
+  assert.equal(focusBoost('ЭДО', undefined), 0);
+  assert.equal(focusBoost('ЭДО', [{ entity: 'эдо', boost: 'много' }]), 0);
 });

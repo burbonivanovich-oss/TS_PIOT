@@ -95,7 +95,26 @@ function entitiesFromCorpus(articles, seeds) {
   return [...fromTags, ...extra];
 }
 
-/** Приоритет темы: пробел в покрытии + близость дедлайна из календаря НПА. */
+/**
+ * Редакционный акцент из seeds.focus: постоянная надбавка сущностям, которые
+ * владелец хочет развивать (например, ЭДО и логистика). Совпадение — целым
+ * словом: акцент «ЭДО» не должен цеплять «КЭДО». Квоты на сущность
+ * продолжают действовать, поэтому акцент поднимает темы, но не забивает ими план.
+ */
+export function focusBoost(entity, focus = []) {
+  const norm = (value) => String(value ?? '').toLocaleLowerCase('ru-RU').replace(/ё/g, 'е').trim();
+  const text = norm(entity);
+  let boost = 0;
+  for (const item of focus) {
+    const word = norm(item?.entity);
+    if (!word || !Number.isFinite(item?.boost)) continue;
+    const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    if (new RegExp(`(?<![\\p{L}\\p{N}])${escaped}(?![\\p{L}\\p{N}])`, 'u').test(text)) boost = Math.max(boost, item.boost);
+  }
+  return boost;
+}
+
+/** Приоритет темы: пробел в покрытии + близость дедлайна из календаря НПА + акцент редакции. */
 function scoreTopic({ entity, coverage, intentWeight, segmentWeight }, seeds) {
   // Чем меньше материалов по сущности, тем выше приоритет: контур сам
   // выравнивает кластеры вместо того, чтобы бесконечно копать один.
@@ -110,7 +129,7 @@ function scoreTopic({ entity, coverage, intentWeight, segmentWeight }, seeds) {
     const proximity = Math.max(0, 1 - Math.abs(days - 45) / 240);
     calendarBoost = Math.max(calendarBoost, item.boost * proximity);
   }
-  return Math.round((gapScore + calendarBoost) * intentWeight * segmentWeight * 10) / 10;
+  return Math.round((gapScore + calendarBoost + focusBoost(entity, seeds.focus)) * intentWeight * segmentWeight * 10) / 10;
 }
 
 function generateCandidates(seeds, articles) {
