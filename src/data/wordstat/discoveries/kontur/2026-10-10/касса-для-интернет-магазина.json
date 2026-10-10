@@ -1,0 +1,63 @@
+{
+  "seed": "касса для интернет-магазина",
+  "slug": "касса-для-интернет-магазина",
+  "category": "audience",
+  "cluster": "kkt",
+  "fetchedAt": "2026-10-10T17:20:07.820Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 10,
+  "phrases": [
+    {
+      "phrase": "касса для интернет магазина",
+      "count": 404
+    },
+    {
+      "phrase": "онлайн касса для интернет магазина",
+      "count": 194
+    },
+    {
+      "phrase": "облачная касса для интернет магазина",
+      "count": 91
+    },
+    {
+      "phrase": "для интернет магазина нужна касса",
+      "count": 40
+    },
+    {
+      "phrase": "касса для интернет магазина для ип",
+      "count": 39
+    },
+    {
+      "phrase": "какая касса для интернет магазина",
+      "count": 32
+    },
+    {
+      "phrase": "нужна ли касса для интернет магазина",
+      "count": 20
+    },
+    {
+      "phrase": "онлайн касса для ип интернет магазин",
+      "count": 19
+    },
+    {
+      "phrase": "касса для сайта интернет магазина",
+      "count": 17
+    },
+    {
+      "phrase": "облачная касса для интернет магазина для ип",
+      "count": 7
+    }
+  ]
+}

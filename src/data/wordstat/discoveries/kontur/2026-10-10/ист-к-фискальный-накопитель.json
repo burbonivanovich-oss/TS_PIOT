@@ -1,0 +1,43 @@
+{
+  "seed": "истёк фискальный накопитель",
+  "slug": "ист-к-фискальный-накопитель",
+  "category": "problem",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-10-10T17:20:22.689Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 5,
+  "phrases": [
+    {
+      "phrase": "истекает срок фискального накопителя",
+      "count": 207
+    },
+    {
+      "phrase": "истек срок действия фискального накопителя",
+      "count": 90
+    },
+    {
+      "phrase": "истек фискальный накопитель что делать",
+      "count": 63
+    },
+    {
+      "phrase": "истек срок действия фискального накопителя что делать",
+      "count": 26
+    },
+    {
+      "phrase": "если истек срок фискального накопителя что делать",
+      "count": 25
+    }
+  ]
+}

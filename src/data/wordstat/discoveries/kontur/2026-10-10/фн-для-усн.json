@@ -1,0 +1,39 @@
+{
+  "seed": "ФН для УСН",
+  "slug": "фн-для-усн",
+  "category": "audience",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-10-10T17:20:20.967Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "фн для усн",
+      "count": 77
+    },
+    {
+      "phrase": "фн для ип усн",
+      "count": 38
+    },
+    {
+      "phrase": "какой фн для усн",
+      "count": 37
+    },
+    {
+      "phrase": "какой фн нужен при усн для ип",
+      "count": 10
+    }
+  ]
+}
