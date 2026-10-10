@@ -5,7 +5,8 @@ import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { selectDiverse } from './backlog.mjs';
+import { selectDiverse, orderByWeekPlan } from './backlog.mjs';
+import { isoWeek } from './lib/week.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -178,4 +179,41 @@ test('one pilot slot selects a measured seed while preserving generic priorities
  assert.deepEqual(selectDiverse(input,2,2,0).map(t=>t.slug),['g','p']);
  for(const demand of [{status:'not_collected',count:null},{status:'collected',count:0}])assert.equal(selectDiverse([general,{...pilot,demand}],1,2,1)[0].slug,'g');
  assert.equal(selectDiverse([general],2,2,1)[0].slug,'g');
+});
+
+test('план недели ставит свои темы первыми, план прошлой недели не действует', () => {
+  const ranked = [{ slug: 'a' }, { slug: 'b' }, { slug: 'c' }, { slug: 'd' }];
+  const plan = { week: '2026-W42', topics: [{ slug: 'c' }, { slug: 'missing' }, { slug: 'a' }] };
+  const pinned = orderByWeekPlan(ranked, plan, '2026-W42');
+  assert.deepEqual(pinned.topics.map((t) => t.slug), ['c', 'a', 'b', 'd']);
+  assert.equal(pinned.pinned, 2);
+  assert.deepEqual(orderByWeekPlan(ranked, plan, '2026-W43').topics.map((t) => t.slug), ['a', 'b', 'c', 'd']);
+  assert.deepEqual(orderByWeekPlan(ranked, null, '2026-W42').topics.map((t) => t.slug), ['a', 'b', 'c', 'd']);
+});
+
+test('ISO-неделя: понедельник открывает новую, 1 января 2027 ещё в 53-й неделе 2026', () => {
+  assert.equal(isoWeek(new Date('2026-10-10T12:00:00Z')), '2026-W41');
+  assert.equal(isoWeek(new Date('2026-10-12T00:00:00Z')), '2026-W42');
+  assert.equal(isoWeek(new Date('2027-01-01T00:00:00Z')), '2026-W53');
+  assert.throws(() => isoWeek(new Date('bad')));
+});
+
+test('real week plan is built from ranked topics and take() follows it', () => {
+  const fx = refillFixture([]);
+  writeFileSync(path.join(fx.dataDir, 'backlog.json'), JSON.stringify({ topics: [
+    { slug: 'high', status: 'planned', entity: 'X', score: 50, keywords: ['x'] },
+    { slug: 'mid', status: 'planned', entity: 'Y', score: 40, keywords: ['y'] },
+    { slug: 'low', status: 'planned', entity: 'Z', score: 30, keywords: ['z'] },
+  ] }));
+  const env = { ...process.env, AUTOPILOT_CONFIG: fx.configFile, AUTOPILOT_DATA_DIR: fx.dataDir, AUTOPILOT_LOCK_FILE: path.join(fx.dataDir, '.lock'), CONTENT_ROOT: fx.root };
+  const run = (code) => spawnSync(process.execPath, ['--input-type=module', '-e', code], { cwd: ROOT, encoding: 'utf8', env });
+  let proc = run("import { buildWeekPlan } from './scripts/backlog.mjs'; console.log(JSON.stringify(buildWeekPlan()))");
+  assert.equal(proc.status, 0, proc.stderr);
+  const plan = JSON.parse(proc.stdout);
+  assert.equal(plan.week, isoWeek());
+  assert.deepEqual(plan.topics.map((t) => t.slug), ['high', 'mid', 'low']);
+  writeFileSync(path.join(fx.dataDir, 'week-plan.json'), JSON.stringify({ ...plan, topics: [{ slug: 'low' }] }));
+  proc = run("import { take } from './scripts/backlog.mjs'; console.log(JSON.stringify(take(1)))");
+  assert.equal(proc.status, 0, proc.stderr);
+  assert.equal(JSON.parse(proc.stdout)[0].slug, 'low');
 });

@@ -10,6 +10,7 @@
 //   node scripts/backlog.mjs take --count 5          # выдать темы под батч
 //   node scripts/backlog.mjs drop --slug s --reason "..."
 //   node scripts/backlog.mjs stats
+//   node scripts/backlog.mjs week-plan               # план NEW-тем на неделю
 import path from 'node:path';
 import { rebalancePlanned } from './lib/backlog-refresh.mjs';
 import { loadConfig, assertContentRoot } from './lib/config.mjs';
@@ -18,10 +19,12 @@ import { acquireLock, releaseLock } from './lib/lock.mjs';
 import { slugify, tokenize, canonicalKey } from './lib/text.mjs';
 import { buildIndex, checkTopic } from './dedupe.mjs';
 import { rankByDemand } from './lib/demand.mjs';
+import { isoWeek } from './lib/week.mjs';
 
 const cfg = loadConfig();
 const BACKLOG_FILE = path.join(cfg.resolved.dataDir, 'backlog.json');
 const SEEDS_FILE = path.join(cfg.resolved.dataDir, 'seeds.json');
+const WEEK_PLAN_FILE = path.join(cfg.resolved.dataDir, 'week-plan.json');
 const rankTopics = topics => rankByDemand(topics, readJson(path.join(cfg.resolved.dataDir, 'demand.json'), null), cfg.backlog);
 
 const readBacklog = () => readJson(BACKLOG_FILE, { generatedAt: null, topics: [] });
@@ -334,8 +337,10 @@ export function take(count) {
   acquireLock({ cmd: 'backlog-take' });
   try {
     const backlog = readBacklog();
-    const planned = rankTopics(backlog.topics.filter((t) => t.status === 'planned'));
-    const picked = selectDiverse(planned, count, cfg.backlog.maxPerEntityPerBatch ?? count, cfg.backlog.pilotSlotsPerBatch ?? 0);
+    const ranked = rankTopics(backlog.topics.filter((t) => t.status === 'planned'));
+    const { topics: planned, pinned } = orderByWeekPlan(ranked, readJson(WEEK_PLAN_FILE, null), isoWeek());
+    // План недели уже учёл пилотную тему при отборе; второй раз её не двигаем.
+    const picked = selectDiverse(planned, count, cfg.backlog.maxPerEntityPerBatch ?? count, pinned ? 0 : cfg.backlog.pilotSlotsPerBatch ?? 0);
     writeBacklog(backlog);
     return picked;
   } finally {
@@ -376,6 +381,46 @@ export function selectDiverse(planned, count, cap, pilotSlots = 0) {
   }
 
   return picked;
+}
+
+/**
+ * План недели ставит свои темы первыми в его порядке, остальные идут следом
+ * по обычному приоритету. План прошлой недели не действует: он мог устареть.
+ */
+export function orderByWeekPlan(planned, plan, week) {
+  if (!plan || plan.week !== week || !Array.isArray(plan.topics)) return { topics: planned, pinned: 0 };
+  const order = new Map(plan.topics.map((t, i) => [t.slug, i]));
+  const inPlan = planned.filter((t) => order.has(t.slug)).sort((a, b) => order.get(a.slug) - order.get(b.slug));
+  return { topics: [...inPlan, ...planned.filter((t) => !order.has(t.slug))], pinned: inPlan.length };
+}
+
+/**
+ * План недели: какие NEW-темы автопилот возьмёт с понедельника по воскресенье.
+ * Размер — недельная доля месячной нормы с небольшим запасом; на одну
+ * сущность не больше трёх тем, чтобы неделя не ушла в один кластер.
+ */
+export function buildWeekPlan({ now = new Date(), perEntity = 3 } = {}) {
+  acquireLock({ cmd: 'week-plan' });
+  try {
+    const backlog = readBacklog();
+    const days = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0)).getUTCDate();
+    const size = Math.ceil(cfg.throughput.monthlyTarget * 7 / days) + 2;
+    const ranked = rankTopics(backlog.topics.filter((t) => t.status === 'planned'));
+    const picked = selectDiverse(ranked, size, perEntity, cfg.backlog.pilotSlotsPerBatch ?? 0);
+    const rewrites = readJson(path.join(cfg.resolved.dataDir, 'rewrite-queue.json'), { items: [] }).items || [];
+    const plan = {
+      version: 1,
+      week: isoWeek(now),
+      createdAt: now.toISOString(),
+      size,
+      topics: picked.map((t) => ({ slug: t.slug, title: t.title, entity: t.entity, priorityScore: t.priorityScore ?? t.score ?? null, source: t.intent === 'seed' ? 'seed' : 'template' })),
+      rewrites: rewrites.slice(0, cfg.throughput.monthlyRewriteTarget ? Math.ceil(cfg.throughput.monthlyRewriteTarget * 7 / days) + 1 : 4).map((r) => ({ slug: r.slug, title: r.title ?? null, reasons: (r.reasons || []).slice(0, 2).map((x) => String(x).slice(0, 200)) })),
+    };
+    writeJson(WEEK_PLAN_FILE, plan);
+    return plan;
+  } finally {
+    releaseLock();
+  }
 }
 
 export function setStatus(slug, status, extra = {}) {
@@ -433,6 +478,12 @@ function main() {
       console.log(`${String(t.score).padStart(6)}  ${t.status.padEnd(8)} ${t.dedupe.verdict.padEnd(5)} ${t.title}`);
     }
     console.log(`— всего ${backlog.topics.length}, показано ${rows.length}`);
+    return;
+  }
+
+  if (cmd === 'week-plan') {
+    const plan = buildWeekPlan();
+    console.log(JSON.stringify(plan, null, 2));
     return;
   }
 
