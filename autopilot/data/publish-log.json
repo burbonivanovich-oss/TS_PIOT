@@ -24,6 +24,11 @@
       "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj",
       "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
       "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya"
+    ],
+    "2026-10-11": [
+      "2026-05-01-kalendar-markirovki-2026",
+      "2026-05-25-140-fz-epd-perehod-msb",
+      "2026-05-01-chto-takoe-fn"
     ]
   },
   "kinds": {
@@ -51,6 +56,11 @@
       "2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj": "rewrite",
       "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya": "new",
       "seed-kto-podpisyvaet-etrn-polnomochiya-voditelya-sotrudnika-sklada-i-rukovoditelya": "new"
+    },
+    "2026-10-11": {
+      "2026-05-01-kalendar-markirovki-2026": "rewrite",
+      "2026-05-25-140-fz-epd-perehod-msb": "rewrite",
+      "2026-05-01-chto-takoe-fn": "rewrite"
     }
   }
 }

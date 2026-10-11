@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-10-09T07:05:46.432Z",
-  "date": "2026-10-09",
-  "runId": "2026-10-09-80cbd510",
+  "generatedAt": "2026-10-11T07:04:36.047Z",
+  "date": "2026-10-11",
+  "runId": "2026-10-11-f264ce41",
   "capacity": {
     "month": "2026-10",
     "done": 15,
     "monthlyTarget": 55,
     "totalDone": 29,
     "totalTarget": 69,
-    "expectedByToday": 16,
-    "debt": 1,
-    "todayTarget": 3,
+    "expectedByToday": 20,
+    "debt": 5,
+    "todayTarget": 4,
     "inFlight": 0,
     "freeSlots": 4,
     "remaining": 40,
@@ -21,8 +21,8 @@
         "done": 15,
         "active": 0,
         "carriedAccepted": 0,
-        "expectedByToday": 16,
-        "debt": 1,
+        "expectedByToday": 20,
+        "debt": 5,
         "remaining": 40
       },
       "rewrite": {
@@ -30,7 +30,7 @@
         "done": 14,
         "active": 0,
         "carriedAccepted": 0,
-        "expectedByToday": 4,
+        "expectedByToday": 5,
         "debt": 0,
         "remaining": 0
       }
@@ -42,8 +42,8 @@
     "urgentRewriteSlots": 0,
     "buffer": {
       "limit": 14,
-      "waiting": 17,
-      "reserved": 17,
+      "waiting": 14,
+      "reserved": 14,
       "free": 0,
       "paused": true
     }

@@ -5,7 +5,7 @@
   "counters": {
     "new": 15,
     "rewrite": 14,
-    "published": 15,
+    "published": 18,
     "blockedDupes": 0,
     "quarantined": 0,
     "infraReleases": 0
@@ -22,7 +22,7 @@
       "quarantined": 0
     }
   ],
-  "lastRunAt": "2026-10-09T07:06:50.932Z",
+  "lastRunAt": "2026-10-11T07:04:55.385Z",
   "lastMigration": {
     "at": "2026-09-13T19:07:00.147Z",
     "actions": 6,

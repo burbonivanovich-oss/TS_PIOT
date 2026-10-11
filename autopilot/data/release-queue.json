@@ -1,30 +1,6 @@
 {
-  "generatedAt": "2026-10-09",
+  "generatedAt": "2026-10-11",
   "items": [
-    {
-      "slug": "2026-05-01-kalendar-markirovki-2026",
-      "kind": "rewrite",
-      "score": 100,
-      "acceptedAt": "2026-10-05T06:17:38.990Z",
-      "factualCorrection": true,
-      "stagedFile": "release-drafts/2026-05-01-kalendar-markirovki-2026.mdx"
-    },
-    {
-      "slug": "2026-05-25-140-fz-epd-perehod-msb",
-      "kind": "rewrite",
-      "score": 100,
-      "acceptedAt": "2026-10-05T06:43:35.577Z",
-      "factualCorrection": true,
-      "stagedFile": "release-drafts/2026-05-25-140-fz-epd-perehod-msb.mdx"
-    },
-    {
-      "slug": "2026-05-01-chto-takoe-fn",
-      "kind": "rewrite",
-      "score": 100,
-      "acceptedAt": "2026-10-05T12:18:19.579Z",
-      "factualCorrection": true,
-      "stagedFile": "release-drafts/2026-05-01-chto-takoe-fn.mdx"
-    },
     {
       "slug": "2026-05-03-srok-fn-15-36",
       "kind": "rewrite",
