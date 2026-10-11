@@ -49,9 +49,21 @@ try {
   process.exit(2);
 }
 console.log(`На счётчике уже целей: ${remote.length}`);
+// Как устроены существующие цели: без этого не понять, почему цель не узнана.
+for (const goal of remote) {
+  const conditions = (goal.conditions || []).map((c) => `${c.type}:${c.url}`).join(', ');
+  console.log(`  = ${goal.id} · ${goal.type} · ${conditions || '—'} · ${goal.name}`);
+}
 
+// JS-цель узнаётся по идентификатору события при любом типе совпадения:
+// цели 13.09.2026 могли завести не через «exact». Дубли хуже пропуска.
+const knownIds = new Set();
+for (const goal of remote) {
+  if (goal.type !== 'action') continue;
+  for (const condition of goal.conditions || []) knownIds.add(condition.url);
+}
 const existing = new Set(remote.map(remoteKey).filter(Boolean));
-const missing = declared.filter((goal) => !existing.has(declaredKey(goal)));
+const missing = declared.filter((goal) => !existing.has(declaredKey(goal)) && !knownIds.has(goal.id));
 console.log(`Есть: ${declared.length - missing.length} · создать: ${missing.length}`);
 for (const goal of missing) console.log(`  + ${goal.id} — ${goal.name}`);
 
