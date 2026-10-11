@@ -1,0 +1,276 @@
+{
+  "$comment": "Цели счётчика Вакандии (vakandia.ru). Синхронизирует scripts/metrika/vakandia/sync-goals.mjs вручную через workflow «Вакандия — цели Метрики». Только создаёт недостающие JS-цели; существующие не переименовывает и не удаляет. Источник списка — apps/web/src/lib/metrika-goals.ts в репозитории RecRu.",
+  "counterId": 112539872,
+  "goals": [
+    {
+      "id": "search_submitted",
+      "name": "Поиск: отправлен запрос или фильтры",
+      "type": "action"
+    },
+    {
+      "id": "job_detail_view",
+      "name": "Вакансия: открыта карточка",
+      "type": "action"
+    },
+    {
+      "id": "source_click",
+      "name": "Вакансия: переход к первоисточнику",
+      "type": "action"
+    },
+    {
+      "id": "job_save",
+      "name": "Вакансия: сохранена",
+      "type": "action"
+    },
+    {
+      "id": "signup_completed",
+      "name": "Вход: создан новый аккаунт",
+      "type": "action"
+    },
+    {
+      "id": "tracker_add",
+      "name": "Трекер: вакансия добавлена",
+      "type": "action"
+    },
+    {
+      "id": "saved_search_created",
+      "name": "Уведомления: сохранён поиск",
+      "type": "action"
+    },
+    {
+      "id": "telegram_linked",
+      "name": "Уведомления: привязан Telegram",
+      "type": "action"
+    },
+    {
+      "id": "auth_code_requested",
+      "name": "Вход: запрошен код",
+      "type": "action"
+    },
+    {
+      "id": "oauth_started",
+      "name": "Вход: нажат Яндекс ID или VK ID",
+      "type": "action"
+    },
+    {
+      "id": "login_completed",
+      "name": "Вход: повторный вход",
+      "type": "action"
+    },
+    {
+      "id": "resume_uploaded",
+      "name": "Гость: загружено резюме для подбора",
+      "type": "action"
+    },
+    {
+      "id": "match_enabled",
+      "name": "Гость: включено совпадение с резюме",
+      "type": "action"
+    },
+    {
+      "id": "feedback_sent",
+      "name": "Вклад: сообщение о проблеме",
+      "type": "action"
+    },
+    {
+      "id": "account_deleted",
+      "name": "Профиль: аккаунт удалён",
+      "type": "action"
+    },
+    {
+      "id": "apply_via_vakandia",
+      "name": "Отклик: через Вакандию",
+      "type": "action"
+    },
+    {
+      "id": "tracker_interview",
+      "name": "Трекер: этап «собеседование»",
+      "type": "action"
+    },
+    {
+      "id": "tracker_offer",
+      "name": "Трекер: этап «оффер»",
+      "type": "action"
+    },
+    {
+      "id": "tracker_external_added",
+      "name": "Трекер: вакансия с другого сайта",
+      "type": "action"
+    },
+    {
+      "id": "fit_filter_used",
+      "name": "Поиск: фильтр «Подходит мне»",
+      "type": "action"
+    },
+    {
+      "id": "company_hidden",
+      "name": "Выдача: компания скрыта",
+      "type": "action"
+    },
+    {
+      "id": "profile_completed",
+      "name": "Профиль: заполнен для совпадения",
+      "type": "action"
+    },
+    {
+      "id": "resume_saved",
+      "name": "Профиль: резюме сохранено",
+      "type": "action"
+    },
+    {
+      "id": "notifications_enabled",
+      "name": "Уведомления: включены",
+      "type": "action"
+    },
+    {
+      "id": "notifications_off",
+      "name": "Уведомления: выключены",
+      "type": "action"
+    },
+    {
+      "id": "personalization_off",
+      "name": "Профиль: подстройка выдачи выключена",
+      "type": "action"
+    },
+    {
+      "id": "logout",
+      "name": "Профиль: выход",
+      "type": "action"
+    },
+    {
+      "id": "salary_shared",
+      "name": "Вклад: поделился зарплатой",
+      "type": "action"
+    },
+    {
+      "id": "service_review_sent",
+      "name": "Вклад: отзыв о сервисе",
+      "type": "action"
+    },
+    {
+      "id": "vacancy_report_sent",
+      "name": "Вклад: жалоба на карточку",
+      "type": "action"
+    },
+    {
+      "id": "takedown_sent",
+      "name": "Вклад: запрос на снятие вакансии",
+      "type": "action"
+    },
+    {
+      "id": "resume_review_requested",
+      "name": "Нейросеть: разбор резюме",
+      "type": "action"
+    },
+    {
+      "id": "cover_letter_generated",
+      "name": "Нейросеть: сопроводительное письмо",
+      "type": "action"
+    },
+    {
+      "id": "mock_interview_answered",
+      "name": "Нейросеть: ответ на пробном собеседовании",
+      "type": "action"
+    },
+    {
+      "id": "pinned_vacancy_click",
+      "name": "Выдача: клик по закреплённой вакансии",
+      "type": "action"
+    },
+    {
+      "id": "similar_vacancy_click",
+      "name": "Выдача: клик по похожей вакансии",
+      "type": "action"
+    },
+    {
+      "id": "view_mode_changed",
+      "name": "Выдача: переключён вид",
+      "type": "action"
+    },
+    {
+      "id": "compare_used",
+      "name": "Инструменты: сравнение вакансий",
+      "type": "action"
+    },
+    {
+      "id": "vacancy_check_used",
+      "name": "Инструменты: проверка вакансии",
+      "type": "action"
+    },
+    {
+      "id": "salary_calculator_used",
+      "name": "Инструменты: калькулятор зарплат",
+      "type": "action"
+    },
+    {
+      "id": "freelance_calculator_used",
+      "name": "Инструменты: калькулятор ставки фрилансера",
+      "type": "action"
+    },
+    {
+      "id": "citation_copied",
+      "name": "Инструменты: скопирована цитата",
+      "type": "action"
+    },
+    {
+      "id": "telegram_channel_click",
+      "name": "Контент: переход в Telegram-канал",
+      "type": "action"
+    },
+    {
+      "id": "blog_to_catalog",
+      "name": "Контент: из блога в каталог",
+      "type": "action"
+    },
+    {
+      "id": "blog_checklist_used",
+      "name": "Контент: чек-лист в статье",
+      "type": "action"
+    },
+    {
+      "id": "employer_claim_started",
+      "name": "Работодатель: начато подтверждение компании",
+      "type": "action"
+    },
+    {
+      "id": "employer_vacancy_published",
+      "name": "Работодатель: вакансия отправлена на модерацию",
+      "type": "action"
+    },
+    {
+      "id": "employer_invoice_requested",
+      "name": "Работодатель: запрошен счёт",
+      "type": "action"
+    },
+    {
+      "id": "paywall_shown",
+      "name": "Оплата: показана платная функция",
+      "type": "action"
+    },
+    {
+      "id": "checkout_started",
+      "name": "Оплата: нажато «Оплатить»",
+      "type": "action"
+    },
+    {
+      "id": "payment_completed",
+      "name": "Оплата: прошла",
+      "type": "action"
+    },
+    {
+      "id": "payment_failed",
+      "name": "Оплата: отмена или ошибка",
+      "type": "action"
+    },
+    {
+      "id": "promo_redeemed",
+      "name": "Оплата: применён промокод",
+      "type": "action"
+    },
+    {
+      "id": "boost_started",
+      "name": "Оплата: закрепление вакансии",
+      "type": "action"
+    }
+  ]
+}
