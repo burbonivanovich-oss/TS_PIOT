@@ -34,6 +34,9 @@ const CODEX_AUTOMATION = process.env.AUTOPILOT_CODEX_AUTOMATION || path.join(os.
 // macOS хранит имена файлов в другой нормализации Unicode; без этого Git
 // видит отслеживаемый PDF с кириллицей как новый файл и считает копию грязной.
 const GIT_ENV = { GIT_CONFIG_COUNT: '1', GIT_CONFIG_KEY_0: 'core.precomposeunicode', GIT_CONFIG_VALUE_0: 'false' };
+// Долгоживущий токен Claude Code (`claude setup-token`) хранится в Связке
+// ключей macOS под этим именем; значение не пишется ни в лог, ни в файлы.
+export const CLAUDE_KEYCHAIN_SERVICE = 'etiketka-autopilot-claude';
 
 const utcDay = (now = new Date()) => now.toISOString().slice(0, 10);
 
@@ -42,6 +45,15 @@ const utcDay = (now = new Date()) => now.toISOString().slice(0, 10);
 /** Включена ли прежняя автоматизация Codex: два владельца расписания запрещены. */
 export function codexAutomationActive(text) {
   return /^\s*status\s*=\s*"ACTIVE"\s*$/m.test(String(text || ''));
+}
+
+/**
+ * Блокирует ли автоматизация Codex запуск. Без подписки Codex её нельзя ни
+ * выключить, ни выполнить; владелец подтверждает это при установке
+ * (AUTOPILOT_CODEX_RETIRED=1), и тогда статус в файле больше не мешает.
+ */
+export function codexBlocks(text, retired = process.env.AUTOPILOT_CODEX_RETIRED === '1') {
+  return !retired && codexAutomationActive(text);
 }
 
 /** daily.mjs печатает вывод тестов, затем итоговый JSON — берём последний. */
@@ -116,6 +128,20 @@ function git(args, { allowFail = false, raw = false } = {}) {
 /** Пути изменённых файлов. Без trim: ведущий пробел — часть формата porcelain. */
 export function changedPaths(porcelainZ) {
   return String(porcelainZ || '').split('\0').filter(Boolean).map((entry) => entry.slice(3));
+}
+
+/** Токен Claude из Связки ключей — в окружение дочерних процессов, не в лог. */
+function loadClaudeToken() {
+  if (process.env.CLAUDE_CODE_OAUTH_TOKEN || process.platform !== 'darwin') return Boolean(process.env.CLAUDE_CODE_OAUTH_TOKEN);
+  const r = spawnSync('/usr/bin/security', ['find-generic-password', '-s', CLAUDE_KEYCHAIN_SERVICE, '-a', os.userInfo().username, '-w'], { encoding: 'utf8' });
+  const token = r.status === 0 ? r.stdout.trim() : '';
+  if (token) process.env.CLAUDE_CODE_OAUTH_TOKEN = token;
+  return Boolean(token);
+}
+
+function claudeLoggedIn() {
+  const r = spawnSync(process.env.AUTOPILOT_CLAUDE_BIN || 'claude', ['auth', 'status', '--json'], { encoding: 'utf8', timeout: 30_000 });
+  try { return JSON.parse(r.stdout).loggedIn === true; } catch { return false; }
 }
 
 function readState() { try { return JSON.parse(readFileSync(path.join(HOME, 'state.json'), 'utf8')); } catch { return {}; } }
@@ -264,7 +290,7 @@ function titleOf(slug, revision) {
 }
 
 export async function run({ forceDaily = false, skipWeekly = false, skipDaily = false, now = new Date() } = {}) {
-  if (existsSync(CODEX_AUTOMATION) && codexAutomationActive(readFileSync(CODEX_AUTOMATION, 'utf8'))) {
+  if (existsSync(CODEX_AUTOMATION) && codexBlocks(readFileSync(CODEX_AUTOMATION, 'utf8'))) {
     notify('Этикетка: автопилот не запущен', 'Включена автоматизация Codex «ежедневный выпуск». Выключите её — владелец расписания должен быть один.');
     return { status: 'blocked_codex_automation' };
   }
@@ -272,6 +298,11 @@ export async function run({ forceDaily = false, skipWeekly = false, skipDaily = 
   if (!release) { log('планировщик уже работает — выход'); return { status: 'already_running' }; }
   const state = readState();
   try {
+    if ((process.env.AUTOPILOT_MODEL_PROVIDER || 'claude') === 'claude' && !loadClaudeToken() && !claudeLoggedIn() && state.authWarnDay !== utcDay(now)) {
+      // Выпуск очереди модели не требует и идёт дальше; не пишутся только новые тексты.
+      notify('Этикетка: Claude не авторизован', 'Новые статьи и анализ рынка не выполняются, выпуск готовых продолжается. Нужен токен: claude setup-token.');
+      state.authWarnDay = utcDay(now); writeState(state);
+    }
     const stop = syncCheckout();
     if (stop) { notify('Этикетка: выпуск остановлен', `${stop}. Нужна проверка рабочей копии.`); return { status: 'stopped', reason: stop }; }
 
@@ -327,6 +358,8 @@ export async function run({ forceDaily = false, skipWeekly = false, skipDaily = 
     }
     const result = daily.result;
     if (result.actionRequired) notify('Этикетка: нужно действие', String(result.reason || result.status));
+    const writeFailure = (result.writing?.results || []).find((r) => r.status === 'failed');
+    if (writeFailure) notify('Этикетка: статья не написана', `${String(writeFailure.reason || 'причина не указана').slice(0, 160)}. Повтор — завтра.`);
     const { commit, slugs } = releasedFromResult(result);
     const next = { ...state, lastDailyDay: utcDay(now), lastDaily: { at: new Date().toISOString(), status: result.status, released: slugs, commit } };
     writeState(next);
@@ -364,7 +397,7 @@ if (isMain(import.meta.url)) {
       .then((r) => { log(`итог: ${JSON.stringify(r).slice(0, 2000)}`); })
       .catch((error) => { notify('Этикетка: планировщик упал', error.message); process.exitCode = 1; });
   } else if (cmd === 'status') {
-    console.log(JSON.stringify({ state: readState(), week: isoWeek(), codexAutomationActive: existsSync(CODEX_AUTOMATION) && codexAutomationActive(readFileSync(CODEX_AUTOMATION, 'utf8')), logs: LOG_DIR }, null, 2));
+    console.log(JSON.stringify({ state: readState(), week: isoWeek(), codexAutomationBlocks: existsSync(CODEX_AUTOMATION) && codexBlocks(readFileSync(CODEX_AUTOMATION, 'utf8')), claudeToken: loadClaudeToken(), claudeLoggedIn: claudeLoggedIn(), logs: LOG_DIR }, null, 2));
   } else {
     console.log('Использование: scheduler.mjs run [--force-daily] [--skip-weekly] [--skip-daily] | status');
     process.exitCode = 2;

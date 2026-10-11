@@ -7,7 +7,7 @@ export function writerFailureCode(error) {
   if (['model_capacity', 'model_rate_limit', 'model_transport', 'writer_failure'].includes(error?.failureCode)) return error.failureCode;
   const message = String(error?.message || '');
   if (/selected model is at capacity/i.test(message)) return 'model_capacity';
-  if (/rate limit|quota exceeded/i.test(message)) return 'model_rate_limit';
+  if (/rate limit|quota exceeded|usage limit/i.test(message)) return 'model_rate_limit';
   if (/stream disconnected|network|ECONNRESET|ETIMEDOUT/i.test(message)) return 'model_transport';
   return 'writer_failure';
 }

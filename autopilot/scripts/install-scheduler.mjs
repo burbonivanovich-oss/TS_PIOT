@@ -3,6 +3,9 @@
 // раз из рабочей копии runner:
 //
 //   node autopilot/scripts/install-scheduler.mjs install     # создать и загрузить
+//   node autopilot/scripts/install-scheduler.mjs install --codex-retired
+//        # подписки Codex нет: его автоматизацию нельзя выключить, но и
+//        # выполниться она не может — не считать её вторым владельцем
 //   node autopilot/scripts/install-scheduler.mjs uninstall   # выгрузить и удалить
 //   node autopilot/scripts/install-scheduler.mjs print       # показать plist
 //
@@ -24,6 +27,13 @@ const CODEX_AUTOMATION = path.join(os.homedir(), '.codex', 'automations', 'autom
 
 const xml = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+function claudeBinary() {
+  for (const candidate of [process.env.AUTOPILOT_CLAUDE_BIN, '/opt/homebrew/bin/claude', '/usr/local/bin/claude', path.join(os.homedir(), '.local', 'bin', 'claude'), path.join(os.homedir(), '.claude', 'local', 'claude')]) {
+    if (candidate && existsSync(candidate)) return candidate;
+  }
+  return null;
+}
+
 function codexBinary() {
   for (const candidate of [process.env.AUTOPILOT_CODEX_BIN, '/opt/homebrew/bin/codex', '/usr/local/bin/codex', '/Applications/ChatGPT.app/Contents/Resources/codex-cli/bin/codex']) {
     if (candidate && existsSync(candidate)) return candidate;
@@ -31,7 +41,7 @@ function codexBinary() {
   return null;
 }
 
-function plist({ node = process.execPath, repo = REPO, codex = codexBinary(), logs = LOGS } = {}) {
+function plist({ node = process.execPath, repo = REPO, codex = codexBinary(), claude = claudeBinary(), retired = false, logs = LOGS } = {}) {
   const pathEnv = [...new Set([path.dirname(node), '/opt/homebrew/bin', '/usr/local/bin', '/usr/bin', '/bin', '/usr/sbin', '/sbin'])].join(':');
   return `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -56,6 +66,12 @@ function plist({ node = process.execPath, repo = REPO, codex = codexBinary(), lo
 		<string>${xml(pathEnv)}</string>${codex ? `
 		<key>AUTOPILOT_CODEX_BIN</key>
 		<string>${xml(codex)}</string>` : ''}
+		<key>AUTOPILOT_MODEL_PROVIDER</key>
+		<string>claude</string>${claude ? `
+		<key>AUTOPILOT_CLAUDE_BIN</key>
+		<string>${xml(claude)}</string>` : ''}${retired ? `
+		<key>AUTOPILOT_CODEX_RETIRED</key>
+		<string>1</string>` : ''}
 		<key>LANG</key>
 		<string>ru_RU.UTF-8</string>
 	</dict>
@@ -81,20 +97,23 @@ function launchctl(args) {
   return spawnSync('/bin/launchctl', args, { encoding: 'utf8' });
 }
 
-const [cmd] = process.argv.slice(2);
+const [cmd, ...flags] = process.argv.slice(2);
+const retired = flags.includes('--codex-retired');
 const domain = `gui/${process.getuid()}`;
 if (cmd === 'print') {
-  process.stdout.write(plist());
+  process.stdout.write(plist({ retired }));
 } else if (cmd === 'install') {
-  if (existsSync(CODEX_AUTOMATION) && /^\s*status\s*=\s*"ACTIVE"\s*$/m.test(readFileSync(CODEX_AUTOMATION, 'utf8'))) {
-    console.error('Сначала выключите в Codex автоматизацию «Этикетка — ежедневный выпуск»: владелец расписания должен быть один.');
+  if (!retired && existsSync(CODEX_AUTOMATION) && /^\s*status\s*=\s*"ACTIVE"\s*$/m.test(readFileSync(CODEX_AUTOMATION, 'utf8'))) {
+    console.error('Сначала выключите в Codex автоматизацию «Этикетка — ежедневный выпуск»: владелец расписания должен быть один.\nЕсли подписки Codex нет и выключить её нельзя, повторите с флагом --codex-retired.');
     process.exit(2);
   }
-  if (!codexBinary()) console.warn('Внимание: не найден Codex CLI — статьи писаться не будут. Укажите путь в AUTOPILOT_CODEX_BIN и повторите установку.');
+  if (!claudeBinary()) console.warn('Внимание: не найден Claude Code CLI — статьи писаться не будут. Укажите путь в AUTOPILOT_CLAUDE_BIN и повторите установку.');
+  const keychain = spawnSync('/usr/bin/security', ['find-generic-password', '-s', 'etiketka-autopilot-claude', '-a', os.userInfo().username], { encoding: 'utf8' });
+  if (keychain.status !== 0) console.warn('Внимание: в Связке ключей нет токена Claude (etiketka-autopilot-claude). Без него статьи не пишутся; выпуск готовых идёт. Порядок — в autopilot/docs/scheduler.md.');
   mkdirSync(path.dirname(PLIST), { recursive: true });
   mkdirSync(LOGS, { recursive: true });
   launchctl(['bootout', `${domain}/${LABEL}`]);
-  writeFileSync(PLIST, plist());
+  writeFileSync(PLIST, plist({ retired }));
   const r = launchctl(['bootstrap', domain, PLIST]);
   if (r.status !== 0) { console.error(`launchctl bootstrap: ${r.stderr.trim()}`); process.exit(1); }
   console.log(`Установлено: ${PLIST}\nЗапуск — сейчас, затем ежедневно в 09:00 (повтор в 15:00).\nЛоги: ${LOGS}\nЕсли в логе «Operation not permitted»: Системные настройки → Конфиденциальность → Полный доступ к диску → добавить ${process.execPath}.`);

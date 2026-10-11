@@ -20,6 +20,7 @@ import { canonicalKey, tokenize } from './lib/text.mjs';
 import { rankByDemand } from './lib/demand.mjs';
 import { hostAllowed, hostOf } from './lib/sources.mjs';
 import { supervisedProcess } from './lib/writer-process.mjs';
+import { runClaude, modelProvider } from './lib/claude-cli.mjs';
 import { buildIndex, checkTopic } from './dedupe.mjs';
 
 export const FORMATS = ['explainer', 'howto', 'news', 'reference', 'comparison', 'checklist', 'faq'];
@@ -180,7 +181,7 @@ export function buildBrief({ cfg = loadConfig(), now = new Date() } = {}) {
   };
 }
 
-/** Модель через тот же Codex CLI, что пишет статьи; песочница только на чтение. */
+/** Прежний провайдер: Codex CLI, песочница только на чтение. */
 export async function proposeWithCodex(prompt, { cwd, binary = process.env.AUTOPILOT_CODEX_BIN || 'codex', timeout = 20 * 60_000 } = {}) {
   const dir = mkdtempSync(path.join(os.tmpdir(), 'autopilot-market-'));
   try {
@@ -191,7 +192,16 @@ export async function proposeWithCodex(prompt, { cwd, binary = process.env.AUTOP
   } finally { rmSync(dir, { recursive: true, force: true }); }
 }
 
-export async function runMarket({ dry = false, now = new Date(), propose = proposeWithCodex } = {}) {
+/** Claude Code: только чтение и поиск в сети — анализ ничего не меняет в репозитории. */
+export async function proposeWithClaude(prompt, { cwd, timeout = 20 * 60_000 } = {}) {
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'autopilot-market-'));
+  try {
+    const { value } = await runClaude(prompt, { schema: PROPOSAL_SCHEMA, tools: ['Read', 'Glob', 'Grep', 'WebSearch', 'WebFetch'], cwd, actorFile: path.join(dir, 'actor.json'), timeout });
+    return value;
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+}
+
+export async function runMarket({ dry = false, now = new Date(), propose = modelProvider() === 'codex' ? proposeWithCodex : proposeWithClaude } = {}) {
   const ctx = buildBrief({ now });
   const skill = readFileSync(path.join(ctx.cfg.resolved.contentRoot, '.agents/skills/auto-market/SKILL.md'), 'utf8');
   const prompt = `${skill}\n\n## Данные недели\n\n\`\`\`json\n${JSON.stringify(ctx.brief, null, 1)}\n\`\`\`\n`;

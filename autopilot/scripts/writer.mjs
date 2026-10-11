@@ -13,6 +13,7 @@ import { checkpoint, writingStatus } from './writing-checkpoint.mjs';
 import { snapshotSettle, recoverSettle } from './lib/settle-snapshot.mjs';
 import { readRun, recordModelInvocation } from './lib/run.mjs';
 import { supervisedProcess, writerFailureCode } from './lib/writer-process.mjs';
+import { runClaude, modelProvider } from './lib/claude-cli.mjs';
 
 export { writerFailureCode };
 
@@ -74,7 +75,26 @@ export async function codexDelivery(prompt, { cwd, actorFile, timeout = 30 * 60_
   } finally { rmSync(dir, { recursive: true, force: true }); }
 }
 
-export async function writeOrders({ cfg = loadConfig(), deliver = codexDelivery, slug = null } = {}) {
+export const DELIVERY_SCHEMA = { type: 'object', additionalProperties: false, required: ['slug', 'attempt', 'status', 'sha256', 'reason'], properties: { slug: { type: 'string' }, attempt: { type: 'string' }, status: { type: 'string', enum: ['delivered', 'failed'] }, sha256: { type: 'string' }, reason: { type: 'string' } } };
+
+// Писателю нужны правка файлов, поиск в сети и два скрипта движка из skill:
+// снимок первоисточника и гейты. SHA256 файла он считает сам для квитанции.
+export const CLAUDE_WRITER_TOOLS = ['Read', 'Write', 'Edit', 'Glob', 'Grep', 'WebSearch', 'WebFetch',
+  'Bash(node autopilot/scripts/gates.mjs *)', 'Bash(node autopilot/scripts/source-snapshot.mjs *)', 'Bash(shasum -a 256 *)'];
+
+export async function claudeDelivery(prompt, { cwd, actorFile, timeout = 30 * 60_000, binary, onObservation = () => {} } = {}) {
+  let result;
+  try { result = await runClaude(prompt, { schema: DELIVERY_SCHEMA, tools: CLAUDE_WRITER_TOOLS, cwd, actorFile, timeout, binary }); }
+  catch (error) { onObservation({ reportedTokens: error.reportedTokens ?? null, tokenSource: 'claude-cli-usage' }); throw error; }
+  onObservation({ reportedTokens: result.reportedTokens, tokenSource: 'claude-cli-usage' });
+  writeFileSync(path.join(path.dirname(actorFile), '.writer-model-result.log'), JSON.stringify(result.value), { mode: 0o600 });
+  return result.value;
+}
+
+/** Исполнитель по AUTOPILOT_MODEL_PROVIDER: claude (по умолчанию) или codex. */
+export const modelDelivery = (prompt, options) => (modelProvider() === 'codex' ? codexDelivery : claudeDelivery)(prompt, options);
+
+export async function writeOrders({ cfg = loadConfig(), deliver = modelDelivery, slug = null } = {}) {
   assertContentRoot(cfg);
   acquireLock({ cmd: 'writer', runId: newRunId() });
   try {

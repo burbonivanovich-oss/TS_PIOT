@@ -109,7 +109,7 @@ export function recordModelInvocation(runId, observation, { dir = dataDir() } = 
     startedAt: observation.startedAt, finishedAt: observation.finishedAt || null,
     durationMs: Number.isFinite(observation.durationMs) && observation.durationMs >= 0 ? observation.durationMs : null,
     reportedTokens: Number.isSafeInteger(observation.reportedTokens) && observation.reportedTokens >= 0 ? observation.reportedTokens : null,
-    tokenSource: observation.tokenSource === 'codex-cli-footer' ? 'codex-cli-footer' : null,
+    tokenSource: ['codex-cli-footer', 'claude-cli-usage'].includes(observation.tokenSource) ? observation.tokenSource : null,
     status: observation.status,
     failureCode: observation.status === 'failed' && ['model_capacity', 'model_rate_limit', 'model_transport', 'writer_failure'].includes(observation.failureCode) ? observation.failureCode : null };
   manifest.meta ||= {};

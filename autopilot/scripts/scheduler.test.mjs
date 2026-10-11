@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { changedPaths, codexAutomationActive, parseDailyOutput, releasedFromResult, requiredText } from './scheduler.mjs';
+import { changedPaths, codexAutomationActive, codexBlocks, parseDailyOutput, releasedFromResult, requiredText } from './scheduler.mjs';
 
 const sha = 'a'.repeat(40);
 
@@ -45,4 +45,11 @@ test('включённая автоматизация Codex распознаёт
 test('пути изменённых файлов не теряют первую букву', () => {
   assert.deepEqual(changedPaths(' M autopilot/data/backlog.json\0?? autopilot/data/week-plan.json\0M  src/x.md\0'), ['autopilot/data/backlog.json', 'autopilot/data/week-plan.json', 'src/x.md']);
   assert.deepEqual(changedPaths(''), []);
+});
+
+test('автоматизация Codex без подписки не блокирует запуск после подтверждения владельца', () => {
+  const active = 'status = "ACTIVE"';
+  assert.equal(codexBlocks(active, false), true);
+  assert.equal(codexBlocks(active, true), false);
+  assert.equal(codexBlocks('status = "PAUSED"', false), false);
 });

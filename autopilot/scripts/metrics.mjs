@@ -58,7 +58,7 @@ function readRuns(dir) {
 export function modelUsage(runs, from, to) {
   const entries = runs.flatMap(run => run.meta?.modelInvocations || [])
     .filter(item => typeof item.startedAt === 'string' && item.startedAt.slice(0, 10) >= from && item.startedAt.slice(0, 10) <= to);
-  const measured = entries.filter(item => item.tokenSource === 'codex-cli-footer' && Number.isSafeInteger(item.reportedTokens) && item.reportedTokens >= 0);
+  const measured = entries.filter(item => ['codex-cli-footer', 'claude-cli-usage'].includes(item.tokenSource) && Number.isSafeInteger(item.reportedTokens) && item.reportedTokens >= 0);
   const durations = entries.filter(item => Number.isFinite(item.durationMs) && item.durationMs >= 0);
   return {
     callsRecorded: entries.length,
