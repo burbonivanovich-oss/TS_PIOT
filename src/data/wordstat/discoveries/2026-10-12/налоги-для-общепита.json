@@ -1,0 +1,59 @@
+{
+  "seed": "налоги для общепита",
+  "slug": "налоги-для-общепита",
+  "category": "audience",
+  "cluster": "horeca",
+  "fetchedAt": "2026-10-12T11:30:09.769Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 9,
+  "phrases": [
+    {
+      "phrase": "налог для общепита",
+      "count": 233
+    },
+    {
+      "phrase": "налоги для общепита в 2026",
+      "count": 47
+    },
+    {
+      "phrase": "какой налог для общепита",
+      "count": 41
+    },
+    {
+      "phrase": "льготы по налогам для общепита",
+      "count": 30
+    },
+    {
+      "phrase": "налог ндс для общепита",
+      "count": 23
+    },
+    {
+      "phrase": "налог усн для общепита",
+      "count": 18
+    },
+    {
+      "phrase": "налоги для общепита в 2026 году",
+      "count": 17
+    },
+    {
+      "phrase": "изменение налогов для общепита",
+      "count": 13
+    },
+    {
+      "phrase": "послабление налогов для общепита",
+      "count": 11
+    }
+  ]
+}

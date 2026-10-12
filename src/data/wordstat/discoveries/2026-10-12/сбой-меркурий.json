@@ -1,0 +1,47 @@
+{
+  "seed": "сбой Меркурий",
+  "slug": "сбой-меркурий",
+  "category": "problem",
+  "cluster": "merkuriy",
+  "fetchedAt": "2026-10-12T11:30:19.170Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 6,
+  "phrases": [
+    {
+      "phrase": "меркурий сбой",
+      "count": 207
+    },
+    {
+      "phrase": "сбой работы меркурий",
+      "count": 52
+    },
+    {
+      "phrase": "сбой в меркурии сегодня",
+      "count": 38
+    },
+    {
+      "phrase": "сбой в системе меркурий",
+      "count": 31
+    },
+    {
+      "phrase": "сбой в работе меркурия сегодня",
+      "count": 18
+    },
+    {
+      "phrase": "сбой меркурий 11.09 2026",
+      "count": 12
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "seed": "обязательная ЭТрН 2026",
+  "slug": "обязательная-этрн-2026",
+  "category": "seasonal",
+  "cluster": "logistika",
+  "fetchedAt": "2026-10-12T11:30:55.584Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 7,
+  "phrases": [
+    {
+      "phrase": "обязательная этрн с 2026",
+      "count": 1006
+    },
+    {
+      "phrase": "обязательные этрн с 1 сентября 2026",
+      "count": 764
+    },
+    {
+      "phrase": "обязательная этрн с 2026 года",
+      "count": 485
+    },
+    {
+      "phrase": "обязательные этрн с 1 сентября 2026 года",
+      "count": 419
+    },
+    {
+      "phrase": "обязательное оформление этрн с 1 сентября 2026",
+      "count": 93
+    },
+    {
+      "phrase": "обязательный переход на этрн с 2026 года",
+      "count": 85
+    },
+    {
+      "phrase": "этрн с 01.09 2026 для кого обязательны",
+      "count": 18
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "seed": "штраф за Меркурий",
+  "slug": "штраф-за-меркурий",
+  "category": "intent",
+  "cluster": "merkuriy",
+  "fetchedAt": "2026-10-12T11:29:47.610Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 12,
+  "phrases": [
+    {
+      "phrase": "штраф за меркурий",
+      "count": 309
+    },
+    {
+      "phrase": "штрафы за всд меркурий",
+      "count": 45
+    },
+    {
+      "phrase": "какой штраф за меркурий",
+      "count": 37
+    },
+    {
+      "phrase": "меркурий штрафы за отсутствие",
+      "count": 33
+    },
+    {
+      "phrase": "штрафы за работу без меркурия",
+      "count": 33
+    },
+    {
+      "phrase": "штрафы за систему меркурий",
+      "count": 29
+    },
+    {
+      "phrase": "штраф за меркурий для ип",
+      "count": 22
+    },
+    {
+      "phrase": "штрафы за нарушения меркурий",
+      "count": 13
+    },
+    {
+      "phrase": "штраф за непогашение всд в меркурии",
+      "count": 11
+    },
+    {
+      "phrase": "штрафы за меркурий россельхознадзор",
+      "count": 8
+    },
+    {
+      "phrase": "штраф за непогашенный меркурий",
+      "count": 8
+    },
+    {
+      "phrase": "какой штраф за отсутствие меркурия",
+      "count": 5
+    }
+  ]
+}

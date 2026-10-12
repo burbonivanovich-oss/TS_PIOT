@@ -1,0 +1,67 @@
+{
+  "seed": "сопроводительная ведомость",
+  "slug": "сопроводительная-ведомость",
+  "category": "entity",
+  "cluster": "logistika",
+  "fetchedAt": "2026-10-12T11:30:48.425Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 11,
+  "phrases": [
+    {
+      "phrase": "сопроводительная ведомость",
+      "count": 927
+    },
+    {
+      "phrase": "сопроводительная ведомость к транспортной накладной",
+      "count": 76
+    },
+    {
+      "phrase": "сопроводительная ведомость в этрн",
+      "count": 62
+    },
+    {
+      "phrase": "электронная сопроводительная ведомость это",
+      "count": 39
+    },
+    {
+      "phrase": "сопроводительная ведомость в перевозках",
+      "count": 34
+    },
+    {
+      "phrase": "сопроводительная ведомость форма",
+      "count": 27
+    },
+    {
+      "phrase": "сопроводительная ведомость на контейнер",
+      "count": 25
+    },
+    {
+      "phrase": "реквизиты сопроводительной ведомости",
+      "count": 24
+    },
+    {
+      "phrase": "образец сопроводительной ведомости",
+      "count": 23
+    },
+    {
+      "phrase": "сопроводительная ведомость бланк",
+      "count": 8
+    },
+    {
+      "phrase": "что такое сопроводительная ведомость в системе эпд",
+      "count": 5
+    }
+  ]
+}

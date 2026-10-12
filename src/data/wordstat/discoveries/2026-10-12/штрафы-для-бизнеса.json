@@ -1,0 +1,51 @@
+{
+  "seed": "штрафы для бизнеса",
+  "slug": "штрафы-для-бизнеса",
+  "category": "intent",
+  "cluster": "zakonodatelstvo",
+  "fetchedAt": "2026-10-12T11:30:57.529Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 7,
+  "phrases": [
+    {
+      "phrase": "штраф для бизнеса",
+      "count": 488
+    },
+    {
+      "phrase": "штраф для малого бизнеса",
+      "count": 78
+    },
+    {
+      "phrase": "штрафы для бизнеса 2026",
+      "count": 41
+    },
+    {
+      "phrase": "новые штрафы для бизнеса",
+      "count": 36
+    },
+    {
+      "phrase": "штрафы для бизнеса в 2026 году",
+      "count": 19
+    },
+    {
+      "phrase": "роскомнадзор ввел два новых штрафа для бизнеса",
+      "count": 12
+    },
+    {
+      "phrase": "штрафы для малого и среднего бизнеса",
+      "count": 6
+    }
+  ]
+}

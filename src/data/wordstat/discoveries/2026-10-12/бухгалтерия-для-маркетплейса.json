@@ -1,0 +1,75 @@
+{
+  "seed": "бухгалтерия для маркетплейса",
+  "slug": "бухгалтерия-для-маркетплейса",
+  "category": "audience",
+  "cluster": "buhgalteriya",
+  "fetchedAt": "2026-10-12T11:30:04.688Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 13,
+  "phrases": [
+    {
+      "phrase": "бухгалтерия для маркетплейсов",
+      "count": 449
+    },
+    {
+      "phrase": "1с бухгалтерия для маркетплейсов",
+      "count": 135
+    },
+    {
+      "phrase": "бухгалтерия для маркетплейсов ип",
+      "count": 79
+    },
+    {
+      "phrase": "ведение бухгалтерии для маркетплейсов",
+      "count": 65
+    },
+    {
+      "phrase": "бухгалтерия для работы с маркетплейсами",
+      "count": 54
+    },
+    {
+      "phrase": "онлайн бухгалтерии для маркетплейсов",
+      "count": 38
+    },
+    {
+      "phrase": "онлайн бухгалтерия для ип маркетплейсы",
+      "count": 28
+    },
+    {
+      "phrase": "как вести бухгалтерию для маркетплейсов",
+      "count": 23
+    },
+    {
+      "phrase": "бухгалтерия для маркетплейсов усн",
+      "count": 15
+    },
+    {
+      "phrase": "бухгалтерия для маркетплейсов обучение",
+      "count": 15
+    },
+    {
+      "phrase": "курс бухгалтерия для маркетплейсов",
+      "count": 13
+    },
+    {
+      "phrase": "бухгалтерия для селлеров маркетплейсов",
+      "count": 12
+    },
+    {
+      "phrase": "ведение бухгалтерии для маркетплейсов delovcifrah",
+      "count": 6
+    }
+  ]
+}
