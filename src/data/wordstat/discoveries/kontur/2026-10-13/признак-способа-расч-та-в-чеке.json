@@ -1,0 +1,35 @@
+{
+  "seed": "признак способа расчёта в чеке",
+  "slug": "признак-способа-расч-та-в-чеке",
+  "category": "entity",
+  "cluster": "kkt",
+  "fetchedAt": "2026-10-13T19:14:52.628Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 3,
+  "phrases": [
+    {
+      "phrase": "признак способа расчета в чеке",
+      "count": 452
+    },
+    {
+      "phrase": "признак способа расчета в кассовом чеке",
+      "count": 221
+    },
+    {
+      "phrase": "признак способа расчета 4 в кассовом чеке",
+      "count": 31
+    }
+  ]
+}
