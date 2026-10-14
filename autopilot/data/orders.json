@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-10-11T07:04:36.047Z",
-  "date": "2026-10-11",
-  "runId": "2026-10-11-f264ce41",
+  "generatedAt": "2026-10-14T09:54:03.550Z",
+  "date": "2026-10-14",
+  "runId": "2026-10-14-258941b5",
   "capacity": {
     "month": "2026-10",
     "done": 15,
     "monthlyTarget": 55,
     "totalDone": 29,
     "totalTarget": 69,
-    "expectedByToday": 20,
-    "debt": 5,
+    "expectedByToday": 25,
+    "debt": 10,
     "todayTarget": 4,
     "inFlight": 0,
     "freeSlots": 4,
     "remaining": 40,
-    "canTake": 0,
+    "canTake": 3,
     "byKind": {
       "new": {
         "target": 55,
         "done": 15,
         "active": 0,
         "carriedAccepted": 0,
-        "expectedByToday": 20,
-        "debt": 5,
+        "expectedByToday": 25,
+        "debt": 10,
         "remaining": 40
       },
       "rewrite": {
@@ -30,25 +30,91 @@
         "done": 14,
         "active": 0,
         "carriedAccepted": 0,
-        "expectedByToday": 5,
+        "expectedByToday": 6,
         "debt": 0,
         "remaining": 0
       }
     },
     "takeByKind": {
-      "new": 0,
+      "new": 3,
       "rewrite": 0
     },
     "urgentRewriteSlots": 0,
     "buffer": {
       "limit": 14,
-      "waiting": 14,
-      "reserved": 14,
-      "free": 0,
-      "paused": true
+      "waiting": 11,
+      "reserved": 11,
+      "free": 3,
+      "paused": false
     }
   },
   "healed": 0,
-  "orders": [],
+  "orders": [
+    {
+      "kind": "new",
+      "linkTargets": [],
+      "reasons": [],
+      "slug": "seed-ts-piot-i-data-matrix-chto-kassa-proveryaet-pri-prodazhe",
+      "title": "ТС ПИоТ и Data Matrix: что касса проверяет при продаже",
+      "keywords": [
+        "проверка тс пиот",
+        "код маркировки тс пиот"
+      ],
+      "entity": "тс пиот",
+      "intent": "seed",
+      "format": "explainer",
+      "segment": "none",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "targetFile": "src/content/blog/seed-ts-piot-i-data-matrix-chto-kassa-proveryaet-pri-prodazhe.md",
+      "runId": "2026-10-14-258941b5"
+    },
+    {
+      "kind": "new",
+      "linkTargets": [],
+      "reasons": [],
+      "slug": "seed-kontrolnaya-zakupka-fns-kak-prohodit-proverka-kassy-i-chto-grozit",
+      "title": "Контрольная закупка ФНС: как проходит проверка кассы и что грозит",
+      "keywords": [
+        "контрольная закупка",
+        "контрольная закупка фнс"
+      ],
+      "entity": "контрольная закупка",
+      "intent": "seed",
+      "format": "howto",
+      "segment": "none",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "targetFile": "src/content/blog/seed-kontrolnaya-zakupka-fns-kak-prohodit-proverka-kassy-i-chto-grozit.md",
+      "runId": "2026-10-14-258941b5"
+    },
+    {
+      "kind": "new",
+      "linkTargets": [],
+      "reasons": [],
+      "slug": "seed-elektronnaya-otchetnost-dlya-ip-i-ooo-kak-podklyuchit",
+      "title": "Электронная отчётность для ИП и ООО: как подключить",
+      "keywords": [
+        "электронная отчетность"
+      ],
+      "entity": "электронная отчётность",
+      "intent": "seed",
+      "format": "howto",
+      "segment": "none",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "targetFile": "src/content/blog/seed-elektronnaya-otchetnost-dlya-ip-i-ooo-kak-podklyuchit.md",
+      "runId": "2026-10-14-258941b5"
+    }
+  ],
   "skipped": []
 }

@@ -29,6 +29,11 @@
       "2026-05-01-kalendar-markirovki-2026",
       "2026-05-25-140-fz-epd-perehod-msb",
       "2026-05-01-chto-takoe-fn"
+    ],
+    "2026-10-14": [
+      "2026-05-03-srok-fn-15-36",
+      "2026-05-01-zamena-fn-poshagovo",
+      "2026-06-27-smena-ofd-instrukciya"
     ]
   },
   "kinds": {
@@ -61,6 +66,11 @@
       "2026-05-01-kalendar-markirovki-2026": "rewrite",
       "2026-05-25-140-fz-epd-perehod-msb": "rewrite",
       "2026-05-01-chto-takoe-fn": "rewrite"
+    },
+    "2026-10-14": {
+      "2026-05-03-srok-fn-15-36": "rewrite",
+      "2026-05-01-zamena-fn-poshagovo": "rewrite",
+      "2026-06-27-smena-ofd-instrukciya": "rewrite"
     }
   }
 }

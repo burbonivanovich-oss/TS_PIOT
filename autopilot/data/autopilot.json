@@ -5,12 +5,40 @@
   "counters": {
     "new": 15,
     "rewrite": 14,
-    "published": 18,
+    "published": 21,
     "blockedDupes": 0,
     "quarantined": 0,
     "infraReleases": 0
   },
-  "inFlight": [],
+  "inFlight": [
+    {
+      "slug": "seed-ts-piot-i-data-matrix-chto-kassa-proveryaet-pri-prodazhe",
+      "kind": "new",
+      "title": "ТС ПИоТ и Data Matrix: что касса проверяет при продаже",
+      "claimedAt": "2026-10-14T09:54:03.399Z",
+      "failures": 0,
+      "infraFailures": 1,
+      "lastFailure": "нет квитанции доставки текущих байтов и попытки"
+    },
+    {
+      "slug": "seed-kontrolnaya-zakupka-fns-kak-prohodit-proverka-kassy-i-chto-grozit",
+      "kind": "new",
+      "title": "Контрольная закупка ФНС: как проходит проверка кассы и что грозит",
+      "claimedAt": "2026-10-14T09:54:03.418Z",
+      "failures": 0,
+      "infraFailures": 1,
+      "lastFailure": "нет квитанции доставки текущих байтов и попытки"
+    },
+    {
+      "slug": "seed-elektronnaya-otchetnost-dlya-ip-i-ooo-kak-podklyuchit",
+      "kind": "new",
+      "title": "Электронная отчётность для ИП и ООО: как подключить",
+      "claimedAt": "2026-10-14T09:54:03.440Z",
+      "failures": 0,
+      "infraFailures": 1,
+      "lastFailure": "нет квитанции доставки текущих байтов и попытки"
+    }
+  ],
   "quarantine": [],
   "history": [
     {
@@ -22,7 +50,7 @@
       "quarantined": 0
     }
   ],
-  "lastRunAt": "2026-10-11T07:04:55.385Z",
+  "lastRunAt": "2026-10-14T09:56:29.201Z",
   "lastMigration": {
     "at": "2026-09-13T19:07:00.147Z",
     "actions": 6,
