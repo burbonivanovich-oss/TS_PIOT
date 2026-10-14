@@ -1,0 +1,63 @@
+{
+  "seed": "касса для самозанятого",
+  "slug": "касса-для-самозанятого",
+  "category": "audience",
+  "cluster": "kkt",
+  "fetchedAt": "2026-10-14T17:07:55.510Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 10,
+  "phrases": [
+    {
+      "phrase": "касса для самозанятых",
+      "count": 770
+    },
+    {
+      "phrase": "онлайн касса для самозанятых",
+      "count": 226
+    },
+    {
+      "phrase": "ю касса для самозанятых",
+      "count": 127
+    },
+    {
+      "phrase": "нужна ли касса для самозанятых",
+      "count": 63
+    },
+    {
+      "phrase": "ю касса для самозанятых как подключить",
+      "count": 61
+    },
+    {
+      "phrase": "яндекс касса для самозанятых",
+      "count": 20
+    },
+    {
+      "phrase": "касса на телефоне для самозанятых",
+      "count": 20
+    },
+    {
+      "phrase": "онлайн касса для самозанятых сбербанк",
+      "count": 12
+    },
+    {
+      "phrase": "электронная касса для самозанятых сенсорная как пользоваться",
+      "count": 9
+    },
+    {
+      "phrase": "как сделать онлайн кассу для самозанятых",
+      "count": 8
+    }
+  ]
+}
