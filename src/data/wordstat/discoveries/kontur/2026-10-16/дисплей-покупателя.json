@@ -1,0 +1,87 @@
+{
+  "seed": "дисплей покупателя",
+  "slug": "дисплей-покупателя",
+  "category": "entity",
+  "cluster": "oborudovanie",
+  "fetchedAt": "2026-10-16T17:32:47.201Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 16,
+  "phrases": [
+    {
+      "phrase": "дисплей покупателя",
+      "count": 1386
+    },
+    {
+      "phrase": "дисплей покупателя атол",
+      "count": 142
+    },
+    {
+      "phrase": "1с дисплей покупателя",
+      "count": 137
+    },
+    {
+      "phrase": "дисплей покупателя poscenter",
+      "count": 74
+    },
+    {
+      "phrase": "дисплей покупателя атол pd 2800",
+      "count": 59
+    },
+    {
+      "phrase": "часы на дисплее покупателя",
+      "count": 50
+    },
+    {
+      "phrase": "дисплей покупателя posiflex",
+      "count": 46
+    },
+    {
+      "phrase": "дисплей покупателя poscenter pcp220",
+      "count": 34
+    },
+    {
+      "phrase": "дисплей покупателя атол pd 7000",
+      "count": 22
+    },
+    {
+      "phrase": "дисплей покупателя poscenter vision 7",
+      "count": 14
+    },
+    {
+      "phrase": "дисплей покупателя бу",
+      "count": 13
+    },
+    {
+      "phrase": "дисплей покупателя posiflex pd 2800",
+      "count": 10
+    },
+    {
+      "phrase": "1с рарус дисплей покупателя",
+      "count": 8
+    },
+    {
+      "phrase": "дисплей покупателя атол pd 2800 драйвер",
+      "count": 8
+    },
+    {
+      "phrase": "как настроить дисплей покупателя в 1с",
+      "count": 7
+    },
+    {
+      "phrase": "часы на esp32 и дисплея покупателя",
+      "count": 6
+    }
+  ]
+}
