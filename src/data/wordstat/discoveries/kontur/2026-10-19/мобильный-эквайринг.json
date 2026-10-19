@@ -1,0 +1,87 @@
+{
+  "seed": "мобильный эквайринг",
+  "slug": "мобильный-эквайринг",
+  "category": "entity",
+  "cluster": "ekvairing",
+  "fetchedAt": "2026-10-19T19:23:16.885Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 16,
+  "phrases": [
+    {
+      "phrase": "мобильный эквайринг",
+      "count": 873
+    },
+    {
+      "phrase": "мобильная касса с эквайрингом",
+      "count": 123
+    },
+    {
+      "phrase": "мобильный эквайринг для самозанятых",
+      "count": 79
+    },
+    {
+      "phrase": "мобильный эквайринг для ип",
+      "count": 76
+    },
+    {
+      "phrase": "мобильный эквайринг сбербанк",
+      "count": 76
+    },
+    {
+      "phrase": "мобильный эквайринг альфа банк",
+      "count": 63
+    },
+    {
+      "phrase": "мобильная касса с эквайрингом для выездной торговли",
+      "count": 34
+    },
+    {
+      "phrase": "мобильная онлайн касса с эквайрингом",
+      "count": 20
+    },
+    {
+      "phrase": "мобильный эквайринг от сбера",
+      "count": 14
+    },
+    {
+      "phrase": "мобильный эквайринг для самозанятых без ип",
+      "count": 11
+    },
+    {
+      "phrase": "мобильный эквайринг для ип в сбербанке",
+      "count": 10
+    },
+    {
+      "phrase": "мобильный эквайринг для самозанятых сбербанк",
+      "count": 8
+    },
+    {
+      "phrase": "виды эквайринга торговый интернет эквайринг мобильный",
+      "count": 8
+    },
+    {
+      "phrase": "мобильная касса mspos е ф с эквайрингом",
+      "count": 6
+    },
+    {
+      "phrase": "мобильный эквайринг сбербанк для андроид",
+      "count": 5
+    },
+    {
+      "phrase": "мобильный эквайринг приорбанк",
+      "count": 1
+    }
+  ]
+}
