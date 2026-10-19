@@ -306,7 +306,7 @@
       "format": "howto",
       "segment": "none",
       "score": 63.7,
-      "status": "accepted_waiting_release",
+      "status": "released",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "warn",
@@ -316,7 +316,7 @@
           "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya"
         ]
       },
-      "updatedAt": "2026-10-04",
+      "updatedAt": "2026-10-19",
       "migration": {
         "at": "2026-09-13T19:07:00.110Z",
         "reason": "файла в корпусе нет — возврат в план"
@@ -608,7 +608,7 @@
       "demand": {
         "status": "collected",
         "phrase": "ефс по договору гпх",
-        "count": 3149,
+        "count": 3566,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -619,7 +619,7 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 61,
+      "priorityScore": 61.3,
       "status": "planned",
       "createdAt": "2026-10-11",
       "dedupe": {
@@ -643,7 +643,7 @@
       "demand": {
         "status": "collected",
         "phrase": "проверить акцизную марку",
-        "count": 2584,
+        "count": 2487,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -654,7 +654,7 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 60.5,
+      "priorityScore": 60.4,
       "status": "planned",
       "createdAt": "2026-10-11",
       "dedupe": {
@@ -678,7 +678,7 @@
       "demand": {
         "status": "collected",
         "phrase": "сколько стоит лицензия на алкоголь",
-        "count": 1947,
+        "count": 1987,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -689,7 +689,7 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 59.7,
+      "priorityScore": 59.8,
       "status": "planned",
       "createdAt": "2026-10-11",
       "dedupe": {
@@ -935,7 +935,7 @@
       "demand": {
         "status": "collected",
         "phrase": "нужна ли онлайн касса для ип",
-        "count": 258,
+        "count": 262,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -1925,7 +1925,7 @@
       "demand": {
         "status": "collected",
         "phrase": "сальдо енс",
-        "count": 17382,
+        "count": 18429,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -1936,7 +1936,7 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 38.7,
+      "priorityScore": 38.9,
       "status": "planned",
       "createdAt": "2026-10-11",
       "dedupe": {
@@ -2573,7 +2573,7 @@
       "demand": {
         "status": "collected",
         "phrase": "data matrix честный знак",
-        "count": 1344,
+        "count": 1448,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -2584,7 +2584,7 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 32.1,
+      "priorityScore": 32.3,
       "status": "planned",
       "createdAt": "2026-10-11",
       "dedupe": {
@@ -2711,7 +2711,7 @@
       "demand": {
         "status": "collected",
         "phrase": "калькулятор патента ип",
-        "count": 6937,
+        "count": 7085,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -2722,7 +2722,7 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 29.7,
+      "priorityScore": 29.8,
       "status": "planned",
       "createdAt": "2026-10-11",
       "dedupe": {
@@ -3380,7 +3380,7 @@
       "demand": {
         "status": "collected",
         "phrase": "как подключить енс",
-        "count": 202,
+        "count": 238,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -3391,7 +3391,7 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 27.1,
+      "priorityScore": 27.6,
       "deferredAt": "2026-10-11",
       "deferredReason": "buffer-rebalanced"
     },
@@ -3451,7 +3451,7 @@
       "demand": {
         "status": "collected",
         "phrase": "эдо поставщики",
-        "count": 8683,
+        "count": 8909,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -3462,7 +3462,7 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 25.8,
+      "priorityScore": 25.9,
       "status": "deferred",
       "createdAt": "2026-10-11",
       "dedupe": {
@@ -3630,7 +3630,7 @@
       "demand": {
         "status": "collected",
         "phrase": "как подключить wildberries",
-        "count": 700,
+        "count": 688,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -3641,7 +3641,7 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 23.8,
+      "priorityScore": 23.7,
       "deferredAt": "2026-10-11",
       "deferredReason": "buffer-rebalanced"
     },
@@ -3721,7 +3721,7 @@
       "demand": {
         "status": "collected",
         "phrase": "закончился фискальный накопитель что делать",
-        "count": 256,
+        "count": 262,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -4158,7 +4158,7 @@
       "demand": {
         "status": "collected",
         "phrase": "отчетность ип на усн в 2026",
-        "count": 1013,
+        "count": 1133,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -4169,7 +4169,7 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 20.2,
+      "priorityScore": 20.5,
       "status": "deferred",
       "createdAt": "2026-10-11",
       "dedupe": {
@@ -4335,7 +4335,7 @@
       "demand": {
         "status": "collected",
         "phrase": "штрафы егаис",
-        "count": 405,
+        "count": 425,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -4346,7 +4346,7 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 18.6,
+      "priorityScore": 18.7,
       "status": "deferred",
       "createdAt": "2026-10-11",
       "dedupe": {
@@ -4371,8 +4371,8 @@
       "score": 2.5,
       "demand": {
         "status": "collected",
-        "phrase": "освобождение от ндс общепит на усн",
-        "count": 390,
+        "phrase": "льгота по ндс для общепита на усн",
+        "count": 411,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -4383,7 +4383,7 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 18.1,
+      "priorityScore": 18.2,
       "status": "deferred",
       "createdAt": "2026-10-11",
       "dedupe": {

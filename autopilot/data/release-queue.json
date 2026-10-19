@@ -1,34 +1,12 @@
 {
-  "generatedAt": "2026-10-14",
+  "generatedAt": "2026-10-19",
   "items": [
-    {
-      "slug": "2026-06-24-snyatie-kkt-s-ucheta",
-      "kind": "rewrite",
-      "score": 100,
-      "acceptedAt": "2026-10-05T13:49:01.850Z",
-      "factualCorrection": true,
-      "stagedFile": "release-drafts/2026-06-24-snyatie-kkt-s-ucheta.mdx"
-    },
-    {
-      "slug": "2026-06-30-pereregistraciya-kkt",
-      "kind": "rewrite",
-      "score": 100,
-      "acceptedAt": "2026-10-05T13:49:02.022Z",
-      "factualCorrection": true,
-      "stagedFile": "release-drafts/2026-06-30-pereregistraciya-kkt.mdx"
-    },
     {
       "slug": "2026-05-01-ofd-dlya-ts-piot",
       "kind": "rewrite",
       "score": 100,
       "acceptedAt": "2026-10-04T14:20:58.629Z",
       "stagedFile": "release-drafts/2026-05-01-ofd-dlya-ts-piot.mdx"
-    },
-    {
-      "slug": "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya",
-      "kind": "new",
-      "score": 100,
-      "acceptedAt": "2026-10-04T18:59:41.482Z"
     },
     {
       "slug": "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",

@@ -1,48 +1,48 @@
 {
-  "generatedAt": "2026-10-14T09:54:03.550Z",
-  "date": "2026-10-14",
-  "runId": "2026-10-14-258941b5",
+  "generatedAt": "2026-10-19T17:06:26.880Z",
+  "date": "2026-10-19",
+  "runId": "2026-10-19-ba9e7865",
   "capacity": {
     "month": "2026-10",
     "done": 15,
     "monthlyTarget": 55,
     "totalDone": 29,
     "totalTarget": 69,
-    "expectedByToday": 25,
-    "debt": 10,
+    "expectedByToday": 34,
+    "debt": 19,
     "todayTarget": 4,
-    "inFlight": 0,
-    "freeSlots": 4,
-    "remaining": 40,
-    "canTake": 3,
+    "inFlight": 3,
+    "freeSlots": 1,
+    "remaining": 37,
+    "canTake": 0,
     "byKind": {
       "new": {
         "target": 55,
         "done": 15,
-        "active": 0,
+        "active": 3,
         "carriedAccepted": 0,
-        "expectedByToday": 25,
-        "debt": 10,
-        "remaining": 40
+        "expectedByToday": 34,
+        "debt": 19,
+        "remaining": 37
       },
       "rewrite": {
         "target": 14,
         "done": 14,
         "active": 0,
         "carriedAccepted": 0,
-        "expectedByToday": 6,
+        "expectedByToday": 9,
         "debt": 0,
         "remaining": 0
       }
     },
     "takeByKind": {
-      "new": 3,
+      "new": 0,
       "rewrite": 0
     },
     "urgentRewriteSlots": 0,
     "buffer": {
       "limit": 14,
-      "waiting": 11,
+      "waiting": 8,
       "reserved": 11,
       "free": 3,
       "paused": false
@@ -70,7 +70,8 @@
         "related": []
       },
       "targetFile": "src/content/blog/seed-ts-piot-i-data-matrix-chto-kassa-proveryaet-pri-prodazhe.md",
-      "runId": "2026-10-14-258941b5"
+      "runId": "2026-10-14-258941b5",
+      "retry": true
     },
     {
       "kind": "new",
@@ -92,7 +93,8 @@
         "related": []
       },
       "targetFile": "src/content/blog/seed-kontrolnaya-zakupka-fns-kak-prohodit-proverka-kassy-i-chto-grozit.md",
-      "runId": "2026-10-14-258941b5"
+      "runId": "2026-10-14-258941b5",
+      "retry": true
     },
     {
       "kind": "new",
@@ -113,7 +115,8 @@
         "related": []
       },
       "targetFile": "src/content/blog/seed-elektronnaya-otchetnost-dlya-ip-i-ooo-kak-podklyuchit.md",
-      "runId": "2026-10-14-258941b5"
+      "runId": "2026-10-14-258941b5",
+      "retry": true
     }
   ],
   "skipped": []

@@ -34,6 +34,11 @@
       "2026-05-03-srok-fn-15-36",
       "2026-05-01-zamena-fn-poshagovo",
       "2026-06-27-smena-ofd-instrukciya"
+    ],
+    "2026-10-19": [
+      "2026-06-24-snyatie-kkt-s-ucheta",
+      "2026-06-30-pereregistraciya-kkt",
+      "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya"
     ]
   },
   "kinds": {
@@ -71,6 +76,11 @@
       "2026-05-03-srok-fn-15-36": "rewrite",
       "2026-05-01-zamena-fn-poshagovo": "rewrite",
       "2026-06-27-smena-ofd-instrukciya": "rewrite"
+    },
+    "2026-10-19": {
+      "2026-06-24-snyatie-kkt-s-ucheta": "rewrite",
+      "2026-06-30-pereregistraciya-kkt": "rewrite",
+      "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya": "new"
     }
   }
 }

@@ -1,159 +1,166 @@
 {
-  "generatedAt": "2026-10-14T09:53:58.082Z",
-  "totalSources": 107,
-  "checkBudget": 18,
-  "checkedCount": 18,
-  "dueRemaining": 89,
+  "generatedAt": "2026-10-19T17:06:17.797Z",
+  "totalSources": 111,
+  "checkBudget": 19,
+  "checkedCount": 19,
+  "dueRemaining": 92,
   "checked": [
     {
-      "url": "https://base.garant.ru/409113344/",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_42359/0c17a4091d18f33af58d3c20e17e1ac7f808242e/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "61562a045e7b2b7cd6f6c092ae9d6d803c08e5bd0d05cfc9e439bff2ee44b94c",
-      "finalUrl": "https://base.garant.ru/409113344/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "f5c47235fb4ce0cb323da33a6e8f2747d37998ddc392f25ead2a0c82c6488233",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_42359/0c17a4091d18f33af58d3c20e17e1ac7f808242e/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_462894/89150e24508d206573e1d17c33229da28fee40f5/",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_42359/5c5a909568a200c14a12127e346d841fdc0da27e/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "59bc8b4e42e749bcba06ad971a1230ae2a902428de7f17a4cd698f3a676f9ea8",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_462894/89150e24508d206573e1d17c33229da28fee40f5/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "9126d27ff96e46dbcb3f35a0dd422f3d10a71d8571a78408cd1779cec1b3965b",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_42359/5c5a909568a200c14a12127e346d841fdc0da27e/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_462894/dde8957869004baa419f13bef0d1e75689432bc5/",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_42359/c66f699f7114b0ac2d3309283162539ad93ea8d1/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "2db122e570d68313ed42b3b2b5a385c8d633d47f978af584685a57380302c851",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_462894/dde8957869004baa419f13bef0d1e75689432bc5/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "8dc48fb04827bdd6e1d1386bef2abebf48b41ca06e953ca8e0be795ff74e67ae",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_42359/c66f699f7114b0ac2d3309283162539ad93ea8d1/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_491963/92d969e26a4326c5d02fa79b8f9cf4994ee5633b/",
+      "url": "https://www.nalog.gov.ru/rn74/news/tax_doc_news/15807796/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "02f31b4b7c1aee044d7badc14614b0b23334c005c95aaca5c1298e14aabbf8b5",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_491963/92d969e26a4326c5d02fa79b8f9cf4994ee5633b/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "4e6d5289d62c9cc516d8550d1097a10d7f84d23d5c659644db84c478f07b91f4",
+      "finalUrl": "https://www.nalog.gov.ru/rn74/news/tax_doc_news/15807796/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_491967/92d969e26a4326c5d02fa79b8f9cf4994ee5633b/",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_95629/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "f1e8196b1e4f2b0046ee18cc737cbbb8b42a34fe782ac5fa4ac472c212c699c9",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_491967/92d969e26a4326c5d02fa79b8f9cf4994ee5633b/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "489d0b37b4360b0c1c6f5f542625981addf86d4614caeaf0ac0adc80af841445",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_95629/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_497817/fef1db9e27c611b5b932f67b1ec898f06bc62d38/",
+      "url": "https://www.consultant.ru/law/hotdocs/76232.html",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "568728260a5bd7ff4be5c6f38387337070b7e39b3d6f1e67e012179316cc884c",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_497817/fef1db9e27c611b5b932f67b1ec898f06bc62d38/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "1c463699acb775e94111dd924facf342bc8bc057540ff67b63eb4e9d40b769f7",
+      "finalUrl": "https://www.consultant.ru/law/hotdocs/76232.html"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/",
+      "url": "https://www.consultant.ru/legalnews/30162/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "03c7df80465b63074fb3f18bc7c413a02e268e5178569f731adaf34cab4ac35c",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "b13e5e2320bbedd15b715ef42067c92d4ca54fa2f86b1f7b56a22025e57917d9",
+      "finalUrl": "https://www.consultant.ru/legalnews/30162/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/",
+      "url": "https://www.garant.ru/hotlaw/federal/1771084/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "c06c2f5fc826d91a37be25192e3b31f3e0f2c59570b092ce383e7873eb66d496",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_42359/12a6477d0e22968564d9416e594a80202a7024db/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "c6d6e31c7ac59fae89432a293802c4000e964fd37619835ff306466b786a2b28",
+      "finalUrl": "https://www.garant.ru/hotlaw/federal/1771084/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_42359/75dae8854d505373959b0667d20bb89a5e9199ae/",
+      "url": "https://www.garant.ru/products/ipo/prime/doc/408711579/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "a10374c503b10971c81e2e2632ac24fd3e76d30ea1debf2c1256cd925400ce77",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_42359/75dae8854d505373959b0667d20bb89a5e9199ae/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "83ec95638ee49643765e4117e86311cb0667f002956413807652785052b0b52a",
+      "finalUrl": "https://www.garant.ru/products/ipo/prime/doc/408711579/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_42359/d2fc933bc5ec367e9a8713330510af5d9e1a3fe4/",
+      "url": "https://www.garant.ru/products/ipo/prime/doc/411482059/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "6a985e28ac39235efc455bf690cf9e98fc85207bc8f9595f992bb6bbca751cfe",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_42359/d2fc933bc5ec367e9a8713330510af5d9e1a3fe4/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "6d89e8df9f690476bb017a7107ef8040e2fedf5bf79da8b0e37b8906a840e328",
+      "finalUrl": "https://www.garant.ru/products/ipo/prime/doc/411482059/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_462894/",
+      "url": "https://www.nalog.gov.ru/rn77/about_fts/docs/16421640/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "f8ffdaca13de5e57245b00438789a7532e9ed558d91ff1359f7508bd1752a764",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_462894/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "2201fc2023f72fe6dc17d0da75e1525f3a42f2aa7d6d415e1f99e3eae16f8fa9",
+      "finalUrl": "https://www.nalog.gov.ru/rn77/about_fts/docs/16421640/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_479011/",
+      "url": "https://www.nalog.gov.ru/rn77/about_fts/docs/16593572/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "c1b21277b91fbed08758af91fb745e1f4b5856ee96d345f3d3040ff87cc85883",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_479011/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "70a2a222eb628795effd5ca949127d903244e88813d83f380a21d2e375bf611d",
+      "finalUrl": "https://www.nalog.gov.ru/rn77/about_fts/docs/16593572/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_491963/",
+      "url": "https://www.nalog.gov.ru/rn77/promo/na/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "e042e2f10f90e566f8433aa8f9c5d5c7a47444f6eea374e5f660ccdbc564e26f",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_491963/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "de411402890a6702496c2b01c149b3cf098999c7f59139f228ecf4db35cf16d7",
+      "finalUrl": "https://www.nalog.gov.ru/rn77/promo/na/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_491967/",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "94d9c9409d4e2331f9f1859ae5248baf1f6f072d3daf2cd82c00cf3bc2783e5d",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_491967/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "d0f1b78f2e11655c64c31ed39f064dead8324844f7b1e4a963a6fd56e77002e4",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_507282/5bdc78bf7e3015a0ea0c0ea5bef708a6c79e2f0a/",
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "a1d84b614530523162c9079542c3d0d7d09cf5410f6610c376d928bf007e31a6",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_507282/5bdc78bf7e3015a0ea0c0ea5bef708a6c79e2f0a/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "fd8a9d70befa075f0f54a0e510982b674290a40b07cea4a3cc80e11ab4f24008",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_5142/52b8ddfd2dcdeea14164157401daf099e5e09adb/",
+      "url": "http://publication.pravo.gov.ru/document/0001202311220011",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "338bdbb74e47b9c383000733742aec22406574f914b4b6df649b7589f843c0ff",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_5142/52b8ddfd2dcdeea14164157401daf099e5e09adb/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "1f26a9eb196dbf673894d10a9a251478869e18449e6525430a478e2d14c56082",
+      "finalUrl": "http://publication.pravo.gov.ru/document/0001202311220011"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_520020/",
+      "url": "http://publication.pravo.gov.ru/document/0001202411300011",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "2db0b232a79623bb741c918062abf52070925508d7f58cd130dfa14787eb691a",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_520020/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "e178a97ac623729c375894f478ca1e57a9131e4b71df5500e34b22a15315dd23",
+      "finalUrl": "http://publication.pravo.gov.ru/document/0001202411300011"
     },
     {
-      "url": "https://www.consultant.ru/document/cons_doc_LAW_52144/08b3ecbcdc9a360ad1dc314150a6328886703356/",
+      "url": "http://publication.pravo.gov.ru/document/0001202505310018",
       "status": "ok",
-      "checkedAt": "2026-10-14T09:53:58.082Z",
-      "sha256": "51fe03c88d9fa6c872e104483ae93a0a526755018c1f189979e8535b5628b224",
-      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_52144/08b3ecbcdc9a360ad1dc314150a6328886703356/"
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "26c33b9d216aed29e27f85d83be9c255b3ee98b598917c3804cc6410b34642cc",
+      "finalUrl": "http://publication.pravo.gov.ru/document/0001202505310018"
+    },
+    {
+      "url": "http://publication.pravo.gov.ru/document/0001202601210006",
+      "status": "ok",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "473bc382f071817dfc834d1a0e61466ec01a25065df4bcaa192fefaeb8485762",
+      "finalUrl": "http://publication.pravo.gov.ru/document/0001202601210006"
     }
   ],
   "byUrl": {
     "http://publication.pravo.gov.ru/document/0001202311220011": {
       "status": "ok",
-      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
       "sha256": "1f26a9eb196dbf673894d10a9a251478869e18449e6525430a478e2d14c56082",
       "finalUrl": "http://publication.pravo.gov.ru/document/0001202311220011"
     },
     "http://publication.pravo.gov.ru/document/0001202411300011": {
       "status": "ok",
-      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
       "sha256": "e178a97ac623729c375894f478ca1e57a9131e4b71df5500e34b22a15315dd23",
       "finalUrl": "http://publication.pravo.gov.ru/document/0001202411300011"
     },
     "http://publication.pravo.gov.ru/document/0001202505310018": {
       "status": "ok",
-      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
       "sha256": "26c33b9d216aed29e27f85d83be9c255b3ee98b598917c3804cc6410b34642cc",
       "finalUrl": "http://publication.pravo.gov.ru/document/0001202505310018"
     },
     "http://publication.pravo.gov.ru/document/0001202601210006": {
       "status": "ok",
-      "checkedAt": "2026-10-05T07:04:41.889Z",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
       "sha256": "473bc382f071817dfc834d1a0e61466ec01a25065df4bcaa192fefaeb8485762",
       "finalUrl": "http://publication.pravo.gov.ru/document/0001202601210006"
     },
@@ -531,38 +538,38 @@
     },
     "https://www.consultant.ru/document/cons_doc_LAW_95629/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T17:00:11.073Z",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
       "sha256": "489d0b37b4360b0c1c6f5f542625981addf86d4614caeaf0ac0adc80af841445",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_95629/"
     },
     "https://www.consultant.ru/law/hotdocs/76232.html": {
       "status": "ok",
-      "checkedAt": "2026-10-04T17:00:11.073Z",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
       "sha256": "1c463699acb775e94111dd924facf342bc8bc057540ff67b63eb4e9d40b769f7",
       "finalUrl": "https://www.consultant.ru/law/hotdocs/76232.html"
     },
     "https://www.consultant.ru/legalnews/30162/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T17:00:11.073Z",
-      "sha256": "b177023f94b9cecb2d25f8e57a9564799ec4a3ceac6e7158664d550d4aa29f36",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "b13e5e2320bbedd15b715ef42067c92d4ca54fa2f86b1f7b56a22025e57917d9",
       "finalUrl": "https://www.consultant.ru/legalnews/30162/"
     },
     "https://www.garant.ru/hotlaw/federal/1771084/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T17:00:11.073Z",
-      "sha256": "3dd4ea735f79e335763b06ec2e5a49a5ae7c631d511cf9198e09c80e473219ea",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "c6d6e31c7ac59fae89432a293802c4000e964fd37619835ff306466b786a2b28",
       "finalUrl": "https://www.garant.ru/hotlaw/federal/1771084/"
     },
     "https://www.garant.ru/products/ipo/prime/doc/408711579/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T17:00:11.073Z",
-      "sha256": "69973adca616d170aafc57b6fd49911f3639f9000d14bc37e0a73b3983c9d57b",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "83ec95638ee49643765e4117e86311cb0667f002956413807652785052b0b52a",
       "finalUrl": "https://www.garant.ru/products/ipo/prime/doc/408711579/"
     },
     "https://www.garant.ru/products/ipo/prime/doc/411482059/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T17:00:11.073Z",
-      "sha256": "5db74af0779d7c01e0e7d47563f2b39d4b3059f13e33bb55159a2c384ac2fa1e",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "6d89e8df9f690476bb017a7107ef8040e2fedf5bf79da8b0e37b8906a840e328",
       "finalUrl": "https://www.garant.ru/products/ipo/prime/doc/411482059/"
     },
     "https://www.nalog.gov.ru/rn75/news/activities_fts/16639239/": {
@@ -573,31 +580,31 @@
     },
     "https://www.nalog.gov.ru/rn77/about_fts/docs/16421640/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T17:00:11.073Z",
-      "sha256": "2524ecb9fef45ab237ede79912a1d15d656255bd1d818173f3d76ad7251507f1",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "2201fc2023f72fe6dc17d0da75e1525f3a42f2aa7d6d415e1f99e3eae16f8fa9",
       "finalUrl": "https://www.nalog.gov.ru/rn77/about_fts/docs/16421640/"
     },
     "https://www.nalog.gov.ru/rn77/about_fts/docs/16593572/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T17:00:11.073Z",
-      "sha256": "36d3d6f57bb86adaa88d3cec481c39192afb751f5ad4f9feac5a979b479c9568",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "70a2a222eb628795effd5ca949127d903244e88813d83f380a21d2e375bf611d",
       "finalUrl": "https://www.nalog.gov.ru/rn77/about_fts/docs/16593572/"
     },
     "https://www.nalog.gov.ru/rn77/promo/na/": {
       "status": "ok",
-      "checkedAt": "2026-10-04T17:00:11.073Z",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
       "sha256": "de411402890a6702496c2b01c149b3cf098999c7f59139f228ecf4db35cf16d7",
       "finalUrl": "https://www.nalog.gov.ru/rn77/promo/na/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/": {
       "status": "ok",
-      "checkedAt": "2026-10-05T04:53:05.365Z",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
       "sha256": "d0f1b78f2e11655c64c31ed39f064dead8324844f7b1e4a963a6fd56e77002e4",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_507282/ad890e68b83c920baeae9bb9fdc9b94feb1af0ad/"
     },
     "https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/": {
       "status": "ok",
-      "checkedAt": "2026-10-05T04:53:05.365Z",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
       "sha256": "fd8a9d70befa075f0f54a0e510982b674290a40b07cea4a3cc80e11ab4f24008",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_72388/a004bd14ae27f7df2514daf7222a49a63ca2d629/"
     },
@@ -803,6 +810,30 @@
       "checkedAt": "2026-10-14T09:53:58.082Z",
       "sha256": "03c7df80465b63074fb3f18bc7c413a02e268e5178569f731adaf34cab4ac35c",
       "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_536813/cb4d6a15af8fa639c80d1049975828d50314273a/"
+    },
+    "https://www.consultant.ru/document/cons_doc_LAW_42359/0c17a4091d18f33af58d3c20e17e1ac7f808242e/": {
+      "status": "ok",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "f5c47235fb4ce0cb323da33a6e8f2747d37998ddc392f25ead2a0c82c6488233",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_42359/0c17a4091d18f33af58d3c20e17e1ac7f808242e/"
+    },
+    "https://www.consultant.ru/document/cons_doc_LAW_42359/5c5a909568a200c14a12127e346d841fdc0da27e/": {
+      "status": "ok",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "9126d27ff96e46dbcb3f35a0dd422f3d10a71d8571a78408cd1779cec1b3965b",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_42359/5c5a909568a200c14a12127e346d841fdc0da27e/"
+    },
+    "https://www.consultant.ru/document/cons_doc_LAW_42359/c66f699f7114b0ac2d3309283162539ad93ea8d1/": {
+      "status": "ok",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "8dc48fb04827bdd6e1d1386bef2abebf48b41ca06e953ca8e0be795ff74e67ae",
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_42359/c66f699f7114b0ac2d3309283162539ad93ea8d1/"
+    },
+    "https://www.nalog.gov.ru/rn74/news/tax_doc_news/15807796/": {
+      "status": "ok",
+      "checkedAt": "2026-10-19T17:06:17.797Z",
+      "sha256": "4e6d5289d62c9cc516d8550d1097a10d7f84d23d5c659644db84c478f07b91f4",
+      "finalUrl": "https://www.nalog.gov.ru/rn74/news/tax_doc_news/15807796/"
     }
   }
 }

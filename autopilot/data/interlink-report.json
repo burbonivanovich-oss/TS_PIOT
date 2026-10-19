@@ -1,9 +1,24 @@
 {
-  "generatedAt": "2026-10-14",
+  "generatedAt": "2026-10-19",
   "dry": false,
-  "inserted": 0,
-  "touched": 0,
+  "inserted": 1,
+  "touched": 1,
   "orphansBefore": 36,
   "orphansAfter": 36,
-  "plan": []
+  "plan": [
+    {
+      "slug": "2026-05-01-markirovka-molochki-msb",
+      "outboundBefore": 5,
+      "additions": [
+        {
+          "target": "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya",
+          "anchor": "маркировка молочной продукции",
+          "relevance": 0.72,
+          "offset": 13,
+          "length": 29,
+          "line": "К 2026 году маркировка молочной продукции прошла все ключевые этапы внедрения: от регистрации произв"
+        }
+      ]
+    }
+  ]
 }
