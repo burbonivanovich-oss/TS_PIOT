@@ -1,0 +1,51 @@
+{
+  "seed": "ОФД оператор фискальных данных",
+  "slug": "офд-оператор-фискальных-данных",
+  "category": "entity",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-10-19T18:43:23.061Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 7,
+  "phrases": [
+    {
+      "phrase": "офд оператор фискальных данных",
+      "count": 729
+    },
+    {
+      "phrase": "платформа офд оператор фискальных данных",
+      "count": 186
+    },
+    {
+      "phrase": "офд оператор фискальных данных личный кабинет",
+      "count": 102
+    },
+    {
+      "phrase": "первый офд оператор фискальных данных",
+      "count": 48
+    },
+    {
+      "phrase": "договор с оператором фискальных данных офд",
+      "count": 39
+    },
+    {
+      "phrase": "е офд оператор фискальных данных что такое",
+      "count": 21
+    },
+    {
+      "phrase": "платформа офд оператор фискальных данных личный кабинет",
+      "count": 11
+    }
+  ]
+}

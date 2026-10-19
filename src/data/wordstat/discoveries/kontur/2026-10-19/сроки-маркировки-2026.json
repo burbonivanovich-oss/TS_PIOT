@@ -1,0 +1,27 @@
+{
+  "seed": "сроки маркировки 2026",
+  "slug": "сроки-маркировки-2026",
+  "category": "seasonal",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-19T18:43:58.439Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 1,
+  "phrases": [
+    {
+      "phrase": "честный знак сроки маркировки 2026",
+      "count": 181
+    }
+  ]
+}
