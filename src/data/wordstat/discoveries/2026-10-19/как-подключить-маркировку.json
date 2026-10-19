@@ -1,0 +1,35 @@
+{
+  "seed": "как подключить маркировку",
+  "slug": "как-подключить-маркировку",
+  "category": "intent",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-19T09:28:56.996Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 3,
+  "phrases": [
+    {
+      "phrase": "как подключить маркировку звонков",
+      "count": 34
+    },
+    {
+      "phrase": "как подключить маркировку в сбис",
+      "count": 16
+    },
+    {
+      "phrase": "как подключить маркировку на эвотор",
+      "count": 11
+    }
+  ]
+}

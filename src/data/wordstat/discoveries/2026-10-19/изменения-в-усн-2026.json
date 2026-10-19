@@ -1,0 +1,47 @@
+{
+  "seed": "изменения в УСН 2026",
+  "slug": "изменения-в-усн-2026",
+  "category": "intent",
+  "cluster": "nalogi",
+  "fetchedAt": "2026-10-19T09:28:49.567Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 6,
+  "phrases": [
+    {
+      "phrase": "усн в 2026 году изменения",
+      "count": 1193
+    },
+    {
+      "phrase": "усн доходы в 2026 году изменения",
+      "count": 345
+    },
+    {
+      "phrase": "усн и ндс в 2026 году изменения",
+      "count": 171
+    },
+    {
+      "phrase": "ип на усн в 2026 году изменения",
+      "count": 117
+    },
+    {
+      "phrase": "ооо на усн в 2026 году изменения",
+      "count": 20
+    },
+    {
+      "phrase": "усн в 2026 году изменения рб",
+      "count": 3
+    }
+  ]
+}

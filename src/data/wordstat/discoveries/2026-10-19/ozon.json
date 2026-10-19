@@ -1,0 +1,8023 @@
+{
+  "seed": "Ozon",
+  "slug": "ozon",
+  "category": "entity",
+  "cluster": "marketplace",
+  "fetchedAt": "2026-10-19T09:28:36.132Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 2000,
+  "phrases": [
+    {
+      "phrase": "ozon",
+      "count": 1699462
+    },
+    {
+      "phrase": "ozon ru",
+      "count": 293253
+    },
+    {
+      "phrase": "https ozon ru",
+      "count": 126217
+    },
+    {
+      "phrase": "ozon t",
+      "count": 68367
+    },
+    {
+      "phrase": "ozon ru t",
+      "count": 67251
+    },
+    {
+      "phrase": "магазин ozon",
+      "count": 64396
+    },
+    {
+      "phrase": "https ozon ru t",
+      "count": 62652
+    },
+    {
+      "phrase": "ozon интернет магазин",
+      "count": 58342
+    },
+    {
+      "phrase": "ozon seller",
+      "count": 56306
+    },
+    {
+      "phrase": "ozon банк",
+      "count": 54440
+    },
+    {
+      "phrase": "www ozon",
+      "count": 53420
+    },
+    {
+      "phrase": "www ozon ru",
+      "count": 52608
+    },
+    {
+      "phrase": "ozon отзывы",
+      "count": 49578
+    },
+    {
+      "phrase": "ozon ru интернет магазин",
+      "count": 46875
+    },
+    {
+      "phrase": "https www ozon",
+      "count": 46395
+    },
+    {
+      "phrase": "https www ozon ru",
+      "count": 46019
+    },
+    {
+      "phrase": "ozon личный",
+      "count": 41629
+    },
+    {
+      "phrase": "ozon ru product",
+      "count": 40335
+    },
+    {
+      "phrase": "ozon кабинет",
+      "count": 39266
+    },
+    {
+      "phrase": "ozon личный кабинет",
+      "count": 38472
+    },
+    {
+      "phrase": "1 ozon",
+      "count": 37538
+    },
+    {
+      "phrase": "фото ozon",
+      "count": 36044
+    },
+    {
+      "phrase": "www ozon ru product",
+      "count": 35473
+    },
+    {
+      "phrase": "https www ozon ru product",
+      "count": 34105
+    },
+    {
+      "phrase": "ozon товары",
+      "count": 32365
+    },
+    {
+      "phrase": "ozon карта",
+      "count": 31616
+    },
+    {
+      "phrase": "купить на ozon",
+      "count": 27260
+    },
+    {
+      "phrase": "ozon job",
+      "count": 25538
+    },
+    {
+      "phrase": "промокод ozon",
+      "count": 23242
+    },
+    {
+      "phrase": "wildberries ozon",
+      "count": 20094
+    },
+    {
+      "phrase": "пункт ozon",
+      "count": 18949
+    },
+    {
+      "phrase": "приложение ozon",
+      "count": 18789
+    },
+    {
+      "phrase": "ozon сайт",
+      "count": 18492
+    },
+    {
+      "phrase": "ozon доставка",
+      "count": 18132
+    },
+    {
+      "phrase": "ozon склад",
+      "count": 16859
+    },
+    {
+      "phrase": "ozon fresh",
+      "count": 16483
+    },
+    {
+      "phrase": "ozon работа",
+      "count": 16193
+    },
+    {
+      "phrase": "ozon seller личный",
+      "count": 16082
+    },
+    {
+      "phrase": "ozon bank",
+      "count": 15979
+    },
+    {
+      "phrase": "ozon seller кабинет",
+      "count": 15173
+    },
+    {
+      "phrase": "ozon seller личный кабинет",
+      "count": 15078
+    },
+    {
+      "phrase": "ozon скачать",
+      "count": 15009
+    },
+    {
+      "phrase": "ozon ru 1",
+      "count": 14918
+    },
+    {
+      "phrase": "ozon цена",
+      "count": 14137
+    },
+    {
+      "phrase": "ozon официальный",
+      "count": 14049
+    },
+    {
+      "phrase": "ozon s",
+      "count": 13362
+    },
+    {
+      "phrase": "ozon пункты выдачи",
+      "count": 12325
+    },
+    {
+      "phrase": "телефон ozon",
+      "count": 12301
+    },
+    {
+      "phrase": "ozon travel",
+      "count": 12264
+    },
+    {
+      "phrase": "s ozon ru",
+      "count": 11856
+    },
+    {
+      "phrase": "ozon официальный сайт",
+      "count": 11709
+    },
+    {
+      "phrase": "ozon вход",
+      "count": 11483
+    },
+    {
+      "phrase": "ozon fintech",
+      "count": 11240
+    },
+    {
+      "phrase": "ozon select",
+      "count": 11119
+    },
+    {
+      "phrase": "ozon ru fintech",
+      "count": 10857
+    },
+    {
+      "phrase": "pvz ozon",
+      "count": 10463
+    },
+    {
+      "phrase": "ozon card",
+      "count": 10041
+    },
+    {
+      "phrase": "озон ozon",
+      "count": 9085
+    },
+    {
+      "phrase": "ozon ru fintech activate",
+      "count": 8827
+    },
+    {
+      "phrase": "ozon номер",
+      "count": 8474
+    },
+    {
+      "phrase": "ozon finance",
+      "count": 7994
+    },
+    {
+      "phrase": "карта ozon банка",
+      "count": 7957
+    },
+    {
+      "phrase": "ozon пвз",
+      "count": 7806
+    },
+    {
+      "phrase": "ozon turbo",
+      "count": 7776
+    },
+    {
+      "phrase": "ozon activate card",
+      "count": 7625
+    },
+    {
+      "phrase": "ozon fintech activate card",
+      "count": 7504
+    },
+    {
+      "phrase": "ozon заказать",
+      "count": 7456
+    },
+    {
+      "phrase": "ozon 2026",
+      "count": 7374
+    },
+    {
+      "phrase": "ozon ru activate card",
+      "count": 7305
+    },
+    {
+      "phrase": "ozon ru fintech activate card",
+      "count": 7226
+    },
+    {
+      "phrase": "ozon скидки",
+      "count": 7182
+    },
+    {
+      "phrase": "ozon 7",
+      "count": 7098
+    },
+    {
+      "phrase": "ozon возвраты",
+      "count": 7073
+    },
+    {
+      "phrase": "ozon войти",
+      "count": 7038
+    },
+    {
+      "phrase": "turbo pvz ozon",
+      "count": 7015
+    },
+    {
+      "phrase": "pvz ozon ru",
+      "count": 7011
+    },
+    {
+      "phrase": "staff ozon",
+      "count": 6999
+    },
+    {
+      "phrase": "ozon ru личный",
+      "count": 6943
+    },
+    {
+      "phrase": "код ozon",
+      "count": 6894
+    },
+    {
+      "phrase": "ozon вакансии",
+      "count": 6806
+    },
+    {
+      "phrase": "pro ozon",
+      "count": 6761
+    },
+    {
+      "phrase": "ozon поддержка",
+      "count": 6751
+    },
+    {
+      "phrase": "seller ozon ru",
+      "count": 6695
+    },
+    {
+      "phrase": "ozon id",
+      "count": 6693
+    },
+    {
+      "phrase": "ozon посылка",
+      "count": 6464
+    },
+    {
+      "phrase": "wb ozon",
+      "count": 6380
+    },
+    {
+      "phrase": "ozon 12",
+      "count": 6371
+    },
+    {
+      "phrase": "акции ozon",
+      "count": 6322
+    },
+    {
+      "phrase": "найти ozon",
+      "count": 6161
+    },
+    {
+      "phrase": "сертификат ozon",
+      "count": 6109
+    },
+    {
+      "phrase": "ozon ссылка",
+      "count": 6097
+    },
+    {
+      "phrase": "ozon москва",
+      "count": 6045
+    },
+    {
+      "phrase": "ozon оплата",
+      "count": 5973
+    },
+    {
+      "phrase": "ozon premium",
+      "count": 5971
+    },
+    {
+      "phrase": "ozon маркетплейс",
+      "count": 5962
+    },
+    {
+      "phrase": "turbo ozon ru",
+      "count": 5875
+    },
+    {
+      "phrase": "ozon счет",
+      "count": 5781
+    },
+    {
+      "phrase": "ozon ru сайт",
+      "count": 5771
+    },
+    {
+      "phrase": "ozon ru личный кабинет",
+      "count": 5763
+    },
+    {
+      "phrase": "https www ozon ru search",
+      "count": 5508
+    },
+    {
+      "phrase": "turbo pvz ozon ru",
+      "count": 5481
+    },
+    {
+      "phrase": "ozon бизнес",
+      "count": 5409
+    },
+    {
+      "phrase": "ozon покупки",
+      "count": 5329
+    },
+    {
+      "phrase": "ozon селект",
+      "count": 5283
+    },
+    {
+      "phrase": "ozon am",
+      "count": 5274
+    },
+    {
+      "phrase": "ozon profit",
+      "count": 5185
+    },
+    {
+      "phrase": "купить на ozon по низкой цене",
+      "count": 5159
+    },
+    {
+      "phrase": "ozon global",
+      "count": 5149
+    },
+    {
+      "phrase": "finance ozon ru",
+      "count": 5126
+    },
+    {
+      "phrase": "ozon адреса",
+      "count": 5001
+    },
+    {
+      "phrase": "ozon интернет магазин официальный",
+      "count": 4975
+    },
+    {
+      "phrase": "ozon баллы",
+      "count": 4966
+    },
+    {
+      "phrase": "ozon 11",
+      "count": 4625
+    },
+    {
+      "phrase": "ozon api",
+      "count": 4624
+    },
+    {
+      "phrase": "горячая линия ozon",
+      "count": 4586
+    },
+    {
+      "phrase": "открыть ozon",
+      "count": 4585
+    },
+    {
+      "phrase": "скачать приложение ozon",
+      "count": 4583
+    },
+    {
+      "phrase": "сайт магазина ozon",
+      "count": 4540
+    },
+    {
+      "phrase": "staff ozon ru",
+      "count": 4383
+    },
+    {
+      "phrase": "ozon сайт интернет магазин",
+      "count": 4352
+    },
+    {
+      "phrase": "ozon вход в личный",
+      "count": 4326
+    },
+    {
+      "phrase": "ozon официальный сайт интернет",
+      "count": 4320
+    },
+    {
+      "phrase": "ozon 18",
+      "count": 4313
+    },
+    {
+      "phrase": "ozon официальный сайт интернет магазин",
+      "count": 4295
+    },
+    {
+      "phrase": "ozon банкомат",
+      "count": 4256
+    },
+    {
+      "phrase": "ozon видео",
+      "count": 4212
+    },
+    {
+      "phrase": "ozon личный кабинет вход в личный кабинет",
+      "count": 4170
+    },
+    {
+      "phrase": "ozon курьер",
+      "count": 4127
+    },
+    {
+      "phrase": "ozon россия",
+      "count": 4120
+    },
+    {
+      "phrase": "яндекс ozon",
+      "count": 4076
+    },
+    {
+      "phrase": "ozon track",
+      "count": 4064
+    },
+    {
+      "phrase": "ozon tracking",
+      "count": 4064
+    },
+    {
+      "phrase": "ozon ru официальный",
+      "count": 4003
+    },
+    {
+      "phrase": "ozon контакты",
+      "count": 3961
+    },
+    {
+      "phrase": "ozon ленина",
+      "count": 3881
+    },
+    {
+      "phrase": "c ozon",
+      "count": 3819
+    },
+    {
+      "phrase": "ozon часы",
+      "count": 3754
+    },
+    {
+      "phrase": "номер телефона ozon",
+      "count": 3667
+    },
+    {
+      "phrase": "ozon компания",
+      "count": 3641
+    },
+    {
+      "phrase": "ozon ru официальный сайт",
+      "count": 3576
+    },
+    {
+      "phrase": "ozon одежда",
+      "count": 3571
+    },
+    {
+      "phrase": "ozon реклама",
+      "count": 3530
+    },
+    {
+      "phrase": "карточка ozon",
+      "count": 3513
+    },
+    {
+      "phrase": "ozon ultra",
+      "count": 3460
+    },
+    {
+      "phrase": "комиссия ozon",
+      "count": 3402
+    },
+    {
+      "phrase": "ru ozon select",
+      "count": 3350
+    },
+    {
+      "phrase": "ozon личный кабинет войти",
+      "count": 3280
+    },
+    {
+      "phrase": "ozon каталог",
+      "count": 3258
+    },
+    {
+      "phrase": "ozon селлер",
+      "count": 3251
+    },
+    {
+      "phrase": "https seller ozon ru",
+      "count": 3151
+    },
+    {
+      "phrase": "ozon аккаунт",
+      "count": 3035
+    },
+    {
+      "phrase": "ozon подписка",
+      "count": 3028
+    },
+    {
+      "phrase": "m ozon",
+      "count": 3024
+    },
+    {
+      "phrase": "ozon банк контакты",
+      "count": 3001
+    },
+    {
+      "phrase": "камера ozon",
+      "count": 2964
+    },
+    {
+      "phrase": "ozon com",
+      "count": 2849
+    },
+    {
+      "phrase": "ozon рассрочка",
+      "count": 2848
+    },
+    {
+      "phrase": "ozon смартфоны",
+      "count": 2845
+    },
+    {
+      "phrase": "ozon артикул",
+      "count": 2844
+    },
+    {
+      "phrase": "ozon перевод",
+      "count": 2824
+    },
+    {
+      "phrase": "turbo pvz ozon вход",
+      "count": 2764
+    },
+    {
+      "phrase": "ozon ru интернет магазин официальный",
+      "count": 2746
+    },
+    {
+      "phrase": "ozon box",
+      "count": 2724
+    },
+    {
+      "phrase": "id ozon ru",
+      "count": 2722
+    },
+    {
+      "phrase": "ozon спб",
+      "count": 2656
+    },
+    {
+      "phrase": "ozon п",
+      "count": 2629
+    },
+    {
+      "phrase": "ozon саратов",
+      "count": 2629
+    },
+    {
+      "phrase": "ozon ru интернет магазин официальный сайт",
+      "count": 2607
+    },
+    {
+      "phrase": "ozon кредитная карта",
+      "count": 2601
+    },
+    {
+      "phrase": "ооо ozon",
+      "count": 2598
+    },
+    {
+      "phrase": "ozon банк отзывы",
+      "count": 2575
+    },
+    {
+      "phrase": "ozon tech",
+      "count": 2574
+    },
+    {
+      "phrase": "ozon отправить посылку",
+      "count": 2545
+    },
+    {
+      "phrase": "ozon staff личный",
+      "count": 2540
+    },
+    {
+      "phrase": "ozon возврат товара",
+      "count": 2537
+    },
+    {
+      "phrase": "ozon фармацевтика",
+      "count": 2521
+    },
+    {
+      "phrase": "ozon bank личный",
+      "count": 2513
+    },
+    {
+      "phrase": "ozon выдача заказов",
+      "count": 2479
+    },
+    {
+      "phrase": "ozon машина",
+      "count": 2476
+    },
+    {
+      "phrase": "samsung ozon",
+      "count": 2471
+    },
+    {
+      "phrase": "кабинет ozon bank",
+      "count": 2429
+    },
+    {
+      "phrase": "qr ozon",
+      "count": 2426
+    },
+    {
+      "phrase": "ozon bank личный кабинет",
+      "count": 2422
+    },
+    {
+      "phrase": "https finance ozon ru",
+      "count": 2398
+    },
+    {
+      "phrase": "ozon режим работы",
+      "count": 2397
+    },
+    {
+      "phrase": "fbs ozon",
+      "count": 2393
+    },
+    {
+      "phrase": "ozon ул ленина",
+      "count": 2392
+    },
+    {
+      "phrase": "ozon маркет",
+      "count": 2379
+    },
+    {
+      "phrase": "https pvz ozon ru",
+      "count": 2372
+    },
+    {
+      "phrase": "pvz ozon ru вход",
+      "count": 2371
+    },
+    {
+      "phrase": "ozon почта",
+      "count": 2363
+    },
+    {
+      "phrase": "озон ozon ru",
+      "count": 2338
+    },
+    {
+      "phrase": "ozon онлайн",
+      "count": 2326
+    },
+    {
+      "phrase": "ozon app",
+      "count": 2315
+    },
+    {
+      "phrase": "ozon отправка",
+      "count": 2312
+    },
+    {
+      "phrase": "turbo pvz ozon ru вход",
+      "count": 2292
+    },
+    {
+      "phrase": "как оплатить ozon",
+      "count": 2254
+    },
+    {
+      "phrase": "ozon санкт петербург",
+      "count": 2241
+    },
+    {
+      "phrase": "ozon ноутбук",
+      "count": 2240
+    },
+    {
+      "phrase": "ozon ип",
+      "count": 2237
+    },
+    {
+      "phrase": "цвета ozon",
+      "count": 2223
+    },
+    {
+      "phrase": "ozon ru банк",
+      "count": 2220
+    },
+    {
+      "phrase": "https www ozon ru rr 1",
+      "count": 2219
+    },
+    {
+      "phrase": "http ozon",
+      "count": 2184
+    },
+    {
+      "phrase": "ozon каталог товаров",
+      "count": 2159
+    },
+    {
+      "phrase": "xiaomi ozon",
+      "count": 2152
+    },
+    {
+      "phrase": "ozon ru category",
+      "count": 2141
+    },
+    {
+      "phrase": "ozon группа",
+      "count": 2103
+    },
+    {
+      "phrase": "qr код ozon",
+      "count": 2094
+    },
+    {
+      "phrase": "ozon банк телефон",
+      "count": 2093
+    },
+    {
+      "phrase": "ozon отели",
+      "count": 2078
+    },
+    {
+      "phrase": "озон банк ozon",
+      "count": 2066
+    },
+    {
+      "phrase": "игрушки ozon",
+      "count": 2062
+    },
+    {
+      "phrase": "ozon билеты",
+      "count": 2056
+    },
+    {
+      "phrase": "чехол ozon",
+      "count": 1998
+    },
+    {
+      "phrase": "staff ozon ru личный",
+      "count": 1983
+    },
+    {
+      "phrase": "ozon интернет магазин каталог",
+      "count": 1982
+    },
+    {
+      "phrase": "ozon сегодня",
+      "count": 1974
+    },
+    {
+      "phrase": "ozon банк приложение",
+      "count": 1957
+    },
+    {
+      "phrase": "ozon банк горячая",
+      "count": 1953
+    },
+    {
+      "phrase": "ozon fbo",
+      "count": 1941
+    },
+    {
+      "phrase": "ozon яндекс маркет",
+      "count": 1926
+    },
+    {
+      "phrase": "ozon l",
+      "count": 1922
+    },
+    {
+      "phrase": "установить ozon",
+      "count": 1921
+    },
+    {
+      "phrase": "ozon банк горячая линия",
+      "count": 1902
+    },
+    {
+      "phrase": "ozon max",
+      "count": 1898
+    },
+    {
+      "phrase": "https www ozon ru category",
+      "count": 1896
+    },
+    {
+      "phrase": "ozon ru app",
+      "count": 1850
+    },
+    {
+      "phrase": "https id ozon ru",
+      "count": 1846
+    },
+    {
+      "phrase": "ozon video",
+      "count": 1820
+    },
+    {
+      "phrase": "iphone ozon",
+      "count": 1813
+    },
+    {
+      "phrase": "скачать бесплатно ozon",
+      "count": 1808
+    },
+    {
+      "phrase": "ozon до скольки",
+      "count": 1806
+    },
+    {
+      "phrase": "ozon check",
+      "count": 1789
+    },
+    {
+      "phrase": "упаковки ozon",
+      "count": 1787
+    },
+    {
+      "phrase": "ozon банк номер",
+      "count": 1785
+    },
+    {
+      "phrase": "ssd ozon",
+      "count": 1776
+    },
+    {
+      "phrase": "ozon автомобили",
+      "count": 1771
+    },
+    {
+      "phrase": "ozon map",
+      "count": 1767
+    },
+    {
+      "phrase": "ozon фармацевтика и ozon что общего",
+      "count": 1765
+    },
+    {
+      "phrase": "ozon интернет магазин спб",
+      "count": 1763
+    },
+    {
+      "phrase": "подключить ozon",
+      "count": 1763
+    },
+    {
+      "phrase": "аккумулятор ozon",
+      "count": 1761
+    },
+    {
+      "phrase": "ozon maps",
+      "count": 1761
+    },
+    {
+      "phrase": "перейти на ozon",
+      "count": 1754
+    },
+    {
+      "phrase": "ozon банк скачать",
+      "count": 1742
+    },
+    {
+      "phrase": "бренд ozon",
+      "count": 1740
+    },
+    {
+      "phrase": "ozon seller api",
+      "count": 1727
+    },
+    {
+      "phrase": "ozon полка",
+      "count": 1719
+    },
+    {
+      "phrase": "ozon ru cart",
+      "count": 1716
+    },
+    {
+      "phrase": "m ozon ru",
+      "count": 1715
+    },
+    {
+      "phrase": "ozon сервис",
+      "count": 1713
+    },
+    {
+      "phrase": "ozon игры",
+      "count": 1709
+    },
+    {
+      "phrase": "ozon промокод на скидку",
+      "count": 1707
+    },
+    {
+      "phrase": "staff ozon личный кабинет",
+      "count": 1705
+    },
+    {
+      "phrase": "finance ozon activate",
+      "count": 1703
+    },
+    {
+      "phrase": "ozon банк отделения",
+      "count": 1696
+    },
+    {
+      "phrase": "ozon горячая линия телефон",
+      "count": 1686
+    },
+    {
+      "phrase": "ozon select промокод",
+      "count": 1685
+    },
+    {
+      "phrase": "версии ozon",
+      "count": 1685
+    },
+    {
+      "phrase": "ozon платит",
+      "count": 1685
+    },
+    {
+      "phrase": "ozon pay",
+      "count": 1679
+    },
+    {
+      "phrase": "ozon песня",
+      "count": 1667
+    },
+    {
+      "phrase": "ozon стажировка",
+      "count": 1661
+    },
+    {
+      "phrase": "до скольки работает ozon",
+      "count": 1659
+    },
+    {
+      "phrase": "куртка ozon",
+      "count": 1656
+    },
+    {
+      "phrase": "ozon отследить",
+      "count": 1653
+    },
+    {
+      "phrase": "ozon vk",
+      "count": 1651
+    },
+    {
+      "phrase": "ozon подарки",
+      "count": 1650
+    },
+    {
+      "phrase": "банкоматы ozon банка",
+      "count": 1631
+    },
+    {
+      "phrase": "ozon ru перейти",
+      "count": 1624
+    },
+    {
+      "phrase": "кроссовки ozon",
+      "count": 1618
+    },
+    {
+      "phrase": "программа ozon",
+      "count": 1613
+    },
+    {
+      "phrase": "коробка ozon",
+      "count": 1599
+    },
+    {
+      "phrase": "ozon дебетовая карта",
+      "count": 1593
+    },
+    {
+      "phrase": "ozon ростов",
+      "count": 1582
+    },
+    {
+      "phrase": "ozon китай",
+      "count": 1581
+    },
+    {
+      "phrase": "ozon limit",
+      "count": 1564
+    },
+    {
+      "phrase": "https turbo pvz ozon ru",
+      "count": 1562
+    },
+    {
+      "phrase": "что значит ozon",
+      "count": 1542
+    },
+    {
+      "phrase": "каталог товаров интернет магазина ozon",
+      "count": 1515
+    },
+    {
+      "phrase": "http ozon ru",
+      "count": 1496
+    },
+    {
+      "phrase": "смотреть ozon",
+      "count": 1487
+    },
+    {
+      "phrase": "ozon не работает",
+      "count": 1485
+    },
+    {
+      "phrase": "ozon краснодар",
+      "count": 1481
+    },
+    {
+      "phrase": "ozon банк личный",
+      "count": 1475
+    },
+    {
+      "phrase": "правила ozon",
+      "count": 1474
+    },
+    {
+      "phrase": "подписка ozon premium",
+      "count": 1474
+    },
+    {
+      "phrase": "ozon екатеринбург",
+      "count": 1465
+    },
+    {
+      "phrase": "ozon работа на складе",
+      "count": 1463
+    },
+    {
+      "phrase": "ozon blogger",
+      "count": 1442
+    },
+    {
+      "phrase": "ozon rocket",
+      "count": 1440
+    },
+    {
+      "phrase": "ozon банк для бизнеса",
+      "count": 1437
+    },
+    {
+      "phrase": "чат ozon",
+      "count": 1436
+    },
+    {
+      "phrase": "ozon обучение",
+      "count": 1435
+    },
+    {
+      "phrase": "костюм ozon",
+      "count": 1426
+    },
+    {
+      "phrase": "ozon документы",
+      "count": 1425
+    },
+    {
+      "phrase": "ozon поддержка телефон",
+      "count": 1422
+    },
+    {
+      "phrase": "ozon оператор",
+      "count": 1419
+    },
+    {
+      "phrase": "ozon банк кабинет",
+      "count": 1419
+    },
+    {
+      "phrase": "ozon регистрация",
+      "count": 1413
+    },
+    {
+      "phrase": "ozon водитель",
+      "count": 1411
+    },
+    {
+      "phrase": "ozon партнеры",
+      "count": 1402
+    },
+    {
+      "phrase": "ооо интернет решения ozon",
+      "count": 1402
+    },
+    {
+      "phrase": "ozon банк личный кабинет",
+      "count": 1402
+    },
+    {
+      "phrase": "компьютер ozon",
+      "count": 1400
+    },
+    {
+      "phrase": "ozon чек",
+      "count": 1394
+    },
+    {
+      "phrase": "ozon promo",
+      "count": 1393
+    },
+    {
+      "phrase": "https ozon com",
+      "count": 1392
+    },
+    {
+      "phrase": "ozon web",
+      "count": 1391
+    },
+    {
+      "phrase": "ozon ru реклама",
+      "count": 1380
+    },
+    {
+      "phrase": "ozon job скачать",
+      "count": 1378
+    },
+    {
+      "phrase": "ozon карта отзывы",
+      "count": 1377
+    },
+    {
+      "phrase": "ozon купить товар",
+      "count": 1372
+    },
+    {
+      "phrase": "ozon график",
+      "count": 1365
+    },
+    {
+      "phrase": "планшет ozon",
+      "count": 1359
+    },
+    {
+      "phrase": "ozon способы оплаты",
+      "count": 1359
+    },
+    {
+      "phrase": "ozon банк войти",
+      "count": 1358
+    },
+    {
+      "phrase": "ozon авто",
+      "count": 1356
+    },
+    {
+      "phrase": "ozon новости",
+      "count": 1354
+    },
+    {
+      "phrase": "ozon travel промокод",
+      "count": 1342
+    },
+    {
+      "phrase": "платье ozon",
+      "count": 1342
+    },
+    {
+      "phrase": "ozon nuor",
+      "count": 1339
+    },
+    {
+      "phrase": "заказать карту ozon",
+      "count": 1330
+    },
+    {
+      "phrase": "ozon промокоды 2026",
+      "count": 1330
+    },
+    {
+      "phrase": "пылесос ozon",
+      "count": 1322
+    },
+    {
+      "phrase": "ozon fresh промокод",
+      "count": 1309
+    },
+    {
+      "phrase": "ozon банк карта дебетовая",
+      "count": 1308
+    },
+    {
+      "phrase": "ozon история",
+      "count": 1304
+    },
+    {
+      "phrase": "ozon для продавцов",
+      "count": 1298
+    },
+    {
+      "phrase": "ozon plus",
+      "count": 1298
+    },
+    {
+      "phrase": "ozon seller вход",
+      "count": 1293
+    },
+    {
+      "phrase": "ozon b",
+      "count": 1280
+    },
+    {
+      "phrase": "ozon home",
+      "count": 1279
+    },
+    {
+      "phrase": "ozon nuor garsas",
+      "count": 1277
+    },
+    {
+      "phrase": "ozon звезды",
+      "count": 1276
+    },
+    {
+      "phrase": "ozon бонусы",
+      "count": 1269
+    },
+    {
+      "phrase": "ozon новосибирск",
+      "count": 1265
+    },
+    {
+      "phrase": "скачать ozon приложение бесплатно",
+      "count": 1245
+    },
+    {
+      "phrase": "www seller ozon ru",
+      "count": 1242
+    },
+    {
+      "phrase": "футболка ozon",
+      "count": 1242
+    },
+    {
+      "phrase": "ozon data",
+      "count": 1241
+    },
+    {
+      "phrase": "ozon октябрьский",
+      "count": 1239
+    },
+    {
+      "phrase": "ozon авито",
+      "count": 1236
+    },
+    {
+      "phrase": "ozon начали",
+      "count": 1236
+    },
+    {
+      "phrase": "ym ozon что это",
+      "count": 1234
+    },
+    {
+      "phrase": "ozon авиабилеты",
+      "count": 1232
+    },
+    {
+      "phrase": "ozon телевизоры",
+      "count": 1230
+    },
+    {
+      "phrase": "ozon смена",
+      "count": 1222
+    },
+    {
+      "phrase": "ozon job работа",
+      "count": 1212
+    },
+    {
+      "phrase": "ozon job склад",
+      "count": 1207
+    },
+    {
+      "phrase": "ozon промокод на первый заказ",
+      "count": 1189
+    },
+    {
+      "phrase": "ozon нижний новгород",
+      "count": 1188
+    },
+    {
+      "phrase": "ozon ru интернет магазин каталог",
+      "count": 1179
+    },
+    {
+      "phrase": "ozon мои заказы",
+      "count": 1178
+    },
+    {
+      "phrase": "ozon wildberries яндекс маркет",
+      "count": 1177
+    },
+    {
+      "phrase": "ozon доставка цена",
+      "count": 1175
+    },
+    {
+      "phrase": "ozon услуги",
+      "count": 1174
+    },
+    {
+      "phrase": "staff ozon ru личный кабинет",
+      "count": 1166
+    },
+    {
+      "phrase": "ozon реквизиты",
+      "count": 1165
+    },
+    {
+      "phrase": "ozon u",
+      "count": 1155
+    },
+    {
+      "phrase": "tms ozon",
+      "count": 1155
+    },
+    {
+      "phrase": "платформа ozon",
+      "count": 1153
+    },
+    {
+      "phrase": "кровать ozon",
+      "count": 1152
+    },
+    {
+      "phrase": "https www ozon seller",
+      "count": 1151
+    },
+    {
+      "phrase": "стол ozon",
+      "count": 1149
+    },
+    {
+      "phrase": "pvz map ozon",
+      "count": 1138
+    },
+    {
+      "phrase": "пакет ozon",
+      "count": 1133
+    },
+    {
+      "phrase": "https www ozon ru seller",
+      "count": 1131
+    },
+    {
+      "phrase": "брюки ozon",
+      "count": 1128
+    },
+    {
+      "phrase": "https ozon fintech",
+      "count": 1128
+    },
+    {
+      "phrase": "ozon сертификат подарочный",
+      "count": 1127
+    },
+    {
+      "phrase": "url ozon",
+      "count": 1124
+    },
+    {
+      "phrase": "help ozon",
+      "count": 1123
+    },
+    {
+      "phrase": "ozon задания",
+      "count": 1121
+    },
+    {
+      "phrase": "https ozon ru fintech",
+      "count": 1118
+    },
+    {
+      "phrase": "ozon селект промокод",
+      "count": 1115
+    },
+    {
+      "phrase": "ozon банк карта отзывы",
+      "count": 1111
+    },
+    {
+      "phrase": "как отправить через ozon",
+      "count": 1107
+    },
+    {
+      "phrase": "ozon доставка посылок",
+      "count": 1105
+    },
+    {
+      "phrase": "менеджер ozon",
+      "count": 1105
+    },
+    {
+      "phrase": "ozon ручки",
+      "count": 1096
+    },
+    {
+      "phrase": "отслеживание ozon",
+      "count": 1091
+    },
+    {
+      "phrase": "ozon морковки",
+      "count": 1085
+    },
+    {
+      "phrase": "honor ozon",
+      "count": 1082
+    },
+    {
+      "phrase": "ozon самара",
+      "count": 1076
+    },
+    {
+      "phrase": "калькулятор ozon",
+      "count": 1063
+    },
+    {
+      "phrase": "ozon каталог сайт",
+      "count": 1063
+    },
+    {
+      "phrase": "track ozon ru",
+      "count": 1055
+    },
+    {
+      "phrase": "tracking ozon ru",
+      "count": 1055
+    },
+    {
+      "phrase": "покажи на ozon",
+      "count": 1052
+    },
+    {
+      "phrase": "ozon ru личный кабинет вход",
+      "count": 1046
+    },
+    {
+      "phrase": "ozon премиум",
+      "count": 1044
+    },
+    {
+      "phrase": "turbo ozon ru orders",
+      "count": 1041
+    },
+    {
+      "phrase": "шкаф ozon",
+      "count": 1039
+    },
+    {
+      "phrase": "bank ozon ru",
+      "count": 1039
+    },
+    {
+      "phrase": "ozon job отзывы",
+      "count": 1037
+    },
+    {
+      "phrase": "ozon business",
+      "count": 1033
+    },
+    {
+      "phrase": "main ozon",
+      "count": 1032
+    },
+    {
+      "phrase": "фирма ozon",
+      "count": 1032
+    },
+    {
+      "phrase": "ozon r",
+      "count": 1031
+    },
+    {
+      "phrase": "ozon ключ",
+      "count": 1031
+    },
+    {
+      "phrase": "ozon воронеж",
+      "count": 1020
+    },
+    {
+      "phrase": "turbo pvz ozon ru orders",
+      "count": 1018
+    },
+    {
+      "phrase": "ozon шины",
+      "count": 1013
+    },
+    {
+      "phrase": "ozon официальный сайт каталог",
+      "count": 1008
+    },
+    {
+      "phrase": "ozon bank скачать",
+      "count": 1001
+    },
+    {
+      "phrase": "ozon розыгрыш",
+      "count": 1000
+    },
+    {
+      "phrase": "ozon банк отзывы дебетовые карты",
+      "count": 997
+    },
+    {
+      "phrase": "ozon часы работы",
+      "count": 995
+    },
+    {
+      "phrase": "купить на ozon ru",
+      "count": 991
+    },
+    {
+      "phrase": "ozon ru личный кабинет войти",
+      "count": 989
+    },
+    {
+      "phrase": "ближайший ozon",
+      "count": 989
+    },
+    {
+      "phrase": "ozon promo ru",
+      "count": 983
+    },
+    {
+      "phrase": "ozon кредит",
+      "count": 981
+    },
+    {
+      "phrase": "мебель ozon",
+      "count": 975
+    },
+    {
+      "phrase": "форма ozon",
+      "count": 970
+    },
+    {
+      "phrase": "кредитная ozon банк",
+      "count": 970
+    },
+    {
+      "phrase": "кухня ozon",
+      "count": 965
+    },
+    {
+      "phrase": "ozon обзоры",
+      "count": 961
+    },
+    {
+      "phrase": "ozon рядом",
+      "count": 959
+    },
+    {
+      "phrase": "ozon турбо",
+      "count": 958
+    },
+    {
+      "phrase": "docs ozon",
+      "count": 957
+    },
+    {
+      "phrase": "support ozon",
+      "count": 957
+    },
+    {
+      "phrase": "инструменты ozon",
+      "count": 951
+    },
+    {
+      "phrase": "ozon onelink me",
+      "count": 951
+    },
+    {
+      "phrase": "api seller ozon ru",
+      "count": 947
+    },
+    {
+      "phrase": "ozon black",
+      "count": 946
+    },
+    {
+      "phrase": "https www ozon ru cart",
+      "count": 945
+    },
+    {
+      "phrase": "интернет магазин ozon официальный сайт каталог",
+      "count": 944
+    },
+    {
+      "phrase": "ozon банк номер телефона",
+      "count": 942
+    },
+    {
+      "phrase": "ozon cd",
+      "count": 940
+    },
+    {
+      "phrase": "ozon офис",
+      "count": 940
+    },
+    {
+      "phrase": "рейтинг ozon",
+      "count": 935
+    },
+    {
+      "phrase": "ozon картинка",
+      "count": 933
+    },
+    {
+      "phrase": "ozon аналитика",
+      "count": 931
+    },
+    {
+      "phrase": "ozon job поддержка",
+      "count": 928
+    },
+    {
+      "phrase": "ozon fresh курьер",
+      "count": 928
+    },
+    {
+      "phrase": "штрих код ozon",
+      "count": 928
+    },
+    {
+      "phrase": "со скольки работает ozon",
+      "count": 925
+    },
+    {
+      "phrase": "ozon киров",
+      "count": 924
+    },
+    {
+      "phrase": "ozon таблетки",
+      "count": 918
+    },
+    {
+      "phrase": "ozon банк кредитная карта кредитная карта",
+      "count": 916
+    },
+    {
+      "phrase": "ozon ru интернет магазин каталог товаров",
+      "count": 913
+    },
+    {
+      "phrase": "доставка через ozon",
+      "count": 912
+    },
+    {
+      "phrase": "ozon айфон",
+      "count": 910
+    },
+    {
+      "phrase": "ozon бпла",
+      "count": 905
+    },
+    {
+      "phrase": "кэшбэк ozon",
+      "count": 904
+    },
+    {
+      "phrase": "склад ozon саратов",
+      "count": 901
+    },
+    {
+      "phrase": "велосипед ozon",
+      "count": 898
+    },
+    {
+      "phrase": "служба поддержки ozon",
+      "count": 892
+    },
+    {
+      "phrase": "вози ozon",
+      "count": 889
+    },
+    {
+      "phrase": "атака на ozon",
+      "count": 885
+    },
+    {
+      "phrase": "искать на ozon",
+      "count": 881
+    },
+    {
+      "phrase": "распродажа ozon",
+      "count": 876
+    },
+    {
+      "phrase": "ozon садовый",
+      "count": 876
+    },
+    {
+      "phrase": "ozon для сотрудников",
+      "count": 875
+    },
+    {
+      "phrase": "job ozon ru",
+      "count": 872
+    },
+    {
+      "phrase": "ozon дата",
+      "count": 868
+    },
+    {
+      "phrase": "сообщения ozon",
+      "count": 867
+    },
+    {
+      "phrase": "карта ozon finance",
+      "count": 866
+    },
+    {
+      "phrase": "huawei ozon",
+      "count": 866
+    },
+    {
+      "phrase": "ozon постамат",
+      "count": 864
+    },
+    {
+      "phrase": "o ozon",
+      "count": 862
+    },
+    {
+      "phrase": "poco ozon",
+      "count": 861
+    },
+    {
+      "phrase": "ozon график работы",
+      "count": 860
+    },
+    {
+      "phrase": "ozon avito",
+      "count": 857
+    },
+    {
+      "phrase": "ozon б",
+      "count": 856
+    },
+    {
+      "phrase": "ozon курсы",
+      "count": 854
+    },
+    {
+      "phrase": "как выйти из ozon",
+      "count": 851
+    },
+    {
+      "phrase": "ozon из за рубежа",
+      "count": 851
+    },
+    {
+      "phrase": "установить приложение ozon",
+      "count": 850
+    },
+    {
+      "phrase": "help ozon ru",
+      "count": 846
+    },
+    {
+      "phrase": "восстановить ozon",
+      "count": 845
+    },
+    {
+      "phrase": "docs ozon ru",
+      "count": 842
+    },
+    {
+      "phrase": "ozon помощь",
+      "count": 841
+    },
+    {
+      "phrase": "как отправить посылку через ozon",
+      "count": 835
+    },
+    {
+      "phrase": "ozon время работы",
+      "count": 834
+    },
+    {
+      "phrase": "ip ozon",
+      "count": 829
+    },
+    {
+      "phrase": "номер поддержки ozon",
+      "count": 829
+    },
+    {
+      "phrase": "ozon new",
+      "count": 828
+    },
+    {
+      "phrase": "ozon ростов на дону",
+      "count": 827
+    },
+    {
+      "phrase": "ozon мониторы",
+      "count": 826
+    },
+    {
+      "phrase": "клавиатура ozon",
+      "count": 824
+    },
+    {
+      "phrase": "ozon банк поддержка",
+      "count": 821
+    },
+    {
+      "phrase": "seller ozon ru личный",
+      "count": 821
+    },
+    {
+      "phrase": "samsung galaxy ozon",
+      "count": 821
+    },
+    {
+      "phrase": "ozon market",
+      "count": 818
+    },
+    {
+      "phrase": "ozon доставка отзывы",
+      "count": 813
+    },
+    {
+      "phrase": "колонка ozon",
+      "count": 810
+    },
+    {
+      "phrase": "finance ozon ru activate",
+      "count": 808
+    },
+    {
+      "phrase": "ozon турбо пвз",
+      "count": 801
+    },
+    {
+      "phrase": "включи ozon",
+      "count": 800
+    },
+    {
+      "phrase": "ozon fresh доставка",
+      "count": 799
+    },
+    {
+      "phrase": "ozon арена",
+      "count": 794
+    },
+    {
+      "phrase": "найти приложение ozon",
+      "count": 793
+    },
+    {
+      "phrase": "ozon fresh работа",
+      "count": 792
+    },
+    {
+      "phrase": "ozon скачать на андроид",
+      "count": 790
+    },
+    {
+      "phrase": "ozon вб",
+      "count": 789
+    },
+    {
+      "phrase": "ozon f",
+      "count": 785
+    },
+    {
+      "phrase": "промокод ozon сентябрь",
+      "count": 782
+    },
+    {
+      "phrase": "ozon челябинск",
+      "count": 781
+    },
+    {
+      "phrase": "как пополнить ozon",
+      "count": 780
+    },
+    {
+      "phrase": "клиента из приложения ozon",
+      "count": 778
+    },
+    {
+      "phrase": "ozon partner",
+      "count": 773
+    },
+    {
+      "phrase": "ozon partners",
+      "count": 773
+    },
+    {
+      "phrase": "ozon инн",
+      "count": 771
+    },
+    {
+      "phrase": "ozon ярославль",
+      "count": 771
+    },
+    {
+      "phrase": "https ozon onelink me",
+      "count": 771
+    },
+    {
+      "phrase": "ozon ru ozonid",
+      "count": 769
+    },
+    {
+      "phrase": "рюкзак ozon",
+      "count": 768
+    },
+    {
+      "phrase": "номер заказа ozon",
+      "count": 763
+    },
+    {
+      "phrase": "ozon кофе",
+      "count": 762
+    },
+    {
+      "phrase": "ozon официальный сайт интернет магазин каталог товаров",
+      "count": 762
+    },
+    {
+      "phrase": "riko ozon",
+      "count": 759
+    },
+    {
+      "phrase": "как отключить ozon premium",
+      "count": 758
+    },
+    {
+      "phrase": "принтер ozon",
+      "count": 754
+    },
+    {
+      "phrase": "ozon start",
+      "count": 753
+    },
+    {
+      "phrase": "data ozon ru",
+      "count": 751
+    },
+    {
+      "phrase": "виртуальная карта ozon",
+      "count": 749
+    },
+    {
+      "phrase": "ozon трек",
+      "count": 747
+    },
+    {
+      "phrase": "ozon wifi",
+      "count": 742
+    },
+    {
+      "phrase": "ozon nfc",
+      "count": 737
+    },
+    {
+      "phrase": "ozon ru web",
+      "count": 737
+    },
+    {
+      "phrase": "ozon travel авиабилеты",
+      "count": 736
+    },
+    {
+      "phrase": "ozon красноярск",
+      "count": 733
+    },
+    {
+      "phrase": "номер горячей линии ozon",
+      "count": 732
+    },
+    {
+      "phrase": "ozon холодильник",
+      "count": 731
+    },
+    {
+      "phrase": "ozon банк скачать приложение",
+      "count": 731
+    },
+    {
+      "phrase": "www ozon ru highlight",
+      "count": 729
+    },
+    {
+      "phrase": "ozon машинка",
+      "count": 725
+    },
+    {
+      "phrase": "finance ozon activate активировать",
+      "count": 724
+    },
+    {
+      "phrase": "ozon air",
+      "count": 723
+    },
+    {
+      "phrase": "ozon на пк",
+      "count": 723
+    },
+    {
+      "phrase": "ozon bank карта",
+      "count": 723
+    },
+    {
+      "phrase": "ozon ru работа",
+      "count": 722
+    },
+    {
+      "phrase": "ozon логотип",
+      "count": 720
+    },
+    {
+      "phrase": "коляска ozon",
+      "count": 716
+    },
+    {
+      "phrase": "ozon ru почта",
+      "count": 715
+    },
+    {
+      "phrase": "очки ozon",
+      "count": 715
+    },
+    {
+      "phrase": "ozon банк телефон горячей",
+      "count": 715
+    },
+    {
+      "phrase": "генератор ozon",
+      "count": 712
+    },
+    {
+      "phrase": "ozon омск",
+      "count": 707
+    },
+    {
+      "phrase": "seller ozon ru личный кабинет",
+      "count": 705
+    },
+    {
+      "phrase": "ozon ru product 50",
+      "count": 702
+    },
+    {
+      "phrase": "ozon банк открыть",
+      "count": 702
+    },
+    {
+      "phrase": "www ozon ru официальный",
+      "count": 700
+    },
+    {
+      "phrase": "ozon shop",
+      "count": 700
+    },
+    {
+      "phrase": "отзывы ozon 18",
+      "count": 696
+    },
+    {
+      "phrase": "ozon brand",
+      "count": 694
+    },
+    {
+      "phrase": "ozon apk",
+      "count": 692
+    },
+    {
+      "phrase": "support ozon ru",
+      "count": 690
+    },
+    {
+      "phrase": "ozon code",
+      "count": 689
+    },
+    {
+      "phrase": "ozon банк телефон горячей линии",
+      "count": 688
+    },
+    {
+      "phrase": "ozon микрофон",
+      "count": 688
+    },
+    {
+      "phrase": "https www ozon ru cart share",
+      "count": 687
+    },
+    {
+      "phrase": "матрас ozon",
+      "count": 684
+    },
+    {
+      "phrase": "вазе ozon",
+      "count": 684
+    },
+    {
+      "phrase": "ozon pvz личный кабинет",
+      "count": 681
+    },
+    {
+      "phrase": "lego ozon",
+      "count": 678
+    },
+    {
+      "phrase": "ozon career",
+      "count": 676
+    },
+    {
+      "phrase": "ozon коврик",
+      "count": 676
+    },
+    {
+      "phrase": "книги на ozon",
+      "count": 675
+    },
+    {
+      "phrase": "ozon скачать приложение на андроид",
+      "count": 673
+    },
+    {
+      "phrase": "ozon адреса пунктов выдачи",
+      "count": 671
+    },
+    {
+      "phrase": "ozon ru скачать",
+      "count": 669
+    },
+    {
+      "phrase": "ozon одежда скидки",
+      "count": 666
+    },
+    {
+      "phrase": "как оплатить ozon картой",
+      "count": 663
+    },
+    {
+      "phrase": "джинсы ozon",
+      "count": 663
+    },
+    {
+      "phrase": "ozon premium что дает",
+      "count": 663
+    },
+    {
+      "phrase": "ozon ai",
+      "count": 661
+    },
+    {
+      "phrase": "ozon ru fintech activate cart",
+      "count": 660
+    },
+    {
+      "phrase": "finance ozon activate активировать карту",
+      "count": 655
+    },
+    {
+      "phrase": "ozon profit отзывы",
+      "count": 653
+    },
+    {
+      "phrase": "диван ozon",
+      "count": 650
+    },
+    {
+      "phrase": "логистический центр ozon",
+      "count": 650
+    },
+    {
+      "phrase": "ozon camp",
+      "count": 649
+    },
+    {
+      "phrase": "ozon банк реквизиты",
+      "count": 644
+    },
+    {
+      "phrase": "ozon маска",
+      "count": 644
+    },
+    {
+      "phrase": "ozon пермь",
+      "count": 643
+    },
+    {
+      "phrase": "staff ozon ru личный кабинет сотрудника",
+      "count": 642
+    },
+    {
+      "phrase": "система управления заказами ozon",
+      "count": 641
+    },
+    {
+      "phrase": "https ozon onelink me snmz",
+      "count": 641
+    },
+    {
+      "phrase": "ozon fresh скидка",
+      "count": 640
+    },
+    {
+      "phrase": "ozon интернет магазин купить",
+      "count": 639
+    },
+    {
+      "phrase": "ozon волгоград",
+      "count": 639
+    },
+    {
+      "phrase": "riko basic ozon",
+      "count": 638
+    },
+    {
+      "phrase": "ozon отследить заказ",
+      "count": 637
+    },
+    {
+      "phrase": "lk ozon",
+      "count": 635
+    },
+    {
+      "phrase": "ozon путешествия",
+      "count": 634
+    },
+    {
+      "phrase": "ozon ru приложение",
+      "count": 634
+    },
+    {
+      "phrase": "ozon духи",
+      "count": 630
+    },
+    {
+      "phrase": "ozon доставка курьером",
+      "count": 630
+    },
+    {
+      "phrase": "ozon mail",
+      "count": 624
+    },
+    {
+      "phrase": "мобильное приложение ozon",
+      "count": 624
+    },
+    {
+      "phrase": "солнечный ozon",
+      "count": 623
+    },
+    {
+      "phrase": "ozon kz",
+      "count": 622
+    },
+    {
+      "phrase": "ozon job вакансии",
+      "count": 621
+    },
+    {
+      "phrase": "ozon весы",
+      "count": 620
+    },
+    {
+      "phrase": "ozon постоплата",
+      "count": 612
+    },
+    {
+      "phrase": "ozon техподдержка",
+      "count": 612
+    },
+    {
+      "phrase": "газель ozon",
+      "count": 611
+    },
+    {
+      "phrase": "ozon online",
+      "count": 610
+    },
+    {
+      "phrase": "tms ozon ru",
+      "count": 609
+    },
+    {
+      "phrase": "ozon логистика",
+      "count": 607
+    },
+    {
+      "phrase": "ozon premium промокод",
+      "count": 605
+    },
+    {
+      "phrase": "скачать ozon nuor",
+      "count": 603
+    },
+    {
+      "phrase": "ozon казань",
+      "count": 602
+    },
+    {
+      "phrase": "доставка в пункт ozon",
+      "count": 601
+    },
+    {
+      "phrase": "https www ozon ru my returndetails returnnumber",
+      "count": 598
+    },
+    {
+      "phrase": "ozon карта условия",
+      "count": 597
+    },
+    {
+      "phrase": "ozon job телефон",
+      "count": 597
+    },
+    {
+      "phrase": "ozon ру",
+      "count": 596
+    },
+    {
+      "phrase": "www ozon ru личный",
+      "count": 596
+    },
+    {
+      "phrase": "www ozon ru ozonid",
+      "count": 595
+    },
+    {
+      "phrase": "ozon slowed",
+      "count": 594
+    },
+    {
+      "phrase": "ozon текст",
+      "count": 594
+    },
+    {
+      "phrase": "ozon работа курьером",
+      "count": 593
+    },
+    {
+      "phrase": "ozon ru products 30",
+      "count": 593
+    },
+    {
+      "phrase": "ozon se",
+      "count": 592
+    },
+    {
+      "phrase": "ozon кошелек",
+      "count": 591
+    },
+    {
+      "phrase": "ozon dostavka",
+      "count": 591
+    },
+    {
+      "phrase": "ozon games",
+      "count": 590
+    },
+    {
+      "phrase": "ozon gaming",
+      "count": 590
+    },
+    {
+      "phrase": "ozon travel ru",
+      "count": 590
+    },
+    {
+      "phrase": "ozon работа вакансии",
+      "count": 589
+    },
+    {
+      "phrase": "ozon вклад",
+      "count": 588
+    },
+    {
+      "phrase": "ozon зон зон",
+      "count": 587
+    },
+    {
+      "phrase": "пункт ozon приложение",
+      "count": 580
+    },
+    {
+      "phrase": "терминал ozon",
+      "count": 579
+    },
+    {
+      "phrase": "nuor garsas ozon скачать",
+      "count": 578
+    },
+    {
+      "phrase": "ozon карта пвз",
+      "count": 578
+    },
+    {
+      "phrase": "ozon уфа",
+      "count": 576
+    },
+    {
+      "phrase": "банковская карта ozon",
+      "count": 575
+    },
+    {
+      "phrase": "seller ozon u",
+      "count": 574
+    },
+    {
+      "phrase": "map ozon ru",
+      "count": 574
+    },
+    {
+      "phrase": "скачать песню ozon",
+      "count": 571
+    },
+    {
+      "phrase": "https www ozon ru ozonid",
+      "count": 571
+    },
+    {
+      "phrase": "turbo pvz ozon вход в личный",
+      "count": 571
+    },
+    {
+      "phrase": "ozon открыть пвз",
+      "count": 570
+    },
+    {
+      "phrase": "ozon ru интернет магазин новосибирск",
+      "count": 570
+    },
+    {
+      "phrase": "ozon цветы",
+      "count": 570
+    },
+    {
+      "phrase": "ozon turbo pvz личный кабинет",
+      "count": 568
+    },
+    {
+      "phrase": "ozon казахстан",
+      "count": 564
+    },
+    {
+      "phrase": "ozon jardin",
+      "count": 563
+    },
+    {
+      "phrase": "ozon edu",
+      "count": 561
+    },
+    {
+      "phrase": "ozon вк",
+      "count": 561
+    },
+    {
+      "phrase": "ozon акции цена",
+      "count": 561
+    },
+    {
+      "phrase": "обновить ozon",
+      "count": 560
+    },
+    {
+      "phrase": "ozon сотрудничество",
+      "count": 559
+    },
+    {
+      "phrase": "сумки на ozon",
+      "count": 558
+    },
+    {
+      "phrase": "ozon расширение",
+      "count": 557
+    },
+    {
+      "phrase": "ozon видеонаблюдение",
+      "count": 556
+    },
+    {
+      "phrase": "ozon kg",
+      "count": 556
+    },
+    {
+      "phrase": "подарочная карта ozon",
+      "count": 553
+    },
+    {
+      "phrase": "realme ozon",
+      "count": 552
+    },
+    {
+      "phrase": "ozon пвз работа",
+      "count": 552
+    },
+    {
+      "phrase": "ozon express",
+      "count": 551
+    },
+    {
+      "phrase": "ozon накопительный счет",
+      "count": 550
+    },
+    {
+      "phrase": "ozon ru интернет магазин официальный сайт каталог",
+      "count": 547
+    },
+    {
+      "phrase": "ozon seller вход в личный кабинет",
+      "count": 547
+    },
+    {
+      "phrase": "ozon номер телефона горячей",
+      "count": 547
+    },
+    {
+      "phrase": "сортировочный центр ozon",
+      "count": 546
+    },
+    {
+      "phrase": "ozon банк продукты",
+      "count": 546
+    },
+    {
+      "phrase": "ozon подработка",
+      "count": 546
+    },
+    {
+      "phrase": "ozon заявка на возврат",
+      "count": 545
+    },
+    {
+      "phrase": "ozon тюмень",
+      "count": 545
+    },
+    {
+      "phrase": "owa ozon",
+      "count": 544
+    },
+    {
+      "phrase": "ozon task",
+      "count": 544
+    },
+    {
+      "phrase": "ботинки ozon",
+      "count": 541
+    },
+    {
+      "phrase": "ozon job номер",
+      "count": 539
+    },
+    {
+      "phrase": "ozon my chat",
+      "count": 538
+    },
+    {
+      "phrase": "ozon веб",
+      "count": 538
+    },
+    {
+      "phrase": "ozon med",
+      "count": 538
+    },
+    {
+      "phrase": "ozon перевозки",
+      "count": 537
+    },
+    {
+      "phrase": "что означает ozon",
+      "count": 537
+    },
+    {
+      "phrase": "ozon атака бпла",
+      "count": 536
+    },
+    {
+      "phrase": "turbo pvz ozon вход в личный кабинет",
+      "count": 534
+    },
+    {
+      "phrase": "business ozon ru",
+      "count": 532
+    },
+    {
+      "phrase": "ozon музыка",
+      "count": 531
+    },
+    {
+      "phrase": "озон www ozon ru",
+      "count": 530
+    },
+    {
+      "phrase": "отследить посылку ozon",
+      "count": 529
+    },
+    {
+      "phrase": "ym ozon что это списание",
+      "count": 528
+    },
+    {
+      "phrase": "ozon номер телефона горячей линии",
+      "count": 528
+    },
+    {
+      "phrase": "ozon мили",
+      "count": 528
+    },
+    {
+      "phrase": "ozon hotel",
+      "count": 527
+    },
+    {
+      "phrase": "ozon 1000 баллов",
+      "count": 527
+    },
+    {
+      "phrase": "гарантия ozon",
+      "count": 526
+    },
+    {
+      "phrase": "автомат ozon",
+      "count": 526
+    },
+    {
+      "phrase": "ozon marketplace",
+      "count": 526
+    },
+    {
+      "phrase": "купить карту ozon",
+      "count": 526
+    },
+    {
+      "phrase": "ozon производство",
+      "count": 525
+    },
+    {
+      "phrase": "витамины ozon",
+      "count": 525
+    },
+    {
+      "phrase": "ozon mail ru",
+      "count": 525
+    },
+    {
+      "phrase": "recruitment ozon",
+      "count": 523
+    },
+    {
+      "phrase": "вывеска ozon",
+      "count": 523
+    },
+    {
+      "phrase": "косметика ozon",
+      "count": 523
+    },
+    {
+      "phrase": "ozon play",
+      "count": 522
+    },
+    {
+      "phrase": "ozon заблокировал карту",
+      "count": 521
+    },
+    {
+      "phrase": "ozon ru product 15",
+      "count": 519
+    },
+    {
+      "phrase": "купон ozon",
+      "count": 519
+    },
+    {
+      "phrase": "промокод ozon на сегодня",
+      "count": 519
+    },
+    {
+      "phrase": "ozon товары из за рубежа",
+      "count": 518
+    },
+    {
+      "phrase": "бумага ozon",
+      "count": 518
+    },
+    {
+      "phrase": "ozon стулья",
+      "count": 517
+    },
+    {
+      "phrase": "как выглядит ozon",
+      "count": 517
+    },
+    {
+      "phrase": "наушники на ozon",
+      "count": 517
+    },
+    {
+      "phrase": "ozon id вход",
+      "count": 514
+    },
+    {
+      "phrase": "как связаться с ozon",
+      "count": 514
+    },
+    {
+      "phrase": "шторы ozon",
+      "count": 513
+    },
+    {
+      "phrase": "ozon retail",
+      "count": 513
+    },
+    {
+      "phrase": "как пользоваться ozon",
+      "count": 512
+    },
+    {
+      "phrase": "адреса складов ozon",
+      "count": 512
+    },
+    {
+      "phrase": "owa ozon ru",
+      "count": 510
+    },
+    {
+      "phrase": "ozon доставка для бизнеса",
+      "count": 509
+    },
+    {
+      "phrase": "ozon сотрудник пункта выдачи",
+      "count": 508
+    },
+    {
+      "phrase": "промокод ozon сентябрь 2026",
+      "count": 507
+    },
+    {
+      "phrase": "номер телефона поддержки ozon",
+      "count": 506
+    },
+    {
+      "phrase": "ozon пожар",
+      "count": 506
+    },
+    {
+      "phrase": "oneplus ozon",
+      "count": 506
+    },
+    {
+      "phrase": "ozon оплата при получении",
+      "count": 504
+    },
+    {
+      "phrase": "ozon ru доставка",
+      "count": 503
+    },
+    {
+      "phrase": "ozon fresh на первый заказ",
+      "count": 502
+    },
+    {
+      "phrase": "ip ozon ru",
+      "count": 502
+    },
+    {
+      "phrase": "ozon моменты",
+      "count": 502
+    },
+    {
+      "phrase": "открыть пункт выдачи ozon",
+      "count": 501
+    },
+    {
+      "phrase": "как активировать карту ozon",
+      "count": 499
+    },
+    {
+      "phrase": "ozon ru fintech aktivate card",
+      "count": 499
+    },
+    {
+      "phrase": "ozon запчасти",
+      "count": 499
+    },
+    {
+      "phrase": "игровой ноутбук ozon",
+      "count": 498
+    },
+    {
+      "phrase": "ozon jardin promo",
+      "count": 498
+    },
+    {
+      "phrase": "ozon ru ozonid account recovery",
+      "count": 496
+    },
+    {
+      "phrase": "ozon личный кабинет мои заказы",
+      "count": 495
+    },
+    {
+      "phrase": "ozon лекарства",
+      "count": 494
+    },
+    {
+      "phrase": "www ozon ru официальный сайт",
+      "count": 494
+    },
+    {
+      "phrase": "ozon таганрог",
+      "count": 493
+    },
+    {
+      "phrase": "pvz map ozon ru",
+      "count": 493
+    },
+    {
+      "phrase": "флешки ozon",
+      "count": 491
+    },
+    {
+      "phrase": "ozon point",
+      "count": 491
+    },
+    {
+      "phrase": "как продавать на ozon",
+      "count": 489
+    },
+    {
+      "phrase": "бесплатная ozon карта",
+      "count": 489
+    },
+    {
+      "phrase": "юбка ozon",
+      "count": 489
+    },
+    {
+      "phrase": "video ozon ozon ru",
+      "count": 488
+    },
+    {
+      "phrase": "обои ozon",
+      "count": 488
+    },
+    {
+      "phrase": "ozon школа",
+      "count": 487
+    },
+    {
+      "phrase": "ozon аэрогриль",
+      "count": 486
+    },
+    {
+      "phrase": "ozon ru my chat",
+      "count": 486
+    },
+    {
+      "phrase": "ozon finance личный",
+      "count": 485
+    },
+    {
+      "phrase": "chatzone ozon",
+      "count": 484
+    },
+    {
+      "phrase": "ozon доставка приложение",
+      "count": 484
+    },
+    {
+      "phrase": "finance ozon lk",
+      "count": 483
+    },
+    {
+      "phrase": "ozon tech вакансии",
+      "count": 482
+    },
+    {
+      "phrase": "беспроводные наушники ozon",
+      "count": 482
+    },
+    {
+      "phrase": "ozon петровское",
+      "count": 482
+    },
+    {
+      "phrase": "ozon личный кабинет войти по номеру телефона",
+      "count": 482
+    },
+    {
+      "phrase": "www ozon ru личный кабинет",
+      "count": 481
+    },
+    {
+      "phrase": "выигрыш ozon",
+      "count": 481
+    },
+    {
+      "phrase": "ozon finance личный кабинет",
+      "count": 479
+    },
+    {
+      "phrase": "день рождения ozon",
+      "count": 478
+    },
+    {
+      "phrase": "seller edu ozon",
+      "count": 478
+    },
+    {
+      "phrase": "recruitment ozon ru",
+      "count": 477
+    },
+    {
+      "phrase": "ozon bank приложение",
+      "count": 475
+    },
+    {
+      "phrase": "finance ozon ru lk",
+      "count": 474
+    },
+    {
+      "phrase": "ozon расчетный счет",
+      "count": 474
+    },
+    {
+      "phrase": "ozon ru пылесосы",
+      "count": 473
+    },
+    {
+      "phrase": "https ozon r",
+      "count": 473
+    },
+    {
+      "phrase": "ozon job скачать приложение",
+      "count": 472
+    },
+    {
+      "phrase": "ozon банк кредит",
+      "count": 471
+    },
+    {
+      "phrase": "ozon product id",
+      "count": 470
+    },
+    {
+      "phrase": "склад ozon fresh",
+      "count": 469
+    },
+    {
+      "phrase": "ozon performance",
+      "count": 468
+    },
+    {
+      "phrase": "ozon браузер",
+      "count": 466
+    },
+    {
+      "phrase": "ozon тверь",
+      "count": 466
+    },
+    {
+      "phrase": "стикер ozon",
+      "count": 466
+    },
+    {
+      "phrase": "https ozon by",
+      "count": 464
+    },
+    {
+      "phrase": "ozon работа удаленно",
+      "count": 464
+    },
+    {
+      "phrase": "ozon вконтакте",
+      "count": 463
+    },
+    {
+      "phrase": "чат поддержки ozon",
+      "count": 461
+    },
+    {
+      "phrase": "пункты ozon на карте",
+      "count": 460
+    },
+    {
+      "phrase": "ozon хабаровск",
+      "count": 460
+    },
+    {
+      "phrase": "кронштейны ozon",
+      "count": 459
+    },
+    {
+      "phrase": "шапки ozon",
+      "count": 459
+    },
+    {
+      "phrase": "вознаграждение ozon",
+      "count": 458
+    },
+    {
+      "phrase": "ozon travel отели",
+      "count": 457
+    },
+    {
+      "phrase": "как отправить ozon доставкой",
+      "count": 457
+    },
+    {
+      "phrase": "ozon справка",
+      "count": 456
+    },
+    {
+      "phrase": "обувь на ozon",
+      "count": 456
+    },
+    {
+      "phrase": "ozon tv",
+      "count": 455
+    },
+    {
+      "phrase": "ozon ozon ozon ozone ozone",
+      "count": 455
+    },
+    {
+      "phrase": "https staff ozon ru",
+      "count": 453
+    },
+    {
+      "phrase": "ozon ru интернет магазин личный кабинет",
+      "count": 452
+    },
+    {
+      "phrase": "ozon дизайн",
+      "count": 451
+    },
+    {
+      "phrase": "зайти на ozon",
+      "count": 450
+    },
+    {
+      "phrase": "ozon отправка посылок",
+      "count": 450
+    },
+    {
+      "phrase": "hr ozon",
+      "count": 450
+    },
+    {
+      "phrase": "ozon чай",
+      "count": 450
+    },
+    {
+      "phrase": "https www ozon банк",
+      "count": 450
+    },
+    {
+      "phrase": "ozon товары из китая",
+      "count": 447
+    },
+    {
+      "phrase": "ozon prometeus",
+      "count": 446
+    },
+    {
+      "phrase": "розетка ozon",
+      "count": 445
+    },
+    {
+      "phrase": "ozon сочи",
+      "count": 444
+    },
+    {
+      "phrase": "ozon тревел",
+      "count": 444
+    },
+    {
+      "phrase": "ozon jardin promo ru",
+      "count": 442
+    },
+    {
+      "phrase": "смарт часы ozon",
+      "count": 441
+    },
+    {
+      "phrase": "ozon строительных",
+      "count": 441
+    },
+    {
+      "phrase": "business finance ozon ru",
+      "count": 437
+    },
+    {
+      "phrase": "https www ozon ru банк",
+      "count": 437
+    },
+    {
+      "phrase": "ozon финансы",
+      "count": 437
+    },
+    {
+      "phrase": "ozon банк заказать карту",
+      "count": 436
+    },
+    {
+      "phrase": "ozon работа в пункте выдачи",
+      "count": 436
+    },
+    {
+      "phrase": "ozon батарейки",
+      "count": 436
+    },
+    {
+      "phrase": "ozon кабинет продавца",
+      "count": 436
+    },
+    {
+      "phrase": "ozon prometeus ru",
+      "count": 435
+    },
+    {
+      "phrase": "загрузить ozon",
+      "count": 434
+    },
+    {
+      "phrase": "https finance ozon ru lk",
+      "count": 434
+    },
+    {
+      "phrase": "https turbo pvz ozon ru orders",
+      "count": 433
+    },
+    {
+      "phrase": "ozon бесплатная доставка",
+      "count": 433
+    },
+    {
+      "phrase": "pvz ozon dostavka",
+      "count": 432
+    },
+    {
+      "phrase": "ozon скачать на андроид бесплатно",
+      "count": 431
+    },
+    {
+      "phrase": "ozon masters",
+      "count": 431
+    },
+    {
+      "phrase": "2 а ozon",
+      "count": 430
+    },
+    {
+      "phrase": "ozon устроиться на работу",
+      "count": 430
+    },
+    {
+      "phrase": "partner ozon ru",
+      "count": 429
+    },
+    {
+      "phrase": "ozon digital",
+      "count": 427
+    },
+    {
+      "phrase": "как выйти из аккаунта ozon",
+      "count": 427
+    },
+    {
+      "phrase": "ozon банк условия",
+      "count": 427
+    },
+    {
+      "phrase": "трек номер ozon",
+      "count": 426
+    },
+    {
+      "phrase": "ozon tracker",
+      "count": 426
+    },
+    {
+      "phrase": "ремень ozon",
+      "count": 425
+    },
+    {
+      "phrase": "ozon client",
+      "count": 424
+    },
+    {
+      "phrase": "ozon zoom",
+      "count": 423
+    },
+    {
+      "phrase": "как пополнить ozon карту",
+      "count": 422
+    },
+    {
+      "phrase": "телефон купить ozon",
+      "count": 419
+    },
+    {
+      "phrase": "ozon тольятти",
+      "count": 418
+    },
+    {
+      "phrase": "ozon univer",
+      "count": 417
+    },
+    {
+      "phrase": "ozon invest",
+      "count": 417
+    },
+    {
+      "phrase": "ozon investing",
+      "count": 417
+    },
+    {
+      "phrase": "продвижение ozon",
+      "count": 416
+    },
+    {
+      "phrase": "ozon можно ли отправить посылку",
+      "count": 416
+    },
+    {
+      "phrase": "ozon маркетплейс миллионы товаров",
+      "count": 415
+    },
+    {
+      "phrase": "ozon жалоба",
+      "count": 415
+    },
+    {
+      "phrase": "посуда ozon",
+      "count": 414
+    },
+    {
+      "phrase": "ozon роутер",
+      "count": 413
+    },
+    {
+      "phrase": "как получить карту ozon",
+      "count": 413
+    },
+    {
+      "phrase": "ozon youtube",
+      "count": 413
+    },
+    {
+      "phrase": "срок хранения ozon",
+      "count": 412
+    },
+    {
+      "phrase": "www ozon ru my chat",
+      "count": 412
+    },
+    {
+      "phrase": "ozon зеркало",
+      "count": 410
+    },
+    {
+      "phrase": "ozon блок питания",
+      "count": 410
+    },
+    {
+      "phrase": "ozon интернет магазин самара",
+      "count": 409
+    },
+    {
+      "phrase": "белье постельное ozon",
+      "count": 409
+    },
+    {
+      "phrase": "ozon банк вход",
+      "count": 409
+    },
+    {
+      "phrase": "носки ozon",
+      "count": 406
+    },
+    {
+      "phrase": "ozon автобусы",
+      "count": 404
+    },
+    {
+      "phrase": "электронная почта ozon",
+      "count": 404
+    },
+    {
+      "phrase": "ozon магазин москва",
+      "count": 404
+    },
+    {
+      "phrase": "ozon тула",
+      "count": 403
+    },
+    {
+      "phrase": "ozon скидка на первый заказ",
+      "count": 403
+    },
+    {
+      "phrase": "ozon ru активировать карту",
+      "count": 403
+    },
+    {
+      "phrase": "ozon ru интернет магазин самара",
+      "count": 403
+    },
+    {
+      "phrase": "ozon slowed reverb",
+      "count": 403
+    },
+    {
+      "phrase": "ozon банк онлайн",
+      "count": 403
+    },
+    {
+      "phrase": "ozon скачать приложение на андроид бесплатно",
+      "count": 401
+    },
+    {
+      "phrase": "ozon dostavka ru",
+      "count": 400
+    },
+    {
+      "phrase": "www ozon com",
+      "count": 400
+    },
+    {
+      "phrase": "ozon global сайт",
+      "count": 400
+    },
+    {
+      "phrase": "ozon доставка работа",
+      "count": 400
+    },
+    {
+      "phrase": "ozon документация",
+      "count": 399
+    },
+    {
+      "phrase": "ozon ru product 24",
+      "count": 399
+    },
+    {
+      "phrase": "ozon аптека",
+      "count": 398
+    },
+    {
+      "phrase": "ozon books",
+      "count": 398
+    },
+    {
+      "phrase": "ozon альфа",
+      "count": 397
+    },
+    {
+      "phrase": "ozon арена краснодар",
+      "count": 395
+    },
+    {
+      "phrase": "ozon check скачать",
+      "count": 395
+    },
+    {
+      "phrase": "ozon drive",
+      "count": 395
+    },
+    {
+      "phrase": "ozon надпись",
+      "count": 394
+    },
+    {
+      "phrase": "ozon банк вклады",
+      "count": 393
+    },
+    {
+      "phrase": "ozon fresh екатеринбург",
+      "count": 392
+    },
+    {
+      "phrase": "радиаторы ozon",
+      "count": 392
+    },
+    {
+      "phrase": "ozon med com",
+      "count": 390
+    },
+    {
+      "phrase": "ozon фреш",
+      "count": 389
+    },
+    {
+      "phrase": "ozon банк личный кабинет войти",
+      "count": 388
+    },
+    {
+      "phrase": "ошибки в ozon",
+      "count": 386
+    },
+    {
+      "phrase": "ozon job работа на складе",
+      "count": 385
+    },
+    {
+      "phrase": "коляска riko ozon",
+      "count": 384
+    },
+    {
+      "phrase": "ozon банк адреса",
+      "count": 384
+    },
+    {
+      "phrase": "как устроиться на ozon",
+      "count": 384
+    },
+    {
+      "phrase": "ozon банк накопительный счет",
+      "count": 381
+    },
+    {
+      "phrase": "ozon bank официальный",
+      "count": 380
+    },
+    {
+      "phrase": "ozon горит",
+      "count": 379
+    },
+    {
+      "phrase": "ozon вакансии удаленно",
+      "count": 378
+    },
+    {
+      "phrase": "скачать ozon приложение бесплатно на русском",
+      "count": 378
+    },
+    {
+      "phrase": "seller edu ozon ru",
+      "count": 378
+    },
+    {
+      "phrase": "ozon иваново",
+      "count": 377
+    },
+    {
+      "phrase": "opp ozon",
+      "count": 377
+    },
+    {
+      "phrase": "ozon steam",
+      "count": 377
+    },
+    {
+      "phrase": "ozon морковск",
+      "count": 375
+    },
+    {
+      "phrase": "ozon bank официальный сайт",
+      "count": 374
+    },
+    {
+      "phrase": "vivo ozon",
+      "count": 373
+    },
+    {
+      "phrase": "ozon ru premium",
+      "count": 372
+    },
+    {
+      "phrase": "lada ozon",
+      "count": 371
+    },
+    {
+      "phrase": "ozon vpn",
+      "count": 371
+    },
+    {
+      "phrase": "dns ozon",
+      "count": 370
+    },
+    {
+      "phrase": "ozon поставщикам",
+      "count": 370
+    },
+    {
+      "phrase": "дверь на ozon",
+      "count": 369
+    },
+    {
+      "phrase": "ozon отели промокод",
+      "count": 369
+    },
+    {
+      "phrase": "ozon fresh отзывы",
+      "count": 365
+    },
+    {
+      "phrase": "ozon промо",
+      "count": 365
+    },
+    {
+      "phrase": "ozon шоколад",
+      "count": 365
+    },
+    {
+      "phrase": "iphone 17 ozon",
+      "count": 363
+    },
+    {
+      "phrase": "http www ozon ru",
+      "count": 362
+    },
+    {
+      "phrase": "оформить карту ozon банка",
+      "count": 361
+    },
+    {
+      "phrase": "https finance ozon ru business",
+      "count": 360
+    },
+    {
+      "phrase": "чей ozon",
+      "count": 360
+    },
+    {
+      "phrase": "оферта ozon",
+      "count": 360
+    },
+    {
+      "phrase": "электросамокат ozon",
+      "count": 360
+    },
+    {
+      "phrase": "директор ozon",
+      "count": 359
+    },
+    {
+      "phrase": "ozon владивосток",
+      "count": 357
+    },
+    {
+      "phrase": "миллион призов ozon",
+      "count": 357
+    },
+    {
+      "phrase": "ozon мод",
+      "count": 357
+    },
+    {
+      "phrase": "номер горячей линии ozon банка",
+      "count": 357
+    },
+    {
+      "phrase": "паспортные данные в ozon",
+      "count": 357
+    },
+    {
+      "phrase": "толстовки ozon",
+      "count": 355
+    },
+    {
+      "phrase": "ozon delivery",
+      "count": 355
+    },
+    {
+      "phrase": "ozon самолеты",
+      "count": 355
+    },
+    {
+      "phrase": "ozon иркутск",
+      "count": 355
+    },
+    {
+      "phrase": "работа на складе ozon отзывы",
+      "count": 355
+    },
+    {
+      "phrase": "атака на склады ozon",
+      "count": 354
+    },
+    {
+      "phrase": "открыть приложение ozon",
+      "count": 353
+    },
+    {
+      "phrase": "career ozon ru",
+      "count": 353
+    },
+    {
+      "phrase": "ozon astral",
+      "count": 353
+    },
+    {
+      "phrase": "ozon ru вакансии",
+      "count": 351
+    },
+    {
+      "phrase": "пижама ozon",
+      "count": 351
+    },
+    {
+      "phrase": "https pvz map ozon ru",
+      "count": 351
+    },
+    {
+      "phrase": "https ozon ru личный кабинет",
+      "count": 351
+    },
+    {
+      "phrase": "как вернуть товар на ozon",
+      "count": 350
+    },
+    {
+      "phrase": "ozon ru my orderlist",
+      "count": 350
+    },
+    {
+      "phrase": "ttps www ozon ru",
+      "count": 348
+    },
+    {
+      "phrase": "электровелосипед ozon",
+      "count": 347
+    },
+    {
+      "phrase": "ozon никольское",
+      "count": 347
+    },
+    {
+      "phrase": "ozon интернет магазин екатеринбург",
+      "count": 346
+    },
+    {
+      "phrase": "ozon еда",
+      "count": 346
+    },
+    {
+      "phrase": "ozon рязань",
+      "count": 345
+    },
+    {
+      "phrase": "ozon интернет магазин москве",
+      "count": 345
+    },
+    {
+      "phrase": "ozon отзывы сотрудников",
+      "count": 345
+    },
+    {
+      "phrase": "спальня ozon",
+      "count": 345
+    },
+    {
+      "phrase": "ozon банк ultra",
+      "count": 345
+    },
+    {
+      "phrase": "номер телефона ozon job",
+      "count": 344
+    },
+    {
+      "phrase": "ozon layer",
+      "count": 342
+    },
+    {
+      "phrase": "jbl ozon",
+      "count": 342
+    },
+    {
+      "phrase": "ozon mcp",
+      "count": 341
+    },
+    {
+      "phrase": "ozon job гпх",
+      "count": 340
+    },
+    {
+      "phrase": "ozon для windows",
+      "count": 339
+    },
+    {
+      "phrase": "кредитка ozon",
+      "count": 339
+    },
+    {
+      "phrase": "ozon select промокод на первый заказ",
+      "count": 337
+    },
+    {
+      "phrase": "ym ozon moskva rus",
+      "count": 337
+    },
+    {
+      "phrase": "коляска riko basic ozon",
+      "count": 337
+    },
+    {
+      "phrase": "как активировать сертификат ozon",
+      "count": 337
+    },
+    {
+      "phrase": "ozon travel поддержка",
+      "count": 336
+    },
+    {
+      "phrase": "ozon склад бпла",
+      "count": 335
+    },
+    {
+      "phrase": "ozon заработок",
+      "count": 334
+    },
+    {
+      "phrase": "ozon новости компании",
+      "count": 334
+    },
+    {
+      "phrase": "ym ozon что это списание 199",
+      "count": 334
+    },
+    {
+      "phrase": "ozon бизнес личный кабинет",
+      "count": 333
+    },
+    {
+      "phrase": "как потратить баллы на ozon",
+      "count": 332
+    },
+    {
+      "phrase": "ozon значок",
+      "count": 332
+    },
+    {
+      "phrase": "ozon app store",
+      "count": 332
+    },
+    {
+      "phrase": "calculator ozon",
+      "count": 332
+    },
+    {
+      "phrase": "ozon fresh вакансии",
+      "count": 331
+    },
+    {
+      "phrase": "ozon универ",
+      "count": 331
+    },
+    {
+      "phrase": "ozon за 0",
+      "count": 331
+    },
+    {
+      "phrase": "порно ozon",
+      "count": 330
+    },
+    {
+      "phrase": "как заказать товар на ozon",
+      "count": 329
+    },
+    {
+      "phrase": "ozon заказ в работе",
+      "count": 329
+    },
+    {
+      "phrase": "ozon сковорода",
+      "count": 328
+    },
+    {
+      "phrase": "кому принадлежит ozon",
+      "count": 328
+    },
+    {
+      "phrase": "ozon api документация",
+      "count": 328
+    },
+    {
+      "phrase": "ozon ru t phthabc",
+      "count": 327
+    },
+    {
+      "phrase": "ozon страхование",
+      "count": 327
+    },
+    {
+      "phrase": "ситуация в ozon",
+      "count": 327
+    },
+    {
+      "phrase": "ozon кабинет селлера",
+      "count": 326
+    },
+    {
+      "phrase": "ozon курск",
+      "count": 326
+    },
+    {
+      "phrase": "ozon интернет магазин нижний новгород",
+      "count": 325
+    },
+    {
+      "phrase": "ozon bank войти",
+      "count": 325
+    },
+    {
+      "phrase": "ozon fresh промокод на первый заказ",
+      "count": 325
+    },
+    {
+      "phrase": "ozon личный кабинет вход по номеру телефона",
+      "count": 324
+    },
+    {
+      "phrase": "ozon белгород",
+      "count": 323
+    },
+    {
+      "phrase": "ozon ru интернет магазин в санкт петербурге",
+      "count": 323
+    },
+    {
+      "phrase": "ozon курьер отзывы",
+      "count": 323
+    },
+    {
+      "phrase": "ozon job личный кабинет",
+      "count": 323
+    },
+    {
+      "phrase": "как оформить карту ozon",
+      "count": 322
+    },
+    {
+      "phrase": "ozon 20 до 20",
+      "count": 322
+    },
+    {
+      "phrase": "ozon работа водителем",
+      "count": 322
+    },
+    {
+      "phrase": "ozon звонок",
+      "count": 322
+    },
+    {
+      "phrase": "скачать приложение ozon на телефон",
+      "count": 322
+    },
+    {
+      "phrase": "ym ozon limit что это",
+      "count": 321
+    },
+    {
+      "phrase": "ozon карта кэшбэк",
+      "count": 321
+    },
+    {
+      "phrase": "ozon фильмы",
+      "count": 321
+    },
+    {
+      "phrase": "отправка через ozon",
+      "count": 320
+    },
+    {
+      "phrase": "https pvz map ozon ru z 16",
+      "count": 320
+    },
+    {
+      "phrase": "ozon слушать",
+      "count": 319
+    },
+    {
+      "phrase": "sso ozon",
+      "count": 319
+    },
+    {
+      "phrase": "спортивный костюм ozon",
+      "count": 319
+    },
+    {
+      "phrase": "майка ozon",
+      "count": 318
+    },
+    {
+      "phrase": "finance ozon activate активировать карту по номеру",
+      "count": 318
+    },
+    {
+      "phrase": "oppo ozon",
+      "count": 317
+    },
+    {
+      "phrase": "ozon чайник",
+      "count": 316
+    },
+    {
+      "phrase": "xbox ozon",
+      "count": 316
+    },
+    {
+      "phrase": "ozon электронный сертификат",
+      "count": 315
+    },
+    {
+      "phrase": "грузовик ozon",
+      "count": 314
+    },
+    {
+      "phrase": "как получить баллы ozon",
+      "count": 314
+    },
+    {
+      "phrase": "ozon оренбург",
+      "count": 314
+    },
+    {
+      "phrase": "4 а ozon",
+      "count": 314
+    },
+    {
+      "phrase": "мышка ozon",
+      "count": 314
+    },
+    {
+      "phrase": "ozon личный кабинет продавца",
+      "count": 314
+    },
+    {
+      "phrase": "ozon не открывается",
+      "count": 312
+    },
+    {
+      "phrase": "ozon пункты выдачи на карте",
+      "count": 312
+    },
+    {
+      "phrase": "ozon ru интернет магазин нижний новгород",
+      "count": 312
+    },
+    {
+      "phrase": "ozon b2b",
+      "count": 310
+    },
+    {
+      "phrase": "почему не работает ozon",
+      "count": 309
+    },
+    {
+      "phrase": "ozon rx",
+      "count": 309
+    },
+    {
+      "phrase": "ozon logo",
+      "count": 309
+    },
+    {
+      "phrase": "ozon ставрополь",
+      "count": 308
+    },
+    {
+      "phrase": "ozon staff для сотрудников",
+      "count": 308
+    },
+    {
+      "phrase": "ozon севастополь",
+      "count": 307
+    },
+    {
+      "phrase": "ozon купить москва",
+      "count": 307
+    },
+    {
+      "phrase": "гайка ozon",
+      "count": 307
+    },
+    {
+      "phrase": "esim ozon",
+      "count": 307
+    },
+    {
+      "phrase": "ozon helper",
+      "count": 307
+    },
+    {
+      "phrase": "установить ozon на телефон",
+      "count": 306
+    },
+    {
+      "phrase": "руководитель ozon",
+      "count": 305
+    },
+    {
+      "phrase": "google play ozon",
+      "count": 305
+    },
+    {
+      "phrase": "ozon экспресс",
+      "count": 305
+    },
+    {
+      "phrase": "одеяло ozon",
+      "count": 305
+    },
+    {
+      "phrase": "ozon beauty",
+      "count": 304
+    },
+    {
+      "phrase": "pvz ozon dostavka ru",
+      "count": 304
+    },
+    {
+      "phrase": "ozon забота",
+      "count": 304
+    },
+    {
+      "phrase": "ozon job поддержка телефон",
+      "count": 304
+    },
+    {
+      "phrase": "ozon сим карта",
+      "count": 303
+    },
+    {
+      "phrase": "ozon стеллаж",
+      "count": 303
+    },
+    {
+      "phrase": "как заработать на ozon",
+      "count": 303
+    },
+    {
+      "phrase": "legal ozon ru",
+      "count": 303
+    },
+    {
+      "phrase": "ozon авиабилеты купить",
+      "count": 303
+    },
+    {
+      "phrase": "находки ozon",
+      "count": 302
+    },
+    {
+      "phrase": "специалист поддержки клиентов ozon",
+      "count": 301
+    },
+    {
+      "phrase": "ближайшие пункты ozon",
+      "count": 301
+    },
+    {
+      "phrase": "ozon технологии",
+      "count": 301
+    },
+    {
+      "phrase": "ozon доставка по россии",
+      "count": 301
+    },
+    {
+      "phrase": "скачать ozon на компьютер",
+      "count": 300
+    },
+    {
+      "phrase": "finance ozon ru activate активировать",
+      "count": 300
+    },
+    {
+      "phrase": "ozon туры",
+      "count": 300
+    },
+    {
+      "phrase": "ozon видеокарты",
+      "count": 299
+    },
+    {
+      "phrase": "ozon ba",
+      "count": 299
+    },
+    {
+      "phrase": "help finance ozon",
+      "count": 299
+    },
+    {
+      "phrase": "ozon экстранет",
+      "count": 298
+    },
+    {
+      "phrase": "служба доставки ozon",
+      "count": 298
+    },
+    {
+      "phrase": "бытовая техника ozon",
+      "count": 298
+    },
+    {
+      "phrase": "ozon интернет магазин кабинет войти личный",
+      "count": 298
+    },
+    {
+      "phrase": "песня ozon nuor garsas",
+      "count": 298
+    },
+    {
+      "phrase": "как позвонить в ozon",
+      "count": 297
+    },
+    {
+      "phrase": "ps5 ozon",
+      "count": 297
+    },
+    {
+      "phrase": "ozon bank для бизнеса",
+      "count": 296
+    },
+    {
+      "phrase": "https seller edu ozon ru",
+      "count": 296
+    },
+    {
+      "phrase": "обогреватель ozon",
+      "count": 295
+    },
+    {
+      "phrase": "sender ozon ru",
+      "count": 295
+    },
+    {
+      "phrase": "работа в ozon отзывы",
+      "count": 293
+    },
+    {
+      "phrase": "как привязать карту к ozon",
+      "count": 293
+    },
+    {
+      "phrase": "ozon 4pda",
+      "count": 292
+    },
+    {
+      "phrase": "ozon банк оператор",
+      "count": 292
+    },
+    {
+      "phrase": "sso ozon ru",
+      "count": 292
+    },
+    {
+      "phrase": "войти в вози ozon",
+      "count": 292
+    },
+    {
+      "phrase": "opp ozon ru",
+      "count": 290
+    },
+    {
+      "phrase": "ozon кредитная карта условия",
+      "count": 290
+    },
+    {
+      "phrase": "ozon ульяновск",
+      "count": 290
+    },
+    {
+      "phrase": "ozon university",
+      "count": 289
+    },
+    {
+      "phrase": "ozon иконка",
+      "count": 289
+    },
+    {
+      "phrase": "ozon лк",
+      "count": 289
+    },
+    {
+      "phrase": "горячая линия ozon job",
+      "count": 287
+    },
+    {
+      "phrase": "ozon секс",
+      "count": 285
+    },
+    {
+      "phrase": "ozon 10000",
+      "count": 285
+    },
+    {
+      "phrase": "checkout ozon ru",
+      "count": 285
+    },
+    {
+      "phrase": "логистический центр ozon в саратове",
+      "count": 285
+    },
+    {
+      "phrase": "ozon махачкала",
+      "count": 285
+    },
+    {
+      "phrase": "ozon банк вакансии",
+      "count": 285
+    },
+    {
+      "phrase": "ozon download",
+      "count": 284
+    },
+    {
+      "phrase": "ozon bank личный кабинет войти",
+      "count": 284
+    },
+    {
+      "phrase": "ozon kids",
+      "count": 283
+    },
+    {
+      "phrase": "здоровье ozon",
+      "count": 283
+    },
+    {
+      "phrase": "банки партнеры ozon",
+      "count": 282
+    },
+    {
+      "phrase": "банки партнеры ozon банка",
+      "count": 282
+    },
+    {
+      "phrase": "партнеры ozon банка",
+      "count": 282
+    },
+    {
+      "phrase": "ozon key",
+      "count": 282
+    },
+    {
+      "phrase": "как сделать ozon карту",
+      "count": 282
+    },
+    {
+      "phrase": "поддержка ozon горячая линия",
+      "count": 282
+    },
+    {
+      "phrase": "ozon карта в чем подвох",
+      "count": 282
+    },
+    {
+      "phrase": "органайзеры ozon",
+      "count": 281
+    },
+    {
+      "phrase": "hotels ozon travel",
+      "count": 281
+    },
+    {
+      "phrase": "кофемашина ozon",
+      "count": 281
+    },
+    {
+      "phrase": "брюки женские ozon",
+      "count": 281
+    },
+    {
+      "phrase": "riko ozon 3 в 1",
+      "count": 280
+    },
+    {
+      "phrase": "ozon селлер личный кабинет",
+      "count": 278
+    },
+    {
+      "phrase": "ozon отмена заказа",
+      "count": 277
+    },
+    {
+      "phrase": "ozon ads",
+      "count": 277
+    },
+    {
+      "phrase": "ozon доставка как оформить",
+      "count": 276
+    },
+    {
+      "phrase": "коды и сертификаты ozon",
+      "count": 275
+    },
+    {
+      "phrase": "ozon в калининграде",
+      "count": 275
+    },
+    {
+      "phrase": "ozon проектор",
+      "count": 274
+    },
+    {
+      "phrase": "http ozon ru t",
+      "count": 274
+    },
+    {
+      "phrase": "ozon bank ultra",
+      "count": 274
+    },
+    {
+      "phrase": "finance ozon ru activate активировать карту",
+      "count": 274
+    },
+    {
+      "phrase": "ozon халва",
+      "count": 273
+    },
+    {
+      "phrase": "джемпер ozon",
+      "count": 272
+    },
+    {
+      "phrase": "ozon чаевые",
+      "count": 272
+    },
+    {
+      "phrase": "ozon пенза",
+      "count": 272
+    },
+    {
+      "phrase": "можно ли отправить посылку через ozon",
+      "count": 272
+    },
+    {
+      "phrase": "ozon банк офисы",
+      "count": 271
+    },
+    {
+      "phrase": "отследить ozon по номеру",
+      "count": 270
+    },
+    {
+      "phrase": "кодовое слово ozon",
+      "count": 270
+    },
+    {
+      "phrase": "ozon service",
+      "count": 270
+    },
+    {
+      "phrase": "кто владелец ozon",
+      "count": 269
+    },
+    {
+      "phrase": "ozon auto",
+      "count": 269
+    },
+    {
+      "phrase": "где посылка ozon",
+      "count": 269
+    },
+    {
+      "phrase": "ozon барнаул",
+      "count": 268
+    },
+    {
+      "phrase": "ozon job выплаты",
+      "count": 266
+    },
+    {
+      "phrase": "ozon fresh работа курьером",
+      "count": 266
+    },
+    {
+      "phrase": "help finance ozon ru",
+      "count": 266
+    },
+    {
+      "phrase": "ozon банк кэшбэк",
+      "count": 266
+    },
+    {
+      "phrase": "ozon саратов бпла",
+      "count": 265
+    },
+    {
+      "phrase": "ozon в крыму",
+      "count": 265
+    },
+    {
+      "phrase": "пуховик ozon",
+      "count": 265
+    },
+    {
+      "phrase": "hh ozon",
+      "count": 265
+    },
+    {
+      "phrase": "ozon learning",
+      "count": 264
+    },
+    {
+      "phrase": "худи ozon",
+      "count": 264
+    },
+    {
+      "phrase": "завод ozon",
+      "count": 264
+    },
+    {
+      "phrase": "карта памяти ozon",
+      "count": 263
+    },
+    {
+      "phrase": "полотенца ozon",
+      "count": 263
+    },
+    {
+      "phrase": "как вывести деньги с ozon",
+      "count": 263
+    },
+    {
+      "phrase": "скачать ozon на андроид бесплатно на русском",
+      "count": 262
+    },
+    {
+      "phrase": "когда появился ozon",
+      "count": 262
+    },
+    {
+      "phrase": "постамат ozon box",
+      "count": 260
+    },
+    {
+      "phrase": "ozon селект промокод на первый заказ",
+      "count": 260
+    },
+    {
+      "phrase": "free ozon",
+      "count": 260
+    },
+    {
+      "phrase": "ozon скачать на пк",
+      "count": 259
+    },
+    {
+      "phrase": "кардиган ozon",
+      "count": 259
+    },
+    {
+      "phrase": "как оформить возврат на ozon",
+      "count": 259
+    },
+    {
+      "phrase": "ozon ru интернет магазин москва",
+      "count": 259
+    },
+    {
+      "phrase": "скачать приложение ozon бесплатно на телефон",
+      "count": 257
+    },
+    {
+      "phrase": "iqoo ozon",
+      "count": 257
+    },
+    {
+      "phrase": "ozon cyndykshop",
+      "count": 257
+    },
+    {
+      "phrase": "ozon доставка отследить",
+      "count": 257
+    },
+    {
+      "phrase": "ozon astral ru",
+      "count": 256
+    },
+    {
+      "phrase": "ozon банк номер телефона горячей линии",
+      "count": 256
+    },
+    {
+      "phrase": "ozon баллон",
+      "count": 255
+    },
+    {
+      "phrase": "ozon seller fbs",
+      "count": 254
+    },
+    {
+      "phrase": "ozon fresh ru",
+      "count": 254
+    },
+    {
+      "phrase": "промокод ozon октябрь",
+      "count": 253
+    },
+    {
+      "phrase": "ozon vst",
+      "count": 253
+    },
+    {
+      "phrase": "ozon открытие пвз",
+      "count": 253
+    },
+    {
+      "phrase": "ozon hub",
+      "count": 253
+    },
+    {
+      "phrase": "ozon car",
+      "count": 253
+    },
+    {
+      "phrase": "ozon банк сайт",
+      "count": 252
+    },
+    {
+      "phrase": "ozon staff личный кабинет вход",
+      "count": 252
+    },
+    {
+      "phrase": "opp ozon ru вход",
+      "count": 251
+    },
+    {
+      "phrase": "y m ozon что это",
+      "count": 251
+    },
+    {
+      "phrase": "ozon pr",
+      "count": 251
+    },
+    {
+      "phrase": "ozon staff личный кабинет сотрудника войти",
+      "count": 250
+    },
+    {
+      "phrase": "selfreg ozon ru",
+      "count": 250
+    },
+    {
+      "phrase": "ozon tech стажировка",
+      "count": 250
+    },
+    {
+      "phrase": "ozon банк скачать приложение на андроид",
+      "count": 250
+    },
+    {
+      "phrase": "ozon ru скачать приложение",
+      "count": 249
+    },
+    {
+      "phrase": "победители ozon",
+      "count": 249
+    },
+    {
+      "phrase": "www ozon r",
+      "count": 248
+    },
+    {
+      "phrase": "staff ozon ru личный кабинет войти",
+      "count": 248
+    },
+    {
+      "phrase": "ozon cyndykshop ru",
+      "count": 248
+    },
+    {
+      "phrase": "ozon штат",
+      "count": 248
+    },
+    {
+      "phrase": "как пополнить ozon банк",
+      "count": 248
+    },
+    {
+      "phrase": "сколько лет ozon",
+      "count": 248
+    },
+    {
+      "phrase": "https www ozon ru my orderlist",
+      "count": 246
+    },
+    {
+      "phrase": "телефон службы поддержки ozon",
+      "count": 246
+    },
+    {
+      "phrase": "ozon bot",
+      "count": 246
+    },
+    {
+      "phrase": "ozon эдо",
+      "count": 246
+    },
+    {
+      "phrase": "stuff ozon",
+      "count": 245
+    },
+    {
+      "phrase": "ozon интернет магазин wildberries",
+      "count": 245
+    },
+    {
+      "phrase": "ozon кемерово",
+      "count": 245
+    },
+    {
+      "phrase": "жилет ozon",
+      "count": 245
+    },
+    {
+      "phrase": "ozon login",
+      "count": 244
+    },
+    {
+      "phrase": "https www ozon ru личный кабинет",
+      "count": 244
+    },
+    {
+      "phrase": "ozon страховка",
+      "count": 243
+    },
+    {
+      "phrase": "ozon fresh челябинск",
+      "count": 243
+    },
+    {
+      "phrase": "сейчас продолжить не получится ozon job",
+      "count": 243
+    },
+    {
+      "phrase": "ozon travel авиабилеты купить",
+      "count": 243
+    },
+    {
+      "phrase": "iphone 18 ozon",
+      "count": 243
+    },
+    {
+      "phrase": "infinix ozon",
+      "count": 243
+    },
+    {
+      "phrase": "ozon style",
+      "count": 242
+    },
+    {
+      "phrase": "ozon рогачевка",
+      "count": 242
+    },
+    {
+      "phrase": "iphone 17 pro ozon",
+      "count": 242
+    },
+    {
+      "phrase": "riko basic ozon 3 в 1",
+      "count": 242
+    },
+    {
+      "phrase": "recruitment ozon ru invitecs",
+      "count": 241
+    },
+    {
+      "phrase": "gr ozon ru",
+      "count": 241
+    },
+    {
+      "phrase": "finance ozon ru business rko",
+      "count": 240
+    },
+    {
+      "phrase": "ozon банк пресненская наб 10блокс",
+      "count": 240
+    },
+    {
+      "phrase": "ozon 2021",
+      "count": 240
+    },
+    {
+      "phrase": "ozon официальный сайт москва",
+      "count": 239
+    },
+    {
+      "phrase": "ob ozon что это",
+      "count": 239
+    },
+    {
+      "phrase": "ozon job как работать",
+      "count": 238
+    },
+    {
+      "phrase": "ozon режим работы пунктов",
+      "count": 238
+    },
+    {
+      "phrase": "ozon база знаний",
+      "count": 238
+    },
+    {
+      "phrase": "ozon ru личный кабинет войти по номеру",
+      "count": 238
+    },
+    {
+      "phrase": "ozon ru fintech activate cord",
+      "count": 237
+    },
+    {
+      "phrase": "пункт приема ozon",
+      "count": 237
+    },
+    {
+      "phrase": "ozon пункты выдачи вакансии",
+      "count": 237
+    },
+    {
+      "phrase": "ozon ru интернет магазин омск",
+      "count": 237
+    },
+    {
+      "phrase": "ozon ru контакты",
+      "count": 237
+    },
+    {
+      "phrase": "ozon id вход в личный",
+      "count": 237
+    },
+    {
+      "phrase": "ozon пвз устроиться",
+      "count": 237
+    },
+    {
+      "phrase": "ozon моя корзина",
+      "count": 236
+    },
+    {
+      "phrase": "ozon gpt",
+      "count": 236
+    },
+    {
+      "phrase": "рюкзак спина к спине ozon",
+      "count": 236
+    },
+    {
+      "phrase": "не работает приложение ozon",
+      "count": 236
+    },
+    {
+      "phrase": "ozon блоггер",
+      "count": 236
+    },
+    {
+      "phrase": "ozon отправить посылку в другой город",
+      "count": 236
+    },
+    {
+      "phrase": "turbo pvz ozon ru binding link",
+      "count": 236
+    },
+    {
+      "phrase": "befree ozon",
+      "count": 236
+    },
+    {
+      "phrase": "свитер ozon",
+      "count": 235
+    },
+    {
+      "phrase": "ozon склад вакансии",
+      "count": 235
+    },
+    {
+      "phrase": "ozon софьино",
+      "count": 234
+    },
+    {
+      "phrase": "ozon банк банкоматы без комиссии",
+      "count": 234
+    },
+    {
+      "phrase": "https www ozon ru my chat",
+      "count": 234
+    },
+    {
+      "phrase": "установить приложение ozon на телефон",
+      "count": 234
+    },
+    {
+      "phrase": "ozon фулфилмент",
+      "count": 233
+    },
+    {
+      "phrase": "ozon ru промокод",
+      "count": 233
+    },
+    {
+      "phrase": "карта ozon банка условия",
+      "count": 233
+    },
+    {
+      "phrase": "https www ozon r",
+      "count": 233
+    },
+    {
+      "phrase": "ozon пвз вход",
+      "count": 233
+    },
+    {
+      "phrase": "ozon орел",
+      "count": 232
+    },
+    {
+      "phrase": "ozon nuor garsas slowed",
+      "count": 232
+    },
+    {
+      "phrase": "ozon турция",
+      "count": 232
+    },
+    {
+      "phrase": "приложение ozon селект",
+      "count": 232
+    },
+    {
+      "phrase": "ozon mobile",
+      "count": 232
+    },
+    {
+      "phrase": "костюм женский ozon",
+      "count": 232
+    },
+    {
+      "phrase": "https ozon cyndykshop ru",
+      "count": 232
+    },
+    {
+      "phrase": "https tracking ozon ru",
+      "count": 232
+    },
+    {
+      "phrase": "ru ozon hire",
+      "count": 231
+    },
+    {
+      "phrase": "b2b ozon ru",
+      "count": 231
+    },
+    {
+      "phrase": "ozon seller скачать",
+      "count": 231
+    },
+    {
+      "phrase": "защитное стекло ozon",
+      "count": 231
+    },
+    {
+      "phrase": "ozon тамбов",
+      "count": 231
+    },
+    {
+      "phrase": "ozon часы работы пункта",
+      "count": 230
+    },
+    {
+      "phrase": "туфли ozon",
+      "count": 230
+    },
+    {
+      "phrase": "ozon саратов пожар",
+      "count": 230
+    },
+    {
+      "phrase": "ozon объявления",
+      "count": 230
+    },
+    {
+      "phrase": "https finance ozon ru business rko",
+      "count": 230
+    },
+    {
+      "phrase": "ozon ru product 45",
+      "count": 229
+    },
+    {
+      "phrase": "pvz ozon турбо пвз",
+      "count": 229
+    },
+    {
+      "phrase": "staff ozon ru личный кабинет сотрудника войти",
+      "count": 229
+    },
+    {
+      "phrase": "beamng drive ozon",
+      "count": 229
+    },
+    {
+      "phrase": "склад ozon таганрог",
+      "count": 229
+    },
+    {
+      "phrase": "ozon системный блок",
+      "count": 229
+    },
+    {
+      "phrase": "ozon ижевск",
+      "count": 228
+    },
+    {
+      "phrase": "ozon узбекистан",
+      "count": 228
+    },
+    {
+      "phrase": "линейка ozon",
+      "count": 228
+    },
+    {
+      "phrase": "casio ozon",
+      "count": 227
+    },
+    {
+      "phrase": "оформление ozon карты",
+      "count": 227
+    },
+    {
+      "phrase": "staff ozon ru для сотрудников",
+      "count": 226
+    },
+    {
+      "phrase": "ozon собеседование",
+      "count": 226
+    },
+    {
+      "phrase": "ozon 2022",
+      "count": 226
+    },
+    {
+      "phrase": "ozon seller войти",
+      "count": 226
+    },
+    {
+      "phrase": "ozon отзывы покупателей",
+      "count": 226
+    },
+    {
+      "phrase": "hr ozon ru",
+      "count": 225
+    },
+    {
+      "phrase": "coreplaygame ru ozon",
+      "count": 225
+    },
+    {
+      "phrase": "ozon фон",
+      "count": 225
+    },
+    {
+      "phrase": "кофта ozon",
+      "count": 225
+    },
+    {
+      "phrase": "ozon karta",
+      "count": 225
+    },
+    {
+      "phrase": "ozon chatgpt",
+      "count": 224
+    },
+    {
+      "phrase": "ozon интернет магазин ростов на дону",
+      "count": 224
+    },
+    {
+      "phrase": "ozon сравнение товаров",
+      "count": 224
+    },
+    {
+      "phrase": "купить часы на ozon",
+      "count": 224
+    },
+    {
+      "phrase": "как поставить ozon",
+      "count": 223
+    },
+    {
+      "phrase": "как удалить аккаунт ozon",
+      "count": 223
+    },
+    {
+      "phrase": "seller helper ozon",
+      "count": 223
+    },
+    {
+      "phrase": "братовщина ozon",
+      "count": 223
+    },
+    {
+      "phrase": "виртуальная карта ozon банка",
+      "count": 223
+    },
+    {
+      "phrase": "скачать ozon приложение бесплатно на русском языке",
+      "count": 222
+    },
+    {
+      "phrase": "ozon bank телефон",
+      "count": 222
+    },
+    {
+      "phrase": "ozon id вход в личный кабинет",
+      "count": 222
+    },
+    {
+      "phrase": "пожар на складе ozon",
+      "count": 222
+    },
+    {
+      "phrase": "ozon job отзывы о работе",
+      "count": 222
+    },
+    {
+      "phrase": "vk com ozon",
+      "count": 222
+    },
+    {
+      "phrase": "закупки ozon",
+      "count": 221
+    },
+    {
+      "phrase": "5060 ozon",
+      "count": 221
+    },
+    {
+      "phrase": "помощник ozon",
+      "count": 220
+    },
+    {
+      "phrase": "ozon uz",
+      "count": 220
+    },
+    {
+      "phrase": "ozon ry",
+      "count": 220
+    },
+    {
+      "phrase": "ym ozon 199 рублей что это",
+      "count": 220
+    },
+    {
+      "phrase": "gtin ozon",
+      "count": 220
+    },
+    {
+      "phrase": "можно ли вернуть товар на ozon",
+      "count": 219
+    },
+    {
+      "phrase": "ozon как оплатить сертификатом",
+      "count": 219
+    },
+    {
+      "phrase": "ozon кружки",
+      "count": 219
+    },
+    {
+      "phrase": "forms ozon",
+      "count": 219
+    },
+    {
+      "phrase": "https docs ozon ru legal",
+      "count": 218
+    },
+    {
+      "phrase": "docs ozon ru common",
+      "count": 218
+    },
+    {
+      "phrase": "блузка ozon",
+      "count": 218
+    },
+    {
+      "phrase": "что дает подписка ozon premium",
+      "count": 218
+    },
+    {
+      "phrase": "ozon семей",
+      "count": 217
+    },
+    {
+      "phrase": "ozon fashion",
+      "count": 217
+    },
+    {
+      "phrase": "номер поддержки ozon job",
+      "count": 217
+    },
+    {
+      "phrase": "вернуться на страницу акции от ozon",
+      "count": 217
+    },
+    {
+      "phrase": "ozon apk скачать",
+      "count": 217
+    },
+    {
+      "phrase": "склады ozon на карте",
+      "count": 216
+    },
+    {
+      "phrase": "пальто ozon",
+      "count": 216
+    },
+    {
+      "phrase": "нижнее белье ozon",
+      "count": 216
+    },
+    {
+      "phrase": "ozon slowed reverb скачать",
+      "count": 216
+    },
+    {
+      "phrase": "ozon альфа банк",
+      "count": 216
+    },
+    {
+      "phrase": "ozon банк чат",
+      "count": 216
+    },
+    {
+      "phrase": "ozon банк расчетный счет",
+      "count": 215
+    },
+    {
+      "phrase": "ближайший пункт выдачи ozon",
+      "count": 215
+    },
+    {
+      "phrase": "job ozon ru вакансии",
+      "count": 215
+    },
+    {
+      "phrase": "ew4yin53 ozon",
+      "count": 215
+    },
+    {
+      "phrase": "ozon официальный сайт личный кабинет",
+      "count": 214
+    },
+    {
+      "phrase": "ozon ru product 2390415060",
+      "count": 214
+    },
+    {
+      "phrase": "samsung s26 ozon",
+      "count": 213
+    },
+    {
+      "phrase": "ozon оплата после получения",
+      "count": 213
+    },
+    {
+      "phrase": "ozon промокод на технику",
+      "count": 213
+    },
+    {
+      "phrase": "ozon старая купавна",
+      "count": 212
+    },
+    {
+      "phrase": "ozon зубная паста",
+      "count": 212
+    },
+    {
+      "phrase": "как положить деньги на ozon",
+      "count": 212
+    },
+    {
+      "phrase": "ozon staff для сотрудников вход",
+      "count": 212
+    },
+    {
+      "phrase": "как покупать на ozon",
+      "count": 212
+    },
+    {
+      "phrase": "ozon job обучение",
+      "count": 212
+    },
+    {
+      "phrase": "ozon телефон горячей линии бесплатный",
+      "count": 212
+    },
+    {
+      "phrase": "https ozon kz",
+      "count": 212
+    },
+    {
+      "phrase": "ппз ozon",
+      "count": 211
+    },
+    {
+      "phrase": "ozon ru мои заказы",
+      "count": 211
+    },
+    {
+      "phrase": "finanse ozon ru",
+      "count": 211
+    },
+    {
+      "phrase": "мобильный телефон ozon",
+      "count": 211
+    },
+    {
+      "phrase": "ozon трудоустройство",
+      "count": 211
+    },
+    {
+      "phrase": "ozon baby",
+      "count": 211
+    },
+    {
+      "phrase": "ozon bilet",
+      "count": 211
+    },
+    {
+      "phrase": "ozon moscow",
+      "count": 211
+    },
+    {
+      "phrase": "cream ozon",
+      "count": 210
+    },
+    {
+      "phrase": "ozon перевод на русский",
+      "count": 210
+    },
+    {
+      "phrase": "owa ozon ru почта",
+      "count": 210
+    },
+    {
+      "phrase": "ozon crm",
+      "count": 210
+    },
+    {
+      "phrase": "как зарегистрироваться на ozon",
+      "count": 210
+    },
+    {
+      "phrase": "промокод или сертификат ozon",
+      "count": 210
+    },
+    {
+      "phrase": "ozon staff o3",
+      "count": 210
+    },
+    {
+      "phrase": "ozon материнская плата",
+      "count": 210
+    },
+    {
+      "phrase": "ozon антистрессы",
+      "count": 209
+    },
+    {
+      "phrase": "промокоды ozon на все товары",
+      "count": 209
+    },
+    {
+      "phrase": "сколько стоит ozon доставка",
+      "count": 209
+    },
+    {
+      "phrase": "до скольки работает ozon пункт выдачи",
+      "count": 209
+    },
+    {
+      "phrase": "ozon prometeus ru вход",
+      "count": 209
+    },
+    {
+      "phrase": "ozon club",
+      "count": 209
+    },
+    {
+      "phrase": "ozon flash",
+      "count": 208
+    },
+    {
+      "phrase": "ozon маркетплейс миллионы товаров по выгодным ценам",
+      "count": 208
+    },
+    {
+      "phrase": "ozon веб версия",
+      "count": 208
+    },
+    {
+      "phrase": "ozon сквиши",
+      "count": 208
+    },
+    {
+      "phrase": "приложение ozon для андроид",
+      "count": 208
+    },
+    {
+      "phrase": "ozon profit отзывы о работе",
+      "count": 207
+    },
+    {
+      "phrase": "ozon товары за 1 рубль",
+      "count": 207
+    },
+    {
+      "phrase": "ozon липецк",
+      "count": 207
+    },
+    {
+      "phrase": "ozon кострома",
+      "count": 207
+    },
+    {
+      "phrase": "купить телевизор ozon",
+      "count": 206
+    },
+    {
+      "phrase": "ozon hdd",
+      "count": 206
+    },
+    {
+      "phrase": "ozon томск",
+      "count": 206
+    },
+    {
+      "phrase": "скачать бесплатно ozon job",
+      "count": 206
+    },
+    {
+      "phrase": "ozon ru интернет магазин официальный сайт москва",
+      "count": 206
+    },
+    {
+      "phrase": "отследить трек номер ozon",
+      "count": 205
+    },
+    {
+      "phrase": "ozon bank скачать приложение",
+      "count": 205
+    },
+    {
+      "phrase": "ozon job со скольки лет",
+      "count": 204
+    },
+    {
+      "phrase": "ozon красноярск интернет магазин",
+      "count": 204
+    },
+    {
+      "phrase": "ozon симферополь",
+      "count": 204
+    },
+    {
+      "phrase": "digital ozon ru",
+      "count": 204
+    },
+    {
+      "phrase": "ozon селект сайт",
+      "count": 204
+    },
+    {
+      "phrase": "staff ozon ru для сотрудников личный",
+      "count": 204
+    },
+    {
+      "phrase": "staff ozon личный кабинет для сотрудников вход",
+      "count": 204
+    },
+    {
+      "phrase": "ym ozon что это списание 199 рублей",
+      "count": 204
+    },
+    {
+      "phrase": "сорочка ozon",
+      "count": 203
+    },
+    {
+      "phrase": "ozon ультра",
+      "count": 203
+    },
+    {
+      "phrase": "ozon реферальная программа",
+      "count": 203
+    },
+    {
+      "phrase": "ozon сплит",
+      "count": 203
+    },
+    {
+      "phrase": "ozon 1998",
+      "count": 203
+    },
+    {
+      "phrase": "ozon джоб",
+      "count": 203
+    },
+    {
+      "phrase": "ozon bank вход",
+      "count": 202
+    },
+    {
+      "phrase": "ozon arena",
+      "count": 202
+    },
+    {
+      "phrase": "ozon владикавказ",
+      "count": 202
+    },
+    {
+      "phrase": "новый пункт ozon",
+      "count": 202
+    },
+    {
+      "phrase": "горит склад ozon",
+      "count": 202
+    },
+    {
+      "phrase": "коляска ozon 3 в 1",
+      "count": 201
+    },
+    {
+      "phrase": "видеорегистратор ozon",
+      "count": 201
+    },
+    {
+      "phrase": "как переводится ozon",
+      "count": 201
+    },
+    {
+      "phrase": "калькулятор ozon seller",
+      "count": 201
+    },
+    {
+      "phrase": "ozon изменить пункт выдачи",
+      "count": 201
+    },
+    {
+      "phrase": "univer ozon ru",
+      "count": 200
+    },
+    {
+      "phrase": "скидка ozon select",
+      "count": 200
+    },
+    {
+      "phrase": "ozon credit",
+      "count": 199
+    },
+    {
+      "phrase": "ozon поддержка работа",
+      "count": 199
+    },
+    {
+      "phrase": "курьерская доставка ozon",
+      "count": 199
+    },
+    {
+      "phrase": "ozon performance api",
+      "count": 198
+    },
+    {
+      "phrase": "ozon банк поддержка телефон",
+      "count": 198
+    },
+    {
+      "phrase": "ozon rustore",
+      "count": 198
+    },
+    {
+      "phrase": "блокнот ozon",
+      "count": 198
+    },
+    {
+      "phrase": "ozon bank горячая линия",
+      "count": 198
+    },
+    {
+      "phrase": "ozon ddr4",
+      "count": 198
+    },
+    {
+      "phrase": "ozon поезд",
+      "count": 197
+    },
+    {
+      "phrase": "bilet ozon travel",
+      "count": 197
+    },
+    {
+      "phrase": "ozon ru продукты",
+      "count": 197
+    },
+    {
+      "phrase": "ozon дорожная ул 13б поселок зоринский отзывы",
+      "count": 196
+    },
+    {
+      "phrase": "мертвое полушарие клиентов wb и ozon",
+      "count": 196
+    },
+    {
+      "phrase": "y m ozon limit что это",
+      "count": 196
+    },
+    {
+      "phrase": "https tms ozon ru",
+      "count": 196
+    },
+    {
+      "phrase": "ozon лого",
+      "count": 195
+    },
+    {
+      "phrase": "ozon татарстан",
+      "count": 195
+    },
+    {
+      "phrase": "ozon карьер",
+      "count": 195
+    },
+    {
+      "phrase": "ozon карьера",
+      "count": 195
+    },
+    {
+      "phrase": "ozon rocket отслеживание",
+      "count": 195
+    },
+    {
+      "phrase": "ozon staff o3 ru",
+      "count": 194
+    },
+    {
+      "phrase": "ozon новороссийск",
+      "count": 194
+    },
+    {
+      "phrase": "ozon как оплатить при получении",
+      "count": 194
+    },
+    {
+      "phrase": "ozon оперативная память",
+      "count": 194
+    },
+    {
+      "phrase": "ozon калуга",
+      "count": 194
+    },
+    {
+      "phrase": "режим работы ozon пункт выдачи",
+      "count": 194
+    },
+    {
+      "phrase": "ozon ru product 3731540009",
+      "count": 193
+    },
+    {
+      "phrase": "ozon одежда каталог",
+      "count": 193
+    },
+    {
+      "phrase": "свитшот ozon",
+      "count": 193
+    },
+    {
+      "phrase": "одежда женская ozon",
+      "count": 192
+    },
+    {
+      "phrase": "ozon время работы пунктов выдачи",
+      "count": 192
+    },
+    {
+      "phrase": "ozon плагин",
+      "count": 192
+    },
+    {
+      "phrase": "открыть склад ozon",
+      "count": 192
+    },
+    {
+      "phrase": "ozon чита",
+      "count": 192
+    },
+    {
+      "phrase": "forms ozon ru",
+      "count": 192
+    },
+    {
+      "phrase": "ozon pay nfc",
+      "count": 191
+    },
+    {
+      "phrase": "https ya ru ozon",
+      "count": 191
+    },
+    {
+      "phrase": "как закрыть ozon карту",
+      "count": 191
+    },
+    {
+      "phrase": "как связаться с оператором ozon",
+      "count": 191
+    },
+    {
+      "phrase": "news news ozon ru",
+      "count": 191
+    },
+    {
+      "phrase": "во сколько открывается ozon",
+      "count": 190
+    },
+    {
+      "phrase": "ozon активация карты",
+      "count": 190
+    },
+    {
+      "phrase": "ozon петрозаводск",
+      "count": 190
+    },
+    {
+      "phrase": "ipad ozon",
+      "count": 189
+    },
+    {
+      "phrase": "удар по ozon",
+      "count": 189
+    },
+    {
+      "phrase": "атакован склад ozon",
+      "count": 189
+    },
+    {
+      "phrase": "ozon roblox",
+      "count": 189
+    },
+    {
+      "phrase": "ozon лукошко",
+      "count": 189
+    },
+    {
+      "phrase": "macbook ozon",
+      "count": 188
+    },
+    {
+      "phrase": "ozon job скачать приложение бесплатно",
+      "count": 188
+    },
+    {
+      "phrase": "как написать в поддержку ozon",
+      "count": 188
+    },
+    {
+      "phrase": "https sso ozon ru",
+      "count": 188
+    },
+    {
+      "phrase": "как отключить подписку ozon premium",
+      "count": 188
+    },
+    {
+      "phrase": "ozon гостиницы",
+      "count": 188
+    },
+    {
+      "phrase": "ozon пвз вакансии",
+      "count": 187
+    },
+    {
+      "phrase": "скачать песню ozon nuor",
+      "count": 187
+    },
+    {
+      "phrase": "водолазка ozon",
+      "count": 187
+    },
+    {
+      "phrase": "https ozon ru t mnvroii",
+      "count": 187
+    },
+    {
+      "phrase": "ozon fpv",
+      "count": 186
+    },
+    {
+      "phrase": "seller helper ozon расширение",
+      "count": 186
+    },
+    {
+      "phrase": "samsung s25 ozon",
+      "count": 186
+    },
+    {
+      "phrase": "ozon мурманск",
+      "count": 186
+    },
+    {
+      "phrase": "ozon банк реклама",
+      "count": 185
+    },
+    {
+      "phrase": "ozon партнерская программа",
+      "count": 185
+    },
+    {
+      "phrase": "ozon master li",
+      "count": 185
+    },
+    {
+      "phrase": "метотрексат ozon",
+      "count": 185
+    },
+    {
+      "phrase": "ozon фортуната",
+      "count": 185
+    },
+    {
+      "phrase": "ozon med com личный",
+      "count": 184
+    },
+    {
+      "phrase": "ozon ru my installment",
+      "count": 184
+    },
+    {
+      "phrase": "ru ozon app android",
+      "count": 184
+    },
+    {
+      "phrase": "ozon устроиться на работу в пункт выдачи",
+      "count": 184
+    },
+    {
+      "phrase": "ozon fresh пермь",
+      "count": 184
+    },
+    {
+      "phrase": "ozon sale",
+      "count": 184
+    },
+    {
+      "phrase": "ozon счет для бизнеса",
+      "count": 184
+    },
+    {
+      "phrase": "staff ozon ru личный кабинет вход",
+      "count": 184
+    },
+    {
+      "phrase": "ozon seller приложение",
+      "count": 184
+    },
+    {
+      "phrase": "mailer sender ozon ru",
+      "count": 183
+    },
+    {
+      "phrase": "ozon баллы за отзыв",
+      "count": 183
+    },
+    {
+      "phrase": "специалист онлайн поддержки клиентов ozon",
+      "count": 183
+    },
+    {
+      "phrase": "ozon для юридических лиц",
+      "count": 183
+    },
+    {
+      "phrase": "как потратить вау баллы на ozon",
+      "count": 183
+    },
+    {
+      "phrase": "ozon эквайринг",
+      "count": 183
+    },
+    {
+      "phrase": "ozon ru my main",
+      "count": 183
+    },
+    {
+      "phrase": "телефоны samsung ozon",
+      "count": 183
+    },
+    {
+      "phrase": "ozon ru product 19",
+      "count": 182
+    },
+    {
+      "phrase": "ozon travel телефон",
+      "count": 182
+    },
+    {
+      "phrase": "ozon личный кабинет скачать",
+      "count": 182
+    },
+    {
+      "phrase": "отслеживание посылок ozon",
+      "count": 182
+    },
+    {
+      "phrase": "xiaomi 17 ozon",
+      "count": 181
+    },
+    {
+      "phrase": "ozon premium промокод на подписку",
+      "count": 181
+    },
+    {
+      "phrase": "ozon набережные челны",
+      "count": 181
+    },
+    {
+      "phrase": "ozon windows 11",
+      "count": 180
+    },
+    {
+      "phrase": "ozon реклама 2026",
+      "count": 180
+    },
+    {
+      "phrase": "ozon работодатель",
+      "count": 180
+    },
+    {
+      "phrase": "как отменить заказ на ozon",
+      "count": 180
+    },
+    {
+      "phrase": "ozon великий новгород",
+      "count": 180
+    },
+    {
+      "phrase": "ozon fresh приложение",
+      "count": 180
+    },
+    {
+      "phrase": "скачать песню ozon nuor garsas",
+      "count": 179
+    },
+    {
+      "phrase": "ozon dev",
+      "count": 179
+    },
+    {
+      "phrase": "ozon online video",
+      "count": 179
+    },
+    {
+      "phrase": "тележка ozon",
+      "count": 179
+    },
+    {
+      "phrase": "https www ozon ru travel",
+      "count": 179
+    },
+    {
+      "phrase": "ozon ru интернет магазин ростов на дону",
+      "count": 179
+    },
+    {
+      "phrase": "сарафан ozon",
+      "count": 179
+    },
+    {
+      "phrase": "ozon job отзывы о работе на складе",
+      "count": 179
+    },
+    {
+      "phrase": "3d принтер ozon",
+      "count": 179
+    },
+    {
+      "phrase": "статистика ozon",
+      "count": 179
+    },
+    {
+      "phrase": "ozon саранск",
+      "count": 179
+    },
+    {
+      "phrase": "смартфон honor ozon",
+      "count": 178
+    },
+    {
+      "phrase": "ozon водитель вакансии",
+      "count": 178
+    },
+    {
+      "phrase": "ozon day",
+      "count": 178
+    },
+    {
+      "phrase": "https ozon cyndykshop ru br",
+      "count": 178
+    },
+    {
+      "phrase": "штрафы ozon job",
+      "count": 178
+    },
+    {
+      "phrase": "ozon тренды",
+      "count": 178
+    },
+    {
+      "phrase": "ozon check приложение",
+      "count": 177
+    },
+    {
+      "phrase": "iphone 18 pro ozon",
+      "count": 177
+    },
+    {
+      "phrase": "ozon доставка на дом",
+      "count": 177
+    },
+    {
+      "phrase": "ozon торговая площадка",
+      "count": 177
+    },
+    {
+      "phrase": "ozon ru product 17",
+      "count": 176
+    },
+    {
+      "phrase": "отправка посылок через ozon",
+      "count": 176
+    },
+    {
+      "phrase": "ozon ru s master li 3079612",
+      "count": 176
+    },
+    {
+      "phrase": "io ozon",
+      "count": 176
+    },
+    {
+      "phrase": "sela ozon",
+      "count": 176
+    },
+    {
+      "phrase": "ozon travel отзывы",
+      "count": 176
+    },
+    {
+      "phrase": "ozon парфюм",
+      "count": 175
+    },
+    {
+      "phrase": "рассрочка на товары ozon",
+      "count": 175
+    },
+    {
+      "phrase": "https ozon astral ru",
+      "count": 175
+    },
+    {
+      "phrase": "кеды ozon",
+      "count": 175
+    },
+    {
+      "phrase": "nintendo switch ozon",
+      "count": 174
+    },
+    {
+      "phrase": "ozon job регистрация",
+      "count": 174
+    },
+    {
+      "phrase": "жилетка ozon",
+      "count": 174
+    },
+    {
+      "phrase": "https www ozon ru highlight podarok",
+      "count": 174
+    },
+    {
+      "phrase": "ozon travel экстранет",
+      "count": 174
+    },
+    {
+      "phrase": "как продать товар на ozon",
+      "count": 174
+    },
+    {
+      "phrase": "как выйти из приложения ozon",
+      "count": 173
+    },
+    {
+      "phrase": "ozon бухгалтерия",
+      "count": 173
+    },
+    {
+      "phrase": "ozon dragostea",
+      "count": 173
+    },
+    {
+      "phrase": "ozon tg",
+      "count": 173
+    },
+    {
+      "phrase": "сайт ozon открыть",
+      "count": 173
+    },
+    {
+      "phrase": "ozon доставка из за рубежа",
+      "count": 173
+    },
+    {
+      "phrase": "ozon архыз",
+      "count": 173
+    },
+    {
+      "phrase": "выручка ozon",
+      "count": 172
+    },
+    {
+      "phrase": "ozon seller личный кабинет войти",
+      "count": 172
+    },
+    {
+      "phrase": "ozon новокузнецк",
+      "count": 172
+    },
+    {
+      "phrase": "ozon rostics",
+      "count": 172
+    },
+    {
+      "phrase": "www ozon ru my e check",
+      "count": 171
+    },
+    {
+      "phrase": "https ozon med com",
+      "count": 171
+    },
+    {
+      "phrase": "доставка посылок через ozon",
+      "count": 171
+    },
+    {
+      "phrase": "часы работы ozon пункт выдачи",
+      "count": 171
+    },
+    {
+      "phrase": "ozon png",
+      "count": 171
+    },
+    {
+      "phrase": "ozon банк официальный",
+      "count": 171
+    },
+    {
+      "phrase": "rtx 5060 ozon",
+      "count": 171
+    },
+    {
+      "phrase": "ozon avto",
+      "count": 171
+    },
+    {
+      "phrase": "hiring support ozon ru",
+      "count": 170
+    },
+    {
+      "phrase": "https ozon ru fintech links main",
+      "count": 170
+    },
+    {
+      "phrase": "менеджер ozon вакансия",
+      "count": 170
+    },
+    {
+      "phrase": "ozon med com личный кабинет",
+      "count": 170
+    },
+    {
+      "phrase": "ozon limit что это списание",
+      "count": 170
+    },
+    {
+      "phrase": "ozon apple id",
+      "count": 170
+    },
+    {
+      "phrase": "ozon склад сегодня",
+      "count": 169
+    },
+    {
+      "phrase": "claude ozon",
+      "count": 169
+    },
+    {
+      "phrase": "ozon бренд проверен",
+      "count": 169
+    },
+    {
+      "phrase": "vazi ozon",
+      "count": 169
+    },
+    {
+      "phrase": "ozon приведи друга",
+      "count": 168
+    },
+    {
+      "phrase": "ozon онлайн магазин",
+      "count": 168
+    },
+    {
+      "phrase": "ozon live",
+      "count": 168
+    },
+    {
+      "phrase": "ozon менеджер маркетплейса",
+      "count": 168
+    },
+    {
+      "phrase": "ozon premium бесплатно",
+      "count": 168
+    },
+    {
+      "phrase": "кровать купить ozon",
+      "count": 168
+    },
+    {
+      "phrase": "оформить кредитную карту ozon",
+      "count": 167
+    },
+    {
+      "phrase": "игровые мыши ozon",
+      "count": 167
+    },
+    {
+      "phrase": "ozon fresh скидка на первый заказ",
+      "count": 167
+    },
+    {
+      "phrase": "купальник ozon",
+      "count": 167
+    },
+    {
+      "phrase": "ozon studio",
+      "count": 167
+    },
+    {
+      "phrase": "преображенка ozon",
+      "count": 166
+    },
+    {
+      "phrase": "как отключить уведомления ozon",
+      "count": 166
+    },
+    {
+      "phrase": "ozon сургут",
+      "count": 166
+    },
+    {
+      "phrase": "ozon техподдержка телефон",
+      "count": 166
+    },
+    {
+      "phrase": "ozon карта открытия",
+      "count": 166
+    },
+    {
+      "phrase": "ozon ru регистрация",
+      "count": 165
+    },
+    {
+      "phrase": "ozon jardin promo ru зарегистрировать",
+      "count": 165
+    },
+    {
+      "phrase": "со скольки лет ozon карта",
+      "count": 165
+    },
+    {
+      "phrase": "ozon график работы пунктов выдачи",
+      "count": 164
+    },
+    {
+      "phrase": "https www ozon ru my main",
+      "count": 163
+    },
+    {
+      "phrase": "как перевести деньги на ozon банк",
+      "count": 163
+    },
+    {
+      "phrase": "https ozon cyndykshop ru br 3",
+      "count": 163
+    },
+    {
+      "phrase": "ozon ru t uubvnlp",
+      "count": 163
+    },
+    {
+      "phrase": "ozon склад октябрьский",
+      "count": 163
+    },
+    {
+      "phrase": "dark ozon",
+      "count": 163
+    },
+    {
+      "phrase": "как открыть пункт ozon",
+      "count": 163
+    },
+    {
+      "phrase": "ozon pay как подключить",
+      "count": 162
+    },
+    {
+      "phrase": "ozon job акции",
+      "count": 162
+    },
+    {
+      "phrase": "hh ru ozon",
+      "count": 162
+    },
+    {
+      "phrase": "ozon отслеживание заказа",
+      "count": 162
+    },
+    {
+      "phrase": "ozon work",
+      "count": 162
+    },
+    {
+      "phrase": "ozon банк работа",
+      "count": 162
+    },
+    {
+      "phrase": "брендбук ozon",
+      "count": 162
+    },
+    {
+      "phrase": "купить кроссовки на ozon",
+      "count": 162
+    },
+    {
+      "phrase": "игровой компьютер ozon",
+      "count": 162
+    },
+    {
+      "phrase": "туника ozon",
+      "count": 162
+    },
+    {
+      "phrase": "https ozon ru t 7gjjvqc",
+      "count": 162
+    },
+    {
+      "phrase": "со скольки лет можно работать на ozon",
+      "count": 161
+    },
+    {
+      "phrase": "действующие промокоды на ozon",
+      "count": 161
+    },
+    {
+      "phrase": "ozon bank номер",
+      "count": 161
+    },
+    {
+      "phrase": "ozon net",
+      "count": 161
+    },
+    {
+      "phrase": "ozon job поддержка номер телефона",
+      "count": 161
+    },
+    {
+      "phrase": "ozon промокод на повторный заказ",
+      "count": 161
+    },
+    {
+      "phrase": "пиджак ozon",
+      "count": 161
+    },
+    {
+      "phrase": "сайт ozon официальный сайт на русском",
+      "count": 161
+    },
+    {
+      "phrase": "ozon полка 1",
+      "count": 161
+    },
+    {
+      "phrase": "finance ozon ru личный кабинет",
+      "count": 160
+    },
+    {
+      "phrase": "пеналы ozon",
+      "count": 160
+    },
+    {
+      "phrase": "ozon банк скачать бесплатно",
+      "count": 160
+    },
+    {
+      "phrase": "ozon supreme",
+      "count": 160
+    },
+    {
+      "phrase": "ozon slowed reverb nuor garsas",
+      "count": 160
+    },
+    {
+      "phrase": "ozon мерч",
+      "count": 160
+    },
+    {
+      "phrase": "сколько платят на ozon",
+      "count": 160
+    },
+    {
+      "phrase": "ozon баллы купить",
+      "count": 160
+    },
+    {
+      "phrase": "отследить ozon по номеру заказа",
+      "count": 159
+    },
+    {
+      "phrase": "ozon bl",
+      "count": 159
+    },
+    {
+      "phrase": "retail ozon ru",
+      "count": 159
+    },
+    {
+      "phrase": "ozon ул спартака 36 1 село рогачевка",
+      "count": 159
+    },
+    {
+      "phrase": "https www ozon ru my e check",
+      "count": 159
+    },
+    {
+      "phrase": "ozon трекер",
+      "count": 158
+    },
+    {
+      "phrase": "скидка ozon селект",
+      "count": 158
+    },
+    {
+      "phrase": "как активировать карту ozon банка",
+      "count": 158
+    },
+    {
+      "phrase": "ozon цифровые товары",
+      "count": 158
+    },
+    {
+      "phrase": "распределительный центр ozon",
+      "count": 158
+    },
+    {
+      "phrase": "task ozon ru",
+      "count": 158
+    },
+    {
+      "phrase": "ozon mp3",
+      "count": 158
+    },
+    {
+      "phrase": "ozon магнитогорск",
+      "count": 157
+    },
+    {
+      "phrase": "ozon select сайт",
+      "count": 157
+    },
+    {
+      "phrase": "футболку купить ozon",
+      "count": 157
+    },
+    {
+      "phrase": "ozon топ автор",
+      "count": 157
+    },
+    {
+      "phrase": "м видео ozon",
+      "count": 157
+    },
+    {
+      "phrase": "ozon fresh нижний новгород",
+      "count": 157
+    },
+    {
+      "phrase": "ozon o3t ru",
+      "count": 157
+    },
+    {
+      "phrase": "реферальные ссылки ozon",
+      "count": 156
+    },
+    {
+      "phrase": "что можно купить на ozon",
+      "count": 156
+    },
+    {
+      "phrase": "сейфы ozon",
+      "count": 156
+    },
+    {
+      "phrase": "смартфон телефон ozon",
+      "count": 156
+    },
+    {
+      "phrase": "ozon мед",
+      "count": 156
+    },
+    {
+      "phrase": "https ozon ru t uubvnlp",
+      "count": 156
+    },
+    {
+      "phrase": "установить приложение ozon бесплатно",
+      "count": 156
+    },
+    {
+      "phrase": "ozon отрадное",
+      "count": 155
+    },
+    {
+      "phrase": "s26 ultra ozon",
+      "count": 155
+    },
+    {
+      "phrase": "ozon ru шторы",
+      "count": 155
+    },
+    {
+      "phrase": "honor 600 ozon",
+      "count": 155
+    },
+    {
+      "phrase": "ozon доставка из китая",
+      "count": 154
+    },
+    {
+      "phrase": "женская футболка ozon",
+      "count": 154
+    },
+    {
+      "phrase": "ozon шрифт",
+      "count": 154
+    },
+    {
+      "phrase": "ozon зимняя резина",
+      "count": 154
+    },
+    {
+      "phrase": "купить шкаф на ozon",
+      "count": 154
+    },
+    {
+      "phrase": "ozon balloon",
+      "count": 154
+    },
+    {
+      "phrase": "ozon pay скачать",
+      "count": 154
+    },
+    {
+      "phrase": "ozon stats",
+      "count": 153
+    },
+    {
+      "phrase": "ozon нижний тагил",
+      "count": 153
+    },
+    {
+      "phrase": "ozon vst скачать",
+      "count": 153
+    },
+    {
+      "phrase": "номер поддержки ozon банка",
+      "count": 153
+    },
+    {
+      "phrase": "ozon биржа",
+      "count": 153
+    },
+    {
+      "phrase": "vozi ozon",
+      "count": 153
+    },
+    {
+      "phrase": "ozon курьер пеший",
+      "count": 153
+    },
+    {
+      "phrase": "реклама ozon fresh",
+      "count": 152
+    },
+    {
+      "phrase": "ozon house",
+      "count": 152
+    },
+    {
+      "phrase": "купить кухню на ozon",
+      "count": 152
+    },
+    {
+      "phrase": "ozon практика",
+      "count": 152
+    },
+    {
+      "phrase": "бесплатный телефон ozon банка",
+      "count": 152
+    },
+    {
+      "phrase": "стол компьютерный ozon",
+      "count": 151
+    },
+    {
+      "phrase": "ag vmeste ozon",
+      "count": 151
+    },
+    {
+      "phrase": "размеры коробок ozon",
+      "count": 151
+    },
+    {
+      "phrase": "ozon гражданский",
+      "count": 151
+    },
+    {
+      "phrase": "ozon протеин",
+      "count": 151
+    },
+    {
+      "phrase": "как получить карту ozon банка",
+      "count": 151
+    },
+    {
+      "phrase": "ozon сбой",
+      "count": 151
+    },
+    {
+      "phrase": "подарочные сертификаты ozon купить",
+      "count": 150
+    },
+    {
+      "phrase": "ozon банк снятие наличных",
+      "count": 150
+    },
+    {
+      "phrase": "ozon seller поддержка",
+      "count": 150
+    },
+    {
+      "phrase": "ozon телеграм",
+      "count": 150
+    },
+    {
+      "phrase": "ozon рингтон",
+      "count": 150
+    },
+    {
+      "phrase": "склад ozon петровское",
+      "count": 150
+    },
+    {
+      "phrase": "www ozon ru my installment",
+      "count": 150
+    },
+    {
+      "phrase": "как отменить подписку ozon",
+      "count": 150
+    },
+    {
+      "phrase": "ozon profit сколько можно заработать",
+      "count": 150
+    },
+    {
+      "phrase": "ozon job вход",
+      "count": 150
+    },
+    {
+      "phrase": "ozon упал",
+      "count": 150
+    },
+    {
+      "phrase": "грузоперевозки ozon",
+      "count": 149
+    },
+    {
+      "phrase": "ozon курьер на личном авто",
+      "count": 149
+    },
+    {
+      "phrase": "масло моторное на ozon",
+      "count": 149
+    },
+    {
+      "phrase": "купить платье ozon",
+      "count": 149
+    },
+    {
+      "phrase": "как связаться с поддержкой ozon",
+      "count": 149
+    },
+    {
+      "phrase": "мужской костюм ozon",
+      "count": 149
+    },
+    {
+      "phrase": "power bank ozon",
+      "count": 149
+    },
+    {
+      "phrase": "ozon oil",
+      "count": 149
+    },
+    {
+      "phrase": "https ozon ru s master li 3079612",
+      "count": 149
+    },
+    {
+      "phrase": "ozon франшиза",
+      "count": 149
+    },
+    {
+      "phrase": "история цен ozon",
+      "count": 148
+    },
+    {
+      "phrase": "ozon бомбер",
+      "count": 148
+    },
+    {
+      "phrase": "ozon ru fintech octivate card",
+      "count": 148
+    },
+    {
+      "phrase": "ozon design",
+      "count": 148
+    },
+    {
+      "phrase": "ozon dragostea din",
+      "count": 148
+    },
+    {
+      "phrase": "зеленая цена на ozon",
+      "count": 148
+    },
+    {
+      "phrase": "s ozon ru rlmxyj9",
+      "count": 148
+    },
+    {
+      "phrase": "ozon такси",
+      "count": 147
+    },
+    {
+      "phrase": "ozon профит",
+      "count": 147
+    },
+    {
+      "phrase": "ozon ultra карта",
+      "count": 147
+    },
+    {
+      "phrase": "playstation 5 ozon",
+      "count": 147
+    },
+    {
+      "phrase": "ozon mod",
+      "count": 147
+    },
+    {
+      "phrase": "ozon укажите паспортные данные",
+      "count": 147
+    },
+    {
+      "phrase": "https ozon ru t ckr64je",
+      "count": 147
+    },
+    {
+      "phrase": "ozon job сайт",
+      "count": 146
+    },
+    {
+      "phrase": "ozon camp стажировка",
+      "count": 146
+    },
+    {
+      "phrase": "rico basic ozon",
+      "count": 146
+    },
+    {
+      "phrase": "как отключить ozon ultra",
+      "count": 146
+    },
+    {
+      "phrase": "transformers ozon",
+      "count": 146
+    },
+    {
+      "phrase": "ozon доставка телефон",
+      "count": 145
+    },
+    {
+      "phrase": "x8 pro ozon",
+      "count": 145
+    },
+    {
+      "phrase": "ингосстрах ozon",
+      "count": 145
+    },
+    {
+      "phrase": "склад ozon никольское",
+      "count": 145
+    },
+    {
+      "phrase": "правила использования ozon карта",
+      "count": 145
+    },
+    {
+      "phrase": "ozon доставка как работает",
+      "count": 145
+    },
+    {
+      "phrase": "ozon fresh тюмень",
+      "count": 145
+    },
+    {
+      "phrase": "smart tv ozon",
+      "count": 145
+    },
+    {
+      "phrase": "ozon вишлист",
+      "count": 144
+    },
+    {
+      "phrase": "vois ozon",
+      "count": 144
+    },
+    {
+      "phrase": "ozon череповец",
+      "count": 144
+    },
+    {
+      "phrase": "ozon микроволновка",
+      "count": 144
+    },
+    {
+      "phrase": "псков ozon",
+      "count": 144
+    },
+    {
+      "phrase": "лукойл ozon",
+      "count": 144
+    },
+    {
+      "phrase": "номер оператора ozon",
+      "count": 144
+    },
+    {
+      "phrase": "ozon поддержка вакансии",
+      "count": 144
+    },
+    {
+      "phrase": "ozon kari",
+      "count": 144
+    },
+    {
+      "phrase": "ozon юридический адрес",
+      "count": 144
+    },
+    {
+      "phrase": "ozon центральная ул 71б село братовщина фото",
+      "count": 144
+    },
+    {
+      "phrase": "xiaomi 12 ozon",
+      "count": 144
+    },
+    {
+      "phrase": "https www ozon ru pr",
+      "count": 143
+    },
+    {
+      "phrase": "zarina ozon",
+      "count": 143
+    },
+    {
+      "phrase": "ozon extranet",
+      "count": 143
+    },
+    {
+      "phrase": "где найти ozon id",
+      "count": 143
+    },
+    {
+      "phrase": "ozon spa",
+      "count": 143
+    },
+    {
+      "phrase": "ecode ozon",
+      "count": 142
+    },
+    {
+      "phrase": "склад ozon воронеж",
+      "count": 142
+    },
+    {
+      "phrase": "как вернуть деньги с ozon",
+      "count": 142
+    },
+    {
+      "phrase": "noreply ozon ru",
+      "count": 142
+    },
+    {
+      "phrase": "ozon доставка отслеживание",
+      "count": 142
+    },
+    {
+      "phrase": "ozon промокод на скидку сентябрь",
+      "count": 142
+    },
+    {
+      "phrase": "ozon bank поддержка",
+      "count": 141
+    },
+    {
+      "phrase": "ozon астрахань",
+      "count": 141
+    },
+    {
+      "phrase": "ноутбук купить ozon",
+      "count": 141
+    },
+    {
+      "phrase": "am ozon com",
+      "count": 140
+    },
+    {
+      "phrase": "ozon ultra бесплатно",
+      "count": 140
+    },
+    {
+      "phrase": "ozon ул маршала неделина 10в",
+      "count": 140
+    },
+    {
+      "phrase": "ozon брокер",
+      "count": 140
+    },
+    {
+      "phrase": "ozon поддержка телефон горячая",
+      "count": 140
+    },
+    {
+      "phrase": "ozon безопасная сделка",
+      "count": 139
+    },
+    {
+      "phrase": "ozon web версия",
+      "count": 139
+    },
+    {
+      "phrase": "vzj4noiy ozon",
+      "count": 139
+    },
+    {
+      "phrase": "коляска riko basic ozon 3 в 1",
+      "count": 139
+    },
+    {
+      "phrase": "ozon стать продавцом",
+      "count": 138
+    },
+    {
+      "phrase": "ozon банк пресненская наб 10блокс отзывы",
+      "count": 138
+    },
+    {
+      "phrase": "ozon check вход",
+      "count": 138
+    },
+    {
+      "phrase": "как устроиться на пункт выдачи ozon",
+      "count": 138
+    },
+    {
+      "phrase": "беспроводная клавиатура ozon",
+      "count": 138
+    },
+    {
+      "phrase": "ozon кредитная карта отзывы",
+      "count": 137
+    },
+    {
+      "phrase": "планшеты купить ozon",
+      "count": 137
+    },
+    {
+      "phrase": "ozon курьер приложение",
+      "count": 137
+    },
+    {
+      "phrase": "комплект одежды ozon",
+      "count": 137
+    },
+    {
+      "phrase": "ozon ru geo",
+      "count": 137
+    },
+    {
+      "phrase": "ночник ozon",
+      "count": 136
+    },
+    {
+      "phrase": "ламинат ozon",
+      "count": 136
+    },
+    {
+      "phrase": "guest ozon",
+      "count": 136
+    },
+    {
+      "phrase": "ozon china",
+      "count": 136
+    },
+    {
+      "phrase": "купить шуруповерт на ozon",
+      "count": 136
+    },
+    {
+      "phrase": "ozon банк пресненская наб 10блокс москва",
+      "count": 136
+    },
+    {
+      "phrase": "скачать приложение ozon на компьютер",
+      "count": 136
+    },
+    {
+      "phrase": "ozon vacancies",
+      "count": 136
+    },
+    {
+      "phrase": "ozon seller личный кабинет вход продавца",
+      "count": 135
+    },
+    {
+      "phrase": "ozon государственный",
+      "count": 135
+    },
+    {
+      "phrase": "monster ozon",
+      "count": 135
+    },
+    {
+      "phrase": "xiaomi 15 ozon",
+      "count": 135
+    },
+    {
+      "phrase": "ozon оплата частями",
+      "count": 135
+    },
+    {
+      "phrase": "скачать интернет магазин ozon",
+      "count": 135
+    },
+    {
+      "phrase": "ozon курс акций",
+      "count": 135
+    },
+    {
+      "phrase": "преимущества ozon карты",
+      "count": 135
+    },
+    {
+      "phrase": "mcc ozon",
+      "count": 134
+    },
+    {
+      "phrase": "земля до начала времен vhs ozon",
+      "count": 134
+    },
+    {
+      "phrase": "со скольки работает пункт выдачи ozon",
+      "count": 134
+    },
+    {
+      "phrase": "ozon фарм",
+      "count": 134
+    },
+    {
+      "phrase": "ozon фарма",
+      "count": 134
+    },
+    {
+      "phrase": "https s ozon ru 3qbngzo",
+      "count": 134
+    },
+    {
+      "phrase": "ozon промокод на авиабилеты",
+      "count": 133
+    },
+    {
+      "phrase": "ozon logistics",
+      "count": 133
+    },
+    {
+      "phrase": "iphone 15 ozon",
+      "count": 133
+    },
+    {
+      "phrase": "жакет ozon",
+      "count": 133
+    },
+    {
+      "phrase": "номер службы поддержки ozon",
+      "count": 133
+    },
+    {
+      "phrase": "ozon банк официальный сайт",
+      "count": 133
+    },
+    {
+      "phrase": "ozon gamerilla",
+      "count": 133
+    },
+    {
+      "phrase": "ozon нефтекамск",
+      "count": 133
+    },
+    {
+      "phrase": "склады ozon в москве",
+      "count": 132
+    },
+    {
+      "phrase": "ozon пвз личный кабинет",
+      "count": 132
+    },
+    {
+      "phrase": "ozon messenger",
+      "count": 132
+    },
+    {
+      "phrase": "e code ozon",
+      "count": 132
+    },
+    {
+      "phrase": "ozon оплата наличными",
+      "count": 132
+    },
+    {
+      "phrase": "ozon оператор телефон",
+      "count": 132
+    },
+    {
+      "phrase": "oneplus 15 ozon",
+      "count": 132
+    },
+    {
+      "phrase": "y m ozon limit g mosk",
+      "count": 131
+    },
+    {
+      "phrase": "ozon для физических лиц",
+      "count": 131
+    },
+    {
+      "phrase": "https sso ozon ru auth ozonid",
+      "count": 131
+    },
+    {
+      "phrase": "ozon турбо пвз вход",
+      "count": 131
+    },
+    {
+      "phrase": "ozon жд билеты",
+      "count": 131
+    },
+    {
+      "phrase": "ozon банк для ип",
+      "count": 131
+    },
+    {
+      "phrase": "ozon global сайт официальный",
+      "count": 131
+    },
+    {
+      "phrase": "ozon оригинальный товар",
+      "count": 131
+    },
+    {
+      "phrase": "купить honor ozon",
+      "count": 131
+    },
+    {
+      "phrase": "ozon ir",
+      "count": 131
+    },
+    {
+      "phrase": "ozon юбилейный розыгрыш призов",
+      "count": 131
+    },
+    {
+      "phrase": "промокод на доставку ozon",
+      "count": 131
+    },
+    {
+      "phrase": "противотуманные фары ozon",
+      "count": 131
+    },
+    {
+      "phrase": "как удалить купленный товар на ozon",
+      "count": 131
+    },
+    {
+      "phrase": "eva ozon",
+      "count": 131
+    },
+    {
+      "phrase": "ozon конференция",
+      "count": 130
+    },
+    {
+      "phrase": "ozon ru product 2316589842",
+      "count": 130
+    },
+    {
+      "phrase": "ozon цифровые активы",
+      "count": 130
+    },
+    {
+      "phrase": "аналитика wildberries и ozon",
+      "count": 130
+    },
+    {
+      "phrase": "товары с баллами ozon",
+      "count": 130
+    },
+    {
+      "phrase": "ozon ru скачать бесплатно",
+      "count": 130
+    },
+    {
+      "phrase": "склад ленина ozon",
+      "count": 130
+    },
+    {
+      "phrase": "ozon job аккаунт заблокирован",
+      "count": 130
+    },
+    {
+      "phrase": "склад ozon екатеринбург",
+      "count": 130
+    },
+    {
+      "phrase": "ozon village",
+      "count": 130
+    },
+    {
+      "phrase": "ozon склад краснодар",
+      "count": 130
+    },
+    {
+      "phrase": "как отказаться от товара на ozon",
+      "count": 130
+    },
+    {
+      "phrase": "ozon ru шоколад",
+      "count": 129
+    },
+    {
+      "phrase": "ozon оператор склада",
+      "count": 129
+    },
+    {
+      "phrase": "ozon армения",
+      "count": 129
+    },
+    {
+      "phrase": "ozon sell",
+      "count": 129
+    },
+    {
+      "phrase": "ps4 ozon",
+      "count": 129
+    },
+    {
+      "phrase": "ozon лизинг",
+      "count": 129
+    },
+    {
+      "phrase": "ozon job войти",
+      "count": 129
+    },
+    {
+      "phrase": "промокод для покупки на ozon",
+      "count": 129
+    },
+    {
+      "phrase": "oppo reno 14 ozon",
+      "count": 129
+    },
+    {
+      "phrase": "как удалить товар из покупок ozon",
+      "count": 128
+    },
+    {
+      "phrase": "скачать приложение ozon бесплатно на телефон андроид",
+      "count": 128
+    },
+    {
+      "phrase": "poco x8 pro ozon",
+      "count": 128
+    },
+    {
+      "phrase": "profit ozon ru",
+      "count": 128
+    },
+    {
+      "phrase": "galaxy s26 ozon",
+      "count": 128
+    },
+    {
+      "phrase": "установить ozon банк",
+      "count": 128
+    },
+    {
+      "phrase": "ozon tr",
+      "count": 128
+    },
+    {
+      "phrase": "ozon trends",
+      "count": 128
+    },
+    {
+      "phrase": "ozon поддержка телефон горячая линия",
+      "count": 128
+    },
+    {
+      "phrase": "ozon карта дизайн",
+      "count": 128
+    },
+    {
+      "phrase": "ozon скидки сегодня",
+      "count": 128
+    },
+    {
+      "phrase": "ozon голая",
+      "count": 128
+    },
+    {
+      "phrase": "телефон новый ozon",
+      "count": 128
+    },
+    {
+      "phrase": "pvz ozon dostavka ru пвз",
+      "count": 127
+    },
+    {
+      "phrase": "ozon bank банкомат",
+      "count": 127
+    },
+    {
+      "phrase": "ozon job чат",
+      "count": 127
+    },
+    {
+      "phrase": "этм 510 i ozon ru product 2390415060",
+      "count": 127
+    },
+    {
+      "phrase": "ozon кресло компьютерное",
+      "count": 127
+    },
+    {
+      "phrase": "заказать дебетовую карту ozon",
+      "count": 127
+    },
+    {
+      "phrase": "как выйти из профиля ozon",
+      "count": 127
+    },
+    {
+      "phrase": "специалист поддержки клиентов ozon отзывы",
+      "count": 127
+    },
+    {
+      "phrase": "ozon company",
+      "count": 127
+    },
+    {
+      "phrase": "http ozon seller ru",
+      "count": 127
+    },
+    {
+      "phrase": "как сделать возврат на ozon",
+      "count": 126
+    },
+    {
+      "phrase": "ozon рассрочка отзывы",
+      "count": 126
+    },
+    {
+      "phrase": "ozon russia",
+      "count": 126
+    },
+    {
+      "phrase": "staff ozon скачать",
+      "count": 126
+    },
+    {
+      "phrase": "ozon test ru",
+      "count": 126
+    },
+    {
+      "phrase": "ozon лежневская ул 126 отзывы",
+      "count": 126
+    },
+    {
+      "phrase": "ozon лотерея",
+      "count": 126
+    },
+    {
+      "phrase": "песня ozon slowed",
+      "count": 126
+    },
+    {
+      "phrase": "ozon вакансии москва",
+      "count": 126
+    },
+    {
+      "phrase": "ozon для юр лиц",
+      "count": 126
+    },
+    {
+      "phrase": "как открыть ozon карту",
+      "count": 126
+    },
+    {
+      "phrase": "кресло офисное ozon",
+      "count": 126
+    },
+    {
+      "phrase": "купить на джинсы на ozon",
+      "count": 126
+    },
+    {
+      "phrase": "как пополнить карту ozon банка",
+      "count": 126
+    },
+    {
+      "phrase": "ozon аккумуляторные пилы",
+      "count": 125
+    },
+    {
+      "phrase": "xiaomi 17t ozon",
+      "count": 125
+    },
+    {
+      "phrase": "цены смартфоны ozon",
+      "count": 125
+    },
+    {
+      "phrase": "навигатор ozon",
+      "count": 125
+    },
+    {
+      "phrase": "подключить приложение ozon",
+      "count": 125
+    },
+    {
+      "phrase": "ozon fresh доставка продуктов",
+      "count": 125
+    },
+    {
+      "phrase": "noreply sender ozon ru",
+      "count": 125
+    },
+    {
+      "phrase": "где посмотреть ozon id",
+      "count": 125
+    },
+    {
+      "phrase": "ozon страховые выплаты",
+      "count": 124
+    },
+    {
+      "phrase": "цены ноутбук ozon",
+      "count": 124
+    },
+    {
+      "phrase": "zolla ozon",
+      "count": 124
+    },
+    {
+      "phrase": "ozon невинномысск",
+      "count": 124
+    },
+    {
+      "phrase": "ozon zon zon",
+      "count": 124
+    },
+    {
+      "phrase": "ozon банк горячая линия телефон бесплатный",
+      "count": 124
+    },
+    {
+      "phrase": "google pixel ozon",
+      "count": 124
+    },
+    {
+      "phrase": "ozon создать аккаунт",
+      "count": 124
+    },
+    {
+      "phrase": "ozon озон акции",
+      "count": 124
+    },
+    {
+      "phrase": "ozon донецк",
+      "count": 124
+    },
+    {
+      "phrase": "скачать сайт ozon",
+      "count": 124
+    },
+    {
+      "phrase": "nfc ozon карта",
+      "count": 124
+    },
+    {
+      "phrase": "ozon архангельск",
+      "count": 124
+    },
+    {
+      "phrase": "invest ozon ru",
+      "count": 123
+    },
+    {
+      "phrase": "ozon вологда",
+      "count": 123
+    },
+    {
+      "phrase": "свяжитесь с получателем в озон банк ozon",
+      "count": 123
+    },
+    {
+      "phrase": "заказать телефон ozon",
+      "count": 123
+    },
+    {
+      "phrase": "широкие брюки ozon",
+      "count": 123
+    },
+    {
+      "phrase": "ozon fresh скидка 50",
+      "count": 123
+    },
+    {
+      "phrase": "iphone 16 ozon",
+      "count": 123
+    },
+    {
+      "phrase": "ozon билеты на самолет",
+      "count": 123
+    },
+    {
+      "phrase": "ozon информационная безопасность",
+      "count": 123
+    },
+    {
+      "phrase": "ozon route",
+      "count": 123
+    },
+    {
+      "phrase": "карта ozon банка в чем подвох",
+      "count": 123
+    },
+    {
+      "phrase": "ozon jardin promo ru зарегистрировать код",
+      "count": 122
+    },
+    {
+      "phrase": "ozon job курьер",
+      "count": 122
+    },
+    {
+      "phrase": "пакет поддержки ozon travel",
+      "count": 122
+    },
+    {
+      "phrase": "мелатонин ozon",
+      "count": 122
+    },
+    {
+      "phrase": "ozon ultra подписка",
+      "count": 122
+    },
+    {
+      "phrase": "ozon first15",
+      "count": 122
+    },
+    {
+      "phrase": "izotop ozon",
+      "count": 122
+    },
+    {
+      "phrase": "головной убор ozon",
+      "count": 122
+    },
+    {
+      "phrase": "ozon открыть пункт выдачи заказов",
+      "count": 122
+    },
+    {
+      "phrase": "ozon job на пк",
+      "count": 122
+    },
+    {
+      "phrase": "nbb x ozon",
+      "count": 121
+    },
+    {
+      "phrase": "ozon ханты мансийск",
+      "count": 121
+    },
+    {
+      "phrase": "цена телефон ozon",
+      "count": 121
+    },
+    {
+      "phrase": "повербанк ozon",
+      "count": 121
+    },
+    {
+      "phrase": "https sso ozon ru auth ozonid token",
+      "count": 121
+    },
+    {
+      "phrase": "атака на ozon в саратове",
+      "count": 120
+    },
+    {
+      "phrase": "ozon profit личный кабинет",
+      "count": 120
+    },
+    {
+      "phrase": "кнопочный телефон ozon",
+      "count": 120
+    },
+    {
+      "phrase": "ozon 671",
+      "count": 120
+    },
+    {
+      "phrase": "ob ozon что это за списание",
+      "count": 120
+    },
+    {
+      "phrase": "izotope ozon",
+      "count": 120
+    },
+    {
+      "phrase": "карта ozon плюсы и минусы",
+      "count": 120
+    },
+    {
+      "phrase": "ozon icon",
+      "count": 120
+    },
+    {
+      "phrase": "кредитная карта ozon банка условия",
+      "count": 120
+    },
+    {
+      "phrase": "bmx ozon",
+      "count": 120
+    },
+    {
+      "phrase": "кепка ozon",
+      "count": 120
+    },
+    {
+      "phrase": "купить флешку ozon",
+      "count": 119
+    },
+    {
+      "phrase": "ozon термобелье",
+      "count": 119
+    },
+    {
+      "phrase": "ozon fresh заказать",
+      "count": 119
+    },
+    {
+      "phrase": "ozon интеграция с 1с",
+      "count": 119
+    },
+    {
+      "phrase": "ozon образование",
+      "count": 119
+    },
+    {
+      "phrase": "ozon global из за рубежа",
+      "count": 119
+    },
+    {
+      "phrase": "руководство ozon",
+      "count": 119
+    },
+    {
+      "phrase": "как работает ozon fresh",
+      "count": 119
+    },
+    {
+      "phrase": "usb флешка ozon",
+      "count": 119
+    },
+    {
+      "phrase": "ozon gift",
+      "count": 119
+    },
+    {
+      "phrase": "vape ozon",
+      "count": 118
+    },
+    {
+      "phrase": "ozon йошкар ола",
+      "count": 118
+    },
+    {
+      "phrase": "trustline ozon",
+      "count": 118
+    },
+    {
+      "phrase": "ozon bank business",
+      "count": 118
+    },
+    {
+      "phrase": "ozon english",
+      "count": 118
+    },
+    {
+      "phrase": "ozon запрашивает паспортные данные",
+      "count": 118
+    },
+    {
+      "phrase": "https ozon ru t 6lb6glv",
+      "count": 117
+    },
+    {
+      "phrase": "как оформить возврат товара на ozon",
+      "count": 117
+    },
+    {
+      "phrase": "seo ozon",
+      "count": 117
+    },
+    {
+      "phrase": "ozon fresh акции",
+      "count": 117
+    },
+    {
+      "phrase": "гортензия ozon",
+      "count": 117
+    },
+    {
+      "phrase": "ozon magazin",
+      "count": 117
+    },
+    {
+      "phrase": "ozon банк зайти",
+      "count": 117
+    },
+    {
+      "phrase": "ozon influencer",
+      "count": 117
+    },
+    {
+      "phrase": "ozon банк служба поддержки",
+      "count": 117
+    },
+    {
+      "phrase": "ozon рядом со мной",
+      "count": 117
+    },
+    {
+      "phrase": "security ozon ru",
+      "count": 116
+    },
+    {
+      "phrase": "промокод на 45 дней подписки ozon premium",
+      "count": 116
+    },
+    {
+      "phrase": "ozon товарный знак",
+      "count": 116
+    },
+    {
+      "phrase": "ozon job бонус",
+      "count": 116
+    },
+    {
+      "phrase": "как оформить заказ на ozon",
+      "count": 116
+    },
+    {
+      "phrase": "ночные смены ozon",
+      "count": 116
+    },
+    {
+      "phrase": "конверт ozon",
+      "count": 115
+    },
+    {
+      "phrase": "ozon как изменить способ оплаты",
+      "count": 115
+    },
+    {
+      "phrase": "ozon price tracker",
+      "count": 115
+    },
+    {
+      "phrase": "ozon премиум что дает",
+      "count": 115
+    },
+    {
+      "phrase": "samsung s26 ultra ozon",
+      "count": 115
+    },
+    {
+      "phrase": "электробритва ozon",
+      "count": 115
+    },
+    {
+      "phrase": "ozon личный кабинет мои заказы войти",
+      "count": 115
+    },
+    {
+      "phrase": "ozon moex",
+      "count": 115
+    },
+    {
+      "phrase": "ozon iphone 13",
+      "count": 115
+    },
+    {
+      "phrase": "купить холодильник на ozon",
+      "count": 114
+    },
+    {
+      "phrase": "ozon track отслеживание",
+      "count": 114
+    },
+    {
+      "phrase": "ozon tracking отслеживание",
+      "count": 114
+    },
+    {
+      "phrase": "ppz ozon",
+      "count": 114
+    },
+    {
+      "phrase": "сертификат ozon как использовать",
+      "count": 114
+    },
+    {
+      "phrase": "платежный стикер ozon",
+      "count": 114
+    },
+    {
+      "phrase": "мобильный staff ozon",
+      "count": 114
+    },
+    {
+      "phrase": "ozon box видеонаблюдение",
+      "count": 114
+    },
+    {
+      "phrase": "ozon jop",
+      "count": 113
+    },
+    {
+      "phrase": "ozon взлом",
+      "count": 113
+    },
+    {
+      "phrase": "фура ozon",
+      "count": 113
+    },
+    {
+      "phrase": "ozon мобильная версия",
+      "count": 113
+    },
+    {
+      "phrase": "врезной замок ozon",
+      "count": 113
+    },
+    {
+      "phrase": "ozon credit ru",
+      "count": 113
+    },
+    {
+      "phrase": "ugreen ozon",
+      "count": 113
+    },
+    {
+      "phrase": "условия продажи ozon",
+      "count": 113
+    },
+    {
+      "phrase": "ozon доставка для интернет магазинов",
+      "count": 113
+    },
+    {
+      "phrase": "ozon seller отзывы",
+      "count": 113
+    },
+    {
+      "phrase": "холодильник двухкамерный ozon",
+      "count": 113
+    },
+    {
+      "phrase": "ozon д давыдовское 42 стр 1 отзывы",
+      "count": 112
+    },
+    {
+      "phrase": "как отправить посылку ozon доставкой",
+      "count": 112
+    },
+    {
+      "phrase": "seller ozon ru app dashboard main",
+      "count": 112
+    },
+    {
+      "phrase": "веб камеры ozon",
+      "count": 112
+    },
+    {
+      "phrase": "ozon не работает сегодня",
+      "count": 112
+    },
+    {
+      "phrase": "help ozon bank",
+      "count": 112
+    },
+    {
+      "phrase": "ozon ru веб",
+      "count": 112
+    },
+    {
+      "phrase": "подарочный фонд ozon",
+      "count": 112
+    },
+    {
+      "phrase": "ozon finance личный кабинет войти",
+      "count": 112
+    }
+  ]
+}
