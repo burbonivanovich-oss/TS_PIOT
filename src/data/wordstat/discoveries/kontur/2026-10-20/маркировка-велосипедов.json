@@ -1,0 +1,71 @@
+{
+  "seed": "маркировка велосипедов",
+  "slug": "маркировка-велосипедов",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-20T17:01:16.900Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 12,
+  "phrases": [
+    {
+      "phrase": "маркировка велосипедов",
+      "count": 1008
+    },
+    {
+      "phrase": "маркировка камеры велосипеда",
+      "count": 48
+    },
+    {
+      "phrase": "маркировка покрышек для велосипеда",
+      "count": 38
+    },
+    {
+      "phrase": "что означает маркировка на шинах велосипеда",
+      "count": 27
+    },
+    {
+      "phrase": "маркировка шин велосипеда и расшифровка",
+      "count": 19
+    },
+    {
+      "phrase": "что должна содержать маркировка велосипедов",
+      "count": 18
+    },
+    {
+      "phrase": "подлежат ли маркировке велосипеды с электрическим двигателем",
+      "count": 15
+    },
+    {
+      "phrase": "что означает маркировка на покрышке велосипеда",
+      "count": 13
+    },
+    {
+      "phrase": "маркировка покрышек для велосипеда расшифровка",
+      "count": 12
+    },
+    {
+      "phrase": "код маркировки для велосипедов",
+      "count": 9
+    },
+    {
+      "phrase": "таблица маркировки ниппелей спиц велосипеда",
+      "count": 6
+    },
+    {
+      "phrase": "велосипед десна цвет синий какая маркировка краски",
+      "count": 5
+    }
+  ]
+}
