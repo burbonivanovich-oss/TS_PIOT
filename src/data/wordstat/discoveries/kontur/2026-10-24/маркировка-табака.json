@@ -1,0 +1,39 @@
+{
+  "seed": "маркировка табака",
+  "slug": "маркировка-табака",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-24T15:55:28.538Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "маркировка табака",
+      "count": 571
+    },
+    {
+      "phrase": "маркировка табака честный знак",
+      "count": 76
+    },
+    {
+      "phrase": "постановление правительства 224 маркировка табака",
+      "count": 15
+    },
+    {
+      "phrase": "правила 224 маркировка табак",
+      "count": 11
+    }
+  ]
+}
