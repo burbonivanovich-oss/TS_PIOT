@@ -1,0 +1,39 @@
+{
+  "seed": "установка УТМ",
+  "slug": "установка-утм",
+  "category": "intent",
+  "cluster": "egais",
+  "fetchedAt": "2026-10-25T16:14:49.531Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "установка утм",
+      "count": 335
+    },
+    {
+      "phrase": "установка утм егаис",
+      "count": 75
+    },
+    {
+      "phrase": "установка утм егаис инструкция",
+      "count": 19
+    },
+    {
+      "phrase": "установка утм егаис инструкция рутокен",
+      "count": 10
+    }
+  ]
+}
