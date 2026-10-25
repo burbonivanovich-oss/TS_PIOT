@@ -49,7 +49,7 @@ jobs:
       GIT_CONFIG_KEY_0: core.precomposeunicode
       GIT_CONFIG_VALUE_0: 'false'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
       - uses: actions/setup-node@v4
