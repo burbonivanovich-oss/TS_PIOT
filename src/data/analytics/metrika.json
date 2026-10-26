@@ -1,17 +1,17 @@
 {
-  "fetchedAt": "2026-10-19T08:29:53.949Z",
+  "fetchedAt": "2026-10-26T08:31:59.930Z",
   "days": 28,
   "period": {
-    "date1": "2026-09-21",
-    "date2": "2026-10-19",
+    "date1": "2026-09-28",
+    "date2": "2026-10-26",
     "inclusiveDays": 29
   },
   "counterId": "109130279",
   "totals": {
-    "pages": 134,
-    "pageviews": 3238,
+    "pages": 133,
+    "pageviews": 3068,
     "visits": null,
-    "users": 2134
+    "users": 2020
   },
   "coverage": {
     "scope": "API report totals; byPage contains returned rows",
@@ -24,191 +24,179 @@
   },
   "byPage": {
     "/blog/2026-05-03-markirovka-konservov-2026/": {
-      "pageviews": 507,
+      "pageviews": 506,
       "visits": null,
-      "users": 362,
+      "users": 358,
       "avgDuration": null
     },
     "/blog/2026-06-24-snyatie-kkt-s-ucheta/": {
-      "pageviews": 457,
+      "pageviews": 428,
       "visits": null,
-      "users": 333,
+      "users": 299,
       "avgDuration": null
     },
     "/blog/2026-05-28-ts-piot-1c/": {
-      "pageviews": 360,
+      "pageviews": 344,
       "visits": null,
-      "users": 238,
+      "users": 225,
       "avgDuration": null
     },
     "/blog/2026-06-09-kto-ne-nuzhen-ts-piot/": {
-      "pageviews": 270,
+      "pageviews": 239,
       "visits": null,
-      "users": 226,
+      "users": 198,
       "avgDuration": null
     },
     "/blog/2026-05-25-140-fz-epd-perehod-msb/": {
-      "pageviews": 216,
+      "pageviews": 172,
       "visits": null,
       "users": null,
       "avgDuration": null,
       "usersStatus": "not_collected: overlapping normalized URL groups"
     },
     "/blog/2026-05-01-ts-piot-shtrafy/": {
-      "pageviews": 121,
+      "pageviews": 134,
       "visits": null,
-      "users": 92,
-      "avgDuration": null
-    },
-    "/blog/2026-05-03-markirovka-bakalei-2026/": {
-      "pageviews": 100,
-      "visits": null,
-      "users": 76,
+      "users": 101,
       "avgDuration": null
     },
     "/blog/2026-06-21-spisanie-alkogolya/": {
-      "pageviews": 99,
+      "pageviews": 105,
       "visits": null,
-      "users": 73,
+      "users": 82,
+      "avgDuration": null
+    },
+    "/blog/2026-05-03-markirovka-bakalei-2026/": {
+      "pageviews": 93,
+      "visits": null,
+      "users": 78,
       "avgDuration": null
     },
     "/blog/2026-05-25-ts-piot-bez-interneta/": {
-      "pageviews": 75,
+      "pageviews": 77,
       "visits": null,
-      "users": 60,
+      "users": 65,
       "avgDuration": null
     },
     "/blog/2026-05-03-markirovka-lichnoy-gigieny-2026/": {
-      "pageviews": 62,
+      "pageviews": 67,
       "visits": null,
-      "users": 50,
-      "avgDuration": null
-    },
-    "/": {
-      "pageviews": 59,
-      "visits": null,
-      "users": 43,
+      "users": 55,
       "avgDuration": null
     },
     "/blog/2026-06-28-merkuriy-shtrafy/": {
-      "pageviews": 59,
+      "pageviews": 62,
       "visits": null,
-      "users": 51,
+      "users": 52,
+      "avgDuration": null
+    },
+    "/": {
+      "pageviews": 58,
+      "visits": null,
+      "users": 46,
       "avgDuration": null
     },
     "/blog/2026-05-03-markirovka-bytovoy-himii-2026/": {
-      "pageviews": 56,
-      "visits": null,
-      "users": 25,
-      "avgDuration": null
-    },
-    "/blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/": {
-      "pageviews": 34,
-      "visits": null,
-      "users": 29,
-      "avgDuration": null
-    },
-    "/blog/2026-06-09-kassa-dlya-kafe-2026/": {
-      "pageviews": 34,
-      "visits": null,
-      "users": 28,
-      "avgDuration": null
-    },
-    "/blog/2026-05-01-ts-piot-evotor-atol-shtrih/": {
-      "pageviews": 32,
-      "visits": null,
-      "users": 30,
-      "avgDuration": null
-    },
-    "/blog/2026-05-03-markirovka-importerov/": {
-      "pageviews": 32,
-      "visits": null,
-      "users": 30,
-      "avgDuration": null
-    },
-    "/blog/2026-06-09-markirovka-tabaka-2026/": {
-      "pageviews": 31,
-      "visits": null,
-      "users": 25,
-      "avgDuration": null
-    },
-    "/blog/2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj/": {
-      "pageviews": 30,
-      "visits": null,
-      "users": 17,
-      "avgDuration": null
-    },
-    "/blog/2026-05-30-ts-piot-provajdery-sravnenie/": {
-      "pageviews": 29,
+      "pageviews": 42,
       "visits": null,
       "users": 24,
       "avgDuration": null
     },
-    "/blog/2026-02-10-kategorii-markirovki-2026/": {
-      "pageviews": 27,
+    "/blog/2026-06-09-kassa-dlya-kafe-2026/": {
+      "pageviews": 40,
       "visits": null,
-      "users": 26,
+      "users": 31,
       "avgDuration": null
     },
-    "/blog/2026-07-01-licenziya-na-alkogol/": {
-      "pageviews": 26,
+    "/blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/": {
+      "pageviews": 39,
       "visits": null,
-      "users": 22,
+      "users": 31,
+      "avgDuration": null
+    },
+    "/blog/2026-05-03-obyemno-sortovoy-vs-poexzemplyarnyj/": {
+      "pageviews": 38,
+      "visits": null,
+      "users": 21,
+      "avgDuration": null
+    },
+    "/blog/2026-05-01-ts-piot-evotor-atol-shtrih/": {
+      "pageviews": 27,
+      "visits": null,
+      "users": 24,
+      "avgDuration": null
+    },
+    "/blog/2026-05-03-markirovka-importerov/": {
+      "pageviews": 25,
+      "visits": null,
+      "users": 23,
+      "avgDuration": null
+    },
+    "/blog/2026-05-30-ts-piot-provajdery-sravnenie/": {
+      "pageviews": 24,
+      "visits": null,
+      "users": 20,
+      "avgDuration": null
+    },
+    "/blog/2026-06-09-markirovka-tabaka-2026/": {
+      "pageviews": 24,
+      "visits": null,
+      "users": 21,
       "avgDuration": null
     },
     "/blog/2026-05-01-zamena-fn-poshagovo/": {
-      "pageviews": 25,
+      "pageviews": 23,
       "visits": null,
-      "users": 17,
+      "users": 15,
       "avgDuration": null
     },
     "/blog/2026-09-24-merkuriy-1c/": {
-      "pageviews": 26,
+      "pageviews": 24,
       "visits": null,
       "users": null,
       "avgDuration": null,
       "usersStatus": "not_collected: overlapping normalized URL groups"
     },
-    "/blog/2026-05-01-razreshitelnyj-rezhim-markirovka/": {
-      "pageviews": 23,
-      "visits": null,
-      "users": 21,
-      "avgDuration": null
-    },
     "/blog/2026-01-15-chto-takoe-ts-piot/": {
-      "pageviews": 20,
-      "visits": null,
-      "users": 13,
-      "avgDuration": null
-    },
-    "/blog/2026-05-03-mspos-t-d3-mini-obzor/": {
-      "pageviews": 18,
-      "visits": null,
-      "users": 11,
-      "avgDuration": null
-    },
-    "/blog/2026-06-25-ts-piot-dlya-apteki/": {
-      "pageviews": 18,
+      "pageviews": 21,
       "visits": null,
       "users": 15,
       "avgDuration": null
     },
-    "/blog/2026-05-01-edo-upd-markirovka/": {
-      "pageviews": 16,
+    "/blog/2026-02-10-kategorii-markirovki-2026/": {
+      "pageviews": 19,
       "visits": null,
-      "users": 7,
+      "users": 19,
+      "avgDuration": null
+    },
+    "/blog/2026-07-01-licenziya-na-alkogol/": {
+      "pageviews": 19,
+      "visits": null,
+      "users": 17,
+      "avgDuration": null
+    },
+    "/blog/2026-05-01-edo-upd-markirovka/": {
+      "pageviews": 17,
+      "visits": null,
+      "users": 8,
       "avgDuration": null
     },
     "/blog/2026-06-11-ts-piot-lichnyj-kabinet/": {
       "pageviews": 16,
       "visits": null,
-      "users": 13,
+      "users": 12,
       "avgDuration": null
     },
     "/blog/2026-06-18-merkuriy-offline/": {
-      "pageviews": 14,
+      "pageviews": 15,
       "visits": null,
-      "users": 13,
+      "users": 14,
+      "avgDuration": null
+    },
+    "/blog/2026-06-25-ts-piot-dlya-apteki/": {
+      "pageviews": 15,
+      "visits": null,
+      "users": 11,
       "avgDuration": null
     },
     "/blog/2026-09-29-elektronnaya-trudovaya-knizhka-2026/": {
@@ -217,28 +205,34 @@
       "users": 13,
       "avgDuration": null
     },
-    "/blog/": {
-      "pageviews": 11,
+    "/blog/2026-05-01-razreshitelnyj-rezhim-markirovka/": {
+      "pageviews": 12,
       "visits": null,
-      "users": 7,
+      "users": 12,
       "avgDuration": null
     },
-    "/blog/2026-05-01-ofd-dlya-ts-piot/": {
-      "pageviews": 11,
+    "/blog/2026-05-03-markirovka-avtozhidkostey-2026/": {
+      "pageviews": 10,
       "visits": null,
       "users": 8,
       "avgDuration": null
     },
-    "/blog/2026-05-01-uchyot-alkogolya-v-obschepite/": {
-      "pageviews": 11,
+    "/blog/2026-05-03-mspos-t-d3-mini-obzor/": {
+      "pageviews": 10,
+      "visits": null,
+      "users": 4,
+      "avgDuration": null
+    },
+    "/blog/": {
+      "pageviews": 9,
       "visits": null,
       "users": 5,
       "avgDuration": null
     },
-    "/blog/2026-06-30-pereregistraciya-kkt/": {
-      "pageviews": 10,
+    "/blog/2026-05-01-uchyot-alkogolya-v-obschepite/": {
+      "pageviews": 9,
       "visits": null,
-      "users": 8,
+      "users": 4,
       "avgDuration": null
     },
     "/blog/2026-05-03-markirovka-sportpita-2026/": {
@@ -247,10 +241,16 @@
       "users": 8,
       "avgDuration": null
     },
-    "/blog/2026-05-29-psn-nds-2026/": {
-      "pageviews": 8,
+    "/blog/2026-06-30-pereregistraciya-kkt/": {
+      "pageviews": 9,
       "visits": null,
       "users": 7,
+      "avgDuration": null
+    },
+    "/blog/2026-05-01-ofd-dlya-ts-piot/": {
+      "pageviews": 8,
+      "visits": null,
+      "users": 6,
       "avgDuration": null
     },
     "/blog/2026-05-01-kalendar-markirovki-2026/": {
@@ -265,7 +265,25 @@
       "users": 1,
       "avgDuration": null
     },
-    "/blog/2026-09-07-markirovka-tabaka-novye-proverki-2026/": {
+    "/blog/2026-05-03-uchyot-razlivnogo-piva/": {
+      "pageviews": 7,
+      "visits": null,
+      "users": 7,
+      "avgDuration": null
+    },
+    "/blog/2026-05-20-kak-otkryt-kafe-cheklis/": {
+      "pageviews": 7,
+      "visits": null,
+      "users": 3,
+      "avgDuration": null
+    },
+    "/blog/2026-05-29-psn-nds-2026/": {
+      "pageviews": 7,
+      "visits": null,
+      "users": 6,
+      "avgDuration": null
+    },
+    "/blog/2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu/": {
       "pageviews": 7,
       "visits": null,
       "users": 7,
@@ -289,18 +307,6 @@
       "users": 5,
       "avgDuration": null
     },
-    "/blog/2026-05-03-markirovka-avtozhidkostey-2026/": {
-      "pageviews": 6,
-      "visits": null,
-      "users": 4,
-      "avgDuration": null
-    },
-    "/blog/2026-05-03-uchyot-razlivnogo-piva/": {
-      "pageviews": 6,
-      "visits": null,
-      "users": 6,
-      "avgDuration": null
-    },
     "/blog/2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya/": {
       "pageviews": 6,
       "visits": null,
@@ -319,13 +325,19 @@
       "users": 5,
       "avgDuration": null
     },
-    "/blog/2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu/": {
+    "/blog/2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna/": {
       "pageviews": 6,
       "visits": null,
       "users": 6,
       "avgDuration": null
     },
-    "/blog/2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna/": {
+    "/blog/2026-09-07-markirovka-tabaka-novye-proverki-2026/": {
+      "pageviews": 6,
+      "visits": null,
+      "users": 6,
+      "avgDuration": null
+    },
+    "/blog/2026-09-10-kassa-dlya-marketplace/": {
       "pageviews": 6,
       "visits": null,
       "users": 6,
@@ -334,37 +346,13 @@
     "/category/ts-piot/": {
       "pageviews": 6,
       "visits": null,
-      "users": 4,
-      "avgDuration": null
-    },
-    "/blog/2026-05-01-gashenie-vsd-merkuriy/": {
-      "pageviews": 5,
-      "visits": null,
-      "users": 4,
-      "avgDuration": null
-    },
-    "/blog/2026-05-03-kak-vybrat-ofd-2026/": {
-      "pageviews": 5,
-      "visits": null,
-      "users": 4,
-      "avgDuration": null
-    },
-    "/blog/2026-05-03-mspos-f20-obzor/": {
-      "pageviews": 5,
-      "visits": null,
       "users": 5,
       "avgDuration": null
     },
-    "/blog/2026-06-09-egais-dlya-bara/": {
-      "pageviews": 5,
+    "/instrumenty/": {
+      "pageviews": 6,
       "visits": null,
-      "users": 3,
-      "avgDuration": null
-    },
-    "/blog/2026-09-10-kassa-dlya-marketplace/": {
-      "pageviews": 5,
-      "visits": null,
-      "users": 5,
+      "users": 6,
       "avgDuration": null
     },
     "/blog/2026-05-01-chto-takoe-fn/": {
@@ -373,16 +361,10 @@
       "users": 4,
       "avgDuration": null
     },
-    "/blog/2026-05-01-proverki-2026/": {
+    "/blog/2026-05-01-gashenie-vsd-merkuriy/": {
       "pageviews": 4,
       "visits": null,
-      "users": 2,
-      "avgDuration": null
-    },
-    "/blog/2026-05-03-atol-30f-obzor/": {
-      "pageviews": 4,
-      "visits": null,
-      "users": 4,
+      "users": 3,
       "avgDuration": null
     },
     "/blog/2026-05-03-registraciya-v-merkurii/": {
@@ -397,16 +379,10 @@
       "users": 2,
       "avgDuration": null
     },
-    "/blog/2026-05-20-kak-otkryt-kafe-cheklis/": {
+    "/blog/2026-06-09-egais-dlya-bara/": {
       "pageviews": 4,
       "visits": null,
       "users": 2,
-      "avgDuration": null
-    },
-    "/blog/2026-05-26-ts-piot-vs-ofd/": {
-      "pageviews": 4,
-      "visits": null,
-      "users": 3,
       "avgDuration": null
     },
     "/blog/2026-06-15-vetdokumenty-kak-poluchit/": {
@@ -439,28 +415,16 @@
       "users": 3,
       "avgDuration": null
     },
-    "/kalkulyator-shtrafov/": {
-      "pageviews": 4,
-      "visits": null,
-      "users": 4,
-      "avgDuration": null
-    },
-    "/produkty/": {
-      "pageviews": 4,
-      "visits": null,
-      "users": 4,
-      "avgDuration": null
-    },
-    "/blog/2026-05-01-markirovka-piva-roznica/": {
-      "pageviews": 3,
-      "visits": null,
-      "users": 3,
-      "avgDuration": null
-    },
-    "/blog/2026-05-01-shtraf-za-markirovku/": {
+    "/blog/2026-05-01-proverki-2026/": {
       "pageviews": 3,
       "visits": null,
       "users": 2,
+      "avgDuration": null
+    },
+    "/blog/2026-05-01-smart-terminal-vs-fiskalnyj-registrator/": {
+      "pageviews": 3,
+      "visits": null,
+      "users": 3,
       "avgDuration": null
     },
     "/blog/2026-05-03-atol-30f-vs-27f/": {
@@ -469,16 +433,16 @@
       "users": 3,
       "avgDuration": null
     },
-    "/blog/2026-05-03-etrn-2026/": {
+    "/blog/2026-05-03-kak-vybrat-ofd-2026/": {
       "pageviews": 3,
       "visits": null,
       "users": 3,
       "avgDuration": null
     },
-    "/blog/2026-05-03-markirovka-igrushek-2026/": {
+    "/blog/2026-05-03-mspos-f20-obzor/": {
       "pageviews": 3,
       "visits": null,
-      "users": 2,
+      "users": 3,
       "avgDuration": null
     },
     "/blog/2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena/": {
@@ -487,30 +451,29 @@
       "users": 3,
       "avgDuration": null
     },
-    "/blog/2026-09-08-subsidii-msb-2026/": {
+    "/blog/2026-09-28-gis-mt-kak-rabotaet/": {
+      "pageviews": 3,
+      "visits": null,
+      "users": 3,
+      "avgDuration": null
+    },
+    "/blog/2026-10-02-atol-podklyuchenie-1c/": {
+      "pageviews": 3,
+      "visits": null,
+      "users": 3,
+      "avgDuration": null
+    },
+    "/kalkulyator-shtrafov/": {
       "pageviews": 3,
       "visits": null,
       "users": 2,
       "avgDuration": null
     },
-    "/blog/2026-09-11-proverka-kontragenta-pered-sdelkoy/": {
+    "/produkty/": {
       "pageviews": 3,
       "visits": null,
       "users": 3,
       "avgDuration": null
-    },
-    "/instrumenty/": {
-      "pageviews": 3,
-      "visits": null,
-      "users": 3,
-      "avgDuration": null
-    },
-    "/produkty/kontur-market/": {
-      "pageviews": 4,
-      "visits": null,
-      "users": null,
-      "avgDuration": null,
-      "usersStatus": "not_collected: overlapping normalized URL groups"
     },
     "/blog/2026-05-01-chto-takoe-merkuriy/": {
       "pageviews": 2,
@@ -518,13 +481,37 @@
       "users": 2,
       "avgDuration": null
     },
-    "/blog/2026-05-01-smart-terminal-vs-fiskalnyj-registrator/": {
+    "/blog/2026-05-01-kak-vybrat-onlayn-kassu-2026/": {
       "pageviews": 2,
       "visits": null,
       "users": 2,
       "avgDuration": null
     },
+    "/blog/2026-05-01-markirovka-cherez-marketplace/": {
+      "pageviews": 2,
+      "visits": null,
+      "users": 2,
+      "avgDuration": null
+    },
+    "/blog/2026-05-01-markirovka-piva-roznica/": {
+      "pageviews": 2,
+      "visits": null,
+      "users": 2,
+      "avgDuration": null
+    },
+    "/blog/2026-05-01-shtraf-za-markirovku/": {
+      "pageviews": 2,
+      "visits": null,
+      "users": 1,
+      "avgDuration": null
+    },
     "/blog/2026-05-03-atol-27f-obzor/": {
+      "pageviews": 2,
+      "visits": null,
+      "users": 2,
+      "avgDuration": null
+    },
+    "/blog/2026-05-03-atol-30f-obzor/": {
       "pageviews": 2,
       "visits": null,
       "users": 2,
@@ -536,10 +523,10 @@
       "users": 2,
       "avgDuration": null
     },
-    "/blog/2026-05-21-samozanyatyj-na-wildberries/": {
+    "/blog/2026-05-03-etrn-2026/": {
       "pageviews": 2,
       "visits": null,
-      "users": 1,
+      "users": 2,
       "avgDuration": null
     },
     "/blog/2026-05-25-140-fz-epd-perehod-msb~~~140-ФЗ:": {
@@ -548,13 +535,25 @@
       "users": 2,
       "avgDuration": null
     },
-    "/blog/2026-05-31-chestny-znak-registraciya/": {
+    "/blog/2026-05-26-ts-piot-vs-ofd/": {
+      "pageviews": 2,
+      "visits": null,
+      "users": 1,
+      "avgDuration": null
+    },
+    "/blog/2026-06-13-kak-umenshit-nalog-usn-2026/": {
       "pageviews": 2,
       "visits": null,
       "users": 2,
       "avgDuration": null
     },
-    "/blog/2026-06-13-kak-umenshit-nalog-usn-2026/": {
+    "/blog/2026-06-16-markirovka-ostatkov/": {
+      "pageviews": 2,
+      "visits": null,
+      "users": 2,
+      "avgDuration": null
+    },
+    "/blog/2026-06-23-patent-2026-limit/": {
       "pageviews": 2,
       "visits": null,
       "users": 2,
@@ -572,19 +571,25 @@
       "users": 2,
       "avgDuration": null
     },
-    "/blog/2026-09-17-152-fz-personalnye-dannye/": {
-      "pageviews": 2,
-      "visits": null,
-      "users": 1,
-      "avgDuration": null
-    },
-    "/blog/2026-09-28-gis-mt-kak-rabotaet/": {
+    "/blog/2026-07-05-egais-registraciya-nachalo/": {
       "pageviews": 2,
       "visits": null,
       "users": 2,
       "avgDuration": null
     },
-    "/blog/2026-10-02-atol-podklyuchenie-1c/": {
+    "/blog/2026-07-06-shtrafy-za-kkt/": {
+      "pageviews": 2,
+      "visits": null,
+      "users": 2,
+      "avgDuration": null
+    },
+    "/blog/2026-09-08-subsidii-msb-2026/": {
+      "pageviews": 2,
+      "visits": null,
+      "users": 1,
+      "avgDuration": null
+    },
+    "/blog/2026-09-11-proverka-kontragenta-pered-sdelkoy/": {
       "pageviews": 2,
       "visits": null,
       "users": 2,
@@ -595,6 +600,13 @@
       "visits": null,
       "users": 2,
       "avgDuration": null
+    },
+    "/produkty/kontur-market/": {
+      "pageviews": 3,
+      "visits": null,
+      "users": null,
+      "avgDuration": null,
+      "usersStatus": "not_collected: overlapping normalized URL groups"
     },
     "/produkty/kontur-prizma/": {
       "pageviews": 2,
@@ -614,31 +626,7 @@
       "users": 2,
       "avgDuration": null
     },
-    "/blog/2026-03-05-nalogi-msb-2026/": {
-      "pageviews": 1,
-      "visits": null,
-      "users": 1,
-      "avgDuration": null
-    },
     "/blog/2026-05-01-buh-dlya-marketplace/": {
-      "pageviews": 1,
-      "visits": null,
-      "users": 1,
-      "avgDuration": null
-    },
-    "/blog/2026-05-01-egais-chto-eto/": {
-      "pageviews": 1,
-      "visits": null,
-      "users": 1,
-      "avgDuration": null
-    },
-    "/blog/2026-05-01-kak-vybrat-onlayn-kassu-2026/": {
-      "pageviews": 1,
-      "visits": null,
-      "users": 1,
-      "avgDuration": null
-    },
-    "/blog/2026-05-01-markirovka-cherez-marketplace/": {
       "pageviews": 1,
       "visits": null,
       "users": 1,
@@ -650,25 +638,25 @@
       "users": 1,
       "avgDuration": null
     },
-    "/blog/2026-05-01-registraciya-kkt-v-fns/": {
-      "pageviews": 1,
-      "visits": null,
-      "users": 1,
-      "avgDuration": null
-    },
-    "/blog/2026-05-01-usn-nds-rasschet/": {
-      "pageviews": 1,
-      "visits": null,
-      "users": 1,
-      "avgDuration": null
-    },
     "/blog/2026-05-03-chto-takoe-ofd/": {
       "pageviews": 1,
       "visits": null,
       "users": 1,
       "avgDuration": null
     },
+    "/blog/2026-05-03-egais-zhurnal-roznichnoy-prodazhi/": {
+      "pageviews": 1,
+      "visits": null,
+      "users": 1,
+      "avgDuration": null
+    },
     "/blog/2026-05-03-markirovka-bezalk-napitkov-2026/": {
+      "pageviews": 1,
+      "visits": null,
+      "users": 1,
+      "avgDuration": null
+    },
+    "/blog/2026-05-03-markirovka-igrushek-2026/": {
       "pageviews": 1,
       "visits": null,
       "users": 1,
@@ -686,13 +674,19 @@
       "users": 1,
       "avgDuration": null
     },
+    "/blog/2026-05-03-srok-fn-15-36/": {
+      "pageviews": 1,
+      "visits": null,
+      "users": 1,
+      "avgDuration": null
+    },
     "/blog/2026-05-03-zakon-o-marketpleysah-289-fz/": {
       "pageviews": 1,
       "visits": null,
       "users": 1,
       "avgDuration": null
     },
-    "/blog/2026-05-18-kak-otkryt-ip-poshagovo/": {
+    "/blog/2026-05-21-samozanyatyj-na-wildberries/": {
       "pageviews": 1,
       "visits": null,
       "users": 1,
@@ -722,13 +716,13 @@
       "users": 1,
       "avgDuration": null
     },
-    "/blog/2026-06-12-ts-piot-cheklist-uspet/": {
+    "/blog/2026-05-31-chestny-znak-registraciya/": {
       "pageviews": 1,
       "visits": null,
       "users": 1,
       "avgDuration": null
     },
-    "/blog/2026-06-16-markirovka-ostatkov/": {
+    "/blog/2026-06-12-ts-piot-cheklist-uspet/": {
       "pageviews": 1,
       "visits": null,
       "users": 1,
@@ -758,13 +752,7 @@
       "users": 1,
       "avgDuration": null
     },
-    "/blog/2026-06-23-patent-2026-limit/": {
-      "pageviews": 1,
-      "visits": null,
-      "users": 1,
-      "avgDuration": null
-    },
-    "/blog/2026-07-06-shtrafy-za-kkt/": {
+    "/blog/2026-09-23-ofd-shtrafy/": {
       "pageviews": 1,
       "visits": null,
       "users": 1,
@@ -776,7 +764,7 @@
       "users": 1,
       "avgDuration": null
     },
-    "/category/egais/": {
+    "/category/kkt/": {
       "pageviews": 1,
       "visits": null,
       "users": 1,
@@ -819,6 +807,12 @@
       "avgDuration": null
     },
     "/scenario/kofeynya-za-30-dney/": {
+      "pageviews": 1,
+      "visits": null,
+      "users": 1,
+      "avgDuration": null
+    },
+    "/slovar/": {
       "pageviews": 1,
       "visits": null,
       "users": 1,

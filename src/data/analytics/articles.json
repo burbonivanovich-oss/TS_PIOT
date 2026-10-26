@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-19T08:29:55.403Z",
+  "generatedAt": "2026-10-26T08:32:01.248Z",
   "source": {
     "gsc": null,
-    "metrika": "2026-10-19T08:29:53.949Z",
+    "metrika": "2026-10-26T08:31:59.930Z",
     "days": 28
   },
   "totals": {
     "articles": 149,
     "withGsc": 0,
-    "withMetrika": 108,
+    "withMetrika": 106,
     "totalClicks": 0,
     "totalImpressions": 0,
-    "totalPageviews": 3114
+    "totalPageviews": 2946
   },
   "articles": [
     {
@@ -26,9 +26,9 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 507,
+        "pageviews": 506,
         "visits": null,
-        "users": 362,
+        "users": 358,
         "avgDuration": null
       }
     },
@@ -37,16 +37,16 @@
       "url": "/blog/2026-06-24-snyatie-kkt-s-ucheta/",
       "title": "Снятие ККТ с учёта в ФНС: пошаговая инструкция 2026",
       "pubDate": "2026-06-24",
-      "updatedDate": "2026-06-29",
-      "reviewDate": "2026-12-24",
+      "updatedDate": "2026-10-19",
+      "reviewDate": "2027-04-17",
       "category": "kkt",
       "draft": false,
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 457,
+        "pageviews": 428,
         "visits": null,
-        "users": 333,
+        "users": 299,
         "avgDuration": null
       }
     },
@@ -62,9 +62,9 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 360,
+        "pageviews": 344,
         "visits": null,
-        "users": 238,
+        "users": 225,
         "avgDuration": null
       }
     },
@@ -80,9 +80,9 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 270,
+        "pageviews": 239,
         "visits": null,
-        "users": 226,
+        "users": 198,
         "avgDuration": null
       }
     },
@@ -98,7 +98,7 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 216,
+        "pageviews": 172,
         "visits": null,
         "users": null,
         "avgDuration": null,
@@ -117,27 +117,9 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 121,
+        "pageviews": 134,
         "visits": null,
-        "users": 92,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-03-markirovka-bakalei-2026",
-      "url": "/blog/2026-05-03-markirovka-bakalei-2026/",
-      "title": "Маркировка снеков, соусов и специй с 1 сентября 2026",
-      "pubDate": "2026-05-26",
-      "updatedDate": "2026-05-19",
-      "reviewDate": "2026-08-24",
-      "category": "markirovka",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 100,
-        "visits": null,
-        "users": 76,
+        "users": 101,
         "avgDuration": null
       }
     },
@@ -153,9 +135,27 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 99,
+        "pageviews": 105,
         "visits": null,
-        "users": 73,
+        "users": 82,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-03-markirovka-bakalei-2026",
+      "url": "/blog/2026-05-03-markirovka-bakalei-2026/",
+      "title": "Маркировка снеков, соусов и специй с 1 сентября 2026",
+      "pubDate": "2026-05-26",
+      "updatedDate": "2026-05-19",
+      "reviewDate": "2026-08-24",
+      "category": "markirovka",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 93,
+        "visits": null,
+        "users": 78,
         "avgDuration": null
       }
     },
@@ -171,9 +171,9 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 75,
+        "pageviews": 77,
         "visits": null,
-        "users": 60,
+        "users": 65,
         "avgDuration": null
       }
     },
@@ -189,9 +189,9 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 62,
+        "pageviews": 67,
         "visits": null,
-        "users": 50,
+        "users": 55,
         "avgDuration": null
       }
     },
@@ -207,9 +207,9 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 59,
+        "pageviews": 62,
         "visits": null,
-        "users": 51,
+        "users": 52,
         "avgDuration": null
       }
     },
@@ -225,9 +225,9 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 56,
+        "pageviews": 42,
         "visits": null,
-        "users": 25,
+        "users": 24,
         "avgDuration": null
       }
     },
@@ -243,9 +243,9 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 34,
+        "pageviews": 40,
         "visits": null,
-        "users": 28,
+        "users": 31,
         "avgDuration": null
       }
     },
@@ -261,63 +261,9 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 34,
+        "pageviews": 39,
         "visits": null,
-        "users": 29,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-03-markirovka-importerov",
-      "url": "/blog/2026-05-03-markirovka-importerov/",
-      "title": "Маркировка для импортёров: GTIN, ЭДО и таможня",
-      "pubDate": "2026-05-17",
-      "updatedDate": "2026-05-19",
-      "reviewDate": "2026-08-15",
-      "category": "markirovka",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 32,
-        "visits": null,
-        "users": 30,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-01-ts-piot-evotor-atol-shtrih",
-      "url": "/blog/2026-05-01-ts-piot-evotor-atol-shtrih/",
-      "title": "ТС ПИоТ на кассах Эвотор, Атол, Штрих и Дримкас: сравнение поддержки",
-      "pubDate": "2026-05-09",
-      "updatedDate": "2026-05-18",
-      "reviewDate": "2026-09-01",
-      "category": "ts-piot",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 32,
-        "visits": null,
-        "users": 30,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-06-09-markirovka-tabaka-2026",
-      "url": "/blog/2026-06-09-markirovka-tabaka-2026/",
-      "title": "Маркировка табака 2026: разрешительный режим и контроль ЕМЦ",
-      "pubDate": "2026-06-09",
-      "updatedDate": "2026-06-11",
-      "reviewDate": "2026-12-09",
-      "category": null,
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 31,
-        "visits": null,
-        "users": 25,
+        "users": 31,
         "avgDuration": null
       }
     },
@@ -333,45 +279,45 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 30,
+        "pageviews": 38,
         "visits": null,
-        "users": 17,
+        "users": 21,
         "avgDuration": null
       }
     },
     {
-      "slug": "2026-05-30-ts-piot-provajdery-sravnenie",
-      "url": "/blog/2026-05-30-ts-piot-provajdery-sravnenie/",
-      "title": "Провайдеры ТС ПИоТ в 2026 году: сравнение ЕСМ и Инвенты",
-      "pubDate": "2026-05-30",
-      "updatedDate": null,
-      "reviewDate": "2026-08-28",
-      "category": "ts-piot",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 29,
-        "visits": null,
-        "users": 24,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-02-10-kategorii-markirovki-2026",
-      "url": "/blog/2026-02-10-kategorii-markirovki-2026/",
-      "title": "Маркировка «Честный знак» 2026: категории товаров и сроки",
-      "pubDate": "2026-05-02",
+      "slug": "2026-05-01-ts-piot-evotor-atol-shtrih",
+      "url": "/blog/2026-05-01-ts-piot-evotor-atol-shtrih/",
+      "title": "ТС ПИоТ на кассах Эвотор, Атол, Штрих и Дримкас: сравнение поддержки",
+      "pubDate": "2026-05-09",
       "updatedDate": "2026-05-18",
       "reviewDate": "2026-09-01",
-      "category": "markirovka",
+      "category": "ts-piot",
       "draft": false,
       "factchecked": true,
       "gsc": null,
       "metrika": {
         "pageviews": 27,
         "visits": null,
-        "users": 26,
+        "users": 24,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-03-markirovka-importerov",
+      "url": "/blog/2026-05-03-markirovka-importerov/",
+      "title": "Маркировка для импортёров: GTIN, ЭДО и таможня",
+      "pubDate": "2026-05-17",
+      "updatedDate": "2026-05-19",
+      "reviewDate": "2026-08-15",
+      "category": "markirovka",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 25,
+        "visits": null,
+        "users": 23,
         "avgDuration": null
       }
     },
@@ -387,7 +333,7 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 26,
+        "pageviews": 24,
         "visits": null,
         "users": null,
         "avgDuration": null,
@@ -395,20 +341,38 @@
       }
     },
     {
-      "slug": "2026-07-01-licenziya-na-alkogol",
-      "url": "/blog/2026-07-01-licenziya-na-alkogol/",
-      "title": "Лицензия на алкоголь: кому нужна, как получить и сколько стоит",
-      "pubDate": "2026-07-01",
-      "updatedDate": "2026-06-12",
-      "reviewDate": "2027-01-01",
-      "category": "egais",
+      "slug": "2026-06-09-markirovka-tabaka-2026",
+      "url": "/blog/2026-06-09-markirovka-tabaka-2026/",
+      "title": "Маркировка табака 2026: разрешительный режим и контроль ЕМЦ",
+      "pubDate": "2026-06-09",
+      "updatedDate": "2026-06-11",
+      "reviewDate": "2026-12-09",
+      "category": null,
       "draft": false,
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 26,
+        "pageviews": 24,
         "visits": null,
-        "users": 22,
+        "users": 21,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-30-ts-piot-provajdery-sravnenie",
+      "url": "/blog/2026-05-30-ts-piot-provajdery-sravnenie/",
+      "title": "Провайдеры ТС ПИоТ в 2026 году: сравнение ЕСМ и Инвенты",
+      "pubDate": "2026-05-30",
+      "updatedDate": null,
+      "reviewDate": "2026-08-28",
+      "category": "ts-piot",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 24,
+        "visits": null,
+        "users": 20,
         "avgDuration": null
       }
     },
@@ -424,27 +388,9 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 25,
-        "visits": null,
-        "users": 17,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-01-razreshitelnyj-rezhim-markirovka",
-      "url": "/blog/2026-05-01-razreshitelnyj-rezhim-markirovka/",
-      "title": "Разрешительный режим Честного знака: как работает и кого касается",
-      "pubDate": "2026-05-07",
-      "updatedDate": "2026-05-18",
-      "reviewDate": "2026-09-01",
-      "category": "markirovka",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
         "pageviews": 23,
         "visits": null,
-        "users": 21,
+        "users": 15,
         "avgDuration": null
       }
     },
@@ -460,45 +406,63 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 20,
-        "visits": null,
-        "users": 13,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-06-25-ts-piot-dlya-apteki",
-      "url": "/blog/2026-06-25-ts-piot-dlya-apteki/",
-      "title": "ТС ПИоТ для аптеки: нужен ли и как подключить",
-      "pubDate": "2026-06-25",
-      "updatedDate": "2026-06-12",
-      "reviewDate": "2026-12-25",
-      "category": "ts-piot",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 18,
+        "pageviews": 21,
         "visits": null,
         "users": 15,
         "avgDuration": null
       }
     },
     {
-      "slug": "2026-05-03-mspos-t-d3-mini-obzor",
-      "url": "/blog/2026-05-03-mspos-t-d3-mini-obzor/",
-      "title": "MSPOS T D3 Mini: характеристики и сценарии использования",
-      "pubDate": "2026-05-20",
-      "updatedDate": null,
-      "reviewDate": "2026-08-18",
-      "category": "kkt",
+      "slug": "2026-07-01-licenziya-na-alkogol",
+      "url": "/blog/2026-07-01-licenziya-na-alkogol/",
+      "title": "Лицензия на алкоголь: кому нужна, как получить и сколько стоит",
+      "pubDate": "2026-07-01",
+      "updatedDate": "2026-06-12",
+      "reviewDate": "2027-01-01",
+      "category": "egais",
       "draft": false,
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 18,
+        "pageviews": 19,
         "visits": null,
-        "users": 11,
+        "users": 17,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-02-10-kategorii-markirovki-2026",
+      "url": "/blog/2026-02-10-kategorii-markirovki-2026/",
+      "title": "Маркировка «Честный знак» 2026: категории товаров и сроки",
+      "pubDate": "2026-05-02",
+      "updatedDate": "2026-05-18",
+      "reviewDate": "2026-09-01",
+      "category": "markirovka",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 19,
+        "visits": null,
+        "users": 19,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-01-edo-upd-markirovka",
+      "url": "/blog/2026-05-01-edo-upd-markirovka/",
+      "title": "ЭДО и УПД для маркированных товаров: как правильно оформить документы",
+      "pubDate": "2026-05-08",
+      "updatedDate": "2026-05-05",
+      "reviewDate": "2026-08-06",
+      "category": "zakonodatelstvo",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 17,
+        "visits": null,
+        "users": 8,
         "avgDuration": null
       }
     },
@@ -516,25 +480,43 @@
       "metrika": {
         "pageviews": 16,
         "visits": null,
-        "users": 13,
+        "users": 12,
         "avgDuration": null
       }
     },
     {
-      "slug": "2026-05-01-edo-upd-markirovka",
-      "url": "/blog/2026-05-01-edo-upd-markirovka/",
-      "title": "ЭДО и УПД для маркированных товаров: как правильно оформить документы",
-      "pubDate": "2026-05-08",
-      "updatedDate": "2026-05-05",
-      "reviewDate": "2026-08-06",
-      "category": "zakonodatelstvo",
+      "slug": "2026-06-25-ts-piot-dlya-apteki",
+      "url": "/blog/2026-06-25-ts-piot-dlya-apteki/",
+      "title": "ТС ПИоТ для аптеки: нужен ли и как подключить",
+      "pubDate": "2026-06-25",
+      "updatedDate": "2026-06-12",
+      "reviewDate": "2026-12-25",
+      "category": "ts-piot",
       "draft": false,
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 16,
+        "pageviews": 15,
         "visits": null,
-        "users": 7,
+        "users": 11,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-06-18-merkuriy-offline",
+      "url": "/blog/2026-06-18-merkuriy-offline/",
+      "title": "Меркурий не работает: что делать при сбое и отключении",
+      "pubDate": "2026-06-18",
+      "updatedDate": "2026-06-29",
+      "reviewDate": "2026-12-18",
+      "category": "egais",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 15,
+        "visits": null,
+        "users": 14,
         "avgDuration": null
       }
     },
@@ -557,67 +539,31 @@
       }
     },
     {
-      "slug": "2026-06-18-merkuriy-offline",
-      "url": "/blog/2026-06-18-merkuriy-offline/",
-      "title": "Меркурий не работает: что делать при сбое и отключении",
-      "pubDate": "2026-06-18",
-      "updatedDate": "2026-06-29",
-      "reviewDate": "2026-12-18",
-      "category": "egais",
+      "slug": "2026-05-01-razreshitelnyj-rezhim-markirovka",
+      "url": "/blog/2026-05-01-razreshitelnyj-rezhim-markirovka/",
+      "title": "Разрешительный режим Честного знака: как работает и кого касается",
+      "pubDate": "2026-05-07",
+      "updatedDate": "2026-05-18",
+      "reviewDate": "2026-09-01",
+      "category": "markirovka",
       "draft": false,
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 14,
+        "pageviews": 12,
         "visits": null,
-        "users": 13,
+        "users": 12,
         "avgDuration": null
       }
     },
     {
-      "slug": "2026-05-01-uchyot-alkogolya-v-obschepite",
-      "url": "/blog/2026-05-01-uchyot-alkogolya-v-obschepite/",
-      "title": "Учёт алкоголя в 2026: ЕГАИС в кафе и баре без ошибок",
-      "pubDate": "2026-05-13",
-      "updatedDate": "2026-06-29",
-      "reviewDate": "2026-08-11",
-      "category": "egais",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 11,
-        "visits": null,
-        "users": 5,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-01-ofd-dlya-ts-piot",
-      "url": "/blog/2026-05-01-ofd-dlya-ts-piot/",
-      "title": "ОФД для ТС ПИоТ 2026: что такое оператор фискальных данных и как его выбрать",
-      "pubDate": "2026-05-04",
-      "updatedDate": "2026-05-05",
-      "reviewDate": "2026-08-02",
-      "category": "ts-piot",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 11,
-        "visits": null,
-        "users": 8,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-06-30-pereregistraciya-kkt",
-      "url": "/blog/2026-06-30-pereregistraciya-kkt/",
-      "title": "Перерегистрация ккт: когда нужна и как оформить",
-      "pubDate": "2026-06-30",
-      "updatedDate": "2026-06-12",
-      "reviewDate": "2026-12-30",
-      "category": "kkt",
+      "slug": "2026-05-03-markirovka-avtozhidkostey-2026",
+      "url": "/blog/2026-05-03-markirovka-avtozhidkostey-2026/",
+      "title": "Автомобильные жидкости: разрешительный режим с 1 октября 2026",
+      "pubDate": "2026-05-24",
+      "updatedDate": "2026-05-19",
+      "reviewDate": "2026-08-22",
+      "category": "markirovka",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -625,6 +571,42 @@
         "pageviews": 10,
         "visits": null,
         "users": 8,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-03-mspos-t-d3-mini-obzor",
+      "url": "/blog/2026-05-03-mspos-t-d3-mini-obzor/",
+      "title": "MSPOS T D3 Mini: характеристики и сценарии использования",
+      "pubDate": "2026-05-20",
+      "updatedDate": null,
+      "reviewDate": "2026-08-18",
+      "category": "kkt",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 10,
+        "visits": null,
+        "users": 4,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-06-30-pereregistraciya-kkt",
+      "url": "/blog/2026-06-30-pereregistraciya-kkt/",
+      "title": "Перерегистрация ККТ: когда нужна и как оформить",
+      "pubDate": "2026-06-30",
+      "updatedDate": "2026-10-19",
+      "reviewDate": "2027-04-17",
+      "category": "kkt",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 9,
+        "visits": null,
+        "users": 7,
         "avgDuration": null
       }
     },
@@ -647,18 +629,54 @@
       }
     },
     {
-      "slug": "2026-05-29-psn-nds-2026",
-      "url": "/blog/2026-05-29-psn-nds-2026/",
-      "title": "ПСН и НДС в 2026 году: платит ли ИП на патенте",
-      "pubDate": "2026-05-29",
-      "updatedDate": null,
-      "reviewDate": "2026-11-29",
-      "category": "zakonodatelstvo",
+      "slug": "2026-05-01-uchyot-alkogolya-v-obschepite",
+      "url": "/blog/2026-05-01-uchyot-alkogolya-v-obschepite/",
+      "title": "Учёт алкоголя в 2026: ЕГАИС в кафе и баре без ошибок",
+      "pubDate": "2026-05-13",
+      "updatedDate": "2026-06-29",
+      "reviewDate": "2026-08-11",
+      "category": "egais",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 9,
+        "visits": null,
+        "users": 4,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-01-ofd-dlya-ts-piot",
+      "url": "/blog/2026-05-01-ofd-dlya-ts-piot/",
+      "title": "ОФД для ТС ПИоТ 2026: что такое оператор фискальных данных и как его выбрать",
+      "pubDate": "2026-05-04",
+      "updatedDate": "2026-05-05",
+      "reviewDate": "2026-08-02",
+      "category": "ts-piot",
       "draft": false,
       "factchecked": true,
       "gsc": null,
       "metrika": {
         "pageviews": 8,
+        "visits": null,
+        "users": 6,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
+      "url": "/blog/2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu/",
+      "title": "ГИС ЭПД: штрафы и ответственность в 2026 году",
+      "pubDate": "2026-10-04",
+      "updatedDate": null,
+      "reviewDate": null,
+      "category": "zakonodatelstvo",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 7,
         "visits": null,
         "users": 7,
         "avgDuration": null
@@ -701,13 +719,31 @@
       }
     },
     {
-      "slug": "2026-09-07-markirovka-tabaka-novye-proverki-2026",
-      "url": "/blog/2026-09-07-markirovka-tabaka-novye-proverki-2026/",
-      "title": "Маркировка табака 2026: новые правила и автоштрафы с 01.09.2026",
-      "pubDate": "2026-09-07",
+      "slug": "2026-05-29-psn-nds-2026",
+      "url": "/blog/2026-05-29-psn-nds-2026/",
+      "title": "ПСН и НДС в 2026 году: платит ли ИП на патенте",
+      "pubDate": "2026-05-29",
       "updatedDate": null,
-      "reviewDate": "2027-03-07",
-      "category": "markirovka",
+      "reviewDate": "2026-11-29",
+      "category": "zakonodatelstvo",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 7,
+        "visits": null,
+        "users": 6,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-03-uchyot-razlivnogo-piva",
+      "url": "/blog/2026-05-03-uchyot-razlivnogo-piva/",
+      "title": "Учёт разливного пива в пабе: марки, кеги, остатки",
+      "pubDate": "2026-05-23",
+      "updatedDate": "2026-05-19",
+      "reviewDate": "2026-08-21",
+      "category": "egais",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -715,6 +751,24 @@
         "pageviews": 7,
         "visits": null,
         "users": 7,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-20-kak-otkryt-kafe-cheklis",
+      "url": "/blog/2026-05-20-kak-otkryt-kafe-cheklis/",
+      "title": "Как открыть кафе в 2026 году: чек-лист документов и систем",
+      "pubDate": "2026-05-20",
+      "updatedDate": null,
+      "reviewDate": "2026-08-18",
+      "category": "egais",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 7,
+        "visits": null,
+        "users": 3,
         "avgDuration": null
       }
     },
@@ -809,24 +863,6 @@
       }
     },
     {
-      "slug": "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
-      "url": "/blog/2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu/",
-      "title": "ГИС ЭПД: штрафы и ответственность в 2026 году",
-      "pubDate": "2026-10-04",
-      "updatedDate": null,
-      "reviewDate": null,
-      "category": "zakonodatelstvo",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 6,
-        "visits": null,
-        "users": 6,
-        "avgDuration": null
-      }
-    },
-    {
       "slug": "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna",
       "url": "/blog/2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna/",
       "title": "ГИС ЭПД: сроки 2026 года и что успеть до дедлайна",
@@ -834,42 +870,6 @@
       "updatedDate": null,
       "reviewDate": null,
       "category": "zakonodatelstvo",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 6,
-        "visits": null,
-        "users": 6,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-03-markirovka-avtozhidkostey-2026",
-      "url": "/blog/2026-05-03-markirovka-avtozhidkostey-2026/",
-      "title": "Автомобильные жидкости: разрешительный режим с 1 октября 2026",
-      "pubDate": "2026-05-24",
-      "updatedDate": "2026-05-19",
-      "reviewDate": "2026-08-22",
-      "category": "markirovka",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 6,
-        "visits": null,
-        "users": 4,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-03-uchyot-razlivnogo-piva",
-      "url": "/blog/2026-05-03-uchyot-razlivnogo-piva/",
-      "title": "Учёт разливного пива в пабе: марки, кеги, остатки",
-      "pubDate": "2026-05-23",
-      "updatedDate": "2026-05-19",
-      "reviewDate": "2026-08-21",
-      "category": "egais",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -892,81 +892,27 @@
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 5,
+        "pageviews": 6,
         "visits": null,
-        "users": 5,
+        "users": 6,
         "avgDuration": null
       }
     },
     {
-      "slug": "2026-06-09-egais-dlya-bara",
-      "url": "/blog/2026-06-09-egais-dlya-bara/",
-      "title": "ЕГАИС для бара: пошаговое подключение и учёт в 2026 году",
-      "pubDate": "2026-06-09",
+      "slug": "2026-09-07-markirovka-tabaka-novye-proverki-2026",
+      "url": "/blog/2026-09-07-markirovka-tabaka-novye-proverki-2026/",
+      "title": "Маркировка табака 2026: новые правила и автоштрафы с 01.09.2026",
+      "pubDate": "2026-09-07",
       "updatedDate": null,
-      "reviewDate": "2026-12-09",
-      "category": null,
+      "reviewDate": "2027-03-07",
+      "category": "markirovka",
       "draft": false,
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 5,
+        "pageviews": 6,
         "visits": null,
-        "users": 3,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-03-kak-vybrat-ofd-2026",
-      "url": "/blog/2026-05-03-kak-vybrat-ofd-2026/",
-      "title": "Сравнение операторов фискальных данных в 2026",
-      "pubDate": "2026-05-22",
-      "updatedDate": null,
-      "reviewDate": "2026-08-20",
-      "category": "kkt",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 5,
-        "visits": null,
-        "users": 4,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-03-mspos-f20-obzor",
-      "url": "/blog/2026-05-03-mspos-f20-obzor/",
-      "title": "MSPOS F20: характеристики, для кого подходит",
-      "pubDate": "2026-05-19",
-      "updatedDate": "2026-05-19",
-      "reviewDate": "2026-08-17",
-      "category": "kkt",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 5,
-        "visits": null,
-        "users": 5,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-01-gashenie-vsd-merkuriy",
-      "url": "/blog/2026-05-01-gashenie-vsd-merkuriy/",
-      "title": "Гашение ВСД в Меркурии: сроки, порядок, частые ошибки",
-      "pubDate": "2026-05-12",
-      "updatedDate": null,
-      "reviewDate": "2026-08-10",
-      "category": "egais",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 5,
-        "visits": null,
-        "users": 4,
+        "users": 6,
         "avgDuration": null
       }
     },
@@ -1043,20 +989,20 @@
       }
     },
     {
-      "slug": "2026-05-26-ts-piot-vs-ofd",
-      "url": "/blog/2026-05-26-ts-piot-vs-ofd/",
-      "title": "ТС ПИоТ и ОФД: в чём разница и нужны ли оба",
-      "pubDate": "2026-05-26",
+      "slug": "2026-06-09-egais-dlya-bara",
+      "url": "/blog/2026-06-09-egais-dlya-bara/",
+      "title": "ЕГАИС для бара: пошаговое подключение и учёт в 2026 году",
+      "pubDate": "2026-06-09",
       "updatedDate": null,
-      "reviewDate": "2026-11-26",
-      "category": "ts-piot",
+      "reviewDate": "2026-12-09",
+      "category": null,
       "draft": false,
       "factchecked": true,
       "gsc": null,
       "metrika": {
         "pageviews": 4,
         "visits": null,
-        "users": 3,
+        "users": 2,
         "avgDuration": null
       }
     },
@@ -1097,12 +1043,12 @@
       }
     },
     {
-      "slug": "2026-05-20-kak-otkryt-kafe-cheklis",
-      "url": "/blog/2026-05-20-kak-otkryt-kafe-cheklis/",
-      "title": "Как открыть кафе в 2026 году: чек-лист документов и систем",
-      "pubDate": "2026-05-20",
+      "slug": "2026-05-01-gashenie-vsd-merkuriy",
+      "url": "/blog/2026-05-01-gashenie-vsd-merkuriy/",
+      "title": "Гашение ВСД в Меркурии: сроки, порядок, частые ошибки",
+      "pubDate": "2026-05-12",
       "updatedDate": null,
-      "reviewDate": "2026-08-18",
+      "reviewDate": "2026-08-10",
       "category": "egais",
       "draft": false,
       "factchecked": true,
@@ -1110,43 +1056,7 @@
       "metrika": {
         "pageviews": 4,
         "visits": null,
-        "users": 2,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-01-proverki-2026",
-      "url": "/blog/2026-05-01-proverki-2026/",
-      "title": "Мораторий на проверки бизнеса в 2026 году: кого не проверят",
-      "pubDate": "2026-05-09",
-      "updatedDate": "2026-06-29",
-      "reviewDate": "2026-08-07",
-      "category": "zakonodatelstvo",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 4,
-        "visits": null,
-        "users": 2,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-03-atol-30f-obzor",
-      "url": "/blog/2026-05-03-atol-30f-obzor/",
-      "title": "АТОЛ 30Ф: обзор фискального регистратора",
-      "pubDate": "2026-05-08",
-      "updatedDate": "2026-05-19",
-      "reviewDate": "2026-08-06",
-      "category": "kkt",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 4,
-        "visits": null,
-        "users": 4,
+        "users": 3,
         "avgDuration": null
       }
     },
@@ -1187,13 +1097,13 @@
       }
     },
     {
-      "slug": "2026-09-11-proverka-kontragenta-pered-sdelkoy",
-      "url": "/blog/2026-09-11-proverka-kontragenta-pered-sdelkoy/",
-      "title": "Проверка контрагента перед сделкой: 12 бесплатных сервисов и досье для ФНС",
-      "pubDate": "2026-09-11",
+      "slug": "2026-10-02-atol-podklyuchenie-1c",
+      "url": "/blog/2026-10-02-atol-podklyuchenie-1c/",
+      "title": "АТОЛ 1С подключить: драйвер версии 10 и настройка",
+      "pubDate": "2026-10-02",
       "updatedDate": null,
-      "reviewDate": "2027-03-11",
-      "category": "zakonodatelstvo",
+      "reviewDate": "2027-04-02",
+      "category": "kkt",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -1205,30 +1115,12 @@
       }
     },
     {
-      "slug": "2026-09-08-subsidii-msb-2026",
-      "url": "/blog/2026-09-08-subsidii-msb-2026/",
-      "title": "Субсидии малому бизнесу в 2026 году: гранты, льготные кредиты и соцконтракт",
-      "pubDate": "2026-09-08",
+      "slug": "2026-09-28-gis-mt-kak-rabotaet",
+      "url": "/blog/2026-09-28-gis-mt-kak-rabotaet/",
+      "title": "ГИС МТ: что это и как работает система маркировки в 2026 году",
+      "pubDate": "2026-09-28",
       "updatedDate": null,
-      "reviewDate": "2027-03-08",
-      "category": "zakonodatelstvo",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 3,
-        "visits": null,
-        "users": 2,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-03-markirovka-igrushek-2026",
-      "url": "/blog/2026-05-03-markirovka-igrushek-2026/",
-      "title": "Маркировка игрушек 2026: сроки, товары, что делать",
-      "pubDate": "2026-06-01",
-      "updatedDate": "2026-10-07",
-      "reviewDate": "2027-04-05",
+      "reviewDate": "2027-03-28",
       "category": "markirovka",
       "draft": false,
       "factchecked": true,
@@ -1236,18 +1128,54 @@
       "metrika": {
         "pageviews": 3,
         "visits": null,
-        "users": 2,
+        "users": 3,
         "avgDuration": null
       }
     },
     {
-      "slug": "2026-05-03-etrn-2026",
-      "url": "/blog/2026-05-03-etrn-2026/",
-      "title": "ЭТрН с 1 сентября 2026: кто обязан оформлять электронную транспортную накладную",
-      "pubDate": "2026-05-20",
-      "updatedDate": "2026-10-05",
-      "reviewDate": "2027-04-03",
-      "category": "zakonodatelstvo",
+      "slug": "2026-05-03-kak-vybrat-ofd-2026",
+      "url": "/blog/2026-05-03-kak-vybrat-ofd-2026/",
+      "title": "Сравнение операторов фискальных данных в 2026",
+      "pubDate": "2026-05-22",
+      "updatedDate": null,
+      "reviewDate": "2026-08-20",
+      "category": "kkt",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 3,
+        "visits": null,
+        "users": 3,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-03-mspos-f20-obzor",
+      "url": "/blog/2026-05-03-mspos-f20-obzor/",
+      "title": "MSPOS F20: характеристики, для кого подходит",
+      "pubDate": "2026-05-19",
+      "updatedDate": "2026-05-19",
+      "reviewDate": "2026-08-17",
+      "category": "kkt",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 3,
+        "visits": null,
+        "users": 3,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
+      "url": "/blog/2026-05-01-smart-terminal-vs-fiskalnyj-registrator/",
+      "title": "Смарт-терминал или фискальный регистратор: что выбрать",
+      "pubDate": "2026-05-10",
+      "updatedDate": "2026-06-29",
+      "reviewDate": "2026-08-08",
+      "category": "kkt",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -1277,13 +1205,13 @@
       }
     },
     {
-      "slug": "2026-05-01-shtraf-za-markirovku",
-      "url": "/blog/2026-05-01-shtraf-za-markirovku/",
-      "title": "Штраф за отсутствие маркировки в 2026 году: размеры и последствия",
-      "pubDate": "2026-05-07",
-      "updatedDate": "2026-05-18",
-      "reviewDate": "2026-09-01",
-      "category": "markirovka",
+      "slug": "2026-05-01-proverki-2026",
+      "url": "/blog/2026-05-01-proverki-2026/",
+      "title": "Мораторий на проверки бизнеса в 2026 году: кого не проверят",
+      "pubDate": "2026-05-09",
+      "updatedDate": "2026-06-29",
+      "reviewDate": "2026-08-07",
+      "category": "zakonodatelstvo",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -1295,30 +1223,48 @@
       }
     },
     {
-      "slug": "2026-05-01-markirovka-piva-roznica",
-      "url": "/blog/2026-05-01-markirovka-piva-roznica/",
-      "title": "Маркировка пива в рознице: пошаговая настройка в 2026",
-      "pubDate": "2026-05-06",
-      "updatedDate": "2026-05-19",
-      "reviewDate": "2026-08-04",
-      "category": "markirovka",
+      "slug": "2026-09-11-proverka-kontragenta-pered-sdelkoy",
+      "url": "/blog/2026-09-11-proverka-kontragenta-pered-sdelkoy/",
+      "title": "Проверка контрагента перед сделкой: 12 бесплатных сервисов и досье для ФНС",
+      "pubDate": "2026-09-11",
+      "updatedDate": null,
+      "reviewDate": "2027-03-11",
+      "category": "zakonodatelstvo",
       "draft": false,
       "factchecked": true,
       "gsc": null,
       "metrika": {
-        "pageviews": 3,
+        "pageviews": 2,
         "visits": null,
-        "users": 3,
+        "users": 2,
         "avgDuration": null
       }
     },
     {
-      "slug": "2026-10-02-atol-podklyuchenie-1c",
-      "url": "/blog/2026-10-02-atol-podklyuchenie-1c/",
-      "title": "АТОЛ 1С подключить: драйвер версии 10 и настройка",
-      "pubDate": "2026-10-02",
+      "slug": "2026-09-08-subsidii-msb-2026",
+      "url": "/blog/2026-09-08-subsidii-msb-2026/",
+      "title": "Субсидии малому бизнесу в 2026 году: гранты, льготные кредиты и соцконтракт",
+      "pubDate": "2026-09-08",
       "updatedDate": null,
-      "reviewDate": "2027-04-02",
+      "reviewDate": "2027-03-08",
+      "category": "zakonodatelstvo",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 2,
+        "visits": null,
+        "users": 1,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-07-06-shtrafy-za-kkt",
+      "url": "/blog/2026-07-06-shtrafy-za-kkt/",
+      "title": "Штрафы за нарушения при работе с кассой: ст. 14.5 КоАП",
+      "pubDate": "2026-07-06",
+      "updatedDate": "2026-10-05",
+      "reviewDate": "2027-04-03",
       "category": "kkt",
       "draft": false,
       "factchecked": true,
@@ -1331,38 +1277,20 @@
       }
     },
     {
-      "slug": "2026-09-28-gis-mt-kak-rabotaet",
-      "url": "/blog/2026-09-28-gis-mt-kak-rabotaet/",
-      "title": "ГИС МТ: что это и как работает система маркировки в 2026 году",
-      "pubDate": "2026-09-28",
+      "slug": "2026-07-05-egais-registraciya-nachalo",
+      "url": "/blog/2026-07-05-egais-registraciya-nachalo/",
+      "title": "Как подключиться к ЕГАИС: пошаговая инструкция",
+      "pubDate": "2026-07-05",
       "updatedDate": null,
-      "reviewDate": "2027-03-28",
-      "category": "markirovka",
+      "reviewDate": "2027-01-05",
+      "category": "egais",
       "draft": false,
-      "factchecked": true,
+      "factchecked": false,
       "gsc": null,
       "metrika": {
         "pageviews": 2,
         "visits": null,
         "users": 2,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-09-17-152-fz-personalnye-dannye",
-      "url": "/blog/2026-09-17-152-fz-personalnye-dannye/",
-      "title": "152-ФЗ о персональных данных: обязанности бизнеса в 2026 году",
-      "pubDate": "2026-09-17",
-      "updatedDate": null,
-      "reviewDate": "2027-03-17",
-      "category": "zakonodatelstvo",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 2,
-        "visits": null,
-        "users": 1,
         "avgDuration": null
       }
     },
@@ -1403,6 +1331,42 @@
       }
     },
     {
+      "slug": "2026-06-23-patent-2026-limit",
+      "url": "/blog/2026-06-23-patent-2026-limit/",
+      "title": "Патент для ИП в 2026 году: лимиты, ограничения, виды деятельности",
+      "pubDate": "2026-06-23",
+      "updatedDate": "2026-06-12",
+      "reviewDate": "2026-12-23",
+      "category": "zakonodatelstvo",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 2,
+        "visits": null,
+        "users": 2,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-06-16-markirovka-ostatkov",
+      "url": "/blog/2026-06-16-markirovka-ostatkov/",
+      "title": "Маркировка остатков в «Честном знаке»: как ввести нераспроданные товары в систему",
+      "pubDate": "2026-06-16",
+      "updatedDate": "2026-06-12",
+      "reviewDate": "2026-12-16",
+      "category": "markirovka",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 2,
+        "visits": null,
+        "users": 2,
+        "avgDuration": null
+      }
+    },
+    {
       "slug": "2026-06-13-kak-umenshit-nalog-usn-2026",
       "url": "/blog/2026-06-13-kak-umenshit-nalog-usn-2026/",
       "title": "Как уменьшить налог УСН в 2026: легальные способы",
@@ -1421,31 +1385,13 @@
       }
     },
     {
-      "slug": "2026-05-31-chestny-znak-registraciya",
-      "url": "/blog/2026-05-31-chestny-znak-registraciya/",
-      "title": "Регистрация в «Честном знаке»: пошаговая инструкция для ИП и ООО",
-      "pubDate": "2026-05-31",
+      "slug": "2026-05-26-ts-piot-vs-ofd",
+      "url": "/blog/2026-05-26-ts-piot-vs-ofd/",
+      "title": "ТС ПИоТ и ОФД: в чём разница и нужны ли оба",
+      "pubDate": "2026-05-26",
       "updatedDate": null,
-      "reviewDate": "2026-08-29",
-      "category": "markirovka",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 2,
-        "visits": null,
-        "users": 2,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-21-samozanyatyj-na-wildberries",
-      "url": "/blog/2026-05-21-samozanyatyj-na-wildberries/",
-      "title": "Самозанятый на Wildberries в 2026 году: лимит, налог и маркировка",
-      "pubDate": "2026-05-21",
-      "updatedDate": "2026-05-19",
-      "reviewDate": "2026-08-19",
-      "category": "zakonodatelstvo",
+      "reviewDate": "2026-11-26",
+      "category": "ts-piot",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -1453,6 +1399,24 @@
         "pageviews": 2,
         "visits": null,
         "users": 1,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-03-etrn-2026",
+      "url": "/blog/2026-05-03-etrn-2026/",
+      "title": "ЭТрН с 1 сентября 2026: кто обязан оформлять электронную транспортную накладную",
+      "pubDate": "2026-05-20",
+      "updatedDate": "2026-10-05",
+      "reviewDate": "2027-04-03",
+      "category": "zakonodatelstvo",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 2,
+        "visits": null,
+        "users": 2,
         "avgDuration": null
       }
     },
@@ -1493,13 +1457,85 @@
       }
     },
     {
-      "slug": "2026-05-01-smart-terminal-vs-fiskalnyj-registrator",
-      "url": "/blog/2026-05-01-smart-terminal-vs-fiskalnyj-registrator/",
-      "title": "Смарт-терминал или фискальный регистратор: что выбрать",
+      "slug": "2026-05-01-kak-vybrat-onlayn-kassu-2026",
+      "url": "/blog/2026-05-01-kak-vybrat-onlayn-kassu-2026/",
+      "title": "Онлайн-касса: как выбрать для бизнеса в 2026 году",
       "pubDate": "2026-05-10",
-      "updatedDate": "2026-06-29",
-      "reviewDate": "2026-08-08",
+      "updatedDate": "2026-10-04",
+      "reviewDate": "2027-04-02",
       "category": "kkt",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 2,
+        "visits": null,
+        "users": 2,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-01-markirovka-cherez-marketplace",
+      "url": "/blog/2026-05-01-markirovka-cherez-marketplace/",
+      "title": "Маркировка на маркетплейсах Wildberries и Ozon в 2026 году: что должен знать продавец",
+      "pubDate": "2026-05-08",
+      "updatedDate": "2026-05-19",
+      "reviewDate": "2026-08-06",
+      "category": "markirovka",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 2,
+        "visits": null,
+        "users": 2,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-03-atol-30f-obzor",
+      "url": "/blog/2026-05-03-atol-30f-obzor/",
+      "title": "АТОЛ 30Ф: обзор фискального регистратора",
+      "pubDate": "2026-05-08",
+      "updatedDate": "2026-05-19",
+      "reviewDate": "2026-08-06",
+      "category": "kkt",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 2,
+        "visits": null,
+        "users": 2,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-01-shtraf-za-markirovku",
+      "url": "/blog/2026-05-01-shtraf-za-markirovku/",
+      "title": "Штраф за отсутствие маркировки в 2026 году: размеры и последствия",
+      "pubDate": "2026-05-07",
+      "updatedDate": "2026-05-18",
+      "reviewDate": "2026-09-01",
+      "category": "markirovka",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 2,
+        "visits": null,
+        "users": 1,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-01-markirovka-piva-roznica",
+      "url": "/blog/2026-05-01-markirovka-piva-roznica/",
+      "title": "Маркировка пива в рознице: пошаговая настройка в 2026",
+      "pubDate": "2026-05-06",
+      "updatedDate": "2026-05-19",
+      "reviewDate": "2026-08-04",
+      "category": "markirovka",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -1547,31 +1583,13 @@
       }
     },
     {
-      "slug": "2026-07-06-shtrafy-za-kkt",
-      "url": "/blog/2026-07-06-shtrafy-za-kkt/",
-      "title": "Штрафы за нарушения при работе с кассой: ст. 14.5 КоАП",
-      "pubDate": "2026-07-06",
-      "updatedDate": "2026-10-05",
-      "reviewDate": "2027-04-03",
+      "slug": "2026-09-23-ofd-shtrafy",
+      "url": "/blog/2026-09-23-ofd-shtrafy/",
+      "title": "Штраф ОФД нет договора: что грозит кассе в 2026 году",
+      "pubDate": "2026-09-23",
+      "updatedDate": null,
+      "reviewDate": "2027-03-23",
       "category": "kkt",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 1,
-        "visits": null,
-        "users": 1,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-06-23-patent-2026-limit",
-      "url": "/blog/2026-06-23-patent-2026-limit/",
-      "title": "Патент для ИП в 2026 году: лимиты, ограничения, виды деятельности",
-      "pubDate": "2026-06-23",
-      "updatedDate": "2026-06-12",
-      "reviewDate": "2026-12-23",
-      "category": "zakonodatelstvo",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -1655,12 +1673,30 @@
       }
     },
     {
-      "slug": "2026-06-16-markirovka-ostatkov",
-      "url": "/blog/2026-06-16-markirovka-ostatkov/",
-      "title": "Маркировка остатков в «Честном знаке»: как ввести нераспроданные товары в систему",
-      "pubDate": "2026-06-16",
-      "updatedDate": "2026-06-12",
-      "reviewDate": "2026-12-16",
+      "slug": "2026-06-12-ts-piot-cheklist-uspet",
+      "url": "/blog/2026-06-12-ts-piot-cheklist-uspet/",
+      "title": "ТС ПИоТ с 1 июля 2026: чек-лист, чтобы успеть подключить кассу",
+      "pubDate": "2026-06-12",
+      "updatedDate": null,
+      "reviewDate": "2026-08-01",
+      "category": "ts-piot",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 1,
+        "visits": null,
+        "users": 1,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-03-markirovka-igrushek-2026",
+      "url": "/blog/2026-05-03-markirovka-igrushek-2026/",
+      "title": "Маркировка игрушек 2026: сроки, товары, что делать",
+      "pubDate": "2026-06-01",
+      "updatedDate": "2026-10-07",
+      "reviewDate": "2027-04-05",
       "category": "markirovka",
       "draft": false,
       "factchecked": true,
@@ -1673,13 +1709,13 @@
       }
     },
     {
-      "slug": "2026-06-12-ts-piot-cheklist-uspet",
-      "url": "/blog/2026-06-12-ts-piot-cheklist-uspet/",
-      "title": "ТС ПИоТ с 1 июля 2026: чек-лист, чтобы успеть подключить кассу",
-      "pubDate": "2026-06-12",
+      "slug": "2026-05-31-chestny-znak-registraciya",
+      "url": "/blog/2026-05-31-chestny-znak-registraciya/",
+      "title": "Регистрация в «Честном знаке»: пошаговая инструкция для ИП и ООО",
+      "pubDate": "2026-05-31",
       "updatedDate": null,
-      "reviewDate": "2026-08-01",
-      "category": "ts-piot",
+      "reviewDate": "2026-08-29",
+      "category": "markirovka",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -1745,6 +1781,24 @@
       }
     },
     {
+      "slug": "2026-05-03-srok-fn-15-36",
+      "url": "/blog/2026-05-03-srok-fn-15-36/",
+      "title": "Срок действия ФН: 15 или 36 месяцев — кому какой",
+      "pubDate": "2026-05-22",
+      "updatedDate": "2026-10-14",
+      "reviewDate": "2027-04-12",
+      "category": "kkt",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 1,
+        "visits": null,
+        "users": 1,
+        "avgDuration": null
+      }
+    },
+    {
       "slug": "2026-05-03-poshtuchnyj-uchyot-alkogolya",
       "url": "/blog/2026-05-03-poshtuchnyj-uchyot-alkogolya/",
       "title": "Поштучный учёт крепкого алкоголя в общепите",
@@ -1752,6 +1806,24 @@
       "updatedDate": "2026-05-19",
       "reviewDate": "2026-08-19",
       "category": "egais",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": {
+        "pageviews": 1,
+        "visits": null,
+        "users": 1,
+        "avgDuration": null
+      }
+    },
+    {
+      "slug": "2026-05-21-samozanyatyj-na-wildberries",
+      "url": "/blog/2026-05-21-samozanyatyj-na-wildberries/",
+      "title": "Самозанятый на Wildberries в 2026 году: лимит, налог и маркировка",
+      "pubDate": "2026-05-21",
+      "updatedDate": "2026-05-19",
+      "reviewDate": "2026-08-19",
+      "category": "zakonodatelstvo",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -1781,13 +1853,13 @@
       }
     },
     {
-      "slug": "2026-05-18-kak-otkryt-ip-poshagovo",
-      "url": "/blog/2026-05-18-kak-otkryt-ip-poshagovo/",
-      "title": "Как открыть ИП в 2026 году: пошаговая инструкция",
+      "slug": "2026-05-03-egais-zhurnal-roznichnoy-prodazhi",
+      "url": "/blog/2026-05-03-egais-zhurnal-roznichnoy-prodazhi/",
+      "title": "Журнал учёта розничной продажи алкоголя в 2026",
       "pubDate": "2026-05-18",
-      "updatedDate": null,
+      "updatedDate": "2026-05-19",
       "reviewDate": "2026-08-16",
-      "category": "zakonodatelstvo",
+      "category": "egais",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -1817,24 +1889,6 @@
       }
     },
     {
-      "slug": "2026-05-01-egais-chto-eto",
-      "url": "/blog/2026-05-01-egais-chto-eto/",
-      "title": "ЕГАИС: что это, кому нужен и как подключить",
-      "pubDate": "2026-05-12",
-      "updatedDate": null,
-      "reviewDate": "2026-08-10",
-      "category": "egais",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 1,
-        "visits": null,
-        "users": 1,
-        "avgDuration": null
-      }
-    },
-    {
       "slug": "2026-05-01-buh-dlya-marketplace",
       "url": "/blog/2026-05-01-buh-dlya-marketplace/",
       "title": "Онлайн-бухгалтерия для продавца на маркетплейсах в 2026",
@@ -1853,42 +1907,6 @@
       }
     },
     {
-      "slug": "2026-05-01-kak-vybrat-onlayn-kassu-2026",
-      "url": "/blog/2026-05-01-kak-vybrat-onlayn-kassu-2026/",
-      "title": "Онлайн-касса: как выбрать для бизнеса в 2026 году",
-      "pubDate": "2026-05-10",
-      "updatedDate": "2026-10-04",
-      "reviewDate": "2027-04-02",
-      "category": "kkt",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 1,
-        "visits": null,
-        "users": 1,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-01-markirovka-cherez-marketplace",
-      "url": "/blog/2026-05-01-markirovka-cherez-marketplace/",
-      "title": "Маркировка на маркетплейсах Wildberries и Ozon в 2026 году: что должен знать продавец",
-      "pubDate": "2026-05-08",
-      "updatedDate": "2026-05-19",
-      "reviewDate": "2026-08-06",
-      "category": "markirovka",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 1,
-        "visits": null,
-        "users": 1,
-        "avgDuration": null
-      }
-    },
-    {
       "slug": "2026-05-01-markirovka-molochki-msb",
       "url": "/blog/2026-05-01-markirovka-molochki-msb/",
       "title": "Маркировка молочной продукции для малого бизнеса: что нужно делать в 2026",
@@ -1896,60 +1914,6 @@
       "updatedDate": "2026-05-05",
       "reviewDate": "2026-08-04",
       "category": "markirovka",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 1,
-        "visits": null,
-        "users": 1,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-01-registraciya-kkt-v-fns",
-      "url": "/blog/2026-05-01-registraciya-kkt-v-fns/",
-      "title": "Регистрация ККТ в налоговой 2026: пошагово через ЛК ФНС",
-      "pubDate": "2026-05-04",
-      "updatedDate": "2026-05-05",
-      "reviewDate": "2026-08-02",
-      "category": "kkt",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 1,
-        "visits": null,
-        "users": 1,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-03-05-nalogi-msb-2026",
-      "url": "/blog/2026-03-05-nalogi-msb-2026/",
-      "title": "Налоги МСБ в 2026: УСН, патент, ЕНС и КЭДО — что изменилось",
-      "pubDate": "2026-05-03",
-      "updatedDate": "2026-05-18",
-      "reviewDate": "2026-09-01",
-      "category": "zakonodatelstvo",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": {
-        "pageviews": 1,
-        "visits": null,
-        "users": 1,
-        "avgDuration": null
-      }
-    },
-    {
-      "slug": "2026-05-01-usn-nds-rasschet",
-      "url": "/blog/2026-05-01-usn-nds-rasschet/",
-      "title": "НДС на УСН в 2026: ставка 5%, 7% или 22% — как выбрать",
-      "pubDate": "2026-05-01",
-      "updatedDate": "2026-05-18",
-      "reviewDate": "2026-09-01",
-      "category": "zakonodatelstvo",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -1994,7 +1958,7 @@
       "updatedDate": null,
       "reviewDate": null,
       "category": "markirovka",
-      "draft": true,
+      "draft": false,
       "factchecked": true,
       "gsc": null,
       "metrika": null
@@ -2078,25 +2042,25 @@
       "metrika": null
     },
     {
-      "slug": "2026-09-23-ofd-shtrafy",
-      "url": "/blog/2026-09-23-ofd-shtrafy/",
-      "title": "Штраф ОФД нет договора: что грозит кассе в 2026 году",
-      "pubDate": "2026-09-23",
-      "updatedDate": null,
-      "reviewDate": "2027-03-23",
-      "category": "kkt",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": null
-    },
-    {
       "slug": "2026-09-22-reestr-msp-lgoty-2026",
       "url": "/blog/2026-09-22-reestr-msp-lgoty-2026/",
       "title": "Реестр МСП: как проверить статус и получить льготы в 2026 году",
       "pubDate": "2026-09-22",
       "updatedDate": null,
       "reviewDate": "2027-03-22",
+      "category": "zakonodatelstvo",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": null
+    },
+    {
+      "slug": "2026-09-17-152-fz-personalnye-dannye",
+      "url": "/blog/2026-09-17-152-fz-personalnye-dannye/",
+      "title": "152-ФЗ о персональных данных: обязанности бизнеса в 2026 году",
+      "pubDate": "2026-09-17",
+      "updatedDate": null,
+      "reviewDate": "2027-03-17",
       "category": "zakonodatelstvo",
       "draft": false,
       "factchecked": true,
@@ -2126,19 +2090,6 @@
       "category": "zakonodatelstvo",
       "draft": false,
       "factchecked": true,
-      "gsc": null,
-      "metrika": null
-    },
-    {
-      "slug": "2026-07-05-egais-registraciya-nachalo",
-      "url": "/blog/2026-07-05-egais-registraciya-nachalo/",
-      "title": "Как подключиться к ЕГАИС: пошаговая инструкция",
-      "pubDate": "2026-07-05",
-      "updatedDate": null,
-      "reviewDate": "2027-01-05",
-      "category": "egais",
-      "draft": false,
-      "factchecked": false,
       "gsc": null,
       "metrika": null
     },
@@ -2273,19 +2224,6 @@
       "metrika": null
     },
     {
-      "slug": "2026-05-03-srok-fn-15-36",
-      "url": "/blog/2026-05-03-srok-fn-15-36/",
-      "title": "Срок действия ФН: 15 или 36 месяцев — кому какой",
-      "pubDate": "2026-05-22",
-      "updatedDate": "2026-10-14",
-      "reviewDate": "2027-04-12",
-      "category": "kkt",
-      "draft": false,
-      "factchecked": true,
-      "gsc": null,
-      "metrika": null
-    },
-    {
       "slug": "2026-05-03-strahovye-vznosy-msp-2026",
       "url": "/blog/2026-05-03-strahovye-vznosy-msp-2026/",
       "title": "Страховые взносы МСП в 2026: пониженный тариф 15% только для 54 ОКВЭД",
@@ -2390,13 +2328,13 @@
       "metrika": null
     },
     {
-      "slug": "2026-05-03-egais-zhurnal-roznichnoy-prodazhi",
-      "url": "/blog/2026-05-03-egais-zhurnal-roznichnoy-prodazhi/",
-      "title": "Журнал учёта розничной продажи алкоголя в 2026",
+      "slug": "2026-05-18-kak-otkryt-ip-poshagovo",
+      "url": "/blog/2026-05-18-kak-otkryt-ip-poshagovo/",
+      "title": "Как открыть ИП в 2026 году: пошаговая инструкция",
       "pubDate": "2026-05-18",
-      "updatedDate": "2026-05-19",
+      "updatedDate": null,
       "reviewDate": "2026-08-16",
-      "category": "egais",
+      "category": "zakonodatelstvo",
       "draft": false,
       "factchecked": true,
       "gsc": null,
@@ -2442,6 +2380,19 @@
       "metrika": null
     },
     {
+      "slug": "2026-05-01-egais-chto-eto",
+      "url": "/blog/2026-05-01-egais-chto-eto/",
+      "title": "ЕГАИС: что это, кому нужен и как подключить",
+      "pubDate": "2026-05-12",
+      "updatedDate": null,
+      "reviewDate": "2026-08-10",
+      "category": "egais",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": null
+    },
+    {
       "slug": "2026-05-03-buh-dlya-ip-usn",
       "url": "/blog/2026-05-03-buh-dlya-ip-usn/",
       "title": "Онлайн-бухгалтерия для ИП на УСН: чек-лист функций",
@@ -2468,6 +2419,32 @@
       "metrika": null
     },
     {
+      "slug": "2026-05-01-registraciya-kkt-v-fns",
+      "url": "/blog/2026-05-01-registraciya-kkt-v-fns/",
+      "title": "Регистрация ККТ в налоговой 2026: пошагово через ЛК ФНС",
+      "pubDate": "2026-05-04",
+      "updatedDate": "2026-05-05",
+      "reviewDate": "2026-08-02",
+      "category": "kkt",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": null
+    },
+    {
+      "slug": "2026-03-05-nalogi-msb-2026",
+      "url": "/blog/2026-03-05-nalogi-msb-2026/",
+      "title": "Налоги МСБ в 2026: УСН, патент, ЕНС и КЭДО — что изменилось",
+      "pubDate": "2026-05-03",
+      "updatedDate": "2026-05-18",
+      "reviewDate": "2026-09-01",
+      "category": "zakonodatelstvo",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": null
+    },
+    {
       "slug": "2026-05-01-ens-enp-uvedomleniya",
       "url": "/blog/2026-05-01-ens-enp-uvedomleniya/",
       "title": "Уведомления по ЕНС в 2026: как не получить штраф из-за опоздания",
@@ -2487,6 +2464,19 @@
       "pubDate": "2026-05-03",
       "updatedDate": "2026-05-19",
       "reviewDate": "2026-08-01",
+      "category": "zakonodatelstvo",
+      "draft": false,
+      "factchecked": true,
+      "gsc": null,
+      "metrika": null
+    },
+    {
+      "slug": "2026-05-01-usn-nds-rasschet",
+      "url": "/blog/2026-05-01-usn-nds-rasschet/",
+      "title": "НДС на УСН в 2026: ставка 5%, 7% или 22% — как выбрать",
+      "pubDate": "2026-05-01",
+      "updatedDate": "2026-05-18",
+      "reviewDate": "2026-09-01",
       "category": "zakonodatelstvo",
       "draft": false,
       "factchecked": true,
