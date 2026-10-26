@@ -1,0 +1,39 @@
+{
+  "seed": "штраф за ТС ПИоТ",
+  "slug": "штраф-за-тс-пиот",
+  "category": "intent",
+  "cluster": "ts-piot",
+  "fetchedAt": "2026-10-26T09:32:00.871Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "штраф за тс пиот",
+      "count": 262
+    },
+    {
+      "phrase": "штрафы за отсутствие тс пиот",
+      "count": 172
+    },
+    {
+      "phrase": "какой штраф за отсутствие тс пиот",
+      "count": 33
+    },
+    {
+      "phrase": "штраф за работу без тс пиот",
+      "count": 25
+    }
+  ]
+}

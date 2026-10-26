@@ -1,0 +1,75 @@
+{
+  "seed": "эквайринг для бизнеса",
+  "slug": "эквайринг-для-бизнеса",
+  "category": "audience",
+  "cluster": "banki",
+  "fetchedAt": "2026-10-26T09:32:19.991Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 13,
+  "phrases": [
+    {
+      "phrase": "эквайринг для бизнеса",
+      "count": 1610
+    },
+    {
+      "phrase": "альфа банк для бизнеса эквайринг",
+      "count": 212
+    },
+    {
+      "phrase": "втб эквайринг для бизнеса",
+      "count": 143
+    },
+    {
+      "phrase": "сбер для бизнеса эквайринг",
+      "count": 98
+    },
+    {
+      "phrase": "интернет эквайринг для бизнеса",
+      "count": 93
+    },
+    {
+      "phrase": "альфа банк для бизнеса эквайринг тарифы",
+      "count": 59
+    },
+    {
+      "phrase": "сбербанк для бизнеса эквайринг",
+      "count": 58
+    },
+    {
+      "phrase": "сбер бизнес касса и эквайринг для ип",
+      "count": 26
+    },
+    {
+      "phrase": "эквайринг для бизнеса самые выгодные",
+      "count": 25
+    },
+    {
+      "phrase": "озон банк для бизнеса эквайринг",
+      "count": 17
+    },
+    {
+      "phrase": "сбер бизнес эквайринг тарифы для ип",
+      "count": 14
+    },
+    {
+      "phrase": "втб бизнес эквайринг тарифы для ип",
+      "count": 11
+    },
+    {
+      "phrase": "псб эквайринг для любого бизнеса",
+      "count": 9
+    }
+  ]
+}

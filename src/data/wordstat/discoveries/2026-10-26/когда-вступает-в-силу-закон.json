@@ -1,0 +1,55 @@
+{
+  "seed": "когда вступает в силу закон",
+  "slug": "когда-вступает-в-силу-закон",
+  "category": "intent",
+  "cluster": "zakonodatelstvo",
+  "fetchedAt": "2026-10-26T09:32:06.239Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 8,
+  "phrases": [
+    {
+      "phrase": "когда закон вступает в силу",
+      "count": 6236
+    },
+    {
+      "phrase": "когда вступают в силу федеральные законы",
+      "count": 1426
+    },
+    {
+      "phrase": "когда новый закон вступает в силу",
+      "count": 523
+    },
+    {
+      "phrase": "когда закон вступает в силу в рф",
+      "count": 425
+    },
+    {
+      "phrase": "когда уголовный закон вступает в силу",
+      "count": 116
+    },
+    {
+      "phrase": "когда вступил в силу закон 340 1",
+      "count": 17
+    },
+    {
+      "phrase": "закон о дроперах когда вступает в силу",
+      "count": 6
+    },
+    {
+      "phrase": "закон грэма сша когда вступит в силу",
+      "count": 5
+    }
+  ]
+}
