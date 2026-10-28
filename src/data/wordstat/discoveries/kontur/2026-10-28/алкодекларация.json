@@ -1,0 +1,51 @@
+{
+  "seed": "алкодекларация",
+  "slug": "алкодекларация",
+  "category": "entity",
+  "cluster": "egais",
+  "fetchedAt": "2026-10-28T18:57:06.876Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 7,
+  "phrases": [
+    {
+      "phrase": "алкодекларация",
+      "count": 597
+    },
+    {
+      "phrase": "алкодекларация контур",
+      "count": 75
+    },
+    {
+      "phrase": "алкодекларация в 2026 году",
+      "count": 54
+    },
+    {
+      "phrase": "егаис алкодекларация",
+      "count": 29
+    },
+    {
+      "phrase": "алкодекларация контур вход в личный кабинет",
+      "count": 20
+    },
+    {
+      "phrase": "алкодекларация скачать",
+      "count": 16
+    },
+    {
+      "phrase": "отмена алкодекларации 2026",
+      "count": 6
+    }
+  ]
+}
