@@ -18,6 +18,7 @@ import os from 'node:os';
 import { existsSync, mkdirSync, writeFileSync, unlinkSync, readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { CLAUDE_KEYCHAIN_SERVICE } from './lib/claude-cli.mjs';
 
 const LABEL = 'ru.etiketka.autopilot';
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -108,8 +109,8 @@ if (cmd === 'print') {
     process.exit(2);
   }
   if (!claudeBinary()) console.warn('Внимание: не найден Claude Code CLI — статьи писаться не будут. Укажите путь в AUTOPILOT_CLAUDE_BIN и повторите установку.');
-  const keychain = spawnSync('/usr/bin/security', ['find-generic-password', '-s', 'etiketka-autopilot-claude', '-a', os.userInfo().username], { encoding: 'utf8' });
-  if (keychain.status !== 0) console.warn('Внимание: в Связке ключей нет токена Claude (etiketka-autopilot-claude). Без него статьи не пишутся; выпуск готовых идёт. Порядок — в autopilot/docs/scheduler.md.');
+  const keychain = spawnSync('/usr/bin/security', ['find-generic-password', '-s', CLAUDE_KEYCHAIN_SERVICE, '-a', os.userInfo().username], { encoding: 'utf8' });
+  if (keychain.status !== 0) console.warn(`Внимание: в Связке ключей нет токена Claude (${CLAUDE_KEYCHAIN_SERVICE}). Без него статьи не пишутся; выпуск готовых идёт. Порядок — в autopilot/docs/scheduler.md.`);
   mkdirSync(path.dirname(PLIST), { recursive: true });
   mkdirSync(LOGS, { recursive: true });
   launchctl(['bootout', `${domain}/${LABEL}`]);

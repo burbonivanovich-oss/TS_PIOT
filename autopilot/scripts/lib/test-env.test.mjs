@@ -9,3 +9,7 @@ test('test children cannot inherit production paths, locks or strict checkout ov
   const result=spawnSync(process.execPath,['-e',"process.stdout.write(JSON.stringify(Object.keys(process.env).filter(key=>key==='CONTENT_ROOT'||key.startsWith('AUTOPILOT_'))))"],{env:isolated,encoding:'utf8'});
   assert.equal(result.status,0,result.stderr);assert.deepEqual(JSON.parse(result.stdout),[]);
 });
+test('model subscription token never reaches test children', () => {
+  const isolated=isolatedTestEnv({...process.env,CLAUDE_CODE_OAUTH_TOKEN:'secret'});
+  assert.ok(!('CLAUDE_CODE_OAUTH_TOKEN' in isolated));
+});

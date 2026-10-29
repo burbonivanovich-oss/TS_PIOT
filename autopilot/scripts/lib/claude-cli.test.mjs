@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync, readFileSync, chmodSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { claudeArgs, parseClaudeOutput, runClaude } from './claude-cli.mjs';
+import { claudeArgs, parseClaudeOutput, runClaude, ensureClaudeToken, modelProvider } from './claude-cli.mjs';
 
 const schema = { type: 'object', required: ['slug'], properties: { slug: { type: 'string' } } };
 
@@ -48,4 +48,24 @@ let input = ''; process.stdin.on('data', (d) => input += d).on('end', () => {
     assert.deepEqual(argv.slice(argv.indexOf('--allowedTools') + 1, argv.indexOf('--no-session-persistence')), ['Read', 'WebSearch']);
     await assert.rejects(runClaude('FAIL', { schema, tools: ['Read'], cwd: dir, actorFile: path.join(dir, 'actor2.json'), binary: bin, timeout: 20000 }), /Claude CLI: Failed to authenticate/);
   } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('токен: существующий не перезаписывается, из Связки ключей подставляется, пустой — нет входа', () => {
+  const kept = { CLAUDE_CODE_OAUTH_TOKEN: 'own' };
+  assert.equal(ensureClaudeToken({ env: kept, read: () => 'keychain' }), true);
+  assert.equal(kept.CLAUDE_CODE_OAUTH_TOKEN, 'own');
+  const loaded = {};
+  assert.equal(ensureClaudeToken({ env: loaded, read: () => 'keychain' }), true);
+  assert.equal(loaded.CLAUDE_CODE_OAUTH_TOKEN, 'keychain');
+  const none = {};
+  assert.equal(ensureClaudeToken({ env: none, read: () => '' }), false);
+  assert.ok(!('CLAUDE_CODE_OAUTH_TOKEN' in none));
+});
+
+test('провайдер по умолчанию — claude, codex выбирается явно', () => {
+  const saved = process.env.AUTOPILOT_MODEL_PROVIDER;
+  try {
+    delete process.env.AUTOPILOT_MODEL_PROVIDER; assert.equal(modelProvider(), 'claude');
+    process.env.AUTOPILOT_MODEL_PROVIDER = 'Codex'; assert.equal(modelProvider(), 'codex');
+  } finally { if (saved === undefined) delete process.env.AUTOPILOT_MODEL_PROVIDER; else process.env.AUTOPILOT_MODEL_PROVIDER = saved; }
 });

@@ -22,6 +22,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync, appendFileSync, unl
 import { fileURLToPath } from 'node:url';
 import { isMain, parseArgs } from './lib/content.mjs';
 import { isoWeek } from './lib/week.mjs';
+import { ensureClaudeToken } from './lib/claude-cli.mjs';
 
 export const SITE = process.env.AUTOPILOT_SITE || 'https://etiketka-media.ru/';
 export const ALLOWED_PATHS = 'autopilot/data,autopilot/research,src/content/blog,public/images/hero,public/images/preview,.claude/factchecked,src/data/factcheck/results,src/data/factcheck/claims';
@@ -34,9 +35,6 @@ const CODEX_AUTOMATION = process.env.AUTOPILOT_CODEX_AUTOMATION || path.join(os.
 // macOS хранит имена файлов в другой нормализации Unicode; без этого Git
 // видит отслеживаемый PDF с кириллицей как новый файл и считает копию грязной.
 const GIT_ENV = { GIT_CONFIG_COUNT: '1', GIT_CONFIG_KEY_0: 'core.precomposeunicode', GIT_CONFIG_VALUE_0: 'false' };
-// Долгоживущий токен Claude Code (`claude setup-token`) хранится в Связке
-// ключей macOS под этим именем; значение не пишется ни в лог, ни в файлы.
-export const CLAUDE_KEYCHAIN_SERVICE = 'etiketka-autopilot-claude';
 
 const utcDay = (now = new Date()) => now.toISOString().slice(0, 10);
 
@@ -128,15 +126,6 @@ function git(args, { allowFail = false, raw = false } = {}) {
 /** Пути изменённых файлов. Без trim: ведущий пробел — часть формата porcelain. */
 export function changedPaths(porcelainZ) {
   return String(porcelainZ || '').split('\0').filter(Boolean).map((entry) => entry.slice(3));
-}
-
-/** Токен Claude из Связки ключей — в окружение дочерних процессов, не в лог. */
-function loadClaudeToken() {
-  if (process.env.CLAUDE_CODE_OAUTH_TOKEN || process.platform !== 'darwin') return Boolean(process.env.CLAUDE_CODE_OAUTH_TOKEN);
-  const r = spawnSync('/usr/bin/security', ['find-generic-password', '-s', CLAUDE_KEYCHAIN_SERVICE, '-a', os.userInfo().username, '-w'], { encoding: 'utf8' });
-  const token = r.status === 0 ? r.stdout.trim() : '';
-  if (token) process.env.CLAUDE_CODE_OAUTH_TOKEN = token;
-  return Boolean(token);
 }
 
 function claudeLoggedIn() {
@@ -298,7 +287,7 @@ export async function run({ forceDaily = false, skipWeekly = false, skipDaily = 
   if (!release) { log('планировщик уже работает — выход'); return { status: 'already_running' }; }
   const state = readState();
   try {
-    if ((process.env.AUTOPILOT_MODEL_PROVIDER || 'claude') === 'claude' && !loadClaudeToken() && !claudeLoggedIn() && state.authWarnDay !== utcDay(now)) {
+    if ((process.env.AUTOPILOT_MODEL_PROVIDER || 'claude') === 'claude' && !ensureClaudeToken() && !claudeLoggedIn() && state.authWarnDay !== utcDay(now)) {
       // Выпуск очереди модели не требует и идёт дальше; не пишутся только новые тексты.
       notify('Этикетка: Claude не авторизован', 'Новые статьи и анализ рынка не выполняются, выпуск готовых продолжается. Нужен токен: claude setup-token.');
       state.authWarnDay = utcDay(now); writeState(state);
@@ -397,7 +386,7 @@ if (isMain(import.meta.url)) {
       .then((r) => { log(`итог: ${JSON.stringify(r).slice(0, 2000)}`); })
       .catch((error) => { notify('Этикетка: планировщик упал', error.message); process.exitCode = 1; });
   } else if (cmd === 'status') {
-    console.log(JSON.stringify({ state: readState(), week: isoWeek(), codexAutomationBlocks: existsSync(CODEX_AUTOMATION) && codexBlocks(readFileSync(CODEX_AUTOMATION, 'utf8')), claudeToken: loadClaudeToken(), claudeLoggedIn: claudeLoggedIn(), logs: LOG_DIR }, null, 2));
+    console.log(JSON.stringify({ state: readState(), week: isoWeek(), codexAutomationBlocks: existsSync(CODEX_AUTOMATION) && codexBlocks(readFileSync(CODEX_AUTOMATION, 'utf8')), claudeToken: ensureClaudeToken(), claudeLoggedIn: claudeLoggedIn(), logs: LOG_DIR }, null, 2));
   } else {
     console.log('Использование: scheduler.mjs run [--force-daily] [--skip-weekly] [--skip-daily] | status');
     process.exitCode = 2;

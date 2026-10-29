@@ -60,11 +60,13 @@ ${order.kind === 'new' ? `Это новый материал текущего п
 Верни JSON: slug, attempt (точно выше), status=delivered либо failed, sha256 текущего файла статьи (или пустую строку при failed), reason (краткая конкретная причина failed, иначе пустая строка). delivered означает доставленную попытку текста, а не разрешение публикации.`;
 }
 
+export const DELIVERY_SCHEMA = { type: 'object', additionalProperties: false, required: ['slug', 'attempt', 'status', 'sha256', 'reason'], properties: { slug: { type: 'string' }, attempt: { type: 'string' }, status: { type: 'string', enum: ['delivered', 'failed'] }, sha256: { type: 'string' }, reason: { type: 'string' } } };
+
 export async function codexDelivery(prompt, { cwd, actorFile, timeout = 30 * 60_000, binary = process.env.AUTOPILOT_CODEX_BIN || 'codex', onObservation = () => {} } = {}) {
   const dir = mkdtempSync(path.join(tmpdir(), 'autopilot-writer-'));
   try {
     const schema = path.join(dir, 'schema.json'); const output = path.join(dir, 'result.json');
-    writeFileSync(schema, JSON.stringify({ type: 'object', additionalProperties: false, required: ['slug', 'attempt', 'status', 'sha256', 'reason'], properties: { slug: { type: 'string' }, attempt: { type: 'string' }, status: { type: 'string', enum: ['delivered', 'failed'] }, sha256: { type: 'string' }, reason: { type: 'string' } } }));
+    writeFileSync(schema, JSON.stringify(DELIVERY_SCHEMA));
     // No shell interpolation; inherit configured model/auth, never print credentials.
     let processResult;
     try { processResult = await supervisedProcess(binary, ['--no-daemon', '--search', '--ask-for-approval', 'never', '-c', 'sandbox_workspace_write.network_access=true', 'exec', '--sandbox', 'workspace-write', '--cd', cwd, '--output-schema', schema, '--output-last-message', output, '-'], { input: prompt, cwd, timeout, actorFile }); }
@@ -74,8 +76,6 @@ export async function codexDelivery(prompt, { cwd, actorFile, timeout = 30 * 60_
     return JSON.parse(readFileSync(output, 'utf8'));
   } finally { rmSync(dir, { recursive: true, force: true }); }
 }
-
-export const DELIVERY_SCHEMA = { type: 'object', additionalProperties: false, required: ['slug', 'attempt', 'status', 'sha256', 'reason'], properties: { slug: { type: 'string' }, attempt: { type: 'string' }, status: { type: 'string', enum: ['delivered', 'failed'] }, sha256: { type: 'string' }, reason: { type: 'string' } } };
 
 // Писателю нужны правка файлов, поиск в сети и два скрипта движка из skill:
 // снимок первоисточника и гейты. SHA256 файла он считает сам для квитанции.

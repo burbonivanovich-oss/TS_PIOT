@@ -6,9 +6,32 @@
 // остальное без вопросов. Произвольные команды оболочки не разрешаются:
 // текст источника из сети не должен подбить модель на действия вне наряда.
 import { existsSync, readFileSync } from 'node:fs';
+import os from 'node:os';
+import { spawnSync } from 'node:child_process';
 import { supervisedProcess } from './writer-process.mjs';
 
 export const modelProvider = () => (process.env.AUTOPILOT_MODEL_PROVIDER || 'claude').toLowerCase();
+
+// Долгоживущий токен Claude Code (`claude setup-token`) хранится в Связке
+// ключей macOS под этим именем; значение не пишется ни в лог, ни в файлы.
+export const CLAUDE_KEYCHAIN_SERVICE = 'etiketka-autopilot-claude';
+
+function keychainToken() {
+  if (process.platform !== 'darwin') return '';
+  const r = spawnSync('/usr/bin/security', ['find-generic-password', '-s', CLAUDE_KEYCHAIN_SERVICE, '-a', os.userInfo().username, '-w'], { encoding: 'utf8' });
+  return r.status === 0 ? r.stdout.trim() : '';
+}
+
+/**
+ * Токен — в окружение процесса, откуда его унаследует CLI. Нужен и под
+ * планировщиком, и при ручном daily: вне терминала CLI без него не авторизован.
+ */
+export function ensureClaudeToken({ env = process.env, read = keychainToken } = {}) {
+  if (env.CLAUDE_CODE_OAUTH_TOKEN) return true;
+  const token = read();
+  if (token) env.CLAUDE_CODE_OAUTH_TOKEN = token;
+  return Boolean(token);
+}
 
 /** Аргументы CLI: строгая схема ответа, явный список инструментов, без сохранения сессии. */
 export function claudeArgs({ schema, tools, model = process.env.AUTOPILOT_CLAUDE_MODEL || null }) {
@@ -31,6 +54,7 @@ export function parseClaudeOutput(output) {
 }
 
 export async function runClaude(prompt, { schema, tools, cwd, actorFile, timeout = 30 * 60_000, binary = process.env.AUTOPILOT_CLAUDE_BIN || 'claude', model } = {}) {
+  ensureClaudeToken();
   try {
     const result = await supervisedProcess(binary, claudeArgs({ schema, tools, model }), { input: prompt, cwd, timeout, actorFile });
     return parseClaudeOutput(result.output);

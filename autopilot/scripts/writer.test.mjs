@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { validateDelivery, writerPrompt, codexDelivery, validateWriterChanges, writerFailureCode } from './writer.mjs';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
+import { validateDelivery, writerPrompt, codexDelivery, claudeDelivery, CLAUDE_WRITER_TOOLS, DELIVERY_SCHEMA, validateWriterChanges, writerFailureCode } from './writer.mjs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, chmodSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -90,4 +90,43 @@ test('failure categories preserve actionable diagnosis without raw model diagnos
   assert.equal(writerFailureCode(new Error('stream disconnected: sensitive payload')), 'model_transport');
   assert.equal(writerFailureCode(new Error('Rate limit reached')), 'model_rate_limit');
   assert.equal(writerFailureCode(new Error('private arbitrary message')), 'writer_failure');
+});
+test('Claude writer: delivery JSON, token accounting, inherited token, narrow tools', async () => {
+  const root = mkdtempSync(path.join(tmpdir(), 'claude-writer-'));
+  const saved = process.env.CLAUDE_CODE_OAUTH_TOKEN;
+  try {
+    const bin = path.join(root, 'fake-claude'); const seen = path.join(root, 'seen.json');
+    writeFileSync(bin, `#!/usr/bin/env node
+require('fs').writeFileSync(${JSON.stringify(seen)}, JSON.stringify({ argv: process.argv.slice(2), token: process.env.CLAUDE_CODE_OAUTH_TOKEN || null }));
+process.stdin.resume(); process.stdin.on('end', () => process.stdout.write(JSON.stringify({ is_error: false, structured_output: { slug: 'article', attempt: 'now/0/0', status: 'delivered', sha256: 'new', reason: '' }, usage: { input_tokens: 20, output_tokens: 22 } })));
+`);
+    chmodSync(bin, 0o755);
+    process.env.CLAUDE_CODE_OAUTH_TOKEN = 'test-token';
+    const observed = [];
+    const value = await claudeDelivery('prompt', { binary: bin, cwd: root, actorFile: path.join(root, '.writer-actor'), timeout: 20000, onObservation: (o) => observed.push(o) });
+    assert.deepEqual(value, { slug: 'article', attempt: 'now/0/0', status: 'delivered', sha256: 'new', reason: '' });
+    assert.deepEqual(observed, [{ reportedTokens: 42, tokenSource: 'claude-cli-usage' }]);
+    assert.deepEqual(JSON.parse(readFileSync(path.join(root, '.writer-model-result.log'), 'utf8')), value);
+    const { argv, token } = JSON.parse(readFileSync(seen, 'utf8'));
+    assert.equal(token, 'test-token');
+    assert.deepEqual(JSON.parse(argv[argv.indexOf('--json-schema') + 1]), DELIVERY_SCHEMA);
+    assert.deepEqual(argv.slice(argv.indexOf('--allowedTools') + 1, argv.indexOf('--no-session-persistence')), CLAUDE_WRITER_TOOLS);
+  } finally {
+    if (saved === undefined) delete process.env.CLAUDE_CODE_OAUTH_TOKEN; else process.env.CLAUDE_CODE_OAUTH_TOKEN = saved;
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+test('Claude writer gets no free shell, git or scheduler access', () => {
+  for (const tool of CLAUDE_WRITER_TOOLS) {
+    assert.notEqual(tool, 'Bash');
+    if (tool.startsWith('Bash(')) assert.match(tool, /^Bash\((node autopilot\/scripts\/(gates|source-snapshot)\.mjs|shasum -a 256) \*\)$/);
+  }
+});
+test('missing Claude executable is infrastructure failure, never delivery', async () => {
+  const root = mkdtempSync(path.join(tmpdir(), 'missing-claude-'));
+  try { await assert.rejects(claudeDelivery('test', { binary: '/nonexistent/claude', cwd: root, actorFile: path.join(root, '.actor'), timeout: 20000 })); } finally { rmSync(root, { recursive: true, force: true }); }
+});
+test('subscription usage limit is a rate limit, not a writer defect', () => {
+  assert.equal(writerFailureCode(new Error('You’ve hit your usage limit. Upgrade to Plus to continue using Codex')), 'model_rate_limit');
+  assert.equal(writerFailureCode(new Error('Claude CLI: Claude AI usage limit reached')), 'model_rate_limit');
 });
