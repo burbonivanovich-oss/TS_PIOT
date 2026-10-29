@@ -1,0 +1,67 @@
+{
+  "seed": "маркировка лекарств",
+  "slug": "маркировка-лекарств",
+  "category": "entity",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-19T09:27:52.280Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 11,
+  "phrases": [
+    {
+      "phrase": "маркировка лекарств",
+      "count": 1363
+    },
+    {
+      "phrase": "маркировка лекарств честный знак",
+      "count": 362
+    },
+    {
+      "phrase": "маркировка лекарств честный знак личный кабинет",
+      "count": 184
+    },
+    {
+      "phrase": "федеральный закон об обязательной маркировке лекарств",
+      "count": 58
+    },
+    {
+      "phrase": "маркировка лекарств ру",
+      "count": 29
+    },
+    {
+      "phrase": "что такое sgtin в маркировке лекарств",
+      "count": 12
+    },
+    {
+      "phrase": "телефон горячей линии честный знак маркировка лекарств",
+      "count": 9
+    },
+    {
+      "phrase": "пп 1556 маркировка лекарств",
+      "count": 9
+    },
+    {
+      "phrase": "как выглядит маркировка честный знак на лекарствах",
+      "count": 8
+    },
+    {
+      "phrase": "что такое кизы в маркировке на лекарства",
+      "count": 6
+    },
+    {
+      "phrase": "что такое код маркировки на лекарстве",
+      "count": 5
+    }
+  ]
+}

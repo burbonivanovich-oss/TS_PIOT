@@ -1,0 +1,47 @@
+{
+  "seed": "штраф ИП без кассы",
+  "slug": "штраф-ип-без-кассы",
+  "category": "intent",
+  "cluster": "kkt",
+  "fetchedAt": "2026-10-12T11:29:46.585Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 6,
+  "phrases": [
+    {
+      "phrase": "ип без кассы штрафы",
+      "count": 212
+    },
+    {
+      "phrase": "какой штраф без кассы ип",
+      "count": 83
+    },
+    {
+      "phrase": "штраф для ип за работу без кассы",
+      "count": 51
+    },
+    {
+      "phrase": "ип работает без кассы штраф",
+      "count": 50
+    },
+    {
+      "phrase": "работа без кассы штраф для ип 2026",
+      "count": 44
+    },
+    {
+      "phrase": "если ип работает без кассы какой штраф",
+      "count": 27
+    }
+  ]
+}

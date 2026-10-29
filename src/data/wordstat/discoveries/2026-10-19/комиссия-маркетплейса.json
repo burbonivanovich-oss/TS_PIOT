@@ -1,0 +1,63 @@
+{
+  "seed": "комиссия маркетплейса",
+  "slug": "комиссия-маркетплейса",
+  "category": "entity",
+  "cluster": "marketplace",
+  "fetchedAt": "2026-10-19T09:28:38.196Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 10,
+  "phrases": [
+    {
+      "phrase": "комиссии маркетплейсов",
+      "count": 2713
+    },
+    {
+      "phrase": "маркетплейс без комиссии",
+      "count": 145
+    },
+    {
+      "phrase": "комиссия маркетплейсов 2026",
+      "count": 90
+    },
+    {
+      "phrase": "маркетплейсы поднимают комиссию",
+      "count": 69
+    },
+    {
+      "phrase": "какая комиссия у маркетплейсов",
+      "count": 39
+    },
+    {
+      "phrase": "м видео маркетплейс комиссии",
+      "count": 30
+    },
+    {
+      "phrase": "комиссия маркетплейсов счет учета",
+      "count": 20
+    },
+    {
+      "phrase": "комиссия маркетплейсов с продаж юридическим лицам",
+      "count": 20
+    },
+    {
+      "phrase": "комиссии маркетплейсов для продавцов 2026",
+      "count": 10
+    },
+    {
+      "phrase": "почему маркетплейсы повышают комиссию",
+      "count": 6
+    }
+  ]
+}

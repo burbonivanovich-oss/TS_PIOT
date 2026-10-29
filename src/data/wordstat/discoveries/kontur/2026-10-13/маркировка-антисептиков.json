@@ -1,0 +1,39 @@
+{
+  "seed": "маркировка антисептиков",
+  "slug": "маркировка-антисептиков",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-13T19:15:17.687Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "маркировка антисептиков",
+      "count": 491
+    },
+    {
+      "phrase": "маркировка антисептиков честный знак",
+      "count": 106
+    },
+    {
+      "phrase": "маркировка антисептиков и дезинфицирующих средств",
+      "count": 72
+    },
+    {
+      "phrase": "маркировка антисептиков и дезинфицирующих средств честный знак",
+      "count": 35
+    }
+  ]
+}

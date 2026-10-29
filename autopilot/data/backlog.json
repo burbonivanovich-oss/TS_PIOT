@@ -306,7 +306,7 @@
       "format": "howto",
       "segment": "none",
       "score": 63.7,
-      "status": "accepted_waiting_release",
+      "status": "released",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "warn",
@@ -316,7 +316,7 @@
           "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya"
         ]
       },
-      "updatedAt": "2026-10-04",
+      "updatedAt": "2026-10-19",
       "migration": {
         "at": "2026-09-13T19:07:00.110Z",
         "reason": "файла в корпусе нет — возврат в план"
@@ -487,6 +487,254 @@
       "updatedAt": "2026-10-05"
     },
     {
+      "slug": "seed-ts-piot-i-data-matrix-chto-kassa-proveryaet-pri-prodazhe",
+      "title": "ТС ПИоТ и Data Matrix: что касса проверяет при продаже",
+      "entity": "тс пиот",
+      "keywords": [
+        "проверка тс пиот",
+        "код маркировки тс пиот"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "explainer",
+      "score": 50.3,
+      "demand": {
+        "status": "collected",
+        "phrase": "проверка тс пиот",
+        "count": 1782,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%A2%D0%A1+%D0%9F%D0%98%D0%BE%D0%A2",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 69.8,
+      "status": "writing",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "updatedAt": "2026-10-14"
+    },
+    {
+      "slug": "seed-kontrolnaya-zakupka-fns-kak-prohodit-proverka-kassy-i-chto-grozit",
+      "title": "Контрольная закупка ФНС: как проходит проверка кассы и что грозит",
+      "entity": "контрольная закупка",
+      "keywords": [
+        "контрольная закупка",
+        "контрольная закупка фнс"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 40,
+      "demand": {
+        "status": "collected",
+        "phrase": "контрольная закупка",
+        "count": 34242,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F+%D0%B7%D0%B0%D0%BA%D1%83%D0%BF%D0%BA%D0%B0",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 67.2,
+      "status": "writing",
+      "createdAt": "2026-10-14",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "updatedAt": "2026-10-14"
+    },
+    {
+      "slug": "seed-elektronnaya-otchetnost-dlya-ip-i-ooo-kak-podklyuchit",
+      "title": "Электронная отчётность для ИП и ООО: как подключить",
+      "entity": "электронная отчётность",
+      "keywords": [
+        "электронная отчетность"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 40,
+      "demand": {
+        "status": "collected",
+        "phrase": "электронная отчетность",
+        "count": 12505,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F+%D0%BE%D1%82%D1%87%D0%B5%D1%82%D0%BD%D0%BE%D1%81%D1%82%D1%8C",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 64.6,
+      "status": "writing",
+      "createdAt": "2026-10-14",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "updatedAt": "2026-10-14"
+    },
+    {
+      "slug": "seed-efs-1-v-sfr-sroki-sdachi-dogovory-gph-i-shtrafy",
+      "title": "ЕФС-1 в СФР: сроки сдачи, договоры ГПХ и штрафы",
+      "entity": "сфр",
+      "keywords": [
+        "ефс по договору гпх",
+        "ефс 1 на аусн"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "checklist",
+      "score": 40,
+      "demand": {
+        "status": "collected",
+        "phrase": "ефс по договору гпх",
+        "count": 3566,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%93%D0%9F%D0%A5+%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 61.3,
+      "status": "planned",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      }
+    },
+    {
+      "slug": "seed-akciznaya-marka-kak-proverit-alkogol-pered-prodazhey",
+      "title": "Акцизная марка: как проверить алкоголь перед продажей",
+      "entity": "акцизная марка",
+      "keywords": [
+        "проверить акцизную марку",
+        "проверка акцизной марки"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 40,
+      "demand": {
+        "status": "collected",
+        "phrase": "проверить акцизную марку",
+        "count": 2487,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%B0%D0%BA%D1%86%D0%B8%D0%B7%D0%BD%D0%B0%D1%8F+%D0%BC%D0%B0%D1%80%D0%BA%D0%B0",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 60.4,
+      "status": "planned",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      }
+    },
+    {
+      "slug": "seed-licenziya-na-alkogol-dlya-kafe-stoimost-i-sroki-polucheniya",
+      "title": "Лицензия на алкоголь для кафе: стоимость и сроки получения",
+      "entity": "лицензия на алкоголь",
+      "keywords": [
+        "лицензия на алкоголь для кафе",
+        "сколько стоит лицензия на алкоголь"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 40,
+      "demand": {
+        "status": "collected",
+        "phrase": "сколько стоит лицензия на алкоголь",
+        "count": 1987,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%BB%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F+%D0%BD%D0%B0+%D0%B0%D0%BB%D0%BA%D0%BE%D0%B3%D0%BE%D0%BB%D1%8C",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 59.8,
+      "status": "planned",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      }
+    },
+    {
+      "slug": "seed-kody-oshibok-onlayn-kassy-chto-znachat-i-kak-ustranit",
+      "title": "Коды ошибок онлайн-кассы: что значат и как устранить",
+      "entity": "ошибки ккт",
+      "keywords": [
+        "эвотор код ошибки",
+        "атол код ошибки",
+        "онлайн касса выдает ошибку"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 40,
+      "demand": {
+        "status": "collected",
+        "phrase": "эвотор код ошибки",
+        "count": 1561,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%AD%D0%B2%D0%BE%D1%82%D0%BE%D1%80",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 59.2,
+      "status": "planned",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      }
+    },
+    {
       "slug": "2026-08-10-markirovka-vody-sroki-2026-goda-i-chto-uspet-do-dedlayna",
       "title": "Маркировка воды: сроки 2026 года и что успеть до дедлайна",
       "keywords": [
@@ -635,6 +883,81 @@
       "priorityScore": 57.3
     },
     {
+      "slug": "2026-08-10-elektronnaya-transportnaya-nakladnaya-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Электронная транспортная накладная: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить электронная транспортная накладная",
+        "электронная транспортная накладная инструкция"
+      ],
+      "entity": "электронная транспортная накладная",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 40,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ЭТрН с 1 сентября 2026: кто обязан оформлять электронную транспортную накладную». Обязательна ссылка на /blog/2026-05-03-etrn-2026/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-03-etrn-2026",
+          "2026-08-10-elektronnaya-podpis-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "электронная транспортная накладная инструкция",
+        "count": 623,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%82%D1%80%D0%B0%D0%BD%D1%81%D0%BF%D0%BE%D1%80%D1%82%D0%BD%D0%B0%D1%8F+%D0%BD%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D0%BD%D0%B0%D1%8F",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 56.8
+    },
+    {
+      "slug": "seed-nuzhna-li-onlayn-kassa-ip-kto-obyazan-i-kto-osvobozhden",
+      "title": "Нужна ли онлайн-касса ИП: кто обязан и кто освобождён",
+      "entity": "касса для ип",
+      "keywords": [
+        "нужна ли онлайн касса для ип",
+        "нужна ли касса для ип на патенте"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "explainer",
+      "score": 40,
+      "demand": {
+        "status": "collected",
+        "phrase": "нужна ли онлайн касса для ип",
+        "count": 262,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD-%D0%BA%D0%B0%D1%81%D1%81%D0%B0",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 54.5,
+      "status": "planned",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ПСН и НДС в 2026 году: платит ли ИП на патенте». Обязательна ссылка на /blog/2026-05-29-psn-nds-2026/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-29-psn-nds-2026"
+        ]
+      }
+    },
+    {
       "slug": "2026-08-10-fiskalnyy-nakopitel-kak-podklyuchit-poshagovaya-instrukciya",
       "title": "Фискальный накопитель: как подключить — пошаговая инструкция",
       "keywords": [
@@ -660,7 +983,7 @@
       "demand": {
         "status": "collected",
         "phrase": "фискальный накопитель инструкция",
-        "count": 229,
+        "count": 219,
         "match": "broad",
         "region": "225",
         "periodStart": null,
@@ -671,7 +994,151 @@
           "exactDatesVerified": false
         }
       },
-      "priorityScore": 54.2
+      "priorityScore": 54.1
+    },
+    {
+      "slug": "seed-kassa-dlya-ip-na-uslugah-kogda-ona-obyazatelna",
+      "title": "Касса для ИП на услугах: когда она обязательна",
+      "entity": "касса для ип",
+      "keywords": [
+        "онлайн касса ип услуги",
+        "онлайн касса для услуг"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "explainer",
+      "score": 40,
+      "demand": {
+        "status": "collected",
+        "phrase": "онлайн касса для услуг",
+        "count": 166,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD-%D0%BA%D0%B0%D1%81%D1%81%D0%B0",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 53.3,
+      "status": "planned",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      }
+    },
+    {
+      "slug": "seed-kassa-dlya-dostavki-kto-probivaet-chek-kurer-restoran-ili-agregator",
+      "title": "Касса для доставки: кто пробивает чек — курьер, ресторан или агрегатор",
+      "entity": "доставка",
+      "keywords": [
+        "онлайн касса доставка",
+        "онлайн кассы курьером"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 40,
+      "demand": {
+        "status": "collected",
+        "phrase": "онлайн касса доставка",
+        "count": 111,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD-%D0%BA%D0%B0%D1%81%D1%81%D0%B0",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 52.3,
+      "status": "planned",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      }
+    },
+    {
+      "slug": "seed-kassa-dlya-salona-krasoty-patent-markirovka-i-chek",
+      "title": "Касса для салона красоты: патент, маркировка и чек",
+      "entity": "салон красоты",
+      "keywords": [
+        "онлайн касса салон красоты",
+        "ип патент салон красоты"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 40,
+      "demand": {
+        "status": "collected",
+        "phrase": "ип патент салон красоты",
+        "count": 113,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%BF%D0%B0%D1%82%D0%B5%D0%BD%D1%82+%D0%98%D0%9F",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 52.3,
+      "status": "planned",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      }
+    },
+    {
+      "slug": "2026-08-10-elektronnaya-transportnaya-nakladnaya-shtrafy-i-otvetstvennost-v-2026-godu",
+      "title": "Электронная транспортная накладная: штрафы и ответственность в 2026 году",
+      "keywords": [
+        "штраф электронная транспортная накладная",
+        "электронная транспортная накладная ответственность"
+      ],
+      "entity": "электронная транспортная накладная",
+      "intent": "fines",
+      "format": "reference",
+      "segment": "none",
+      "score": 36,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ЭТрН с 1 сентября 2026: кто обязан оформлять электронную транспортную накладную». Обязательна ссылка на /blog/2026-05-03-etrn-2026/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-03-etrn-2026",
+          "2026-08-10-elektronnaya-transportnaya-nakladnaya-sroki-2026-goda-i-chto-uspet-do-dedlayna",
+          "2026-08-10-elektronnaya-transportnaya-nakladnaya-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "электронная транспортная накладная ответственность",
+        "count": 479,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%82%D1%80%D0%B0%D0%BD%D1%81%D0%BF%D0%BE%D1%80%D1%82%D0%BD%D0%B0%D1%8F+%D0%BD%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D0%BD%D0%B0%D1%8F",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 52.1
     },
     {
       "slug": "2026-08-10-markirovka-vody-shtrafy-i-otvetstvennost-v-2026-godu",
@@ -951,6 +1418,40 @@
       "priorityScore": 49.9
     },
     {
+      "slug": "seed-nalogi-frilansera-npd-usn-ili-patent",
+      "title": "Налоги фрилансера: НПД, УСН или патент",
+      "entity": "самозанятость",
+      "keywords": [
+        "налоги для фрилансера"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "comparison",
+      "score": 40,
+      "demand": {
+        "status": "collected",
+        "phrase": "налоги для фрилансера",
+        "count": 36,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%B8+%D0%B4%D0%BB%D1%8F+%D1%84%D1%80%D0%B8%D0%BB%D0%B0%D0%BD%D1%81%D0%B5%D1%80%D0%B0",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 49.4,
+      "status": "planned",
+      "createdAt": "2026-10-14",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      }
+    },
+    {
       "slug": "2026-08-10-gis-epd-chastye-voprosy-i-korotkie-otvety",
       "title": "ГИС ЭПД: частые вопросы и короткие ответы",
       "keywords": [
@@ -972,14 +1473,18 @@
       "demand": {
         "status": "collected",
         "phrase": "гис эпд вопросы",
-        "count": 57,
+        "count": 50,
         "match": "broad",
         "region": "225",
-        "periodStart": "2026-09-02",
-        "periodEnd": "2026-10-01",
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%B3%D0%B8%D1%81%20%D1%8D%D0%BF%D0%B4"
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%93%D0%98%D0%A1+%D0%AD%D0%9F%D0%94",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
       },
-      "priorityScore": 46.4
+      "priorityScore": 46
     },
     {
       "slug": "2026-08-10-markirovka-vody-skolko-stoit-selleru-na-marketpleyse-i-iz-chego-skladyvaetsya-c",
@@ -1191,6 +1696,45 @@
       "priorityScore": 42.9
     },
     {
+      "slug": "2026-08-10-elektronnaya-transportnaya-nakladnaya-skolko-stoit-i-iz-chego-skladyvaetsya-cen",
+      "title": "Электронная транспортная накладная: сколько стоит и из чего складывается цена",
+      "keywords": [
+        "электронная транспортная накладная стоимость",
+        "сколько стоит электронная транспортная накладная"
+      ],
+      "entity": "электронная транспортная накладная",
+      "intent": "cost",
+      "format": "reference",
+      "segment": "none",
+      "score": 32,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: сколько стоит и из чего складывается цена». Обязательна ссылка на /blog/2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena",
+          "2026-08-10-markirovka-molochnoy-produkcii-skolko-stoit-i-iz-chego-skladyvaetsya-cena",
+          "2026-08-10-markirovka-vody-skolko-stoit-selleru-na-marketpleyse-i-iz-chego-skladyvaetsya-c"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "сколько стоит электронная транспортная накладная",
+        "count": 56,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F+%D1%82%D1%80%D0%B0%D0%BD%D1%81%D0%BF%D0%BE%D1%80%D1%82%D0%BD%D0%B0%D1%8F+%D0%BD%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D0%BD%D0%B0%D1%8F",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 42.5
+    },
+    {
       "slug": "2026-08-10-markirovka-vody-chastye-oshibki-i-chem-oni-zakanchivayutsya",
       "title": "Маркировка воды: частые ошибки и чем они заканчиваются",
       "keywords": [
@@ -1337,35 +1881,6 @@
       "priorityScore": 40
     },
     {
-      "slug": "2026-08-10-elektronnaya-transportnaya-nakladnaya-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Электронная транспортная накладная: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить электронная транспортная накладная",
-        "электронная транспортная накладная инструкция"
-      ],
-      "entity": "электронная транспортная накладная",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 40,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ЭТрН с 1 сентября 2026: кто обязан оформлять электронную транспортную накладную». Обязательна ссылка на /blog/2026-05-03-etrn-2026/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-03-etrn-2026",
-          "2026-08-10-elektronnaya-podpis-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 40
-    },
-    {
       "slug": "2026-08-10-elektronnaya-transportnaya-nakladnaya-sroki-2026-goda-i-chto-uspet-do-dedlayna",
       "title": "Электронная транспортная накладная: сроки 2026 года и что успеть до дедлайна",
       "keywords": [
@@ -1394,6 +1909,41 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 40
+    },
+    {
+      "slug": "seed-sverka-s-ens-kak-proverit-saldo-pereplatu-i-dolg",
+      "title": "Сверка с ЕНС: как проверить сальдо, переплату и долг",
+      "entity": "енс",
+      "keywords": [
+        "сальдо енс",
+        "отрицательное сальдо енс"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 13.3,
+      "demand": {
+        "status": "collected",
+        "phrase": "сальдо енс",
+        "count": 18429,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%95%D0%9D%D0%A1",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 38.9,
+      "status": "planned",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      }
     },
     {
       "slug": "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice",
@@ -1725,36 +2275,6 @@
       "priorityScore": 36
     },
     {
-      "slug": "2026-08-10-elektronnaya-transportnaya-nakladnaya-shtrafy-i-otvetstvennost-v-2026-godu",
-      "title": "Электронная транспортная накладная: штрафы и ответственность в 2026 году",
-      "keywords": [
-        "штраф электронная транспортная накладная",
-        "электронная транспортная накладная ответственность"
-      ],
-      "entity": "электронная транспортная накладная",
-      "intent": "fines",
-      "format": "reference",
-      "segment": "none",
-      "score": 36,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ЭТрН с 1 сентября 2026: кто обязан оформлять электронную транспортную накладную». Обязательна ссылка на /blog/2026-05-03-etrn-2026/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-03-etrn-2026",
-          "2026-08-10-elektronnaya-transportnaya-nakladnaya-sroki-2026-goda-i-chto-uspet-do-dedlayna",
-          "2026-08-10-elektronnaya-transportnaya-nakladnaya-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 36
-    },
-    {
       "slug": "2026-08-10-markirovka-obuvi-chto-eto-i-zachem-nuzhno-roznice",
       "title": "Маркировка обуви: что это и зачем нужно рознице",
       "keywords": [
@@ -1907,6 +2427,45 @@
       "priorityScore": 34.4
     },
     {
+      "slug": "2026-08-10-elektronnaya-transportnaya-nakladnaya-chastye-voprosy-i-korotkie-otvety",
+      "title": "Электронная транспортная накладная: частые вопросы и короткие ответы",
+      "keywords": [
+        "электронная транспортная накладная вопросы",
+        "электронная транспортная накладная faq"
+      ],
+      "entity": "электронная транспортная накладная",
+      "intent": "faq",
+      "format": "faq",
+      "segment": "none",
+      "score": 20,
+      "status": "planned",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: частые вопросы и короткие ответы». Обязательна ссылка на /blog/2026-08-10-gis-epd-chastye-voprosy-i-korotkie-otvety/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-chastye-voprosy-i-korotkie-otvety",
+          "2026-08-10-markirovka-vody-chastye-voprosy-selleru-na-marketpleyse-i-korotkie-otvety",
+          "2026-08-10-markirovka-molochnoy-produkcii-chastye-voprosy-roznice-i-korotkie-otvety"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "электронная транспортная накладная вопросы",
+        "count": 237,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%82%D1%80%D0%B0%D0%BD%D1%81%D0%BF%D0%BE%D1%80%D1%82%D0%BD%D0%B0%D1%8F+%D0%BD%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D0%BD%D0%B0%D1%8F",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 34.3
+    },
+    {
       "slug": "2026-08-10-ts-piot-shtrafy-i-otvetstvennost-v-2026-godu",
       "title": "Тс пиот: штрафы и ответственность в 2026 году",
       "keywords": [
@@ -2000,35 +2559,41 @@
       "priorityScore": 32.4
     },
     {
-      "slug": "2026-08-10-elektronnaya-transportnaya-nakladnaya-kak-vybrat-roznice-kriterii-i-tipichnye-o",
-      "title": "Электронная транспортная накладная: как выбрать рознице — критерии и типичные ошибки",
+      "slug": "seed-data-matrix-chto-eto-za-kod-markirovki-i-kak-ego-prochitat",
+      "title": "Data Matrix: что это за код маркировки и как его прочитать",
+      "entity": "data matrix",
       "keywords": [
-        "как выбрать электронная транспортная накладная",
-        "электронная транспортная накладная сравнение",
-        "электронная транспортная накладная  рознице"
+        "код маркировки data matrix",
+        "data matrix честный знак"
       ],
-      "entity": "электронная транспортная накладная",
-      "intent": "choose",
-      "format": "comparison",
-      "segment": "retail",
-      "score": 32.4,
+      "intent": "seed",
+      "segment": "none",
+      "format": "explainer",
+      "score": 13.3,
+      "demand": {
+        "status": "collected",
+        "phrase": "data matrix честный знак",
+        "count": 1448,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%A7%D0%B5%D1%81%D1%82%D0%BD%D1%8B%D0%B9+%D0%B7%D0%BD%D0%B0%D0%BA",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 32.3,
       "status": "planned",
-      "createdAt": "2026-08-10",
+      "createdAt": "2026-10-11",
       "dedupe": {
         "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Электронная подпись: как выбрать — критерии и типичные ошибки». Обязательна ссылка на /blog/2026-08-10-elektronnaya-podpis-kak-vybrat-kriterii-i-tipichnye-oshibki/ и разведение целевых запросов.",
+        "advice": "Сузить угол: пересечение с «ТС ПИоТ и Data Matrix: что касса проверяет при продаже». Обязательна ссылка на /blog/seed-ts-piot-i-data-matrix-chto-kassa-proveryaet-pri-prodazhe/ и разведение целевых запросов.",
         "related": [
-          "2026-08-10-elektronnaya-podpis-kak-vybrat-kriterii-i-tipichnye-oshibki",
-          "2026-08-10-fiskalnyy-nakopitel-kak-vybrat-roznice-kriterii-i-tipichnye-oshibki",
-          "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki"
+          "seed-ts-piot-i-data-matrix-chto-kassa-proveryaet-pri-prodazhe"
         ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 32.4
+      }
     },
     {
       "slug": "2026-08-10-razreshitelnyy-rezhim-sroki-2026-goda-i-chto-uspet-do-dedlayna",
@@ -2052,36 +2617,6 @@
           "2026-08-10-gis-epd-sroki-2026-goda-i-chto-uspet-do-dedlayna",
           "2026-08-10-markirovka-molochnoy-produkcii-sroki-2026-goda-i-chto-uspet-do-dedlayna",
           "2026-08-10-markirovka-vody-sroki-2026-goda-i-chto-uspet-do-dedlayna"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 32
-    },
-    {
-      "slug": "2026-08-10-elektronnaya-transportnaya-nakladnaya-skolko-stoit-i-iz-chego-skladyvaetsya-cen",
-      "title": "Электронная транспортная накладная: сколько стоит и из чего складывается цена",
-      "keywords": [
-        "электронная транспортная накладная стоимость",
-        "сколько стоит электронная транспортная накладная"
-      ],
-      "entity": "электронная транспортная накладная",
-      "intent": "cost",
-      "format": "reference",
-      "segment": "none",
-      "score": 32,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: сколько стоит и из чего складывается цена». Обязательна ссылка на /blog/2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-skolko-stoit-i-iz-chego-skladyvaetsya-cena",
-          "2026-08-10-markirovka-molochnoy-produkcii-skolko-stoit-i-iz-chego-skladyvaetsya-cena",
-          "2026-08-10-markirovka-vody-skolko-stoit-selleru-na-marketpleyse-i-iz-chego-skladyvaetsya-c"
         ]
       },
       "demand": {
@@ -2162,6 +2697,41 @@
       "priorityScore": 30.6
     },
     {
+      "slug": "seed-patent-dlya-ip-na-uslugi-kak-rasschitat-stoimost",
+      "title": "Патент для ИП на услуги: как рассчитать стоимость",
+      "entity": "патент",
+      "keywords": [
+        "калькулятор патента ип",
+        "стоимость патента для ип"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 6.7,
+      "demand": {
+        "status": "collected",
+        "phrase": "калькулятор патента ип",
+        "count": 7085,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%BF%D0%B0%D1%82%D0%B5%D0%BD%D1%82+%D0%98%D0%9F",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 29.8,
+      "status": "planned",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      }
+    },
+    {
       "slug": "2026-08-10-ozon-kak-podklyuchit-poshagovaya-instrukciya",
       "title": "Ozon: как подключить — пошаговая инструкция",
       "keywords": [
@@ -2230,509 +2800,6 @@
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
       "priorityScore": 28.8
-    },
-    {
-      "slug": "2026-08-10-elektronnaya-podpis-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
-      "title": "Электронная подпись: кого касается — разбор по видам деятельности",
-      "keywords": [
-        "кому нужен электронная подпись",
-        "электронная подпись кто обязан",
-        "электронная подпись  рознице"
-      ],
-      "entity": "электронная подпись",
-      "intent": "who",
-      "format": "explainer",
-      "segment": "retail",
-      "score": 28.8,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: кого касается — разбор по видам деятельности». Обязательна ссылка на /blog/2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
-          "2026-08-10-markirovka-molochnoy-produkcii-kogo-kasaetsya-razbor-po-vidam-deyatelnosti"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 28.8
-    },
-    {
-      "slug": "seed-etrn-dlya-gruzootpravitelya-podgotovka-otpravki-i-peredacha-dokumenta-perevozchi",
-      "title": "ЭТрН для грузоотправителя: подготовка отправки и передача документа перевозчику",
-      "entity": "этрн",
-      "keywords": [
-        "этрн для грузоотправителя"
-      ],
-      "intent": "seed",
-      "segment": "none",
-      "format": "howto",
-      "score": 8,
-      "demand": {
-        "status": "collected",
-        "phrase": "этрн для грузоотправителя",
-        "count": 2650,
-        "match": "broad",
-        "region": "225",
-        "periodStart": "2026-09-02",
-        "periodEnd": "2026-10-01",
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%8D%D1%82%D1%80%D0%BD"
-      },
-      "priorityScore": 28.5,
-      "status": "planned",
-      "createdAt": "2026-10-04",
-      "dedupe": {
-        "verdict": "ok",
-        "advice": "",
-        "related": []
-      }
-    },
-    {
-      "slug": "2026-08-10-kedo-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Кэдо: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить кэдо",
-        "кэдо инструкция"
-      ],
-      "entity": "кэдо",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 13.3,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "collected",
-        "phrase": "кэдо инструкция",
-        "count": 328,
-        "match": "broad",
-        "region": "225",
-        "periodStart": null,
-        "periodEnd": null,
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%9A%D0%AD%D0%94%D0%9E",
-        "window": {
-          "kind": "provider_last_30_days",
-          "exactDatesVerified": false
-        }
-      },
-      "priorityScore": 28.4
-    },
-    {
-      "slug": "2026-08-10-ens-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Енс: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить енс",
-        "енс инструкция"
-      ],
-      "entity": "енс",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 13.3,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "collected",
-        "phrase": "как подключить енс",
-        "count": 202,
-        "match": "broad",
-        "region": "225",
-        "periodStart": null,
-        "periodEnd": null,
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%95%D0%9D%D0%A1",
-        "window": {
-          "kind": "provider_last_30_days",
-          "exactDatesVerified": false
-        }
-      },
-      "priorityScore": 27.1
-    },
-    {
-      "slug": "2026-08-10-vsd-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "ВСД: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить всд",
-        "всд инструкция"
-      ],
-      "entity": "ВСД",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 13.3,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "collected",
-        "phrase": "всд инструкция",
-        "count": 151,
-        "match": "broad",
-        "region": "225",
-        "periodStart": null,
-        "periodEnd": null,
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%92%D0%A1%D0%94",
-        "window": {
-          "kind": "provider_last_30_days",
-          "exactDatesVerified": false
-        }
-      },
-      "priorityScore": 26.4
-    },
-    {
-      "slug": "2026-08-10-fiskalnyy-nakopitel-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
-      "title": "Фискальный накопитель: кого касается — разбор по видам деятельности",
-      "keywords": [
-        "кому нужен фискальный накопитель",
-        "фискальный накопитель кто обязан",
-        "фискальный накопитель  аптеке"
-      ],
-      "entity": "фискальный накопитель",
-      "intent": "who",
-      "format": "explainer",
-      "segment": "pharmacy",
-      "score": 25.6,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: кого касается — разбор по видам деятельности». Обязательна ссылка на /blog/2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
-          "2026-08-10-markirovka-molochnoy-produkcii-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
-          "2026-08-10-elektronnaya-podpis-kogo-kasaetsya-razbor-po-vidam-deyatelnosti"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 25.6
-    },
-    {
-      "slug": "2026-08-10-wildberries-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": "Wildberries: как подключить — пошаговая инструкция",
-      "keywords": [
-        "как подключить wildberries",
-        "wildberries инструкция"
-      ],
-      "entity": "wildberries",
-      "intent": "howto",
-      "format": "howto",
-      "segment": "none",
-      "score": 6.7,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-          "2026-05-03-utm-egais-podklyuchenie",
-          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
-        ]
-      },
-      "demand": {
-        "status": "collected",
-        "phrase": "как подключить wildberries",
-        "count": 700,
-        "match": "broad",
-        "region": "225",
-        "periodStart": null,
-        "periodEnd": null,
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=Wildberries",
-        "window": {
-          "kind": "provider_last_30_days",
-          "exactDatesVerified": false
-        }
-      },
-      "priorityScore": 23.8
-    },
-    {
-      "slug": "2026-08-10-razreshitelnyy-rezhim-chek-list-gotovnosti-biznesa",
-      "title": "Разрешительный режим: чек-лист готовности бизнеса",
-      "keywords": [
-        "разрешительный режим чек-лист",
-        "разрешительный режим требования",
-        "разрешительный режим  общепиту"
-      ],
-      "entity": "разрешительный режим",
-      "intent": "checklist",
-      "format": "checklist",
-      "segment": "horeca",
-      "score": 22.4,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: чек-лист готовности бизнеса». Обязательна ссылка на /blog/2026-08-10-gis-epd-chek-list-gotovnosti-biznesa/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-chek-list-gotovnosti-biznesa",
-          "2026-08-10-markirovka-molochnoy-produkcii-chek-list-gotovnosti-biznesa",
-          "2026-08-10-markirovka-vody-chek-list-gotovnosti-biznesa"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 22.4
-    },
-    {
-      "slug": "2026-08-10-ekvayring-chek-list-gotovnosti-biznesa",
-      "title": "Эквайринг: чек-лист готовности бизнеса",
-      "keywords": [
-        "эквайринг чек-лист",
-        "эквайринг требования",
-        "эквайринг  аптеке"
-      ],
-      "entity": "эквайринг",
-      "intent": "checklist",
-      "format": "checklist",
-      "segment": "pharmacy",
-      "score": 22.4,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: чек-лист готовности бизнеса». Обязательна ссылка на /blog/2026-08-10-gis-epd-chek-list-gotovnosti-biznesa/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-chek-list-gotovnosti-biznesa",
-          "2026-08-10-markirovka-molochnoy-produkcii-chek-list-gotovnosti-biznesa",
-          "2026-08-10-markirovka-vody-chek-list-gotovnosti-biznesa"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 22.4
-    },
-    {
-      "slug": "2026-08-10-ekvayring-chto-eto-i-zachem-nuzhno-roznice",
-      "title": "Эквайринг: что это и зачем нужно рознице",
-      "keywords": [
-        "что такое эквайринг",
-        "эквайринг",
-        "эквайринг  рознице"
-      ],
-      "entity": "эквайринг",
-      "intent": "what",
-      "format": "explainer",
-      "segment": "retail",
-      "score": 21.6,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: что это и зачем нужно рознице». Обязательна ссылка на /blog/2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice",
-          "2026-08-10-markirovka-obuvi-chto-eto-i-zachem-nuzhno-roznice",
-          "2026-08-10-markirovka-bad-chto-eto-i-zachem-nuzhno-roznice"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 21.6
-    },
-    {
-      "slug": "2026-08-10-ekvayring-chto-eto-i-zachem-nuzhno-selleru-na-marketpleyse",
-      "title": "Эквайринг: что это и зачем нужно селлеру на маркетплейсе",
-      "keywords": [
-        "что такое эквайринг",
-        "эквайринг",
-        "эквайринг  селлеру на маркетплейсе"
-      ],
-      "entity": "эквайринг",
-      "intent": "what",
-      "format": "explainer",
-      "segment": "marketplace",
-      "score": 21.6,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: что это и зачем нужно селлеру на маркетплейсе». Обязательна ссылка на /blog/2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-selleru-na-marketpleyse/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-selleru-na-marketpleyse",
-          "2026-08-10-fiskalnyy-nakopitel-chto-eto-i-zachem-nuzhno-selleru-na-marketpleyse",
-          "2026-08-10-razreshitelnyy-rezhim-chto-eto-i-zachem-nuzhno-selleru-na-marketpleyse"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 21.6
-    },
-    {
-      "slug": "2026-08-10-samozanyatost-chto-eto-i-zachem-nuzhno-roznice",
-      "title": "Самозанятость: что это и зачем нужно рознице",
-      "keywords": [
-        "что такое самозанятость",
-        "самозанятость",
-        "самозанятость  рознице"
-      ],
-      "entity": "самозанятость",
-      "intent": "what",
-      "format": "explainer",
-      "segment": "retail",
-      "score": 21.6,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: что это и зачем нужно рознице». Обязательна ссылка на /blog/2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice",
-          "2026-08-10-markirovka-obuvi-chto-eto-i-zachem-nuzhno-roznice",
-          "2026-08-10-markirovka-bad-chto-eto-i-zachem-nuzhno-roznice"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 21.6
-    },
-    {
-      "slug": "2026-08-10-samozanyatost-chto-eto-i-zachem-nuzhno-apteke",
-      "title": "Самозанятость: что это и зачем нужно аптеке",
-      "keywords": [
-        "что такое самозанятость",
-        "самозанятость",
-        "самозанятость  аптеке"
-      ],
-      "entity": "самозанятость",
-      "intent": "what",
-      "format": "explainer",
-      "segment": "pharmacy",
-      "score": 19.2,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Маркировка воды: что это и зачем нужно аптеке». Обязательна ссылка на /blog/2026-08-10-markirovka-vody-chto-eto-i-zachem-nuzhno-apteke/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-markirovka-vody-chto-eto-i-zachem-nuzhno-apteke",
-          "2026-08-10-markirovka-obuvi-chto-eto-i-zachem-nuzhno-apteke",
-          "2026-08-10-markirovka-tabaka-chto-eto-i-zachem-nuzhno-apteke"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 19.2
-    },
-    {
-      "slug": "2026-08-10-ofd-shtrafy-i-otvetstvennost-v-2026-godu",
-      "title": "Офд: штрафы и ответственность в 2026 году",
-      "keywords": [
-        "штраф офд",
-        "офд ответственность"
-      ],
-      "entity": "офд",
-      "intent": "fines",
-      "format": "reference",
-      "segment": "none",
-      "score": 6,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «Штраф за работу без ТС ПИоТ в 2026: размеры, статья КоАП, как избежать». Обязательна ссылка на /blog/2026-05-01-ts-piot-shtrafy/ и разведение целевых запросов.",
-        "related": [
-          "2026-05-01-ts-piot-shtrafy",
-          "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
-          "2026-08-10-markirovka-molochnoy-produkcii-shtrafy-i-otvetstvennost-v-2026-godu"
-        ]
-      },
-      "demand": {
-        "status": "collected",
-        "phrase": "штраф офд",
-        "count": 160,
-        "match": "broad",
-        "region": "225",
-        "periodStart": null,
-        "periodEnd": null,
-        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%9E%D0%A4%D0%94",
-        "window": {
-          "kind": "provider_last_30_days",
-          "exactDatesVerified": false
-        }
-      },
-      "priorityScore": 19.2
-    },
-    {
-      "slug": "2026-08-10-samozanyatost-chek-list-gotovnosti-biznesa",
-      "title": "Самозанятость: чек-лист готовности бизнеса",
-      "keywords": [
-        "самозанятость чек-лист",
-        "самозанятость требования",
-        "самозанятость  оптовику"
-      ],
-      "entity": "самозанятость",
-      "intent": "checklist",
-      "format": "checklist",
-      "segment": "wholesale",
-      "score": 16.8,
-      "status": "planned",
-      "createdAt": "2026-08-10",
-      "dedupe": {
-        "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: чек-лист готовности бизнеса». Обязательна ссылка на /blog/2026-08-10-gis-epd-chek-list-gotovnosti-biznesa/ и разведение целевых запросов.",
-        "related": [
-          "2026-08-10-gis-epd-chek-list-gotovnosti-biznesa",
-          "2026-08-10-markirovka-molochnoy-produkcii-chek-list-gotovnosti-biznesa",
-          "2026-08-10-markirovka-vody-chek-list-gotovnosti-biznesa"
-        ]
-      },
-      "demand": {
-        "status": "not_collected",
-        "count": null,
-        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
-      },
-      "priorityScore": 16.8
     },
     {
       "slug": "2026-08-10-markirovka-molochnoy-produkcii-chek-list-gotovnosti-biznesa",
@@ -2828,6 +2895,39 @@
       },
       "priorityScore": 34.4,
       "deferredAt": "2026-10-04",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-elektronnaya-transportnaya-nakladnaya-kak-vybrat-roznice-kriterii-i-tipichnye-o",
+      "title": "Электронная транспортная накладная: как выбрать рознице — критерии и типичные ошибки",
+      "keywords": [
+        "как выбрать электронная транспортная накладная",
+        "электронная транспортная накладная сравнение",
+        "электронная транспортная накладная  рознице"
+      ],
+      "entity": "электронная транспортная накладная",
+      "intent": "choose",
+      "format": "comparison",
+      "segment": "retail",
+      "score": 32.4,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Электронная подпись: как выбрать — критерии и типичные ошибки». Обязательна ссылка на /blog/2026-08-10-elektronnaya-podpis-kak-vybrat-kriterii-i-tipichnye-oshibki/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-elektronnaya-podpis-kak-vybrat-kriterii-i-tipichnye-oshibki",
+          "2026-08-10-fiskalnyy-nakopitel-kak-vybrat-roznice-kriterii-i-tipichnye-oshibki",
+          "2026-08-10-gis-epd-kak-vybrat-kriterii-i-tipichnye-oshibki"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 32.4,
+      "deferredAt": "2026-10-14",
       "deferredReason": "buffer-rebalanced"
     },
     {
@@ -2987,6 +3087,38 @@
       "deferredReason": "buffer-rebalanced"
     },
     {
+      "slug": "2026-08-10-elektronnaya-podpis-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
+      "title": "Электронная подпись: кого касается — разбор по видам деятельности",
+      "keywords": [
+        "кому нужен электронная подпись",
+        "электронная подпись кто обязан",
+        "электронная подпись  рознице"
+      ],
+      "entity": "электронная подпись",
+      "intent": "who",
+      "format": "explainer",
+      "segment": "retail",
+      "score": 28.8,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: кого касается — разбор по видам деятельности». Обязательна ссылка на /blog/2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
+          "2026-08-10-markirovka-molochnoy-produkcii-kogo-kasaetsya-razbor-po-vidam-deyatelnosti"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 28.8,
+      "deferredAt": "2026-10-14",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
       "slug": "2026-08-10-markirovka-vody-chastye-voprosy-selleru-na-marketpleyse-i-korotkie-otvety",
       "title": "Маркировка воды: частые вопросы селлеру на маркетплейсе и короткие ответы",
       "keywords": [
@@ -3047,6 +3179,83 @@
       },
       "priorityScore": 28.7,
       "deferredAt": "2026-10-04",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-kedo-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Кэдо: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить кэдо",
+        "кэдо инструкция"
+      ],
+      "entity": "кэдо",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 13.3,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "кэдо инструкция",
+        "count": 328,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%9A%D0%AD%D0%94%D0%9E",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 28.4,
+      "deferredAt": "2026-10-14",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "seed-etrn-dlya-gruzootpravitelya-podgotovka-otpravki-i-peredacha-dokumenta-perevozchi",
+      "title": "ЭТрН для грузоотправителя: подготовка отправки и передача документа перевозчику",
+      "entity": "этрн",
+      "keywords": [
+        "этрн для грузоотправителя"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 8,
+      "demand": {
+        "status": "collected",
+        "phrase": "этрн для грузоотправителя",
+        "count": 2247,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%AD%D0%A2%D1%80%D0%9D",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 28.1,
+      "status": "deferred",
+      "createdAt": "2026-10-04",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "deferredAt": "2026-10-14",
       "deferredReason": "buffer-rebalanced"
     },
     {
@@ -3143,6 +3352,158 @@
       },
       "priorityScore": 28,
       "deferredAt": "2026-10-04",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-ens-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Енс: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить енс",
+        "енс инструкция"
+      ],
+      "entity": "енс",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 13.3,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "как подключить енс",
+        "count": 238,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%95%D0%9D%D0%A1",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 27.6,
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-vsd-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "ВСД: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить всд",
+        "всд инструкция"
+      ],
+      "entity": "ВСД",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 13.3,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "всд инструкция",
+        "count": 151,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%92%D0%A1%D0%94",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 26.4,
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "seed-edi-dlya-postavschika-torgovoy-seti-kak-podklyuchitsya",
+      "title": "EDI для поставщика торговой сети: как подключиться",
+      "entity": "эдо",
+      "keywords": [
+        "эдо edi",
+        "эдо поставщики"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 2.2,
+      "demand": {
+        "status": "collected",
+        "phrase": "эдо поставщики",
+        "count": 8909,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%AD%D0%94%D0%9E",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 25.9,
+      "status": "deferred",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-fiskalnyy-nakopitel-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
+      "title": "Фискальный накопитель: кого касается — разбор по видам деятельности",
+      "keywords": [
+        "кому нужен фискальный накопитель",
+        "фискальный накопитель кто обязан",
+        "фискальный накопитель  аптеке"
+      ],
+      "entity": "фискальный накопитель",
+      "intent": "who",
+      "format": "explainer",
+      "segment": "pharmacy",
+      "score": 25.6,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: кого касается — разбор по видам деятельности». Обязательна ссылка на /blog/2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
+          "2026-08-10-markirovka-molochnoy-produkcii-kogo-kasaetsya-razbor-po-vidam-deyatelnosti",
+          "2026-08-10-elektronnaya-podpis-kogo-kasaetsya-razbor-po-vidam-deyatelnosti"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 25.6,
+      "deferredAt": "2026-10-11",
       "deferredReason": "buffer-rebalanced"
     },
     {
@@ -3244,6 +3605,47 @@
       "deferredReason": "buffer-rebalanced"
     },
     {
+      "slug": "2026-08-10-wildberries-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": "Wildberries: как подключить — пошаговая инструкция",
+      "keywords": [
+        "как подключить wildberries",
+        "wildberries инструкция"
+      ],
+      "entity": "wildberries",
+      "intent": "howto",
+      "format": "howto",
+      "segment": "none",
+      "score": 6.7,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Подключение ТС ПИоТ к кассе: пошаговая инструкция 2026». Обязательна ссылка на /blog/2026-05-01-ts-piot-podklyuchenie-instrukciya/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+          "2026-05-03-utm-egais-podklyuchenie",
+          "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "как подключить wildberries",
+        "count": 688,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=Wildberries",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 23.7,
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
       "slug": "2026-08-10-markirovka-vody-chto-eto-i-zachem-nuzhno-optoviku",
       "title": "Маркировка воды: что это и зачем нужно оптовику",
       "keywords": [
@@ -3305,6 +3707,109 @@
       "deferredReason": "buffer-rebalanced"
     },
     {
+      "slug": "seed-prosrochennyy-fiskalnyy-nakopitel-shtraf-i-chto-delat",
+      "title": "Просроченный фискальный накопитель: штраф и что делать",
+      "entity": "фискальный накопитель",
+      "keywords": [
+        "закончился фискальный накопитель что делать",
+        "штрафы за фискальный накопитель"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 8,
+      "demand": {
+        "status": "collected",
+        "phrase": "закончился фискальный накопитель что делать",
+        "count": 262,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%84%D0%B8%D1%81%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9+%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 22.5,
+      "status": "deferred",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-razreshitelnyy-rezhim-chek-list-gotovnosti-biznesa",
+      "title": "Разрешительный режим: чек-лист готовности бизнеса",
+      "keywords": [
+        "разрешительный режим чек-лист",
+        "разрешительный режим требования",
+        "разрешительный режим  общепиту"
+      ],
+      "entity": "разрешительный режим",
+      "intent": "checklist",
+      "format": "checklist",
+      "segment": "horeca",
+      "score": 22.4,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: чек-лист готовности бизнеса». Обязательна ссылка на /blog/2026-08-10-gis-epd-chek-list-gotovnosti-biznesa/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-chek-list-gotovnosti-biznesa",
+          "2026-08-10-markirovka-molochnoy-produkcii-chek-list-gotovnosti-biznesa",
+          "2026-08-10-markirovka-vody-chek-list-gotovnosti-biznesa"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 22.4,
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-ekvayring-chek-list-gotovnosti-biznesa",
+      "title": "Эквайринг: чек-лист готовности бизнеса",
+      "keywords": [
+        "эквайринг чек-лист",
+        "эквайринг требования",
+        "эквайринг  аптеке"
+      ],
+      "entity": "эквайринг",
+      "intent": "checklist",
+      "format": "checklist",
+      "segment": "pharmacy",
+      "score": 22.4,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: чек-лист готовности бизнеса». Обязательна ссылка на /blog/2026-08-10-gis-epd-chek-list-gotovnosti-biznesa/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-chek-list-gotovnosti-biznesa",
+          "2026-08-10-markirovka-molochnoy-produkcii-chek-list-gotovnosti-biznesa",
+          "2026-08-10-markirovka-vody-chek-list-gotovnosti-biznesa"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 22.4,
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
       "slug": "2026-08-10-fiskalnyy-nakopitel-chastye-oshibki-i-chem-oni-zakanchivayutsya",
       "title": "Фискальный накопитель: частые ошибки и чем они заканчиваются",
       "keywords": [
@@ -3335,6 +3840,105 @@
       },
       "priorityScore": 22.4,
       "deferredAt": "2026-10-04",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-ekvayring-chto-eto-i-zachem-nuzhno-roznice",
+      "title": "Эквайринг: что это и зачем нужно рознице",
+      "keywords": [
+        "что такое эквайринг",
+        "эквайринг",
+        "эквайринг  рознице"
+      ],
+      "entity": "эквайринг",
+      "intent": "what",
+      "format": "explainer",
+      "segment": "retail",
+      "score": 21.6,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: что это и зачем нужно рознице». Обязательна ссылка на /blog/2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice",
+          "2026-08-10-markirovka-obuvi-chto-eto-i-zachem-nuzhno-roznice",
+          "2026-08-10-markirovka-bad-chto-eto-i-zachem-nuzhno-roznice"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 21.6,
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-ekvayring-chto-eto-i-zachem-nuzhno-selleru-na-marketpleyse",
+      "title": "Эквайринг: что это и зачем нужно селлеру на маркетплейсе",
+      "keywords": [
+        "что такое эквайринг",
+        "эквайринг",
+        "эквайринг  селлеру на маркетплейсе"
+      ],
+      "entity": "эквайринг",
+      "intent": "what",
+      "format": "explainer",
+      "segment": "marketplace",
+      "score": 21.6,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: что это и зачем нужно селлеру на маркетплейсе». Обязательна ссылка на /blog/2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-selleru-na-marketpleyse/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-selleru-na-marketpleyse",
+          "2026-08-10-fiskalnyy-nakopitel-chto-eto-i-zachem-nuzhno-selleru-na-marketpleyse",
+          "2026-08-10-razreshitelnyy-rezhim-chto-eto-i-zachem-nuzhno-selleru-na-marketpleyse"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 21.6,
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-samozanyatost-chto-eto-i-zachem-nuzhno-roznice",
+      "title": "Самозанятость: что это и зачем нужно рознице",
+      "keywords": [
+        "что такое самозанятость",
+        "самозанятость",
+        "самозанятость  рознице"
+      ],
+      "entity": "самозанятость",
+      "intent": "what",
+      "format": "explainer",
+      "segment": "retail",
+      "score": 21.6,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: что это и зачем нужно рознице». Обязательна ссылка на /blog/2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-chto-eto-i-zachem-nuzhno-roznice",
+          "2026-08-10-markirovka-obuvi-chto-eto-i-zachem-nuzhno-roznice",
+          "2026-08-10-markirovka-bad-chto-eto-i-zachem-nuzhno-roznice"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 21.6,
+      "deferredAt": "2026-10-11",
       "deferredReason": "buffer-rebalanced"
     },
     {
@@ -3467,26 +4071,137 @@
       "deferredReason": "buffer-rebalanced"
     },
     {
-      "slug": "2026-08-10-elektronnaya-transportnaya-nakladnaya-chastye-voprosy-i-korotkie-otvety",
-      "title": "Электронная транспортная накладная: частые вопросы и короткие ответы",
+      "slug": "seed-kassa-mspos-podklyuchenie-k-ts-piot-i-proverka-kodov-markirovki",
+      "title": "Касса MSPOS: подключение к ТС ПИоТ и проверка кодов маркировки",
+      "entity": "mspos",
       "keywords": [
-        "электронная транспортная накладная вопросы",
-        "электронная транспортная накладная faq"
+        "тс пиот mspos"
       ],
-      "entity": "электронная транспортная накладная",
-      "intent": "faq",
-      "format": "faq",
+      "intent": "seed",
       "segment": "none",
-      "score": 20,
+      "format": "howto",
+      "score": 10,
+      "demand": {
+        "status": "collected",
+        "phrase": "тс пиот mspos",
+        "count": 79,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%A2%D0%A1+%D0%9F%D0%98%D0%BE%D0%A2",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 21.4,
+      "status": "deferred",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "seed-egais-v-buhgalterii-obschepita-kak-uchityvat-alkogol",
+      "title": "ЕГАИС в бухгалтерии общепита: как учитывать алкоголь",
+      "entity": "егаис",
+      "keywords": [
+        "егаис бухгалтерия",
+        "егаис учет"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 2.9,
+      "demand": {
+        "status": "collected",
+        "phrase": "егаис учет",
+        "count": 1011,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%95%D0%93%D0%90%D0%98%D0%A1",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 20.9,
+      "status": "deferred",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "seed-otchetnost-ip-na-usn-chto-i-kogda-sdavat",
+      "title": "Отчётность ИП на УСН: что и когда сдавать",
+      "entity": "усн",
+      "keywords": [
+        "отчетность ип на усн в 2026",
+        "отчетность ип усн без работников 2026"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "checklist",
+      "score": 2.2,
+      "demand": {
+        "status": "collected",
+        "phrase": "отчетность ип на усн в 2026",
+        "count": 1133,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%A3%D0%A1%D0%9D+2026",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 20.5,
+      "status": "deferred",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-samozanyatost-chto-eto-i-zachem-nuzhno-apteke",
+      "title": "Самозанятость: что это и зачем нужно аптеке",
+      "keywords": [
+        "что такое самозанятость",
+        "самозанятость",
+        "самозанятость  аптеке"
+      ],
+      "entity": "самозанятость",
+      "intent": "what",
+      "format": "explainer",
+      "segment": "pharmacy",
+      "score": 19.2,
       "status": "deferred",
       "createdAt": "2026-08-10",
       "dedupe": {
         "verdict": "warn",
-        "advice": "Сузить угол: пересечение с «ГИС ЭПД: частые вопросы и короткие ответы». Обязательна ссылка на /blog/2026-08-10-gis-epd-chastye-voprosy-i-korotkie-otvety/ и разведение целевых запросов.",
+        "advice": "Сузить угол: пересечение с «Маркировка воды: что это и зачем нужно аптеке». Обязательна ссылка на /blog/2026-08-10-markirovka-vody-chto-eto-i-zachem-nuzhno-apteke/ и разведение целевых запросов.",
         "related": [
-          "2026-08-10-gis-epd-chastye-voprosy-i-korotkie-otvety",
-          "2026-08-10-markirovka-vody-chastye-voprosy-selleru-na-marketpleyse-i-korotkie-otvety",
-          "2026-08-10-markirovka-molochnoy-produkcii-chastye-voprosy-roznice-i-korotkie-otvety"
+          "2026-08-10-markirovka-vody-chto-eto-i-zachem-nuzhno-apteke",
+          "2026-08-10-markirovka-obuvi-chto-eto-i-zachem-nuzhno-apteke",
+          "2026-08-10-markirovka-tabaka-chto-eto-i-zachem-nuzhno-apteke"
         ]
       },
       "demand": {
@@ -3494,8 +4209,49 @@
         "count": null,
         "reason": "Нет свежей выборки с совпадающим запросом и регионом"
       },
-      "priorityScore": 20,
-      "deferredAt": "2026-10-04",
+      "priorityScore": 19.2,
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-ofd-shtrafy-i-otvetstvennost-v-2026-godu",
+      "title": "Офд: штрафы и ответственность в 2026 году",
+      "keywords": [
+        "штраф офд",
+        "офд ответственность"
+      ],
+      "entity": "офд",
+      "intent": "fines",
+      "format": "reference",
+      "segment": "none",
+      "score": 6,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «Штраф за работу без ТС ПИоТ в 2026: размеры, статья КоАП, как избежать». Обязательна ссылка на /blog/2026-05-01-ts-piot-shtrafy/ и разведение целевых запросов.",
+        "related": [
+          "2026-05-01-ts-piot-shtrafy",
+          "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
+          "2026-08-10-markirovka-molochnoy-produkcii-shtrafy-i-otvetstvennost-v-2026-godu"
+        ]
+      },
+      "demand": {
+        "status": "collected",
+        "phrase": "штраф офд",
+        "count": 160,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%9E%D0%A4%D0%94",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 19.2,
+      "deferredAt": "2026-10-11",
       "deferredReason": "buffer-rebalanced"
     },
     {
@@ -3565,6 +4321,150 @@
       "deferredReason": "buffer-rebalanced"
     },
     {
+      "slug": "seed-shtrafy-egais-za-chto-nakazyvayut-i-skolko",
+      "title": "Штрафы ЕГАИС: за что наказывают и сколько",
+      "entity": "егаис",
+      "keywords": [
+        "штрафы егаис",
+        "штраф без егаис"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "reference",
+      "score": 2.9,
+      "demand": {
+        "status": "collected",
+        "phrase": "штрафы егаис",
+        "count": 425,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%88%D1%82%D1%80%D0%B0%D1%84+%D0%95%D0%93%D0%90%D0%98%D0%A1",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 18.7,
+      "status": "deferred",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "seed-nalogi-obschepita-lgota-po-nds-na-usn-i-vybor-rezhima",
+      "title": "Налоги общепита: льгота по НДС на УСН и выбор режима",
+      "entity": "общепит",
+      "keywords": [
+        "льгота по ндс для общепита на усн",
+        "освобождение от ндс общепит на усн"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "comparison",
+      "score": 2.5,
+      "demand": {
+        "status": "collected",
+        "phrase": "льгота по ндс для общепита на усн",
+        "count": 411,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%9D%D0%94%D0%A1+%D0%BD%D0%B0+%D0%A3%D0%A1%D0%9D",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 18.2,
+      "status": "deferred",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "seed-rekvizity-kassovogo-cheka-v-kafe-chto-obyazatelno-po-54-fz",
+      "title": "Реквизиты кассового чека в кафе: что обязательно по 54-ФЗ",
+      "entity": "54-фз",
+      "keywords": [
+        "онлайн касса реквизиты чека",
+        "реквизиты чека ффд 1.2"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "reference",
+      "score": 6.7,
+      "demand": {
+        "status": "collected",
+        "phrase": "онлайн касса реквизиты чека",
+        "count": 51,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD-%D0%BA%D0%B0%D1%81%D1%81%D0%B0",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 17,
+      "status": "deferred",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "2026-08-10-samozanyatost-chek-list-gotovnosti-biznesa",
+      "title": "Самозанятость: чек-лист готовности бизнеса",
+      "keywords": [
+        "самозанятость чек-лист",
+        "самозанятость требования",
+        "самозанятость  оптовику"
+      ],
+      "entity": "самозанятость",
+      "intent": "checklist",
+      "format": "checklist",
+      "segment": "wholesale",
+      "score": 16.8,
+      "status": "deferred",
+      "createdAt": "2026-08-10",
+      "dedupe": {
+        "verdict": "warn",
+        "advice": "Сузить угол: пересечение с «ГИС ЭПД: чек-лист готовности бизнеса». Обязательна ссылка на /blog/2026-08-10-gis-epd-chek-list-gotovnosti-biznesa/ и разведение целевых запросов.",
+        "related": [
+          "2026-08-10-gis-epd-chek-list-gotovnosti-biznesa",
+          "2026-08-10-markirovka-molochnoy-produkcii-chek-list-gotovnosti-biznesa",
+          "2026-08-10-markirovka-vody-chek-list-gotovnosti-biznesa"
+        ]
+      },
+      "demand": {
+        "status": "not_collected",
+        "count": null,
+        "reason": "Нет свежей выборки с совпадающим запросом и регионом"
+      },
+      "priorityScore": 16.8,
+      "deferredAt": "2026-10-11",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
       "slug": "2026-08-10-elektronnaya-podpis-chastye-oshibki-i-chem-oni-zakanchivayutsya",
       "title": "Электронная подпись: частые ошибки и чем они заканчиваются",
       "keywords": [
@@ -3595,6 +4495,43 @@
       },
       "priorityScore": 16.8,
       "deferredAt": "2026-10-04",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "seed-alkogol-na-kasse-kakie-rekvizity-nuzhny-v-cheke-i-chto-grozit-za-oshibki",
+      "title": "Алкоголь на кассе: какие реквизиты нужны в чеке и что грозит за ошибки",
+      "entity": "алкоголь",
+      "keywords": [
+        "касса егаис пиво",
+        "касса эвотор алкоголь"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 3.6,
+      "demand": {
+        "status": "collected",
+        "phrase": "касса егаис пиво",
+        "count": 141,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D0%95%D0%93%D0%90%D0%98%D0%A1",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 16.5,
+      "status": "deferred",
+      "createdAt": "2026-10-11",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "deferredAt": "2026-10-11",
       "deferredReason": "buffer-rebalanced"
     },
     {
@@ -4331,6 +5268,42 @@
       },
       "priorityScore": 13.3,
       "deferredAt": "2026-10-04",
+      "deferredReason": "buffer-rebalanced"
+    },
+    {
+      "slug": "seed-uchet-produktov-v-kafe-spisanie-i-inventarizaciya",
+      "title": "Учёт продуктов в кафе: списание и инвентаризация",
+      "entity": "общепит",
+      "keywords": [
+        "учет продуктов в кафе"
+      ],
+      "intent": "seed",
+      "segment": "none",
+      "format": "howto",
+      "score": 2.5,
+      "demand": {
+        "status": "collected",
+        "phrase": "учет продуктов в кафе",
+        "count": 57,
+        "match": "broad",
+        "region": "225",
+        "periodStart": null,
+        "periodEnd": null,
+        "source": "https://wordstat.yandex.ru/?region=225&view=table&words=%D1%83%D1%87%D0%B5%D1%82+%D0%BF%D1%80%D0%BE%D0%B4%D1%83%D0%BA%D1%82%D0%BE%D0%B2+%D0%B2+%D0%BA%D0%B0%D1%84%D0%B5",
+        "window": {
+          "kind": "provider_last_30_days",
+          "exactDatesVerified": false
+        }
+      },
+      "priorityScore": 13.1,
+      "status": "deferred",
+      "createdAt": "2026-10-14",
+      "dedupe": {
+        "verdict": "ok",
+        "advice": "",
+        "related": []
+      },
+      "deferredAt": "2026-10-14",
       "deferredReason": "buffer-rebalanced"
     },
     {

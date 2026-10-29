@@ -1,0 +1,30 @@
+name: Вакандия — цели Метрики
+
+# Создаёт недостающие JS-цели в счётчике Вакандии (112539872) по списку
+# scripts/metrika/vakandia/goals.json. Только ручной запуск; по умолчанию —
+# план без записи. Цели Этикетки этот сценарий не трогает.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: '1 = только план, 0 = создать недостающие цели'
+        required: false
+        default: '1'
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Sync Vakandia goals
+        env:
+          METRIKA_OAUTH_TOKEN: ${{ secrets.METRIKA_OAUTH_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: node scripts/metrika/vakandia/sync-goals.mjs

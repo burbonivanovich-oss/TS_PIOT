@@ -1,0 +1,87 @@
+{
+  "seed": "учёт в общепите",
+  "slug": "уч-т-в-общепите",
+  "category": "intent",
+  "cluster": "horeca",
+  "fetchedAt": "2026-10-24T16:44:24.077Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 16,
+  "phrases": [
+    {
+      "phrase": "учет в общепите",
+      "count": 1194
+    },
+    {
+      "phrase": "бухгалтерский учет в общепите",
+      "count": 168
+    },
+    {
+      "phrase": "журналы учета в общепите",
+      "count": 109
+    },
+    {
+      "phrase": "как вести учет в общепите",
+      "count": 99
+    },
+    {
+      "phrase": "учет продуктов в общепите",
+      "count": 58
+    },
+    {
+      "phrase": "бухгалтерский и налоговый учет в общепите",
+      "count": 41
+    },
+    {
+      "phrase": "программы для учета в общепите",
+      "count": 35
+    },
+    {
+      "phrase": "особенности учета в общепите",
+      "count": 25
+    },
+    {
+      "phrase": "учет в общепите для новичка",
+      "count": 20
+    },
+    {
+      "phrase": "суммовой учет в общепите в 1с",
+      "count": 16
+    },
+    {
+      "phrase": "учет в общепите проводки в бухгалтерии",
+      "count": 11
+    },
+    {
+      "phrase": "количественный учет в общепите",
+      "count": 10
+    },
+    {
+      "phrase": "программа для учета продуктов в общепите",
+      "count": 8
+    },
+    {
+      "phrase": "учет общепита в 1с 8.3 бухгалтерия пошагово",
+      "count": 8
+    },
+    {
+      "phrase": "бухгалтерский учет в общепите для начинающих",
+      "count": 5
+    },
+    {
+      "phrase": "образец заполнения журнал учета медосмотров в общепите",
+      "count": 5
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "seed": "транспортный налог ИП",
+  "slug": "транспортный-налог-ип",
+  "category": "seasonal",
+  "cluster": "nalogi",
+  "fetchedAt": "2026-10-26T09:32:46.970Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 7,
+  "phrases": [
+    {
+      "phrase": "транспортный налог ип",
+      "count": 2118
+    },
+    {
+      "phrase": "платят ли ип транспортный налог",
+      "count": 174
+    },
+    {
+      "phrase": "льгота по транспортному налогу для ип",
+      "count": 62
+    },
+    {
+      "phrase": "как ип платит транспортный налог",
+      "count": 59
+    },
+    {
+      "phrase": "транспортный налог для ип на усн",
+      "count": 25
+    },
+    {
+      "phrase": "срок уплаты транспортного налога для ип",
+      "count": 15
+    },
+    {
+      "phrase": "платит ли ип транспортный налог при усн",
+      "count": 14
+    }
+  ]
+}

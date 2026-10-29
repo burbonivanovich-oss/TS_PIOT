@@ -1,0 +1,67 @@
+{
+  "seed": "автоматизация ресторана",
+  "slug": "автоматизация-ресторана",
+  "category": "audience",
+  "cluster": "horeca",
+  "fetchedAt": "2026-10-10T17:55:13.774Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 11,
+  "phrases": [
+    {
+      "phrase": "автоматизация ресторана",
+      "count": 488
+    },
+    {
+      "phrase": "системы автоматизации ресторанов",
+      "count": 144
+    },
+    {
+      "phrase": "автоматизации ресторана кафе",
+      "count": 123
+    },
+    {
+      "phrase": "автоматизация ресторана iiko",
+      "count": 56
+    },
+    {
+      "phrase": "программами автоматизации ресторана",
+      "count": 39
+    },
+    {
+      "phrase": "схема автоматизации ресторана",
+      "count": 27
+    },
+    {
+      "phrase": "автоматизация работы ресторанов",
+      "count": 27
+    },
+    {
+      "phrase": "автоматизация управления рестораном",
+      "count": 19
+    },
+    {
+      "phrase": "автоматизация ресторанов кафе программы",
+      "count": 19
+    },
+    {
+      "phrase": "iiko система автоматизации ресторанов и кафе",
+      "count": 12
+    },
+    {
+      "phrase": "pos life автоматизация ресторанов кафе баров",
+      "count": 9
+    }
+  ]
+}

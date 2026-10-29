@@ -1,0 +1,59 @@
+{
+  "seed": "встречная проверка",
+  "slug": "встречная-проверка",
+  "category": "entity",
+  "cluster": "banki",
+  "fetchedAt": "2026-10-19T09:28:44.628Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 9,
+  "phrases": [
+    {
+      "phrase": "встречная проверка",
+      "count": 2385
+    },
+    {
+      "phrase": "встречная камеральная проверка",
+      "count": 227
+    },
+    {
+      "phrase": "метод встречной проверки",
+      "count": 158
+    },
+    {
+      "phrase": "встречные проверки налоговых органов",
+      "count": 81
+    },
+    {
+      "phrase": "встречная проверка налоговой что это",
+      "count": 59
+    },
+    {
+      "phrase": "ответ на требование по встречной проверке образец",
+      "count": 31
+    },
+    {
+      "phrase": "ответ на требование ифнс по встречной проверке",
+      "count": 18
+    },
+    {
+      "phrase": "встречная внеплановая выездная таможенная проверка",
+      "count": 16
+    },
+    {
+      "phrase": "встречное заявление в полицию о прекращении проверки",
+      "count": 7
+    }
+  ]
+}

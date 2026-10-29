@@ -1,0 +1,27 @@
+{
+  "seed": "касса для пекарни",
+  "slug": "касса-для-пекарни",
+  "category": "audience",
+  "cluster": "horeca",
+  "fetchedAt": "2026-10-09T18:52:55.048Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 1,
+  "phrases": [
+    {
+      "phrase": "касса для пекарни",
+      "count": 60
+    }
+  ]
+}

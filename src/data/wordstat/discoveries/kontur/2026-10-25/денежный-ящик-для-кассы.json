@@ -1,0 +1,59 @@
+{
+  "seed": "денежный ящик для кассы",
+  "slug": "денежный-ящик-для-кассы",
+  "category": "entity",
+  "cluster": "oborudovanie",
+  "fetchedAt": "2026-10-25T17:06:53.254Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 9,
+  "phrases": [
+    {
+      "phrase": "денежный ящик для кассы",
+      "count": 524
+    },
+    {
+      "phrase": "денежный ящик для кассы купить",
+      "count": 136
+    },
+    {
+      "phrase": "замок для денежного ящика кассы",
+      "count": 28
+    },
+    {
+      "phrase": "купить денежный ящик для кассы б у",
+      "count": 26
+    },
+    {
+      "phrase": "денежный ящик для кассы атол",
+      "count": 18
+    },
+    {
+      "phrase": "денежный ящик для кассы эвотор",
+      "count": 17
+    },
+    {
+      "phrase": "денежный ящик для кассы размеры",
+      "count": 15
+    },
+    {
+      "phrase": "денежный ящик для кассы авито",
+      "count": 13
+    },
+    {
+      "phrase": "денежный ящик для кассы цена",
+      "count": 8
+    }
+  ]
+}

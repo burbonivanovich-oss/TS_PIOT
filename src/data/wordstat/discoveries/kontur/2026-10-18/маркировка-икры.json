@@ -1,0 +1,55 @@
+{
+  "seed": "маркировка икры",
+  "slug": "маркировка-икры",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-18T15:50:49.902Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 8,
+  "phrases": [
+    {
+      "phrase": "маркировка икры",
+      "count": 870
+    },
+    {
+      "phrase": "маркировка икры честный знак",
+      "count": 170
+    },
+    {
+      "phrase": "маркировка красной икры",
+      "count": 81
+    },
+    {
+      "phrase": "маркировка икры осетровых и лососевых рыб",
+      "count": 20
+    },
+    {
+      "phrase": "продажа икры без маркировки",
+      "count": 19
+    },
+    {
+      "phrase": "имитированная икра подлежит маркировке",
+      "count": 14
+    },
+    {
+      "phrase": "маркировка икры на железной банке",
+      "count": 10
+    },
+    {
+      "phrase": "какая маркировка честного знака у красной икры",
+      "count": 6
+    }
+  ]
+}

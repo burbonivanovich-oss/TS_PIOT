@@ -1,0 +1,43 @@
+{
+  "seed": "что такое ТС ПИоТ",
+  "slug": "что-такое-тс-пиот",
+  "category": "intent",
+  "cluster": "ts-piot",
+  "fetchedAt": "2026-10-09T18:20:22.700Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 5,
+  "phrases": [
+    {
+      "phrase": "что такое тс пиот",
+      "count": 2929
+    },
+    {
+      "phrase": "что такое тс пиот простыми",
+      "count": 140
+    },
+    {
+      "phrase": "что такое тс пиот простыми словами",
+      "count": 140
+    },
+    {
+      "phrase": "что такое тс пиот в честном знаке",
+      "count": 109
+    },
+    {
+      "phrase": "модуль тс пиот что это такое",
+      "count": 12
+    }
+  ]
+}

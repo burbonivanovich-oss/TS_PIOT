@@ -1,0 +1,55 @@
+{
+  "seed": "маркировка молочной продукции",
+  "slug": "маркировка-молочной-продукции",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-13T19:15:19.161Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 8,
+  "phrases": [
+    {
+      "phrase": "маркировка молочной продукции",
+      "count": 1805
+    },
+    {
+      "phrase": "маркировка молочной продукции честный знак",
+      "count": 302
+    },
+    {
+      "phrase": "правила маркировки молочной продукции",
+      "count": 232
+    },
+    {
+      "phrase": "обязательная маркировка молочной продукции",
+      "count": 192
+    },
+    {
+      "phrase": "маркировка молочной продукции 2026",
+      "count": 152
+    },
+    {
+      "phrase": "маркировка молока и молочной продукции",
+      "count": 92
+    },
+    {
+      "phrase": "маркировка молочной продукции честный знак сроки",
+      "count": 15
+    },
+    {
+      "phrase": "честный знак маркировка молока и молочной продукции",
+      "count": 10
+    }
+  ]
+}

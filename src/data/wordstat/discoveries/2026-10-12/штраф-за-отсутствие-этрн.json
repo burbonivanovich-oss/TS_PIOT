@@ -1,0 +1,91 @@
+{
+  "seed": "штраф за отсутствие ЭТрН",
+  "slug": "штраф-за-отсутствие-этрн",
+  "category": "problem",
+  "cluster": "logistika",
+  "fetchedAt": "2026-10-12T11:30:52.168Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 17,
+  "phrases": [
+    {
+      "phrase": "штраф за отсутствие этрн",
+      "count": 2214
+    },
+    {
+      "phrase": "штрафы за отсутствие этрн с 1",
+      "count": 667
+    },
+    {
+      "phrase": "штрафы за отсутствие этрн с 1 сентября",
+      "count": 645
+    },
+    {
+      "phrase": "штрафы за отсутствие этрн 2026",
+      "count": 570
+    },
+    {
+      "phrase": "штраф за отсутствие этрн с 01.09 2026",
+      "count": 420
+    },
+    {
+      "phrase": "какие штрафы за отсутствие этрн",
+      "count": 218
+    },
+    {
+      "phrase": "есть ли штрафы за отсутствие этрн",
+      "count": 81
+    },
+    {
+      "phrase": "штраф грузоотправителю за отсутствие этрн",
+      "count": 35
+    },
+    {
+      "phrase": "мораторий на штрафы за отсутствие этрн",
+      "count": 32
+    },
+    {
+      "phrase": "штраф от налоговой за отсутствие этрн",
+      "count": 31
+    },
+    {
+      "phrase": "штраф водителю за отсутствие этрн",
+      "count": 28
+    },
+    {
+      "phrase": "устный штраф за отсутствие этрн",
+      "count": 24
+    },
+    {
+      "phrase": "штрафы фнс за отсутствие этрн",
+      "count": 21
+    },
+    {
+      "phrase": "какие штрафы предусмотрены за отсутствие этрн",
+      "count": 20
+    },
+    {
+      "phrase": "штраф за отсутствие этрн для ип",
+      "count": 17
+    },
+    {
+      "phrase": "размер штрафа за отсутствие этрн",
+      "count": 15
+    },
+    {
+      "phrase": "отмена штрафов за отсутствие этрн",
+      "count": 7
+    }
+  ]
+}

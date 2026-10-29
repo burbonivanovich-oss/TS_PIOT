@@ -1,0 +1,39 @@
+{
+  "seed": "отказали в патенте",
+  "slug": "отказали-в-патенте",
+  "category": "problem",
+  "cluster": "nalogi",
+  "fetchedAt": "2026-10-26T09:32:28.993Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "почему могут отказать в патенте",
+      "count": 52
+    },
+    {
+      "phrase": "почему могут отказать в патенте ип",
+      "count": 18
+    },
+    {
+      "phrase": "в каких случаях могут отказать в патенте",
+      "count": 16
+    },
+    {
+      "phrase": "почему могут отказать в выдаче патента",
+      "count": 14
+    }
+  ]
+}

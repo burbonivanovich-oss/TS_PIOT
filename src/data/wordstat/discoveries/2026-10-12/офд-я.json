@@ -1,0 +1,223 @@
+{
+  "seed": "ОФД Я",
+  "slug": "офд-я",
+  "category": "system",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-10-12T11:30:29.578Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 50,
+  "phrases": [
+    {
+      "phrase": "офд я",
+      "count": 5176
+    },
+    {
+      "phrase": "офд я личный",
+      "count": 1651
+    },
+    {
+      "phrase": "офд я кабинет офд",
+      "count": 1650
+    },
+    {
+      "phrase": "офд я личный кабинет",
+      "count": 1641
+    },
+    {
+      "phrase": "офд я вход",
+      "count": 1131
+    },
+    {
+      "phrase": "чек офд я",
+      "count": 711
+    },
+    {
+      "phrase": "офд я вход в личный",
+      "count": 688
+    },
+    {
+      "phrase": "офд я вход в личный кабинет",
+      "count": 688
+    },
+    {
+      "phrase": "офд я приходят чеки",
+      "count": 495
+    },
+    {
+      "phrase": "офд я пришел чек",
+      "count": 495
+    },
+    {
+      "phrase": "офд я что это пришло",
+      "count": 132
+    },
+    {
+      "phrase": "платформа офд я",
+      "count": 132
+    },
+    {
+      "phrase": "офд я ярус",
+      "count": 112
+    },
+    {
+      "phrase": "касса офд я",
+      "count": 103
+    },
+    {
+      "phrase": "ооо офд я",
+      "count": 79
+    },
+    {
+      "phrase": "офд я данные",
+      "count": 73
+    },
+    {
+      "phrase": "офд я личный кабинет вход по логину",
+      "count": 66
+    },
+    {
+      "phrase": "офд я личный кабинет логин",
+      "count": 66
+    },
+    {
+      "phrase": "лк офд я",
+      "count": 64
+    },
+    {
+      "phrase": "офд я ооо ярус",
+      "count": 60
+    },
+    {
+      "phrase": "личный кабинет офд я ярус",
+      "count": 59
+    },
+    {
+      "phrase": "какой у меня офд",
+      "count": 56
+    },
+    {
+      "phrase": "оператор офд я",
+      "count": 55
+    },
+    {
+      "phrase": "офд я ru",
+      "count": 54
+    },
+    {
+      "phrase": "код офд я",
+      "count": 51
+    },
+    {
+      "phrase": "1 офд я",
+      "count": 50
+    },
+    {
+      "phrase": "личного кабинета клиента офд я",
+      "count": 48
+    },
+    {
+      "phrase": "сообщение офд я что это",
+      "count": 48
+    },
+    {
+      "phrase": "настройки офд я",
+      "count": 48
+    },
+    {
+      "phrase": "офд я ру",
+      "count": 40
+    },
+    {
+      "phrase": "офд я что это пришло сообщение",
+      "count": 40
+    },
+    {
+      "phrase": "сайт офд я",
+      "count": 39
+    },
+    {
+      "phrase": "офд я ofd",
+      "count": 37
+    },
+    {
+      "phrase": "офд я ооо ярус личный кабинет",
+      "count": 35
+    },
+    {
+      "phrase": "офд я отзывы",
+      "count": 31
+    },
+    {
+      "phrase": "кассовый чек офд я",
+      "count": 30
+    },
+    {
+      "phrase": "я офд платформа личный кабинет",
+      "count": 29
+    },
+    {
+      "phrase": "оператор фискальных данных офд я",
+      "count": 28
+    },
+    {
+      "phrase": "офд я ofd ya ru",
+      "count": 28
+    },
+    {
+      "phrase": "как узнать какой у меня офд",
+      "count": 28
+    },
+    {
+      "phrase": "офд я проверить чек",
+      "count": 26
+    },
+    {
+      "phrase": "код активации офд я",
+      "count": 25
+    },
+    {
+      "phrase": "офд я личный кабинет войти",
+      "count": 23
+    },
+    {
+      "phrase": "офд я рус",
+      "count": 19
+    },
+    {
+      "phrase": "офд я купить",
+      "count": 19
+    },
+    {
+      "phrase": "офд я проверка чека",
+      "count": 12
+    },
+    {
+      "phrase": "касса офд я личный кабинет",
+      "count": 9
+    },
+    {
+      "phrase": "как узнать какой у меня оператор офд",
+      "count": 8
+    },
+    {
+      "phrase": "офд я настройки ккт",
+      "count": 7
+    },
+    {
+      "phrase": "платформа офд я вход в личный кабинет",
+      "count": 7
+    }
+  ]
+}

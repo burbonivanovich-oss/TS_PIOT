@@ -1,0 +1,187 @@
+{
+  "seed": "МойСклад",
+  "slug": "мойсклад",
+  "category": "system",
+  "cluster": "buhgalteriya",
+  "fetchedAt": "2026-10-26T09:32:34.425Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 41,
+  "phrases": [
+    {
+      "phrase": "мойсклад",
+      "count": 3331
+    },
+    {
+      "phrase": "мойсклад ру",
+      "count": 388
+    },
+    {
+      "phrase": "мойсклад программа",
+      "count": 305
+    },
+    {
+      "phrase": "касса мойсклад",
+      "count": 215
+    },
+    {
+      "phrase": "1с мойсклад",
+      "count": 124
+    },
+    {
+      "phrase": "система мойсклад",
+      "count": 100
+    },
+    {
+      "phrase": "мойсклад это",
+      "count": 83
+    },
+    {
+      "phrase": "мойсклад api",
+      "count": 77
+    },
+    {
+      "phrase": "мойсклад тарифы",
+      "count": 71
+    },
+    {
+      "phrase": "онлайн мойсклад",
+      "count": 69
+    },
+    {
+      "phrase": "шаблоны мойсклад",
+      "count": 53
+    },
+    {
+      "phrase": "касса мойсклад скачать",
+      "count": 36
+    },
+    {
+      "phrase": "апи мойсклад",
+      "count": 25
+    },
+    {
+      "phrase": "мойсклад вейп",
+      "count": 25
+    },
+    {
+      "phrase": "мойсклад карьера",
+      "count": 24
+    },
+    {
+      "phrase": "мойсклад стоимость",
+      "count": 23
+    },
+    {
+      "phrase": "мойсклад скачать программу",
+      "count": 19
+    },
+    {
+      "phrase": "мойсклад поддержка",
+      "count": 18
+    },
+    {
+      "phrase": "мойсклад для маркетплейсов",
+      "count": 18
+    },
+    {
+      "phrase": "мойсклад промокод",
+      "count": 14
+    },
+    {
+      "phrase": "ооо логнекс мойсклад",
+      "count": 14
+    },
+    {
+      "phrase": "как настроить тс пиот в мойсклад",
+      "count": 12
+    },
+    {
+      "phrase": "внедрение мойсклад",
+      "count": 11
+    },
+    {
+      "phrase": "маппа мойсклад",
+      "count": 11
+    },
+    {
+      "phrase": "мойсклад вакансии",
+      "count": 11
+    },
+    {
+      "phrase": "мойсклад войти",
+      "count": 11
+    },
+    {
+      "phrase": "мойсклад шоп",
+      "count": 10
+    },
+    {
+      "phrase": "вход мойсклад",
+      "count": 10
+    },
+    {
+      "phrase": "формулы мойсклад",
+      "count": 10
+    },
+    {
+      "phrase": "печатные формы мойсклад",
+      "count": 9
+    },
+    {
+      "phrase": "битрикс 24 мойсклад",
+      "count": 9
+    },
+    {
+      "phrase": "в ход мойсклад",
+      "count": 8
+    },
+    {
+      "phrase": "мойсклад 1с бп или банк",
+      "count": 5
+    },
+    {
+      "phrase": "мойсклад модулькасса",
+      "count": 5
+    },
+    {
+      "phrase": "чек не вылез а деньги списались мойсклад",
+      "count": 5
+    },
+    {
+      "phrase": "как выгружаются документы мойсклад в 1с",
+      "count": 5
+    },
+    {
+      "phrase": "мойсклад shiba",
+      "count": 5
+    },
+    {
+      "phrase": "продажа пива в мойсклад",
+      "count": 5
+    },
+    {
+      "phrase": "бесплатные шаблоны ценников для мойсклад скачать бесплатно",
+      "count": 5
+    },
+    {
+      "phrase": "интеграция мойсклад и маркетплейсы",
+      "count": 5
+    },
+    {
+      "phrase": "мойсклад smart slim",
+      "count": 2
+    }
+  ]
+}

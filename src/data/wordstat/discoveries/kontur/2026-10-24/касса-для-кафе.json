@@ -1,0 +1,39 @@
+{
+  "seed": "касса для кафе",
+  "slug": "касса-для-кафе",
+  "category": "audience",
+  "cluster": "horeca",
+  "fetchedAt": "2026-10-24T16:44:13.127Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "касса для кафе",
+      "count": 351
+    },
+    {
+      "phrase": "касса для кафе и ресторанов",
+      "count": 25
+    },
+    {
+      "phrase": "программы для кассы в кафе",
+      "count": 12
+    },
+    {
+      "phrase": "андроид касса для кафе",
+      "count": 10
+    }
+  ]
+}

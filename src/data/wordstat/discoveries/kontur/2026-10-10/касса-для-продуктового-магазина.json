@@ -1,0 +1,39 @@
+{
+  "seed": "касса для продуктового магазина",
+  "slug": "касса-для-продуктового-магазина",
+  "category": "audience",
+  "cluster": "roznica",
+  "fetchedAt": "2026-10-10T17:55:09.462Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "касса для продуктового магазина",
+      "count": 293
+    },
+    {
+      "phrase": "онлайн касса для продуктового магазина",
+      "count": 22
+    },
+    {
+      "phrase": "касса с весами для продуктового магазина",
+      "count": 21
+    },
+    {
+      "phrase": "касса для продуктового магазина купить",
+      "count": 9
+    }
+  ]
+}

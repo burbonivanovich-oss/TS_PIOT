@@ -1,0 +1,67 @@
+{
+  "seed": "ошибка маркировки",
+  "slug": "ошибка-маркировки",
+  "category": "problem",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-26T09:32:28.049Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 11,
+  "phrases": [
+    {
+      "phrase": "ошибка маркировки",
+      "count": 7587
+    },
+    {
+      "phrase": "ошибка проверки кода маркировки",
+      "count": 1221
+    },
+    {
+      "phrase": "есть коды маркировки с ошибками",
+      "count": 207
+    },
+    {
+      "phrase": "коды маркировки проверены с ошибками",
+      "count": 110
+    },
+    {
+      "phrase": "ошибка отсутствует полный код маркировки",
+      "count": 65
+    },
+    {
+      "phrase": "ошибка 409 некорректный код маркировки атол",
+      "count": 29
+    },
+    {
+      "phrase": "код ошибки 9033 эвотор для маркировки",
+      "count": 22
+    },
+    {
+      "phrase": "код ошибки 146 код маркировки",
+      "count": 15
+    },
+    {
+      "phrase": "ошибка записи тега 1163 код маркировки",
+      "count": 14
+    },
+    {
+      "phrase": "есть ошибки в кодах маркировки лимонада пива",
+      "count": 5
+    },
+    {
+      "phrase": "ошибка структуры кода маркировки некорректна",
+      "count": 5
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "seed": "изменения для ООО 2026",
+  "slug": "изменения-для-ооо-2026",
+  "category": "intent",
+  "cluster": "zakonodatelstvo",
+  "fetchedAt": "2026-10-19T09:28:49.109Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 2,
+  "phrases": [
+    {
+      "phrase": "изменения для ооо в 2026 году",
+      "count": 143
+    },
+    {
+      "phrase": "форма для изменения оквэд для ооо 2026",
+      "count": 17
+    }
+  ]
+}

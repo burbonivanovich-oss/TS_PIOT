@@ -1,0 +1,102 @@
+{
+  "runId": "2026-10-11-f264ce41",
+  "date": "2026-10-11",
+  "kind": "day",
+  "createdAt": "2026-10-11T07:04:35.885Z",
+  "updatedAt": "2026-10-11T07:05:11.831Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-11T07:04:36.030Z",
+      "orderCount": 0,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 0,
+        "todayTarget": 4,
+        "debt": 5
+      }
+    },
+    "gated": {
+      "at": "2026-10-11T07:04:55.307Z",
+      "publicationCapacity": {
+        "day": "2026-10-11",
+        "slotsRemaining": 60,
+        "needed": 51,
+        "impossible": false,
+        "shortfall": 0,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 10,
+            "remaining": 45
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 8,
+            "remaining": 6
+          }
+        }
+      },
+      "published": 3,
+      "acceptedWaiting": 11,
+      "results": [
+        {
+          "slug": "2026-05-01-kalendar-markirovki-2026",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        },
+        {
+          "slug": "2026-05-25-140-fz-epd-perehod-msb",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        },
+        {
+          "slug": "2026-05-01-chto-takoe-fn",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        }
+      ],
+      "links": {
+        "linksInserted": 0,
+        "orphansBefore": 37,
+        "orphansAfter": 37
+      }
+    },
+    "built": {
+      "at": "2026-10-11T07:04:55.307Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "10fe0ae9c468db16747b30b7809a4dbc632f792fa777a8b136ed280881d11280",
+      "scope": "blog Markdown/MDX bytes at build start"
+    },
+    "committed": {
+      "at": "2026-10-11T07:05:11.831Z",
+      "commit": "471ca2c3310510a702db56c57f7fba4c07524145",
+      "tree": "357a39139e35f3dc0a9969e0bf05c37e6d16593b",
+      "stateOnly": false
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-11T07:04:36.030Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-11T07:04:55.307Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-11T07:04:55.336Z"
+    },
+    {
+      "stage": "committed",
+      "at": "2026-10-11T07:05:11.831Z"
+    }
+  ],
+  "meta": {}
+}

@@ -1,0 +1,47 @@
+{
+  "seed": "годовая отчётность ИП",
+  "slug": "годовая-отч-тность-ип",
+  "category": "seasonal",
+  "cluster": "otchetnost-edo",
+  "fetchedAt": "2026-10-12T11:30:35.849Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 6,
+  "phrases": [
+    {
+      "phrase": "годовая отчетность ип",
+      "count": 217
+    },
+    {
+      "phrase": "сдать годовую отчетность ип",
+      "count": 66
+    },
+    {
+      "phrase": "годовая отчетность ип усн",
+      "count": 47
+    },
+    {
+      "phrase": "годовая отчетность ип сроки",
+      "count": 17
+    },
+    {
+      "phrase": "сдача годовой отчетности ип",
+      "count": 16
+    },
+    {
+      "phrase": "годовая бухгалтерская отчетность ип",
+      "count": 13
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "runId": "2026-10-19-ba9e7865",
+  "date": "2026-10-19",
+  "kind": "day",
+  "createdAt": "2026-10-19T17:06:26.372Z",
+  "updatedAt": "2026-10-19T17:12:37.693Z",
+  "stages": {
+    "planned": {
+      "at": "2026-10-19T17:06:26.859Z",
+      "orderCount": 3,
+      "skipped": 0,
+      "capacity": {
+        "canTake": 0,
+        "todayTarget": 4,
+        "debt": 19
+      }
+    },
+    "gated": {
+      "at": "2026-10-19T17:11:29.753Z",
+      "publicationCapacity": {
+        "day": "2026-10-19",
+        "slotsRemaining": 36,
+        "needed": 45,
+        "impossible": true,
+        "shortfall": 9,
+        "byKind": {
+          "new": {
+            "target": 55,
+            "published": 11,
+            "remaining": 44
+          },
+          "rewrite": {
+            "target": 14,
+            "published": 13,
+            "remaining": 1
+          }
+        }
+      },
+      "published": 3,
+      "acceptedWaiting": 5,
+      "results": [
+        {
+          "slug": "seed-ts-piot-i-data-matrix-chto-kassa-proveryaet-pri-prodazhe",
+          "status": "infra_missing",
+          "detail": "нет квитанции доставки текущих байтов и попытки (инфраструктура, попытка 2)"
+        },
+        {
+          "slug": "seed-kontrolnaya-zakupka-fns-kak-prohodit-proverka-kassy-i-chto-grozit",
+          "status": "infra_missing",
+          "detail": "нет квитанции доставки текущих байтов и попытки (инфраструктура, попытка 2)"
+        },
+        {
+          "slug": "seed-elektronnaya-otchetnost-dlya-ip-i-ooo-kak-podklyuchit",
+          "status": "infra_missing",
+          "detail": "нет квитанции доставки текущих байтов и попытки (инфраструктура, попытка 2)"
+        },
+        {
+          "slug": "2026-06-24-snyatie-kkt-s-ucheta",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        },
+        {
+          "slug": "2026-06-30-pereregistraciya-kkt",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        },
+        {
+          "slug": "2026-08-10-markirovka-molochnoy-produkcii-kak-podklyuchit-poshagovaya-instrukciya",
+          "status": "published",
+          "score": 100,
+          "detail": "из очереди ожидания"
+        }
+      ],
+      "links": {
+        "linksInserted": 1,
+        "orphansBefore": 36,
+        "orphansAfter": 36
+      }
+    },
+    "built": {
+      "at": "2026-10-19T17:11:29.747Z",
+      "checked": true,
+      "ok": true,
+      "code": 0,
+      "corpusSha256": "325b8f3c18520a47ccca0786fc83971d0c1c432f21617600ad987d4e6fec1dd9",
+      "scope": "blog Markdown/MDX bytes at build start"
+    },
+    "committed": {
+      "at": "2026-10-19T17:12:37.693Z",
+      "commit": "0635a84adbf43c0e8bc4d3d764f5cb127bbc6744",
+      "tree": "19956c69b78b005a471306db53770a64de867506",
+      "stateOnly": false
+    }
+  },
+  "orders": [],
+  "history": [
+    {
+      "stage": "planned",
+      "at": "2026-10-19T17:06:26.859Z"
+    },
+    {
+      "stage": "gated",
+      "at": "2026-10-19T17:11:29.753Z"
+    },
+    {
+      "stage": "built",
+      "at": "2026-10-19T17:11:30.049Z"
+    },
+    {
+      "stage": "committed",
+      "at": "2026-10-19T17:12:37.693Z"
+    }
+  ],
+  "meta": {
+    "modelInvocations": [
+      {
+        "id": "a9affb88-3e30-4c24-bcb2-6d7dcb7548c4",
+        "slug": "seed-ts-piot-i-data-matrix-chto-kassa-proveryaet-pri-prodazhe",
+        "attempt": "2026-10-14T09:54:03.399Z/0/1",
+        "startedAt": "2026-10-19T17:06:27.892Z",
+        "finishedAt": "2026-10-19T17:10:13.057Z",
+        "durationMs": 55325,
+        "reportedTokens": null,
+        "tokenSource": "codex-cli-footer",
+        "status": "failed",
+        "failureCode": "model_transport"
+      }
+    ]
+  }
+}

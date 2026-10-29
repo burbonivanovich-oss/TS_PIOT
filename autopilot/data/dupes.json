@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07",
+  "generatedAt": "2026-10-14",
   "pairs": [
     {
       "a": "2026-05-01-chto-takoe-fn",
@@ -8,20 +8,19 @@
       "containment": 0.92,
       "body": 0,
       "verdict": "merge",
-      "keep": "2026-05-03-srok-fn-15-36",
-      "rewrite": "2026-05-01-chto-takoe-fn",
+      "keep": "2026-05-01-chto-takoe-fn",
+      "rewrite": "2026-05-03-srok-fn-15-36",
       "gateScore": {
-        "2026-05-01-chto-takoe-fn": 68,
+        "2026-05-01-chto-takoe-fn": 100,
         "2026-05-03-srok-fn-15-36": 82
       },
       "inbound": {
         "2026-05-01-chto-takoe-fn": 16,
         "2026-05-03-srok-fn-15-36": 7
       },
-      "reason": "body 0, containment 0.92, title 0; gate 68/82, входящих 16/7, символов 9474/6593",
+      "reason": "body 0, containment 0.92, title 0; gate 100/82, входящих 16/7, символов 11392/6593",
       "weakAngle": [
-        "2026",
-        "маркировк"
+        "месяц"
       ],
       "remediation": "pending"
     },
@@ -65,9 +64,9 @@
       },
       "inbound": {
         "2026-05-03-markirovka-igrushek-2026": 1,
-        "2026-06-17-poexzemplyarnyj-uchet": 14
+        "2026-06-17-poexzemplyarnyj-uchet": 15
       },
-      "reason": "body 0.01, containment 0.73, title 0.06; gate 100/82, входящих 1/14, символов 10947/9737",
+      "reason": "body 0.01, containment 0.73, title 0.06; gate 100/82, входящих 1/15, символов 10947/9737",
       "weakAngle": [
         "помарочн"
       ],
@@ -108,7 +107,7 @@
     {
       "a": "2026-05-03-markirovka-avtozhidkostey-2026",
       "b": "2026-05-03-markirovka-konservov-2026",
-      "title": 0.15,
+      "title": 0.16,
       "containment": 0.64,
       "body": 0.04,
       "verdict": "watch"
@@ -127,14 +126,6 @@
       "title": 0.08,
       "containment": 0.62,
       "body": 0.01,
-      "verdict": "watch"
-    },
-    {
-      "a": "2026-05-01-ts-piot-podklyuchenie-instrukciya",
-      "b": "2026-05-03-utm-egais-podklyuchenie",
-      "title": 0.42,
-      "containment": 0.62,
-      "body": 0,
       "verdict": "watch"
     },
     {
@@ -159,6 +150,14 @@
       "title": 0.27,
       "containment": 0.62,
       "body": 0.04,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+      "b": "2026-05-03-utm-egais-podklyuchenie",
+      "title": 0.41,
+      "containment": 0.61,
+      "body": 0,
       "verdict": "watch"
     },
     {
@@ -188,8 +187,16 @@
     {
       "a": "2026-05-31-chestny-znak-registraciya",
       "b": "2026-07-05-egais-registraciya-nachalo",
-      "title": 0.24,
+      "title": 0.23,
       "containment": 0.6,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-01-ts-piot-podklyuchenie-instrukciya",
+      "b": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": 0.24,
+      "containment": 0.59,
       "body": 0,
       "verdict": "watch"
     },
@@ -207,6 +214,22 @@
       "title": 0.22,
       "containment": 0.59,
       "body": 0.04,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-03-utm-egais-podklyuchenie",
+      "b": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": 0.22,
+      "containment": 0.59,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya",
+      "b": "2026-08-10-markirovka-vody-kak-podklyuchit-poshagovaya-instrukciya",
+      "title": 0.41,
+      "containment": 0.59,
+      "body": 0.01,
       "verdict": "watch"
     },
     {
@@ -228,7 +251,7 @@
     {
       "a": "2026-05-03-utm-egais-podklyuchenie",
       "b": "2026-08-10-gis-epd-kak-podklyuchit-poshagovaya-instrukciya",
-      "title": 0.22,
+      "title": 0.21,
       "containment": 0.58,
       "body": 0,
       "verdict": "watch"
@@ -286,7 +309,7 @@
       "b": "2026-06-17-poexzemplyarnyj-uchet",
       "title": 0.29,
       "containment": 0.55,
-      "body": 0,
+      "body": 0.01,
       "verdict": "watch"
     },
     {
@@ -294,6 +317,14 @@
       "b": "2026-08-10-gis-epd-shtrafy-i-otvetstvennost-v-2026-godu",
       "title": 0.08,
       "containment": 0.54,
+      "body": 0,
+      "verdict": "watch"
+    },
+    {
+      "a": "2026-05-18-kak-otkryt-ip-poshagovo",
+      "b": "2026-05-20-kak-otkryt-kafe-cheklis",
+      "title": 0.15,
+      "containment": 0.53,
       "body": 0,
       "verdict": "watch"
     },
@@ -325,14 +356,6 @@
       "a": "2026-05-01-registraciya-kkt-v-fns",
       "b": "2026-06-11-ts-piot-lichnyj-kabinet",
       "title": 0.12,
-      "containment": 0.52,
-      "body": 0,
-      "verdict": "watch"
-    },
-    {
-      "a": "2026-05-18-kak-otkryt-ip-poshagovo",
-      "b": "2026-05-20-kak-otkryt-kafe-cheklis",
-      "title": 0.15,
       "containment": 0.52,
       "body": 0,
       "verdict": "watch"

@@ -1,0 +1,75 @@
+{
+  "seed": "как перейти на патент",
+  "slug": "как-перейти-на-патент",
+  "category": "intent",
+  "cluster": "nalogi",
+  "fetchedAt": "2026-10-19T09:28:55.433Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 13,
+  "phrases": [
+    {
+      "phrase": "как перейти на патент",
+      "count": 2551
+    },
+    {
+      "phrase": "как перейти на патент ип",
+      "count": 1294
+    },
+    {
+      "phrase": "как перейти с усн на патент",
+      "count": 780
+    },
+    {
+      "phrase": "как ип на усн перейти на патент",
+      "count": 617
+    },
+    {
+      "phrase": "как ип перейти на патент в 2026",
+      "count": 388
+    },
+    {
+      "phrase": "как с аусн перейти на патент",
+      "count": 345
+    },
+    {
+      "phrase": "как перейти с нпд на патент",
+      "count": 201
+    },
+    {
+      "phrase": "ип на нпд как перейти на патент",
+      "count": 176
+    },
+    {
+      "phrase": "как самозанятому перейти на патент",
+      "count": 102
+    },
+    {
+      "phrase": "как перейти с самозанятого на ип патент",
+      "count": 46
+    },
+    {
+      "phrase": "как перейти с упрощенки на патент",
+      "count": 24
+    },
+    {
+      "phrase": "как перейти на патент ип через госуслуги",
+      "count": 6
+    },
+    {
+      "phrase": "грузоперевозки был патент как перейти на усн",
+      "count": 5
+    }
+  ]
+}

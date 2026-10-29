@@ -1,0 +1,83 @@
+{
+  "seed": "отказали в патенте",
+  "slug": "отказали-в-патенте",
+  "category": "problem",
+  "cluster": "nalogi",
+  "fetchedAt": "2026-10-12T11:30:17.841Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 15,
+  "phrases": [
+    {
+      "phrase": "отказали в патенте",
+      "count": 941
+    },
+    {
+      "phrase": "отказали в выдаче патента",
+      "count": 234
+    },
+    {
+      "phrase": "могут ли отказать в патенте",
+      "count": 124
+    },
+    {
+      "phrase": "отказали в патенте ип",
+      "count": 122
+    },
+    {
+      "phrase": "налоговая отказала в патенте",
+      "count": 82
+    },
+    {
+      "phrase": "отказали в получении патента",
+      "count": 64
+    },
+    {
+      "phrase": "отказали в патенте что делать",
+      "count": 61
+    },
+    {
+      "phrase": "отказали в уменьшении патента",
+      "count": 54
+    },
+    {
+      "phrase": "могут ли отказать в выдаче патента",
+      "count": 52
+    },
+    {
+      "phrase": "почему могут отказать в патенте",
+      "count": 50
+    },
+    {
+      "phrase": "налоговая отказала в уменьшении патента",
+      "count": 30
+    },
+    {
+      "phrase": "почему могут отказать в патенте ип",
+      "count": 18
+    },
+    {
+      "phrase": "почему могут отказать в выдаче патента",
+      "count": 13
+    },
+    {
+      "phrase": "могут ли отказать в получении патента",
+      "count": 13
+    },
+    {
+      "phrase": "в каких случаях могут отказать в патенте",
+      "count": 11
+    }
+  ]
+}

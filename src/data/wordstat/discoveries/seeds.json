@@ -198,6 +198,13 @@
     { "phrase": "штраф за отсутствие ЭТрН", "category": "problem", "cluster": "logistika" },
     { "phrase": "ЭПД для грузоперевозчика", "category": "audience", "cluster": "logistika" },
     { "phrase": "ЭТрН с 1 сентября 2026", "category": "seasonal", "cluster": "logistika" },
-    { "phrase": "обязательная ЭТрН 2026", "category": "seasonal", "cluster": "logistika" }
+    { "phrase": "обязательная ЭТрН 2026", "category": "seasonal", "cluster": "logistika" },
+    { "phrase": "контрольная закупка", "category": "intent", "cluster": "zakonodatelstvo" },
+    { "phrase": "штрафы для бизнеса", "category": "intent", "cluster": "zakonodatelstvo" },
+    { "phrase": "онлайн бухгалтерия", "category": "system", "cluster": "buhgalteriya" },
+    { "phrase": "электронная отчетность", "category": "entity", "cluster": "otchetnost-edo" },
+    { "phrase": "учет продуктов в кафе", "category": "audience", "cluster": "horeca" },
+    { "phrase": "касса для медицинских услуг", "category": "audience", "cluster": "kkt" },
+    { "phrase": "касса для фитнес клуба", "category": "audience", "cluster": "kkt" }
   ]
 }

@@ -1,0 +1,39 @@
+{
+  "seed": "декларация по алкоголю",
+  "slug": "декларация-по-алкоголю",
+  "category": "entity",
+  "cluster": "egais",
+  "fetchedAt": "2026-10-19T09:28:08.181Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "декларация по алкоголю",
+      "count": 385
+    },
+    {
+      "phrase": "декларация по алкоголю в 2026",
+      "count": 77
+    },
+    {
+      "phrase": "декларации по алкоголю в 2026 году",
+      "count": 22
+    },
+    {
+      "phrase": "декларация по алкоголю 2026 сроки сдачи",
+      "count": 11
+    }
+  ]
+}

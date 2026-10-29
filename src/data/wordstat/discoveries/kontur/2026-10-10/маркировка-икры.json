@@ -1,0 +1,87 @@
+{
+  "seed": "маркировка икры",
+  "slug": "маркировка-икры",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-10-10T17:20:35.552Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 16,
+  "phrases": [
+    {
+      "phrase": "маркировка икры",
+      "count": 811
+    },
+    {
+      "phrase": "маркировка икры честный знак",
+      "count": 156
+    },
+    {
+      "phrase": "икра подлежит маркировке",
+      "count": 124
+    },
+    {
+      "phrase": "икра без маркировки",
+      "count": 85
+    },
+    {
+      "phrase": "икра маркировка банок",
+      "count": 83
+    },
+    {
+      "phrase": "маркировка красной икры",
+      "count": 75
+    },
+    {
+      "phrase": "икра лососевая маркировка",
+      "count": 61
+    },
+    {
+      "phrase": "обязательная маркировка икры",
+      "count": 51
+    },
+    {
+      "phrase": "маркировка осетровой икры",
+      "count": 31
+    },
+    {
+      "phrase": "маркировка икры осетровых и лососевых",
+      "count": 25
+    },
+    {
+      "phrase": "маркировка икры осетровых и лососевых рыб",
+      "count": 21
+    },
+    {
+      "phrase": "продажа икры без маркировки",
+      "count": 16
+    },
+    {
+      "phrase": "постановление маркировка икры",
+      "count": 12
+    },
+    {
+      "phrase": "имитированная икра подлежит маркировке",
+      "count": 11
+    },
+    {
+      "phrase": "правила маркировки икры",
+      "count": 8
+    },
+    {
+      "phrase": "какая маркировка честного знака у красной икры",
+      "count": 6
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "seed": "налоги для такси",
+  "slug": "налоги-для-такси",
+  "category": "audience",
+  "cluster": "uslugi",
+  "fetchedAt": "2026-10-12T11:30:12.429Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 20,
+  "phrases": [
+    {
+      "phrase": "налог для такси",
+      "count": 571
+    },
+    {
+      "phrase": "налог для такси ип",
+      "count": 218
+    },
+    {
+      "phrase": "налог для самозанятых такси",
+      "count": 123
+    },
+    {
+      "phrase": "самозанятый налог для такси",
+      "count": 123
+    },
+    {
+      "phrase": "налог для водителей такси",
+      "count": 76
+    },
+    {
+      "phrase": "сколько налог ип для такси",
+      "count": 72
+    },
+    {
+      "phrase": "ип для такси какие налоги",
+      "count": 68
+    },
+    {
+      "phrase": "ип для такси сколько платить налоги",
+      "count": 64
+    },
+    {
+      "phrase": "налоги для ип яндекс такси",
+      "count": 45
+    },
+    {
+      "phrase": "мой налог для яндекс такси",
+      "count": 39
+    },
+    {
+      "phrase": "такси для налога на прибыль",
+      "count": 35
+    },
+    {
+      "phrase": "ип для яндекс такси какой налог",
+      "count": 25
+    },
+    {
+      "phrase": "приложение мой налог для такси",
+      "count": 23
+    },
+    {
+      "phrase": "налог для самозанятых яндекс такси",
+      "count": 22
+    },
+    {
+      "phrase": "налоги ип для работы в такси",
+      "count": 14
+    },
+    {
+      "phrase": "единый налог для такси",
+      "count": 8
+    },
+    {
+      "phrase": "открыть самозанятость для такси через мой налог",
+      "count": 7
+    },
+    {
+      "phrase": "единый налог для такси беларусь",
+      "count": 3
+    },
+    {
+      "phrase": "налог для ип такси беларусь",
+      "count": 1
+    },
+    {
+      "phrase": "единый налог для ип такси",
+      "count": 1
+    }
+  ]
+}
