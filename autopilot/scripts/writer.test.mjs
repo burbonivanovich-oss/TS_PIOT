@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { validateDelivery, writerPrompt, codexDelivery, claudeDelivery, CLAUDE_WRITER_TOOLS, DELIVERY_SCHEMA, validateWriterChanges, writerFailureCode } from './writer.mjs';
+import { validateDelivery, writerPrompt, codexDelivery, claudeDelivery, sessionDelivery, modelDelivery, CLAUDE_WRITER_TOOLS, DELIVERY_SCHEMA, validateWriterChanges, writerFailureCode } from './writer.mjs';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, chmodSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
@@ -129,4 +129,19 @@ test('missing Claude executable is infrastructure failure, never delivery', asyn
 test('subscription usage limit is a rate limit, not a writer defect', () => {
   assert.equal(writerFailureCode(new Error('You’ve hit your usage limit. Upgrade to Plus to continue using Codex')), 'model_rate_limit');
   assert.equal(writerFailureCode(new Error('Claude CLI: Claude AI usage limit reached')), 'model_rate_limit');
+});
+test('session writer records its own receipt and never returns a JSON protocol', () => {
+  const prompt = writerPrompt({ slug: 'article', kind: 'new' }, before, { resolved: { dataDir: '/data' } }, { session: true });
+  assert.match(prompt, /writing-checkpoint\.mjs record --slug article/);
+  assert.match(prompt, /Не запускай plan, settle, daily/);
+  assert.doesNotMatch(prompt, /Верни JSON|передай законченную попытку/);
+  assert.match(writerPrompt({ slug: 'article', kind: 'new' }, before, { resolved: { dataDir: '/data' } }), /Верни JSON/);
+});
+test('session provider never invents a delivery for an unwritten order', async () => {
+  await assert.rejects(sessionDelivery(), /квитанции текущей попытки нет/);
+  const saved = process.env.AUTOPILOT_MODEL_PROVIDER;
+  try {
+    process.env.AUTOPILOT_MODEL_PROVIDER = 'session'; await assert.rejects(modelDelivery('p', {}), /квитанции/);
+    process.env.AUTOPILOT_MODEL_PROVIDER = 'gpt'; assert.throws(() => modelDelivery('p', {}), /Неизвестный/);
+  } finally { if (saved === undefined) delete process.env.AUTOPILOT_MODEL_PROVIDER; else process.env.AUTOPILOT_MODEL_PROVIDER = saved; }
 });

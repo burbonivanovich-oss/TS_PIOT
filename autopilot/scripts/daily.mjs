@@ -11,6 +11,7 @@ import { acquireLock, releaseLock } from './lib/lock.mjs';
 import { publicationCapacity, publicationFailureStreak } from './lib/release.mjs';
 import { readRun, listRuns } from './lib/run.mjs';
 import { recoverWriting, writeOrders } from './writer.mjs';
+import { writingStatus } from './writing-checkpoint.mjs';
 import { plan, settle } from './pipeline.mjs';
 import { monitorSources } from './source-monitor.mjs';
 import { refreshDuplicateAudit } from './lib/duplicate-audit.mjs';
@@ -33,7 +34,14 @@ export function readPendingOrders(dataDir) {
   return { orders, manifest };
 }
 
-export async function coordinateCycle({ pending, refresh, plan: makePlan, write, settle: accept, deliver }) {
+/** Наряды без квитанции текущей попытки: их пишет внешняя сессия. */
+export function pendingWrites(dataDir, blog) {
+  const at = (file, empty) => readJson(path.join(dataDir, file), empty);
+  return writingStatus({ orders: at('orders.json', { orders: [] }), state: at('autopilot.json', { inFlight: [] }), receipts: at('writing-receipts.json', { items: {} }), blog })
+    .filter(item => item.action === 'write').map(item => item.slug);
+}
+
+export async function coordinateCycle({ pending, refresh, plan: makePlan, write, settle: accept, deliver, hold }) {
   const current = pending();
   if (current && current.manifest.stages.gated && !current.manifest.stages.committed) {
     if (deliver) return { status: 'committed', runId: current.orders.runId, delivery: await deliver(current.orders.runId), modelCalled: false };
@@ -42,6 +50,10 @@ export async function coordinateCycle({ pending, refresh, plan: makePlan, write,
   let orders;
   if (current && !current.manifest.stages.gated) orders = current.orders;
   else { await refresh(); orders = makePlan(); }
+  // Писатель — внешняя сессия: наряды выданы, приёмка ждёт её квитанций.
+  // Без этой остановки отсутствие текста засчиталось бы инфраструктурным сбоем.
+  const waiting = hold ? hold(orders) : [];
+  if (waiting.length) return { status: 'awaiting_writer', runId: orders.runId, writer: waiting, modelCalled: false };
   const writing = orders.orders.length ? await write() : { ok: true, results: [] };
   // Even an infrastructure failure must reach settle for retry accounting;
   // write has already stopped the actor and restored its partial changes.
@@ -50,7 +62,7 @@ export async function coordinateCycle({ pending, refresh, plan: makePlan, write,
   return { status: 'delivery_pending', runId: orders.runId, writing, acceptance };
 }
 
-export async function dailyCycle({ commit = false, push = false, remote = 'origin', targetRef, correctionsOnly = false } = {}) {
+export async function dailyCycle({ commit = false, push = false, remote = 'origin', targetRef, correctionsOnly = false, holdForWriter = false } = {}) {
   if (push && (!commit || !targetRef)) throw new Error('Push требует --commit и явный --target-ref');
   const cfg = loadConfig();
   assertContentRoot(cfg);
@@ -99,6 +111,7 @@ export async function dailyCycle({ commit = false, push = false, remote = 'origi
       write: () => writeOrders(),
       settle,
       deliver: commit ? deliver : undefined,
+      hold: holdForWriter ? () => pendingWrites(cfg.resolved.dataDir, cfg.resolved.blog) : undefined,
     });
     if (result.status === 'committed' && cfg.throughput.monthlyRewriteTarget !== undefined) {
       const bound = publicationCapacity({ config: cfg, publishLog: readJson(path.join(cfg.resolved.dataDir, 'publish-log.json'), { days: {} }) });
@@ -117,6 +130,6 @@ if (isMain(import.meta.url)) {
       if (check.error || check.status !== 0) throw new Error('Preflight/тесты не пройдены; цикл не запускается');
     }
     const args = parseArgs(process.argv.slice(2));
-    console.log(JSON.stringify(await dailyCycle({ commit: args.commit !== undefined, push: args.push !== undefined, remote: args.remote || 'origin', targetRef: args['target-ref'], correctionsOnly: args['corrections-only'] !== undefined }), null, 2));
+    console.log(JSON.stringify(await dailyCycle({ commit: args.commit !== undefined, push: args.push !== undefined, remote: args.remote || 'origin', targetRef: args['target-ref'], correctionsOnly: args['corrections-only'] !== undefined, holdForWriter: args['hold-for-writer'] !== undefined }), null, 2));
   } catch (error) { console.error(error.message); process.exitCode = 1; }
 }

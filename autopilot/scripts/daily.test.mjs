@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { coordinateCycle, readPendingOrders } from './daily.mjs';
+import { coordinateCycle, readPendingOrders, pendingWrites } from './daily.mjs';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -76,4 +76,27 @@ test('real owner reads gated manifest and leaves article untouched without model
     assert.equal(result.status, 'delivery_pending'); assert.equal(result.runId, run.runId); assert.equal(result.modelCalled, false);
     assert.equal(readFileSync(article, 'utf8'), 'original bytes');
   } finally { rmSync(root, { recursive: true, force: true }); }
+});
+test('external writer: plan is issued, then cycle waits without write or settle accounting', async () => {
+  const f = fixture(null);
+  const r = await coordinateCycle({ ...f.operations, hold: () => ['article'] });
+  assert.equal(r.status, 'awaiting_writer'); assert.deepEqual(r.writer, ['article']); assert.equal(r.runId, 'new'); assert.equal(r.modelCalled, false);
+  assert.deepEqual(f.calls, ['refresh', 'plan']);
+});
+test('external writer: delivered receipts let the same cycle accept and commit', async () => {
+  const f = fixture({ orders: { runId: 'open', orders: [{ slug: 'article' }] }, manifest: { stages: { planned: true } } });
+  f.operations.deliver = async () => { f.calls.push('commit'); return { commit: 'x' }; };
+  const r = await coordinateCycle({ ...f.operations, hold: () => [] });
+  assert.equal(r.status, 'committed'); assert.deepEqual(f.calls, ['write', 'settle', 'commit']);
+});
+test('pending writes are orders without a receipt of the current attempt', () => {
+  const dir = mkdtempSync(path.join(tmpdir(), 'daily-pending-'));
+  try {
+    const blog = path.join(dir, 'blog'); mkdirSync(blog);
+    const put = (file, data) => writeFileSync(path.join(dir, file), JSON.stringify(data));
+    put('orders.json', { runId: 'r', orders: [{ slug: 'a', kind: 'new' }] });
+    put('autopilot.json', { inFlight: [{ slug: 'a', kind: 'new', claimedAt: 't', failures: 0, infraFailures: 0 }] });
+    put('writing-receipts.json', { items: {} });
+    assert.deepEqual(pendingWrites(dir, blog), ['a']);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
 });
