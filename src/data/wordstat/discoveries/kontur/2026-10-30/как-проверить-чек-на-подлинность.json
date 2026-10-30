@@ -1,0 +1,63 @@
+{
+  "seed": "как проверить чек на подлинность",
+  "slug": "как-проверить-чек-на-подлинность",
+  "category": "intent",
+  "cluster": "kkt",
+  "fetchedAt": "2026-10-30T17:59:45.886Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 10,
+  "phrases": [
+    {
+      "phrase": "как проверить чек на подлинность",
+      "count": 935
+    },
+    {
+      "phrase": "как проверить кассовый чек на подлинность",
+      "count": 105
+    },
+    {
+      "phrase": "как проверить чек на подлинность онлайн",
+      "count": 89
+    },
+    {
+      "phrase": "как проверить чек от самозанятого на подлинность",
+      "count": 43
+    },
+    {
+      "phrase": "как проверить чек сбербанка онлайн на подлинность",
+      "count": 26
+    },
+    {
+      "phrase": "как проверить подлинность чека на сайте фнс",
+      "count": 19
+    },
+    {
+      "phrase": "как можно проверить чек на подлинность",
+      "count": 16
+    },
+    {
+      "phrase": "как проверить чек о переводе на подлинность",
+      "count": 15
+    },
+    {
+      "phrase": "как проверить электронный чек на подлинность",
+      "count": 12
+    },
+    {
+      "phrase": "как проверить товарный чек на подлинность",
+      "count": 9
+    }
+  ]
+}
