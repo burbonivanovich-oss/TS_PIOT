@@ -11,6 +11,11 @@ on:
         description: '1 = только план, 0 = создать недостающие цели'
         required: false
         default: '1'
+  # Временно (02.11.2026): запись при отправке этой ветки — без входа в GitHub в браузере.
+  # Только эта ветка; ручной запуск по-прежнему по умолчанию строит план без записи.
+  push:
+    branches: [claude/vakandia-goals-1102]
+    paths: [scripts/metrika/vakandia/goals.json, .github/workflows/vakandia-metrika-goals.yml]
 
 permissions:
   contents: read
@@ -26,5 +31,5 @@ jobs:
       - name: Sync Vakandia goals
         env:
           METRIKA_OAUTH_TOKEN: ${{ secrets.METRIKA_OAUTH_TOKEN }}
-          DRY_RUN: ${{ inputs.dry_run }}
+          DRY_RUN: ${{ github.event_name == 'push' && '0' || inputs.dry_run }}
         run: node scripts/metrika/vakandia/sync-goals.mjs
