@@ -158,6 +158,11 @@
       "type": "action"
     },
     {
+      "id": "company_suggested",
+      "name": "Вклад: предложена компания",
+      "type": "action"
+    },
+    {
       "id": "resume_review_requested",
       "name": "Нейросеть: разбор резюме",
       "type": "action"
@@ -170,6 +175,21 @@
     {
       "id": "mock_interview_answered",
       "name": "Нейросеть: ответ на пробном собеседовании",
+      "type": "action"
+    },
+    {
+      "id": "ai_original_opened",
+      "name": "ИИ: открыт исходный текст вакансии",
+      "type": "action"
+    },
+    {
+      "id": "apply_pack_click",
+      "name": "ИИ: нажата подготовка к отклику",
+      "type": "action"
+    },
+    {
+      "id": "apply_pack_want",
+      "name": "ИИ: хочу подготовку к отклику",
       "type": "action"
     },
     {
@@ -215,6 +235,16 @@
     {
       "id": "telegram_channel_click",
       "name": "Контент: переход в Telegram-канал",
+      "type": "action"
+    },
+    {
+      "id": "founder_chat_click",
+      "name": "Контент: переход в чат с основателем",
+      "type": "action"
+    },
+    {
+      "id": "ask_ai_click",
+      "name": "Контент: «Спросите нейросеть» в подвале",
       "type": "action"
     },
     {
@@ -270,6 +300,91 @@
     {
       "id": "boost_started",
       "name": "Оплата: закрепление вакансии",
+      "type": "action"
+    },
+    {
+      "id": "onboarding_started",
+      "name": "Опрос: начат",
+      "type": "action"
+    },
+    {
+      "id": "onboarding_saved",
+      "name": "Опрос: сохранён",
+      "type": "action"
+    },
+    {
+      "id": "onboarding_skipped",
+      "name": "Опрос: пропущен",
+      "type": "action"
+    },
+    {
+      "id": "onboarding_resume_skipped",
+      "name": "Онбординг: шаг резюме пропущен",
+      "type": "action"
+    },
+    {
+      "id": "onboarding_matches_shown",
+      "name": "Онбординг: показаны подходящие вакансии",
+      "type": "action"
+    },
+    {
+      "id": "match_teaser_checked",
+      "name": "Тизер совпадения: отмечен навык",
+      "type": "action"
+    },
+    {
+      "id": "match_teaser_saved",
+      "name": "Тизер совпадения: отмеченное сохранено",
+      "type": "action"
+    },
+    {
+      "id": "hint_shown",
+      "name": "Подсказка: показана",
+      "type": "action"
+    },
+    {
+      "id": "hint_dismissed",
+      "name": "Подсказка: закрыта",
+      "type": "action"
+    },
+    {
+      "id": "exit_offer_shown",
+      "name": "Уход на сайт: предложено отслеживать отклик",
+      "type": "action"
+    },
+    {
+      "id": "exit_track_added",
+      "name": "Уход на сайт: отклик добавлен в трекер",
+      "type": "action"
+    },
+    {
+      "id": "cabinet_view",
+      "name": "Кабинет: открыт",
+      "type": "action"
+    },
+    {
+      "id": "cabinet_return",
+      "name": "Кабинет: возврат в другой день",
+      "type": "action"
+    },
+    {
+      "id": "resume_pasted",
+      "name": "Резюме: разобран вставленный текст",
+      "type": "action"
+    },
+    {
+      "id": "resume_wizard_opened",
+      "name": "Резюме: открыт мастер «Написать по шагам»",
+      "type": "action"
+    },
+    {
+      "id": "resume_voice_opened",
+      "name": "Резюме: открыт мастер «Надиктовать по шагам»",
+      "type": "action"
+    },
+    {
+      "id": "resume_dictated",
+      "name": "Мастер резюме: надиктован текст",
       "type": "action"
     }
   ]
