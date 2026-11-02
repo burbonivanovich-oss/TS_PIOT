@@ -386,6 +386,36 @@
       "id": "resume_dictated",
       "name": "Мастер резюме: надиктован текст",
       "type": "action"
+    },
+    {
+      "id": "blog_signs_checked",
+      "name": "Блог: отмечен признак в списке",
+      "type": "action"
+    },
+    {
+      "id": "blog_text_copied",
+      "name": "Блог: скопирован готовый текст",
+      "type": "action"
+    },
+    {
+      "id": "blog_helpful_yes",
+      "name": "Блог: статья помогла — да",
+      "type": "action"
+    },
+    {
+      "id": "blog_helpful_no",
+      "name": "Блог: статья помогла — нет",
+      "type": "action"
+    },
+    {
+      "id": "blog_salary_compared",
+      "name": "Блог: сравнил зарплату",
+      "type": "action"
+    },
+    {
+      "id": "blog_selfcheck_done",
+      "name": "Блог: пройдена самопроверка",
+      "type": "action"
     }
   ]
 }
