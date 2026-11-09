@@ -1,6 +1,6 @@
 # Demand watch — спрос по кластерам (Wordstat)
 
-Сгенерирован 2026-11-02 скриптом `scripts/wordstat/demand-watch.mjs` по `keys.json` (lastFullUpdate: 2026-11-02).
+Сгенерирован 2026-11-09 скриптом `scripts/wordstat/demand-watch.mjs` по `keys.json` (lastFullUpdate: 2026-11-09).
 Кластеров: 9. Итого сигналов: 📈 12 · 🔁 0 · 🆕 34 · 📉 1.
 Интерпретирует и предлагает правки скилл `/demand-watch`.
 
