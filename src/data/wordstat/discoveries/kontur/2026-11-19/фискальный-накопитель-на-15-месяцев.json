@@ -1,0 +1,63 @@
+{
+  "seed": "фискальный накопитель на 15 месяцев",
+  "slug": "фискальный-накопитель-на-15-месяцев",
+  "category": "entity",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-11-19T20:31:58.036Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 10,
+  "phrases": [
+    {
+      "phrase": "фискальный накопитель на 15 месяцев",
+      "count": 1299
+    },
+    {
+      "phrase": "купить фискальный накопитель на 15 месяцев",
+      "count": 371
+    },
+    {
+      "phrase": "фискальный накопитель 1.2 на 15 месяцев",
+      "count": 153
+    },
+    {
+      "phrase": "сколько стоит фискальный накопитель на 15 месяцев",
+      "count": 135
+    },
+    {
+      "phrase": "фискальный накопитель на 15 месяцев цена",
+      "count": 132
+    },
+    {
+      "phrase": "накопитель фискальный фн 1.2 на 15 месяцев",
+      "count": 119
+    },
+    {
+      "phrase": "стоимость фискального накопителя на 15 месяцев",
+      "count": 58
+    },
+    {
+      "phrase": "купить фискальный накопитель на 15 месяцев эвотор",
+      "count": 14
+    },
+    {
+      "phrase": "фискальный накопитель на 15 месяцев цена эвотор",
+      "count": 12
+    },
+    {
+      "phrase": "купить фискальный накопитель на 15 месяцев дешево",
+      "count": 11
+    }
+  ]
+}

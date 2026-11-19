@@ -1,0 +1,47 @@
+{
+  "seed": "договор с ОФД",
+  "slug": "договор-с-офд",
+  "category": "intent",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-11-19T20:32:07.212Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 6,
+  "phrases": [
+    {
+      "phrase": "договор с офд",
+      "count": 523
+    },
+    {
+      "phrase": "договор с оператором фискальных данных офд",
+      "count": 56
+    },
+    {
+      "phrase": "как заключить договор с офд",
+      "count": 52
+    },
+    {
+      "phrase": "как заключить договор с офд самостоятельно",
+      "count": 24
+    },
+    {
+      "phrase": "как расторгнуть договор с офд",
+      "count": 20
+    },
+    {
+      "phrase": "сколько стоит договор с офд",
+      "count": 12
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "seed": "маркировка бакалеи",
+  "slug": "маркировка-бакалеи",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-11-19T20:32:23.519Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 10,
+  "phrases": [
+    {
+      "phrase": "бакалея маркировка",
+      "count": 920
+    },
+    {
+      "phrase": "бакалея маркировка честный знак",
+      "count": 175
+    },
+    {
+      "phrase": "бакалея сроки маркировки",
+      "count": 128
+    },
+    {
+      "phrase": "обязательная маркировка бакалеи",
+      "count": 57
+    },
+    {
+      "phrase": "этапы маркировки бакалеи",
+      "count": 38
+    },
+    {
+      "phrase": "маркировка бакалея что входит",
+      "count": 30
+    },
+    {
+      "phrase": "бакалея будет ли маркировка остатков",
+      "count": 25
+    },
+    {
+      "phrase": "маркировка бакалеи с 1 сентября",
+      "count": 24
+    },
+    {
+      "phrase": "маркировка бакалеи честный знак сроки",
+      "count": 18
+    },
+    {
+      "phrase": "эвотор маркировка бакалея",
+      "count": 11
+    }
+  ]
+}

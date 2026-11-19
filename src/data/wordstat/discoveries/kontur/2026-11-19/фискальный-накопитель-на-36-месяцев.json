@@ -1,0 +1,63 @@
+{
+  "seed": "фискальный накопитель на 36 месяцев",
+  "slug": "фискальный-накопитель-на-36-месяцев",
+  "category": "entity",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-11-19T20:31:58.504Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 10,
+  "phrases": [
+    {
+      "phrase": "фискальный накопитель на 36 месяцев",
+      "count": 1279
+    },
+    {
+      "phrase": "купить фискальный накопитель на 36 месяцев",
+      "count": 540
+    },
+    {
+      "phrase": "фискальный накопитель 1.2 на 36 месяцев",
+      "count": 121
+    },
+    {
+      "phrase": "сколько стоит фискальный накопитель на 36 месяцев",
+      "count": 105
+    },
+    {
+      "phrase": "стоимость фискального накопителя на 36 месяцев",
+      "count": 103
+    },
+    {
+      "phrase": "фискальный накопитель фн 1.2 на 36 месяцев",
+      "count": 85
+    },
+    {
+      "phrase": "фискальный накопитель на 36 месяцев цена",
+      "count": 83
+    },
+    {
+      "phrase": "фискальный накопитель 1.2 на 36 месяцев купить",
+      "count": 41
+    },
+    {
+      "phrase": "фискальный накопитель на 36 месяцев купить спб",
+      "count": 33
+    },
+    {
+      "phrase": "фискальный накопитель на 36 месяцев купить екатеринбург",
+      "count": 22
+    }
+  ]
+}
