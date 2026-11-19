@@ -1,0 +1,71 @@
+{
+  "seed": "инвентаризация в Меркурии",
+  "slug": "инвентаризация-в-меркурии",
+  "category": "intent",
+  "cluster": "merkuriy",
+  "fetchedAt": "2026-11-19T21:40:53.895Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 12,
+  "phrases": [
+    {
+      "phrase": "инвентаризация в меркурии",
+      "count": 630
+    },
+    {
+      "phrase": "как сделать инвентаризацию в меркурии",
+      "count": 70
+    },
+    {
+      "phrase": "как провести инвентаризацию в меркурии",
+      "count": 61
+    },
+    {
+      "phrase": "инвентаризация в меркурии пошаговая инструкция",
+      "count": 37
+    },
+    {
+      "phrase": "как отменить инвентаризацию в меркурии",
+      "count": 21
+    },
+    {
+      "phrase": "как сделать инвентаризацию в меркурий хс пошагово",
+      "count": 15
+    },
+    {
+      "phrase": "как провести инвентаризацию в меркурии пошагово",
+      "count": 15
+    },
+    {
+      "phrase": "как провести инвентаризацию в меркурий хс",
+      "count": 11
+    },
+    {
+      "phrase": "инвентаризация в меркурий хс пошаговая инструкция",
+      "count": 10
+    },
+    {
+      "phrase": "инвентаризация в меркурии правила",
+      "count": 9
+    },
+    {
+      "phrase": "как сделать инвентаризацию по меркурий в далионе",
+      "count": 8
+    },
+    {
+      "phrase": "как оформить инвентаризацию в меркурии",
+      "count": 6
+    }
+  ]
+}
