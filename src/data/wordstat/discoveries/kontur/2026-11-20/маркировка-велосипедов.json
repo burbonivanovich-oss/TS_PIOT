@@ -1,0 +1,67 @@
+{
+  "seed": "маркировка велосипедов",
+  "slug": "маркировка-велосипедов",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-11-20T20:11:55.989Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 11,
+  "phrases": [
+    {
+      "phrase": "маркировка велосипедов",
+      "count": 728
+    },
+    {
+      "phrase": "маркировка покрышек велосипеда",
+      "count": 126
+    },
+    {
+      "phrase": "маркировка шин велосипеда",
+      "count": 93
+    },
+    {
+      "phrase": "маркировка камеры велосипеда",
+      "count": 53
+    },
+    {
+      "phrase": "маркировка велосипедов честный знак",
+      "count": 35
+    },
+    {
+      "phrase": "что означает маркировка покрышки велосипеда",
+      "count": 17
+    },
+    {
+      "phrase": "маркировка шин велосипеда и расшифровка",
+      "count": 13
+    },
+    {
+      "phrase": "что должна содержать маркировка велосипедов",
+      "count": 13
+    },
+    {
+      "phrase": "код маркировки для велосипедов",
+      "count": 5
+    },
+    {
+      "phrase": "маркировка покрышек для велосипеда расшифровка",
+      "count": 5
+    },
+    {
+      "phrase": "что означает маркировка на шинах велосипеда",
+      "count": 3
+    }
+  ]
+}

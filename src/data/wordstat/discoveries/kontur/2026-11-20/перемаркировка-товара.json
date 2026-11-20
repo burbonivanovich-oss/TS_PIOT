@@ -1,0 +1,63 @@
+{
+  "seed": "перемаркировка товара",
+  "slug": "перемаркировка-товара",
+  "category": "intent",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-11-20T20:12:05.139Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 10,
+  "phrases": [
+    {
+      "phrase": "перемаркировка товара",
+      "count": 1275
+    },
+    {
+      "phrase": "перемаркировка товара в честном знаке",
+      "count": 456
+    },
+    {
+      "phrase": "перемаркировка товара в честном знаке пошагово",
+      "count": 159
+    },
+    {
+      "phrase": "как сделать перемаркировку товара в честном знаке",
+      "count": 77
+    },
+    {
+      "phrase": "перемаркировка товара в 1с",
+      "count": 43
+    },
+    {
+      "phrase": "перемаркировка товаров легкой промышленности",
+      "count": 20
+    },
+    {
+      "phrase": "перемаркировка товара в 1с ут",
+      "count": 10
+    },
+    {
+      "phrase": "перемаркировка товара в честном знаке инструкция",
+      "count": 9
+    },
+    {
+      "phrase": "что значит перемаркировка товара в честном знаке",
+      "count": 8
+    },
+    {
+      "phrase": "перемаркировка товара в рознице шинный эксперт",
+      "count": 8
+    }
+  ]
+}
