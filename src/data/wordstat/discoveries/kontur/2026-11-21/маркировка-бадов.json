@@ -1,0 +1,75 @@
+{
+  "seed": "маркировка БАДов",
+  "slug": "маркировка-бадов",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-11-21T19:11:56.336Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 13,
+  "phrases": [
+    {
+      "phrase": "маркировка бадов",
+      "count": 1618
+    },
+    {
+      "phrase": "обязательная маркировка бад",
+      "count": 276
+    },
+    {
+      "phrase": "маркировка бадов честный знак",
+      "count": 260
+    },
+    {
+      "phrase": "маркировка бадов в казахстане",
+      "count": 44
+    },
+    {
+      "phrase": "маркировка бад с какого числа обязательная",
+      "count": 29
+    },
+    {
+      "phrase": "бады сроки маркировки",
+      "count": 29
+    },
+    {
+      "phrase": "требования к маркировке бад",
+      "count": 28
+    },
+    {
+      "phrase": "бады подлежат маркировке честный знак",
+      "count": 18
+    },
+    {
+      "phrase": "должна ли быть маркировка на бадах",
+      "count": 14
+    },
+    {
+      "phrase": "продажа бадов без маркировки",
+      "count": 10
+    },
+    {
+      "phrase": "требования к маркировке бад судебная практика",
+      "count": 8
+    },
+    {
+      "phrase": "подлежат ли бады маркировке честный знак",
+      "count": 8
+    },
+    {
+      "phrase": "маркировка бад личный кабинет",
+      "count": 7
+    }
+  ]
+}

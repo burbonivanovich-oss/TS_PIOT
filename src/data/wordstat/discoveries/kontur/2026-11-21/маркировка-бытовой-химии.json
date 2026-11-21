@@ -1,0 +1,83 @@
+{
+  "seed": "маркировка бытовой химии",
+  "slug": "маркировка-бытовой-химии",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-11-21T19:12:08.521Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 15,
+  "phrases": [
+    {
+      "phrase": "маркировка бытовой химии",
+      "count": 1669
+    },
+    {
+      "phrase": "бытовая химия маркировка честный знак",
+      "count": 398
+    },
+    {
+      "phrase": "маркировка бытовой химии сроки",
+      "count": 227
+    },
+    {
+      "phrase": "маркировка косметики и бытовой химии",
+      "count": 220
+    },
+    {
+      "phrase": "обязательная маркировка бытовой химии",
+      "count": 191
+    },
+    {
+      "phrase": "маркировка бытовой химии честный знак сроки",
+      "count": 87
+    },
+    {
+      "phrase": "маркировка остатков бытовой химии",
+      "count": 82
+    },
+    {
+      "phrase": "этапы маркировки бытовой химии",
+      "count": 62
+    },
+    {
+      "phrase": "маркировка бытовой химии 2026",
+      "count": 52
+    },
+    {
+      "phrase": "какая бытовая химия подлежит маркировке",
+      "count": 38
+    },
+    {
+      "phrase": "бытовая химия маркировка чз",
+      "count": 37
+    },
+    {
+      "phrase": "обязательная маркировка косметики и бытовой химии",
+      "count": 37
+    },
+    {
+      "phrase": "сроки маркировки бытовой химии и косметики",
+      "count": 35
+    },
+    {
+      "phrase": "подлежит ли бытовая химия маркировке",
+      "count": 17
+    },
+    {
+      "phrase": "маркировка бытовой химии с 1 июля 2026",
+      "count": 7
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "seed": "сроки маркировки 2026",
+  "slug": "сроки-маркировки-2026",
+  "category": "seasonal",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-11-21T19:12:20.686Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "честный знак сроки маркировки 2026",
+      "count": 143
+    },
+    {
+      "phrase": "маркировка строительных материалов в 2026 сроки",
+      "count": 16
+    },
+    {
+      "phrase": "маркировка радиоэлектронной продукции 2026 сроки",
+      "count": 15
+    },
+    {
+      "phrase": "маркировка остатков легкой промышленности 2026 сроки",
+      "count": 5
+    }
+  ]
+}
