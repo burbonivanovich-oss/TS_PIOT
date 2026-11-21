@@ -1,0 +1,99 @@
+{
+  "seed": "дисплей покупателя",
+  "slug": "дисплей-покупателя",
+  "category": "entity",
+  "cluster": "oborudovanie",
+  "fetchedAt": "2026-11-21T20:10:30.976Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 19,
+  "phrases": [
+    {
+      "phrase": "дисплей покупателя",
+      "count": 1253
+    },
+    {
+      "phrase": "дисплей покупателя атол",
+      "count": 142
+    },
+    {
+      "phrase": "1с дисплей покупателя",
+      "count": 116
+    },
+    {
+      "phrase": "драйвер дисплея покупателя",
+      "count": 68
+    },
+    {
+      "phrase": "дисплей покупателя атол pd 2800",
+      "count": 51
+    },
+    {
+      "phrase": "дисплей покупателя posiflex",
+      "count": 45
+    },
+    {
+      "phrase": "дисплей покупателя poscenter",
+      "count": 39
+    },
+    {
+      "phrase": "дисплей покупателя купить",
+      "count": 39
+    },
+    {
+      "phrase": "часы из дисплея покупателя",
+      "count": 37
+    },
+    {
+      "phrase": "дисплей покупателя атол pd 2800 usb",
+      "count": 23
+    },
+    {
+      "phrase": "дисплей покупателя атол pd 7000",
+      "count": 22
+    },
+    {
+      "phrase": "дисплей покупателя posiflex pd 2800",
+      "count": 19
+    },
+    {
+      "phrase": "дисплей покупателя poscenter pcp220",
+      "count": 18
+    },
+    {
+      "phrase": "дисплей покупателя 1с второй монитор",
+      "count": 13
+    },
+    {
+      "phrase": "дисплей покупателя vfd 2x20 для pos500",
+      "count": 11
+    },
+    {
+      "phrase": "часы из дисплея покупателя vfd v2",
+      "count": 9
+    },
+    {
+      "phrase": "1с рарус дисплей покупателя",
+      "count": 8
+    },
+    {
+      "phrase": "дисплей покупателя атол pd 2800 драйвер",
+      "count": 8
+    },
+    {
+      "phrase": "дисплей покупателя toshiba 00dn901",
+      "count": 5
+    }
+  ]
+}

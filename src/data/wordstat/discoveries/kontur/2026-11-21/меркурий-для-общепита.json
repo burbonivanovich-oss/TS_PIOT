@@ -1,0 +1,51 @@
+{
+  "seed": "Меркурий для общепита",
+  "slug": "меркурий-для-общепита",
+  "category": "audience",
+  "cluster": "merkuriy",
+  "fetchedAt": "2026-11-21T20:10:08.892Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 7,
+  "phrases": [
+    {
+      "phrase": "меркурий для общепита",
+      "count": 342
+    },
+    {
+      "phrase": "меркурий программа для общепита",
+      "count": 85
+    },
+    {
+      "phrase": "меркурий для общепита регистрация",
+      "count": 52
+    },
+    {
+      "phrase": "система меркурий для общепита",
+      "count": 41
+    },
+    {
+      "phrase": "регистрация в меркурий для ип общепит",
+      "count": 31
+    },
+    {
+      "phrase": "как зарегистрироваться в меркурий для ип общепита",
+      "count": 9
+    },
+    {
+      "phrase": "меркурий программа для общепита официальный сайт",
+      "count": 5
+    }
+  ]
+}
