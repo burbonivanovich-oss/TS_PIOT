@@ -1,0 +1,43 @@
+{
+  "seed": "оплата чаевых",
+  "slug": "оплата-чаевых",
+  "category": "audience",
+  "cluster": "ekvairing",
+  "fetchedAt": "2026-11-22T20:24:49.171Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 5,
+  "phrases": [
+    {
+      "phrase": "оплата чаевых по qr коду",
+      "count": 22
+    },
+    {
+      "phrase": "как оставить чаевые если оплата картой",
+      "count": 12
+    },
+    {
+      "phrase": "как отключить оплату чаевых на озоне",
+      "count": 6
+    },
+    {
+      "phrase": "как отменить оплату чаевых на озон",
+      "count": 4
+    },
+    {
+      "phrase": "как убрать оплату чаевых в озоне",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "seed": "Штрих-М касса",
+  "slug": "штрих-м-касса",
+  "category": "system",
+  "cluster": "kkt",
+  "fetchedAt": "2026-11-22T20:25:29.460Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 25,
+  "phrases": [
+    {
+      "phrase": "касса штрих м",
+      "count": 2153
+    },
+    {
+      "phrase": "драйвер кассы штрих м",
+      "count": 107
+    },
+    {
+      "phrase": "онлайн касса штрих м",
+      "count": 99
+    },
+    {
+      "phrase": "касса штрих м 01ф",
+      "count": 75
+    },
+    {
+      "phrase": "штрих м как подключить кассу",
+      "count": 66
+    },
+    {
+      "phrase": "касса штрих м купить",
+      "count": 53
+    },
+    {
+      "phrase": "производитель кассы штрих м",
+      "count": 29
+    },
+    {
+      "phrase": "штрих м касса инструкция",
+      "count": 20
+    },
+    {
+      "phrase": "как сделать возврат на кассе штрих м",
+      "count": 18
+    },
+    {
+      "phrase": "касса штрих м как сделать возврат чека",
+      "count": 16
+    },
+    {
+      "phrase": "регистрация кассы штрих м",
+      "count": 15
+    },
+    {
+      "phrase": "как подключить кассу штрих м к компьютеру",
+      "count": 15
+    },
+    {
+      "phrase": "касса штрих м ошибка е 247",
+      "count": 11
+    },
+    {
+      "phrase": "пищит касса штрих м",
+      "count": 10
+    },
+    {
+      "phrase": "е 244 ошибка кассы штрих м",
+      "count": 9
+    },
+    {
+      "phrase": "драйвер кассы атол штрих м",
+      "count": 9
+    },
+    {
+      "phrase": "касса штрих м 01ф купить",
+      "count": 8
+    },
+    {
+      "phrase": "как вставить ленту в кассу штрих м",
+      "count": 8
+    },
+    {
+      "phrase": "касса штрих м ошибка 103",
+      "count": 8
+    },
+    {
+      "phrase": "облачная касса штрих м",
+      "count": 8
+    },
+    {
+      "phrase": "ошибка е153 на кассе штрих м",
+      "count": 7
+    },
+    {
+      "phrase": "кассы штрих м официальный сайт",
+      "count": 6
+    },
+    {
+      "phrase": "подключение кассы штрих м к 1с",
+      "count": 6
+    },
+    {
+      "phrase": "касса штрих м замена батарейки",
+      "count": 5
+    },
+    {
+      "phrase": "ошибка е247 на кассе штрих м",
+      "count": 5
+    }
+  ]
+}

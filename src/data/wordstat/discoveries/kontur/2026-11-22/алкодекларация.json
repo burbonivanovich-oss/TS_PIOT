@@ -1,0 +1,91 @@
+{
+  "seed": "алкодекларация",
+  "slug": "алкодекларация",
+  "category": "entity",
+  "cluster": "egais",
+  "fetchedAt": "2026-11-22T20:24:33.435Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 17,
+  "phrases": [
+    {
+      "phrase": "алкодекларация",
+      "count": 904
+    },
+    {
+      "phrase": "алкодекларация контур",
+      "count": 179
+    },
+    {
+      "phrase": "алкодекларация в 2026 году",
+      "count": 80
+    },
+    {
+      "phrase": "алкодекларация контур вход в личный кабинет",
+      "count": 49
+    },
+    {
+      "phrase": "сдача алкодекларации",
+      "count": 45
+    },
+    {
+      "phrase": "егаис алкодекларация",
+      "count": 43
+    },
+    {
+      "phrase": "алкодекларация контур вход в систему",
+      "count": 38
+    },
+    {
+      "phrase": "алкодекларация для общепита",
+      "count": 33
+    },
+    {
+      "phrase": "алкодекларация программа",
+      "count": 22
+    },
+    {
+      "phrase": "алкодекларация скачать",
+      "count": 21
+    },
+    {
+      "phrase": "алкодекларация в 2026 году для общепита",
+      "count": 20
+    },
+    {
+      "phrase": "алкодекларация подать инструкция",
+      "count": 15
+    },
+    {
+      "phrase": "программный модуль егаис алкодекларация",
+      "count": 11
+    },
+    {
+      "phrase": "как отправить алкодекларацию",
+      "count": 11
+    },
+    {
+      "phrase": "отмена алкодекларации 2026",
+      "count": 9
+    },
+    {
+      "phrase": "алкодекларация сроки сдачи 2026",
+      "count": 6
+    },
+    {
+      "phrase": "контур маркет алкодекларация вход в систему",
+      "count": 6
+    }
+  ]
+}
