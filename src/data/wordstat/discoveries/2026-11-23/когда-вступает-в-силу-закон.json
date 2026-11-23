@@ -1,0 +1,67 @@
+{
+  "seed": "когда вступает в силу закон",
+  "slug": "когда-вступает-в-силу-закон",
+  "category": "intent",
+  "cluster": "zakonodatelstvo",
+  "fetchedAt": "2026-11-23T13:54:43.458Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 11,
+  "phrases": [
+    {
+      "phrase": "когда закон вступает в силу",
+      "count": 4969
+    },
+    {
+      "phrase": "когда вступают в силу федеральные законы",
+      "count": 1228
+    },
+    {
+      "phrase": "когда новый закон вступает в силу",
+      "count": 401
+    },
+    {
+      "phrase": "когда закон вступает в силу в рф",
+      "count": 204
+    },
+    {
+      "phrase": "когда закон вступает в законную силу",
+      "count": 158
+    },
+    {
+      "phrase": "закон о полиции когда вступил в силу",
+      "count": 44
+    },
+    {
+      "phrase": "когда уголовный закон вступает в силу",
+      "count": 37
+    },
+    {
+      "phrase": "когда вступил в силу закон о дропперах",
+      "count": 13
+    },
+    {
+      "phrase": "когда вступает в силу закон о криптовалюте",
+      "count": 12
+    },
+    {
+      "phrase": "когда вступит в силу закон о электровелосипедах",
+      "count": 11
+    },
+    {
+      "phrase": "когда вступил в закону силу по алиментов",
+      "count": 8
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "seed": "налоговый календарь 2026",
+  "slug": "налоговый-календарь-2026",
+  "category": "intent",
+  "cluster": "nalogi",
+  "fetchedAt": "2026-11-23T13:54:42.449Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 16,
+  "phrases": [
+    {
+      "phrase": "налоговый календарь 2026",
+      "count": 930
+    },
+    {
+      "phrase": "налоговый календарь на 2026 год",
+      "count": 155
+    },
+    {
+      "phrase": "налоговый календарь бухгалтера 2026",
+      "count": 105
+    },
+    {
+      "phrase": "налоговый календарь ип усн 2026",
+      "count": 103
+    },
+    {
+      "phrase": "налоговый календарь на октябрь 2026",
+      "count": 57
+    },
+    {
+      "phrase": "календарь налоговой отчетности на 2026",
+      "count": 46
+    },
+    {
+      "phrase": "налоговый календарь на 2026 год таблица",
+      "count": 45
+    },
+    {
+      "phrase": "налоговый календарь 2026 для ип",
+      "count": 44
+    },
+    {
+      "phrase": "налоговый календарь на ноябрь 2026",
+      "count": 39
+    },
+    {
+      "phrase": "календарь сдачи налоговой отчетности в 2026 году",
+      "count": 39
+    },
+    {
+      "phrase": "календарь налоговых платежей 2026",
+      "count": 35
+    },
+    {
+      "phrase": "налоговый календарь 2026 для ооо",
+      "count": 33
+    },
+    {
+      "phrase": "календарь налоговой отчетности на 2026 год",
+      "count": 27
+    },
+    {
+      "phrase": "налоговый календарь сентябрь 2026",
+      "count": 8
+    },
+    {
+      "phrase": "налоговый календарь 2026 рб",
+      "count": 1
+    },
+    {
+      "phrase": "налоговый календарь 2026 в казахстане",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "seed": "ОФД Я",
+  "slug": "офд-я",
+  "category": "system",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-11-23T13:55:16.375Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 28,
+  "phrases": [
+    {
+      "phrase": "офд я",
+      "count": 5356
+    },
+    {
+      "phrase": "офд я личный",
+      "count": 1586
+    },
+    {
+      "phrase": "офд я личный кабинет",
+      "count": 1571
+    },
+    {
+      "phrase": "офд я вход в личный кабинет",
+      "count": 674
+    },
+    {
+      "phrase": "я платформа офд",
+      "count": 182
+    },
+    {
+      "phrase": "лк офд я",
+      "count": 90
+    },
+    {
+      "phrase": "офд я ярус",
+      "count": 76
+    },
+    {
+      "phrase": "офд я личный кабинет вход по логину",
+      "count": 63
+    },
+    {
+      "phrase": "офд я не работает",
+      "count": 61
+    },
+    {
+      "phrase": "офд я отзывы",
+      "count": 49
+    },
+    {
+      "phrase": "ооо ярус офд я",
+      "count": 47
+    },
+    {
+      "phrase": "офд я настройки",
+      "count": 46
+    },
+    {
+      "phrase": "офд я ofd ya ru",
+      "count": 42
+    },
+    {
+      "phrase": "офд я личный кабинет клиента",
+      "count": 41
+    },
+    {
+      "phrase": "офд я ярус личный кабинет",
+      "count": 40
+    },
+    {
+      "phrase": "как узнать какой у меня офд",
+      "count": 34
+    },
+    {
+      "phrase": "офд я личный кабинет войти",
+      "count": 31
+    },
+    {
+      "phrase": "офд я платформа личный кабинет",
+      "count": 30
+    },
+    {
+      "phrase": "офд я ру",
+      "count": 29
+    },
+    {
+      "phrase": "офд я рус",
+      "count": 28
+    },
+    {
+      "phrase": "офд я проверить чек",
+      "count": 25
+    },
+    {
+      "phrase": "офд я что это пришло сообщение",
+      "count": 24
+    },
+    {
+      "phrase": "проверка чека офд я",
+      "count": 13
+    },
+    {
+      "phrase": "офд я техподдержка телефон",
+      "count": 9
+    },
+    {
+      "phrase": "как узнать какой у меня оператор офд",
+      "count": 9
+    },
+    {
+      "phrase": "офд я горячая линия",
+      "count": 8
+    },
+    {
+      "phrase": "офд я настройки ккт",
+      "count": 6
+    },
+    {
+      "phrase": "как скачать отчет офд я",
+      "count": 6
+    }
+  ]
+}

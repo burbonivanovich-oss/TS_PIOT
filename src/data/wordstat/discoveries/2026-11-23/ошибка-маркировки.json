@@ -1,0 +1,79 @@
+{
+  "seed": "ошибка маркировки",
+  "slug": "ошибка-маркировки",
+  "category": "problem",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-11-23T13:55:03.400Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 14,
+  "phrases": [
+    {
+      "phrase": "ошибка маркировки",
+      "count": 6686
+    },
+    {
+      "phrase": "ошибка проверки маркировки",
+      "count": 1110
+    },
+    {
+      "phrase": "ошибка проверки кода маркировки",
+      "count": 856
+    },
+    {
+      "phrase": "есть коды маркировки с ошибками",
+      "count": 189
+    },
+    {
+      "phrase": "коды маркировки проверены с ошибками",
+      "count": 78
+    },
+    {
+      "phrase": "ошибка отсутствует полный код маркировки",
+      "count": 57
+    },
+    {
+      "phrase": "есть коды маркировки с ошибками 1",
+      "count": 27
+    },
+    {
+      "phrase": "ошибка 409 некорректный код маркировки атол",
+      "count": 15
+    },
+    {
+      "phrase": "ошибка проверки маркировки ккт не подключена",
+      "count": 15
+    },
+    {
+      "phrase": "коды маркировки проверены с ошибками в эдо",
+      "count": 14
+    },
+    {
+      "phrase": "ошибка 10061 маркировка",
+      "count": 11
+    },
+    {
+      "phrase": "код ошибки 146 код маркировки",
+      "count": 10
+    },
+    {
+      "phrase": "коды маркировки с ошибками владелец не определен",
+      "count": 8
+    },
+    {
+      "phrase": "ошибка обмена с фнс статус доверенности маркировки",
+      "count": 5
+    }
+  ]
+}

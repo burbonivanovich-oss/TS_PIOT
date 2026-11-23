@@ -1,0 +1,55 @@
+{
+  "seed": "штраф за отсутствие ЭТрН",
+  "slug": "штраф-за-отсутствие-этрн",
+  "category": "problem",
+  "cluster": "logistika",
+  "fetchedAt": "2026-11-23T13:55:36.970Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 8,
+  "phrases": [
+    {
+      "phrase": "штраф за отсутствие этрн",
+      "count": 485
+    },
+    {
+      "phrase": "штрафы за отсутствие этрн с 1 сентября",
+      "count": 114
+    },
+    {
+      "phrase": "штрафы за отсутствие этрн 2026",
+      "count": 109
+    },
+    {
+      "phrase": "штраф за отсутствие этрн с 01.09 2026",
+      "count": 71
+    },
+    {
+      "phrase": "какой штраф за отсутствие этрн",
+      "count": 50
+    },
+    {
+      "phrase": "будут ли штрафы за отсутствие этрн",
+      "count": 23
+    },
+    {
+      "phrase": "штраф грузоотправителю за отсутствие этрн",
+      "count": 7
+    },
+    {
+      "phrase": "штраф от налоговой за отсутствие этрн",
+      "count": 5
+    }
+  ]
+}

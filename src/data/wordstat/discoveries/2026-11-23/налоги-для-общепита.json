@@ -1,0 +1,35 @@
+{
+  "seed": "налоги для общепита",
+  "slug": "налоги-для-общепита",
+  "category": "audience",
+  "cluster": "horeca",
+  "fetchedAt": "2026-11-23T13:54:57.883Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 3,
+  "phrases": [
+    {
+      "phrase": "налоги для общепита в 2027",
+      "count": 50
+    },
+    {
+      "phrase": "налоги для общепита в 2026",
+      "count": 28
+    },
+    {
+      "phrase": "налоги для общепита в 2026 году",
+      "count": 15
+    }
+  ]
+}
