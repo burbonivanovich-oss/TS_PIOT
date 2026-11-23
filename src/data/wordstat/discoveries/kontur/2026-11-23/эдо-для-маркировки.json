@@ -1,0 +1,71 @@
+{
+  "seed": "ЭДО для маркировки",
+  "slug": "эдо-для-маркировки",
+  "category": "entity",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-11-23T23:51:29.236Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 12,
+  "phrases": [
+    {
+      "phrase": "эдо для маркировки",
+      "count": 1229
+    },
+    {
+      "phrase": "эдо для маркировки товаров",
+      "count": 758
+    },
+    {
+      "phrase": "услуги эдо для маркировки товаров",
+      "count": 239
+    },
+    {
+      "phrase": "подключить эдо для маркировки товаров",
+      "count": 184
+    },
+    {
+      "phrase": "эдо для маркировки честный знак",
+      "count": 108
+    },
+    {
+      "phrase": "система эдо для маркировки товаров",
+      "count": 84
+    },
+    {
+      "phrase": "услуги по настройке эдо для маркировки товаров",
+      "count": 66
+    },
+    {
+      "phrase": "эдо для работы с маркировкой",
+      "count": 60
+    },
+    {
+      "phrase": "купить эдо для маркировки товаров",
+      "count": 29
+    },
+    {
+      "phrase": "сервис эдо для маркировки товаров",
+      "count": 18
+    },
+    {
+      "phrase": "подключение к эдо для маркировки товаров",
+      "count": 12
+    },
+    {
+      "phrase": "купить систему эдо для маркировки товаров",
+      "count": 8
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "seed": "сменить ОФД",
+  "slug": "сменить-офд",
+  "category": "intent",
+  "cluster": "ofd-fn",
+  "fetchedAt": "2026-11-23T23:50:59.778Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 5,
+  "phrases": [
+    {
+      "phrase": "сменить офд",
+      "count": 237
+    },
+    {
+      "phrase": "как сменить оператора офд",
+      "count": 23
+    },
+    {
+      "phrase": "как сменить офд на эвотор",
+      "count": 12
+    },
+    {
+      "phrase": "как сменить офд без замены фн",
+      "count": 8
+    },
+    {
+      "phrase": "как сменить офд на кассе",
+      "count": 4
+    }
+  ]
+}
