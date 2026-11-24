@@ -1,0 +1,79 @@
+{
+  "seed": "маркировка табака",
+  "slug": "маркировка-табака",
+  "category": "audience",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-11-24T01:02:36.797Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 14,
+  "phrases": [
+    {
+      "phrase": "маркировка табака",
+      "count": 567
+    },
+    {
+      "phrase": "маркировка табаков",
+      "count": 567
+    },
+    {
+      "phrase": "табак без маркировки",
+      "count": 88
+    },
+    {
+      "phrase": "маркировка табака честный",
+      "count": 78
+    },
+    {
+      "phrase": "маркировка табака честный знак",
+      "count": 78
+    },
+    {
+      "phrase": "маркировка табаков для кальяна",
+      "count": 65
+    },
+    {
+      "phrase": "табак для кальяна маркировка",
+      "count": 65
+    },
+    {
+      "phrase": "код маркировки табак",
+      "count": 51
+    },
+    {
+      "phrase": "продажа табака маркировка",
+      "count": 48
+    },
+    {
+      "phrase": "маркировка жевательного табака",
+      "count": 45
+    },
+    {
+      "phrase": "продажа табака без маркировки",
+      "count": 25
+    },
+    {
+      "phrase": "маркировка сигарет табак",
+      "count": 17
+    },
+    {
+      "phrase": "маркировка табака постановление",
+      "count": 8
+    },
+    {
+      "phrase": "постановление правительства 224 маркировка табака",
+      "count": 5
+    }
+  ]
+}
