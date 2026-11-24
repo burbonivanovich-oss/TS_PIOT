@@ -1,0 +1,55 @@
+{
+  "seed": "Дримкас касса",
+  "slug": "дримкас-касса",
+  "category": "system",
+  "cluster": "kkt",
+  "fetchedAt": "2026-11-24T22:24:17.731Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 8,
+  "phrases": [
+    {
+      "phrase": "касса дримкас",
+      "count": 568
+    },
+    {
+      "phrase": "касса дримкас ф",
+      "count": 105
+    },
+    {
+      "phrase": "дримкас кассы купить",
+      "count": 16
+    },
+    {
+      "phrase": "касса дримкас как добавить товар",
+      "count": 14
+    },
+    {
+      "phrase": "дримкас касса личный кабинет",
+      "count": 14
+    },
+    {
+      "phrase": "онлайн касса дримкас",
+      "count": 13
+    },
+    {
+      "phrase": "обновление кассы дримкас",
+      "count": 6
+    },
+    {
+      "phrase": "дримкас ключ для кассы",
+      "count": 5
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "seed": "возврат алкоголя ЕГАИС",
+  "slug": "возврат-алкоголя-егаис",
+  "category": "intent",
+  "cluster": "egais",
+  "fetchedAt": "2026-11-24T22:23:12.472Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 8,
+  "phrases": [
+    {
+      "phrase": "возврат алкоголя егаис",
+      "count": 547
+    },
+    {
+      "phrase": "возврат алкоголя через егаис",
+      "count": 69
+    },
+    {
+      "phrase": "возврат алкоголя поставщику егаис",
+      "count": 25
+    },
+    {
+      "phrase": "возвраты поставщикам алкоголя через егаис",
+      "count": 17
+    },
+    {
+      "phrase": "как сделать возврат алкоголя в егаис",
+      "count": 9
+    },
+    {
+      "phrase": "как сделать возврат алкоголя поставщику через егаис",
+      "count": 9
+    },
+    {
+      "phrase": "как сделать возврат алкоголя через егаис",
+      "count": 9
+    },
+    {
+      "phrase": "возврат алкоголя егаис сторхаус",
+      "count": 6
+    }
+  ]
+}

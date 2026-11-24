@@ -1,0 +1,43 @@
+{
+  "seed": "касса для кофейни",
+  "slug": "касса-для-кофейни",
+  "category": "audience",
+  "cluster": "horeca",
+  "fetchedAt": "2026-11-24T22:23:55.317Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 5,
+  "phrases": [
+    {
+      "phrase": "касса для кофеен",
+      "count": 218
+    },
+    {
+      "phrase": "касса для кофейни",
+      "count": 194
+    },
+    {
+      "phrase": "онлайн касса для кофейни",
+      "count": 34
+    },
+    {
+      "phrase": "какая касса для кофейни",
+      "count": 15
+    },
+    {
+      "phrase": "касса для кофейни на планшете",
+      "count": 12
+    }
+  ]
+}
