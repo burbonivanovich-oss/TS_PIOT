@@ -1,0 +1,35 @@
+{
+  "seed": "касса для курьера",
+  "slug": "касса-для-курьера",
+  "category": "audience",
+  "cluster": "kkt",
+  "fetchedAt": "2026-11-25T21:38:58.901Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 3,
+  "phrases": [
+    {
+      "phrase": "касса для курьеров",
+      "count": 172
+    },
+    {
+      "phrase": "онлайн касса для курьера",
+      "count": 25
+    },
+    {
+      "phrase": "переносные кассы для курьеров",
+      "count": 7
+    }
+  ]
+}
