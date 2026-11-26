@@ -1,0 +1,55 @@
+{
+  "seed": "списание маркированного товара",
+  "slug": "списание-маркированного-товара",
+  "category": "intent",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-11-26T21:28:30.843Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 8,
+  "phrases": [
+    {
+      "phrase": "списание маркированного товара",
+      "count": 717
+    },
+    {
+      "phrase": "списание в честном знаке маркированного товара",
+      "count": 161
+    },
+    {
+      "phrase": "1с списание маркированного товара",
+      "count": 93
+    },
+    {
+      "phrase": "акт списания маркированного товара",
+      "count": 61
+    },
+    {
+      "phrase": "списание маркированного товара эвотор",
+      "count": 21
+    },
+    {
+      "phrase": "сбис списание маркированного товара",
+      "count": 19
+    },
+    {
+      "phrase": "списание маркированного товара в 1с розница",
+      "count": 16
+    },
+    {
+      "phrase": "списание маркированного товара в производство",
+      "count": 6
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "seed": "ТС ПИоТ не работает",
+  "slug": "тс-пиот-не-работает",
+  "category": "problem",
+  "cluster": "ts-piot",
+  "fetchedAt": "2026-11-26T21:27:52.471Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 5,
+  "phrases": [
+    {
+      "phrase": "тс пиот не работает",
+      "count": 241
+    },
+    {
+      "phrase": "тс пиот не работает сегодня",
+      "count": 46
+    },
+    {
+      "phrase": "почему не работает тс пиот",
+      "count": 20
+    },
+    {
+      "phrase": "модуль тс пиот не работает",
+      "count": 12
+    },
+    {
+      "phrase": "тс пиот не работает 1с",
+      "count": 9
+    }
+  ]
+}

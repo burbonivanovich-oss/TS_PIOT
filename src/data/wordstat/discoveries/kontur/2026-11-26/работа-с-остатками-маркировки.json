@@ -1,0 +1,27 @@
+{
+  "seed": "работа с остатками маркировки",
+  "slug": "работа-с-остатками-маркировки",
+  "category": "intent",
+  "cluster": "markirovka",
+  "fetchedAt": "2026-11-26T21:28:31.718Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 1,
+  "phrases": [
+    {
+      "phrase": "обучение работе с системой маркировки остатков",
+      "count": 16
+    }
+  ]
+}
