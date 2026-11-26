@@ -1,0 +1,31 @@
+{
+  "seed": "продажа слабоалкогольных напитков",
+  "slug": "продажа-слабоалкогольных-напитков",
+  "category": "audience",
+  "cluster": "egais",
+  "fetchedAt": "2026-11-26T22:26:57.933Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 2,
+  "phrases": [
+    {
+      "phrase": "продажа слабоалкогольных напитков",
+      "count": 167
+    },
+    {
+      "phrase": "лицензия на продажу слабоалкогольных напитков",
+      "count": 24
+    }
+  ]
+}
