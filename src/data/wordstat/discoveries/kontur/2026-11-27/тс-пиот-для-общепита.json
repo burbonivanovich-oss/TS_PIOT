@@ -1,0 +1,39 @@
+{
+  "seed": "ТС ПИоТ для общепита",
+  "slug": "тс-пиот-для-общепита",
+  "category": "audience",
+  "cluster": "ts-piot",
+  "fetchedAt": "2026-11-27T21:12:46.488Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "тс пиот для общепита",
+      "count": 117
+    },
+    {
+      "phrase": "нужен ли тс пиот для общепита",
+      "count": 27
+    },
+    {
+      "phrase": "тс пиот послабления для общепита",
+      "count": 21
+    },
+    {
+      "phrase": "тс пиот честный знак для общепита",
+      "count": 7
+    }
+  ]
+}
