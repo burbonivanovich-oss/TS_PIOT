@@ -1,0 +1,39 @@
+{
+  "seed": "ЕГАИС для общепита",
+  "slug": "егаис-для-общепита",
+  "category": "audience",
+  "cluster": "egais",
+  "fetchedAt": "2026-11-27T22:08:24.625Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 4,
+  "phrases": [
+    {
+      "phrase": "егаис для общепита",
+      "count": 139
+    },
+    {
+      "phrase": "система егаис для общепита",
+      "count": 28
+    },
+    {
+      "phrase": "консультация по работе с егаис для общепита",
+      "count": 20
+    },
+    {
+      "phrase": "услуги по настройке егаис для общепита",
+      "count": 9
+    }
+  ]
+}

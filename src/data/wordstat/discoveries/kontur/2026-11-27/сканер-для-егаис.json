@@ -1,0 +1,59 @@
+{
+  "seed": "сканер для ЕГАИС",
+  "slug": "сканер-для-егаис",
+  "category": "intent",
+  "cluster": "oborudovanie",
+  "fetchedAt": "2026-11-27T22:08:41.469Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 9,
+  "phrases": [
+    {
+      "phrase": "сканера для егаис",
+      "count": 251
+    },
+    {
+      "phrase": "2d сканер для егаис",
+      "count": 183
+    },
+    {
+      "phrase": "сканеры 2d кодов для егаис",
+      "count": 164
+    },
+    {
+      "phrase": "сканер штрих кодов для егаис",
+      "count": 151
+    },
+    {
+      "phrase": "беспроводная сканер для егаис",
+      "count": 149
+    },
+    {
+      "phrase": "2d сканер беспроводной для егаис",
+      "count": 141
+    },
+    {
+      "phrase": "сканер 2d штрих кодов для егаис",
+      "count": 138
+    },
+    {
+      "phrase": "сканер qr для егаис",
+      "count": 62
+    },
+    {
+      "phrase": "сканер для егаис и честный знак",
+      "count": 34
+    }
+  ]
+}

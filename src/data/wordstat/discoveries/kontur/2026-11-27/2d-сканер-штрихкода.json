@@ -1,0 +1,67 @@
+{
+  "seed": "2D сканер штрихкода",
+  "slug": "2d-сканер-штрихкода",
+  "category": "entity",
+  "cluster": "oborudovanie",
+  "fetchedAt": "2026-11-27T22:08:40.389Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 11,
+  "phrases": [
+    {
+      "phrase": "2d сканер штрихкодов",
+      "count": 743
+    },
+    {
+      "phrase": "беспроводной 2d сканер штрихкодов",
+      "count": 310
+    },
+    {
+      "phrase": "купить 2d сканер штрихкодов",
+      "count": 67
+    },
+    {
+      "phrase": "2d сканер штрихкодов для честного знака",
+      "count": 39
+    },
+    {
+      "phrase": "сканер штрихкодов asens беспроводной для пвз 2d",
+      "count": 25
+    },
+    {
+      "phrase": "bestson сканер штрихкодов 2d",
+      "count": 13
+    },
+    {
+      "phrase": "bestson сканер штрихкодов 2d беспроводной",
+      "count": 12
+    },
+    {
+      "phrase": "сканер штрихкодов youjie yj4600 2d",
+      "count": 12
+    },
+    {
+      "phrase": "bestson сканер штрихкодов 2d беспроводной qr",
+      "count": 10
+    },
+    {
+      "phrase": "сканер 2d штрихкодов csi scan alpha",
+      "count": 8
+    },
+    {
+      "phrase": "2d сканер штрихкодов купить нижний новгород",
+      "count": 8
+    }
+  ]
+}

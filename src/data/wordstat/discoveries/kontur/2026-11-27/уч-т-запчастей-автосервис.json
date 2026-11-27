@@ -1,0 +1,35 @@
+{
+  "seed": "учёт запчастей автосервис",
+  "slug": "уч-т-запчастей-автосервис",
+  "category": "intent",
+  "cluster": "avtoservis",
+  "fetchedAt": "2026-11-27T22:08:55.281Z",
+  "scope": {
+    "schemaVersion": 1,
+    "source": "Yandex Cloud Wordstat GetTop",
+    "endpoint": "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests",
+    "region": "225",
+    "devices": "all",
+    "match": "broad",
+    "window": {
+      "kind": "provider_last_30_days",
+      "exactDatesVerified": false
+    },
+    "complete": false
+  },
+  "count": 3,
+  "phrases": [
+    {
+      "phrase": "автосервис учет запчастей",
+      "count": 114
+    },
+    {
+      "phrase": "программа для учета запчастей в автосервисе",
+      "count": 32
+    },
+    {
+      "phrase": "система учета запчастей для автосервиса",
+      "count": 11
+    }
+  ]
+}
